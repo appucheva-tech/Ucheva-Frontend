@@ -9,12 +9,7 @@ import Success from "./features/Unboarding/Pages/Success";
 const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Step1 />} />
-        <Route path="/step2" element={<Step2 />} />
-        <Route path="/step3" element={<Step3 />} />
-        <Route path="/success" element={<Success />} />
-      </Routes>
+      <Routes></Routes>
     </BrowserRouter>
   );
 };
