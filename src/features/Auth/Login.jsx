@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AuthStyles/Login.css"
+import "./AuthStyles/Login.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 // const [loading, setLoading] = useState(false);
@@ -67,10 +67,7 @@ const Login = () => {
           />
 
           <div className="Login-logoholder">
-            <img
-              src="https://i.postimg.cc/PJgRQh50/logo.png"
-              alt=""
-            />
+            <img src="https://i.postimg.cc/PJgRQh50/logo.png" alt="" />
           </div>
           <div className="login_text">
             <h1>Welcome Back!</h1>
@@ -126,12 +123,18 @@ const Login = () => {
             </label>
 
             <div className="loginBtn">
-              <button type="submit" className="login_btn" >
+              <button
+                type="submit"
+                className="login_btn"
+                onClick={() => {
+                  nav("/step1");
+                }}
+              >
                 Log In
               </button>
               <label className="Account">
-                Don't have an account?{" "}
-                <span onClick={() => nav("/signup")}>Create Account</span>
+                Don't have an account?
+                <span onClick={() => nav("/step1")}>Create Account</span>
               </label>
             </div>
           </form>

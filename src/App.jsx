@@ -8,12 +8,24 @@ import Success from "./features/Unboarding/Pages/Success";
 import Header from "./features/class-teacher/layout/Header/Header";
 import Layout from "./features/class-teacher/layout/Layout";
 import Overview from "./features/class-teacher/pages/Overview/Overview";
+import SignUp from "./features/auth/SignUp";
+import Login from "./features/auth/Login";
+import VerifyEmail from "./features/auth/VerifyEmail";
+import ForgetPassword from "./features/auth/ForgetPassword";
+import InputCode from "./features/auth/InputCode";
+import ResetPassword from "./features/auth/ResetPassword";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Step1 />} />
+        <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verifyEmail" element={<VerifyEmail />} />
+        <Route path="/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/inputCode" element={<InputCode />} />
+        <Route path="/resetpassword" element={<ResetPassword />} />
+        <Route path="/step1" element={<Step1 />} />
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
