@@ -1,0 +1,76 @@
+.CTHeader {
+  width: 80%;
+  height: 70px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  position: fixed;
+  z-index: 10;
+  top: 0%;
+  right: 0%;
+}
+
+.Session {
+  width: 35%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.SessionStacks {
+  width: 40%;
+  height: 30%;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  color: #03173c;
+  gap: 1px;
+  border-right: 1px solid rgb(240, 238, 238);
+}
+
+.Profile-Notification {
+  width: 20%;
+  height: 100%;
+
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  color: #03173c;
+}
+
+.Profile {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.ProfilePic {
+  width: 30%;
+  height: 70%;
+  border-radius: 100%;
+  background: pink;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ProfileName {
+  width: 70%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #03173c;
+  span {
+    font-weight: lighter;
+    color: #03173c;
+  }
+}

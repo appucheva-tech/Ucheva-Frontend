@@ -1,0 +1,26 @@
+.CTLayoutContainer {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.Header-SideBar-Holder {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+}
+
+.CTWrapper {
+  width: 80%;
+  height: auto;
+  min-height: 100vh;
+  position: absolute;
+  top: 11%;
+  left: 20%;
+}

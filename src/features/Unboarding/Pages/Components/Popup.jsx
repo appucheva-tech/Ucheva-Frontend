@@ -1,104 +1,126 @@
 import React, { useState } from "react";
-import "./Popup.css";
 import { IoClose } from "react-icons/io5";
-import { IoMdCheckbox, IoMdRadioButtonOff } from "react-icons/io";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { IoChevronDown } from "react-icons/io5";
+import "./Popup.css";
 
 const AddFeeModal = ({ closeModal }) => {
-  const [paymentType, setPaymentType] = useState("full");
+  const [fullPayment, setFullPayment] = useState(false);
+  const [installment, setInstallment] = useState(false);
 
   return (
-    <div className="modalOverlay">
-      <div className="modalContent">
-        <button className="closeBtn" onClick={closeModal}>
-          <IoClose />
-        </button>
+    <main className="AddFeeModalOverlay geist-content">
+      <article className="AddFeeModal">
+        <div className="AddFeeModalWrapper">
+          <button className="CloseBtn" onClick={closeModal}>
+            <IoClose />
+          </button>
 
-        <h2 className="modalTitle">Add Fee</h2>
+          <nav className="ModalTitle">Add Fee</nav>
 
-        <div className="feeInputs">
-          <div className="inputHolder">
-            <label>Fee Type</label>
-            <input placeholder="e.g Tuition Fee" />
-          </div>
-
-          <div className="inputHolder">
-            <label>Amount (₦)</label>
-            <input placeholder="₦ e.g 50,000" />
-          </div>
-        </div>
-
-        <div className="paymentSection">
-          <h3>Payment Option</h3>
-
-          <div className="paymentCards">
-            <div
-              className={`paymentCard ${
-                paymentType === "full" ? "active" : ""
-              }`}
-              onClick={() => setPaymentType("full")}
-            >
-              <div className="paymentTop">
-                {paymentType === "full" ? (
-                  <IoMdCheckbox />
-                ) : (
-                  <IoMdRadioButtonOff />
-                )}
-                Full Payment
-              </div>
-
-              <span>One-time full payment</span>
+          <section className="FeeInputs">
+            <div className="FeeInputHolder">
+              <label>Fee Type</label>
+              <input
+                type="text"
+                placeholder="e.g Tuition Fee"
+                className="FeeInput"
+              />
             </div>
 
-            <div
-              className={`paymentCard ${
-                paymentType === "installment" ? "active" : ""
-              }`}
-              onClick={() => setPaymentType("installment")}
-            >
-              <div className="paymentTop">
-                {paymentType === "installment" ? (
-                  <IoMdCheckbox />
-                ) : (
-                  <IoMdRadioButtonOff />
-                )}
-                Installment
+            <div className="FeeInputHolder">
+              <label>Amount (₦)</label>
+              <input
+                type="text"
+                placeholder="₦ e.g 50,000"
+                className="FeeInput"
+              />
+            </div>
+          </section>
+
+          <section className="PaymentSection">
+            <h3>Payment Option</h3>
+
+            <div className="PaymentOptions">
+              <div
+                className={`PaymentCard ${
+                  fullPayment ? "PaymentCardActive" : ""
+                }`}
+                onClick={() => setFullPayment(!fullPayment)}
+              >
+                <div className="PaymentTop">
+                  <IoCheckmarkCircle
+                    className={`CheckIcon ${
+                      fullPayment ? "CheckIconActive" : ""
+                    }`}
+                  />
+
+                  <span>Full Payment</span>
+                </div>
+
+                <p>One-time full payment</p>
               </div>
 
-              <span>Allow payments in parts</span>
+              <div
+                className={`PaymentCard ${
+                  installment ? "PaymentCardActive" : ""
+                }`}
+                onClick={() => setInstallment(!installment)}
+              >
+                <div className="PaymentTop">
+                  <IoCheckmarkCircle
+                    className={`CheckIcon ${
+                      installment ? "CheckIconActive" : ""
+                    }`}
+                  />
+
+                  <span>Installment</span>
+                </div>
+
+                <p>Allow payments in parts</p>
+              </div>
             </div>
-          </div>
-        </div>
+          </section>
 
-        {paymentType === "installment" && (
-          <div className="installmentSection">
-            <h3>Installment Plan</h3>
+          <section className="InstallmentSection">
+            <nav className="InstallmentTitle">
+              Installment Plan
+              <span className="InstallmentTextspan">
+                Define how students can pay in installments
+              </span>
+            </nav>
 
-            <p>Define how students can pay in installments</p>
-
-            <div className="feeInputs">
-              <div className="inputHolder">
+            <div className="InstallmentInputs">
+              <div className="FeeInputHolder">
                 <label>Number of installments</label>
 
-                <select>
-                  <option>Select number</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                </select>
+                <div className="SelectHolder">
+                  <select>
+                    <option>Select number</option>
+                    <option>2 Installments</option>
+                    <option>3 Installments</option>
+                    <option>4 Installments</option>
+                  </select>
+
+                  <IoChevronDown />
+                </div>
               </div>
 
-              <div className="inputHolder">
+              <div className="FeeInputHolder">
                 <label>Total Amount Payable (₦)</label>
 
-                <input placeholder="₦ 0" />
+                <input type="text" placeholder="₦25,000" className="FeeInput" />
               </div>
             </div>
-          </div>
-        )}
-
-        <button className="saveBtn">Save</button>
-      </div>
-    </div>
+          </section>
+        </div>
+        <nav className="PopupButtonHolder">
+          <button className="SaveFeeBtn" onClick={closeModal}>
+            Save
+          </button>
+        </nav>
+      </article>
+    </main>
   );
 };
 
