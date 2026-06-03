@@ -7,7 +7,7 @@
 
 .Step2Container {
   width: 100%;
-  height: 1507px;
+  height: auto;
   opacity: 1;
   display: flex;
   align-items: center;
@@ -16,7 +16,7 @@
 
 .Step2Wrapper {
   width: 95%;
-  height: 1226px;
+  height: auto;
   opacity: 1;
   gap: 120px;
   display: flex;
@@ -25,12 +25,13 @@
 }
 
 .Step2Head {
-  width: 1280px;
-  height: 414px;
+  width: 100%;
+  height: 62vh;
   opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: end;
   gap: 30px;
 
   .Step2Logo {
@@ -43,7 +44,7 @@
     display: flex;
     justify-content: space-between;
     font-family: Geist;
-    font-weight: 106;
+    font-weight: 106px;
     font-size: 24px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -57,7 +58,7 @@
       display: flex;
       align-items: center;
       font-family: Geist;
-      font-weight: 106;
+      font-weight: 106px;
       font-style: Medium;
       font-size: 24px;
       line-height: 100%;
@@ -72,7 +73,7 @@
   height: 133px;
   gap: 14px;
   font-family: Geist;
-  font-weight: 146;
+  font-weight: bold;
   font-style: Bold;
   font-size: 38px;
   line-height: 100%;
@@ -81,17 +82,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #042869;
+  color: #03173c;
 
   span {
     font-family: Geist;
-    font-weight: 84;
+    font-weight: lighter;
     font-style: Regular;
     font-size: 24px;
     line-height: 36px;
     letter-spacing: 2%;
     text-align: center;
-    color: #042869;
+    color: #03173c;
   }
   .StepsNo2 {
     object-fit: contain;
@@ -126,7 +127,7 @@
   display: flex;
   flex-direction: column;
   font-family: Geist;
-  font-weight: 106;
+  font-weight: 106px;
   font-style: Medium;
   font-size: 24px;
   line-height: 100%;
@@ -135,7 +136,7 @@
 
   span {
     font-family: Geist;
-    font-weight: 84;
+    font-weight: 84px;
     font-style: Regular;
     font-size: 24px;
     line-height: 100%;
@@ -162,19 +163,19 @@
   display: flex;
   align-items: center;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 18px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #042869;
-  padding-left: 24px;
+  justify-content: center;
 }
 
 .primarySectionHolder {
   width: 1060px;
-  height: 1000px;
-  gap: 70px;
+  height: auto;
+  gap: 40px;
   display: flex;
   flex-direction: column;
   opacity: 1;
@@ -188,7 +189,7 @@
   flex-direction: column;
   gap: 17px;
   border-radius: 14px;
-  border: 1px solid #d2d6db;
+  border: 1px solid #f9fafb;
   padding-bottom: 14px;
   background: white;
 }
@@ -202,7 +203,7 @@
   background: #f9fafb;
   align-items: center;
   font-family: Geist;
-  font-weight: 106;
+  font-weight: 106px;
   font-style: Medium;
   font-size: 24px;
   line-height: 100%;
@@ -228,7 +229,7 @@
   flex-direction: column;
   justify-content: center;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 22px;
   line-height: 100%;
@@ -244,7 +245,7 @@
   align-items: center;
   justify-content: space-between;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 20px;
   line-height: 100%;
@@ -273,7 +274,7 @@
   align-items: center;
   outline: none;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 20px;
   line-height: 100%;
@@ -291,7 +292,7 @@
   border: none;
   outline: none;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 20px;
   line-height: 100%;
@@ -307,7 +308,7 @@
   flex-direction: column;
   justify-content: center;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 22px;
   line-height: 100%;
@@ -332,7 +333,7 @@
   display: flex;
   align-items: center;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 20px;
   line-height: 100%;
@@ -351,7 +352,7 @@
   align-items: center;
   outline: none;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 20px;
   line-height: 100%;
@@ -371,7 +372,7 @@
   align-items: center;
   padding-left: 24px;
   font-family: Geist;
-  font-weight: 84;
+  font-weight: 84px;
   font-style: Regular;
   font-size: 22px;
   line-height: 100%;
@@ -381,7 +382,7 @@
 
 .SkipContinueBtns {
   width: 100%;
-  height: 66px;
+  height: 100px;
   gap: 30px;
   display: flex;
   justify-content: end;
@@ -398,7 +399,7 @@
   align-items: center;
   justify-content: center;
   font-family: Geist;
-  font-weight: 500;
+  font-weight: bold;
   font-style: Medium;
   font-size: 18px;
   line-height: 100%;
@@ -418,7 +419,7 @@
   border: none;
   color: white;
   font-family: Geist;
-  font-weight: 500;
+  font-weight: bold;
   font-style: Medium;
   font-size: 18px;
   line-height: 100%;
@@ -471,13 +472,13 @@
   .Step2Title {
     width: 100%;
     height: auto;
-    font-size: 32px;
+    font-size: 30px;
     line-height: 1.2;
   }
 
   .Step2Title span {
     width: 100%;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 24px;
   }
 

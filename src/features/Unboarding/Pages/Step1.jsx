@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Step1.css";
 import { useNavigate } from "react-router-dom";
+import { FaChevronDown } from "react-icons/fa6";
 
 const Step1 = () => {
+  const [showTypes, setShowTypes] = useState(false);
+  const [schoolTypes, setSchoolTypes] = useState([]);
   const nav = useNavigate();
+
+  const handleTypeChange = (type) => {
+    if (schoolTypes.includes(type)) {
+      setSchoolTypes(schoolTypes.filter((item) => item !== type));
+    } else {
+      setSchoolTypes([...schoolTypes, type]);
+    }
+  };
   return (
     <main className="Step1Container geist-content">
       <article className="Step1Wrapper">
@@ -109,15 +120,47 @@ const Step1 = () => {
               <span className="hinttext">
                 Select all that applies to your school
               </span>
-              <div className="generalInput">
-                <select className="ActualgeneralInput">
-                  <option value="" disabled selected>
-                    Select School Type
-                  </option>
-                  <option>Nursery</option>
-                  <option>Primary</option>
-                  <option>Secondary</option>
-                </select>
+              <div className="schoolTypeWrapper">
+                <div
+                  className="schoolTypeInput"
+                  onClick={() => setShowTypes(!showTypes)}
+                >
+                  {schoolTypes.length
+                    ? schoolTypes.join(", ")
+                    : "Select School Type"}
+                  <FaChevronDown />
+                </div>
+
+                {showTypes && (
+                  <div className="schoolTypeDropdown">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={schoolTypes.includes("Nursery")}
+                        onChange={() => handleTypeChange("Nursery")}
+                      />
+                      Nursery
+                    </label>
+
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={schoolTypes.includes("Primary")}
+                        onChange={() => handleTypeChange("Primary")}
+                      />
+                      Primary
+                    </label>
+
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={schoolTypes.includes("Secondary")}
+                        onChange={() => handleTypeChange("Secondary")}
+                      />
+                      Secondary
+                    </label>
+                  </div>
+                )}
               </div>
             </label>
             <div className="ContinueBtnHolder">
