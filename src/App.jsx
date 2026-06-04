@@ -14,16 +14,18 @@ import VerifyEmail from "./features/auth/VerifyEmail";
 import ForgetPassword from "./features/auth/ForgetPassword";
 import InputCode from "./features/auth/InputCode";
 import ResetPassword from "./features/auth/ResetPassword";
-import Home from './pages/Home'
+import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
-import ContactUs from './pages/ContactUs'
+import ContactUs from "./pages/ContactUs";
+import MyClass from "./features/class-teacher/pages/My Class/MyClass";
+import Score from "./features/class-teacher/pages/Scores/Score";
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home />} />
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />
@@ -40,6 +42,8 @@ const App = () => {
         <Route path="/" element={<Success />} />
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Overview />} />
+          <Route path="myclass" element={<MyClass />} />
+          <Route path="score" element={<Score />} />
         </Route>
       </Routes>
     </BrowserRouter>

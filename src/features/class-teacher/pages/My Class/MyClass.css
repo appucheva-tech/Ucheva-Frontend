@@ -1,0 +1,416 @@
+.myClassPage {
+  padding: 20px;
+  background: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* HEADER */
+.topHeader {
+  width: 100%;
+  height: 12vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topHeaderText {
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: 700px;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #0f172a;
+  gap: 9px;
+
+  span {
+    font-family: Nunito;
+    font-weight: 400px;
+    font-style: Regular;
+    font-size: 18px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #042869;
+  }
+}
+
+.markBtn {
+  width: 16%;
+  height: 70%;
+  background: #0062f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.CTClassCards {
+  width: 100%;
+  height: 16vh;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.TotalStudents {
+  width: 22%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #0062f6;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.TotalFemale {
+  width: 22%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.Totalmale {
+  width: 22%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #f59e0b;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.Totalpresent {
+  width: 22%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #43b75d;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CTClasstext {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 4px;
+  color: #03173c;
+}
+
+.CTtextnum {
+  width: 64px;
+  height: 25px;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Bold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.CTImageHolder1 {
+  width: 70px;
+  height: 70px;
+  gap: 10px;
+  border-radius: 20px;
+  background: #eaf2ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTImg {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.filterBar {
+  width: 100%;
+  height: 14vh;
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  align-items: center;
+  padding-right: 20px;
+}
+
+.filterBarLabel {
+  width: 20%;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 17px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  gap: 7px;
+  padding-left: 14px;
+}
+
+.CTSelectHolder {
+  width: 80%;
+  height: 40%;
+  border-radius: 6px;
+  border: none;
+  background: white;
+  display: flex;
+  border: 1px solid #d2d6db;
+  /* padding-left: 2px; */
+}
+
+.CTClassSelect {
+  width: 90%;
+  height: 100%;
+  border-radius: 6px;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.resetBtn {
+  width: 97px;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid #0062f6;
+  cursor: pointer;
+  background: transparent;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #042869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* TABLE */
+.tableCard {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  color: #03173c;
+  font-family: Nunito;
+  font-weight: 500px;
+  font-style: Medium;
+  font-size: 18px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #f1f1f1;
+  font-family: Nunito;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-family: Nunito;
+  font-weight: 500px;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.present {
+  background: #eafdf1;
+  color: #009966;
+}
+
+.absent {
+  background: #fdecec;
+  color: #ee443f;
+}
+
+.fee {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.fullpayment {
+  color: #009966;
+}
+
+.partpayment {
+  color: #ea580c;
+}
+
+.unpaid {
+  color: #ee443f;
+}
+
+/* PAGINATION */
+.pagination {
+  width: 100%;
+  height: 8vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 13px;
+
+  span {
+    font-family: Nunito;
+    font-weight: 400px;
+    font-style: Regular;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #6c737f;
+  }
+}
+
+.pages button {
+  width: 34px;
+  height: 34px;
+  background: white;
+  cursor: pointer;
+  border-radius: 7px;
+  border: none;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+}
+.pages span {
+  width: 34px;
+  height: 34px;
+  background: white;
+  cursor: pointer;
+  border-radius: 7px;
+  border: none;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+}
+
+.CTPageTypeHolder {
+  width: 174px;
+  height: 34px;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #6c737f;
+}
+
+.CTPageTypeWrapper {
+  width: 56px;
+  height: 34px;
+  border-radius: 4px;
+  gap: 4px;
+  border: 1px solid #d2d6db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.CTPageType {
+  width: 47px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #042869;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+/* .pages .active {
+  background: #2563eb;
+  color: white;
+} */

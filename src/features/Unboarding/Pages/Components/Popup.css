@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 .geist-content {
   font-family: "Geist", sans-serif;
@@ -271,4 +271,381 @@
   color: white;
   font-size: 18px;
   cursor: pointer;
+} */
+
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
+.geist-content {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* =========================
+   MODAL OVERLAY
+========================= */
+
+.AddFeeModalOverlay {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 9999;
+
+  animation: fadeIn 0.25s ease;
+}
+
+/* =========================
+   MODAL CONTAINER
+========================= */
+
+.AddFeeModal {
+  width: 730px;
+  max-width: 95%;
+  max-height: 90vh;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.25s ease;
+  overflow-y: hidden;
+}
+
+.AddFeeModalWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.CloseBtn {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+
+  border: none;
+  background: none;
+
+  font-size: 32px;
+  color: #042869;
+
+  cursor: pointer;
+}
+
+/* =========================
+   TITLE
+========================= */
+
+.ModalTitle {
+  font-family: Geist;
+  font-size: 24px;
+  font-weight: 600;
+  color: #03173c;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+.FeeInputs {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+}
+
+.FeeInputHolder {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.FeeInputHolder label {
+  font-family: Geist;
+  font-size: 18px;
+  color: #03173c;
+}
+
+.FeeInput {
+  width: 100%;
+  height: 48px;
+
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+
+  padding: 0 12px;
+
+  outline: none;
+
+  font-family: Geist;
+  font-size: 16px;
+
+  color: #042869;
+}
+
+.FeeInput:focus {
+  border-color: #0062f6;
+}
+
+/* =========================
+   PAYMENT SECTION
+========================= */
+
+.PaymentSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.PaymentSection h3 {
+  font-family: Geist;
+  font-size: 24px;
+  font-weight: 600;
+  color: #042869;
+}
+
+.PaymentOptions {
+  width: 100%;
+  display: flex;
+  gap: 24px;
+}
+
+.PaymentCard {
+  flex: 1;
+
+  border-radius: 10px;
+  border: 1px solid #0062f6;
+
+  padding: 12px;
+
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  transition: 0.2s ease;
+}
+
+.PaymentCard:hover {
+  transform: translateY(-2px);
+}
+
+.PaymentCardActive {
+  background: rgba(0, 98, 246, 0.08);
+  border-width: 2px;
+}
+
+.PaymentTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-family: Geist;
+  font-size: 18px;
+  color: #03173c;
+}
+
+.PaymentTop span {
+  font-family: Geist;
+  font-size: 18px;
+  color: #03173c;
+}
+
+.PaymentCard p {
+  font-family: Geist;
+  font-size: 14px;
+  color: #03173c;
+
+  margin: 0;
+  padding-left: 28px;
+}
+
+.CheckIcon {
+  font-size: 20px;
+  color: #d2d6db;
+}
+
+.CheckIconActive {
+  color: #0062f6;
+}
+
+/* =========================
+   INSTALLMENT SECTION
+========================= */
+
+.InstallmentSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.InstallmentTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  font-family: Geist;
+  font-size: 24px;
+  font-weight: 600;
+  color: #042869;
+}
+
+.InstallmentTextspan {
+  font-family: Geist;
+  font-size: 16px;
+  color: #c2c6cc;
+}
+
+.InstallmentInputs {
+  display: flex;
+  gap: 24px;
+}
+
+.SelectHolder {
+  position: relative;
+}
+
+.SelectHolder select {
+  width: 100%;
+  height: 48px;
+
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+
+  padding-left: 12px;
+
+  appearance: none;
+  outline: none;
+
+  color: #042869;
+}
+
+.SelectHolder svg {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+
+  transform: translateY(-50%);
+  color: #042869;
+  pointer-events: none;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.PopupButtonHolder {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 8px;
+}
+
+.SaveFeeBtn {
+  width: 140px;
+  height: 56px;
+
+  border-radius: 10px;
+  border: none;
+
+  background: #0062f6;
+  color: white;
+
+  font-size: 18px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.SaveFeeBtn:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 768px) {
+  .AddFeeModal {
+    width: 95%;
+    padding: 24px;
+    border-radius: 16px;
+    overflow-y: auto;
+  }
+
+  .FeeInputs,
+  .PaymentOptions,
+  .InstallmentInputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .FeeInputHolder,
+  .PaymentCard {
+    width: 100%;
+  }
+
+  .FeeInput {
+    width: 100%;
+  }
+
+  .ModalTitle {
+    font-size: 22px;
+  }
+
+  .PaymentSection h3,
+  .InstallmentTitle {
+    font-size: 20px;
+  }
+
+  .SaveFeeBtn {
+    width: 100%;
+  }
+
+  .PopupButtonHolder {
+    justify-content: stretch;
+  }
 }

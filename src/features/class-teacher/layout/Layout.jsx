@@ -3,6 +3,7 @@ import "./layout.css";
 import Header from "./Header/Header";
 import SideBar from "./SideBar/SideBar";
 import { Outlet } from "react-router-dom";
+import Footer from "./Footer/Footer";
 
 const Layout = () => {
   return (
@@ -13,6 +14,7 @@ const Layout = () => {
       </div>
       <article className="CTWrapper">
         <Outlet />
+        <Footer />
       </article>
     </main>
   );
