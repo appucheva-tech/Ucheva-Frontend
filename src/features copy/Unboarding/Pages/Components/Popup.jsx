@@ -11,6 +11,7 @@ const AddFeeModal = ({ closeModal }) => {
       <div className="modalContent">
         <button className="closeBtn" onClick={closeModal}>
           <IoClose />
+          IFEANACHO
         </button>
 
         <h2 className="modalTitle">Add Fee</h2>
