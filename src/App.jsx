@@ -14,12 +14,20 @@ import VerifyEmail from "./features/auth/VerifyEmail";
 import ForgetPassword from "./features/auth/ForgetPassword";
 import InputCode from "./features/auth/InputCode";
 import ResetPassword from "./features/auth/ResetPassword";
+import Home from './pages/Home'
+import Pricing from "./pages/Pricing";
+import AboutUs from "./pages/AboutUs";
+import ContactUs from './pages/ContactUs'
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<SignUp />} />
+        <Route path="/" element={<Home/>}/>
+        <Route path="/Pricing" element={<Pricing />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/SignUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verifyEmail" element={<VerifyEmail />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
