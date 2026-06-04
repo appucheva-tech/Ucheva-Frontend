@@ -1,0 +1,239 @@
+.pricing-container {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  color: #1e293b;
+
+  .pricing-header {
+    text-align: center;
+    margin-bottom: 48px;
+
+    .sub-title {
+      font-size: 15px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+
+      @media (max-width: 450px) {
+        font-size: 15px;
+      }
+    }
+
+    .main-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 16px;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
+    }
+
+    .description {
+      font-size: 25px;
+      color: #475569;
+      max-width: 600px;
+      margin: 0 auto;
+
+      @media (max-width: 450px) {
+        font-size: 21px;
+      }
+    }
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+
+    @media (max-width: 968px) {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto 48px auto;
+    }
+  }
+
+  .card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    .card-content {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .plan-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #64748b;
+      margin-bottom: 12px;
+    }
+
+    .price {
+      font-size: 36px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 16px;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #475569;
+      margin-bottom: 32px;
+    }
+  }
+
+  /* Starter Card Special Styling */
+  .starter-card {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    border: none;
+    position: relative;
+    justify-content: space-between;
+
+    .text-light {
+      color: #ffffff;
+    }
+
+    .plan-name.text-light {
+      color: #93c5fd;
+    }
+
+    .image-container {
+      width: 100%;
+      height: 250px;
+      margin-top: auto;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+      .admin-image {
+        width: 88%;
+        height: auto;
+        object-fit: contain;
+      }
+    }
+  }
+
+  /* Billing Cards (Standard & School+) Styling */
+  .billing-card {
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 16px 0;
+
+      li {
+        font-size: 14px;
+        color: #334155;
+        margin-bottom: 16px;
+        padding-left: 28px;
+        position: relative;
+
+        /* Custom Blue Checkmarks */
+        &::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          top: -1px;
+          width: 18px;
+          height: 18px;
+          background-color: #2563eb;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .view-all-btn {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 32px;
+      align-self: center;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .cta-button {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: auto;
+    }
+
+    .primary-btn {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+
+    .secondary-btn {
+      background-color: #eff6ff;
+      color: #2563eb;
+      border: none;
+
+      &:hover {
+        background-color: #dbeafe;
+      }
+    }
+  }
+
+  /* Shadow variation for standard card */
+  .active-card {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Footer Styling */
+  .pricing-footer {
+    text-align: center;
+    font-size: 24px;
+    color: #334155;
+    width: 95%;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    @media (max-width: 450px) {
+        font-size: 18px;
+      }
+
+    .footer-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
