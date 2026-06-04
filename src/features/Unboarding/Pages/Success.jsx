@@ -3,10 +3,10 @@ import "./Sucess.css";
 import { useNavigate } from "react-router-dom";
 
 const Success = () => {
-  // const nav = useNavigate();
+  const nav = useNavigate();
 
   return (
-    <main className="setUpComplete">
+    <main className="setUpComplete geist-content">
       <article className="setUpCompleteHolder">
         <div className="setUpImgHolder">
           <img src="src/assets/Ucheva Logo.png" alt="" />\
@@ -26,7 +26,7 @@ const Success = () => {
       </article>
       <button
         onClick={() => {
-          // nav("");
+          nav("/dashboard");
         }}
         className="goToDashBoard"
       >

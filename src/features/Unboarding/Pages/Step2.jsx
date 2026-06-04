@@ -4,6 +4,7 @@ import { MdOutlineKeyboardArrowLeft } from "react-icons/md";
 import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { IoMdCheckbox, IoIosInformationCircleOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import { IoCheckbox } from "react-icons/io5";
 
 const Step2 = () => {
   const nav = useNavigate();
@@ -31,11 +32,10 @@ const Step2 = () => {
             Step 2 of 3
           </span>
           <div className="Step2Title">
-            Let's set up your school profile
+            Configure Your Classes
             <span>
-              Set up the sections and classes that exist in your school.
-              <br />
-              We'll use this to organize your students.
+              Set up the sections and classes that exist in your
+              <br /> school.
             </span>
           </div>
           <img className="StepsNo2" src="src/assets/Steps2.png" alt="" />
@@ -58,7 +58,7 @@ const Step2 = () => {
                 Nursery
               </div>
               <div className="checkBox">
-                <IoMdCheckbox
+                <IoCheckbox
                   style={{
                     color: "#0062F6",
                   }}
@@ -66,7 +66,7 @@ const Step2 = () => {
                 Primary
               </div>
               <div className="checkBox">
-                <IoMdCheckbox
+                <IoCheckbox
                   style={{
                     color: "#0062F6",
                   }}
@@ -77,7 +77,7 @@ const Step2 = () => {
           </div>
           <article className="primarySectionHolder">
             <section className="primarySection">
-              <div className="PrimaryHeading">Primary Section</div>
+              <div className="PrimaryHeading"> Primary Section</div>
               <article className="classesArms">
                 <div className="classes">
                   Classes

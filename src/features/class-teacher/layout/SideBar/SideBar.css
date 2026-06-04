@@ -1,0 +1,59 @@
+.sideBarContainer {
+  width: 20%;
+  height: auto;
+  min-height: 100vh;
+  background: white;
+  display: flex;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  justify-content: center;
+}
+
+.sideBarWrapper {
+  width: 90%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.CTLogoHolder {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+  }
+}
+
+.TabsHolder {
+  width: 180px;
+  height: 292px;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.CTTabs {
+  width: 180px;
+  height: 42px;
+  gap: 4px;
+  border-radius: 8px;
+  align-items: center;
+  display: flex;
+  padding-left: 10px;
+  font-family: Nunito;
+  font-weight: 600px;
+  font-style: SemiBold;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  cursor: pointer;
+}
