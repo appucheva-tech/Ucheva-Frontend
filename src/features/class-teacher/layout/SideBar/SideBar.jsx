@@ -11,10 +11,10 @@ const SideBar = () => {
   // const [myClass, setMyClass] = useState(false);
 
   return (
-    <main className="sideBarContainer">
+    <main className="sideBarContainer geist-content">
       <article className="sideBarWrapper">
         <div className="CTLogoHolder">
-          <img src="src/assets/Ucheva Logo.png" alt="" />
+          <img src="/src/assets/Ucheva Logo.png" alt="" />
         </div>
         <div className="TabsHolder">
           <nav

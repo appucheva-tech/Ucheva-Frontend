@@ -14,6 +14,8 @@ import VerifyEmail from "./features/auth/VerifyEmail";
 import ForgetPassword from "./features/auth/ForgetPassword";
 import InputCode from "./features/auth/InputCode";
 import ResetPassword from "./features/auth/ResetPassword";
+import MyClass from "./features/class-teacher/pages/My Class/MyClass";
+import Score from "./features/class-teacher/pages/Scores/Score";
 
 const App = () => {
   return (
@@ -32,6 +34,8 @@ const App = () => {
         <Route path="/" element={<Success />} />
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Overview />} />
+          <Route path="myclass" element={<MyClass />} />
+          <Route path="score" element={<Score />} />
         </Route>
       </Routes>
     </BrowserRouter>
