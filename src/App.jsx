@@ -47,9 +47,8 @@ import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import Login from "./features/auth/Login";
-import VerifyEmail from "./features/auth/VerifyEmail";
-import ForgetPassword from "./features/auth/ForgetPassword";
+import SignUp from "./features/Auth/SignUp";
+
 
 const App = () => {
   return (
@@ -63,9 +62,7 @@ const App = () => {
            <Route path="/Pricing" element={<Pricing />} />
          <Route path="/AboutUs" element={<AboutUs />} />
    <Route path="/ContactUs" element={<ContactUs />} />
-     <Route path="/login" element={<Login />} />
-         <Route path="/verifyEmail" element={<VerifyEmail />} />
-    <Route path="/forgetpassword" element={<ForgetPassword />} />
+   <Route path="/signup" element={<SignUp />} />
 
         </Routes>
       </BrowserRouter>
