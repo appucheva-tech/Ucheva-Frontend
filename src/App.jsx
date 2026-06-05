@@ -47,6 +47,8 @@ import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
 import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
 import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
 import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
+import Layout from "./features/class-teacher/layout/Layout"
+import Layout from "./features/ParentDashboard/Components/Layout/Layout"
 
 const App = () => {
   return (
