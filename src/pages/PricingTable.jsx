@@ -1,6 +1,6 @@
 import React from "react";
 import "./PricingTable.css";
-import FreeLadyBackground from "../assets/freeLadyBackground.png";
+import FreeLadyBackground from "../assets/FreeLadyBackground.png";
 const PricingTable = () => {
   return (
     <div className="pricing-container">
