@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../css/SettingsPage.css";
 
-const Settings = () => {
+const SettingsPage = () => {
   const [profileData, setProfileData] = useState({
     firstName: "Tolu",
     lastName: "Adesunya",
@@ -186,4 +186,4 @@ const Settings = () => {
     </div>
   );
 };
-export default Settings;
+export default SettingsPage;

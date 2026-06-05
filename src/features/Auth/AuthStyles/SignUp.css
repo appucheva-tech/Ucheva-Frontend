@@ -75,12 +75,12 @@
   }
 }
 
-.signUp_right {
+ .signUp_right {
   width: 45%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* gap: 10px; */
+  gap: 30px;
   padding: 30px;
   overflow-y: auto;
 
@@ -89,12 +89,12 @@
     color: #03173c;
     margin: 0;
   }
-}
+} 
 
 .signUp_form {
   display: flex;
   flex-direction: column;
-  /* gap: 2px; */
+  gap: 20px;
 }
 
 .signUp_input {
