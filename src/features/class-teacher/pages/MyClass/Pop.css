@@ -1,0 +1,115 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.card {
+  width: 420px;
+  height: 382px;
+  background: #fff;
+  border-radius: 40px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.avatar {
+  width: 122px;
+  height: 112px;
+  border-radius: 100px;
+  background: #000;
+  background: #f3f4f6;
+}
+
+.card nav {
+  width: 166px;
+  height: 57px;
+  gap: 2px;
+  display: flex;
+  flex-direction: column;
+  font-family: Nunito;
+  font-weight: 500px;
+  font-style: Medium;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #03173c;
+}
+
+.card span {
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+}
+
+.actions {
+  width: 340px;
+  height: 69px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actions button {
+  width: 67px;
+  height: 69px;
+  gap: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+
+  span {
+    font-family: Nunito;
+    font-weight: 400px;
+    font-style: Regular;
+    font-size: 18px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #042869;
+  }
+}
+
+.attendanceSuccess {
+  width: 160px;
+  height: 160px;
+}
+
+.attendanceSuccessText {
+  font-family: Nunito;
+  font-weight: 600px;
+  font-style: SemiBold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #03173c;
+}
+
+/* .actions .absent {
+  color: #ee443f;
+}
+
+.actions .present {
+  color: #009966;
+} */

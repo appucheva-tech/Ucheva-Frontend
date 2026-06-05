@@ -20,9 +20,9 @@ const Header = () => {
   };
 
   return (
-    <header className='Header'>
-      <div className='HeaderCont1'>
-        <img src={Logo} alt="Ucheva Logo" className='HeaderCont1Logo'/>
+    <header className="Header">
+      <div className="HeaderCont1">
+        <img src={Logo} alt="Ucheva Logo" className="HeaderCont1Logo" />
       </div>
 
       <ul className={`HeaderCont2 ${open ? 'active' : ''}`}>
@@ -59,11 +59,23 @@ const Header = () => {
         </li>
       </ul>
 
-      <div className='HeaderCont3'>
-        <Button text="Log In" onClick={handleLogin} type="login" />
-        <Button text="Get Started" onClick={handleStart} type="get-started" />
-        
-        <div className='MobileMenuIconDiv'>
+      <div className="HeaderCont3">
+        <Button
+          text="Log In"
+          onClick={(handleLogin) => {
+            nav("/login");
+          }}
+          type="login"
+        />
+        <Button
+          text="Get Started"
+          onClick={(handleStart) => {
+            nav("/signup");
+          }}
+          type="get-started"
+        />
+
+        <div className="MobileMenuIconDiv">
           <button onClick={() => setOpen(!open)} aria-label="Toggle menu">
             {open ? <FiX /> : <FiMenu />}
           </button>

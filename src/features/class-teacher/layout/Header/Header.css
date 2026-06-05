@@ -1,3 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
+
+.geist-content {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+}
 .CTHeader {
   width: 80%;
   height: 70px;
@@ -9,10 +15,11 @@
   z-index: 10;
   top: 0%;
   right: 0%;
+  border-left: 1px solid #f5f7fb;
 }
 
 .Session {
-  width: 35%;
+  width: 40%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -24,20 +31,19 @@
   width: 40%;
   height: 30%;
   font-size: 12px;
-  font-weight: bold;
+  font-weight: 500px;
   display: flex;
   align-items: center;
   color: #03173c;
-  gap: 1px;
+  gap: 4px;
   border-right: 1px solid rgb(240, 238, 238);
 }
 
 .Profile-Notification {
   width: 20%;
   height: 100%;
-
   display: flex;
-  gap: 4px;
+  gap: 20px;
   align-items: center;
   color: #03173c;
 }
@@ -46,15 +52,14 @@
   width: 80%;
   height: 100%;
   display: flex;
-  gap: 7px;
+  gap: 10px;
   align-items: center;
 }
 
 .ProfilePic {
-  width: 30%;
-  height: 70%;
-  border-radius: 100%;
-  background: pink;
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,8 +74,23 @@
   font-size: 14px;
   font-weight: bold;
   color: #03173c;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+
   span {
     font-weight: lighter;
     color: #03173c;
+    font-family: Nunito;
+    font-weight: 500px;
+    font-style: Medium;
+    font-size: 12px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
   }
 }

@@ -5,10 +5,10 @@ import { IoNotifications } from "react-icons/io5";
 
 const Header = () => {
   return (
-    <main className="CTHeader">
+    <main className="CTHeader geist-content">
       <section className="Session">
         <nav className="SessionStacks">
-          <CiCalendar style={{ fontSize: "18px" }} />
+          <img src="/src/assets/iconsax-calendar.png" alt="" />
           Monday, 18 May 2026
         </nav>
         <nav className="SessionStacks" style={{ width: "30%" }}>

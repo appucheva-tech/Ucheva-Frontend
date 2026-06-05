@@ -1,5 +1,478 @@
-.OverviewContainer {
+.CTDash {
   width: 100%;
+  height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.CTDashWrapper {
+  width: 95%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.CTGreetings {
+  width: 40%;
+  height: 10%;
+  font-family: Nunito;
+  font-weight: 700px;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  display: flex;
+  flex-direction: column;
+  color: #0f172a;
+
+  span {
+    font-family: Nunito;
+    font-weight: 400px;
+    font-style: Regular;
+    font-size: 18px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #042869;
+  }
+}
+
+.CTCards {
+  width: 100%;
+  height: 18%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+}
+
+.myAttendance {
+  width: 25%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #0062f6;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CTtext {
+  width: 50%;
   height: 100%;
-  background: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 4px;
+  color: #03173c;
+}
+
+.CTPending {
+  width: 64px;
+  height: 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffedd5;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: 500px;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #ea580c;
+}
+
+.CTImageHolder1 {
+  width: 70px;
+  height: 70px;
+  gap: 10px;
+  border-radius: 20px;
+  background: #eaf2ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTImg {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.AssignedClass {
+  width: 25%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #8b5cf6;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CTtext {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 4px;
+}
+
+.CTClassRoom {
+  width: 111px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  font-family: Nunito;
+  font-weight: 700px;
+  font-style: Bold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+}
+
+.CTImageHolder2 {
+  width: 70px;
+  height: 70px;
+  gap: 10px;
+  border-radius: 20px;
+  background: #f3e8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTImg {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.TotalStudents {
+  width: 25%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #f59e0b;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CTtext {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 4px;
+}
+
+.CTStudents {
+  width: 111px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: 700px;
+  font-style: Bold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+  padding-left: 8px;
+}
+
+.CTImageHolder3 {
+  width: 70px;
+  height: 70px;
+  gap: 10px;
+  border-radius: 20px;
+  background: #fef3c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTImg {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.CTSubject {
+  width: 25%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border-left: 3px solid #43b75d;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.CTtext4 {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  gap: 4px;
+}
+
+.SubjectDigit {
+  width: 111px;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Bold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+}
+
+.CTImageHolder4 {
+  width: 70px;
+  height: 70px;
+  gap: 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTImg {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CTCheckIn {
+  width: 100%;
+  height: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.CTQR {
+  width: 50%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+
+.CTQRHolder {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f7ff;
+}
+
+.CTQRImg {
+  width: 50px;
+  height: 50px;
+}
+
+.CTReminder {
+  width: 90%;
+  height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: 600px;
+  font-style: SemiBold;
+  font-size: 24px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: #042869;
+
+  span {
+    font-family: Nunito;
+    font-weight: 400px;
+    font-style: Regular;
+    font-size: 18px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #6c737f;
+  }
+}
+
+.CTScan {
+  width: 90%;
+  height: 20%;
+  background: #0062f6;
+  border-radius: 14px;
+  border: none;
+  font-family: Nunito;
+  font-weight: 600px;
+  font-style: SemiBold;
+  font-size: 18px;
+  leading-trim: NONE;
+  line-height: 28px;
+  letter-spacing: 0px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  box-shadow: #0062f6 0px 1px 7px;
+}
+
+.CTAnnouncement {
+  width: 50%;
+  height: 90%;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  flex-direction: column;
+  display: flex;
+  overflow-y: auto;
+}
+
+.CTAnnounceHead {
+  width: 100%;
+  height: 25%;
+  border-bottom: 1px solid #f3f4f6;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: 600px;
+  font-style: SemiBold;
+  font-size: 22px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+  background: white;
+}
+
+.CTAnnouncementView {
+  width: 100%;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.CTAnnouncementCotent {
+  width: 90%;
+  height: 25%;
+  border-left: 4px solid #0062f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+}
+
+.CTAnnounceDate {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: space-between;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+
+  span {
+    font-family: Nunito;
+    font-weight: 500px;
+    font-style: Medium;
+    font-size: 12px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #9da4ae;
+  }
+}
+
+.TheCTAnnouncement {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
 }
