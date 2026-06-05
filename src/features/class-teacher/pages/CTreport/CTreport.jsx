@@ -1,6 +1,7 @@
 import React from "react";
 import "./CTreport.css";
 import { FaArrowsRotate } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const CTreport = () => {
   return (
@@ -57,20 +58,22 @@ const CTreport = () => {
             Reset
           </button>
         </div>
-        <article className="CTActualTable">
-          <div className="CTActualTableTop">
-            <input className="CTTableContentValue" type="checkbox" disabled />
-            <nav className="CTTableContentValue">Student Name</nav>
-            <nav className="CTTableContentValue">Admission Number</nav>
-            <nav className="CTTableContentValue">Status</nav>
-            <nav className="CTTableContentValue">Actions</nav>
+        <article className="CTActualTable2">
+          <div className="CTActualTableTop2">
+            <input className="CTTableContentValue2" type="checkbox" disabled />
+            <nav className="CTTableContentValue2">Student Name</nav>
+            <nav className="CTTableContentValue2">Admission Number</nav>
+            <nav className="CTTableContentValue2">Status</nav>
+            <nav className="CTTableContentValue2">Actions</nav>
           </div>
-          <ul className="CTActualTableInfo">
-            <input className="CTTableValueName" type="checkbox" />
-            <nav className="CTTableValueName">Adeaze Clinton</nav>
-            <nav className="CTTableValueName">UCH/2026/001</nav>
-            <nav className="CTTableValueName">Ready for review</nav>
-            <nav className="CTTableValueName"></nav>
+          <ul className="CTActualTableInfo2">
+            <input className="CTTableValueName2" type="checkbox" />
+            <nav className="CTTableValueName2">Adeaze Clinton</nav>
+            <nav className="CTTableValueName2">UCH/2026/001</nav>
+            <nav className="CTTableValueName2">Ready for review</nav>
+            <Link className="LinkToST" to="/dashboard/studentreport">
+              <nav className="CTTableValueAction">:</nav>
+            </Link>
           </ul>
 
           <div className="pagination">

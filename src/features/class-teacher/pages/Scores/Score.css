@@ -224,7 +224,7 @@
   color: #042869;
 }
 
-.CTCAHolder {
+.CTCA1Holder {
   width: 156px;
   height: 100%;
   display: flex;
@@ -232,7 +232,7 @@
   align-items: center;
 }
 
-.CTCA {
+.CTCA1 {
   width: 60px;
   height: 38px;
   border-radius: 6px;
