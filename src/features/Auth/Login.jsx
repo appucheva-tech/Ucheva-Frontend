@@ -54,6 +54,7 @@ const Login = () => {
 
     if (Object.keys(newErrors).length === 0) {
       // nav("/dashboard");
+      nav("/step1");
     }
   };
 
@@ -123,13 +124,7 @@ const Login = () => {
             </label>
 
             <div className="loginBtn">
-              <button
-                type="submit"
-                className="login_btn"
-                onClick={() => {
-                  nav("/step1");
-                }}
-              >
+              <button type="submit" className="login_btn" onClick={() => {}}>
                 Log In
               </button>
               <label className="Account">
