@@ -21,7 +21,7 @@ const Step1 = () => {
         <section className="Step1Head">
           <img
             className="Step1Logo"
-            src="src/assets/Ucheva Logo.png"
+            src="/src/assets/Ucheva Logo.png"
             alt="Logo"
           />
           <span className="StepCount">Step 1 of 3</span>
@@ -32,7 +32,7 @@ const Step1 = () => {
               <br /> these details later in settings.
             </span>
           </div>
-          <img className="Steps" src="src/assets/Steps.png" alt="" />
+          <img className="Steps" src="/src/assets/Steps.png" alt="" />
         </section>
         <form className="step1Content">
           <div className="uploadLogo">

@@ -16,7 +16,7 @@ const Step3 = () => {
         <section className="Step3Head">
           <img
             className="Step3Logo"
-            src="src/assets/Ucheva Logo.png"
+            src="/src/assets/Ucheva Logo.png"
             alt="Logo"
           />
           <span className="Step3Count">
@@ -40,7 +40,7 @@ const Step3 = () => {
               more fees later from Settings.
             </span>
           </div>
-          <img className="StepsNo3" src="src/assets/Steps3.png" alt="" />
+          <img className="StepsNo3" src="/src/assets/Steps3.png" alt="" />
         </section>
 
         <section className="AddFeeContent">

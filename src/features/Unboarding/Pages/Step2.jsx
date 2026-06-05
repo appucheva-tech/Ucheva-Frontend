@@ -14,7 +14,7 @@ const Step2 = () => {
         <section className="Step2Head">
           <img
             className="Step2Logo"
-            src="src/assets/Ucheva Logo.png"
+            src="/src/assets/Ucheva Logo.png"
             alt="Logo"
           />
           <span className="Step2Count">
@@ -38,7 +38,7 @@ const Step2 = () => {
               <br /> school.
             </span>
           </div>
-          <img className="StepsNo2" src="src/assets/Steps2.png" alt="" />
+          <img className="StepsNo2" src="/src/assets/Steps2.png" alt="" />
         </section>
         <form className="Content">
           <div className="SchoolType">
