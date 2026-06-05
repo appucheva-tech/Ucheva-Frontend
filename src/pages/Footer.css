@@ -60,7 +60,7 @@
         width: 35px;
         height: 35px;
         border: 1px solid rgba(255, 255, 255, 0.6);
-        border-radius: 50%; // Circular wrappers as seen in the image
+        border-radius: 50%; 
         color: #ffffff;
         text-decoration: none;
         font-size: 14px;
@@ -86,7 +86,7 @@
 
     @media (max-width: 450px) {
       grid-template-columns: 1fr;
-      gap: 0; // Stacked directly with borders
+      gap: 0; 
     }
   }
 
@@ -96,7 +96,7 @@
       border-top: 1px solid rgba(255, 255, 255, 0.1); 
       padding: 20px 0;
       
-      // Styling for mobile accordion behavior
+      
       display: flex;
       flex-direction: column;
     }
@@ -156,12 +156,12 @@
         height: 8px;
         border-right: 2px solid #ffffff;
         border-bottom: 2px solid #ffffff;
-        transform: rotate(-135deg); // Default pointing upward open state
+        transform: rotate(-135deg); 
         transition: transform 0.2s ease;
       }
       
       &.is-closed:after {
-        transform: rotate(45deg); // Pointing downward closed state
+        transform: rotate(45deg); 
       }
     }
   }
@@ -307,7 +307,7 @@
         font-size: 12px;
 
         @media (max-width: 450px) {
-          display: inline; // Kept as a simple inline separator text node
+          display: inline; 
         }
       }
 
