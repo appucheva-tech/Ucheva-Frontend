@@ -7,7 +7,6 @@ import School4 from '../assets/School4.jpg'
 import School5 from '../assets/School5.png'
 import School6 from '../assets/School6.jpg'
 
-// Logo data structure for easy maintenance
 const logos = [
   { id: 1, name: 'Harmony', src: School1 },
   { id: 2, name: 'Excel', src: School2 },
@@ -18,7 +17,6 @@ const logos = [
 ];
 
 const Carousel = () => {
-  // Duplicate the array to create a seamless infinite loop effect
   const doubleLogos = [...logos, ...logos];
 
   return (

@@ -19,7 +19,6 @@ const Pricing = () => {
       </div>
 
       <div className="cards-grid">
-        {/* Starter Plan */}
         <div className="pricing-card">
           <div className="card-header">
             <span className="plan-name">Starter Plan</span>
@@ -41,7 +40,6 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* Standard Plan */}
         <div className="pricing-card featured">
           <span className="badge">Recommended</span>
           <div className="card-header">
@@ -69,7 +67,6 @@ const Pricing = () => {
           </div>
         </div>
 
-        {/* School+ Plan */}
         <div className="pricing-card">
           <div className="card-header">
             <span className="plan-name">School+ Plan</span>
