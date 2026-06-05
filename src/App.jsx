@@ -1,9 +1,3 @@
-// import SignUp from "./features/auth/SignUp";
-// import Login from "./features/auth/Login";
-// import VerifyEmail from "./features/auth/VerifyEmail";
-// import ForgetPassword from "./features/auth/ForgetPassword";
-// import InputCode from "./features/auth/InputCode";
-// import ResetPassword from "./features/auth/ResetPassword";
 // import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 // import Score from "./features/class-teacher/pages/Scores/Score";
 // import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -14,12 +8,6 @@
 //   return (
 //     <BrowserRouter>
 //       <Routes>
-//         <Route path="/SignUp" element={<SignUp />} />
-//         <Route path="/login" element={<Login />} />
-//         <Route path="/verifyEmail" element={<VerifyEmail />} />
-//         <Route path="/forgetpassword" element={<ForgetPassword />} />
-//         <Route path="/inputCode" element={<InputCode />} />
-//         <Route path="/resetpassword" element={<ResetPassword />} />
 //         <Route path="/dashboard" element={<Layout />}>
 //           <Route index element={<Overview />} />
 //           <Route path="myclass" element={<MyClass />} />
@@ -53,7 +41,12 @@ import VerifyEmail from "./features/Auth/VerifyEmail";
 import ForgetPassword from "./features/Auth/ForgetPassword";
 import InputCode from "./features/Auth/InputCode";
 import ResetPassword from "./features/Auth/ResetPassword";
-
+import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
+import Score from "./features/class-teacher/pages/Scores/Score";
+import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
+import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
+import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
+import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
 
 const App = () => {
   return (
@@ -73,6 +66,17 @@ const App = () => {
          <Route path="/forgetpassword" element={<ForgetPassword />} />
          <Route path="/inputCode" element={<InputCode />} />
          <Route path="/resetpassword" element={<ResetPassword />} />
+          <Route path="/dashboard" element={<Layout />}>
+           <Route index element={<Overview />} />
+           <Route path="myclass" element={<MyClass />} />
+           <Route path="score" element={<Score />} />
+           <Route path="reportcard" element={<CTreport />} />
+         </Route>
+         <Route path="/parentdashboard" element={<Layout />}>
+           <Route index element={<Dashboard />} />
+           <Route path="payment" element={<PaymentPage />} />
+           <Route path="settings" element={<SettingsPage />} />
+    </Route>
         </Routes>
       </BrowserRouter>
   );
