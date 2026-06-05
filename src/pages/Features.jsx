@@ -5,7 +5,7 @@ const Features = () => {
   const features = [
     {
       id: 1,
-      icon: '📅', // Replace with your actual icon component or image
+      icon: '📅', 
       title: 'Digital Attendance Tracking',
       description: 'Track student attendance digitally and monitor daily records in real time.'
     },
@@ -15,12 +15,7 @@ const Features = () => {
       title: 'Fee Management System',
       description: 'Manage school fees, track payments, and monitor outstanding balances easily.'
     },
-    // {
-    //   id: 3,
-    //   icon: '👤',
-    //   title: 'Student & Staff Records',
-    //   description: 'Organize and access student and staff information from one secure system.'
-    // },
+    
     {
       id: 4,
       icon: '💬',

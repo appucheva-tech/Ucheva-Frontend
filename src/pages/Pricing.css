@@ -101,7 +101,7 @@
           line-height: 1.5;
           margin: 0;
           min-height: 42px;
-        }
+         }
       }
 
       .btn {
@@ -173,6 +173,55 @@
               font-size: 10px;
               font-weight: bold;
             }
+          }
+        }
+      }
+    }
+  }
+
+  @media (max-width: 450px) {
+    padding: 40px 16px;
+
+    .pricing-header {
+      margin-bottom: 32px;
+
+      .main-title {
+        font-size: 19px;
+      }
+
+      .description {
+        font-size: 18px;
+      }
+    }
+
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+
+      .pricing-card {
+        padding: 24px 16px;
+
+        &.featured {
+          height: auto;
+          margin-top: 0;
+        }
+
+        .card-header {
+          .plan-price {
+            font-size: 30px;
+          }
+        }
+
+        .features-container {
+          height: auto;
+
+          .features-title {
+            margin-left: -80%;
+          }
+
+          .features-list {
+            margin-top: 0;
+            margin-left: -40%;
           }
         }
       }
