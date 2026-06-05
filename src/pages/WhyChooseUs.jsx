@@ -1,6 +1,6 @@
 import React from 'react'
 import './WhyChooseUs.css';
-import UchevaCircle from '../assets/Ucheva Circle.png'
+import UchevaCircle from '../assets/UchevaCircle.png'
 
 const WhyChooseUs = () => {
 
@@ -9,7 +9,7 @@ const WhyChooseUs = () => {
     id: 1,
     title: 'Easy to Use',
     description: 'Simple and intuitive tools designed for administrators, teachers, and staff.',
-    icon: '☝️' // Replace with your own SVG or Icon component
+    icon: '☝️' 
   },
   {
     id: 2,

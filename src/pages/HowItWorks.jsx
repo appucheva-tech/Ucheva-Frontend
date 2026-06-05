@@ -1,5 +1,6 @@
 import React from 'react';
 import './HowItWorks.css';
+import { RiUserSettingsFill } from "react-icons/ri";
 
 const HowItWorks = () => {
     const steps = [
@@ -37,7 +38,6 @@ const HowItWorks = () => {
       {steps.map((step) => (
         <div key={step.id} className="step-card">
           <div className={`step-image-holder ${step.imageClass}`}>
-            {/* Minimal UI representations mimicking the vector illustrations */}
             {step.id === 1 && (
               <div className="mock-ui-1">
                 <div className="mock-bubble">
@@ -68,7 +68,9 @@ const HowItWorks = () => {
             {step.id === 3 && (
               <div className="mock-ui-3">
                 <div className="chart-card">
-                  <div className="badge">⚙️</div>
+                  <div className="badge">
+                    <RiUserSettingsFill />
+                  </div>
                   <div className="bar bar-1"></div>
                   <div className="bar bar-2"></div>
                   <div className="bar bar-3"></div>
