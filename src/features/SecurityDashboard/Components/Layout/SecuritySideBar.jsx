@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FiGrid, FiSettings, FiMenu, FiX } from "react-icons/fi";
-import { IoWalletOutline } from "react-icons/io5";
-import "./LayoutStyles/Sidebar.css";
+import { FiGrid, FiBell, FiSettings, FiMenu, FiX } from "react-icons/fi";
+import "./LayoutStyles/SecuritySideBar.css";
 
-const Sidebar = () => {
+const SecuritySidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -38,7 +37,7 @@ const Sidebar = () => {
 
         <nav className="sidebar-nav">
           <NavLink
-            to="/parentdashboard"
+            to="/securitydashboard"
             end
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeMobileMenu}
@@ -50,18 +49,18 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink
-            to="/parentdashboard/payment"
+            to="/securitydashboard/announcement"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeMobileMenu}
           >
             <span className="nav-icon">
-              <IoWalletOutline size={20} />
+              <FiBell size={20} />
             </span>
-            <span className="nav-text">Payment</span>
+            <span className="nav-text">Announcement</span>
           </NavLink>
 
           <NavLink
-            to="/parentdashboard/settings"
+            to="/securitydashboard/settings"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={closeMobileMenu}
           >
@@ -76,4 +75,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default SecuritySidebar;

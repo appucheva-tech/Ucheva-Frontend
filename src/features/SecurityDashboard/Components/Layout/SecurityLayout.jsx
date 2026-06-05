@@ -1,16 +1,16 @@
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import SecuritySidebar from "./SecuritySideBar";
+import SecurityHeader from "./SecurityHeader";
 import Footer from "./Footer";
-import "./LayoutStyles/ParentLayout.css";
+import "./LayoutStyles/SecurityLayout.css";
 import { Outlet } from "react-router-dom";
 
-const ParentLayout = () => {
+const SecurityLayout = () => {
   return (
     <div className="app-layout nunito-content">
-      <Sidebar />
+      <SecuritySidebar />
 
       <div className="main-content">
-        <Header />
+        <SecurityHeader />
 
         <main className="page-content">
           <Outlet />
@@ -22,4 +22,4 @@ const ParentLayout = () => {
   );
 };
 
-export default ParentLayout;
+export default SecurityLayout;

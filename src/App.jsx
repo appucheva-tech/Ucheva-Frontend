@@ -26,6 +26,10 @@ import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLay
 import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
+import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
+import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
+import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
+import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
 
 const App = () => {
   return (
@@ -56,6 +60,12 @@ const App = () => {
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
           <Route path="settings" element={<SettingsPage />} />
+        </Route>
+
+        <Route path="/securitydashboard" element={<SecurityLayout />}>
+          <Route index element={<SecuritysDashboard />} />
+          <Route path="announcement" element={<SecurityAnnouncement />} />
+          <Route path="settings" element={<SecuritySettings />} />
         </Route>
       </Routes>
     </BrowserRouter>
