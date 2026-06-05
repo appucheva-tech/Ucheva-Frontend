@@ -1,4 +1,4 @@
-.CTScoreContainer {
+.CTreportContainer {
   width: 100%;
   height: auto;
   min-height: 130vh;
@@ -8,7 +8,7 @@
   justify-content: center;
 }
 
-.CTScoreWrapper {
+.CTreportWrapper {
   width: 95%;
   min-height: 120vh;
   display: flex;
@@ -16,7 +16,7 @@
   gap: 1.7rem;
 }
 
-.CTScoreHead {
+.CTSReportHead {
   width: 100%;
   height: auto;
   display: flex;
@@ -43,86 +43,80 @@
   }
 }
 
-.CTSubjectsHolder {
+.classSectionHolder {
   width: 100%;
-  height: 12vh;
+  height: 14vh;
   display: flex;
   gap: 1rem;
   align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-radius: 10px;
+  border: #e5e7eb;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
-.CTSubjects {
-  width: 18%;
+.classSection {
+  width: 70%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+}
+
+.classSectionInput {
+  width: 27%;
   height: 100%;
-  background: #ffffff;
-  border-radius: 10px;
-  border: 2px solid #d2d6db;
-  font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 20px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 17px;
-  gap: 0.7rem;
-
-  span {
-    font-family: Nunito;
-    font-weight: bold;
-    font-style: Bold;
-    font-size: 27px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #03173c;
-  }
-}
-
-.CTScoreTable {
-  width: 96%;
-  min-height: 85vh;
-  background: white;
-  border-radius: 20px;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 7px;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-.CTSubjectSave {
-  width: 100%;
-  min-height: 13vh;
-  background: transparent;
-  border-bottom: 1px solid #e5e7eb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: SemiBold;
-  font-size: 22px;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 18px;
   leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #03173c;
+  vertical-align: middle;
+  color: #042869;
+  gap: 7px;
 }
 
-.CTSaveBtn {
-  width: 139px;
-  height: 54px;
-  background: #0062f6;
-  border-radius: 10px;
-  color: white;
+.SectionInputHolder {
+  width: 160px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #d2d6db;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SelectSectionInput {
+  width: 90%;
+  height: 100%;
   border: none;
+  outline: none;
+  background: transparent;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Medium;
+  font-size: 14px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #042869;
+  cursor: pointer;
+}
+.resetBtnRecord {
+  width: 97px;
+  height: 48px;
+  border-radius: 8px;
+  border: 2px solid #0062f6;
+  cursor: pointer;
+  background: transparent;
   font-family: Nunito;
   font-weight: 400px;
   font-style: Regular;
@@ -130,15 +124,29 @@
   leading-trim: NONE;
   line-height: 24px;
   letter-spacing: 0%;
-  text-align: center;
   vertical-align: middle;
-  cursor: pointer;
+  color: #042869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.reportTable {
+  width: 100%;
+  height: 70vh;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .CTActualTable {
   width: 97%;
   min-height: 60vh;
-  background: transparent;
+  background: white;
   border: 1px solid #e5e7eb;
   border-radius: 10px;
   display: flex;
@@ -159,24 +167,17 @@
   align-items: center;
 }
 
-.CTTableContentValue {
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Medium;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
+.CTActualTableTop input {
+  width: 10%;
+  height: 30%;
 }
 
-.CTTableContentScore {
-  width: 156px;
+.CTTableContentValue {
+  width: 20%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   font-family: Nunito;
   font-weight: bold;
   font-style: Medium;
@@ -184,36 +185,32 @@
   leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
-  text-align: center;
   color: #03173c;
-  gap: 7px;
-
-  span {
-    font-family: Nunito;
-    font-weight: bold;
-    font-style: Medium;
-    font-size: 14px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    color: #6c737f;
-  }
 }
 
 .CTActualTableInfo {
   width: 100%;
   height: 8vh;
-  border-bottom: 1px solid #f2f5fb;
+  background: transparent;
+  border-radius: 8px 8px 0 0;
   display: flex;
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 20px;
   align-items: center;
-  gap: 10px;
+}
+
+.CTActualTableInfo input {
+  width: 10%;
+  height: 30%;
 }
 
 .CTTableValueName {
+  width: 20%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: Nunito;
   font-weight: bold;
   font-style: Regular;
@@ -350,24 +347,4 @@
   leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
-}
-
-.CTScoreCaution {
-  width: 100%;
-  height: 12vh;
-  gap: 12px;
-  border-radius: 10px;
-  background: #e6f4ff;
-  border: 1px solid #0095ff;
-  font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 20px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #0095ff;
-  align-items: center;
-  display: flex;
-  padding-left: 30px;
 }

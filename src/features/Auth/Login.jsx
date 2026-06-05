@@ -82,7 +82,7 @@ const Login = () => {
 
           <form onSubmit={handleSubmit}>
             <div className="login_form">
-              <label>Email</label>
+              <label className="SimiLog">Email</label>
               <input
                 type="text"
                 name="email"
@@ -95,7 +95,7 @@ const Login = () => {
             </div>
 
             <div className="login_form">
-              <label>Password</label>
+              <label className="SimiLog">Password</label>
               <div className="password-field">
                 <input
                   type={showPassword ? "text" : "password"}

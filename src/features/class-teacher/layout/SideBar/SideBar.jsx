@@ -5,10 +5,12 @@ import { FaPersonChalkboard } from "react-icons/fa6";
 import { MdOutlineCreditScore } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 const SideBar = () => {
   const [dashboard, setDashboard] = useState(null);
   // const [myClass, setMyClass] = useState(false);
+  const nav = useNavigate();
 
   return (
     <main className="sideBarContainer geist-content">
@@ -24,6 +26,7 @@ const SideBar = () => {
               color: dashboard === "dashboard" ? "#0062F6" : "#03173C",
             }}
             onClick={() => {
+              nav("/dashboard");
               setDashboard("dashboard");
             }}
           >
@@ -37,6 +40,7 @@ const SideBar = () => {
               color: dashboard === "myClass" ? "#0062F6" : "#03173C",
             }}
             onClick={() => {
+              nav("myclass");
               setDashboard("myClass");
             }}
           >
@@ -50,6 +54,7 @@ const SideBar = () => {
               color: dashboard === "scores" ? "#0062F6" : "#03173C",
             }}
             onClick={() => {
+              nav("score");
               setDashboard("scores");
             }}
           >
@@ -63,6 +68,7 @@ const SideBar = () => {
               color: dashboard === "report" ? "#0062F6" : "#03173C",
             }}
             onClick={() => {
+              nav("reportcard");
               setDashboard("report");
             }}
           >
