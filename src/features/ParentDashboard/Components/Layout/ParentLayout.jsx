@@ -1,10 +1,10 @@
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Footer from "./Footer";
-import "./LayoutStyles/Layout.css";
+import "./LayoutStyles/ParentLayout.css";
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+const ParentLayout = () => {
   return (
     <div className="app-layout">
       <Sidebar />
@@ -22,4 +22,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default ParentLayout;

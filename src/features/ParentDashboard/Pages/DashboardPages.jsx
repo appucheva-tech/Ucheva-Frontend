@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "../css/DashboardPages.css";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
@@ -154,4 +154,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
