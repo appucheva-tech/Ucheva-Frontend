@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./AuthStyles/InputCode.css"
+import "./AuthStyles/InputCode.css";
 import { useNavigate } from "react-router-dom";
 
 const InputCode = () => {
@@ -32,7 +32,7 @@ const InputCode = () => {
     if (value && !/^\d+$/.test(value)) return;
 
     const newOtp = [...otp];
-    newOtp[index] = value.slice(0, 1); 
+    newOtp[index] = value.slice(0, 1);
     setOtp(newOtp);
     setError("");
 
@@ -79,7 +79,7 @@ const InputCode = () => {
       if (inputRefs.current[0]) {
         inputRefs.current[0].focus();
       }
-    }, 500); 
+    }, 500);
   };
 
   const handleVerify = () => {
@@ -108,16 +108,14 @@ const InputCode = () => {
       <article className="inputCode_holder">
         <aside className="inputCode_left">
           <img src="https://i.postimg.cc/MHwcxd83/Rectangle-2.png" alt="img" />
-              <div className="logo-inputCode_holder">
+          <div className="logo-inputCode_holder">
             <img src="https://i.postimg.cc/PJgRQh50/logo.png" alt="" />
           </div>
         </aside>
         <aside className="inputCode_right">
           <h2>Input Code</h2>
           <div className="inputCode_otp">
-            <label>
-              Input the 6-digit OTP code sent to your email 
-            </label>
+            <label>Input the 6-digit OTP code sent to your email</label>
             <span className="otp_span">nodosacademy@gmail.com</span>
           </div>
 
