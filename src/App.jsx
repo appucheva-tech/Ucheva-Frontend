@@ -48,7 +48,7 @@ import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
 import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
 import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
 import Layout from "./features/class-teacher/layout/Layout"
-import Layout from "./features/ParentDashboard/Components/Layout/Layout"
+// import Layout from "./features/ParentDashboard/Components/Layout/Layout"
 
 const App = () => {
   return (
@@ -74,11 +74,11 @@ const App = () => {
            <Route path="score" element={<Score />} />
            <Route path="reportcard" element={<CTreport />} />
          </Route>
-         <Route path="/parentdashboard" element={<Layout />}>
+         {/* <Route path="/parentdashboard" element={<Layout />}>
            <Route index element={<Dashboard />} />
            <Route path="payment" element={<PaymentPage />} />
            <Route path="settings" element={<SettingsPage />} />
-    </Route>
+    </Route> */}
         </Routes>
       </BrowserRouter>
   );
