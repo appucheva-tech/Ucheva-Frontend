@@ -8,7 +8,7 @@ import Success from "./features/Unboarding/Pages/Success";
 import Header from "./features/class-teacher/layout/Header/Header";
 import Layout from "./features/class-teacher/layout/Layout";
 import Overview from "./features/class-teacher/pages/Overview/Overview";
-import SignUp from "./features/auth/SignUp";
+import SignUp from "./features/Auth/SignUp"
 import Login from "./features/auth/Login";
 import VerifyEmail from "./features/auth/VerifyEmail";
 import ForgetPassword from "./features/auth/ForgetPassword";
@@ -18,11 +18,16 @@ import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
+
+import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLayout";
 import MyClass from "./features/class-teacher/pages/My Class/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/My Reports/CTreport";
-import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
+
+import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
+import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
+
 import { Settings } from "lucide-react";
 const App = () => {
   return (
@@ -32,7 +37,7 @@ const App = () => {
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verifyEmail" element={<VerifyEmail />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
@@ -43,16 +48,18 @@ const App = () => {
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
         <Route path="/" element={<Success />} />
+
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
         </Route>
-        <Route path="/parentdashboard" element={<Layout />}>
-          <Route index element={<Dashboard />} />
+
+        <Route path="/parentdashboard" element={<ParentLayout />}>
+          <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

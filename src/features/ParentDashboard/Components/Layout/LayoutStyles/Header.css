@@ -7,6 +7,10 @@
   border-bottom: 1px solid #f0f0f0;
   height: 80px;
   gap: 2rem;
+  position: sticky;
+  z-index: 10;
+  top: 0%;
+  right: 0%;
 }
 
 .date-section {
