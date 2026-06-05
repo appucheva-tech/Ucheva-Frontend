@@ -64,12 +64,12 @@ import Step1 from "./features/Unboarding/Pages/Step1";
 import Step2 from "./features/Unboarding/Pages/Step2";
 import Step3 from "./features/Unboarding/Pages/Step3";
 import Success from "./features/Unboarding/Pages/Success";
-import SignUp from "./features/auth/SignUp";
-import Login from "./features/auth/Login";
-import VerifyEmail from "./features/auth/VerifyEmail";
-import ForgetPassword from "./features/auth/ForgetPassword";
-import InputCode from "./features/auth/InputCode";
-import ResetPassword from "./features/auth/ResetPassword";
+// import SignUp from "./features/auth/SignUp";
+// import Login from "./features/auth/Login";
+// import VerifyEmail from "./features/auth/VerifyEmail";
+// import ForgetPassword from "./features/auth/ForgetPassword";
+// import InputCode from "./features/auth/InputCode";
+// import ResetPassword from "./features/auth/ResetPassword";
 
 
 const App = () => {
