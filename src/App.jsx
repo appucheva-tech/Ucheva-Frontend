@@ -4,10 +4,6 @@
 // import ForgetPassword from "./features/auth/ForgetPassword";
 // import InputCode from "./features/auth/InputCode";
 // import ResetPassword from "./features/auth/ResetPassword";
-// import Home from "./pages/Home";
-// import Pricing from "./pages/Pricing";
-// import AboutUs from "./pages/AboutUs";
-// import ContactUs from "./pages/ContactUs";
 // import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 // import Score from "./features/class-teacher/pages/Scores/Score";
 // import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -28,10 +24,6 @@
 //         <Route path="/forgetpassword" element={<ForgetPassword />} />
 //         <Route path="/inputCode" element={<InputCode />} />
 //         <Route path="/resetpassword" element={<ResetPassword />} />
-//         <Route path="/step1" element={<Step1 />} />
-//         <Route path="/step2" element={<Step2 />} />
-//         <Route path="/step3" element={<Step3 />} />
-//         <Route path="/success" element={<Success />} />
 //         <Route path="/dashboard" element={<Layout />}>
 //           <Route index element={<Overview />} />
 //           <Route path="myclass" element={<MyClass />} />
