@@ -1,30 +1,3 @@
-// import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
-// import Score from "./features/class-teacher/pages/Scores/Score";
-// import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
-// import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
-// import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
-// import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
-// const App = () => {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/dashboard" element={<Layout />}>
-//           <Route index element={<Overview />} />
-//           <Route path="myclass" element={<MyClass />} />
-//           <Route path="score" element={<Score />} />
-//           <Route path="reportcard" element={<CTreport />} />
-//         </Route>
-//         <Route path="/parentdashboard" element={<Layout />}>
-//           <Route index element={<Dashboard />} />
-//           <Route path="payment" element={<PaymentPage />} />
-//           <Route path="settings" element={<SettingsPage />} />
-//         </Route>
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// };
-
-// export default App;
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Step1 from "./features/Unboarding/Pages/Step1";
@@ -52,7 +25,7 @@ import Overview from "./features/class-teacher/pages/Overview/Overview";
 import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLayout";
 import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import CTLayout from "./features/class-teacher/layout/Layout";
-// import Layout from "./features/ParentDashboard/Components/Layout/Layout"
+import STReport from "./features/class-teacher/pages/STudentReport/STReport";
 import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
 import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
@@ -81,6 +54,7 @@ const App = () => {
           <Route path="myclass" element={<MyClass />} />
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
+          <Route path="studentreport" element={<STReport />} />
         </Route>
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />

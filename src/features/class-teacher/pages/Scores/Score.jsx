@@ -51,51 +51,51 @@ const Score = () => {
             <ul className="CTActualTableInfo">
               <span className="CTTableValueName">Adeaze Clinton</span>
               <span className="CTTableValueName">UCH/2026/001</span>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="38" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="38" className="CTCA1" />
               </div>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="58" />
-              </div>
-            </ul>
-            <ul className="CTActualTableInfo">
-              <span className="CTTableValueName">Adeaze Clinton</span>
-              <span className="CTTableValueName">UCH/2026/001</span>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="38" />
-              </div>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="58" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="58" className="CTCA1" />
               </div>
             </ul>
             <ul className="CTActualTableInfo">
               <span className="CTTableValueName">Adeaze Clinton</span>
               <span className="CTTableValueName">UCH/2026/001</span>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="38" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="38" className="CTCA1" />
               </div>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="58" />
-              </div>
-            </ul>
-            <ul className="CTActualTableInfo">
-              <span className="CTTableValueName">Adeaze Clinton</span>
-              <span className="CTTableValueName">UCH/2026/001</span>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="38" />
-              </div>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="58" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="58" className="CTCA1" />
               </div>
             </ul>
             <ul className="CTActualTableInfo">
               <span className="CTTableValueName">Adeaze Clinton</span>
               <span className="CTTableValueName">UCH/2026/001</span>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="38" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="38" className="CTCA1" />
               </div>
-              <div className="CTCAHolder">
-                <input className="CTCA" type="text" placeholder="58" />
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="58" className="CTCA1" />
+              </div>
+            </ul>
+            <ul className="CTActualTableInfo">
+              <span className="CTTableValueName">Adeaze Clinton</span>
+              <span className="CTTableValueName">UCH/2026/001</span>
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="38" className="CTCA1" />
+              </div>
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="58" className="CTCA1" />
+              </div>
+            </ul>
+            <ul className="CTActualTableInfo">
+              <span className="CTTableValueName">Adeaze Clinton</span>
+              <span className="CTTableValueName">UCH/2026/001</span>
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="38" className="CTCA1" />
+              </div>
+              <div className="CTCA1Holder">
+                <input type="text" placeholder="58" className="CTCA1" />
               </div>
             </ul>
             <div className="pagination">
