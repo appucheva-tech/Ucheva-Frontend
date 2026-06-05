@@ -80,12 +80,12 @@ const App = () => {
             <Route path="/step2" element={<Step2 />} />
             <Route path="/step3" element={<Step3 />} />
           <Route path="/success" element={<Success />} />
-            <Route path="/SignUp" element={<SignUp />} />
+            {/* <Route path="/SignUp" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
             <Route path="/verifyEmail" element={<VerifyEmail />} />
             <Route path="/forgetpassword" element={<ForgetPassword />} />
             <Route path="/inputCode" element={<InputCode />} />
-            <Route path="/resetpassword" element={<ResetPassword />} />
+            <Route path="/resetpassword" element={<ResetPassword />} /> */}
         </Routes>
       </BrowserRouter>
   );
