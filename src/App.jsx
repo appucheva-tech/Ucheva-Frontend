@@ -48,6 +48,11 @@ import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import SignUp from "./features/Auth/SignUp";
+import Login from "./features/auth/Login";
+import VerifyEmail from "./features/Auth/VerifyEmail";
+import ForgetPassword from "./features/Auth/ForgetPassword";
+import InputCode from "./features/Auth/InputCode";
+import ResetPassword from "./features/Auth/ResetPassword";
 
 
 const App = () => {
@@ -63,7 +68,11 @@ const App = () => {
          <Route path="/AboutUs" element={<AboutUs />} />
    <Route path="/ContactUs" element={<ContactUs />} />
    <Route path="/signup" element={<SignUp />} />
-
+   <Route path="/login" element={<Login />} />
+         <Route path="/verifyEmail" element={<VerifyEmail />} />
+         <Route path="/forgetpassword" element={<ForgetPassword />} />
+         <Route path="/inputCode" element={<InputCode />} />
+         <Route path="/resetpassword" element={<ResetPassword />} />
         </Routes>
       </BrowserRouter>
   );
