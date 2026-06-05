@@ -20,6 +20,7 @@ import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import MyClass from "./features/class-teacher/pages/My Class/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
+import CTreport from "./features/class-teacher/pages/My Reports/CTreport";
 
 const App = () => {
   return (
@@ -44,6 +45,7 @@ const App = () => {
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="score" element={<Score />} />
+          <Route path="reportcard" element={<CTreport />} />
         </Route>
       </Routes>
     </BrowserRouter>
