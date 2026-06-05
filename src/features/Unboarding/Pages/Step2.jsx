@@ -14,12 +14,12 @@ const Step2 = () => {
         <section className="Step2Head">
           <img
             className="Step2Logo"
-            src="/src/assets/Ucheva Logo.png"
+            src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
             alt="Logo"
           />
           <span className="Step2Count">
             <Link
-              to={"/"}
+              to={"/step1"}
               style={{
                 textDecoration: "none",
               }}
@@ -38,7 +38,11 @@ const Step2 = () => {
               <br /> school.
             </span>
           </div>
-          <img className="StepsNo2" src="/src/assets/Steps2.png" alt="" />
+          <img
+            className="StepsNo2"
+            src="https://i.postimg.cc/nzrCmWdH/Steps2.png"
+            alt=""
+          />
         </section>
         <form className="Content">
           <div className="SchoolType">
