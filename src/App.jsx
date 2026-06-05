@@ -21,7 +21,9 @@ import ContactUs from "./pages/ContactUs";
 import MyClass from "./features/class-teacher/pages/My Class/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/My Reports/CTreport";
-
+import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
+import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
+import { Settings } from "lucide-react";
 const App = () => {
   return (
     <BrowserRouter>
@@ -46,6 +48,11 @@ const App = () => {
           <Route path="myclass" element={<MyClass />} />
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
+        </Route>
+        <Route path="/parentdashboard" element={<Layout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>
