@@ -3,7 +3,7 @@ import "./LayoutStyles/Footer.css";
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer nunito-content">
       <p>
         © 2026 Ucheva school operating management system. All right reserved.
       </p>

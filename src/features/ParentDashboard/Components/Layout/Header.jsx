@@ -17,7 +17,7 @@ const Header = () => {
   };
 
   return (
-    <header className="header">
+    <header className="parent_header nunito-content">
       <div className="date-section">
         <FiCalendar />
         <span>{formatDate()}</span>
