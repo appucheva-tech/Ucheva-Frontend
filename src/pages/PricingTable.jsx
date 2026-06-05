@@ -1,23 +1,20 @@
 import React from 'react';
-import './PricingTable.css'
-import FreeLady from '../assets/FreeLady.png'
+import './PricingTable.css';
+import FreeLadyBackground from '../assets/FreeLadyBackground.png';
 
 const PricingTable = () => {
   return (
     <div className="pricing-container">
-      {/* Header Section */}
       <div className="pricing-header">
         <p className="sub-title">Price Plan Preview</p>
-        <h1 className="main-title">Flexible Pricing for Every School</h1>
-        <p className="description">
+        <h1 className="main-titles">Flexible Pricing for Every School</h1>
+        <p className="descriptions">
           Choose a plan that fits your school size and operational needs.
         </p>
       </div>
 
-      {/* Cards Grid */}
       <div className="cards-grid">
         
-        {/* Starter Plan */}
         <div className="card starter-card">
           <div className="card-content">
             <span className="plan-name text-light">Starter Plan</span>
@@ -27,16 +24,14 @@ const PricingTable = () => {
             </p>
           </div>
           <div className="image-container">
-            {/* Replace src with your actual image path */}
             <img 
-              src={FreeLady} 
+              src={FreeLadyBackground} 
               alt="School Administrator" 
               className="admin-image"
             />
           </div>
         </div>
 
-        {/* Standard Plan */}
         <div className="card billing-card active-card">
           <div className="card-content">
             <span className="plan-name">Standard Plan</span>
@@ -57,7 +52,6 @@ const PricingTable = () => {
           </div>
         </div>
 
-        {/* School+ Plan */}
         <div className="card billing-card">
           <div className="card-content">
             <span className="plan-name">School+ Plan</span>
@@ -80,7 +74,6 @@ const PricingTable = () => {
 
       </div>
 
-      {/* Footer Section */}
       <div className="pricing-footer">
         <p>
           Need a custom solution for your school network or organization?{' '}

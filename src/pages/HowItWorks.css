@@ -94,7 +94,6 @@
       margin: 0;
     }
 
-    /* Step 1 Graphic Styles */
     .mock-ui-1 {
       display: flex;
       flex-direction: column;
@@ -140,7 +139,6 @@
       }
     }
 
-    /* Step 2 Graphic Styles */
     .mock-ui-2 {
       display: flex;
       flex-direction: column;
@@ -209,7 +207,6 @@
       }
     }
 
-    /* Step 3 Graphic Styles */
     .mock-ui-3 {
       .chart-card {
         background: white;
@@ -254,8 +251,7 @@
   }
 }
 
-/* Responsive Handling */
-@media (max-width: 768px) {
+@media (max-width: 450px) {
   .steps-container {
     flex-direction: column;
     align-items: center;
