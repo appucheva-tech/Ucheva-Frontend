@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Step1 from "./features/Unboarding/Pages/Step1";
 import Step2 from "./features/Unboarding/Pages/Step2";
 import Step3 from "./features/Unboarding/Pages/Step3";
-import success from "./features/Unboarding/Pages/Success";
 import Success from "./features/Unboarding/Pages/Success";
 import Header from "./features/class-teacher/layout/Header/Header";
 import Layout from "./features/class-teacher/layout/Layout";
@@ -18,12 +17,12 @@ import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import MyClass from "./features/class-teacher/pages/My Class/MyClass";
+import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
-import CTreport from "./features/class-teacher/pages/My Reports/CTreport";
+import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
 import Dashboard from "./features/ParentDashboard/Pages/DashboardPages";
 import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
-import { Settings } from "lucide-react";
+import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
 const App = () => {
   return (
     <BrowserRouter>
@@ -42,7 +41,6 @@ const App = () => {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/" element={<Success />} />
         <Route path="/dashboard" element={<Layout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -52,7 +50,7 @@ const App = () => {
         <Route path="/parentdashboard" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="payment" element={<PaymentPage />} />
-          <Route path="settings" element={<Settings />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
