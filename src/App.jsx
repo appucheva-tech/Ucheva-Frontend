@@ -49,6 +49,9 @@ import PaymentPage from "./features/ParentDashboard/Pages/PaymentPage";
 import SettingsPage from "./features/ParentDashboard/Pages/SettingsPage";
 import Layout from "./features/class-teacher/layout/Layout";
 import Overview from "./features/class-teacher/pages/Overview/Overview";
+import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLayout";
+import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
+import CTLayout from "./features/class-teacher/layout/Layout";
 // import Layout from "./features/ParentDashboard/Components/Layout/Layout"
 
 const App = () => {
@@ -69,17 +72,17 @@ const App = () => {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/dashboard" element={<Layout />}>
+        <Route path="/dashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
         </Route>
-        {/* <Route path="/parentdashboard" element={<Layout />}>
-           <Route index element={<Dashboard />} />
-           <Route path="payment" element={<PaymentPage />} />
-           <Route path="settings" element={<SettingsPage />} />
-    </Route> */}
+        <Route path="/parentdashboard" element={<ParentLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

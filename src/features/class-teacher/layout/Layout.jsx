@@ -5,7 +5,7 @@ import SideBar from "./SideBar/SideBar";
 import { Outlet } from "react-router-dom";
 import Footer from "./Footer/Footer";
 
-const Layout = () => {
+const CTLayout = () => {
   return (
     <main className="CTLayoutContainer">
       <div className="Header-SideBar-Holder">
@@ -20,4 +20,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default CTLayout;
