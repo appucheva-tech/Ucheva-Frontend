@@ -14,7 +14,6 @@ const ContactLayout = () => {
     <div className="contact-layout-wrapper">
       <div className="contact-layout-container">
         
-        {/* Form Card Component */}
         <div className="contact-form-card">
           <form onSubmit={(e) => e.preventDefault()}>
             <div className="contact-form-grid">
@@ -58,7 +57,6 @@ const ContactLayout = () => {
           </form>
         </div>
 
-        {/* Informational Text Block */}
         <div className="contact-details-panel">
           <span className="panel-tagline">Contact Us</span>
           <h2 className="panel-heading">Get in Touch With Us</h2>

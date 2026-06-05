@@ -1,14 +1,24 @@
-.banner-container {
+.NotSureWrapper{
+display: flex;
+justify-content: center;
+align-items: flex-start;
+width: 100%;
+height: 80vh;
+
+@media (max-width: 450px) {
+  padding-left: 3%;
+  padding-right: 3%;
+}
+
+.banner-containerz {
+  background: url('../assets/FreeBackground.PNG');
+  background-size: cover; 
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
   max-width: 1184px;
-  min-height: 340px;
-  background-color: #0b65f6;
-  background-image: radial-gradient(circle at 20% 120%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
-                    radial-gradient(circle at 90% -20%, rgba(255, 255, 255, 0.12) 0%, transparent 60%),
-                    linear-gradient(135deg, #0b65f6 0%, #0052cc 100%);
+  min-height: 450px;
   border-radius: 32px;
   padding: 40px 24px;
   box-sizing: border-box;
@@ -16,7 +26,7 @@
   overflow: hidden;
   position: relative;
 
-  /* Abstract graphic lines approximation using nested pseudo-elements */
+
   &::before, &::after {
     content: '';
     position: absolute;
@@ -56,6 +66,11 @@
       margin: 0 0 12px 0;
       letter-spacing: -0.5px;
       line-height: 1.25;
+
+      @media (max-width: 450px) {
+        font-size: 25px;
+      }
+
     }
 
     .banner-subtitle {
@@ -65,9 +80,13 @@
       line-height: 1.5;
       margin: 0 0 28px 0;
       max-width: 420px;
+
+      @media (max-width: 450px) {
+        font-size: 16px;
+      }
     }
 
-    .banner-button {
+    .banner-buttons {
       background-color: #ffffff;
       color: #0b65f6;
       font-size: 14px;
@@ -87,7 +106,13 @@
       &:active {
         transform: scale(0.98);
       }
+
+      @media (max-width: 450px) {
+        width: 100px;
+        height: 40px;
+        font-size: 8px;
+      }
     }
   }
 }
-
+}
