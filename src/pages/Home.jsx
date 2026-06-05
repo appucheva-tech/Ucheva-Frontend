@@ -1,20 +1,20 @@
-import React from 'react'
-import './Home.css'
-import Header from './Header'
-import Footer from './Footer'
-import Carousel from './Carousel'
-import HappyCL1 from '../assets/HappyCL1.jpg'
-import HappyCL2 from '../assets/HappyCL2.jpg'
-import HappyCL3 from '../assets/HappyCL3.jpg'
-import HappyCL4 from '../assets/HappyCL4.jpg'
-import Home4Pics from '../assets/Home4Pics.PNG'
-import Features from './Features'
-import ProductPreview from './ProductPreview'
-import HowItWorks from './HowItWorks'
-import WhyChooseUs from './WhyChooseUs'
-import Testimonials from './Testimonials'
-import PricingTable from './PricingTable'
-import Ready from './Ready'
+import React from "react";
+import "./Home.css";
+import Header from "./Header";
+import Footer from "./Footer";
+import Carousel from "./Carousel";
+import HappyCL1 from "../assets/HappyCL1.jpg";
+import HappyCL2 from "../assets/HappyCL2.jpg";
+import HappyCL3 from "../assets/HappyCL3.jpg";
+import HappyCL4 from "../assets/HappyCL4.jpg";
+import Home4Pics from "../assets/Home4Pics.png";
+import Features from "./Features";
+import ProductPreview from "./ProductPreview";
+import HowItWorks from "./HowItWorks";
+import WhyChooseUs from "./WhyChooseUs";
+import Testimonials from "./Testimonials";
+import PricingTable from "./PricingTable";
+import Ready from "./Ready";
 
 export default function Home() {
   const stats = [
@@ -82,28 +82,32 @@ export default function Home() {
           </div>
         </div>
 
-      <div className="grid-container">
-        <img src={Home4Pics} alt="Team member using tablet" className='Home4Pics'/>             
-      </div>
-    </section>
-
-    <section className="stats-container">
-      {stats.map((stat, index) => (
-        <div key={index} className="stat-card">
-          <h2 className="stat-value">{stat.value}</h2>
-          <p className="stat-label">{stat.label}</p>
+        <div className="grid-container">
+          <img
+            src={Home4Pics}
+            alt="Team member using tablet"
+            className="Home4Pics"
+          />
         </div>
-      ))}
-    </section>
-    <Carousel/>
-    <Features/>
-    <ProductPreview/>
-    <HowItWorks/>
-    <WhyChooseUs/>
-    <Testimonials/>
-    <PricingTable/>
-    <Ready/>
-    <Footer/>
+      </section>
+
+      <section className="stats-container">
+        {stats.map((stat, index) => (
+          <div key={index} className="stat-card">
+            <h2 className="stat-value">{stat.value}</h2>
+            <p className="stat-label">{stat.label}</p>
+          </div>
+        ))}
+      </section>
+      <Carousel />
+      <Features />
+      <ProductPreview />
+      <HowItWorks />
+      <WhyChooseUs />
+      <Testimonials />
+      <PricingTable />
+      <Ready />
+      <Footer />
     </>
   );
 }
