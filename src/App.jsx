@@ -48,7 +48,7 @@ import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
 import SignUp from "./features/Auth/SignUp";
-import Login from "./features/auth/Login";
+import Login from "./features/Auth/Login";
 import VerifyEmail from "./features/Auth/VerifyEmail";
 import ForgetPassword from "./features/Auth/ForgetPassword";
 import InputCode from "./features/Auth/InputCode";
