@@ -52,11 +52,7 @@ const App = () => {
   return (
       <BrowserRouter>
         <Routes>
-              <Route path="/" element={<Step1 />} />
-            <Route path="/step2" element={<Step2 />} />
-            <Route path="/step3" element={<Step3 />} />
-          <Route path="/success" element={<Success />} />
-           <Route path="/home" element={<Home />} />
+                     <Route path="/" element={<Home />} />
            <Route path="/Pricing" element={<Pricing />} />
          <Route path="/AboutUs" element={<AboutUs />} />
    <Route path="/ContactUs" element={<ContactUs />} />
@@ -66,6 +62,10 @@ const App = () => {
          <Route path="/forgetpassword" element={<ForgetPassword />} />
          <Route path="/inputCode" element={<InputCode />} />
          <Route path="/resetpassword" element={<ResetPassword />} />
+              <Route path="/step1" element={<Step1 />} />
+            <Route path="/step2" element={<Step2 />} />
+            <Route path="/step3" element={<Step3 />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/dashboard" element={<Layout />}>
            <Route index element={<Overview />} />
            <Route path="myclass" element={<MyClass />} />
