@@ -6,18 +6,18 @@
 }
 .setUpComplete {
   width: 100%;
-  height: 1119px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 100px;
+  gap: 60px;
   flex-direction: column;
 }
 
 .setUpCompleteHolder {
   width: 1280px;
-  height: 833px;
-  gap: 120px;
+  height: auto;
+  gap: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +25,10 @@
 
 .setUpImgHolder {
   width: 200px;
-  height: 54px;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .StepImgHolder {
@@ -34,8 +37,8 @@
 }
 
 .setUpMarkHolder {
-  width: 1280px;
-  height: 833px;
+  width: 100%;
+  height: 80vh;
   gap: 30px;
   display: flex;
   align-items: center;

@@ -7,7 +7,7 @@ import Footer from "./Footer/Footer";
 
 const CTLayout = () => {
   return (
-    <main className="CTLayoutContainer">
+    <main className="CTLayoutContainer nunito-content">
       <div className="Header-SideBar-Holder">
         <SideBar />
         <Header />

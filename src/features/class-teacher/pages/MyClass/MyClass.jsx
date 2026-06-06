@@ -77,7 +77,11 @@ const MyClass = () => {
             <div className="CTtextnum">23</div>
           </nav>
           <div className="CTImageHolder1">
-            <img className="CTImg" src="/src/assets/uim_calender.png" alt="" />
+            <img
+              className="CTImg"
+              src="https://i.postimg.cc/KzdG8q6g/uim-calender.png"
+              alt=""
+            />
           </div>
         </div>
         <div className="TotalFemale">
@@ -88,7 +92,7 @@ const MyClass = () => {
           <div className="CTImageHolder1">
             <img
               className="CTImg"
-              src="/src/assets/streamline-plump_class-lesson-remix.png"
+              src="https://i.postimg.cc/BnMJKnWj/streamline-plump-class-lesson-remix.png"
               alt=""
             />
           </div>
@@ -101,7 +105,7 @@ const MyClass = () => {
           <div className="CTImageHolder1">
             <img
               className="CTImg"
-              src="/src/assets/ph_student-fill.png"
+              src="https://i.postimg.cc/YqxH5CCY/ph-student-fill.png"
               alt=""
             />
           </div>
@@ -114,7 +118,7 @@ const MyClass = () => {
           <div className="CTImageHolder1">
             <img
               className="CTImg"
-              src="/src/assets/material-symbols-light_menu-book-rounded.png"
+              src="https://i.postimg.cc/tJtKGBp1/material-symbols-light-menu-book-rounded.png"
               alt=""
             />
           </div>

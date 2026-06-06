@@ -8,7 +8,10 @@ const Header = () => {
     <main className="CTHeader geist-content">
       <section className="Session">
         <nav className="SessionStacks">
-          <img src="/src/assets/iconsax-calendar.png" alt="" />
+          <img
+            src="https://i.postimg.cc/fyc3dSQ6/iconsax-calendar.png"
+            alt=""
+          />
           Monday, 18 May 2026
         </nav>
         <nav className="SessionStacks" style={{ width: "30%" }}>

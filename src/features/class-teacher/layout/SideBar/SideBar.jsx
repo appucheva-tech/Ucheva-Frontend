@@ -16,7 +16,7 @@ const SideBar = () => {
     <main className="sideBarContainer geist-content">
       <article className="sideBarWrapper">
         <div className="CTLogoHolder">
-          <img src="/src/assets/Ucheva Logo.png" alt="" />
+          <img src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png" alt="" />
         </div>
         <div className="TabsHolder">
           <nav
