@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Step1.css";
 import { useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa6";
-import Upload from "../../../assets/vector.svg";
+import Upload from "../../../assets/Vector.svg";
 import UchevaLogo from "../../../assets/UchevaLogo.svg";
 import Steps from "../../../assets/Steps.svg";
 
