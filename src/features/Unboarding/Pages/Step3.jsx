@@ -40,11 +40,7 @@ const Step3 = () => {
               more fees later from Settings.
             </span>
           </div>
-          <img
-            className="StepsNo3"
-            src="https://i.postimg.cc/rstsnrXC/Steps3.png"
-            alt=""
-          />
+          <img className="StepsNo3" src="src/assets/Steps3.svg" alt="" />
         </section>
 
         <section className="AddFeeContent">
@@ -57,16 +53,14 @@ const Step3 = () => {
           </div>
           <article className="AddfeePreview">
             <ul>Tuition Fee</ul>
-            <ul>Payment Option</ul>
-            <ul>&#8358; 40,000</ul>
-            <ul>Action</ul>
+            <ul>Installments</ul>
+            <ul>N40,000</ul>
+            <ul className="AddedFeeAction">
+              <img src="src/assets/edit.svg" alt="" />
+              <img src="src/assets/delete.svg" alt="" />
+            </ul>
           </article>
-          <article className="AddfeePreview">
-            <ul>Tuition Fee</ul>
-            <ul>Payment Option</ul>
-            <ul>&#8358; 40,000</ul>
-            <ul>Action</ul>
-          </article>
+
           <div className="ButtonContainer">
             <button className="AnotherFee" onClick={() => setShowModal(true)}>
               <GoPlus />

@@ -9,13 +9,17 @@ const Success = () => {
     <main className="setUpComplete geist-content">
       <article className="setUpCompleteHolder">
         <div className="setUpImgHolder">
-          <img src="src/assets/Ucheva Logo.png" alt="" />\
+          <img src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png" alt="" />
         </div>
         <div className="StepImgHolder">
-          <img src="src/assets/Steps3.png" alt="" />
+          <img src="https://i.postimg.cc/rstsnrXC/Steps3.png" alt="" />
         </div>
         <div className="setUpMarkHolder">
-          <img className="MarkImage" src="src/assets/Success.png" alt="" />
+          <img
+            className="MarkImage"
+            src="https://i.postimg.cc/XYZWwbWf/Success.png"
+            alt=""
+          />
           <nav className="setUpText1">
             Setup Complete!
             <span>

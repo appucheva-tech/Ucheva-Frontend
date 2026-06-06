@@ -202,7 +202,7 @@ const Step2 = () => {
             </div>
           </article>
           <nav className="SkipContinueBtns">
-            <button className="SkipBtn">Skip</button>
+            <button className="SkipBtn2">Skip</button>
             <button
               className="continueBtn"
               onClick={() => {
