@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa6";
 import Upload from "../../../assets/vector.svg";
 import UchevaLogo from "../../../assets/UchevaLogo.svg";
-import Steps from "../../../assets/steps.svg";
+import Steps from "../../../assets/Steps.svg";
 
 const Step1 = () => {
   const [showTypes, setShowTypes] = useState(false);
