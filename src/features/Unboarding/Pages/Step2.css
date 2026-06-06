@@ -40,7 +40,7 @@
     height: 54px;
   }
   .Step2Count {
-    width: 1280px;
+    width: 90%;
     height: 30px;
     display: flex;
     justify-content: space-between;

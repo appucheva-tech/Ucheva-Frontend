@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import "./Step1.css";
 import { useNavigate } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa6";
+import Upload from "../../../assets/vector.svg";
+import UchevaLogo from "../../../assets/UchevaLogo.svg";
+import Steps from "../../../assets/steps.svg";
 
 const Step1 = () => {
   const [showTypes, setShowTypes] = useState(false);
@@ -19,24 +22,16 @@ const Step1 = () => {
     <main className="Step1Container geist-content">
       <article className="Step1Wrapper">
         <section className="Step1Head">
-          <img
-            className="Step1Logo"
-            src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
-            alt="Logo"
-          />
+          <img className="Step1Logo" src={UchevaLogo} alt="Logo" />
           <span className="StepCount">Step 1 of 3</span>
-          <div className="Step1Title">
+          <nav className="Step1Title">
             Let's set up your school profile
             <span>
               Tell us more about your school. You can edit
               <br /> these details later in settings.
             </span>
-          </div>
-          <img
-            className="Steps"
-            src="https://i.postimg.cc/tgX1qJWR/Steps1.png"
-            alt=""
-          />
+          </nav>
+          <img className="Steps" src={Steps} alt="" />
         </section>
         <form className="step1Content">
           <div className="uploadLogo">
@@ -49,11 +44,19 @@ const Step1 = () => {
                 </span>
               </nav>
               <article className="Step1Btn">
-                <input
-                  type="button"
-                  value="Upload image"
-                  className="uploadBtn"
-                />
+                <div className="uploadBtnHolder">
+                  <label htmlFor="imageUpload" className="uploadBtn">
+                    <img src={Upload} alt="Upload" />
+                    Upload Image
+                  </label>
+
+                  <input
+                    id="imageUpload"
+                    type="file"
+                    accept="image/png,image/jpeg,image/jpg"
+                    className="uploadInput"
+                  />
+                </div>
                 <button className="removeBtn">Remove</button>
               </article>
             </div>
