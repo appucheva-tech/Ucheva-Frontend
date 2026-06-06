@@ -6,6 +6,10 @@ import { GoPlus } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import AddFeeModal from "./Components/Popup";
+import deleteIcon from "../../../assets/deleteIcon.svg";
+import editIcon from "../../../assets/editIcon.svg";
+import UchevaLogo from "../../../assets/UchevaLogo.svg";
+import StepsNo3 from "../../../assets/Steps3.svg";
 
 const Step3 = () => {
   const [showModal, setShowModal] = useState(false);
@@ -14,11 +18,7 @@ const Step3 = () => {
     <main className="Step3Container geist-content">
       <article className="Step3Wrapper">
         <section className="Step3Head">
-          <img
-            className="Step3Logo"
-            src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
-            alt="Logo"
-          />
+          <img className="Step3Logo" src={UchevaLogo} alt="Logo" />
           <span className="Step3Count">
             <Link
               to={"/step2"}
@@ -40,7 +40,7 @@ const Step3 = () => {
               more fees later from Settings.
             </span>
           </div>
-          <img className="StepsNo3" src="src/assets/Steps3.svg" alt="" />
+          <img className="StepsNo3" src={StepsNo3} alt="Steps" />
         </section>
 
         <section className="AddFeeContent">
@@ -56,8 +56,8 @@ const Step3 = () => {
             <ul>Installments</ul>
             <ul>N40,000</ul>
             <ul className="AddedFeeAction">
-              <img src="src/assets/edit.svg" alt="" />
-              <img src="src/assets/delete.svg" alt="" />
+              <img src={editIcon} alt="" />
+              <img src={deleteIcon} alt="" />
             </ul>
           </article>
 
