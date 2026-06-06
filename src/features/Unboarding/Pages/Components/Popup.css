@@ -81,26 +81,21 @@
 
 .FeeInputHolder label {
   font-family: Geist;
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 400;
   color: #03173c;
 }
 
 .FeeInput {
   width: 100%;
   height: 48px;
-
   border-radius: 8px;
   border: 1px solid #d2d6db;
-
   padding: 0 12px;
-
   outline: none;
-
   font-family: Geist;
   font-size: 16px;
-
-  color: #042869;
+  color: #03173c;
 }
 
 .FeeInput:focus {
@@ -128,20 +123,17 @@
 }
 
 .PaymentCard {
+  width: 100%;
+  height: 65px;
   flex: 1;
-
   border-radius: 10px;
   border: 1px solid #0062f6;
-
   padding: 12px;
-
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
-  transition: 0.2s ease;
+  gap: 2px;
+  /* transition: 0.2s ease; */
 }
 
 /* .PaymentCard:hover {
@@ -229,12 +221,16 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
+  font-family: Geist;
+  font-size: 18px;
+  font-weight: 400;
+  color: #03173c;
 }
 
 .FeeInputHolder4 input {
   background: #f3f4f6;
   outline: none;
-  border: #d2d6db;
+  border: 1px solid #d2d6db;
   color: #9da4ae;
 }
 

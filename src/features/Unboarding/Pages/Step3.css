@@ -19,7 +19,7 @@
   width: 95%;
   height: auto;
   opacity: 1;
-  gap: 120px;
+  gap: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -45,7 +45,7 @@
     display: flex;
     justify-content: space-between;
     font-family: Geist;
-    font-weight: 106px;
+    font-weight: 500;
     font-size: 24px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -55,7 +55,7 @@
     nav {
       width: 117px;
       height: 46px;
-      gap: 4px;
+      gap: 10px;
       display: flex;
       align-items: center;
       font-family: Geist;
@@ -70,20 +70,19 @@
 }
 
 .Step3Title {
+  text-align: center;
+  font-family: Geist;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   width: 1280px;
   height: 133px;
-  gap: 10px;
-  font-family: Geist;
-  font-weight: bold;
-  font-style: Bold;
-  font-size: 38px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
+  gap: 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #042869;
+  color: #03173c;
 
   span {
     font-family: Geist;
@@ -93,7 +92,7 @@
     line-height: 36px;
     letter-spacing: 2%;
     text-align: center;
-    color: #042869;
+    color: #03173c;
   }
   .StepsNo3 {
     object-fit: contain;
@@ -215,7 +214,7 @@
 
 .SkipContinueBtns3 {
   width: 1060px;
-  height: 67px;
+  height: 90px;
   gap: 30px;
   display: flex;
   justify-content: end;

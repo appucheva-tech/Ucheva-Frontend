@@ -45,7 +45,7 @@
     display: flex;
     justify-content: space-between;
     font-family: Geist;
-    font-weight: 106px;
+    font-weight: 500;
     font-size: 24px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -55,11 +55,11 @@
     nav {
       width: 117px;
       height: 46px;
-      gap: 4px;
+      gap: 10px;
       display: flex;
       align-items: center;
       font-family: Geist;
-      font-weight: 106px;
+      font-weight: 500;
       font-style: Medium;
       font-size: 24px;
       line-height: 100%;
@@ -70,16 +70,15 @@
 }
 
 .Step2Title {
+  text-align: center;
+  font-family: Geist;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   width: 1280px;
   height: 133px;
   gap: 14px;
-  font-family: Geist;
-  font-weight: bold;
-  font-style: Bold;
-  font-size: 38px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,16 +127,16 @@
   display: flex;
   flex-direction: column;
   font-family: Geist;
-  font-weight: 106px;
+  font-weight: 500;
   font-style: Medium;
   font-size: 24px;
   line-height: 100%;
   letter-spacing: 0%;
-  color: #042869;
+  color: #03173c;
 
   span {
     font-family: Geist;
-    font-weight: 84px;
+    font-weight: 300;
     font-style: Regular;
     font-size: 24px;
     line-height: 100%;
@@ -154,7 +153,7 @@
   display: flex;
 }
 
-.checkBox {
+.checkBox1 {
   width: 145px;
   height: 52px;
   gap: 10px;
@@ -163,6 +162,26 @@
   border: 1px solid #d2d6db;
   display: flex;
   align-items: center;
+  background: transparent;
+  font-family: Geist;
+  font-weight: 84px;
+  font-style: Regular;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+  justify-content: center;
+}
+.checkBox {
+  width: 145px;
+  height: 52px;
+  gap: 10px;
+  opacity: 1;
+  border-radius: 8px;
+  border: 1px solid #0062f6;
+  display: flex;
+  align-items: center;
+  background: #f1f7ff;
   font-family: Geist;
   font-weight: 84px;
   font-style: Regular;
@@ -204,7 +223,7 @@
   background: #f9fafb;
   align-items: center;
   font-family: Geist;
-  font-weight: 106px;
+  font-weight: 500;
   font-style: Medium;
   font-size: 24px;
   line-height: 100%;
@@ -318,7 +337,7 @@
 
   span {
     font-family: Geist;
-    font-weight: 84;
+    font-weight: 300;
     font-style: Regular;
     font-size: 22px;
     line-height: 100%;

@@ -3,6 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { IoChevronDown } from "react-icons/io5";
 import "./Popup.css";
+import closeIcon from "../../../../assets/PopupClose.svg";
 
 const AddFeeModal = ({ closeModal }) => {
   const [fullPayment, setFullPayment] = useState(false);
@@ -12,7 +13,7 @@ const AddFeeModal = ({ closeModal }) => {
     <div className="AddFeeModalOverlay geist-content" onClick={closeModal}>
       <article className="AddFeeModal" onClick={(e) => e.stopPropagation()}>
         <button className="CloseBtn" onClick={closeModal}>
-          <IoClose />
+          <img src={closeIcon} alt="Close" />
         </button>
 
         <nav className="ModalTitle">Add Fee</nav>
