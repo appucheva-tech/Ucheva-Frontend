@@ -1,151 +1,171 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../css/DashboardPages.css";
+import { FaUserGraduate } from "react-icons/fa";
 
 const DashboardPage = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-    const width = canvas.width;
-    const height = canvas.height;
-    const centerX = width / 2;
-    const centerY = height / 2;
-    const radius = 80;
-
-    ctx.clearRect(0, 0, width, height);
-
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-    ctx.strokeStyle = "#e8e8e8";
-    ctx.lineWidth = 12;
-    ctx.stroke();
-
-    const percentage = 96.4;
-    const angle = (percentage / 100) * 2 * Math.PI - Math.PI / 2;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, -Math.PI / 2, angle);
-    ctx.strokeStyle = "#ffa500";
-    ctx.lineWidth = 12;
-    ctx.lineCap = "round";
-    ctx.stroke();
-  }, []);
+  const paymentHistory = [
+    {
+      date: "Apr 28, 2026",
+      term: "Third Term",
+      amount: "N50,000",
+      status: "Full Payment",
+      statusColor: "#43b75d",
+      background: "#EAFDF1",
+    },
+    {
+      date: "Feb 22, 2026",
+      term: "Second Term",
+      amount: "N25,000",
+      status: "Paid Completely",
+      statusColor: "#43b75d",
+      background: "#EAFDF1",
+    },
+    {
+      date: "Jan 12, 2026",
+      term: "Second Term",
+      amount: "N25,000",
+      status: "Part Payment",
+      statusColor: "#EA580C",
+      background: "#FFEDD5",
+    },
+    {
+      date: "Sep 08, 2025",
+      term: "First Term",
+      amount: "N50,000",
+      status: "Full Payment",
+      statusColor: "#43b75d",
+      background: "#EAFDF1",
+    },
+  ];
 
   return (
-    <div className="dashboard-container">
-      <div className="greeting-section">
-        <h1 className="greeting-title">Good morning, Mrs Ola 👋</h1>
-        <p className="greeting-subtitle">
-          Here&apos;s Efe&apos;s activity summary for today.
-        </p>
-      </div>
-
-      <div className="student-card">
-        <div className="student-header">
-          <div className="student-icon">
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="#2563eb">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-            </svg>
-          </div>
-          <h2 className="student-name">Efe Ogeremu</h2>
+    <div className="dashboard-page">
+      <div className="dashboard-container">
+        <div className="header-section">
+          <h1 className="greeting">Good morning, Mrs Ola 👋</h1>
+          <p className="subtitle">Here's Efe's activity summary for today.</p>
         </div>
 
-        <div className="student-details">
-          <div className="detail-item">
-            <span className="detail-label">Class</span>
-            <span className="detail-value">JSS1A</span>
-          </div>
-          <div className="detail-item">
-            <span className="detail-label">Fee Status</span>
-            <span className="detail-value">Fully Paid</span>
-          </div>
-          <div className="detail-item">
-            <span className="detail-label">Attendance</span>
-            <span className="detail-value attendance-badge">Present</span>
-          </div>
-          <div className="detail-item">
-            <span className="detail-label">Current Term</span>
-            <span className="detail-value">First Term . 2025/2026</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="content-grid">
-        <div className="payment-section">
-          <h3 className="section-title">Payment History</h3>
-          <table className="payment-table">
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Term</th>
-                <th>Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Apr 28, 2026</td>
-                <td>Third Term</td>
-                <td>N50,000</td>
-                <td>
-                  <span className="status-badge full-payment">
-                    Full Payment
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Feb 22, 2026</td>
-                <td>Second Term</td>
-                <td>N25,000</td>
-                <td>
-                  <span className="status-badge paid-completely">
-                    Paid Completely
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Jan 12, 2026</td>
-                <td>Second Term</td>
-                <td>N25,000</td>
-                <td>
-                  <span className="status-badge part-payment">
-                    Part Payment
-                  </span>
-                </td>
-              </tr>
-              <tr>
-                <td>Sep 08, 2025</td>
-                <td>First Term</td>
-                <td>N50,000</td>
-                <td>
-                  <span className="status-badge full-payment">
-                    Full Payment
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="attendance-section">
-          <h3 className="section-title">Monthly Attendance</h3>
-          <div className="attendance-chart">
-            <canvas ref={canvasRef} width="200" height="200"></canvas>
-            <div className="attendance-text">
-              <div className="percentage">96.4%</div>
-              <div className="days">18 Days Present</div>
+        <div className="student-card">
+          <div className="student-card-left">
+            <div className="student-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="50"
+                height="50"
+                viewBox="0 0 50 50"
+                fill="none"
+              >
+                <path
+                  d="M44.2441 11.0177L25.4941 4.76769C25.1734 4.66077 24.8266 4.66077 24.5059 4.76769L5.75586 11.0177C5.44474 11.1214 5.17414 11.3204 4.98239 11.5865C4.79064 11.8525 4.68748 12.1722 4.6875 12.5001V28.1251C4.6875 28.5395 4.85212 28.9369 5.14515 29.23C5.43817 29.523 5.8356 29.6876 6.25 29.6876C6.6644 29.6876 7.06183 29.523 7.35485 29.23C7.64788 28.9369 7.8125 28.5395 7.8125 28.1251V14.6681L14.373 16.8536C12.63 19.6697 12.0757 23.0623 12.8319 26.2866C13.5881 29.511 15.5929 32.3035 18.4063 34.0509C14.8906 35.4298 11.8516 37.9239 9.62891 41.3341C9.51331 41.5059 9.43302 41.699 9.3927 41.9021C9.35238 42.1052 9.35283 42.3143 9.39403 42.5172C9.43523 42.7201 9.51635 42.9129 9.63269 43.0842C9.74902 43.2555 9.89824 43.4019 10.0717 43.5151C10.2451 43.6282 10.4393 43.7057 10.643 43.7431C10.8466 43.7805 11.0557 43.7771 11.258 43.733C11.4604 43.6889 11.6519 43.605 11.8215 43.4863C11.9911 43.3675 12.1355 43.2162 12.2461 43.0411C15.1895 38.5255 19.8379 35.9376 25 35.9376C30.1621 35.9376 34.8106 38.5255 37.7539 43.0411C37.9831 43.3817 38.3371 43.6185 38.7394 43.7002C39.1417 43.7818 39.56 43.7019 39.9039 43.4776C40.2477 43.2533 40.4895 42.9028 40.5769 42.5016C40.6644 42.1005 40.5904 41.6811 40.3711 41.3341C38.1484 37.9239 35.0977 35.4298 31.5938 34.0509C34.4044 32.3035 36.4073 29.5129 37.1634 26.2909C37.9194 23.0689 37.3669 19.6786 35.627 16.8634L44.2441 13.9923C44.5553 13.8886 44.826 13.6897 45.0178 13.4236C45.2096 13.1576 45.3129 12.8379 45.3129 12.5099C45.3129 12.1819 45.2096 11.8622 45.0178 11.5961C44.826 11.3301 44.5553 11.1311 44.2441 11.0275V11.0177ZM34.375 23.4376C34.3754 24.9198 34.0244 26.3809 33.3508 27.7011C32.6772 29.0213 31.7002 30.163 30.4999 31.0325C29.2996 31.902 27.9102 32.4745 26.4458 32.7031C24.9814 32.9317 23.4837 32.8098 22.0755 32.3475C20.6673 31.8851 19.3888 31.0955 18.3449 30.0433C17.301 28.9912 16.5214 27.7065 16.0701 26.2948C15.6189 24.883 15.5087 23.3844 15.7488 21.9218C15.9889 20.4592 16.5723 19.0744 17.4512 17.881L24.5059 20.2247C24.8266 20.3317 25.1734 20.3317 25.4941 20.2247L32.5488 17.881C33.7358 19.4904 34.3758 21.4378 34.375 23.4376Z"
+                  fill="#0062F6"
+                />
+              </svg>
             </div>
           </div>
-          <div className="attendance-legend">
-            <div className="legend-item">
-              <span className="legend-dot present"></span>
-              <span>Present</span>
+          <div className="student-card-content">
+            <h2 className="student-name">Efe Ogeremu</h2>
+
+            <div className="student-info-grid">
+              <div className="info-item">
+                <p className="info-label">Class</p>
+                <p className="info-value">JSS1A</p>
+              </div>
+              <div className="info-item">
+                <p className="info-label">Fee Status</p>
+                <p className="info-value">Fully Paid</p>
+              </div>
+              <div className="info-item">
+                <p className="info-label">Attendance</p>
+                <p className="info-value">
+                  <span className="badge-present">Present</span>
+                </p>
+              </div>
+              <div className="info-item">
+                <p className="info-label">Current Term</p>
+                <p className="info-value">First Term . 2025/2026</p>
+              </div>
             </div>
-            <div className="legend-item">
-              <span className="legend-dot absent"></span>
-              <span>Absent</span>
+          </div>
+        </div>
+
+        <div className="content-grid">
+          <div className="card payment-history-card">
+            <h3 className="card-title" style={{ color: "#03173C" }}>
+              Payment History
+            </h3>
+            <div className="table-wrapper">
+              <table className="payment-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Term</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {paymentHistory.map((item, index) => (
+                    <tr key={index}>
+                      <td>{item.date}</td>
+                      <td>{item.term}</td>
+                      <td>{item.amount}</td>
+                      <td>
+                        <span
+                          className="status-badge"
+                          style={{
+                            color: item.statusColor,
+                            background: item.background,
+                          }}
+                        >
+                          {item.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="card attendance-card">
+            <h3 className="card-title" style={{ color: "#03173C" }}>
+              Monthly Attendance
+            </h3>
+            <div className="attendance-content">
+              <div className="circular-chart-container">
+                <svg className="circular-chart" viewBox="0 0 200 200">
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    className="progress-background"
+                  />
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    className="progress-fill"
+                    style={{
+                      strokeDasharray: `${(96.4 / 100) * 534.07} 534.07`,
+                    }}
+                  />
+                </svg>
+                <div className="chart-text">
+                  <p className="chart-percentage">96.4%</p>
+                  <p className="chart-label">18 Days Present</p>
+                </div>
+              </div>
+              <div className="legend">
+                <div className="legend-item">
+                  <span className="legend-color present"></span>
+                  <span className="legend-label">Present</span>
+                </div>
+                <div className="legend-item">
+                  <span className="legend-color absent"></span>
+                  <span className="legend-label">Absent</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>

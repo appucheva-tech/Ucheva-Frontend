@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "./ParentSidebar";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./LayoutStyles/ParentLayout.css";

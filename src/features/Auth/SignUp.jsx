@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./AuthStyles/SignUp.css"
+import "./AuthStyles/SignUp.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
@@ -128,6 +128,25 @@ const SignUp = () => {
 
           <div className="signUp_form">
             <label>School Url (Optional)</label>
+
+            <p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <path
+                  d="M7.57533 7.49935C7.77125 6.94241 8.15795 6.47277 8.66695 6.17363C9.17596 5.87448 9.7744 5.76513 10.3563 5.86494C10.9382 5.96475 11.466 6.26729 11.8462 6.71896C12.2264 7.17063 12.4345 7.74228 12.4337 8.33268C12.4337 9.99935 9.93366 10.8327 9.93366 10.8327M10.0003 14.166H10.0087M18.3337 9.99935C18.3337 14.6017 14.6027 18.3327 10.0003 18.3327C5.39795 18.3327 1.66699 14.6017 1.66699 9.99935C1.66699 5.39698 5.39795 1.66602 10.0003 1.66602C14.6027 1.66602 18.3337 5.39698 18.3337 9.99935Z"
+                  stroke="#9DA4AE"
+                  stroke-width="1.33333"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              This will be the main URL to the portal.
+            </p >
             <input
               type="text"
               name="schoolUrl"
@@ -135,6 +154,7 @@ const SignUp = () => {
               placeholder="https://ucheva.com"
               value={formData.schoolUrl}
               onChange={handleChange}
+              readOnly
             />
             {errors.schoolUrl && (
               <small className="error">{errors.schoolUrl}</small>
