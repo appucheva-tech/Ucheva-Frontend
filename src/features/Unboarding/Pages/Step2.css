@@ -209,7 +209,7 @@
   flex-direction: column;
   gap: 17px;
   border-radius: 14px;
-  border: 1px solid #f9fafb;
+  border: 1px solid #d2d6db;
   padding-bottom: 14px;
   background: white;
 }
@@ -453,7 +453,7 @@
    STEP 2 MOBILE RESPONSIVENESS
    ================================= */
 
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
   .Step2Container {
     width: 100%;
     height: auto;
@@ -633,5 +633,218 @@
   .SkipBtn {
     width: 100%;
     height: 56px;
+  }
+} */
+
+/* =================================
+   STEP 2 MOBILE RESPONSIVENESS
+   ================================= */
+
+@media screen and (max-width: 768px) {
+  * {
+    box-sizing: border-box;
+  }
+
+  .Step2Container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 20px 16px 40px;
+  }
+
+  .Step2Wrapper {
+    width: 100%;
+    min-height: auto;
+    gap: 50px;
+  }
+
+  .Step2Head {
+    width: 100%;
+    height: auto;
+    gap: 20px;
+    padding-top: 20px;
+  }
+
+  .Step2Head .Step2Logo {
+    width: 140px;
+    height: auto;
+  }
+
+  .Step2Head .Step2Count {
+    width: 100%;
+    font-size: 16px;
+    align-items: center;
+  }
+
+  .Step2Head .Step2Count nav {
+    width: auto;
+    height: auto;
+    font-size: 16px;
+  }
+
+  .Step2Title {
+    width: 100%;
+    height: auto;
+    font-size: 24px;
+    line-height: 1.3;
+    padding: 0 8px;
+  }
+
+  .Step2Title span {
+    width: 100%;
+    font-size: 15px;
+    line-height: 24px;
+  }
+
+  .StepsNo2 {
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .Content {
+    width: 100%;
+    gap: 32px;
+  }
+
+  .SchoolType {
+    width: 100%;
+    height: auto;
+    gap: 20px;
+  }
+
+  .selectedSections {
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+  }
+
+  .selectedSections span {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .checkBoxContainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .checkBox,
+  .checkBox1 {
+    flex: 1 1 100px;
+    min-width: 100px;
+    width: auto;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .primarySectionHolder {
+    width: 100%;
+    gap: 24px;
+  }
+
+  .primarySection {
+    width: 100%;
+    min-height: auto;
+  }
+
+  .PrimaryHeading {
+    width: 100%;
+    height: 56px;
+    font-size: 18px;
+    padding-left: 16px;
+  }
+
+  .classesArms {
+    width: 100%;
+    height: auto;
+    padding: 16px;
+    gap: 24px;
+    align-items: stretch;
+  }
+
+  .classes,
+  .Arms {
+    width: 100%;
+    height: auto;
+    gap: 12px;
+    font-size: 16px;
+  }
+
+  .classes span,
+  .Arms span {
+    font-size: 14px;
+  }
+
+  .ClassesOption,
+  .ArmsOption {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    font-size: 15px;
+  }
+
+  .fromholder {
+    width: 100%;
+    height: 52px;
+    padding: 0 12px;
+  }
+
+  .from,
+  .To,
+  .ArmsTo {
+    width: 100%;
+    height: 48px;
+    font-size: 15px;
+  }
+
+  .Note {
+    width: 100%;
+    height: auto;
+    min-height: 80px;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 22px;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .Note img {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .SkipContinueBtns {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+
+  .SkipBtn2,
+  .continueBtn,
+  .continueBtn2 {
+    width: 100%;
+    height: 56px;
+  }
+
+  /* Prevent accidental horizontal scrolling */
+  .Content *,
+  .primarySection *,
+  .classesArms * {
+    max-width: 100%;
+  }
+
+  body {
+    overflow-x: hidden;
   }
 }

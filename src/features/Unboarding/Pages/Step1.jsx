@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import "./Step1.css";
 import { useNavigate } from "react-router-dom";
-import { FaChevronDown } from "react-icons/fa6";
+import { FaCamera, FaChevronDown } from "react-icons/fa6";
 import Upload from "../../../assets/Vector.svg";
 import UchevaLogo from "../../../assets/UchevaLogo.svg";
 import Steps from "../../../assets/Steps.svg";
+import Camera from "../../../assets/CameraIcon.svg";
 
 const Step1 = () => {
   const [showTypes, setShowTypes] = useState(false);
   const [schoolTypes, setSchoolTypes] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const nav = useNavigate();
 
   const handleTypeChange = (type) => {
@@ -16,6 +19,13 @@ const Step1 = () => {
       setSchoolTypes(schoolTypes.filter((item) => item !== type));
     } else {
       setSchoolTypes([...schoolTypes, type]);
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedImage(URL.createObjectURL(file));
     }
   };
   return (
@@ -34,7 +44,7 @@ const Step1 = () => {
           <img className="Steps" src={Steps} alt="" />
         </section>
         <form className="step1Content">
-          <div className="uploadLogo">
+          {/* <div className="uploadLogo">
             <article className="dpImage"></article>
             <div className="dpControl">
               <nav className="dpText">
@@ -59,6 +69,53 @@ const Step1 = () => {
                 </div>
                 <button className="removeBtn">Remove</button>
               </article>
+            </div>
+          </div> */}
+          <div className="uploadLogo">
+            <div className="dpImage">
+              {selectedImage ? (
+                <img
+                  className="SchoolUpload"
+                  src={selectedImage}
+                  alt="profile"
+                />
+              ) : (
+                <img className="cameragram" src={Camera} alt="upload" />
+              )}
+
+              <label htmlFor="imageUpload" className="cameraIcon">
+                <FaCamera />
+              </label>
+
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/png,image/jpeg,image/jpg"
+                className="uploadInput"
+                onChange={handleImageChange}
+              />
+            </div>
+
+            <div className="dpControl">
+              <div className="dpText">
+                Upload logo
+                <span className="support">
+                  We support PNG, JPEG, JPG under 2MB
+                </span>
+              </div>
+
+              <div className="Step1Btn">
+                <label htmlFor="imageUpload" className="uploadBtn">
+                  <img src={Upload} alt="Upload" />
+                  Upload Image
+                </label>
+                <button
+                  className="removeBtn"
+                  onClick={() => setSelectedImage(null)}
+                >
+                  Remove
+                </button>
+              </div>
             </div>
           </div>
           <article className="inputRoles">

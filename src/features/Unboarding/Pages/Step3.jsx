@@ -73,7 +73,7 @@ const Step3 = () => {
           <button
             className="continueBtn3"
             onClick={() => {
-              nav("/success");
+              nav("/Success");
             }}
           >
             Continue
