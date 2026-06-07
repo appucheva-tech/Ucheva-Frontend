@@ -7,7 +7,7 @@
 .setUpComplete {
   width: 100%;
   height: auto;
-  min-height: 170vh;
+  /* min-height: 170vh; */
   display: flex;
   align-items: center;
   justify-content: center;
