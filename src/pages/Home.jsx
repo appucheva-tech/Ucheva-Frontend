@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import Header from "./Header";
-import Footer from "./Footer";
+import Footer from "./Footer"
 import Carousel from "./Carousel";
 import HappyCL1 from "../assets/HappyCL1.jpg";
 import HappyCL2 from "../assets/HappyCL2.jpg";
