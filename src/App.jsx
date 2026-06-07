@@ -58,6 +58,7 @@ const App = () => {
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
         </Route>
+        
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
