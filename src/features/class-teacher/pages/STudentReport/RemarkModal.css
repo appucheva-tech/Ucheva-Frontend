@@ -1,0 +1,134 @@
+.remarkOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.remarkModal {
+  width: 600px;
+  background: #ffffff;
+  border-radius: 36px;
+  padding: 35px;
+  animation: modalPop 0.2s ease;
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.remarkHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.remarkHeader h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 32px;
+  font-family: Nunito, sans-serif;
+  font-weight: 700;
+}
+
+.remarkCloseBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 36px;
+  color: #042869;
+}
+
+.remarkContent {
+  margin-top: 30px;
+}
+
+.remarkContent h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #0f172a;
+  font-family: Nunito, sans-serif;
+  font-weight: 600;
+}
+
+.remarkContent p {
+  margin-top: 8px;
+  color: #9ca3af;
+  font-size: 15px;
+  font-family: Nunito, sans-serif;
+}
+
+.remarkContent textarea {
+  width: 100%;
+  height: 230px;
+  margin-top: 12px;
+  resize: none;
+  border: 1px solid #0062f6;
+  outline: none;
+  padding: 16px;
+  font-size: 18px;
+  font-family: Nunito, sans-serif;
+  color: #0f172a;
+  border-radius: 2px;
+}
+
+.remarkButtons {
+  margin-top: 35px;
+  display: flex;
+  gap: 20px;
+}
+
+.remarkCancelBtn {
+  width: 140px;
+  height: 54px;
+  border: 1px solid #0062f6;
+  background: white;
+  color: #0062f6;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Nunito, sans-serif;
+}
+
+.remarkSaveBtn {
+  width: 160px;
+  height: 54px;
+  border: none;
+  background: #0062f6;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: Nunito, sans-serif;
+}
+
+@media (max-width: 768px) {
+  .remarkModal {
+    width: 95%;
+    border-radius: 20px;
+    padding: 24px;
+  }
+
+  .remarkButtons {
+    flex-direction: column;
+  }
+
+  .remarkCancelBtn,
+  .remarkSaveBtn {
+    width: 100%;
+  }
+}

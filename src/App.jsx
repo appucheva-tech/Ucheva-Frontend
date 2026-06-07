@@ -30,6 +30,7 @@ import SecurityLayout from "./features/SecurityDashboard/Components/Layout/Secur
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
 import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
+import CTSettings from "./features/class-teacher/CTSettings/CTSettings";
 
 const App = () => {
   return (
@@ -55,6 +56,7 @@ const App = () => {
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
           <Route path="studentreport" element={<STReport />} />
+          <Route path="CTsettings" element={<CTSettings />} />
         </Route>
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />

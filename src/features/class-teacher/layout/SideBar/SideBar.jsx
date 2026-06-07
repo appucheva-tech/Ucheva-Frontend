@@ -95,6 +95,7 @@ const SideBar = () => {
               color: dashboard === "settings" ? "#0062F6" : "#03173C",
             }}
             onClick={() => {
+              nav("CTsettings");
               setDashboard("settings");
             }}
           >
