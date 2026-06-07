@@ -1,4 +1,4 @@
-import Sidebar from "./ParentSidebar";
+import ParentSidebar from "./ParentSidebar";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./LayoutStyles/ParentLayout.css";
@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 const ParentLayout = () => {
   return (
     <div className="app-layout nunito-content">
-      <Sidebar />
+      <ParentSidebar />
 
       <div className="main-content">
         <Header />
