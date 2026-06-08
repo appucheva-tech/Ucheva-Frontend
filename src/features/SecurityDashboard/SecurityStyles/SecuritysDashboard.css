@@ -1,0 +1,188 @@
+.security-dashboard {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 40px 32px;
+}
+
+/* Header Section */
+.header-section {
+  margin-bottom: 40px;
+}
+
+.greeting {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.welcome-text {
+  font-size: 14px;
+  color: #0052cc;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Content Grid */
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1400px;
+}
+
+/* Check-In Card */
+.check-in-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.qr-icon {
+  margin-bottom: 24px;
+  width: 80px;
+  height: 80px;
+  background-color: #e6f0ff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.check-in-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #0052cc;
+  margin: 0 0 12px 0;
+}
+
+.check-in-time {
+  font-size: 14px;
+  color: #1a1a1a;
+  margin: 0 0 16px 0;
+  font-weight: 500;
+}
+
+.check-in-instruction {
+  font-size: 14px;
+  color: #666666;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+.scan-button {
+  width: 100%;
+  padding: 16px 24px;
+  background-color: #0052cc;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.scan-button:hover {
+  background-color: #0040a3;
+}
+
+.scan-button:active {
+  background-color: #003080;
+}
+
+/* Announcements Card */
+.announcements-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.announcements-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.announcement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-left: 4px solid #0052cc;
+  padding-left: 16px;
+}
+
+.announcement-left {
+  flex: 1;
+}
+
+.announcement-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.announcement-description {
+  font-size: 13px;
+  color: #0052cc;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.announcement-date {
+  font-size: 13px;
+  color: #999999;
+  margin: 0;
+  white-space: nowrap;
+  margin-left: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .security-dashboard {
+    padding: 24px 16px;
+  }
+
+  .greeting {
+    font-size: 24px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .check-in-card,
+  .announcements-card {
+    padding: 24px;
+  }
+
+  .announcement-item {
+    flex-direction: column;
+  }
+
+  .announcement-date {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}

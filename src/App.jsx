@@ -28,7 +28,7 @@ import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
 import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
-import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
+import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
 
 const App = () => {
