@@ -4,27 +4,30 @@
   padding: 40px 32px;
 }
 
-/* Header Section */
 .header-section {
   margin-bottom: 40px;
 }
 
 .greeting {
+  color: #0f172a;
+  font-family: Nunito;
   font-size: 32px;
+  font-style: normal;
   font-weight: 700;
-  color: #000000;
-  margin: 0 0 8px 0;
-  letter-spacing: -0.5px;
+  line-height: normal;
 }
 
 .welcome-text {
-  font-size: 14px;
-  color: #0052cc;
   margin: 0;
-  font-weight: 500;
+  color: var(--Primary-Color-800, #042869);
+
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-/* Content Grid */
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -32,7 +35,6 @@
   max-width: 1400px;
 }
 
-/* Check-In Card */
 .check-in-card {
   background-color: white;
   border-radius: 12px;
@@ -46,13 +48,14 @@
 
 .qr-icon {
   margin-bottom: 24px;
+  display: flex;
   width: 80px;
   height: 80px;
-  background-color: #e6f0ff;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
+  padding: 0 20px;
   justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--Primary-Color-Lightest, #f1f7ff);
 }
 
 .qr-icon svg {
@@ -61,37 +64,61 @@
 }
 
 .check-in-title {
-  font-size: 24px;
-  font-weight: 600;
-  color: #0052cc;
   margin: 0 0 12px 0;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .check-in-time {
-  font-size: 14px;
-  color: #1a1a1a;
   margin: 0 0 16px 0;
-  font-weight: 500;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .check-in-instruction {
-  font-size: 14px;
-  color: #666666;
   margin: 0 0 24px 0;
-  line-height: 1.5;
+  color: var(--Neutral-Color-600, #6c737f);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .scan-button {
-  width: 100%;
   padding: 16px 24px;
-  background-color: #0052cc;
-  color: white;
-  font-size: 16px;
-  font-weight: 600;
+  transition: 0.2s ease;
+  display: flex;
+  width: 448px;
+  height: 60px;
+  padding: 16px 118px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  color: #ffffff;
+  background: var(--Primary-Color-500, #0062f6);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 98, 246, 0.2),
+    0 4px 6px -4px rgba(0, 98, 246, 0.2);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  /* font-weight: 600; */
 }
 
 .scan-button:hover {
@@ -102,7 +129,6 @@
   background-color: #003080;
 }
 
-/* Announcements Card */
 .announcements-card {
   background-color: white;
   border-radius: 12px;
@@ -111,9 +137,13 @@
 }
 
 .announcements-title {
-  font-size: 20px;
+  color: var(--Primary-Color-900, #03173c);
+
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
   font-weight: 600;
-  color: #1a1a1a;
+  line-height: normal;
   margin: 0 0 24px 0;
 }
 

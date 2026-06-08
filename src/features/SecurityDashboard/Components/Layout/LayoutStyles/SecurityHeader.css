@@ -11,7 +11,7 @@
   padding: 1rem 2rem;
   background-color: #ffffff;
   border-bottom: 1px solid #e5e7eb;
-  height: 80px;
+  height: 70px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   gap: 20px;
 }
@@ -30,10 +30,12 @@
 }
 
 .date-text {
-  font-size: 0.95rem;
+  color: #03173c;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
   font-weight: 500;
-  color: #1f2937;
-  letter-spacing: -0.3px;
+  line-height: normal;
 }
 
 .notification-button {
@@ -90,21 +92,22 @@
 }
 
 .profile-name {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #1f2937;
-  line-height: 1.2;
+  color: #03173c;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .profile-role {
-  margin: 0;
-  font-size: 0.8rem;
-  color: #6b7280;
-  line-height: 1.2;
+  color: var(--Neutral-Color-600, #6c737f);
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
   .security-header {
     padding: 0.75rem 1rem;

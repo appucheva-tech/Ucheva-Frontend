@@ -1,28 +1,31 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./AuthStyles/Login.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-// const [loading, setLoading] = useState(false);
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const Login = () => {
   const nav = useNavigate();
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-
+const [formData, setFormData] = useState({
+  email: "",
+  password: "",
+  role: "",
+});
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const BaseUrl = import.meta.env.VITE_Base_Url;
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value ,role} = e.target;
 
     setFormData({
       ...formData,
       [name]: value,
     });
-
+ 
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -35,7 +38,7 @@ const Login = () => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let newErrors = {};
@@ -52,9 +55,28 @@ const Login = () => {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      // nav("/dashboard");
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const subdomain = window.location.hostname.split(".")[0];
+
+      const response = await axios.post(`${BaseUrl}/admin/login`, formData, {
+        headers: {
+          "x-tenant": subdomain,
+        },
+      });
+
+      toast.success(response.data.message);
       nav("/step1");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -118,6 +140,40 @@ const Login = () => {
                 <small className="error">{errors.password}</small>
               )}
             </div>
+     <div className="login_raidobox">
+  <label>
+    <input
+      type="radio"
+      name="role"
+      value="admin"
+      checked={formData.role === "admin"}
+      onChange={handleChange}
+    />
+    Admin
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      name="role"
+      value="parent"
+      checked={formData.role === "parent"}
+      onChange={handleChange}
+    />
+    Parent
+  </label>
+
+  <label>
+    <input
+      type="radio"
+      name="role"
+      value="staff"
+      checked={formData.role === "staff"}
+      onChange={handleChange}
+    />
+    Staff
+  </label>
+</div>
 
             <label className="forget" onClick={() => nav("/forgetPassword")}>
               Forget Password?

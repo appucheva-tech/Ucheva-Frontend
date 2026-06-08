@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./AuthStyles/SignUp.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const SignUp = () => {
   const nav = useNavigate();
@@ -9,6 +11,9 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [urlSuggestions, setUrlSuggestions] = useState([]);
+  const BaseUrl = import.meta.env.VITE_Base_Url;
 
   const [formData, setFormData] = useState({
     schoolName: "",
@@ -22,36 +27,70 @@ const SignUp = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const generateSlug = (text) =>
+    text
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "")
+      .replace(/-+/g, "-")
+      .replace(/^-|-$/g, "");
 
   const handleChange = (e) => {
     const { name, value, checked, type } = e.target;
 
-    setFormData({
+    let newFormData = {
       ...formData,
       [name]: type === "checkbox" ? checked : value,
-    });
+    };
+
+    if (name === "schoolName") {
+      const rawName = value.toLowerCase().trim();
+
+      const slug = generateSlug(value);
+
+      const baseDomain = "ucheva.vercel.app";
+      const suggestions = slug
+        ? [
+            `${slug}.${baseDomain}`,
+            `school-${slug}.${baseDomain}`,
+            `app-${slug}.${baseDomain}`,
+          ]
+        : [];
+
+      newFormData.schoolUrl = "";
+      setUrlSuggestions(suggestions);
+    }
+
+    setFormData(newFormData);
 
     if (errors[name]) {
-      setErrors({
-        ...errors,
+      setErrors((prev) => ({
+        ...prev,
         [name]: "",
-      });
+      }));
     }
   };
+  const selectUrl = (url) => {
+    setFormData((prev) => ({
+      ...prev,
+      schoolUrl: url,
+    }));
+  };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     let newErrors = {};
 
     if (!formData.schoolName.trim()) {
       newErrors.schoolName = "School name is required";
     }
 
-    if (formData.schoolUrl.trim()) {
-      const url = formData.schoolUrl.trim();
-      if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        newErrors.schoolUrl = "URL must start with http:// or https://";
-      }
-    }
+    // if (formData.schoolUrl.trim()) {
+    //   const url = formData.schoolUrl.trim();
+    //   if (!url.startsWith("http://") && !url.startsWith("https://")) {
+    //     newErrors.schoolUrl = "URL must start with http:// or https://";
+    //   }
+    // }
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -85,6 +124,28 @@ const SignUp = () => {
 
     if (Object.keys(newErrors).length === 0) {
       nav("/verifyEmail");
+    }
+
+    const payload = {
+      schoolName: formData.schoolName,
+      address: formData.address,
+      email: formData.email,
+
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+
+      phoneNumber: formData.phoneNumber,
+
+      schoolName: formData.schoolName,
+
+      schoolUrl: formData.schoolUrl,
+    };
+
+    try {
+      const response = await axios.post(`${BaseUrl}/admin/register `, payload);
+      toast.success(response.data.message);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -126,6 +187,24 @@ const SignUp = () => {
             )}
           </div>
 
+          {urlSuggestions.length > 0 && (
+            <div className="url-suggestions">
+              <p>Select your school URL:</p>
+
+              {urlSuggestions.map((url, index) => (
+                <div
+                  key={index}
+                  onClick={() => selectUrl(url)}
+                  className={`url-box ${
+                    formData.schoolUrl === url ? "active-url" : ""
+                  }`}
+                >
+                  {url}
+                </div>
+              ))}
+            </div>
+          )}
+
           <div className="signUp_form">
             <label>School Url (Optional)</label>
 
@@ -146,12 +225,13 @@ const SignUp = () => {
                 />
               </svg>
               This will be the main URL to the portal.
-            </p >
+            </p>
+
             <input
               type="text"
               name="schoolUrl"
               className={`signUp_input ${errors.schoolUrl ? "error-input" : ""}`}
-              placeholder="https://ucheva.com"
+              placeholder="Select a suggestion above"
               value={formData.schoolUrl}
               onChange={handleChange}
               readOnly
