@@ -178,13 +178,20 @@
   display: block;
 }
 
+.login_raidobox{
+  display: flex;
+  gap: 20px;
+  /* justify-content: flex-end; */
+  /* background-color: red; */
+}
+
 .forget {
   display: flex;
   justify-content: flex-end;
   color: #0062f6;
   cursor: pointer;
   font-size: 14px;
-  margin-top: 5px;
+  padding-bottom: 25px;
 }
 
 .forget:hover {
