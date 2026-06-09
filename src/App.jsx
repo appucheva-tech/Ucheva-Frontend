@@ -30,7 +30,12 @@ import SecurityLayout from "./features/SecurityDashboard/Components/Layout/Secur
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
 import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
-import CTSettings from "./features/class-teacher/CTSettings/CTSettings";
+import CTSettings from "./features/class-teacher/pages/CTSettings/CTSettings";
+import BursaryLayout from "./features/busary/layout/BursaryLayout";
+import BusaryDashboard from "./features/busary/pages/BusaryDashboard";
+import BursaryFees from "./features/busary/pages/BursaryFee";
+import StudentFee from "./features/busary/pages/StudentFee";
+import BursarySettings from "./features/busary/pages/BursarySettings";
 
 const App = () => {
   return (
@@ -50,6 +55,7 @@ const App = () => {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
+
         <Route path="/dashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -58,7 +64,14 @@ const App = () => {
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
         </Route>
-        
+
+        <Route path="/bursary" element={<BursaryLayout />}>
+          <Route index element={<BusaryDashboard />} />
+          <Route path="bursaryFees" element={<BursaryFees />} />
+          <Route path="studentFee" element={<StudentFee />} />
+          <Route path="bursarySettings" element={<BursarySettings />} />
+        </Route>
+
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />

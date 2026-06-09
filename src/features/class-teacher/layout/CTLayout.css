@@ -1,0 +1,230 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* Main Layout Container */
+.ct-app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+  position: relative;
+}
+
+/* Main Content Area */
+.ct-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px;
+  transition: margin-left 0.3s ease-in-out;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Page Content */
+.ct-page-content {
+  flex: 1;
+  padding: 24px 32px;
+  background-color: #f5f6fa;
+}
+
+/* Mobile Menu Button - Hidden on Desktop */
+.ct-mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background: #0062f6;
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.2s ease;
+}
+
+.ct-mobile-menu-btn:hover {
+  background: #0052d0;
+}
+
+/* Mobile Overlay */
+.ct-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: ctFadeIn 0.3s ease;
+}
+
+@keyframes ctFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== SIDEBAR STYLES (Your Original SideBar.css) ========== */
+/* Copy your existing SideBar.css content here */
+/* Make sure .sideBarContainer has width: 280px, position: fixed, etc. */
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet and Mobile */
+@media (max-width: 768px) {
+  .ct-main-content {
+    margin-left: 0;
+  }
+
+  .ct-page-content {
+    padding: 20px 24px;
+  }
+
+  .ct-mobile-menu-btn {
+    display: flex;
+  }
+  @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+  .nunito-content {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+  }
+
+  /* Main Layout Container */
+  .ct-app-layout {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f5f6fa;
+    position: relative;
+  }
+
+  /* Main Content Area */
+  .ct-main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 280px;
+    transition: margin-left 0.3s ease-in-out;
+    width: 100%;
+    min-height: 100vh;
+  }
+
+  /* Page Content */
+  .ct-page-content {
+    flex: 1;
+    padding: 24px 32px;
+    background-color: #f5f6fa;
+  }
+
+  /* Mobile Menu Button */
+  .ct-mobile-menu-btn {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    background: #0062f6;
+    border: none;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    transition: all 0.2s ease;
+  }
+
+  .ct-mobile-menu-btn:hover {
+    background: #0052d0;
+  }
+
+  /* Mobile Overlay */
+  .ct-mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    animation: ctFadeIn 0.3s ease;
+  }
+
+  @keyframes ctFadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ========== RESPONSIVE ========== */
+
+  @media (max-width: 768px) {
+    .ct-main-content {
+      margin-left: 0;
+    }
+
+    .ct-page-content {
+      padding: 20px 24px;
+    }
+
+    .ct-mobile-menu-btn {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ct-page-content {
+      padding: 16px;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .ct-page-content {
+      padding: 12px;
+    }
+  }
+
+  @media (min-width: 769px) {
+    .ct-main-content {
+      margin-left: 280px;
+    }
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .ct-page-content {
+    padding: 16px;
+  }
+}
+
+/* Extra Small */
+@media (max-width: 380px) {
+  .ct-page-content {
+    padding: 12px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .ct-main-content {
+    margin-left: 280px;
+  }
+}

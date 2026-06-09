@@ -1,9 +1,9 @@
 import React from "react";
-import "./Footer.css";
+import "./BursaryFooter.css";
 
-const Footer = () => {
+const BursaryFooter = () => {
   return (
-    <footer className="ct-footer">
+    <footer className="br-footer">
       <p>
         © 2026 Ucheva school operating management system. All right reserved.
       </p>
@@ -11,4 +11,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default BursaryFooter;

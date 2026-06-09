@@ -1,4 +1,4 @@
-.overlay {
+.Attendanceoverlay {
   position: fixed;
   inset: 0;
   background: rgba(15, 23, 42, 0.3);
@@ -8,7 +8,7 @@
   z-index: 999;
 }
 
-.card {
+.Attendancecard {
   width: 420px;
   height: 382px;
   background: #fff;
@@ -22,7 +22,7 @@
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
-.avatar {
+.Attendanceavatar {
   width: 122px;
   height: 112px;
   border-radius: 100px;
@@ -30,7 +30,7 @@
   background: #f3f4f6;
 }
 
-.card nav {
+.Attendancecard nav {
   width: 166px;
   height: 57px;
   gap: 2px;
@@ -47,7 +47,7 @@
   color: #03173c;
 }
 
-.card span {
+.Attendancecard span {
   font-family: Nunito;
   font-weight: 400px;
   font-style: Regular;
@@ -58,14 +58,14 @@
   color: #03173c;
 }
 
-.actions {
+.Attendanceactions {
   width: 340px;
   height: 69px;
   display: flex;
   justify-content: space-between;
 }
 
-.actions button {
+.Attendanceactions button {
   width: 67px;
   height: 69px;
   gap: 4px;
@@ -76,7 +76,7 @@
   border: none;
   background: transparent;
 
-  span {
+  .Attendanceactions button span {
     font-family: Nunito;
     font-weight: 400px;
     font-style: Regular;
@@ -89,7 +89,7 @@
   }
 }
 
-.attendanceSuccess {
+.AttendanceattendanceSuccess {
   width: 160px;
   height: 160px;
 }
