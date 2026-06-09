@@ -4,8 +4,8 @@ import Ucheva from "../../../assets/UchevaLogo.svg";
 
 const BursarySettings = () => {
   return (
-    <main>
-      <article>
+    <main className="BRSettings">
+      <article className="BRSettingsWrapper">
         <section className="BRSettingsProfileCard">
           <nav className="BRSettingsCardTitle">Profile Information</nav>
 
@@ -65,23 +65,6 @@ const BursarySettings = () => {
 
               <div className="BRSettingsSaveBtnHolder">
                 <button className="BRSettingsSaveBtn">Save Changes</button>
-              </div>
-            </div>
-          </article>
-        </section>
-
-        <section className="BRSettingsSignatureCard">
-          <nav className="BRSettingsCardTitle2">Upload Signature</nav>
-
-          <article className="BRSignatureTextBox">
-            <span>Class Teacher's Signature</span>
-
-            <div className="BRSettingsSignatureBox">
-              <div className="BRSig"></div>
-
-              <div className="BRsigUploadHolder">
-                <button className="BRsigUploadBtn">Upload</button>
-                <span>PNG format recommended</span>
               </div>
             </div>
           </article>

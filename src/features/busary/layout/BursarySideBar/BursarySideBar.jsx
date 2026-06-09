@@ -76,7 +76,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="announcement"
+            to="bursaryAnnouncement"
             className={({ isActive }) =>
               `br-nav-link ${isActive ? "active" : ""}`
             }
