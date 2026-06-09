@@ -6,7 +6,7 @@
 
 .Header {
     width: 100%;
-    height: 15vh;
+    height: 13.5vh;
     display: flex;
     align-items: center;
     border-bottom: 2px solid #FAA200;
@@ -113,8 +113,9 @@
 
         
         button:not(.MobileMenuIconDiv button) {
+            
             @media (max-width: 450px) {
-                display: none; 
+                /* display: none;  */
             }
         }
 

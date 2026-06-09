@@ -1,5 +1,6 @@
 import React from 'react';
 import './OurMission.css';
+import AboutUsPic2 from '../assets/AboutUsPic2.PNG'
 
 
 const OurMission = () => {
@@ -24,9 +25,9 @@ const OurMission = () => {
         </div>
       </div>
 
-      <div className="image-column">
+      <div className="Pimage-column">
         <div className="grid-layout">
-          
+          <img src={AboutUsPic2} alt="" className='AboutUsPic2'/>
         </div>
       </div>
     </section>

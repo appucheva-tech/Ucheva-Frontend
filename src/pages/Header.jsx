@@ -35,7 +35,7 @@ const Header = () => {
         </li>
         <li 
           className={`HeaderCont2Li ${location.pathname === '/Features' ? 'active-link' : ''}`} 
-          // onClick={() => handleNavigation('/Features')}
+          onClick={() => handleNavigation('/Features')}
         >
           Features
         </li>

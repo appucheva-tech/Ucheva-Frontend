@@ -1,7 +1,7 @@
 import React from "react";
 import "./Home.css";
 import Header from "./Header";
-import Footer from "./Footer";
+import Footer from './Footer'
 import Carousel from "./Carousel";
 import HappyCL1 from "../assets/HappyCL1.jpg";
 import HappyCL2 from "../assets/HappyCL2.jpg";
@@ -9,7 +9,6 @@ import HappyCL3 from "../assets/HappyCL3.jpg";
 import HappyCL4 from "../assets/HappyCL4.jpg";
 import Home4Pics from "../assets/Home4Pics.png";
 import Features from "./Features";
-import ProductPreview from "./ProductPreview";
 import HowItWorks from "./HowItWorks";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
@@ -101,13 +100,12 @@ export default function Home() {
       </section>
       <Carousel />
       <Features />
-      <ProductPreview />
       <HowItWorks />
       <WhyChooseUs />
       <Testimonials />
       <PricingTable />
       <Ready />
-      <Footer />
+      {/* <Footer/> */}
     </>
   );
 }
