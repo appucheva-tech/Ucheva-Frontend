@@ -26,9 +26,10 @@ import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLay
 import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
+
 import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
-import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
+import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
 import CTSettings from "./features/class-teacher/pages/CTSettings/CTSettings";
 import BursaryLayout from "./features/busary/layout/BursaryLayout";
@@ -36,6 +37,12 @@ import BusaryDashboard from "./features/busary/pages/BusaryDashboard";
 import BursaryFees from "./features/busary/pages/BursaryFee";
 import StudentFee from "./features/busary/pages/StudentFee";
 import BursarySettings from "./features/busary/pages/BursarySettings";
+
+import SubjectTeacherLayout from "./features/SubjectTeacherDashboard/Components/Layout/SubjectTeacherLayout";
+import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherDashboard";
+import SubjectTeacherScores from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherScores";
+import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherAnnouncement";
+import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
 
 const App = () => {
   return (
@@ -82,6 +89,16 @@ const App = () => {
           <Route index element={<SecuritysDashboard />} />
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
+        </Route>
+
+        <Route
+          path="/subjectteacherdashboard"
+          element={<SubjectTeacherLayout />}
+        >
+          <Route index element={<SubjectTeacherDashboard />} />
+          <Route path="scores" element={<SubjectTeacherScores />} />
+          <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
+          <Route path="settings" element={<SubjectTeacherSettings />} />
         </Route>
       </Routes>
     </BrowserRouter>

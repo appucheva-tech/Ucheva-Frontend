@@ -122,16 +122,42 @@
 .content-grid {
   margin-bottom: 40px;
   display: flex;
+  width: 100%;
   gap: 24px;
 }
 
-.card {
-  background-color: #ffffff;
-  width: 50%;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e5e7eb;
+.parentcard1 {
+  display: flex;
+  width: 620px;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  border-radius: 10px;
+  border: 1px solid var(--Neutral-Color-300, #e5e7eb);
+  background: #fff;
+  /* padding: 24px; */
+}
+
+.parentcard2 {
+  display: flex;
+  padding: 21px 0px 18px 0px;
+  gap: 10px;
+  align-self: stretch;
+  border-bottom: 1px solid var(--Neutral-Color-300, #e5e7eb);
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid var(--Neutral-Color-300, #e5e7eb);
+  background: #fff;
+}
+.parentcard-title {
+  margin-bottom: 20px;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+margin-left: 20px;
 }
 
 .card-title {
@@ -142,30 +168,31 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
-  color: rgb(0, 255, 38);
+  padding: 20px;
 }
 
 .table-wrapper {
   overflow-x: auto;
+  width: 100%;
 }
 
 .payment-table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
 
 .payment-table thead {
-  background-color: #e5e7eb;
+  background: var(--Neutral-Color-300, #e5e7eb);
   border-bottom: 1px solid #e5e7eb;
 }
 
 .payment-table th {
-  padding: 12px 16px;
+  padding: 12px 8px;
   text-align: left;
   text-transform: capitalize;
   font-weight: 500;
-  font-style: Medium;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
@@ -180,21 +207,43 @@
 }
 
 .payment-table td {
-  padding: 12px 16px;
+  padding: 12px 8px;
   color: #042869;
   font-family: Nunito;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 100%;
   letter-spacing: 0%;
+  white-space: nowrap;
 }
 
 .status-badge {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 10px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
+  white-space: nowrap;
+}
+
+.payment-table th:nth-child(1),
+.payment-table td:nth-child(1) {
+  width: 25%;
+}
+
+.payment-table th:nth-child(2),
+.payment-table td:nth-child(2) {
+  width: 25%;
+}
+
+.payment-table th:nth-child(3),
+.payment-table td:nth-child(3) {
+  width: 20%;
+}
+
+.payment-table th:nth-child(4),
+.payment-table td:nth-child(4) {
+  width: 30%;
 }
 
 .attendance-content {
@@ -202,7 +251,7 @@
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  display: flex;
+  border-top: 1px solid var(--Neutral-Color-300, #E5E7EB);
 }
 
 .circular-chart-container {
@@ -242,7 +291,6 @@
 .chart-percentage {
   margin-bottom: 4px;
   font-weight: 700;
-  font-style: Bold;
   font-size: 32px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -288,8 +336,6 @@
   font-weight: 500;
 }
 
-/* Responsive Styles */
-/* Tablet (768px - 1023px) */
 @media (max-width: 1023px) {
   .dashboard-page {
     padding: 30px 20px;
@@ -326,27 +372,8 @@
   .content-grid {
     gap: 20px;
   }
-
-  .card {
-    padding: 20px;
-  }
-
-  .card-title {
-    font-size: 20px;
-  }
-
-  .payment-table th {
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-
-  .payment-table td {
-    padding: 10px 14px;
-    font-size: 13px;
-  }
 }
 
-/* Mobile Landscape (480px - 767px) */
 @media (max-width: 767px) {
   .dashboard-page {
     padding: 20px 16px;
@@ -407,54 +434,91 @@
     gap: 20px;
   }
 
-  .card {
+  .parentcard1 {
     width: 100%;
     padding: 18px;
   }
 
-  .card-title {
-    font-size: 18px;
-    margin-bottom: 16px;
+  .parentcard2 {
+    width: 100%;
   }
 
-  .payment-table th {
-    padding: 10px 12px;
-    font-size: 14px;
+  .payment-table thead {
+    display: none;
+  }
+
+  .payment-table {
+    table-layout: auto;
+  }
+
+  .payment-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 16px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
   .payment-table td {
-    padding: 10px 12px;
-    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+  }
+
+  .payment-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    font-size: 10px;
+    color: #666;
+    font-family: Nunito;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .payment-table td:nth-child(1) {
+    grid-column: 1 / 2;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  .payment-table td:nth-child(2) {
+    grid-column: 2 / 3;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: visible;
+  }
+
+  .payment-table td:nth-child(3) {
+    grid-column: 1 / 2;
+    font-weight: 700;
+    font-size: 14px;
+    color: #03173c;
+    white-space: nowrap;
+  }
+
+  .payment-table td:nth-child(4) {
+    grid-column: 2 / 3;
+  }
+
+  .payment-table td .status-badge {
+    display: inline-block;
+    align-self: flex-start;
+    white-space: nowrap;
   }
 
   .status-badge {
-    padding: 3px 8px;
-    font-size: 11px;
-  }
-
-  .circular-chart-container {
-    width: 200px;
-    height: 200px;
-  }
-
-  .chart-percentage {
-    font-size: 28px;
-  }
-
-  .chart-label {
-    font-size: 12px;
-  }
-
-  .legend {
-    gap: 16px;
-  }
-
-  .legend-item {
-    font-size: 12px;
+    font-size: 10px;
+    white-space: nowrap;
   }
 }
 
-/* Small Mobile Portrait (below 480px) */
 @media (max-width: 479px) {
   .dashboard-page {
     padding: 16px 12px;
@@ -469,7 +533,6 @@
   }
 
   .student-card {
-    flex-direction: column;
     padding: 16px;
     margin-bottom: 20px;
   }
@@ -490,86 +553,41 @@
   }
 
   .student-info-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
-  .info-label {
-    font-size: 12px;
-    margin-bottom: 5px;
-  }
-
-  .info-value {
-    font-size: 13px;
-  }
-
-  .badge-present {
-    padding: 2px 8px;
-    font-size: 11px;
-  }
-
-  .content-grid {
-    gap: 16px;
-  }
-
-  .card {
+  .parentcard1 {
+    width: 100%;
     padding: 16px;
   }
 
-  .card-title {
-    font-size: 16px;
-    margin-bottom: 12px;
+  .payment-table tbody tr {
+    padding: 12px;
+    gap: 8px;
   }
 
-  .table-wrapper {
-    margin: 0 -8px;
-    padding: 0 8px;
+  .payment-table td::before {
+    font-size: 9px;
+    margin-bottom: 3px;
   }
 
-  .payment-table th {
-    padding: 8px 10px;
-    font-size: 12px;
+  .payment-table td:nth-child(1),
+  .payment-table td:nth-child(2) {
+    font-size: 10px;
+    white-space: nowrap;
   }
 
-  .payment-table td {
-    padding: 8px 10px;
-    font-size: 12px;
+  .payment-table td:nth-child(3) {
+    font-size: 13px;
+    white-space: nowrap;
   }
 
   .status-badge {
-    padding: 2px 6px;
-    font-size: 10px;
-  }
-
-  .circular-chart-container {
-    width: 170px;
-    height: 170px;
-  }
-
-  .chart-percentage {
-    font-size: 24px;
-  }
-
-  .chart-label {
-    font-size: 11px;
-  }
-
-  .legend {
-    gap: 12px;
-  }
-
-  .legend-item {
-    font-size: 11px;
-    gap: 6px;
-  }
-
-  .legend-color {
-    width: 10px;
-    height: 10px;
+    padding: 3px 6px;
+    font-size: 9px;
   }
 }
 
-/* Extra Small Mobile (below 360px) */
 @media (max-width: 359px) {
   .dashboard-page {
     padding: 12px 10px;
@@ -609,22 +627,35 @@
     font-size: 12px;
   }
 
+  .parentcard1 {
+    padding: 14px;
+  }
+
   .card-title {
     font-size: 15px;
   }
 
-  .payment-table th,
-  .payment-table td {
-    padding: 6px 8px;
-    font-size: 11px;
+  .payment-table tbody tr {
+    padding: 10px;
+    gap: 6px;
   }
 
-  .circular-chart-container {
-    width: 150px;
-    height: 150px;
+  .payment-table td:nth-child(1),
+  .payment-table td:nth-child(2) {
+    font-size: 9px;
+    white-space: nowrap;
   }
 
-  .chart-percentage {
-    font-size: 22px;
+  .payment-table td:nth-child(3) {
+    font-size: 12px;
+  }
+
+  .payment-table td::before {
+    font-size: 8px;
+  }
+
+  .status-badge {
+    padding: 2px 4px;
+    font-size: 8px;
   }
 }

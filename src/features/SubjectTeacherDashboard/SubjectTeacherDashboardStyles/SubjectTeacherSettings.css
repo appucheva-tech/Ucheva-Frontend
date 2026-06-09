@@ -1,0 +1,271 @@
+.SubjectTeacher-settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.SubjectTeacher-settings-header {
+  margin-bottom: 40px;
+}
+
+.SubjectTeacher-settings-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.SubjectTeacher-settings-subtitle {
+  font-size: 16px;
+  color: #1a3a5c;
+  margin: 0;
+}
+
+.SubjectTeacher-settings-section {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.SubjectTeacher-section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 24px 0;
+}
+
+.SubjectTeacher-profile-content {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 32px;
+}
+
+.SubjectTeacher-profile-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 150px;
+  position: relative;
+}
+
+.SubjectTeacher-profile-image {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  overflow: hidden;
+  border: 3px solid #1a3a5c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.SubjectTeacher-profile-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.SubjectTeacher-image-upload-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background-color: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #666;
+}
+
+.SubjectTeacher-image-upload-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #1a3a5c;
+  color: #1a3a5c;
+}
+
+.SubjectTeacher-image-info {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  text-align: center;
+}
+
+.SubjectTeacher-form-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.SubjectTeacher-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.SubjectTeacher-form-row.SubjectTeacher-full-width {
+  grid-template-columns: 1fr;
+}
+
+.SubjectTeacher-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.SubjectTeacher-form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1a1a1a;
+}
+
+.SubjectTeacher-form-group input {
+  padding: 12px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.SubjectTeacher-form-group input:focus {
+  outline: none;
+  border-color: #1a3a5c;
+  box-shadow: 0 0 0 3px rgba(26, 58, 92, 0.1);
+}
+
+.SubjectTeacher-form-group input::placeholder {
+  color: #999;
+}
+
+.SubjectTeacher-save-button-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.SubjectTeacher-save-button {
+  padding: 12px 32px;
+  background-color: #0052cc;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.SubjectTeacher-save-button:hover {
+  background-color: #0043a3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+}
+
+.SubjectTeacher-save-button:active {
+  transform: translateY(0);
+}
+
+.SubjectTeacher-security-content {
+  padding: 24px 0;
+}
+
+.SubjectTeacher-security-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.SubjectTeacher-security-item:last-child {
+  border-bottom: none;
+}
+
+.SubjectTeacher-security-text {
+  flex: 1;
+}
+
+.SubjectTeacher-security-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.SubjectTeacher-security-description {
+  font-size: 14px;
+  color: #888;
+  margin: 0;
+}
+
+.SubjectTeacher-change-password-button {
+  padding: 10px 24px;
+  background-color: #ffffff;
+  color: #1a3a5c;
+  border: 1px solid #1a3a5c;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.SubjectTeacher-change-password-button:hover {
+  background-color: #f0f4f8;
+  border-color: #0052cc;
+  color: #0052cc;
+}
+
+.SubjectTeacher-change-password-button:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  .SubjectTeacher-settings-container {
+    padding: 20px 16px;
+  }
+
+  .SubjectTeacher-settings-section {
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .SubjectTeacher-settings-title {
+    font-size: 24px;
+  }
+
+  .SubjectTeacher-profile-content {
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+  }
+
+  .SubjectTeacher-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .SubjectTeacher-security-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .SubjectTeacher-change-password-button {
+    width: 100%;
+  }
+}

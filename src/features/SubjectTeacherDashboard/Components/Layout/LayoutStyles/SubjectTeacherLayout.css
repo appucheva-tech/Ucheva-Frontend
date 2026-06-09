@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.SubjectTeacherLayout-app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+  overflow-x: hidden;
+}
+
+.SubjectTeacherLayout-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px;
+  width: calc(100vw - 280px);
+  padding-top: 78px;
+  max-width: calc(100vw - 280px);
+  min-height: 100vh;
+  box-sizing: border-box;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.SubjectTeacherLayout-page-content {
+  flex: 1;
+  padding: 24px 32px 94px;
+  background-color: #f5f6fa;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .SubjectTeacherLayout-main-content {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 78px;
+  }
+
+  .SubjectTeacherLayout-page-content {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SubjectTeacherLayout-page-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .SubjectTeacherLayout-page-content {
+    padding: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  .SubjectTeacherLayout-main-content {
+    margin-left: 280px;
+    width: calc(100vw - 280px);
+    max-width: calc(100vw - 280px);
+  }
+}

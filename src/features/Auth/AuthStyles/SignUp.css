@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /* overflow-y: auto; */
 }
 
 .signUp_holder {
@@ -28,6 +29,7 @@
   justify-content: center;
   flex-direction: column;
   position: relative;
+  /* overflow-y: auto; */
 
   img {
     width: 100%;
@@ -97,6 +99,46 @@
   gap: 20px;
   height: 30%;
   gap: 10px;
+}
+
+.url-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 5px 0;
+}
+
+.url-suggestions p {
+  color: #9da4ae;
+  font-size: 12px;
+  margin: 0;
+}
+
+.url-box {
+  width: 100%;
+  min-height: 49px;
+  border: 1px solid #9da4ae;
+  border-radius: 10px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+  font-size: 14px;
+  color: #03173c;
+  background-color: #fff;
+}
+
+.url-box:hover {
+  border-color: #0062f6;
+  background-color: #f9fbff;
+}
+
+.active-url {
+  border: 2px solid #0062f6;
+  color: #0062f6;
+  font-weight: 500;
 }
 .signUp_form p {
   color: #9da4ae;

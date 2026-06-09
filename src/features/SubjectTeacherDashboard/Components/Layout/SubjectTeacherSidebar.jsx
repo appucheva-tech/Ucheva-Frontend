@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { FiGrid, FiBell, FiSettings, FiMenu, FiX } from "react-icons/fi";
-import "./LayoutStyles/SecuritySideBar.css";
+import { FiGrid, FiSettings, FiMenu, FiX } from "react-icons/fi";
+import { IoWalletOutline } from "react-icons/io5";
+import "./LayoutStyles/SubjectTeacherSidebar.css";
 
-const SecuritySidebar = () => {
+const SubjectTeacherSidebar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -16,33 +17,35 @@ const SecuritySidebar = () => {
 
   return (
     <>
-      <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
+      <button className="SubjectTeacherSidebar-mobile-menu-btn" onClick={toggleMobileMenu}>
         {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
       </button>
 
       {isMobileMenuOpen && (
-        <div className="mobile-overlay" onClick={closeMobileMenu}></div>
+        <div className="SubjectTeacherSidebar-mobile-overlay" onClick={closeMobileMenu}></div>
       )}
 
-      <div className={`sidebar ${isMobileMenuOpen ? "mobile-open" : ""} `}>
-        <div className="sidebar-logo">
-          <div className="logo-icon">
+      <div
+        className={`SubjectTeacherSidebar_Container ${isMobileMenuOpen ? "SubjectTeacherSidebar-mobile-open" : ""}`}
+      >
+        <div className="SubjectTeacherSidebar-sidebar-logo">
+          <div className="SubjectTeacherSidebar-logo-icon">
             <img
               src="https://i.postimg.cc/zDtBJb6C/logo-cont.png"
               alt="Ucheva Logo"
-              className="Ucheva"
+              className="SubjectTeacherSidebar-Ucheva"
             />
           </div>
         </div>
 
-        <nav className="sidebar-nav">
+        <nav className="SubjectTeacherSidebar-nav">
           <NavLink
-            to="/securitydashboard"
+            to="/subjectteacherdashboard"
             end
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            className={({ isActive }) => `SubjectTeacherSidebar-nav-link ${isActive ? "SubjectTeacherSidebar-active" : ""}`}
             onClick={closeMobileMenu}
           >
-            <span className="nav-icon">
+            <span className="SubjectTeacherSidebar-nav-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="17"
@@ -56,29 +59,40 @@ const SecuritySidebar = () => {
                 />
               </svg>
             </span>
-            <span className="nav-text">Dashboard</span>
+            <span className="SubjectTeacherSidebar-nav-text">Dashboard</span>
           </NavLink>
 
           <NavLink
-            to="/securitydashboard/announcement"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            to="/subjectteacherdashboard/scores"
+            className={({ isActive }) => `SubjectTeacherSidebar-nav-link ${isActive ? "SubjectTeacherSidebar-active" : ""}`}
             onClick={closeMobileMenu}
           >
-            <span className="nav-icon">
-              <FiBell size={20} />
+            <span className="SubjectTeacherSidebar-nav-icon">
+              <IoWalletOutline size={20} />
             </span>
-            <span className="nav-text">Announcement</span>
+            <span className="SubjectTeacherSidebar-nav-text">Scores</span>
           </NavLink>
 
           <NavLink
-            to="/securitydashboard/settings"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            to="/subjectteacherdashboard/announcement"
+            className={({ isActive }) => `SubjectTeacherSidebar-nav-link ${isActive ? "SubjectTeacherSidebar-active" : ""}`}
             onClick={closeMobileMenu}
           >
-            <span className="nav-icon">
+            <span className="SubjectTeacherSidebar-nav-icon">
               <FiSettings size={20} />
             </span>
-            <span className="nav-text">Settings</span>
+            <span className="SubjectTeacherSidebar-nav-text">Announcement</span>
+          </NavLink>
+
+          <NavLink
+            to="/subjectteacherdashboard/settings"
+            className={({ isActive }) => `SubjectTeacherSidebar-nav-link ${isActive ? "SubjectTeacherSidebar-active" : ""}`}
+            onClick={closeMobileMenu}
+          >
+            <span className="SubjectTeacherSidebar-nav-icon">
+              <FiSettings size={20} />
+            </span>
+            <span className="SubjectTeacherSidebar-nav-text">Settings</span>
           </NavLink>
         </nav>
       </div>
@@ -86,4 +100,4 @@ const SecuritySidebar = () => {
   );
 };
 
-export default SecuritySidebar;
+export default SubjectTeacherSidebar;
