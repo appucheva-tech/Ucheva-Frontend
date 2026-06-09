@@ -1,4 +1,4 @@
-.ParentSidebar_Container {
+.SubjectTeacherSidebar_Container {
   width: 280px;
   height: 100vh;
   background-color: #ffffff;
@@ -8,19 +8,13 @@
   position: fixed;
   left: 0;
   top: 0;
-  
   overflow-y: auto;
-  /* gap: 20px; */
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
-
-  /* height: 1164px; */
-  /* padding-left: 64px; */
-  /* align-items: flex-start; */
 }
 
-.sidebar-logo {
+.SubjectTeacherSidebar-sidebar-logo {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
@@ -28,19 +22,19 @@
   width: 90%;
 }
 
-.logo-icon {
+.SubjectTeacherSidebar-logo-icon {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-.Ucheva {
+.SubjectTeacherSidebar-Ucheva {
   width: 180px;
   height: 70px;
   margin-right: 30px;
 }
 
-.ParentSidebar-nav {
+.SubjectTeacherSidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -49,7 +43,7 @@
   margin-right: 40px;
 }
 
-.nav-link {
+.SubjectTeacherSidebar-nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -65,34 +59,36 @@
   cursor: pointer;
 }
 
-.nav-link:hover {
+.SubjectTeacherSidebar-nav-link:hover {
   background-color: #f1f7ff;
   color: #666666;
 }
 
-.nav-link:hover .nav-icon {
+.SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-icon {
   color: #666666;
 }
 
-.nav-link:hover .nav-text {
+.SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-text {
   color: #666666;
 }
 
-.nav-link.active {
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active {
   background-color: #f1f7ff;
   color: #0d62f6;
   border-left-color: #0d62f6;
 }
 
-.nav-link.active .nav-icon {
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-nav-icon {
   color: #0d62f6;
 }
 
-.nav-link.active .nav-text {
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-nav-text {
   color: #0d62f6;
 }
 
-.nav-icon {
+.SubjectTeacherSidebar-nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -102,7 +98,7 @@
   color: inherit;
 }
 
-.nav-text {
+.SubjectTeacherSidebar-nav-text {
   flex: 1;
   font-weight: 600;
   font-style: SemiBold;
@@ -112,24 +108,24 @@
   color: inherit;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar {
+.SubjectTeacherSidebar_Container::-webkit-scrollbar {
   width: 6px;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar-track {
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar-thumb {
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-thumb {
   background: #e0e0e0;
   border-radius: 3px;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar-thumb:hover {
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-thumb:hover {
   background: #bdbdbd;
 }
 
-.mobile-menu-btn {
+.SubjectTeacherSidebar-mobile-menu-btn {
   display: none;
   position: fixed;
   top: 20px;
@@ -146,11 +142,11 @@
   transition: all 0.2s ease;
 }
 
-.mobile-menu-btn:hover {
+.SubjectTeacherSidebar-mobile-menu-btn:hover {
   background: transparent;
 }
 
-.mobile-overlay {
+.SubjectTeacherSidebar-mobile-overlay {
   display: none;
   position: fixed;
   top: 0;
@@ -159,10 +155,10 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
-  animation: fadeIn 0.3s ease;
+  animation: SubjectTeacherSidebar-fadeIn 0.3s ease;
 }
 
-@keyframes fadeIn {
+@keyframes SubjectTeacherSidebar-fadeIn {
   from {
     opacity: 0;
   }
@@ -172,71 +168,71 @@
 }
 
 @media (max-width: 768px) {
-  .ParentSidebar_Container {
+  .SubjectTeacherSidebar_Container {
     width: 240px;
     transform: translateX(-100%);
   }
 
-  .ParentSidebar_Container.mobile-open {
+  .SubjectTeacherSidebar_Container.SubjectTeacherSidebar-mobile-open {
     transform: translateX(0);
   }
 
-  .mobile-menu-btn {
+  .SubjectTeacherSidebar-mobile-menu-btn {
     display: flex;
   }
 
-  .mobile-overlay {
+  .SubjectTeacherSidebar-mobile-overlay {
     display: block;
   }
 
-  .nav-link {
+  .SubjectTeacherSidebar-nav-link {
     font-size: 14px;
   }
 
-  .Ucheva {
+  .SubjectTeacherSidebar-Ucheva {
     width: 140px;
     height: 45px;
   }
 }
 
 @media (max-width: 480px) {
-  .ParentSidebar_Container {
+  .SubjectTeacherSidebar_Container {
     width: 85%;
     max-width: 280px;
   }
 
-  .sidebar-logo {
+  .SubjectTeacherSidebar-sidebar-logo {
     justify-content: center;
     margin-bottom: 20px;
   }
 
-  .logo-icon {
+  .SubjectTeacherSidebar-logo-icon {
     justify-content: center;
   }
 
-  .Ucheva {
+  .SubjectTeacherSidebar-Ucheva {
     width: 120px;
     height: 40px;
   }
 
-  .ParentSidebar-nav {
+  .SubjectTeacherSidebar-nav {
     padding: 0 12px;
   }
 
-  .nav-link {
+  .SubjectTeacherSidebar-nav-link {
     padding: 14px 16px;
   }
 
-  .nav-icon {
+  .SubjectTeacherSidebar-nav-icon {
     width: 22px;
     height: 22px;
   }
 
-  .nav-text {
+  .SubjectTeacherSidebar-nav-text {
     font-size: 15px;
   }
 
-  .mobile-menu-btn {
+  .SubjectTeacherSidebar-mobile-menu-btn {
     top: 15px;
     left: 15px;
     width: 40px;
@@ -245,32 +241,32 @@
 }
 
 @media (max-width: 380px) {
-  .ParentSidebar_Container {
+  .SubjectTeacherSidebar_Container {
     width: 90%;
     max-width: 260px;
   }
 
-  .Ucheva {
+  .SubjectTeacherSidebar-Ucheva {
     width: 100px;
     height: 35px;
   }
 
-  .nav-link {
+  .SubjectTeacherSidebar-nav-link {
     padding: 12px 14px;
   }
 
-  .nav-text {
+  .SubjectTeacherSidebar-nav-text {
     font-size: 14px;
   }
 
-  .nav-icon {
+  .SubjectTeacherSidebar-nav-icon {
     width: 20px;
     height: 20px;
   }
 }
 
 @media (min-width: 769px) {
-  .ParentSidebar_Container {
+  .SubjectTeacherSidebar_Container {
     transform: translateX(0) !important;
   }
 }

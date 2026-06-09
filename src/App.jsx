@@ -26,11 +26,18 @@ import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLay
 import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
+
 import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
 import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
 import CTSettings from "./features/class-teacher/CTSettings/CTSettings";
+
+import SubjectTeacherLayout from "./features/SubjectTeacherDashboard/Components/Layout/SubjectTeacherLayout";
+import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherDashboard";
+import SubjectTeacherScores from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherScores";
+import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherAnnouncement";
+import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
 
 const App = () => {
   return (
@@ -58,7 +65,7 @@ const App = () => {
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
         </Route>
-        
+
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
@@ -69,6 +76,13 @@ const App = () => {
           <Route index element={<SecuritysDashboard />} />
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
+        </Route>
+
+        <Route path="/subjectteacherdashboard" element={<SubjectTeacherLayout />}>
+          <Route index element={<SubjectTeacherDashboard />} />
+          <Route path="scores" element={<SubjectTeacherScores />} />
+          <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
+          <Route path="settings" element={<SubjectTeacherSettings />} />
         </Route>
       </Routes>
     </BrowserRouter>
