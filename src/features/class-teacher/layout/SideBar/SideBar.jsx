@@ -50,7 +50,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Navigation Menu */}
         <nav className="ct-sidebar-nav">
           <NavLink
-            to="/dashboard"
+            to="/CTdashboard"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -63,7 +63,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/myclass"
+            to="myclass"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -76,7 +76,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/score"
+            to="CTscore"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -89,7 +89,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/reportcard"
+            to="CTreportcard"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -102,7 +102,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/announcement"
+            to="CTAnnouncement"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -115,7 +115,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="/dashboard/CTsettings"
+            to="CTsettings"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }

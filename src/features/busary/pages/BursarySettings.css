@@ -5,7 +5,7 @@
   background: #f5f7fb;
   display: flex;
   justify-content: center;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 }
 
 .BRSettingsWrapper {
@@ -14,7 +14,7 @@
   height: auto;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.4rem;
 }
 
 .BRSettingsHead {
@@ -177,64 +177,6 @@
 
 /* SIGNATURE */
 
-.BRSettingsSignatureCard {
-  background: white;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
-}
-
-.BRSettingsCardTitle2 {
-  padding: 15px 20px;
-  font-size: 22px;
-  font-weight: 600;
-  color: #03173c;
-}
-
-.BRSignatureTextBox {
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-  gap: 1rem;
-}
-
-.BRSettingsSignatureBox {
-  max-width: 300px;
-  min-height: 200px;
-  border: 1px solid #d2d6db;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 20px;
-}
-
-.BRSig {
-  width: 84px;
-  height: 86px;
-  background: #f9fafb;
-  border-radius: 8px;
-}
-
-.BRsigUploadBtn {
-  max-width: 145px;
-  height: 34px;
-  border: 1px solid #d2d6db;
-  border-radius: 6px;
-  color: #0062f6;
-  background: transparent;
-  cursor: pointer;
-}
-
-.BRsigUploadBtn:hover {
-  background: #f0f4ff;
-  border-color: #0062f6;
-}
-
 /* SECURITY */
 
 .BRSettingsSecurityCard {
@@ -242,18 +184,27 @@
   border-radius: 10px;
   border: 1px solid #e5e7eb;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: 20px;
 }
 
 .BRSettingsSecurityText nav {
+  width: auto;
+  height: 8vh;
   font-size: 22px;
   font-weight: 600;
+  color: #03173c;
 }
 
 .BRChangePass {
+  width: auto;
+  height: 8vh;
   font-size: 18px;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  color: #03173c;
 }
 
 .BRChangePass span {

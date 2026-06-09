@@ -43,6 +43,8 @@ import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/Su
 import SubjectTeacherScores from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherScores";
 import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherAnnouncement";
 import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
+import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
+import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
 
 const App = () => {
   return (
@@ -63,13 +65,14 @@ const App = () => {
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
 
-        <Route path="/dashboard" element={<CTLayout />}>
+        <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
-          <Route path="score" element={<Score />} />
-          <Route path="reportcard" element={<CTreport />} />
+          <Route path="CTscore" element={<Score />} />
+          <Route path="CTreportcard" element={<CTreport />} />
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
+          <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
 
         <Route path="/bursary" element={<BursaryLayout />}>
@@ -77,6 +80,7 @@ const App = () => {
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
+          <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
         </Route>
 
         <Route path="/parentdashboard" element={<ParentLayout />}>
