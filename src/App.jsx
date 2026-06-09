@@ -31,7 +31,12 @@ import SecurityLayout from "./features/SecurityDashboard/Components/Layout/Secur
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
 import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
-import CTSettings from "./features/class-teacher/CTSettings/CTSettings";
+import CTSettings from "./features/class-teacher/pages/CTSettings/CTSettings";
+import BursaryLayout from "./features/busary/layout/BursaryLayout";
+import BusaryDashboard from "./features/busary/pages/BusaryDashboard";
+import BursaryFees from "./features/busary/pages/BursaryFee";
+import StudentFee from "./features/busary/pages/StudentFee";
+import BursarySettings from "./features/busary/pages/BursarySettings";
 
 import SubjectTeacherLayout from "./features/SubjectTeacherDashboard/Components/Layout/SubjectTeacherLayout";
 import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherDashboard";
@@ -57,6 +62,7 @@ const App = () => {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
+
         <Route path="/dashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -64,6 +70,13 @@ const App = () => {
           <Route path="reportcard" element={<CTreport />} />
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
+        </Route>
+
+        <Route path="/bursary" element={<BursaryLayout />}>
+          <Route index element={<BusaryDashboard />} />
+          <Route path="bursaryFees" element={<BursaryFees />} />
+          <Route path="studentFee" element={<StudentFee />} />
+          <Route path="bursarySettings" element={<BursarySettings />} />
         </Route>
 
         <Route path="/parentdashboard" element={<ParentLayout />}>
@@ -78,7 +91,10 @@ const App = () => {
           <Route path="settings" element={<SecuritySettings />} />
         </Route>
 
-        <Route path="/subjectteacherdashboard" element={<SubjectTeacherLayout />}>
+        <Route
+          path="/subjectteacherdashboard"
+          element={<SubjectTeacherLayout />}
+        >
           <Route index element={<SubjectTeacherDashboard />} />
           <Route path="scores" element={<SubjectTeacherScores />} />
           <Route path="announcement" element={<SubjectTeacherAnnouncement />} />

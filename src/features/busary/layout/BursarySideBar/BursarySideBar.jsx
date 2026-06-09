@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./SideBar.css";
+import "./BursarySideBar.css";
 import { PiSquaresFourBold, PiCertificateBold } from "react-icons/pi";
 import { FaPersonChalkboard } from "react-icons/fa6";
 import { MdOutlineCreditScore } from "react-icons/md";
@@ -20,111 +20,85 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
-          className="ct-sidebar-overlay"
+          className="br-sidebar-overlay"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       <div
-        className={`ct-sidebar-container ${sidebarOpen ? "mobile-open" : ""}`}
+        className={`br-sidebar-container ${sidebarOpen ? "mobile-open" : ""}`}
       >
         {/* Logo Section */}
-        <div className="ct-sidebar-logo">
-          <div className="ct-logo-icon">
+        <div className="br-sidebar-logo">
+          <div className="br-logo-icon">
             <img
               src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
               alt="Ucheva Logo"
-              className="ct-logo"
+              className="br-logo"
             />
           </div>
         </div>
 
         {/* Close button for mobile */}
         <button
-          className="ct-sidebar-close-btn"
+          className="br-sidebar-close-btn"
           onClick={() => setSidebarOpen(false)}
         >
           ✕
         </button>
 
         {/* Navigation Menu */}
-        <nav className="ct-sidebar-nav">
+        <nav className="br-sidebar-nav">
           <NavLink
-            to="/dashboard"
+            to="/bursary"
             className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
+              `br-nav-link ${isActive ? "active" : ""}`
             }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ct-nav-icon">
+            <span className="br-nav-icon">
               <PiSquaresFourBold />
             </span>
-            <span className="ct-nav-text">Dashboard</span>
+            <span className="br-nav-text">Dashboard</span>
           </NavLink>
 
           <NavLink
-            to="/dashboard/myclass"
+            to="bursaryFees"
             className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
+              `br-nav-link ${isActive ? "active" : ""}`
             }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ct-nav-icon">
+            <span className="br-nav-icon">
               <FaPersonChalkboard />
             </span>
-            <span className="ct-nav-text">My Class</span>
+            <span className="br-nav-text">Fees</span>
           </NavLink>
 
           <NavLink
-            to="/dashboard/score"
+            to="announcement"
             className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
+              `br-nav-link ${isActive ? "active" : ""}`
             }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ct-nav-icon">
-              <MdOutlineCreditScore />
-            </span>
-            <span className="ct-nav-text">Scores</span>
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/reportcard"
-            className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
-            }
-            onClick={() => setSidebarOpen(false)}
-          >
-            <span className="ct-nav-icon">
-              <PiCertificateBold />
-            </span>
-            <span className="ct-nav-text">Report Cards</span>
-          </NavLink>
-
-          <NavLink
-            to="/dashboard/announcement"
-            className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
-            }
-            onClick={() => setSidebarOpen(false)}
-          >
-            <span className="ct-nav-icon">
+            <span className="br-nav-icon">
               <HiMiniSpeakerWave />
             </span>
-            <span className="ct-nav-text">Announcement</span>
+            <span className="br-nav-text">Announcement</span>
           </NavLink>
 
           <NavLink
-            to="/dashboard/CTsettings"
+            to="bursarySettings"
             className={({ isActive }) =>
-              `ct-nav-link ${isActive ? "active" : ""}`
+              `br-nav-link ${isActive ? "active" : ""}`
             }
             onClick={() => setSidebarOpen(false)}
           >
-            <span className="ct-nav-icon">
+            <span className="br-nav-icon">
               <IoSettingsOutline />
             </span>
-            <span className="ct-nav-text">Settings</span>
+            <span className="br-nav-text">Settings</span>
           </NavLink>
         </nav>
       </div>

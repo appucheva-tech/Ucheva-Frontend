@@ -1,0 +1,408 @@
+.fm-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7fb;
+}
+
+.fm-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fm-header h1 {
+  margin: 0;
+  font-family: Nunito;
+  font-size: 42px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.fm-header p {
+  margin-top: 8px;
+  font-family: Nunito;
+  font-size: 18px;
+  color: #042869;
+}
+
+/* ================= STATS ================= */
+
+.fm-cards {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+}
+
+/* Individual Cards */
+.fm-attendance,
+.fm-fee-collected,
+.fm-outstanding-fee,
+.fm-collection-rate {
+  flex: 1;
+  /* min-height: 14vh; */
+  min-width: 200px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+}
+
+.fm-attendance {
+  border-left: 3px solid #0062f6;
+}
+.fm-fee-collected {
+  border-left: 3px solid #8b5cf6;
+}
+.fm-outstanding-fee {
+  border-left: 3px solid #f59e0b;
+}
+.fm-collection-rate {
+  border-left: 3px solid #43b75d;
+}
+
+/* Card Text */
+.fm-text {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 15px;
+  color: #03173c;
+}
+
+.fm-pending,
+.fm-number,
+.fm-percentage {
+  font-family: Nunito;
+  font-weight: 700;
+  font-size: 24px;
+  color: #03173c;
+}
+
+.fm-pending {
+  width: fit-content;
+  padding: 5px 12px;
+  border-radius: 12px;
+  background: #ffedd5;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ea580c;
+}
+
+/* Card Images */
+.fm-image-holder1,
+.fm-image-holder2,
+.fm-image-holder3,
+.fm-image-holder4 {
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.fm-image-holder1 {
+  background: #eaf2ff;
+}
+.fm-image-holder2 {
+  background: #f3e8ff;
+}
+.fm-image-holder3 {
+  background: #fef3c7;
+}
+.fm-image-holder4 {
+  background: #dcfce7;
+}
+
+.fm-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+/* ================= FILTERS ================= */
+
+.fm-filter-box {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: flex-end;
+}
+
+.fm-filters {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.fm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fm-field label {
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 600;
+  color: #042869;
+}
+
+.fm-field select {
+  width: 180px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 0 12px;
+  font-family: Nunito;
+  outline: none;
+}
+
+.fm-actions {
+  display: flex;
+  gap: 14px;
+}
+
+.fm-export {
+  background: #0062f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  height: 46px;
+  padding: 0 22px;
+  cursor: pointer;
+  font-family: Nunito;
+  font-weight: 600;
+}
+
+.fm-reset {
+  background: #fff;
+  color: #042869;
+  border: 1px solid #0062f6;
+  border-radius: 8px;
+  height: 46px;
+  padding: 0 22px;
+  cursor: pointer;
+  font-family: Nunito;
+  font-weight: 600;
+}
+
+/* ================= TABLE ================= */
+
+.fm-table-card {
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.fm-table-wrapper {
+  overflow-x: auto;
+}
+
+.fm-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.fm-table thead {
+  background: #f3f4f6;
+}
+
+.fm-table th {
+  /* padding: 18px; */
+  text-align: left;
+  font-family: Nunito;
+  font-size: 15px;
+  font-weight: 600;
+  color: #03173c;
+}
+
+.fm-table td {
+  padding: 18px;
+  border-top: 1px solid #edf2f7;
+  font-family: Nunito;
+  font-size: 15px;
+  color: #042869;
+}
+
+.fm-action {
+  text-align: center;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* ================= STATUS ================= */
+
+.fm-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-family: Nunito;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.fm-full {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.fm-part {
+  background: #ffedd5;
+  color: #ea580c;
+}
+
+.fm-unpaid {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* ================= PAGINATION ================= */
+
+.fm-pagination {
+  padding: 20px;
+  border-top: 1px solid #edf2f7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fm-pagination p {
+  margin: 0;
+  color: #6b7280;
+  font-family: Nunito;
+}
+
+.fm-pages {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.fm-pages button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  color: #042869;
+}
+
+.fm-pages .active {
+  background: #0062f6;
+  color: #fff;
+}
+
+.fm-rows {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: Nunito;
+  color: #6b7280;
+}
+
+.fm-rows select {
+  height: 38px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  padding: 0 10px;
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1024px) {
+  .fm-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .fm-filter-box {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .fm-actions {
+    width: 100%;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+  .fm-page {
+    padding: 20px 12px;
+  }
+
+  .fm-header h1 {
+    font-size: 30px;
+  }
+
+  .fm-header p {
+    font-size: 14px;
+  }
+
+  .fm-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .fm-filters {
+    flex-direction: column;
+  }
+
+  .fm-field select {
+    width: 100%;
+  }
+
+  .fm-actions {
+    flex-direction: column;
+  }
+
+  .fm-export,
+  .fm-reset {
+    width: 100%;
+  }
+
+  .fm-pagination {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .fm-table th,
+  .fm-table td {
+    font-size: 13px;
+    padding: 12px;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 480px) {
+  .fm-header h1 {
+    font-size: 24px;
+  }
+
+  .fm-card h2 {
+    font-size: 30px;
+  }
+
+  .fm-icon {
+    width: 58px;
+    height: 58px;
+    font-size: 24px;
+  }
+}

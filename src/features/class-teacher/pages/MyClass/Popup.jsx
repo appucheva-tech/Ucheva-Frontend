@@ -29,39 +29,45 @@ const AttendanceModal = ({ onClose }) => {
   };
 
   return (
-    <div className="overlay" onClick={onClose}>
-      <div className="card" onClick={(e) => e.stopPropagation()}>
+    <div className="Attendanceoverlay" onClick={onClose}>
+      <div className="Attendancecard" onClick={(e) => e.stopPropagation()}>
         {!completed ? (
           <>
-            <div className="avatar" />
+            <div className="Attendanceavatar" />
 
             <nav>
               {student.name}
               <span>{student.gender}</span>
             </nav>
 
-            <div className="actions">
-              <button className="absent" onClick={() => mark("Absent")}>
+            <div className="Attendanceactions">
+              <button
+                className="Attendanceabsent"
+                onClick={() => mark("Absent")}
+              >
                 <img src="/src/assets/mingcute_close-line.png" alt="" />
                 <span> Absent </span>
               </button>
 
-              <button className="present" onClick={() => mark("Present")}>
+              <button
+                className="Attendancepresent"
+                onClick={() => mark("Present")}
+              >
                 <img src="/src/assets/Check.png" alt="" />
                 <span> Present </span>
               </button>
             </div>
           </>
         ) : (
-          <div className="completion">
-            <div className="completionIcon">
+          <div className="Attendancecompletion">
+            <div className="AttendancecompletionIcon">
               <img
-                className="attendanceSuccess"
+                className="AttendanceattendanceSuccess"
                 src="/src/assets/Success.png"
                 alt=""
               />
             </div>
-            <p className="attendanceSuccessText">
+            <p className="AttendanceattendanceSuccessText">
               Attendance Marked <br />
               Completely
             </p>

@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* Main Layout Container */
+.br-app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+  position: relative;
+}
+
+/* Main Content Area */
+.br-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px;
+  transition: margin-left 0.3s ease-in-out;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Page Content */
+.br-page-content {
+  flex: 1;
+  padding: 24px 32px;
+  background-color: #f5f6fa;
+}
+
+/* Mobile Menu Button */
+.br-mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1100;
+  background: #0062f6;
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.2s ease;
+}
+
+.br-mobile-menu-btn:hover {
+  background: #0052d0;
+}
+
+/* Mobile Overlay */
+.br-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  animation: brFadeIn 0.3s ease;
+}
+
+@keyframes brFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet and Mobile (768px and below) */
+@media (max-width: 768px) {
+  .br-main-content {
+    margin-left: 0;
+  }
+
+  .br-page-content {
+    padding: 20px 24px;
+  }
+
+  .br-mobile-menu-btn {
+    display: flex;
+  }
+}
+
+/* Small Mobile (480px and below) */
+@media (max-width: 480px) {
+  .br-page-content {
+    padding: 16px;
+  }
+}
+
+/* Extra Small (380px and below) */
+@media (max-width: 380px) {
+  .br-page-content {
+    padding: 12px;
+  }
+}
+
+/* Desktop (769px and above) */
+@media (min-width: 769px) {
+  .br-main-content {
+    margin-left: 280px;
+  }
+}

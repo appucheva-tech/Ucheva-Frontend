@@ -60,64 +60,64 @@ const MyClass = () => {
 
   return (
     <div className="myClassPage">
-      <div className="topHeader">
-        <nav className="topHeaderText">
+      <div className="myClasstopHeader">
+        <nav className="myClasstopHeaderText">
           My Class — SS2A
           <span>23 students assigned to your class</span>
         </nav>
-        <button className="markBtn" onClick={() => setOpen(true)}>
+        <button className="myClassmarkBtn" onClick={() => setOpen(true)}>
           Mark Attendance
         </button>
       </div>
 
-      <article className="CTClassCards">
-        <div className="TotalStudents">
-          <nav className="CTClasstext">
+      <article className="myClassCTClassCards">
+        <div className="myClassTotalStudents">
+          <nav className="myClassCTClasstext">
             Total Students
-            <div className="CTtextnum">23</div>
+            <div className="myClassCTtextnum">23</div>
           </nav>
-          <div className="CTImageHolder1">
+          <div className="myClassCTImageHolder1">
             <img
-              className="CTImg"
+              className="myClassCTImg"
               src="https://i.postimg.cc/KzdG8q6g/uim-calender.png"
               alt=""
             />
           </div>
         </div>
-        <div className="TotalFemale">
-          <nav className="CTClasstext">
+        <div className="myClassTotalFemale">
+          <nav className="myClassCTClasstext">
             Total Female
-            <div className="CTtextnum">20</div>
+            <div className="myClassCTtextnum">20</div>
           </nav>
-          <div className="CTImageHolder1">
+          <div className="myClassCTImageHolder1">
             <img
-              className="CTImg"
+              className="myClassCTImg"
               src="https://i.postimg.cc/BnMJKnWj/streamline-plump-class-lesson-remix.png"
               alt=""
             />
           </div>
         </div>
-        <div className="Totalmale">
-          <nav className="CTClasstext">
+        <div className="myClassTotalMale">
+          <nav className="myClassCTClasstext">
             Total Male
-            <div className="CTtextnum">20</div>
+            <div className="myClassCTtextnum">20</div>
           </nav>
-          <div className="CTImageHolder1">
+          <div className="myClassCTImageHolder1">
             <img
-              className="CTImg"
+              className="myClassCTImg"
               src="https://i.postimg.cc/YqxH5CCY/ph-student-fill.png"
               alt=""
             />
           </div>
         </div>
-        <div className="Totalpresent">
-          <nav className="CTClasstext">
+        <div className="myClassTotalPresent">
+          <nav className="myClassCTClasstext">
             Total Present
-            <div className="CTtextnum">20</div>
+            <div className="myClassCTtextnum">20</div>
           </nav>
-          <div className="CTImageHolder1">
+          <div className="myClassCTImageHolder1">
             <img
-              className="CTImg"
+              className="myClassCTImg"
               src="https://i.postimg.cc/tJtKGBp1/material-symbols-light-menu-book-rounded.png"
               alt=""
             />
@@ -125,12 +125,12 @@ const MyClass = () => {
         </div>
       </article>
 
-      <div className="filterBar">
-        <nav className="filterBarLabel">
+      <div className="myClassfilterBar">
+        <nav className="myClassfilterBarLabel">
           Fee status
-          <article className="CTSelectHolder">
+          <article className="myClassCTSelectHolder">
             <select
-              className="CTClassSelect"
+              className="myClassCTClassSelect"
               value={feeFilter}
               onChange={(e) => setFeeFilter(e.target.value)}
             >
@@ -141,7 +141,7 @@ const MyClass = () => {
             </select>
           </article>
         </nav>
-        <button onClick={resetFilter} className="resetBtn">
+        <button onClick={resetFilter} className="myClassresetBtn">
           <FaArrowsRotate />
           Reset
         </button>
