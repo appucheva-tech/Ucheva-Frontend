@@ -1,6 +1,5 @@
 import React from "react";
 import "../css/DashboardPages.css";
-import { FaUserGraduate } from "react-icons/fa";
 
 const DashboardPage = () => {
   const paymentHistory = [
@@ -90,7 +89,7 @@ const DashboardPage = () => {
         </div>
 
         <div className="content-grid">
-          <div className="card payment-history-card">
+          <div className="parentcard1 payment-history-card">
             <h3 className="card-title" style={{ color: "#03173C" }}>
               Payment History
             </h3>
@@ -107,10 +106,10 @@ const DashboardPage = () => {
                 <tbody>
                   {paymentHistory.map((item, index) => (
                     <tr key={index}>
-                      <td>{item.date}</td>
-                      <td>{item.term}</td>
-                      <td>{item.amount}</td>
-                      <td>
+                      <td data-label="Date">{item.date}</td>
+                      <td data-label="Term">{item.term}</td>
+                      <td data-label="Amount">{item.amount}</td>
+                      <td data-label="Status">
                         <span
                           className="status-badge"
                           style={{
@@ -128,8 +127,8 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="card attendance-card">
-            <h3 className="card-title" style={{ color: "#03173C" }}>
+          <div className="parentcard2 attendance-card">
+            <h3 className=" parentcard-title" style={{ color: "#03173C" }}>
               Monthly Attendance
             </h3>
             <div className="attendance-content">

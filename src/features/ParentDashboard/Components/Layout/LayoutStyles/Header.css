@@ -3,21 +3,23 @@
 .nunito-content {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
-}.parentdashboard-header {
+}
+.parentdashboard-header {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
   background-color: #ffffff;
   border-bottom: 1px solid #f0f0f0;
   height: 70px;
-  gap: 2rem;
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
   box-shadow: 0 4px 30px 0 rgba(0, 98, 246, 0.05);
+  padding: 15px 64px 15px 20px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .date-section {
