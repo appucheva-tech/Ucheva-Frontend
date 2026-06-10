@@ -11,7 +11,7 @@ export default defineConfig({
     allowedHosts: [
       ".nip.io",
       "127.0.0.1.nip.io",
-    //  "app-modelak-college.127.0.0.1.nip.io",
+      //  "app-modelak-college.127.0.0.1.nip.io",
     ],
   },
 });
