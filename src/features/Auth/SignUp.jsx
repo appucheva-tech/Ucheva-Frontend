@@ -4,6 +4,7 @@ import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUp = () => {
   const nav = useNavigate();
@@ -27,6 +28,7 @@ const SignUp = () => {
   });
 
   const [errors, setErrors] = useState({});
+
   const generateSlug = (text) =>
     text
       .toLowerCase()
@@ -45,10 +47,7 @@ const SignUp = () => {
     };
 
     if (name === "schoolName") {
-      const rawName = value.toLowerCase().trim();
-
       const slug = generateSlug(value);
-
       const baseDomain = "ucheva.vercel.app";
       const suggestions = slug
         ? [
@@ -71,6 +70,7 @@ const SignUp = () => {
       }));
     }
   };
+
   const selectUrl = (url) => {
     setFormData((prev) => ({
       ...prev,
@@ -94,6 +94,8 @@ const SignUp = () => {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
     }
 
     if (!formData.phoneNumber.trim()) {
@@ -122,35 +124,51 @@ const SignUp = () => {
 
     setErrors(newErrors);
 
-    if (Object.keys(newErrors).length === 0) {
-      nav("/verifyEmail");
+    if (Object.keys(newErrors).length > 0) {
+      return;
     }
+
+    setLoading(true);
 
     const payload = {
       schoolName: formData.schoolName,
       address: formData.address,
       email: formData.email,
-
       password: formData.password,
       confirmPassword: formData.confirmPassword,
-
       phoneNumber: formData.phoneNumber,
-
-      schoolName: formData.schoolName,
-
       schoolUrl: formData.schoolUrl,
     };
 
     try {
-      const response = await axios.post(`${BaseUrl}/admin/register `, payload);
-      toast.success(response.data.message);
+      const response = await axios.post(`${BaseUrl}/admin/register`, payload);
+      toast.success(response.data.message || "Registration successful!");
+      localStorage.setItem("userInfo", JSON.stringify(formData));
+      localStorage.setItem("userEmail", formData.email);
+      setTimeout(() => {
+        nav("/verifyEmail");
+      }, 2000);
     } catch (error) {
       console.log(error);
+      if (error.response) {
+        toast.error(
+          error.response.data.message ||
+            "Registration failed. Please try again.",
+        );
+      } else if (error.request) {
+        toast.error("Network error. Please check your connection.");
+      } else {
+        toast.error("An error occurred. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <section className="signUp_container geist-content">
+      <ToastContainer position="top-right" autoClose={5000} />
+
       <article className="signUp_holder">
         <aside className="signUp_left">
           <img
@@ -158,10 +176,15 @@ const SignUp = () => {
             alt="signup img"
           />
           <div className="logoholder">
-            <img src="https://i.postimg.cc/PJgRQh50/logo.png" alt="" />
+            <img
+              src="https://i.postimg.cc/PJgRQh50/logo.png"
+              alt="logo"
+              onClick={() => nav("/")}
+              style={{ cursor: "pointer" }}
+            />
           </div>
           <div className="signuptext">
-            <h1>Let’s get your school started!</h1>
+            <h1>Let's get your school started!</h1>
             <p>
               A simpler way to manage your school, support <br />
               your staff, and stay connected with parents.
@@ -190,7 +213,6 @@ const SignUp = () => {
           {urlSuggestions.length > 0 && (
             <div className="url-suggestions">
               <p>Select your school URL:</p>
-
               {urlSuggestions.map((url, index) => (
                 <div
                   key={index}
@@ -207,7 +229,6 @@ const SignUp = () => {
 
           <div className="signUp_form">
             <label>School Url (Optional)</label>
-
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -219,14 +240,13 @@ const SignUp = () => {
                 <path
                   d="M7.57533 7.49935C7.77125 6.94241 8.15795 6.47277 8.66695 6.17363C9.17596 5.87448 9.7744 5.76513 10.3563 5.86494C10.9382 5.96475 11.466 6.26729 11.8462 6.71896C12.2264 7.17063 12.4345 7.74228 12.4337 8.33268C12.4337 9.99935 9.93366 10.8327 9.93366 10.8327M10.0003 14.166H10.0087M18.3337 9.99935C18.3337 14.6017 14.6027 18.3327 10.0003 18.3327C5.39795 18.3327 1.66699 14.6017 1.66699 9.99935C1.66699 5.39698 5.39795 1.66602 10.0003 1.66602C14.6027 1.66602 18.3337 5.39698 18.3337 9.99935Z"
                   stroke="#9DA4AE"
-                  stroke-width="1.33333"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="1.33333"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 />
               </svg>
               This will be the main URL to the portal.
             </p>
-
             <input
               type="text"
               name="schoolUrl"
@@ -274,7 +294,6 @@ const SignUp = () => {
           <div className="signup_Form">
             <div className="signup_Input">
               <label>Password</label>
-
               <div className="password-field">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -284,7 +303,6 @@ const SignUp = () => {
                   value={formData.password}
                   onChange={handleChange}
                 />
-
                 <button
                   type="button"
                   className="eye-icon-btn"
@@ -293,7 +311,6 @@ const SignUp = () => {
                   {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                 </button>
               </div>
-
               {errors.password && (
                 <small className="error">{errors.password}</small>
               )}
@@ -301,7 +318,6 @@ const SignUp = () => {
 
             <div className="signup_Input">
               <label>Confirm Password</label>
-
               <div className="password-field">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
@@ -311,7 +327,6 @@ const SignUp = () => {
                   value={formData.confirmPassword}
                   onChange={handleChange}
                 />
-
                 <button
                   type="button"
                   className="eye-icon-btn"
@@ -320,7 +335,6 @@ const SignUp = () => {
                   {showConfirmPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                 </button>
               </div>
-
               {errors.confirmPassword && (
                 <small className="error">{errors.confirmPassword}</small>
               )}
@@ -349,20 +363,21 @@ const SignUp = () => {
               checked={formData.agree}
               onChange={handleChange}
             />
-
             <label>
               I agree to the <span>Privacy Policy</span> and
               <span>Terms of Service</span>
             </label>
           </div>
-
           {errors.agree && <small className="error">{errors.agree}</small>}
 
           <div className="btn">
-            <button className="signup_btn" onClick={handleSubmit}>
-              Create Account
+            <button
+              className="signup_btn"
+              onClick={handleSubmit}
+              disabled={loading}
+            >
+              {loading ? "Creating Account..." : "Create Account"}
             </button>
-
             <label className="Already">
               Already have an account?
               <span onClick={() => nav("/login")}> Log in </span>

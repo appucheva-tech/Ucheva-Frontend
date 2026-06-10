@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import "./AuthStyles/ForgetPassword.css"
+import "./AuthStyles/ForgetPassword.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const BaseUrl = import.meta.env.VITE_Base_Url;
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -33,10 +38,37 @@ const ForgetPassword = () => {
       setError("Please enter a valid email address (e.g., example@gmail.com)");
       return;
     }
+
+    try {
+      setIsLoading(true);
+      const response = await axios.post(`${BaseUrl}/admin/forgot-password`, {
+        email,
+      });
+
+      toast.success(
+        response?.data?.message || "Verification code sent to your email",
+      );
+
+      localStorage.setItem("userEmail", userEmail);
+
+      setTimeout(() => {
+        nav("/inputCode");
+      }, 1500);
+    } catch (error) {
+      console.error("Forget password error:", error);
+      const errorMessage =
+        error.response?.data?.message || "An error occurred. Please try again.";
+      toast.error(errorMessage);
+
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <section className="forgetPassword_container geist-content">
+      <ToastContainer position="top-right" autoClose={5000} />
+
       <article className="forgetPassword_holder">
         <aside className="forgetPassword_left">
           <img
@@ -44,15 +76,29 @@ const ForgetPassword = () => {
             alt="signup img"
           />
           <div className="Login-forgetPassword">
-            <img src="https://i.postimg.cc/PJgRQh50/logo.png" alt="" />
+            <img
+              src="https://i.postimg.cc/PJgRQh50/logo.png"
+              alt="logo"
+              onClick={() => nav("/")}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+          <div className="forgetPassword_text">
+            <h1>Forgot Password?</h1>
+            <p>
+              Don't worry! Enter your email address and we'll send you a code to
+              reset your password.
+            </p>
           </div>
         </aside>
+
         <aside className="forgetPassword_right">
-          <h2>Forget Password?</h2>
-          <label>
+          <h2>Forgot Password?</h2>
+          <label className="forgetPassword_description">
             Enter your registered email address and we'll send you a 6 digit
             code to reset your password.
           </label>
+
           <form className="forgetPassword_form" onSubmit={handleSubmit}>
             <label>Email</label>
             <input
@@ -62,9 +108,11 @@ const ForgetPassword = () => {
               value={email}
               onChange={handleEmailChange}
               disabled={isLoading}
+              autoComplete="email"
             />
             {error && <div className="error-message">{error}</div>}
           </form>
+
           <div className="ForgetPasswordBtn">
             <button
               className="forgetPassword_btn"
@@ -73,6 +121,10 @@ const ForgetPassword = () => {
             >
               {isLoading ? "Sending..." : "Send Code"}
             </button>
+
+            {/* <label className="backToLogin" onClick={() => nav("/login")}>
+              ← Back to Login
+            </label> */}
           </div>
         </aside>
       </article>

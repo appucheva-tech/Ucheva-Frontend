@@ -22,7 +22,7 @@
 
 .inputCode_left {
   width: 50%;
-  height: 100%;
+  height: 150%;
   position: relative;
 
   img {
@@ -49,7 +49,7 @@
 
 .inputCode_right {
   width: 45%;
-  height: 100%;
+  height: 130%;
   display: flex;
   flex-direction: column;
   gap: 30px;

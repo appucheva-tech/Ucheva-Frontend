@@ -40,7 +40,7 @@
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 32px;
-  border-left: 4px solid #0062f6;
+  border-left: 3px solid #0062f6;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
@@ -157,7 +157,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
-margin-left: 20px;
+  margin-left: 20px;
 }
 
 .card-title {
@@ -173,22 +173,23 @@ margin-left: 20px;
 
 .table-wrapper {
   overflow-x: auto;
-  width: 100%;
+
 }
 
 .payment-table {
-  width: 100%;
   border-collapse: collapse;
   table-layout: fixed;
+
 }
 
 .payment-table thead {
   background: var(--Neutral-Color-300, #e5e7eb);
   border-bottom: 1px solid #e5e7eb;
+
 }
 
 .payment-table th {
-  padding: 12px 8px;
+  /* padding: 12px 8px; */
   text-align: left;
   text-transform: capitalize;
   font-weight: 500;
@@ -196,10 +197,13 @@ margin-left: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
+  padding: 8px 17px;
+  /* gap: 30px; */
 }
 
 .payment-table tbody tr {
   border-bottom: 1px solid #e5e7eb;
+  
 }
 
 .payment-table tbody tr:last-child {
@@ -251,7 +255,7 @@ margin-left: 20px;
   flex-direction: column;
   align-items: center;
   gap: 24px;
-  border-top: 1px solid var(--Neutral-Color-300, #E5E7EB);
+  border-top: 1px solid var(--Neutral-Color-300, #e5e7eb);
 }
 
 .circular-chart-container {
