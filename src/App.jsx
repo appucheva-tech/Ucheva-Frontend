@@ -78,7 +78,10 @@ const App = () => {
           <Route path="settings" element={<SecuritySettings />} />
         </Route>
 
-        <Route path="/subjectteacherdashboard" element={<SubjectTeacherLayout />}>
+        <Route
+          path="/subjectteacherdashboard"
+          element={<SubjectTeacherLayout />}
+        >
           <Route index element={<SubjectTeacherDashboard />} />
           <Route path="scores" element={<SubjectTeacherScores />} />
           <Route path="announcement" element={<SubjectTeacherAnnouncement />} />

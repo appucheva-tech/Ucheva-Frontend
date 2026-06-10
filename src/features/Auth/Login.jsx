@@ -8,24 +8,24 @@ import { ToastContainer, toast } from "react-toastify";
 const Login = () => {
   const nav = useNavigate();
 
-const [formData, setFormData] = useState({
-  email: "",
-  password: "",
-  role: "",
-});
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    role: "",
+  });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const BaseUrl = import.meta.env.VITE_Base_Url;
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value ,role} = e.target;
+    const { name, value, role } = e.target;
 
     setFormData({
       ...formData,
       [name]: value,
     });
- 
+
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -70,11 +70,14 @@ const [formData, setFormData] = useState({
           "x-tenant": subdomain,
         },
       });
-
-      toast.success(response.data.message);
+      localStorage.setItem("token", response.data.token);
+      toast.success(response?.data?.message);
       nav("/step1");
     } catch (error) {
       console.log(error);
+      toast.error(
+        error.response?.data?.message || "Login failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -140,40 +143,40 @@ const [formData, setFormData] = useState({
                 <small className="error">{errors.password}</small>
               )}
             </div>
-     <div className="login_raidobox">
-  <label>
-    <input
-      type="radio"
-      name="role"
-      value="admin"
-      checked={formData.role === "admin"}
-      onChange={handleChange}
-    />
-    Admin
-  </label>
+            <div className="login_raidobox">
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="admin"
+                  checked={formData.role === "admin"}
+                  onChange={handleChange}
+                />
+                Admin
+              </label>
 
-  <label>
-    <input
-      type="radio"
-      name="role"
-      value="parent"
-      checked={formData.role === "parent"}
-      onChange={handleChange}
-    />
-    Parent
-  </label>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="parent"
+                  checked={formData.role === "parent"}
+                  onChange={handleChange}
+                />
+                Parent
+              </label>
 
-  <label>
-    <input
-      type="radio"
-      name="role"
-      value="staff"
-      checked={formData.role === "staff"}
-      onChange={handleChange}
-    />
-    Staff
-  </label>
-</div>
+              <label>
+                <input
+                  type="radio"
+                  name="role"
+                  value="staff"
+                  checked={formData.role === "staff"}
+                  onChange={handleChange}
+                />
+                Staff
+              </label>
+            </div>
 
             <label className="forget" onClick={() => nav("/forgetPassword")}>
               Forget Password?
@@ -181,7 +184,7 @@ const [formData, setFormData] = useState({
 
             <div className="loginBtn">
               <button type="submit" className="login_btn" onClick={() => {}}>
-                Log In
+                {loading ? "Logging in..." : "Log In"}
               </button>
               <label className="Account">
                 Don't have an account?
