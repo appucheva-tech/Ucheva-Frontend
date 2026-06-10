@@ -9,7 +9,7 @@ import { MdMailOutline } from "react-icons/md";
 const Footer = () => {
   return (
     <>
-    <footer className="footer">
+    <footer className="myfooter">
       <div className="footer-container">
         <div className="footer-brand">
           <div className="logo-container">

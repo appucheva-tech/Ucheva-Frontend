@@ -3,6 +3,7 @@ import { IoClose } from "react-icons/io5";
 import { IoCheckmarkCircle } from "react-icons/io5";
 import { IoChevronDown } from "react-icons/io5";
 import "./Popup.css";
+import closeIcon from "../../../../assets/PopupClose.svg";
 
 const AddFeeModal = ({ closeModal }) => {
   const [fullPayment, setFullPayment] = useState(false);
@@ -12,7 +13,7 @@ const AddFeeModal = ({ closeModal }) => {
     <div className="AddFeeModalOverlay geist-content" onClick={closeModal}>
       <article className="AddFeeModal" onClick={(e) => e.stopPropagation()}>
         <button className="CloseBtn" onClick={closeModal}>
-          <IoClose />
+          <img src={closeIcon} alt="Close" />
         </button>
 
         <nav className="ModalTitle">Add Fee</nav>
@@ -28,10 +29,10 @@ const AddFeeModal = ({ closeModal }) => {
           </div>
 
           <div className="FeeInputHolder">
-            <label>Amount (₦)</label>
+            <label>Amount (N)</label>
             <input
               type="text"
-              placeholder="₦ e.g 50,000"
+              placeholder="N e.g 50,000"
               className="FeeInput"
             />
           </div>
@@ -93,7 +94,9 @@ const AddFeeModal = ({ closeModal }) => {
 
               <div className="SelectHolder">
                 <select>
-                  <option>Select number</option>
+                  <option disabled selected>
+                    Select number
+                  </option>
                   <option>2 Installments</option>
                   <option>3 Installments</option>
                   <option>4 Installments</option>
@@ -103,10 +106,15 @@ const AddFeeModal = ({ closeModal }) => {
               </div>
             </div>
 
-            <div className="FeeInputHolder">
-              <label>Total Amount Payable (₦)</label>
+            <div className="FeeInputHolder4">
+              <label>Total Amount Payable (N)</label>
 
-              <input type="text" placeholder="₦25,000" className="FeeInput" />
+              <input
+                type="text"
+                value="N25,000"
+                readOnly
+                className="FeeInput"
+              />
             </div>
           </div>
         </section>

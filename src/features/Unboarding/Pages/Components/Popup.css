@@ -1,278 +1,3 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
-
-.geist-content {
-  font-family: "Geist", sans-serif;
-  font-optical-sizing: auto;
-}
-.AddFeeModalOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgb(253, 249, 249);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-  width: 730px;
-  height: 600px;
-  border-radius: 40px;
-  left: 300px;
-  top: 20px;
-}
-
-.AddFeeModal {
-  width: 650px;
-  height: 500px;
-  border-radius: 40px;
-  padding: 40px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.4rem;
-  position: absolute;
-}
-
-.AddFeeModalWrapper {
-  width: 677px;
-  height: 448px;
-  gap: 24px;
-  display: flex;
-  flex-direction: column;
-}
-
-.CloseBtn {
-  position: absolute;
-  right: 40px;
-  top: 24px;
-  border: none;
-  background: none;
-  font-size: 36px;
-  color: #042869;
-  cursor: pointer;
-}
-
-.ModalTitle {
-  width: 677px;
-  height: 30px;
-  font-family: Geist;
-  font-weight: 106px;
-  font-style: Medium;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
-.FeeInputs {
-  width: 677px;
-  height: 76px;
-  gap: 45px;
-  display: flex;
-}
-
-.FeeInputHolder {
-  width: 317px;
-  height: 76px;
-  gap: 6px;
-  display: flex;
-  flex-direction: column;
-}
-
-.FeeInputHolder label {
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
-.FeeInput {
-  width: 300px;
-  height: 48px;
-  gap: 10px;
-  border-radius: 8px;
-  border: 1px solid #d2d6db;
-  padding-left: 12px;
-  outline: none;
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  color: #042869;
-}
-
-.PaymentSection {
-  width: 677px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.PaymentSection h3 {
-  font-family: Geist;
-  font-weight: 106px;
-  font-style: Medium;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
-}
-
-.PaymentOptions {
-  width: 677px;
-  height: 61px;
-  gap: 45px;
-  display: flex;
-}
-
-.PaymentCard {
-  width: 317px;
-  height: 61px;
-  gap: 6px;
-  border-radius: 8px;
-  border: 1px solid #0062f6;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  padding: 2px;
-}
-
-.PaymentTop {
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-  display: flex;
-  gap: 7px;
-  align-items: center;
-}
-
-.PaymentTop span {
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
-.PaymentCard p {
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 14px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  color: #03173c;
-  padding-left: 24px;
-}
-
-.CheckIcon {
-  font-size: 20px;
-  color: #d2d6db;
-}
-
-.CheckIconActive {
-  color: #0062f6;
-}
-
-.InstallmentSection {
-  width: 677px;
-  height: 155px;
-  display: flex;
-  flex-direction: column;
-}
-
-.InstallmentTitle {
-  width: 677px;
-  height: 51px;
-  font-family: Geist;
-  font-weight: 106px;
-  font-style: Medium;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
-  display: flex;
-  flex-direction: column;
-}
-
-.InstallmentTextspan {
-  font-family: Geist;
-  font-weight: 84px;
-  font-style: Regular;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #c2c6cc;
-}
-
-.InstallmentInputs {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.SelectHolder {
-  position: relative;
-}
-
-.SelectHolder select {
-  width: 100%;
-  height: 48px;
-  border-radius: 8px;
-  border: 1px solid #d2d6db;
-  padding-left: 12px;
-  appearance: none;
-  outline: none;
-  color: #042869;
-}
-
-.SelectHolder svg {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #042869;
-}
-
-.PopupButtonHolder {
-  width: 677px;
-  height: 66px;
-  gap: 10px;
-  angle: 0 deg;
-  opacity: 1;
-}
-
-.SaveFeeBtn {
-  width: 106px;
-  height: 66px;
-  border-radius: 10px;
-  border: none;
-  background: #0062f6;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-} */
-
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 .geist-content {
@@ -357,24 +82,20 @@
 .FeeInputHolder label {
   font-family: Geist;
   font-size: 18px;
+  font-weight: 400;
   color: #03173c;
 }
 
 .FeeInput {
   width: 100%;
   height: 48px;
-
   border-radius: 8px;
   border: 1px solid #d2d6db;
-
   padding: 0 12px;
-
   outline: none;
-
   font-family: Geist;
   font-size: 16px;
-
-  color: #042869;
+  color: #03173c;
 }
 
 .FeeInput:focus {
@@ -390,9 +111,9 @@
 
 .PaymentSection h3 {
   font-family: Geist;
-  font-size: 24px;
-  font-weight: 600;
-  color: #042869;
+  font-size: 20px;
+  font-weight: 500;
+  color: #03173c;
 }
 
 .PaymentOptions {
@@ -402,25 +123,22 @@
 }
 
 .PaymentCard {
+  width: 100%;
+  height: 65px;
   flex: 1;
-
   border-radius: 10px;
   border: 1px solid #0062f6;
-
   padding: 12px;
-
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
-  gap: 8px;
-
-  transition: 0.2s ease;
+  gap: 2px;
+  /* transition: 0.2s ease; */
 }
 
-.PaymentCard:hover {
+/* .PaymentCard:hover {
   transform: translateY(-2px);
-}
+} */
 
 .PaymentCardActive {
   background: rgba(0, 98, 246, 0.08);
@@ -474,20 +192,46 @@
   gap: 6px;
 
   font-family: Geist;
-  font-size: 24px;
-  font-weight: 600;
-  color: #042869;
+  font-size: 20px;
+  font-weight: 500;
+  color: #03173c;
 }
 
 .InstallmentTextspan {
   font-family: Geist;
   font-size: 16px;
-  color: #c2c6cc;
+  font-weight: 300;
+  color: #9da4ae;
 }
 
 .InstallmentInputs {
   display: flex;
   gap: 24px;
+  font-family: Geist;
+  font-weight: 500;
+  font-style: Regular;
+  font-size: 20px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.FeeInputHolder4 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: Geist;
+  font-size: 18px;
+  font-weight: 400;
+  color: #03173c;
+}
+
+.FeeInputHolder4 input {
+  background: #f3f4f6;
+  outline: none;
+  border: 1px solid #d2d6db;
+  color: #9da4ae;
 }
 
 .SelectHolder {
@@ -497,15 +241,11 @@
 .SelectHolder select {
   width: 100%;
   height: 48px;
-
   border-radius: 8px;
   border: 1px solid #d2d6db;
-
   padding-left: 12px;
-
   appearance: none;
   outline: none;
-
   color: #042869;
 }
 
@@ -521,34 +261,25 @@
 
 .PopupButtonHolder {
   width: 100%;
-
   display: flex;
-  justify-content: flex-end;
-
   margin-top: 8px;
 }
 
 .SaveFeeBtn {
   width: 140px;
   height: 56px;
-
   border-radius: 10px;
   border: none;
-
   background: #0062f6;
   color: white;
-
   font-size: 18px;
   font-weight: 500;
-
   cursor: pointer;
-
-  transition: 0.2s ease;
 }
 
-.SaveFeeBtn:hover {
+/* .SaveFeeBtn:hover {
   transform: translateY(-1px);
-}
+} */
 
 @keyframes fadeIn {
   from {

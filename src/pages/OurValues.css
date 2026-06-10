@@ -1,0 +1,92 @@
+.values-container {
+  padding: 80px 24px;
+  width: 100%;
+  height: 83vh;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: aliceblue;
+
+  .values-header {
+    text-align: center;
+    margin-bottom: 56px;
+
+    .values-subtitle {
+      display: block;
+      color: #94a3b8;
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: -30px;
+      margin-bottom: 12px;
+    }
+
+    .values-title {
+      color: #042869;
+      font-size: 32px;
+      font-weight: 700;
+      margin: 0 0 16px 0;
+    }
+
+    .values-intro {
+      color: #042869;
+      font-size: 25px;
+      margin: 0;
+    }
+  }
+
+  .values-grid {
+    display: grid;
+    justify-content: flex-end;
+    grid-template-columns: repeat(3, 30%);
+
+    @media (max-width: 450px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+    }
+
+    .value-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 33px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+      border-bottom: 4px solid #2563eb;
+      display: flex;
+      width: 80%;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .value-icon-wrapper {
+        width: 44px;
+        height: 44px;
+        background-color: #eff6ff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #2563eb;
+        margin-bottom: 24px;
+
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+
+      .value-card-title {
+        color: #1e293b;
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0 0 12px 0;
+      }
+
+      .value-card-description {
+        color: #334155;
+        font-size: 17px;
+        line-height: 1.6;
+        margin: 0;
+      }
+    }
+  }
+}

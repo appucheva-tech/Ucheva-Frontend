@@ -1,14 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Home.css";
 import Header from "./Header";
-import Footer from './Footer'
+import Stars5 from '../assets/stars.svg'
+import Footer from "./Footer";
 import Carousel from "./Carousel";
 import HappyCL1 from "../assets/HappyCL1.jpg";
 import HappyCL2 from "../assets/HappyCL2.jpg";
 import HappyCL3 from "../assets/HappyCL3.jpg";
 import HappyCL4 from "../assets/HappyCL4.jpg";
-import Home4Pics from "../assets/Home4Pics.png";
+import Home4Pics from "../assets/Home4Pics.PNG";
 import Features from "./Features";
+import ProductPreview from "./ProductPreview";
 import HowItWorks from "./HowItWorks";
 import WhyChooseUs from "./WhyChooseUs";
 import Testimonials from "./Testimonials";
@@ -16,6 +19,7 @@ import PricingTable from "./PricingTable";
 import Ready from "./Ready";
 
 export default function Home() {
+  const nav = useNavigate();
   const stats = [
     {
       value: "5,000+",
@@ -32,9 +36,9 @@ export default function Home() {
   ];
 
   return (
-    <>
+    <main className="generalHome geist-content">
       <Header />
-      <section className="hero-container">
+      <section className="hero-container geist-content">
         <div className="hero-content">
           <div className="badge">
             <span>Welcome to Ucheva</span>
@@ -51,7 +55,7 @@ export default function Home() {
             school activities with less stress.
           </p>
 
-          <button className="cta-button">Get Started</button>
+          <button className="cta-button" onClick={() => nav ('./signup') }>Get Started</button>
 
           <div className="social-proof">
             <div className="client-meta">
@@ -71,7 +75,7 @@ export default function Home() {
 
             <div className="rating-meta">
               <div className="stars">
-                ⭐⭐⭐⭐⭐
+                <img src={Stars5} alt="" className="Stars5"/>
                 <span className="score">5.0</span>
               </div>
               <div className="rating-text">
@@ -100,12 +104,13 @@ export default function Home() {
       </section>
       <Carousel />
       <Features />
+      <ProductPreview />
       <HowItWorks />
       <WhyChooseUs />
       <Testimonials />
       <PricingTable />
       <Ready />
-      {/* <Footer/> */}
-    </>
+      <Footer/>
+    </main>
   );
 }

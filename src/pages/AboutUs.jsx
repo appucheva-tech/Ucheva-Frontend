@@ -4,6 +4,9 @@ import Header from "./Header";
 import Footer from "./Footer";
 import AboutUsPic1 from "../assets/AboutUsPic1.png";
 import OurMission from "./OurMission";
+import OurValues from './OurValues'
+import TheTeam from './TheTeam'
+import Manage from './Manage'
 
 export default function AboutUs() {
   return (
@@ -30,6 +33,9 @@ export default function AboutUs() {
         </div>
       </section>
       <OurMission />
+      <OurValues />
+      <TheTeam />
+      <Manage />
       <Footer />
     </>
   );

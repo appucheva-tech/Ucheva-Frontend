@@ -10,6 +10,7 @@ import deleteIcon from "../../../assets/deleteIcon.svg";
 import editIcon from "../../../assets/editIcon.svg";
 import UchevaLogo from "../../../assets/UchevaLogo.svg";
 import StepsNo3 from "../../../assets/Steps3.svg";
+import Backshevron from "../../../assets/Backshevron.svg";
 
 const Step3 = () => {
   const [showModal, setShowModal] = useState(false);
@@ -27,7 +28,7 @@ const Step3 = () => {
               }}
             >
               <nav>
-                <MdOutlineKeyboardArrowLeft />
+                <img src={Backshevron} alt="Back" />
                 Back
               </nav>
             </Link>
@@ -63,8 +64,7 @@ const Step3 = () => {
 
           <div className="ButtonContainer">
             <button className="AnotherFee" onClick={() => setShowModal(true)}>
-              <GoPlus />
-              Add Another Fee
+              {" + "} Add Fee
             </button>
           </div>
         </section>
@@ -73,7 +73,7 @@ const Step3 = () => {
           <button
             className="continueBtn3"
             onClick={() => {
-              nav("/success");
+              nav("/Success");
             }}
           >
             Continue

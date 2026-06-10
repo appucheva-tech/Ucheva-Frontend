@@ -5,6 +5,10 @@ import { MdCheckBoxOutlineBlank } from "react-icons/md";
 import { IoMdCheckbox, IoIosInformationCircleOutline } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 import { IoCheckbox } from "react-icons/io5";
+import Backshevron from "../../../assets/Backshevron.svg";
+import UchevaLogo from "../../../assets/UchevaLogo.svg";
+import StepNo2 from "../../../assets/Steps2.svg";
+import Caution from "../../../assets/Caution.svg";
 
 const Step2 = () => {
   const nav = useNavigate();
@@ -12,11 +16,7 @@ const Step2 = () => {
     <main className="Step2Container geist-content">
       <article className="Step2Wrapper">
         <section className="Step2Head">
-          <img
-            className="Step2Logo"
-            src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
-            alt="Logo"
-          />
+          <img className="Step2Logo" src={UchevaLogo} alt="Logo" />
           <span className="Step2Count">
             <Link
               to={"/step1"}
@@ -25,7 +25,7 @@ const Step2 = () => {
               }}
             >
               <nav>
-                <MdOutlineKeyboardArrowLeft />
+                <img src={Backshevron} alt="Back" />
                 Back
               </nav>
             </Link>
@@ -34,15 +34,11 @@ const Step2 = () => {
           <div className="Step2Title">
             Configure Your Classes
             <span>
-              Set up the sections and classes that exist in your
-              <br /> school.
+              Set up the sections and classes that exist in your school. <br />
+              We'll use this to organize your students.
             </span>
           </div>
-          <img
-            className="StepsNo2"
-            src="https://i.postimg.cc/nzrCmWdH/Steps2.png"
-            alt=""
-          />
+          <img className="StepsNo2" src={StepNo2} alt="" />
         </section>
         <form className="Content">
           <div className="SchoolType">
@@ -53,7 +49,7 @@ const Step2 = () => {
               </span>
             </nav>
             <article className="checkBoxContainer">
-              <div className="checkBox">
+              <div className="checkBox1">
                 <MdCheckBoxOutlineBlank
                   style={{
                     color: "#D2D6DB",
@@ -191,12 +187,13 @@ const Step2 = () => {
                       </select>
                     </div>
                   </article>
+                  {/* Leave empty if there are no arms */}
                 </div>
               </article>
             </section>
 
             <div className="Note">
-              <IoIosInformationCircleOutline />
+              <img src={Caution} alt="Caution" />
               Don't worry, you can add, edit or remove classes anytime later in
               settings.
             </div>

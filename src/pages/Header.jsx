@@ -20,7 +20,7 @@ const Header = () => {
   };
 
   return (
-    <header className="Header">
+    <header className="Header geist-content">
       <div className="HeaderCont1">
         <img src={Logo} alt="Ucheva Logo" className="HeaderCont1Logo" />
       </div>
@@ -35,7 +35,7 @@ const Header = () => {
         </li>
         <li 
           className={`HeaderCont2Li ${location.pathname === '/Features' ? 'active-link' : ''}`} 
-          onClick={() => handleNavigation('/Features')}
+          // onClick={() => handleNavigation('/Features')}
         >
           Features
         </li>

@@ -28,8 +28,9 @@ import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
 import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
 import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
-import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboard";
+import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
 import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
+import CTSettings from "./features/class-teacher/CTSettings/CTSettings";
 
 import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
@@ -85,7 +86,9 @@ const App = () => {
           <Route path="score" element={<Score />} />
           <Route path="reportcard" element={<CTreport />} />
           <Route path="studentreport" element={<STReport />} />
+          <Route path="CTsettings" element={<CTSettings />} />
         </Route>
+        
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />

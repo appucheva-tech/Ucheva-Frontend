@@ -3,7 +3,8 @@ import { FiCalendar, FiChevronDown } from "react-icons/fi";
 import "./LayoutStyles/Header.css";
 
 const Header = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isStudentDropdownOpen, setIsStudentDropdownOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
   const formatDate = () => {
     const today = new Date();
@@ -16,8 +17,10 @@ const Header = () => {
     return today.toLocaleDateString("en-US", options);
   };
 
+  const students = ["Efe Ogeremu", "simisola", "kareem"];
+
   return (
-    <header className="parent_header nunito-content">
+    <header className="parentdashboard-header">
       <div className="date-section">
         <FiCalendar />
         <span>{formatDate()}</span>
@@ -26,30 +29,41 @@ const Header = () => {
       <div className="dropdown-section">
         <button
           className="dropdown-button"
-          onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+          onClick={() => setIsStudentDropdownOpen(!isStudentDropdownOpen)}
         >
           Efe Ogeremu
           <FiChevronDown />
         </button>
-        {isDropdownOpen && (
+        {isStudentDropdownOpen && (
           <div className="dropdown-menu">
-            <a href="#profile">Profile</a>
-            <a href="#settings">Settings</a>
-            <a href="#logout">Logout</a>
+            {students.map((student, index) => (
+              <p key={index}>{student}</p>
+            ))}
           </div>
         )}
       </div>
 
-      <div className="profile-section">
-        <img
-          src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
-          alt=""
-          className="user-profile"
-        />
-        <div className="user-info">
-          <div className="user-name">Omoniyi Omosimsola</div>
-          <div className="user-role">Parent</div>
+      <div className="profile-section-wrapper">
+        <div
+          className="profile-section"
+          onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+        >
+          <img
+            src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
+            alt="Profile"
+            className="user-profile"
+          />
+          <div className="user-info">
+            <div className="user-name">Omoniyi Omosimisola</div>
+            <div className="user-role">Parent</div>
+          </div>
         </div>
+        {isProfileDropdownOpen && (
+          <div className="profile-dropdown-menu">
+            <p>Settings</p>
+            <p className="#logout">Logout</p>
+          </div>
+        )}
       </div>
     </header>
   );
