@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Step1.css";
 import { useNavigate } from "react-router-dom";
 import { FaCamera, FaChevronDown } from "react-icons/fa6";
@@ -6,8 +6,10 @@ import Upload from "../../../assets/Vector.svg";
 import UchevaLogo from "../../../assets/UchevaLogo.svg";
 import Steps from "../../../assets/Steps.svg";
 import Camera from "../../../assets/CameraIcon.svg";
+import axios from "axios";
 
 const Step1 = () => {
+  const [schoolProfile, setSchoolProfile] = useState({});
   const [showTypes, setShowTypes] = useState(false);
   const [schoolTypes, setSchoolTypes] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -28,6 +30,21 @@ const Step1 = () => {
       setSelectedImage(URL.createObjectURL(file));
     }
   };
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const response = await axios.get(
+          "https://ucheva.onrender.com/api/v1/admin/profile",
+        );
+        console.log(response);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    getProfile();
+  }, []);
+
   return (
     <main className="Step1Container geist-content">
       <article className="Step1Wrapper">
