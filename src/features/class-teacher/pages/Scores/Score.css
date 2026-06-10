@@ -1,274 +1,283 @@
+/* Main Container */
 .CTScoreContainer {
   width: 100%;
-  height: auto;
-  min-height: 130vh;
+  min-height: auto;
   background: #f5f7fb;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
 .CTScoreWrapper {
-  width: 95%;
-  min-height: 120vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.7rem;
+  gap: 24px;
 }
 
+/* Header */
 .CTScoreHead {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Bold;
-  font-size: 32px;
-  leading-trim: NONE;
+  font-weight: 700;
+  font-size: 28px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #0f172a;
-  gap: 7px;
-
-  span {
-    font-family: Nunito;
-    font-weight: lighter;
-    font-style: Regular;
-    font-size: 18px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-  }
+  gap: 8px;
 }
 
+.CTScoreHead span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #6c737f;
+}
+
+/* Subjects Holder - Horizontal Scroll on Mobile */
 .CTSubjectsHolder {
   width: 100%;
-  height: 12vh;
   display: flex;
-  gap: 1rem;
+  gap: 16px;
   align-items: center;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.CTSubjectsHolder::-webkit-scrollbar {
+  height: 4px;
+}
+
+.CTSubjectsHolder::-webkit-scrollbar-track {
+  background: #e5e7eb;
+  border-radius: 10px;
+}
+
+.CTSubjectsHolder::-webkit-scrollbar-thumb {
+  background: #0062f6;
+  border-radius: 10px;
 }
 
 .CTSubjects {
-  width: 18%;
-  height: 100%;
+  flex-shrink: 0;
+  width: 180px;
   background: #ffffff;
-  border-radius: 10px;
+  border-radius: 12px;
   border: 2px solid #d2d6db;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 20px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-left: 17px;
-  gap: 0.7rem;
-
-  span {
-    font-family: Nunito;
-    font-weight: bold;
-    font-style: Bold;
-    font-size: 27px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #03173c;
-  }
+  padding: 16px;
+  gap: 8px;
+  transition: all 0.2s;
+  cursor: pointer;
 }
 
+.CTSubjects:hover {
+  border-color: #0062f6;
+  background: #f8fafd;
+}
+
+.CTSubjects span {
+  font-family: Nunito;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+}
+
+/* Score Table */
 .CTScoreTable {
-  width: 96%;
-  min-height: 85vh;
+  width: 100%;
   background: white;
   border-radius: 20px;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 7px;
+  overflow: hidden;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
+/* Subject Save Header */
 .CTSubjectSave {
   width: 100%;
-  min-height: 13vh;
   background: transparent;
   border-bottom: 1px solid #e5e7eb;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 20px 24px;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: SemiBold;
-  font-size: 22px;
-  leading-trim: NONE;
+  font-weight: 700;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .CTSaveBtn {
-  width: 139px;
-  height: 54px;
   background: #0062f6;
   border-radius: 10px;
   color: white;
   border: none;
+  padding: 12px 24px;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 24px;
-  letter-spacing: 0%;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 100%;
   text-align: center;
-  vertical-align: middle;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
+.CTSaveBtn:hover {
+  background: #0052d0;
+}
+
+/* Actual Table Container */
 .CTActualTable {
-  width: 97%;
-  min-height: 60vh;
+  width: 100%;
   background: transparent;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
+  overflow-x: auto;
 }
 
+/* Table Header */
 .CTActualTableTop {
   width: 100%;
-  height: 10vh;
+  min-width: 700px;
   background: #e5e7eb;
-  border-radius: 8px 8px 0 0;
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 20px;
+  padding: 16px 20px;
   align-items: center;
+  gap: 16px;
 }
 
 .CTTableContentValue {
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Medium;
-  font-size: 18px;
-  leading-trim: NONE;
+  font-weight: 600;
+  font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #03173c;
+  flex: 2;
 }
 
 .CTTableContentScore {
-  width: 156px;
-  height: 100%;
+  width: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Medium;
-  font-size: 18px;
-  leading-trim: NONE;
+  font-weight: 600;
+  font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
   text-align: center;
   color: #03173c;
-  gap: 7px;
-
-  span {
-    font-family: Nunito;
-    font-weight: bold;
-    font-style: Medium;
-    font-size: 14px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    color: #6c737f;
-  }
+  gap: 4px;
 }
 
+.CTTableContentScore span {
+  font-family: Nunito;
+  font-weight: 500;
+  font-size: 12px;
+  color: #6c737f;
+}
+
+/* Table Rows */
 .CTActualTableInfo {
   width: 100%;
-  height: 8vh;
+  min-width: 700px;
   border-bottom: 1px solid #f2f5fb;
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 20px;
+  padding: 14px 20px;
   align-items: center;
-  gap: 10px;
+  gap: 16px;
 }
 
 .CTTableValueName {
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #042869;
+  flex: 2;
 }
 
 .CTCA1Holder {
-  width: 156px;
-  height: 100%;
+  width: 120px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .CTCA1 {
-  width: 60px;
-  height: 38px;
-  border-radius: 6px;
+  width: 70px;
+  height: 42px;
+  border-radius: 8px;
   border: 1px solid #d2d6db;
   outline: none;
   background: transparent;
-  display: flex;
-  padding-left: 18px;
+  text-align: center;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 15px;
   line-height: 100%;
   letter-spacing: 0%;
+  transition: border 0.2s;
 }
 
+.CTCA1:focus {
+  border-color: #0062f6;
+}
+
+/* Pagination */
 .pagination {
-  width: 97%;
-  height: 8vh;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
-  font-size: 13px;
+  padding: 20px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid #e5e7eb;
+}
 
-  span {
-    font-family: Nunito;
-    font-weight: 400px;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #6c737f;
-  }
+.pagination span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6c737f;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .pages button {
@@ -276,95 +285,245 @@
   height: 34px;
   background: white;
   cursor: pointer;
-  border-radius: 7px;
-  border: none;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 500;
+  font-size: 14px;
   color: #042869;
+  transition: all 0.2s;
 }
+
+.pages button:hover {
+  background: #f3f4f6;
+  border-color: #0062f6;
+}
+
+.pages button.active {
+  background: #0062f6;
+  color: white;
+  border-color: #0062f6;
+}
+
 .pages span {
   width: 34px;
   height: 34px;
-  background: white;
-  cursor: pointer;
-  border-radius: 7px;
-  border: none;
-  font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .CTPageTypeHolder {
-  width: 174px;
-  height: 34px;
-  gap: 10px;
   display: flex;
   align-items: center;
-  justify-content: end;
+  gap: 10px;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 400;
+  font-size: 14px;
   color: #6c737f;
 }
 
 .CTPageTypeWrapper {
   width: 56px;
   height: 34px;
-  border-radius: 4px;
-  gap: 4px;
+  border-radius: 6px;
   border: 1px solid #d2d6db;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: white;
 }
 
 .CTPageType {
-  width: 47px;
+  width: 100%;
   height: 100%;
   border: none;
   background: transparent;
   outline: none;
-  color: #042869;
+  text-align: center;
+  cursor: pointer;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-size: 14px;
 }
 
+/* Caution Note */
 .CTScoreCaution {
   width: 100%;
-  height: 12vh;
   gap: 12px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #e6f4ff;
   border: 1px solid #0095ff;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 20px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #0095ff;
   align-items: center;
   display: flex;
-  padding-left: 30px;
+  padding: 16px 24px;
+  margin-top: 8px;
+}
+
+.CTScoreCaution svg {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .CTSubjects {
+    width: 160px;
+    padding: 14px;
+  }
+
+  .CTSubjects span {
+    font-size: 18px;
+  }
+
+  .CTSubjectSave {
+    font-size: 18px;
+    padding: 16px 20px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .CTScoreWrapper {
+    gap: 20px;
+  }
+
+  .CTScoreHead {
+    font-size: 24px;
+  }
+
+  .CTScoreHead span {
+    font-size: 14px;
+  }
+
+  .CTSubjectsHolder {
+    gap: 12px;
+  }
+
+  .CTSubjects {
+    width: 140px;
+    padding: 12px;
+  }
+
+  .CTSubjects span {
+    font-size: 16px;
+  }
+
+  .CTSubjectSave {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    font-size: 16px;
+  }
+
+  .CTSaveBtn {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .CTActualTable {
+    overflow-x: auto;
+  }
+
+  .CTActualTableTop,
+  .CTActualTableInfo {
+    min-width: 650px;
+    padding: 12px 16px;
+  }
+
+  .CTTableContentValue,
+  .CTTableValueName {
+    font-size: 13px;
+  }
+
+  .CTTableContentScore {
+    font-size: 13px;
+    width: 100px;
+  }
+
+  .CTCA1Holder {
+    width: 100px;
+  }
+
+  .CTCA1 {
+    width: 60px;
+    height: 38px;
+    font-size: 13px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .pages {
+    justify-content: center;
+  }
+
+  .pages button {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .pages span {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .CTPageTypeHolder {
+    font-size: 13px;
+  }
+
+  .CTScoreCaution {
+    font-size: 12px;
+    padding: 12px 16px;
+  }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .CTScoreHead {
+    font-size: 20px;
+  }
+
+  .CTScoreHead span {
+    font-size: 12px;
+  }
+
+  .CTSubjects {
+    width: 120px;
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .CTSubjects span {
+    font-size: 14px;
+  }
+
+  .CTSubjectSave {
+    font-size: 15px;
+  }
+
+  .CTSaveBtn {
+    font-size: 13px;
+  }
+
+  .CTScoreCaution {
+    font-size: 11px;
+    padding: 10px 14px;
+  }
+
+  .CTScoreCaution svg {
+    font-size: 16px;
+  }
 }

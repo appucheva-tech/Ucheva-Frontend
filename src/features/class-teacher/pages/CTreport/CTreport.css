@@ -1,96 +1,92 @@
+/* Main Container */
 .CTreportContainer {
   width: 100%;
-  height: auto;
-  min-height: 130vh;
+  min-height: auto;
   background: #f5f7fb;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
 .CTreportWrapper {
-  width: 95%;
-  min-height: 120vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.7rem;
+  gap: 24px;
 }
 
+/* Header */
 .CTSReportHead {
   width: 100%;
-  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Bold;
-  font-size: 32px;
-  leading-trim: NONE;
+  font-weight: 700;
+  font-size: 28px;
   line-height: 100%;
   letter-spacing: 0%;
   color: #0f172a;
-  gap: 7px;
-
-  span {
-    font-family: Nunito;
-    font-weight: lighter;
-    font-style: Regular;
-    font-size: 18px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-  }
+  gap: 8px;
 }
 
+.CTSReportHead span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #6c737f;
+}
+
+/* Filter Section */
 .classSectionHolder {
   width: 100%;
-  height: 14vh;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 16px;
   align-items: center;
   justify-content: space-between;
   background: white;
-  border-radius: 10px;
-  border: #e5e7eb;
-  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  padding-left: 10px;
-  padding-right: 10px;
+  border-radius: 12px;
+  box-shadow: rgba(149, 157, 165, 0.1) 0px 4px 12px;
+  padding: 20px;
 }
 
 .classSection {
-  width: 70%;
-  height: 90%;
+  flex: 1;
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: flex-end;
 }
 
 .classSectionInput {
-  width: 27%;
-  height: 100%;
+  flex: 1;
+  min-width: 140px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 18px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
-  vertical-align: middle;
   color: #042869;
-  gap: 7px;
+  gap: 8px;
 }
 
 .SectionInputHolder {
-  width: 160px;
-  height: 40px;
+  width: 100%;
+  height: 44px;
   border-radius: 8px;
   border: 1px solid #d2d6db;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: white;
 }
 
 .SelectSectionInput {
@@ -100,174 +96,173 @@
   outline: none;
   background: transparent;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Medium;
+  font-weight: 500;
   font-size: 14px;
-  leading-trim: NONE;
   line-height: 100%;
   letter-spacing: 0%;
-  vertical-align: middle;
   color: #042869;
   cursor: pointer;
 }
+
 .resetBtnRecord {
-  width: 97px;
-  height: 48px;
+  width: auto;
+  min-width: 97px;
+  height: 44px;
   border-radius: 8px;
   border: 2px solid #0062f6;
   cursor: pointer;
   background: transparent;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
+  font-weight: 500;
+  font-size: 14px;
   line-height: 24px;
   letter-spacing: 0%;
-  vertical-align: middle;
   color: #042869;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 8px;
+  padding: 0 20px;
+  transition: all 0.2s;
 }
 
-.reportTable {
+.resetBtnRecord:hover {
+  background: #f0f7ff;
+}
+
+/* Table Container */
+.CTActualTable2 {
   width: 100%;
-  height: 70vh;
   background: white;
   border: 1px solid #e5e7eb;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  overflow-x: auto;
 }
 
-.CTActualTable2 {
-  width: 97%;
-  min-height: 60vh;
-  border: 1px solid #e5e7eb;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-y: auto;
-}
-
+/* Table Header */
 .CTActualTableTop2 {
   width: 100%;
-  height: 10vh;
+  min-width: 700px;
   background: #e5e7eb;
-  border-radius: 8px 8px 0 0;
+  border-radius: 12px 12px 0 0;
   display: flex;
   justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 20px;
+  padding: 16px 20px;
   align-items: center;
+  gap: 16px;
 }
 
 .CTActualTableTop2 input {
-  width: 10%;
-  height: 30%;
-}
-
-.CTTableContentValue2 {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Medium;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
-.CTActualTableInfo2 {
-  width: 100%;
-  height: 8vh;
-  background: transparent;
-  border-radius: 8px 8px 0 0;
-  display: flex;
-  justify-content: space-between;
-  padding-left: 10px;
-  padding-right: 20px;
-  align-items: center;
-}
-
-.CTActualTableInfo2 input {
-  width: 10%;
-  height: 30%;
-}
-
-.CTTableValueName2 {
-  width: 20%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
-}
-
-.CTTableValueAction {
-  width: 13%;
-  height: 60%;
-  border-radius: 4px;
-  border: 1px solid #e5e7eb;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
+  width: 40px;
+  height: 18px;
+  margin: 0;
   cursor: pointer;
 }
 
+.CTTableContentValue2 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #03173c;
+  text-align: center;
+}
+
+/* Table Rows */
+.CTActualTableInfo2 {
+  width: 100%;
+  min-width: 700px;
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 20px;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid #f2f5fb;
+}
+
+.CTActualTableInfo2 input {
+  width: 40px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+}
+
+.CTTableValueName2 {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+  text-align: center;
+}
+
 .LinkToST {
-  width: 20%;
-  height: 100%;
+  flex: 1;
   text-decoration: none;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.CTTableValueAction {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Nunito;
+  font-weight: 700;
+  font-size: 18px;
+  color: #0062f6;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.CTTableValueAction:hover {
+  background: #f0f7ff;
+  border-color: #0062f6;
+}
+
+/* Pagination */
 .pagination {
-  width: 97%;
-  height: 8vh;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
-  font-size: 13px;
+  padding: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-top: 1px solid #e5e7eb;
+}
 
-  span {
-    font-family: Nunito;
-    font-weight: 400px;
-    font-style: Regular;
-    font-size: 16px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #6c737f;
-  }
+.pagination span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 14px;
+  color: #6c737f;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .pages button {
@@ -275,75 +270,213 @@
   height: 34px;
   background: white;
   cursor: pointer;
-  border-radius: 7px;
-  border: none;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 500;
+  font-size: 14px;
   color: #042869;
+  transition: all 0.2s;
 }
+
+.pages button:hover {
+  background: #f3f4f6;
+  border-color: #0062f6;
+}
+
+.pages button.active {
+  background: #0062f6;
+  color: white;
+  border-color: #0062f6;
+}
+
 .pages span {
   width: 34px;
   height: 34px;
-  background: white;
-  cursor: pointer;
-  border-radius: 7px;
-  border: none;
-  font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .CTPageTypeHolder {
-  width: 174px;
-  height: 34px;
-  gap: 10px;
   display: flex;
   align-items: center;
-  justify-content: end;
+  gap: 10px;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 400;
+  font-size: 14px;
   color: #6c737f;
 }
 
 .CTPageTypeWrapper {
   width: 56px;
   height: 34px;
-  border-radius: 4px;
-  gap: 4px;
+  border-radius: 6px;
   border: 1px solid #d2d6db;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
+  background: white;
 }
 
 .CTPageType {
-  width: 47px;
+  width: 100%;
   height: 100%;
   border: none;
   background: transparent;
   outline: none;
-  color: #042869;
+  text-align: center;
+  cursor: pointer;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-size: 14px;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+  .CTSReportHead {
+    font-size: 26px;
+  }
+
+  .CTSReportHead span {
+    font-size: 15px;
+  }
+
+  .classSectionHolder {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .classSection {
+    width: 100%;
+  }
+
+  .classSectionInput {
+    min-width: 120px;
+  }
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  .CTreportWrapper {
+    gap: 20px;
+  }
+
+  .CTSReportHead {
+    font-size: 24px;
+  }
+
+  .CTSReportHead span {
+    font-size: 14px;
+  }
+
+  .classSectionHolder {
+    padding: 16px;
+  }
+
+  .classSection {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .classSectionInput {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .resetBtnRecord {
+    width: 100%;
+  }
+
+  .CTActualTable2 {
+    overflow-x: auto;
+  }
+
+  .CTActualTableTop2,
+  .CTActualTableInfo2 {
+    min-width: 650px;
+    padding: 12px 16px;
+  }
+
+  .CTTableContentValue2,
+  .CTTableValueName2 {
+    font-size: 13px;
+  }
+
+  .CTTableValueAction {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .pagination {
+    flex-direction: column;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .pages {
+    justify-content: center;
+  }
+
+  .pages button {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .pages span {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .CTPageTypeHolder {
+    font-size: 13px;
+  }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .CTSReportHead {
+    font-size: 20px;
+  }
+
+  .CTSReportHead span {
+    font-size: 13px;
+  }
+
+  .classSectionHolder {
+    padding: 14px;
+  }
+
+  .classSectionInput {
+    font-size: 13px;
+  }
+
+  .SectionInputHolder {
+    height: 40px;
+  }
+
+  .SelectSectionInput {
+    font-size: 13px;
+  }
+
+  .resetBtnRecord {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .CTTableContentValue2,
+  .CTTableValueName2 {
+    font-size: 12px;
+  }
+
+  .CTTableValueAction {
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
 }

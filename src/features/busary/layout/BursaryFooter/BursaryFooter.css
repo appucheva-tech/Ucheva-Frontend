@@ -1,4 +1,4 @@
-.ct-footer {
+.br-footer {
   width: 100%;
   background: white;
   display: flex;
@@ -10,7 +10,7 @@
   border-top: 1px solid #e0e0e0;
 }
 
-.ct-footer p {
+.br-footer p {
   margin: 0;
   font-family: Nunito;
   font-weight: 400;
@@ -22,21 +22,21 @@
 }
 
 @media screen and (max-width: 768px) {
-  .ct-footer {
+  .br-footer {
     padding: 14px 24px;
   }
 
-  .ct-footer p {
+  .br-footer p {
     font-size: 11px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .ct-footer {
+  .br-footer {
     padding: 12px 16px;
   }
 
-  .ct-footer p {
+  .br-footer p {
     font-size: 10px;
   }
 }
