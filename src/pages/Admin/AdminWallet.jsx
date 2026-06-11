@@ -154,7 +154,6 @@ const AdminWallet = () => {
         </div>
 
       <div className="dashboard-container">
-      {/* SECTION 1: PAYMENT HISTORY */}
       <div className="history-card">
         <div className="card-header">
           <h2 className="card-title">Payment History</h2>
@@ -251,7 +250,6 @@ const AdminWallet = () => {
         </div>
       </div>
 
-      {/* SECTION 2: WITHDRAWAL HISTORY */}
       <div className="history-card">
         <div className="card-header">
           <h2 className="card-title">Withdrawal History</h2>
@@ -340,7 +338,6 @@ const AdminWallet = () => {
         </div>
       </div>
 
-      {/* SECTION 3: PLATFORM FEE INFO BOX */}
       <div className="info-banner">
         <div className="info-content">
           <div className="info-icon">i</div>
@@ -352,7 +349,6 @@ const AdminWallet = () => {
         <button className="learn-more-btn">Learn More</button>
       </div>
 
-      {/* SECTION 4: FOOTER */}
       <footer className="dashboard-footer">
         <p className="copyright">© 2026 Ucheva school operating management system. All right reserved.</p>
         <div className="footer-support">

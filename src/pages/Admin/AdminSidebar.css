@@ -71,7 +71,9 @@
         content: "";
         position: absolute;
         left: 0.5%; 
-        top: 15%;.AdminDashboard-header {
+        top: 15%;
+        
+  .AdminDashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;

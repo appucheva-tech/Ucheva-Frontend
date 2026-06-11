@@ -185,7 +185,6 @@ const AdminAnnouncement = () => {
         </div>
 
         <div className="announcementsContainer">
-      {/* Top Navigation Bar */}
       <div className="topNavbar">
         <div className="tabGroup">
           {categories.map((category, index) => (
@@ -210,7 +209,6 @@ const AdminAnnouncement = () => {
         </div>
       </div>
 
-      {/* Announcements List */}
       <div className="cardsList">
         {announcementsData.map((item, index) => (
           <div key={index} className={`announcementCard border-${item.type}`}>
@@ -247,7 +245,6 @@ const AdminAnnouncement = () => {
         ))}
       </div>
 
-      {/* Legend Indicators Box */}
       <div className="legendBox">
         <div className="legendItem">
           <span className="indicatorDot dot-draft"></span>
@@ -267,7 +264,6 @@ const AdminAnnouncement = () => {
         </div>
       </div>
 
-      {/* Outer Layout Footer Links */}
       <footer className="footerView">
         <span className="copyright">© 2026 Ucheva school operating management system . All right reserved.</span>
         <span className="support">Need help? <a href="#support" className="supportLink">Contact support</a></span>

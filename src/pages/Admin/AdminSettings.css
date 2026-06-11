@@ -149,7 +149,7 @@
       }
     }
 
-    .Auser-info {
+      .Auser-info {
         display: flex;
         flex-direction: column;
         width: 60%;
@@ -213,7 +213,6 @@
       margin: 0 0 24px 0;
     }
 
-    /* Shared Sub-layouts */
     .inputGroup {
       display: flex;
       flex-direction: column;
@@ -283,7 +282,6 @@
       }
     }
 
-    /* Admin Profile Layout Specifics */
     .profileLayout {
       display: flex;
       gap: 40px;
@@ -339,7 +337,6 @@
       }
     }
 
-    /* School Profile Layout Specifics */
     .schoolLayout {
       display: flex;
       gap: 40px;
@@ -411,7 +408,6 @@
       }
     }
 
-    /* Configuration Card Layout Specifics */
     .configurationLayout {
       display: flex;
       gap: 48px;
@@ -673,7 +669,6 @@
       }
     }
 
-    /* Verification Section Layout */
     .verificationUploadersRow {
       display: flex;
       gap: 18px;
@@ -727,7 +722,6 @@
       }
     }
 
-    /* Common List Action Row Layout */
     .actionFlexRow {
       display: flex;
       justify-content: space-between;

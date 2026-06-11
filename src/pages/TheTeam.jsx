@@ -8,7 +8,6 @@ import Kareem from '../assets/Kareem.png';
 import Ifeanacho from '../assets/Ifeanacho.jpg';
 
 const TeamSection = () => {
-  // Set initial state to null so no cards are pre-selected on initial load
   const [activeIndex, setActiveIndex] = useState(null);
 
   const teamMembers = [
@@ -54,7 +53,6 @@ const TeamSection = () => {
         <p className="team-intro">The principles that guide every decision we make.</p>
       </div>
 
-      {/* Added onMouseLeave handler to clear the active index instantly */}
       <div className="team-grid" onMouseLeave={() => setActiveIndex(null)}>
         {teamMembers.map((member, index) => {
           const isActive = activeIndex === index;

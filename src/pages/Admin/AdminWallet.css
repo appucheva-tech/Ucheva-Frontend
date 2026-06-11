@@ -307,7 +307,6 @@
   }
 }
 
-/* Container styling */
 .dashboard-container {
   background-color: #f6f8fa;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -320,7 +319,6 @@
   margin: 0 auto;
 }
 
-/* Card components */
 .history-card {
   background-color: #ffffff;
   border-radius: 8px;
@@ -329,7 +327,6 @@
   padding: 20px;
 }
 
-/* Headers */
 .card-header {
   display: flex;
   justify-content: space-between;
@@ -350,7 +347,6 @@
   gap: 12px;
 }
 
-/* Filters and Inputs */
 .filter-group {
   display: flex;
   flex-direction: column;
@@ -389,7 +385,7 @@
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   padding: 6px 12px;
-  margin-top: 14px; /* Offset to align horizontally with the status selector input field */
+  margin-top: 14px; 
 }
 
 .calendar-icon {
@@ -397,7 +393,6 @@
   opacity: 0.7;
 }
 
-/* Table Design */
 .table-responsive {
   width: 100%;
   overflow-x: auto;
@@ -435,7 +430,6 @@
   color: #475569;
 }
 
-/* Badges & Status Pills */
 .badge {
   display: inline-block;
   padding: 4px 8px;
@@ -471,7 +465,6 @@
   color: #ef4444;
 }
 
-/* Footer / Pagination elements */
 .card-footer {
   display: flex;
   justify-content: space-between;
@@ -534,7 +527,6 @@
   color: #64748b;
 }
 
-/* Info Box / Banner */
 .info-banner {
   background-color: #e0f2fe;
   border: 1px solid #bae6fd;
@@ -588,7 +580,6 @@
   cursor: pointer;
 }
 
-/* General Page Footer Layout */
 .dashboard-footer {
   display: flex;
   justify-content: space-between;
