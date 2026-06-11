@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Step1 from "./features/Unboarding/Pages/Step1";
 import Step2 from "./features/Unboarding/Pages/Step2";
 import Step3 from "./features/Unboarding/Pages/Step3";
@@ -45,12 +46,38 @@ import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages
 import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
 import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
 import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
+import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import AdminStaff from "./pages/Admin/AdminStaff";
+import AdminStudents from "./pages/Admin/AdminStudents";
+import AdminAttendance from "./pages/Admin/AdminAttendance";
+import AdminSubjects from "./pages/Admin/AdminSubjects";
+import AdminClass from "./pages/Admin/AdminClass";
+import AdminFees from "./pages/Admin/AdminFees";
+import AdminReportCards from "./pages/Admin/AdminReportCards";
+import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
+import AdminWallet from "./pages/Admin/AdminWallet";
+import AdminSettings from "./pages/Admin/AdminSettings";
+import Features from "./pages/Features";
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />
@@ -64,6 +91,20 @@ const App = () => {
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} />
+
+        <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="AdminStaff" element={<AdminStaff />} />
+          <Route path="AdminStudents" element={<AdminStudents />} />
+          <Route path="AdminAttendance" element={<AdminAttendance />} />
+          <Route path="AdminSubjects" element={<AdminSubjects />} />
+          <Route path="AdminClass" element={<AdminClass />} />
+          <Route path="AdminFees" element={<AdminFees />} />
+          <Route path="AdminReportCards" element={<AdminReportCards />} />
+          <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
+          <Route path="AdminWallet" element={<AdminWallet />} />
+          <Route path="AdminSettings" element={<AdminSettings />} />
+        </Route>
 
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
@@ -110,4 +151,3 @@ const App = () => {
 };
 
 export default App;
-// hello

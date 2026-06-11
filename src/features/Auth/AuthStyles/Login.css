@@ -110,17 +110,21 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  
 }
 
 .login_input {
   width: 100%;
   height: 49px;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   border: 1px solid #9da4ae;
   padding: 0 16px;
   font-size: 14px;
   box-sizing: border-box;
   transition: border-color 0.2s ease;
+  border-radius: 8px;
+border: 1px solid var(--Primary-Color-200, #81B2FF);
+box-shadow: 0 0 4px 0 var(--Primary-Color-300, #5396FF);
 }
 
 .login_input:focus {
@@ -177,21 +181,22 @@
   margin-top: 5px;
   display: block;
 }
+.login_radio_forget{
+  display: flex;
+  justify-content: space-between;
+
+}
 
 .login_raidobox {
   display: flex;
   gap: 20px;
-  /* justify-content: flex-end; */
-  /* background-color: red; */
 }
 
 .forget {
-  display: flex;
-  justify-content: flex-end;
   color: #0062f6;
   cursor: pointer;
   font-size: 14px;
-  padding-bottom: 25px;
+  /* padding-bottom: 25px; */
 }
 
 .forget:hover {

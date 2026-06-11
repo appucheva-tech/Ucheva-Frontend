@@ -3,22 +3,24 @@
   align-items: center;
   justify-content: space-between;
   max-width: 1200px;
+  height: 100vh;
   margin: 0 auto;
   padding: 40px 20px;
   gap: 60px;
   font-family: system-ui, -apple-system, sans-serif;
 
-  .text-column {
-    flex: 1;
+  .Ourtext-column {
     display: flex;
     flex-direction: column;
     gap: 32px;
+    height: 60%;
+    width: 42%;
+    margin-left: -1.6%;
 
     .subtitle {
-      font-size: 14px;
+      font-size: 15.5px;
       color: #94a3b8;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+      margin-bottom: -5%;
       font-weight: 500;
     }
 
@@ -28,40 +30,27 @@
       gap: 12px;
 
       .title {
-        font-size: 28px;
+        font-size: 31px;
         color: #0f2d69;
         margin: 0;
         font-weight: 700;
       }
 
-      .description {
-        font-size: 16px;
-        color: #334155;
+      .Ourdescription {
+        font-size: 23px;
+        color: #042869;
         line-height: 1.6;
         margin: 0;
       }
     }
   }
 
-  .image-column {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: red;
+      .AboutUsPic2{
+        margin-right: -3%;
+        width: 50%;
+        height: 580px;
+      }
 
-    .grid-layout {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(2, 1fr);
-      gap: 20px;
-      width: 440px;
-      height: 440px;
-      background-color: green;
-      
-    }
-  }
 
   @media (max-width: 450px) {
     flex-direction: column;

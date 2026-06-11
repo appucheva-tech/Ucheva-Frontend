@@ -64,14 +64,17 @@
     border-radius: 16px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
+    height: 470px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 
     .card-content {
-      padding: 32px;
+      padding-top: 20px;
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       flex-grow: 1;
     }
 
@@ -94,6 +97,7 @@
       line-height: 1.5;
       color: #475569;
       margin-bottom: 32px;
+      text-align:left;
     }
   }
 
@@ -101,7 +105,6 @@
     border: none;
     position: relative;
     justify-content: space-between;
-    background-color: red;
 
     .text-light {
       color: #ffffff;
@@ -121,9 +124,8 @@
       justify-content: center;
 
       .admin-image {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
+        width: 115%;
+        height: 480px;
       }
     }
   }
@@ -133,6 +135,10 @@
       list-style: none;
       padding: 0;
       margin: 0 0 16px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
 
       li {
         font-size: 14px;

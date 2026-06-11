@@ -1,0 +1,619 @@
+.AdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 12vh;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  border-bottom: 1px solid #f0f0f5;
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 29%;
+
+    .search-input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      font-size: 14px;
+      color: #1e1e2f;
+      background-color: #ffffff;
+      border: 1px solid #e2e2ec;
+      border-radius: 8px;
+      outline: none;
+
+      &::placeholder {
+        color: #a0a0b0;
+      }
+
+      &:focus {
+        border-color: #3b82f6;
+      }
+    }
+
+    .search-button {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .search-icon {
+        width: 16px;
+        height: 16px;
+        color: #2563eb;
+      }
+    }
+  }
+
+  .meta-container {
+    display: flex;
+    align-items: center;
+    margin-left: 8%;
+    gap: 12px;
+    width: 35%;
+    font-size: 11px;
+    color: #4a4a6a;
+
+    .date-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .calendar-icon {
+        width: 16px;
+        height: 16px;
+        color: #71718a;
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: #e2e2ec;
+    }
+
+    .dropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        color: #1e1e2f;
+      }
+
+      .chevron-icon {
+        width: 14px;
+        height: 14px;
+        color: #71718a;
+      }
+    }
+  }
+
+  .profile-container {
+    display: flex;
+    align-items: center;
+    margin-right: -2%;
+    gap: 10px;
+    width: 22%;
+    height: 10vh;
+
+    .notification-button {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .bell-icon {
+        width: 22px;
+        height: 22px;
+        color: #1e1e2f;
+        fill: #1e1e2f;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 8px;
+        height: 8px;
+        background-color: #eab308; 
+        border-radius: 50%;
+        border: 1.5px solid #ffffff;
+      }
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .Auser-info {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+
+        .user-name {
+          font-size: 14px;
+          font-weight: 500;
+          color: #1e1e2f;
+          line-height: 1.2;
+        }
+
+        .user-role {
+          font-size: 12px;
+          color: #71718a;
+          margin-top: 2px;
+        }
+      }
+  }
+}
+
+
+.dashboard-container {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  width: 100%;
+  min-height: 40vh;
+  padding-left: 35px;
+  padding-right: 35px;
+  padding-top: 20px;
+
+  .dashboard-header {
+    margin-bottom: 32px;
+
+    .welcome-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #03173C;
+      margin: 0 0 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .wave-emoji {
+        display: inline-block;
+      }
+    }
+
+    .subtitle-text {
+      font-size: 16px;
+      color: #03173C;
+      margin: 0;
+    }
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    height: 110px;
+    width: 100%;
+
+    @media (max-width: 450px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 15px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      display: flex;
+      width: 100%;
+      height: 110px;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 5px solid transparent;
+
+      &.card-students { border-left-color: #3b82f6; }
+      &.card-staff { border-left-color: #a855f7; }
+      &.card-attendance { border-left-color: #f59e0b; }
+      &.card-fees { border-left-color: #10b981; }
+
+      .card-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+
+        .text-section {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .card-label {
+            font-size: 15px;
+            color: #03173C;
+            font-weight: 500;
+          }
+
+          .card-value {
+            font-size: 25px;
+            font-weight: 700;
+            color: #03173C;
+          }
+        }
+
+        .icon-wrapper {
+          width: 65px;
+          height: 65px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .DashIcon{
+            width: 70%;
+            height: 70%;
+          }
+
+          &.icon-students {
+            background-color: #eff6ff;
+            color: #2563eb;
+          }
+          &.icon-staff {
+            background-color: #f3e8ff;
+            color: #9333ea;
+          }
+          &.icon-attendance {
+            background-color: #fef3c7;
+            color: #d97706;
+          }
+          &.icon-fees {
+            background-color: #ecfdf5;
+            color: #059669;
+          }
+        }
+      }
+
+      .card-footer {
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: #10b981; 
+
+        .arrow {
+          width: 7%;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.tableContainer {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f4f7fc;
+  padding: 20px;
+
+  .filterSection {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+    .filtersGroup {
+      display: flex;
+      gap: 16px;
+
+      .filterItem {
+        display: flex;
+        flex-direction: column;
+
+        .filterLabel {
+          font-size: 13px;
+          color: #4a5568;
+          margin-bottom: 8px;
+          font-weight: 500;
+          white-space: nowrap;
+        }
+
+        .selectWrapper {
+          position: relative;
+          width: 150px;
+
+          .selectInput {
+            width: 100%;
+            padding: 10px 36px 10px 16px;
+            font-size: 13px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #1a202c;
+            appearance: none;
+            cursor: pointer;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 6px;
+            background-color: #4a5568;
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
+    .actionRowButtons {
+      display: flex;
+      gap: 12px;
+
+      .exportBtn {
+        background-color: #0d6efd;
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .exportIcon {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+        }
+      }
+
+      .resetBtn {
+        background-color: #ffffff;
+        border: 1px solid #1070e0;
+        color: #1070e0;
+        border-radius: 6px;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        .resetIcon {
+          width: 16px;
+          height: 16px;
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  .tableWrapper {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    margin-bottom: 40px;
+
+    .feesTable {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+
+      th {
+        background-color: #f1f5f9;
+        color: #4a5568;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 16px 20px;
+      }
+
+      td {
+        padding: 16px 20px;
+        border-bottom: 1px solid #f1f5f9;
+        font-size: 14px;
+        vertical-align: middle;
+      }
+
+      .checkboxCol {
+        width: 40px;
+        padding-right: 0;
+        text-align: center;
+
+        .customCheckbox {
+          width: 16px;
+          height: 16px;
+          border: 1px solid #cbd5e1;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+
+      .studentName {
+        color: #1070e0;
+      }
+
+      .textValue {
+        color: #4a5568;
+      }
+
+      .statusBadge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        text-align: center;
+
+        &.statusFull {
+          background-color: #e6f7ed;
+          color: #198754;
+        }
+
+        &.statusPart {
+          background-color: #fff3e6;
+          color: #fd7e14;
+        }
+
+        &.statusUnpaid {
+          background-color: #ffebee;
+          color: #dc3545;
+        }
+      }
+
+      .moreActionsBtn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    .paginationRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: #ffffff;
+
+      .paginationInfo {
+        font-size: 14px;
+        color: #64748b;
+      }
+
+      .paginationControls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .pageBtn, .arrowBtn {
+          background: none;
+          border: none;
+          min-width: 32px;
+          height: 32px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          font-size: 14px;
+          color: #64748b;
+          cursor: pointer;
+        }
+
+        .activePage {
+          background-color: #1070e0;
+          color: #ffffff;
+          font-weight: 500;
+        }
+
+        .arrowBtn:disabled {
+          color: #cbd5e1;
+          cursor: not-allowed;
+        }
+
+        .ellipsis {
+          color: #64748b;
+          font-size: 14px;
+          padding: 0 4px;
+        }
+      }
+
+      .rowsPerPageGroup {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .rowsLabel {
+          font-size: 14px;
+          color: #64748b;
+        }
+
+        .rowsSelectWrapper {
+          position: relative;
+
+          .rowsSelect {
+            padding: 6px 32px 6px 12px;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #1a202c;
+            appearance: none;
+            cursor: pointer;
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 5px;
+            background-color: #4a5568;
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+
+  .footerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4px;
+    font-size: 14px;
+
+    .copyrightText {
+      color: #94a3b8;
+    }
+
+    .supportText {
+      color: #64748b;
+
+      .supportLink {
+        color: #1070e0;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -14,6 +14,7 @@
     grid-template-columns: 1.1fr 0.9fr;
     gap: 64px;
     align-items: center;
+    margin-top: -2.5%;
   }
 
   .grid-gallery {
@@ -35,13 +36,14 @@
     flex-direction: column;
     justify-content: center;
     margin-left: 6%;
-    width: 100%;
+    width: 97%;
 
     .content-subtitle {
       font-size: 15px;
       font-weight: 600;
       color: #a0aec0;
       text-transform: none;
+      margin-top: 30px;
       margin-bottom: 12px;
       display: inline-block;
     }
@@ -49,15 +51,15 @@
     .content-title {
       font-size: 32px;
       font-weight: 700;
-      color: #062163;
+      color: #042869;
       margin: 0 0 20px 0;
       letter-spacing: -0.5px;
     }
 
     .content-text {
-      font-size: 23.7px;
+      font-size: 23px;
       line-height: 1.65;
-      color: #2d3748;
+      color: #042869;
       margin: 0;
     }
   }
