@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "./AuthStyles/ResetPassword.css";
 import { useNavigate } from "react-router-dom";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ApiClient } from "../../config/AxiosInstance";
 
 const ResetPassword = () => {
   const nav = useNavigate();
@@ -81,7 +81,7 @@ const ResetPassword = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${BaseUrl}/admin/reset-password`, {
+      const response = await ApiClient.post("/admin/reset-password", {
         email: userEmail,
         newPassword: password,
         newPasswordConfirm: confirmPassword,
@@ -123,13 +123,6 @@ const ResetPassword = () => {
               onClick={() => nav("/")}
               style={{ cursor: "pointer" }}
             />
-          </div>
-          <div className="RestPassword_text">
-            <h1>Create New Password</h1>
-            <p>
-              Your new password must be different from your previous password
-              and meet the security requirements.
-            </p>
           </div>
         </aside>
 

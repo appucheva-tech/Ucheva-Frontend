@@ -1,10 +1,13 @@
-security-announcement {
+.security-announcement {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 40px 24px;
+  /* padding: 40px 24px; */
   background-color: #f5f5f5;
   min-height: 100vh;
+
+  
+  
 }
 
 .announcement-header {

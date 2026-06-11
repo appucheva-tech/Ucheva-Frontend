@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ApiClient } from "../../config/AxiosInstance";
 
 const SignUp = () => {
   const nav = useNavigate();
@@ -141,8 +142,8 @@ const SignUp = () => {
     };
 
     try {
-      const response = await axios.post(`${BaseUrl}/admin/register`, payload);
-      toast.success(response.data.message || "Registration successful!");
+      const response = await ApiClient.post("/admin/register", payload);
+      toast.success(response?.data?.message || "Registration successful!");
       localStorage.setItem("userInfo", JSON.stringify(formData));
       localStorage.setItem("userEmail", formData.email);
       setTimeout(() => {

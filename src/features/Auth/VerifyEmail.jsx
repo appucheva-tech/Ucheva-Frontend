@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./AuthStyles/VerifyEmail.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ApiClient } from "../../config/AxiosInstance";
 
 const VerifyEmail = () => {
   const nav = useNavigate();
@@ -132,7 +132,7 @@ const VerifyEmail = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BaseUrl}/admin/verify`, {
+      const response = await ApiClient.post("/admin/verify", {
         email: userEmail,
         otp: otpCode,
       });
