@@ -46,16 +46,6 @@ import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages
 import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
 import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
 import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
-
-function ScrollToTop() {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-}
 import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminStaff from "./pages/Admin/AdminStaff";
@@ -69,6 +59,17 @@ import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import Features from "./pages/Features";
+
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 
 const App = () => {
   return (
