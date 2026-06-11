@@ -2,9 +2,9 @@
   display: flex;
   align-items: center;
   width: 100%;
-  height: 20vh;
+  height: 15vh;
   padding-left: 5%;
-  padding-right: 5%;
+  margin-top: -3%;
   font-family: system-ui, -apple-system, sans-serif;
   gap: 30px;
 
@@ -18,7 +18,7 @@
 
 
   .carousel-label {
-    font-size: 30px;
+    font-size: 28px;
     font-weight: 600;
     color: #0f2d59; 
     white-space: nowrap;
@@ -31,8 +31,8 @@
   .carousel-slider {
     overflow: hidden;
     position: relative;
-    width: 100%;
-    height: 100px;
+    width: 80%;
+    height: 80px;
     display: flex;
     align-items: center;
 
@@ -63,7 +63,7 @@
       align-items: center;
       gap: 5%; 
       width: max-content;
-      height: 100px;
+      height: 80px;
       animation: scroll 5s linear infinite;
 
       
@@ -80,8 +80,8 @@
       flex-shrink: 0;
 
       img {
-        height: 50px; 
-        width: auto;
+        height: 40px; 
+        width: 80%;
         height: 100px;
         object-fit: contain;
         mix-blend-mode: multiply; 

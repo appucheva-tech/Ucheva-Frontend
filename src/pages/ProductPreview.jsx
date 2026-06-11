@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductPreview.css';
-import AdminDashboard from '../assets/AdminDashboardPic.png'
+import dark from '../assets/dark.svg'
 
 const ProductPreview = () => {
   return (
@@ -14,7 +14,7 @@ const ProductPreview = () => {
       </p>
     </div>
     <section className='AdminSection'>
-        <img src={AdminDashboard} alt="" className='AdminDashboard'/>
+        <img src={dark} alt="" className='AdminDashboard'/>
     </section>
     </>
   );
