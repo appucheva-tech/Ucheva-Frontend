@@ -23,20 +23,22 @@
 
 .signUp_left {
   width: 50%;
-  height: 100%;
+  height: 150%;
   align-items: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
   position: relative;
-  /* overflow-y: auto; */
+  flex-shrink: 0;
 
   img {
-    width: 100%;
-    height: 100%;
+    /* width: 100%; */
+    /* height: 100%; */
     object-fit: cover;
     border-radius: 60px;
     position: absolute;
+    width: 685px;
+height: 934px;
   }
 }
 .logoholder {
@@ -50,6 +52,7 @@
     left: 46px;
     gap: 10px;
     border-radius: 2px;
+    cursor: pointer;
   }
 }
 
@@ -84,7 +87,7 @@
   flex-direction: column;
   gap: 30px;
   padding: 30px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 
   h2 {
     font-size: 45px;
@@ -155,7 +158,6 @@
   padding: 0 16px;
   font-size: 14px;
   box-sizing: border-box;
-  
 }
 .signUp_input:focus {
   outline: none;

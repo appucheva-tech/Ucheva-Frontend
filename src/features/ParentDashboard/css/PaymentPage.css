@@ -39,18 +39,24 @@
   gap: 24px;
   max-width: 1400px;
   margin: 0 auto;
+  /* background-color: red; */
+  /* height: 100vh; */
 }
 
 .payment-left {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  /* background-color: red; */
+  /* height: 100%; */
 }
 
 .payment-section {
   background-color: white;
   border-radius: 8px;
   padding: 20px;
+  /* height: 50%; */
+  /* background-color: blue; */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 
   h2 {
@@ -90,7 +96,7 @@
 }
 
 .payment-item:hover {
-  background-color: #E5E7EB;
+  background-color: #e5e7eb;
 }
 
 .checkbox-input {
@@ -201,6 +207,7 @@
 .payment-right {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .order-summary {
@@ -213,13 +220,26 @@
   height: fit-content;
   position: relative;
   top: 0;
+  height: 100%;
 
   h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #1a1a1a;
     margin: 0 0 8px 0;
+    color: var(--Primary-Color-900, #03173c);
+    font-family: Nunito;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    /* line-height: normal; */
   }
+}
+.section-subtitle{
+  color:  #9DA4AE;
+
+font-family: Nunito;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+/* line-height: normal; */
 }
 
 .summary-content {
@@ -330,7 +350,6 @@
   background-color: #003399;
 }
 
-/* Tablet Styles (768px and up) */
 @media (min-width: 768px) {
   .payment-page {
     padding: 28px;
@@ -338,11 +357,11 @@
 
   .payment-header {
     margin-bottom: 28px;
-    
+
     h1 {
       font-size: 28px;
     }
-    
+
     p {
       font-size: 16px;
     }
@@ -354,20 +373,21 @@
 
   .payment-section {
     padding: 22px;
-    
+
     h2 {
       font-size: 21px;
     }
-    
+
     p {
       font-size: 15px;
     }
   }
 
-  .item-name, .item-amount {
+  .item-name,
+  .item-amount {
     font-size: 14px;
   }
-  
+
   .item-term {
     font-size: 12px;
   }
@@ -375,7 +395,7 @@
   .radio-title {
     font-size: 14px;
   }
-  
+
   .radio-description {
     font-size: 12px;
   }
@@ -387,7 +407,6 @@
   }
 }
 
-/* Desktop Styles (1024px and up) */
 @media (min-width: 1024px) {
   .payment-page {
     padding: 32px;
@@ -395,11 +414,11 @@
 
   .payment-header {
     margin-bottom: 32px;
-    
+
     h1 {
       font-size: 32px;
     }
-    
+
     p {
       font-size: 18px;
     }
@@ -416,11 +435,11 @@
 
   .payment-section {
     padding: 24px;
-    
+
     h2 {
       font-size: 22px;
     }
-    
+
     p {
       font-size: 16px;
       margin-bottom: 20px;
@@ -495,7 +514,8 @@
     font-size: 14px;
   }
 
-  .summary-item-name, .summary-item-amount {
+  .summary-item-name,
+  .summary-item-amount {
     font-size: 14px;
   }
 
@@ -504,7 +524,8 @@
     padding: 16px 0;
   }
 
-  .detail-label, .detail-value {
+  .detail-label,
+  .detail-value {
     font-size: 14px;
   }
 
@@ -515,7 +536,6 @@
   }
 }
 
-/* Large Desktop (1440px and up) */
 @media (min-width: 1440px) {
   .payment-page {
     padding: 40px;
@@ -534,7 +554,6 @@
   }
 }
 
-/* Small Mobile (480px and below) */
 @media (max-width: 480px) {
   .payment-page {
     padding: 16px;
@@ -542,11 +561,11 @@
 
   .payment-header {
     margin-bottom: 20px;
-    
+
     h1 {
       font-size: 22px;
     }
-    
+
     p {
       font-size: 13px;
     }
@@ -554,11 +573,11 @@
 
   .payment-section {
     padding: 16px;
-    
+
     h2 {
       font-size: 18px;
     }
-    
+
     p {
       font-size: 13px;
       margin-bottom: 14px;
@@ -569,13 +588,15 @@
     padding: 10px;
   }
 
-  .checkbox-input, .radio-input {
+  .checkbox-input,
+  .radio-input {
     width: 16px;
     height: 16px;
     min-width: 16px;
   }
 
-  .item-name, .item-amount {
+  .item-name,
+  .item-amount {
     font-size: 13px;
   }
 
@@ -598,7 +619,7 @@
 
   .order-summary {
     padding: 16px;
-    
+
     h2 {
       font-size: 18px;
     }
@@ -609,11 +630,13 @@
     font-size: 12px;
   }
 
-  .summary-item-name, .summary-item-amount {
+  .summary-item-name,
+  .summary-item-amount {
     font-size: 12px;
   }
 
-  .detail-label, .detail-value {
+  .detail-label,
+  .detail-value {
     font-size: 12px;
   }
 

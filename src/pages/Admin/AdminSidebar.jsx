@@ -11,7 +11,7 @@ import { SiGoogleforms } from "react-icons/si";
 import { CiVolumeHigh } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./AdminSidebar.css";
-import Uchevalogo from "../../assets/UchevaLogo.png";
+import Logo from "../../assets/Logo.svg";
 
 const Sidebar = () => {
   const nav = useNavigate();
@@ -22,7 +22,7 @@ const Sidebar = () => {
   return (
     <div className="Adminsidebar">
       <div className="Adminsidebar-brand">
-        <img src={Uchevalogo} alt="" className="AdminDashboardLogo" onClick={() => nav ('/')}/>
+        <img src={Logo} alt="" className="AdminDashboardLogo" onClick={() => nav ('/')}/>
       </div>
 
       <nav className="sidebar-menu">

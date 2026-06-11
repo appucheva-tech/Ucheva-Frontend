@@ -10,7 +10,6 @@ import HappyCL2 from "../assets/HappyCL2.jpg";
 import HappyCL3 from "../assets/HappyCL3.jpg";
 import HappyCL4 from "../assets/HappyCL4.jpg";
 import Home4Pics from "../assets/Home4Pics.PNG";
-import Features from "./Features";
 import ProductPreview from "./ProductPreview";
 import HowItWorks from "./HowItWorks";
 import WhyChooseUs from "./WhyChooseUs";
@@ -103,7 +102,6 @@ export default function Home() {
         ))}
       </section>
       <Carousel />
-      <Features />
       <ProductPreview />
       <HowItWorks />
       <WhyChooseUs />

@@ -1,85 +1,84 @@
 import React from "react";
 import "./CTSettings.css";
-import Ucheva from "../../../assets/UchevaLogo.svg";
+import Ucheva from "../../../../assets/UchevaLogo.svg";
 
 const CTSettings = () => {
   return (
-    <main className="Settings">
-      <article className="SettingsWrapper">
-        <nav className="SettingsHead">
-          Settings
-          <span>Manage your profile and account preferences.</span>
-        </nav>
+    <main className="CTSettings">
+      <article className="CTSettingsWrapper">
+        <section className="CTSettingsProfileCard">
+          <nav className="CTSettingsCardTitle">Profile Information</nav>
 
-        <section className="SettingsProfileCard">
-          <nav className="SettingsCardTitle">Profile Information</nav>
-
-          <article className="SettingsProfileContent">
-            <div className="SettingsProfileImage">
-              <div className="SettingsAvatarHolder">
-                <img className="SettingsAvatar" src={Ucheva} alt="" />
+          <article className="CTSettingsProfileContent">
+            <div className="CTSettingsProfileImage">
+              <div className="CTSettingsAvatarHolder">
+                <img className="CTSettingsAvatar" src={Ucheva} alt="" />
               </div>
 
               <span>PNG, JPG. Max 2MB</span>
             </div>
 
-            <div className="SettingsForm">
-              <div className="SettingsRow">
-                <div className="SettingsFieldEdit">
+            <div className="CTSettingsForm">
+              <div className="CTSettingsRow">
+                <div className="CTSettingsFieldEdit">
                   <label>First Name</label>
                   <input type="text" placeholder="Grace" />
                 </div>
 
-                <div className="SettingsFieldEdit">
+                <div className="CTSettingsFieldEdit">
                   <label>Last Name</label>
                   <input type="text" placeholder="Akpan" />
                 </div>
               </div>
 
-              <div className="SettingsRow">
-                <div className="SettingsField">
+              <div className="CTSettingsRow">
+                <div className="CTSettingsField">
                   <label>Subject Taught</label>
                   <input type="text" value="Mathematics, Further Maths" />
                 </div>
 
-                <div className="SettingsField">
+                <div className="CTSettingsField">
                   <label>Role</label>
                   <input type="text" value="Class Teacher" />
                 </div>
               </div>
 
-              <div className="SettingsRow">
-                <div className="SettingsField">
+              <div className="CTSettingsRow">
+                <div className="CTSettingsField">
                   <label>Phone Number</label>
                   <input type="text" value="+234 801 234 5678" />
                 </div>
 
-                <div className="SettingsField">
+                <div className="CTSettingsField">
                   <label>Email Address</label>
                   <input type="text" value="graceakpan@gmail.com" />
                 </div>
               </div>
 
-              <div className="SettingsAddress">
+              <div className="CTSettingsAddress">
                 <label>Address</label>
                 <input
                   type="text"
                   value="12 Unity Avenue, Jefferson Avenue Road, Ikoyi Lagos"
                 />
               </div>
-              <div className="SettingsSaveBtnHolder">
-                <button className="SettingsSaveBtn">Save Changes</button>
+
+              <div className="CTSettingsSaveBtnHolder">
+                <button className="CTSettingsSaveBtn">Save Changes</button>
               </div>
             </div>
           </article>
         </section>
 
-        <section className="SettingsSignatureCard">
-          <nav className="SettingsCardTitle2">Upload Signature</nav>
-          <article className="SignatureTextBox">
+        <section className="CTSettingsSignatureCard">
+          <nav className="CTSettingsCardTitle2">Upload Signature</nav>
+
+          <article className="CTSignatureTextBox">
             <span>Class Teacher's Signature</span>
-            <div className="SettingsSignatureBox">
+
+            <div className="CTSettingsSignatureBox">
               <div className="CTSig"></div>
+
               <div className="CTsigUploadHolder">
                 <button className="CTsigUploadBtn">Upload</button>
                 <span>PNG format recommended</span>
@@ -88,8 +87,8 @@ const CTSettings = () => {
           </article>
         </section>
 
-        <section className="SettingsSecurityCard">
-          <div className="SettingsSecurityText">
+        <section className="CTSettingsSecurityCard">
+          <div className="CTSettingsSecurityText">
             <nav>Security</nav>
 
             <div className="CTChangePass">
@@ -98,7 +97,7 @@ const CTSettings = () => {
             </div>
           </div>
 
-          <button className="SettingsPasswordBtn">Change Password</button>
+          <button className="CTSettingsPasswordBtn">Change Password</button>
         </section>
       </article>
     </main>

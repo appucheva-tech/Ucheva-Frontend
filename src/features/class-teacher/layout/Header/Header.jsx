@@ -1,43 +1,104 @@
-import React from "react";
-import "./Header.css";
-import { CiCalendar } from "react-icons/ci";
+import React, { useState } from "react";
+import { FiCalendar, FiChevronDown } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
+import "./Header.css";
 
-const Header = () => {
+const Header = ({ setSidebarOpen }) => {
+  const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
+  const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+
+  const formatDate = () => {
+    const today = new Date();
+    const options = {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return today.toLocaleDateString("en-US", options);
+  };
+
+  const sessions = [
+    "2024/2025 Session",
+    "2025/2026 Session",
+    "2026/2027 Session",
+  ];
+  const terms = ["First Term", "Second Term", "Third Term"];
+
   return (
-    <main className="CTHeader geist-content">
-      <section className="Session">
-        <nav className="SessionStacks">
-          <img
-            src="https://i.postimg.cc/fyc3dSQ6/iconsax-calendar.png"
-            alt=""
-          />
-          Monday, 18 May 2026
-        </nav>
-        <nav className="SessionStacks" style={{ width: "30%" }}>
+    <header className="ct-header">
+      {/* Date Section */}
+      <div className="ct-date-section">
+        <FiCalendar />
+        <span>{formatDate()}</span>
+      </div>
+
+      {/* Session Dropdown */}
+      <div className="ct-dropdown-section">
+        <button
+          className="ct-dropdown-button"
+          onClick={() => setIsSessionDropdownOpen(!isSessionDropdownOpen)}
+        >
           2026/2027 Session
-        </nav>
-        <nav className="SessionStacks" style={{ border: "none", width: "30%" }}>
+          <FiChevronDown />
+        </button>
+        {isSessionDropdownOpen && (
+          <div className="ct-dropdown-menu">
+            {sessions.map((session, index) => (
+              <p key={index}>{session}</p>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Term Dropdown */}
+      <div className="ct-dropdown-section">
+        <button
+          className="ct-dropdown-button"
+          onClick={() => setIsTermDropdownOpen(!isTermDropdownOpen)}
+        >
           Third Term
-        </nav>
-      </section>
-      <section className="Profile-Notification">
-        <IoNotifications style={{ fontSize: "30px" }} />
-        <div className="Profile">
-          <article className="ProfilePic">
-            <img
-              className="ProfilePic"
-              src="data:image/jpeg;base64,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"
-              alt=""
-            />
-          </article>
-          <nav className="ProfileName">
-            Kareem Habeeb
-            <span>Class Teacher</span>
-          </nav>
+          <FiChevronDown />
+        </button>
+        {isTermDropdownOpen && (
+          <div className="ct-dropdown-menu">
+            {terms.map((term, index) => (
+              <p key={index}>{term}</p>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Notifications */}
+      <div className="ct-notification-section">
+        <IoNotifications />
+      </div>
+
+      {/* Profile Section */}
+      <div className="ct-profile-section-wrapper">
+        <div
+          className="ct-profile-section"
+          onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+        >
+          <img
+            src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
+            alt="Profile"
+            className="ct-user-profile"
+          />
+          <div className="ct-user-info">
+            <div className="ct-user-name">Kareem Habeeb</div>
+            <div className="ct-user-role">Class Teacher</div>
+          </div>
         </div>
-      </section>
-    </main>
+        {isProfileDropdownOpen && (
+          <div className="ct-profile-dropdown-menu">
+            <p>Settings</p>
+            <p>Logout</p>
+          </div>
+        )}
+      </div>
+    </header>
   );
 };
 

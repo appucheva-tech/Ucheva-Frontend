@@ -1,478 +1,496 @@
+/* Main Container */
 .CTDash {
   width: 100%;
-  height: 100vh;
+  min-height: auto;
   background: #f5f7fb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 0;
+  margin: 0;
 }
 
 .CTDashWrapper {
-  width: 95%;
-  height: 90%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 24px;
 }
 
+/* ========== GREETINGS ========== */
 .CTGreetings {
-  width: 40%;
-  height: 10%;
   font-family: Nunito;
-  font-weight: 700px;
-  font-style: Bold;
-  font-size: 32px;
-  leading-trim: NONE;
+  font-weight: 700;
+  font-size: 28px;
   line-height: 100%;
   letter-spacing: 0%;
   display: flex;
   flex-direction: column;
   color: #0f172a;
-
-  span {
-    font-family: Nunito;
-    font-weight: 400px;
-    font-style: Regular;
-    font-size: 18px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #042869;
-  }
 }
 
+.CTGreetings span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+  margin-top: 8px;
+}
+
+/* ========== KPI CARDS ========== */
 .CTCards {
   width: 100%;
-  height: 18%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.myAttendance,
+.AssignedClass,
+.TotalStudents,
+.CTSubject {
+  flex: 1;
+  background: white;
+  border-radius: 12px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.4rem;
+  justify-content: space-between;
+  padding: 18px 16px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  box-sizing: border-box;
 }
 
 .myAttendance {
-  width: 25%;
-  height: 90%;
-  background: white;
-  border-radius: 10px;
-  border-left: 3px solid #0062f6;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+  border-left: 4px solid #0062f6;
 }
 
-.CTtext {
-  width: 50%;
-  height: 100%;
+.AssignedClass {
+  border-left: 4px solid #8b5cf6;
+}
+
+.TotalStudents {
+  border-left: 4px solid #f59e0b;
+}
+
+.CTSubject {
+  border-left: 4px solid #43b75d;
+}
+
+.CTtext,
+.CTtext4 {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  gap: 8px;
   font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  gap: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #6c737f;
+}
+
+.CTPending,
+.CTClassRoom,
+.CTStudents,
+.SubjectDigit {
+  font-family: Nunito;
+  font-weight: 700;
+  font-size: 24px;
   color: #03173c;
 }
 
 .CTPending {
-  width: 64px;
-  height: 25px;
+  background: #ffedd5;
+  color: #ea580c;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+  width: fit-content;
+}
+
+.CTImageHolder1,
+.CTImageHolder2,
+.CTImageHolder3,
+.CTImageHolder4 {
+  width: 55px;
+  height: 55px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffedd5;
-  align-items: center;
-  font-family: Nunito;
-  font-weight: 500px;
-  font-style: Medium;
-  font-size: 14px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #ea580c;
+  flex-shrink: 0;
 }
 
 .CTImageHolder1 {
-  width: 70px;
-  height: 70px;
-  gap: 10px;
-  border-radius: 20px;
   background: #eaf2ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
-.CTImg {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.AssignedClass {
-  width: 25%;
-  height: 90%;
-  background: white;
-  border-radius: 10px;
-  border-left: 3px solid #8b5cf6;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.CTtext {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  gap: 4px;
-}
-
-.CTClassRoom {
-  width: 111px;
-  height: 33px;
-  display: flex;
-  align-items: center;
-  padding-left: 4px;
-  font-family: Nunito;
-  font-weight: 700px;
-  font-style: Bold;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
 .CTImageHolder2 {
-  width: 70px;
-  height: 70px;
-  gap: 10px;
-  border-radius: 20px;
   background: #f3e8ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
-.CTImg {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.TotalStudents {
-  width: 25%;
-  height: 90%;
-  background: white;
-  border-radius: 10px;
-  border-left: 3px solid #f59e0b;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.CTtext {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  gap: 4px;
-}
-
-.CTStudents {
-  width: 111px;
-  height: 33px;
-  display: flex;
-  align-items: center;
-  font-family: Nunito;
-  font-weight: 700px;
-  font-style: Bold;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-  padding-left: 8px;
-}
-
 .CTImageHolder3 {
-  width: 70px;
-  height: 70px;
-  gap: 10px;
-  border-radius: 20px;
   background: #fef3c7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
-
-.CTImg {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.CTSubject {
-  width: 25%;
-  height: 90%;
-  background: white;
-  border-radius: 10px;
-  border-left: 3px solid #43b75d;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.CTtext4 {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  gap: 4px;
-}
-
-.SubjectDigit {
-  width: 111px;
-  height: 33px;
-  display: flex;
-  align-items: center;
-  font-family: Nunito;
-  font-weight: bold;
-  font-style: Bold;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-}
-
 .CTImageHolder4 {
-  width: 70px;
-  height: 70px;
-  gap: 10px;
-  border-radius: 20px;
   background: #dcfce7;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .CTImg {
-  width: 50px;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
+/* ========== CHECK IN & ANNOUNCEMENT ========== */
 .CTCheckIn {
   width: 100%;
-  height: 55%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 8px;
 }
 
+/* QR Section */
 .CTQR {
-  width: 50%;
-  height: 90%;
+  flex: 1;
   background: white;
-  border-radius: 10px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 16px;
+  padding: 32px 24px;
 }
 
 .CTQRHolder {
-  width: 80px;
-  height: 80px;
-  border-radius: 8px;
+  width: 85px;
+  height: 85px;
+  border-radius: 12px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background: #f1f7ff;
 }
 
 .CTQRImg {
   width: 50px;
   height: 50px;
+  object-fit: contain;
 }
 
 .CTReminder {
-  width: 90%;
-  height: 30%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  gap: 8px;
   font-family: Nunito;
-  font-weight: 600px;
-  font-style: SemiBold;
-  font-size: 24px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 700;
+  font-size: 22px;
   text-align: center;
   color: #042869;
+}
 
-  span {
-    font-family: Nunito;
-    font-weight: 400px;
-    font-style: Regular;
-    font-size: 18px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    text-align: center;
-    color: #6c737f;
-  }
+.CTReminder span {
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 15px;
+  text-align: center;
+  color: #6c737f;
 }
 
 .CTScan {
-  width: 90%;
-  height: 20%;
   background: #0062f6;
-  border-radius: 14px;
+  border-radius: 10px;
   border: none;
+  padding: 12px 28px;
   font-family: Nunito;
-  font-weight: 600px;
-  font-style: SemiBold;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 28px;
-  letter-spacing: 0px;
-  text-align: center;
+  font-weight: 600;
+  font-size: 15px;
   color: white;
   cursor: pointer;
-  box-shadow: #0062f6 0px 1px 7px;
+  transition: background 0.2s;
+  width: auto;
+  min-width: 200px;
 }
 
+.CTScan:hover {
+  background: #0052d0;
+}
+
+/* Announcement Section */
 .CTAnnouncement {
-  width: 50%;
-  height: 90%;
+  flex: 1;
   background: white;
-  border-radius: 10px;
+  border-radius: 16px;
   border: 1px solid #e5e7eb;
-  flex-direction: column;
   display: flex;
-  overflow-y: auto;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .CTAnnounceHead {
-  width: 100%;
-  height: 25%;
+  padding: 18px 24px;
   border-bottom: 1px solid #f3f4f6;
-  padding: 20px;
-  display: flex;
-  align-items: center;
   font-family: Nunito;
-  font-weight: 600px;
-  font-style: SemiBold;
-  font-size: 22px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 700;
+  font-size: 18px;
   color: #03173c;
   background: white;
 }
 
 .CTAnnouncementView {
-  width: 100%;
-  height: 70%;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
+  gap: 12px;
+  padding: 20px 24px;
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 .CTAnnouncementCotent {
-  width: 90%;
-  height: 25%;
   border-left: 4px solid #0062f6;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 10px;
+  gap: 8px;
+  padding: 14px 0 14px 16px;
+  background: #f8fafd;
+  border-radius: 0 10px 10px 0;
 }
 
 .CTAnnounceDate {
-  width: 100%;
-  height: 50%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 16px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 600;
+  font-size: 14px;
   color: #03173c;
+}
 
-  span {
-    font-family: Nunito;
-    font-weight: 500px;
-    font-style: Medium;
-    font-size: 12px;
-    leading-trim: NONE;
-    line-height: 100%;
-    letter-spacing: 0%;
-    color: #9da4ae;
-  }
+.CTAnnounceDate span {
+  font-family: Nunito;
+  font-weight: 500;
+  font-size: 11px;
+  color: #9da4ae;
 }
 
 .TheCTAnnouncement {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  align-items: center;
   font-family: Nunito;
-  font-weight: 400px;
-  font-style: Regular;
-  font-size: 14px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.4;
+  color: #6c737f;
+  margin: 0;
+}
+
+/* ========== RESPONSIVE ========== */
+
+/* Desktop - 4 cards in a row */
+@media screen and (min-width: 1025px) {
+  .CTCards {
+    flex-wrap: nowrap;
+  }
+
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject {
+    flex: 1;
+  }
+}
+
+/* Tablet - 2 cards per row */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .CTCards {
+    gap: 16px;
+  }
+
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject {
+    flex: 0 0 calc(50% - 8px);
+  }
+}
+
+/* Mobile - 2 cards per row */
+@media screen and (max-width: 768px) {
+  .CTDashWrapper {
+    gap: 20px;
+  }
+
+  .CTGreetings {
+    font-size: 22px;
+  }
+
+  .CTGreetings span {
+    font-size: 14px;
+  }
+
+  /* KPI CARDS - 2 per row on mobile */
+  .CTCards {
+    gap: 12px;
+  }
+
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject {
+    flex: 0 0 calc(50% - 6px);
+    padding: 14px;
+  }
+
+  .CTtext,
+  .CTtext4 {
+    font-size: 13px;
+    gap: 6px;
+  }
+
+  .CTPending,
+  .CTClassRoom,
+  .CTStudents,
+  .SubjectDigit {
+    font-size: 20px;
+  }
+
+  .CTPending {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .CTImageHolder1,
+  .CTImageHolder2,
+  .CTImageHolder3,
+  .CTImageHolder4 {
+    width: 45px;
+    height: 45px;
+  }
+
+  .CTImg {
+    width: 24px;
+    height: 24px;
+  }
+
+  /* CheckIn section stacks on mobile */
+  .CTCheckIn {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .CTQR {
+    padding: 24px 20px;
+  }
+
+  .CTQRHolder {
+    width: 70px;
+    height: 70px;
+  }
+
+  .CTQRImg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .CTReminder {
+    font-size: 18px;
+  }
+
+  .CTReminder span {
+    font-size: 13px;
+  }
+
+  .CTScan {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .CTAnnounceHead {
+    font-size: 16px;
+    padding: 14px 20px;
+  }
+
+  .CTAnnouncementView {
+    padding: 16px 20px;
+    max-height: 300px;
+  }
+}
+
+/* Small Mobile - 1 card per row */
+@media screen and (max-width: 550px) {
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject {
+    flex: 0 0 100%;
+  }
+}
+
+/* Extra Small (480px and below) */
+@media screen and (max-width: 480px) {
+  .CTDashWrapper {
+    gap: 16px;
+  }
+
+  .CTGreetings {
+    font-size: 20px;
+  }
+
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject {
+    padding: 12px;
+  }
+
+  .CTtext,
+  .CTtext4 {
+    font-size: 12px;
+    gap: 5px;
+  }
+
+  .CTPending,
+  .CTClassRoom,
+  .CTStudents,
+  .SubjectDigit {
+    font-size: 18px;
+  }
+
+  .CTImageHolder1,
+  .CTImageHolder2,
+  .CTImageHolder3,
+  .CTImageHolder4 {
+    width: 40px;
+    height: 40px;
+  }
+
+  .CTImg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .CTQRHolder {
+    width: 60px;
+    height: 60px;
+  }
+
+  .CTQRImg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .CTReminder {
+    font-size: 16px;
+  }
+
+  .CTReminder span {
+    font-size: 12px;
+  }
+
+  .CTScan {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
 }

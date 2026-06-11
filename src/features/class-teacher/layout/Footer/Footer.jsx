@@ -3,9 +3,11 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <main className="CTFooter">
-      © 2026 Ucheva school operating management system . All right reserved.
-    </main>
+    <footer className="ct-footer">
+      <p>
+        © 2026 Ucheva school operating management system. All right reserved.
+      </p>
+    </footer>
   );
 };
 

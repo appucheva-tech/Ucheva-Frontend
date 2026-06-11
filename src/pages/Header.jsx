@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Header.css';
-import Logo from '../assets/UchevaLogo.png'
+import Logo from '../assets/Logo.svg'
 import Button from './Button';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import { FiMenu, FiX } from "react-icons/fi"; 
@@ -35,7 +35,7 @@ const Header = () => {
         </li>
         <li 
           className={`HeaderCont2Li ${location.pathname === '/Features' ? 'active-link' : ''}`} 
-          // onClick={() => handleNavigation('/Features')}
+          onClick={() => handleNavigation('/Features')}
         >
           Features
         </li>

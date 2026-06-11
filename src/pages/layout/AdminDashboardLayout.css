@@ -8,9 +8,8 @@
 
 .main-content {
   flex-grow: 1; 
-  height: 100vh;
+  height: 120vh;
   overflow-y: auto; 
-  background-color: #f8f9fa; 
-  margin-left: 0%;
-  background-color: blue;
+  background-color: #F5F7FB;
+  margin-left: 19%;
 }

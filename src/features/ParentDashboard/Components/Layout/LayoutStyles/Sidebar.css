@@ -8,11 +8,16 @@
   position: fixed;
   left: 0;
   top: 0;
+  
   overflow-y: auto;
-  gap: 20px;
+  /* gap: 20px; */
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
+
+  /* height: 1164px; */
+  /* padding-left: 64px; */
+  /* align-items: flex-start; */
 }
 
 .sidebar-logo {

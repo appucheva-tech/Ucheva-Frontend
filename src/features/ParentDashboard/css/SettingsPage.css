@@ -138,6 +138,10 @@
 .form-group {
   display: flex;
   flex-direction: column;
+  /* padding: 14px 12px; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* align-self: stretch; */
 }
 
 .form-group.full-width {

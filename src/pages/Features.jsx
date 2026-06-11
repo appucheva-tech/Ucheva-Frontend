@@ -1,6 +1,9 @@
 import React from 'react';
-import { LuCalendarCheck, LuCreditCard, LuMessageSquare, LuShieldCheck, LuUsers } from 'react-icons/lu';
+import { LuCalendarCheck, LuCreditCard, LuMessageSquare, LuShieldCheck} from 'react-icons/lu';
+import { FaRegUser } from "react-icons/fa";
 import './Features.css';
+import Header from './Header';
+import Footer from './Footer';
 
 const Features = () => {
   const features = [
@@ -31,6 +34,8 @@ const Features = () => {
   ];
 
   return (
+    <>
+    <Header />
     <section className="features-container">
       <div className="features-header">
         <span className="subtitle">Featuring</span>
@@ -43,7 +48,7 @@ const Features = () => {
         </p>
         <div className='LeftDownCont'>
             <article className='LeftDownContArt'>
-                {/* <LuUsers /> */}
+                <FaRegUser className='FIcons'/>
             </article>
             <h1 className='LeftDownContH1'>Student & Staff Records</h1>
             <p className='LeftDownContP'>Organize and access student and staff 
@@ -61,6 +66,8 @@ const Features = () => {
         ))}
       </div>
     </section>
+    <Footer />
+    </>
   );
 };
 

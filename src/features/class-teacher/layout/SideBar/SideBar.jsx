@@ -5,106 +5,130 @@ import { FaPersonChalkboard } from "react-icons/fa6";
 import { MdOutlineCreditScore } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
-const SideBar = () => {
-  const [dashboard, setDashboard] = useState(null);
-  // const [myClass, setMyClass] = useState(false);
-  const nav = useNavigate();
+const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (path, dashboardName) => {
+    navigate(path);
+    setSidebarOpen(false); // Close sidebar on mobile after navigation
+  };
 
   return (
-    <main className="sideBarContainer geist-content">
-      <article className="sideBarWrapper">
-        <div className="CTLogoHolder">
-          <img src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png" alt="" />
+    <>
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="ct-sidebar-overlay"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      <div
+        className={`ct-sidebar-container ${sidebarOpen ? "mobile-open" : ""}`}
+      >
+        {/* Logo Section */}
+        <div className="ct-sidebar-logo">
+          <div className="ct-logo-icon">
+            <img
+              src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
+              alt="Ucheva Logo"
+              className="ct-logo"
+            />
+          </div>
         </div>
-        <div className="TabsHolder">
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "dashboard" ? "#F1F7FF" : "none",
-              color: dashboard === "dashboard" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              nav("/dashboard");
-              setDashboard("dashboard");
-            }}
+
+        {/* Close button for mobile */}
+        <button
+          className="ct-sidebar-close-btn"
+          onClick={() => setSidebarOpen(false)}
+        >
+          ✕
+        </button>
+
+        {/* Navigation Menu */}
+        <nav className="ct-sidebar-nav">
+          <NavLink
+            to="/CTdashboard"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <PiSquaresFourBold />
-            Dashboard
-          </nav>
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "myClass" ? "#F1F7FF" : "none",
-              color: dashboard === "myClass" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              nav("myclass");
-              setDashboard("myClass");
-            }}
+            <span className="ct-nav-icon">
+              <PiSquaresFourBold />
+            </span>
+            <span className="ct-nav-text">Dashboard</span>
+          </NavLink>
+
+          <NavLink
+            to="myclass"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <FaPersonChalkboard />
-            My Class
-          </nav>
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "scores" ? "#F1F7FF" : "none",
-              color: dashboard === "scores" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              nav("score");
-              setDashboard("scores");
-            }}
+            <span className="ct-nav-icon">
+              <FaPersonChalkboard />
+            </span>
+            <span className="ct-nav-text">My Class</span>
+          </NavLink>
+
+          <NavLink
+            to="CTscore"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <MdOutlineCreditScore />
-            Scores
-          </nav>
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "report" ? "#F1F7FF" : "none",
-              color: dashboard === "report" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              nav("reportcard");
-              setDashboard("report");
-            }}
+            <span className="ct-nav-icon">
+              <MdOutlineCreditScore />
+            </span>
+            <span className="ct-nav-text">Scores</span>
+          </NavLink>
+
+          <NavLink
+            to="CTreportcard"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <PiCertificateBold />
-            Report Cards
-          </nav>
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "announce" ? "#F1F7FF" : "none",
-              color: dashboard === "announce" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              setDashboard("announce");
-            }}
+            <span className="ct-nav-icon">
+              <PiCertificateBold />
+            </span>
+            <span className="ct-nav-text">Report Cards</span>
+          </NavLink>
+
+          <NavLink
+            to="CTAnnouncement"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <HiMiniSpeakerWave />
-            Announcement
-          </nav>
-          <nav
-            className="CTTabs"
-            style={{
-              background: dashboard === "settings" ? "#F1F7FF" : "none",
-              color: dashboard === "settings" ? "#0062F6" : "#03173C",
-            }}
-            onClick={() => {
-              nav("CTsettings");
-              setDashboard("settings");
-            }}
+            <span className="ct-nav-icon">
+              <HiMiniSpeakerWave />
+            </span>
+            <span className="ct-nav-text">Announcement</span>
+          </NavLink>
+
+          <NavLink
+            to="CTsettings"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
           >
-            <IoSettingsOutline />
-            Settings
-          </nav>
-        </div>
-      </article>
-    </main>
+            <span className="ct-nav-icon">
+              <IoSettingsOutline />
+            </span>
+            <span className="ct-nav-text">Settings</span>
+          </NavLink>
+        </nav>
+      </div>
+    </>
   );
 };
 

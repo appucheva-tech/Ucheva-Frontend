@@ -75,6 +75,33 @@ const CTreport = () => {
               <nav className="CTTableValueAction">:</nav>
             </Link>
           </ul>
+          <ul className="CTActualTableInfo2">
+            <input className="CTTableValueName2" type="checkbox" />
+            <nav className="CTTableValueName2">Adeaze Clinton</nav>
+            <nav className="CTTableValueName2">UCH/2026/001</nav>
+            <nav className="CTTableValueName2">Ready for review</nav>
+            <Link className="LinkToST" to="/dashboard/studentreport">
+              <nav className="CTTableValueAction">:</nav>
+            </Link>
+          </ul>
+          <ul className="CTActualTableInfo2">
+            <input className="CTTableValueName2" type="checkbox" />
+            <nav className="CTTableValueName2">Adeaze Clinton</nav>
+            <nav className="CTTableValueName2">UCH/2026/001</nav>
+            <nav className="CTTableValueName2">Ready for review</nav>
+            <Link className="LinkToST" to="/dashboard/studentreport">
+              <nav className="CTTableValueAction">:</nav>
+            </Link>
+          </ul>
+          <ul className="CTActualTableInfo2">
+            <input className="CTTableValueName2" type="checkbox" />
+            <nav className="CTTableValueName2">Adeaze Clinton</nav>
+            <nav className="CTTableValueName2">UCH/2026/001</nav>
+            <nav className="CTTableValueName2">Ready for review</nav>
+            <Link className="LinkToST" to="/dashboard/studentreport">
+              <nav className="CTTableValueAction">:</nav>
+            </Link>
+          </ul>
 
           <div className="pagination">
             <span>Showing pages 1 of 7</span>
