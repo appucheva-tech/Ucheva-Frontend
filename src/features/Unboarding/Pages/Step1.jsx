@@ -16,6 +16,30 @@ const Step1 = () => {
 
   const nav = useNavigate();
 
+  const baseURL = import.meta.env.VITE_Base_Url;
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("schoolProfile");
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+
+      setSchoolTypes(parsedData.schoolTypes || []);
+      setSelectedImage(parsedData.logo || null);
+    }
+  }, []);
+
+  // Save data automatically
+  useEffect(() => {
+    localStorage.setItem(
+      "schoolProfile",
+      JSON.stringify({
+        schoolTypes,
+        logo: selectedImage,
+      }),
+    );
+  }, [schoolTypes, selectedImage]);
+
   const handleTypeChange = (type) => {
     if (schoolTypes.includes(type)) {
       setSchoolTypes(schoolTypes.filter((item) => item !== type));
@@ -24,24 +48,33 @@ const Step1 = () => {
     }
   };
 
+  // Save image as Base64
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setSelectedImage(URL.createObjectURL(file));
-    }
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      setSelectedImage(reader.result);
+    };
+
+    reader.readAsDataURL(file);
   };
 
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const response = await axios.get(
-          "https://ucheva.onrender.com/api/v1/admin/profile",
-        );
+        const response = await axios.get(`${baseURL}/api/v1/admin/get-admin`);
+
         console.log(response);
+        setSchoolProfile(response.data);
       } catch (error) {
         console.log(error.message);
       }
     };
+
     getProfile();
   }, []);
 
@@ -51,43 +84,20 @@ const Step1 = () => {
         <section className="Step1Head">
           <img className="Step1Logo" src={UchevaLogo} alt="Logo" />
           <span className="StepCount">Step 1 of 3</span>
+
           <nav className="Step1Title">
             Let's set up your school profile
             <span>
               Tell us more about your school. You can edit
-              <br /> these details later in settings.
+              <br />
+              these details later in settings.
             </span>
           </nav>
+
           <img className="Steps" src={Steps} alt="" />
         </section>
-        <form className="step1Content">
-          {/* <div className="uploadLogo">
-            <article className="dpImage"></article>
-            <div className="dpControl">
-              <nav className="dpText">
-                Upload logo
-                <span className="support">
-                  We support PNG, Jpegs, JPG, under 2MB
-                </span>
-              </nav>
-              <article className="Step1Btn">
-                <div className="uploadBtnHolder">
-                  <label htmlFor="imageUpload" className="uploadBtn">
-                    <img src={Upload} alt="Upload" />
-                    Upload Image
-                  </label>
 
-                  <input
-                    id="imageUpload"
-                    type="file"
-                    accept="image/png,image/jpeg,image/jpg"
-                    className="uploadInput"
-                  />
-                </div>
-                <button className="removeBtn">Remove</button>
-              </article>
-            </div>
-          </div> */}
+        <form className="step1Content">
           <div className="uploadLogo">
             <div className="dpImage">
               {selectedImage ? (
@@ -126,15 +136,20 @@ const Step1 = () => {
                   <img src={Upload} alt="Upload" />
                   Upload Image
                 </label>
+
                 <button
+                  type="button"
                   className="removeBtn"
-                  onClick={() => setSelectedImage(null)}
+                  onClick={() => {
+                    setSelectedImage(null);
+                  }}
                 >
                   Remove
                 </button>
               </div>
             </div>
           </div>
+
           <article className="inputRoles">
             <label className="schoolName">
               School Name
@@ -144,10 +159,11 @@ const Step1 = () => {
               <input
                 type="text"
                 className="generalInput"
-                value="Green Field Academy"
+                value={schoolProfile?.schoolName}
                 readOnly
               />
             </label>
+
             <label className="schoolName">
               School URL
               <span className="hinttext">
@@ -156,10 +172,11 @@ const Step1 = () => {
               <input
                 type="text"
                 className="generalInput"
-                value="https://greenfieldacademy.ucheva.com"
+                value={schoolProfile?.schoolUrl}
                 readOnly
               />
             </label>
+
             <label className="schoolName">
               Email
               <span className="hinttext">
@@ -168,10 +185,11 @@ const Step1 = () => {
               <input
                 type="text"
                 className="generalInput"
-                value="greenfielddcademy@gmail.com"
+                value={schoolProfile?.email}
                 readOnly
               />
             </label>
+
             <label className="schoolName">
               Phone number
               <span className="hinttext">
@@ -180,10 +198,11 @@ const Step1 = () => {
               <input
                 type="text"
                 className="generalInput"
-                value="+234 1234567890"
+                value={schoolProfile?.phoneNumber}
                 readOnly
               />
             </label>
+
             <label className="schoolName">
               Address
               <span className="hinttext">
@@ -192,10 +211,11 @@ const Step1 = () => {
               <input
                 type="text"
                 className="generalInput"
-                value="12 Dolapo street, ikoyi, Lagos."
+                value={schoolProfile?.address}
                 readOnly
               />
             </label>
+
             <label className="schoolName">
               School Type
               <span className="hinttext">
@@ -209,6 +229,7 @@ const Step1 = () => {
                   {schoolTypes.length
                     ? schoolTypes.join(", ")
                     : "Select School Type"}
+
                   <FaChevronDown />
                 </div>
 
@@ -244,10 +265,20 @@ const Step1 = () => {
                 )}
               </div>
             </label>
+
             <div className="ContinueBtnHolder">
               <button
+                type="button"
                 className="continueBtn"
                 onClick={() => {
+                  localStorage.setItem(
+                    "schoolProfile",
+                    JSON.stringify({
+                      schoolTypes,
+                      logo: selectedImage,
+                    }),
+                  );
+
                   nav("/step2");
                 }}
               >
