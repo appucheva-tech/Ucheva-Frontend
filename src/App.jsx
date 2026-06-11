@@ -94,7 +94,6 @@ const App = () => {
           <Route path="AdminSettings" element={<AdminSettings />} />
         </Route>
 
-        {/* <Route path="/dashboard" element={<CTLayout />}> */}
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -140,4 +139,3 @@ const App = () => {
 };
 
 export default App;
-// hello

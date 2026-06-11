@@ -90,7 +90,6 @@ const AdminAttendance = () => {
       </header>
 
       <div className="attendanceContentCard">
-        {/* Navigation Tabs */}
         <div className="tabsGroup">
           {categories.map((tab, idx) => (
             <button 
@@ -102,7 +101,6 @@ const AdminAttendance = () => {
           ))}
         </div>
 
-        {/* Inner Filtering Toolbar */}
         <div className="toolbarRow">
           <h2 className="sectionHeading">Staff Attendance</h2>
           <div className="toolbarControls">
@@ -122,7 +120,6 @@ const AdminAttendance = () => {
           </div>
         </div>
 
-        {/* Attendance Data Table */}
         <div className="tableResponsiveWrapper">
           <table className="attendanceTable">
             <thead>
@@ -148,7 +145,6 @@ const AdminAttendance = () => {
           </table>
         </div>
 
-        {/* Pagination Footer */}
         <div className="paginationContainer">
           <div className="recordsCountInfo">Showing pages of 1 to 7</div>
           <div className="paginationControlsGroup">
@@ -172,7 +168,6 @@ const AdminAttendance = () => {
         </div>
       </div>
 
-      {/* Structural Global Footer Layout */}
       <footer className="systemFooter">
         <span className="copyrightNote">© 2026 Ucheva school operating management system . All right reserved.</span>
         <span className="supportNote">Need help? <a href="#support" className="supportAnchor">Contact support</a></span>

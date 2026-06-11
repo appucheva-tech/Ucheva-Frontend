@@ -78,7 +78,6 @@ const AdminSettings = () => {
         <p className="mainSubtitle">Manage your school preferences, report card setup, notifications, and security.</p>
       </div>
 
-      {/* Admin Profile Card */}
       <section className="settingsCard">
         <h2 className="cardTitle">Admin Profile</h2>
         <div className="profileLayout">
@@ -114,13 +113,11 @@ const AdminSettings = () => {
         </div>
       </section>
 
-      {/* School Profile Card */}
       <section className="settingsCard">
         <h2 className="cardTitle">School Profile</h2>
         <div className="schoolLayout">
           <div className="logoWrapper">
             <div className="logoBadgeContainer">
-              {/* Fallback structural crest representing the uploaded school emblem */}
               <div className="emblemPlaceholder">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -167,7 +164,6 @@ const AdminSettings = () => {
         </div>
       </section>
 
-      {/* Report Card Configuration Card */}
       <section className="settingsCard">
         <h2 className="cardTitle">Report Card Configuration</h2>
         <div className="configurationLayout">
@@ -229,7 +225,6 @@ const AdminSettings = () => {
     </div>
       <div className="notificationSettingsContainer">
       
-      {/* Attendance Notifications */}
       <section className="settingsPanelCard">
         <div className="cardHeaderRow">
           <div className="headerTextGroup">
@@ -255,7 +250,6 @@ const AdminSettings = () => {
         </div>
       </section>
 
-      {/* School Verification */}
       <section className="settingsPanelCard">
         <h2 className="panelCardTitle">School Verification</h2>
         <div className="verificationUploadersRow">
@@ -279,7 +273,6 @@ const AdminSettings = () => {
         </div>
       </section>
 
-      {/* Security */}
       <section className="settingsPanelCard">
         <h2 className="panelCardTitle">Security</h2>
         <div className="actionFlexRow">
@@ -291,7 +284,6 @@ const AdminSettings = () => {
         </div>
       </section>
 
-      {/* Danger Zone */}
       <section className="settingsPanelCard">
         <h2 className="panelCardTitle dangerTitleColor">Danger Zone</h2>
         <div className="actionFlexRow">
