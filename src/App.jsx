@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Step1 from "./features/Unboarding/Pages/Step1";
 import Step2 from "./features/Unboarding/Pages/Step2";
 import Step3 from "./features/Unboarding/Pages/Step3";
@@ -46,6 +47,15 @@ import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/Sub
 import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
 import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
 import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminStaff from "./pages/Admin/AdminStaff";
@@ -63,6 +73,7 @@ import Features from "./pages/Features";
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Features" element={<Features />} />

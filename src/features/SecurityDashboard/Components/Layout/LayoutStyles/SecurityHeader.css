@@ -36,6 +36,8 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  color: var(--Primary-Color-900, #03173C);
+
 }
 
 .notification-button {

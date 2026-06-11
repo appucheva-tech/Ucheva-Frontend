@@ -130,7 +130,7 @@ const SecuritysDashboardPage = () => {
               <div className="announcement-left">
                 <h3 className="announcement-name">Resumption</h3>
                 <p className="announcement-description">
-                  School will resume normal activities on Monday. Please ...
+                  School will resume normal activities on Monday...
                 </p>
               </div>
               <p className="announcement-date">May 15, 2026</p>

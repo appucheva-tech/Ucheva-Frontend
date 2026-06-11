@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./AuthStyles/ForgetPassword.css";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ApiClient } from "../../config/AxiosInstance";
 
 const ForgetPassword = () => {
   const nav = useNavigate();
@@ -11,7 +11,6 @@ const ForgetPassword = () => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const BaseUrl = import.meta.env.VITE_Base_Url;
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -41,15 +40,15 @@ const ForgetPassword = () => {
 
     try {
       setIsLoading(true);
-      const response = await axios.post(`${BaseUrl}/admin/forgot-password`, {
-        email,
+      const response = await ApiClient.post("/admin/forgot-password", email,{
+        
       });
 
       toast.success(
         response?.data?.message || "Verification code sent to your email",
       );
 
-      localStorage.setItem("userEmail", userEmail);
+      localStorage.setItem("forgotuserEmail", email);
 
       setTimeout(() => {
         nav("/inputCode");
@@ -59,7 +58,6 @@ const ForgetPassword = () => {
       const errorMessage =
         error.response?.data?.message || "An error occurred. Please try again.";
       toast.error(errorMessage);
-
     } finally {
       setIsLoading(false);
     }
