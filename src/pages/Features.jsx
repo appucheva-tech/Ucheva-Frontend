@@ -1,49 +1,54 @@
 import React from 'react';
+import { LuCalendarCheck, LuCreditCard, LuMessageSquare, LuShieldCheck} from 'react-icons/lu';
+import { FaRegUser } from "react-icons/fa";
 import './Features.css';
+import Header from './Header';
+import Footer from './Footer';
 
 const Features = () => {
   const features = [
     {
       id: 1,
-      icon: '📅', 
+      icon: <LuCalendarCheck className='FIcons'/>, 
       title: 'Digital Attendance Tracking',
       description: 'Track student attendance digitally and monitor daily records in real time.'
     },
     {
       id: 2,
-      icon: '💳',
+      icon: <LuCreditCard className='FIcons'/>,
       title: 'Fee Management System',
       description: 'Manage school fees, track payments, and monitor outstanding balances easily.'
     },
-    
     {
       id: 4,
-      icon: '💬',
+      icon: <LuMessageSquare className='FIcons'/>,
       title: 'WhatsApp Parent Alerts',
       description: 'Send important updates, reminders, and announcements directly to parents instantly.'
     },
     {
       id: 5,
-      icon: '🛡️',
+      icon: <LuShieldCheck className='FIcons'/>,
       title: 'Online School Fee Payments',
       description: 'Allow parents to make secure school fee payments conveniently from anywhere.'
     }
   ];
 
   return (
+    <>
+    <Header />
     <section className="features-container">
       <div className="features-header">
         <span className="subtitle">Featuring</span>
-        <h2 className="title">
-          Features That Simplify <br />
-          <span className="highlight">School Management</span>
+        <h2 className="Ftitle">
+          Features That Simplify 
+          <span className="Fhighlight"> School Management</span>
         </h2>
-        <p className="description">
+        <p className="Fdescription">
           Smart tools built to make daily school operations easier and more organized.
         </p>
         <div className='LeftDownCont'>
             <article className='LeftDownContArt'>
-                👤
+                <FaRegUser className='FIcons'/>
             </article>
             <h1 className='LeftDownContH1'>Student & Staff Records</h1>
             <p className='LeftDownContP'>Organize and access student and staff 
@@ -61,6 +66,8 @@ const Features = () => {
         ))}
       </div>
     </section>
+    <Footer />
+    </>
   );
 };
 

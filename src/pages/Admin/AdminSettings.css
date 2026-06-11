@@ -1,0 +1,789 @@
+.AdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 12vh;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  border-bottom: 1px solid #f0f0f5;
+
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 29%;
+
+    .search-input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      font-size: 14px;
+      color: #1e1e2f;
+      background-color: #ffffff;
+      border: 1px solid #e2e2ec;
+      border-radius: 8px;
+      outline: none;
+
+      &::placeholder {
+        color: #a0a0b0;
+      }
+
+      &:focus {
+        border-color: #3b82f6;
+      }
+    }
+
+    .search-button {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .search-icon {
+        width: 16px;
+        height: 16px;
+        color: #2563eb;
+      }
+    }
+  }
+
+  .meta-container {
+    display: flex;
+    align-items: center;
+    margin-left: 8%;
+    gap: 12px;
+    width: 35%;
+    font-size: 11px;
+    color: #4a4a6a;
+
+    .date-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .calendar-icon {
+        width: 16px;
+        height: 16px;
+        color: #71718a;
+      }
+    }
+
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: #e2e2ec;
+    }
+
+    .dropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        color: #1e1e2f;
+      }
+
+      .chevron-icon {
+        width: 14px;
+        height: 14px;
+        color: #71718a;
+      }
+    }
+  }
+
+  .profile-container {
+    display: flex;
+    align-items: center;
+    margin-right: -2%;
+    gap: 10px;
+    width: 22%;
+    height: 10vh;
+
+    .notification-button {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .bell-icon {
+        width: 22px;
+        height: 22px;
+        color: #1e1e2f;
+        fill: #1e1e2f;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 8px;
+        height: 8px;
+        background-color: #eab308; 
+        border-radius: 50%;
+        border: 1.5px solid #ffffff;
+      }
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+      .Auser-info {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+
+        .user-name {
+          font-size: 14px;
+          font-weight: 500;
+          color: #1e1e2f;
+          line-height: 1.2;
+        }
+
+        .user-role {
+          font-size: 12px;
+          color: #71718a;
+          margin-top: 2px;
+        }
+      }
+  }
+}
+
+.settingsContainer {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f4f7fc;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  .settingsHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .mainTitle {
+      font-size: 24px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0;
+    }
+
+    .mainSubtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin: 0;
+    }
+  }
+
+  .settingsCard {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+
+    .cardTitle {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 24px 0;
+    }
+
+    .inputGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+
+      .inputLabel {
+        font-size: 13px;
+        font-weight: 500;
+        color: #475569;
+      }
+
+      .textInput {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 13px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background-color: #ffffff;
+        color: #1e293b;
+        box-sizing: border-box;
+        outline: none;
+
+        &:focus {
+          border-color: #0d6efd;
+        }
+
+        &.numericalInput {
+          text-align: left;
+          max-width: 120px;
+        }
+
+        &.disabledInput {
+          background-color: #f8fafc;
+          color: #64748b;
+          cursor: not-allowed;
+        }
+      }
+
+      .selectWrapper {
+        position: relative;
+        width: 100%;
+
+        .selectInput {
+          width: 100%;
+          padding: 10px 36px 10px 14px;
+          font-size: 13px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          background-color: #ffffff;
+          color: #1e293b;
+          appearance: none;
+          cursor: pointer;
+          outline: none;
+        }
+
+        &::after {
+          content: "▼";
+          font-size: 8px;
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #64748b;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .profileLayout {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+
+      .avatarWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .imageContainer {
+          position: relative;
+          width: 100px;
+          height: 100px;
+
+          .profileImg {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .cameraBtn {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+            .cameraIcon {
+              width: 14px;
+              height: 14px;
+              color: #64748b;
+            }
+          }
+        }
+      }
+
+      .formFieldsRow {
+        display: flex;
+        gap: 20px;
+        flex: 1;
+        max-width: 760px;
+      }
+    }
+
+    .schoolLayout {
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+
+      .logoWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        min-width: 160px;
+
+        .logoBadgeContainer {
+          width: 90px;
+          height: 90px;
+          border-radius: 50%;
+          border: 1px dashed #cbd5e1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #fafafa;
+
+          .emblemPlaceholder {
+            width: 44px;
+            height: 44px;
+            color: #94a3b8;
+          }
+        }
+
+        .logoActionButtons {
+          display: flex;
+          gap: 8px;
+          margin-top: 4px;
+
+          .changeImgBtn {
+            background-color: #0d6efd;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+          }
+
+          .removeImgBtn {
+            background-color: #ffffff;
+            color: #0d6efd;
+            border: 1px solid #0d6efd;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+          }
+        }
+      }
+
+      .schoolFormGrid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px 24px;
+        flex: 1;
+        max-width: 760px;
+
+        .fullWidthRow {
+          grid-column: span 2;
+        }
+      }
+    }
+
+    .configurationLayout {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+
+      .scoresColumn {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        flex: 1;
+        max-width: 420px;
+
+        .scoresInlineGrid {
+          display: flex;
+          gap: 12px;
+        }
+
+        .infoAlertCallout {
+          background-color: #e6f2ff;
+          border: 1px solid #b3d7ff;
+          border-radius: 8px;
+          padding: 14px 16px;
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+
+          .infoAlertIcon {
+            font-size: 14px;
+            color: #0d6efd;
+            margin-top: 1px;
+          }
+
+          .infoAlertText {
+            font-size: 12px;
+            line-height: 1.5;
+            color: #0d6efd;
+            margin: 0;
+          }
+        }
+      }
+
+      .uploadsColumn {
+        display: flex;
+        gap: 24px;
+        flex: 1;
+
+        .uploadComponentBox {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          flex: 1;
+
+          .dottedDropzone {
+            border: 1px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafbfc;
+            text-align: center;
+            height: 120px;
+
+            .stampCircularGraphic, .signatureLineGraphic {
+              width: 36px;
+              height: 36px;
+              color: #94a3b8;
+              margin-bottom: 8px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            .dropzoneUploadBtn {
+              background: none;
+              border: none;
+              color: #0d6efd;
+              font-size: 13px;
+              font-weight: 500;
+              cursor: pointer;
+              text-decoration: underline;
+              padding: 0;
+              margin-bottom: 4px;
+            }
+          }
+        }
+      }
+    }
+
+    .uploadHint, .dropzoneHint {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+
+    .cardActionRow {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 32px;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 16px;
+
+      .saveChangesBtn {
+        background-color: #0d6efd;
+        color: #ffffff;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #0b5ed7;
+        }
+      }
+    }
+  }
+}
+
+.notificationSettingsContainer {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f4f7fc;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  .settingsPanelCard {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+
+    .panelCardTitle {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1e293b;
+      margin: 0 0 4px 0;
+
+      &.dangerTitleColor {
+        color: #1e293b;
+      }
+    }
+
+    .panelCardDescription {
+      font-size: 13px;
+      color: #334155;
+      margin: 0;
+    }
+
+    .cardHeaderRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+
+      .headerTextGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .toggleControlWrapper {
+        display: flex;
+        align-items: center;
+
+        .switchToggle {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 22px;
+
+          input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+
+            &:checked + .toggleSlider {
+              background-color: #0d6efd;
+
+              &::before {
+                transform: translateX(18px);
+              }
+            }
+          }
+
+          .toggleSlider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #cbd5e1;
+            transition: 0.2s;
+            border-radius: 34px;
+
+            &::before {
+              position: absolute;
+              content: "";
+              height: 16px;
+              width: 16px;
+              left: 3px;
+              bottom: 3px;
+              background-color: white;
+              transition: 0.2s;
+              border-radius: 50%;
+            }
+          }
+        }
+      }
+    }
+
+    .cardBodyGroup {
+      .inputDropdownFieldGroup {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 320px;
+
+        .dropdownLabel {
+          font-size: 12px;
+          font-weight: 500;
+          color: #475569;
+        }
+
+        .customSelectContainer {
+          position: relative;
+          width: 100%;
+
+          .nativeDropdownSelect {
+            width: 100%;
+            padding: 10px 36px 10px 12px;
+            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #334155;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+          }
+
+          &::after {
+            content: "▼";
+            font-size: 8px;
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #475569;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
+    .verificationUploadersRow {
+      display: flex;
+      gap: 18px;
+      margin-top: 16px;
+
+      .uploaderBox {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 180px;
+
+        .uploaderLabel {
+          font-size: 13px;
+          color: #475569;
+          font-weight: 400;
+        }
+
+        .dropzoneBorderArea {
+          border: 1px solid #cbd5e1;
+          border-radius: 6px;
+          height: 160px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: flex-end;
+          padding: 16px;
+          box-sizing: border-box;
+          background-color: #ffffff;
+
+          .innerUploadBtn {
+            background: none;
+            border: 1px solid #cbd5e1;
+            color: #0d6efd;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 6px 0;
+            width: 100%;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 8px;
+            background-color: #ffffff;
+          }
+
+          .formatHintText {
+            font-size: 10px;
+            color: #94a3b8;
+            text-align: center;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    .actionFlexRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+
+      .infoContextBlock {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .actionItemHeading {
+          font-size: 13.5px;
+          font-weight: 600;
+          color: #334155;
+          margin: 0;
+        }
+
+        .actionItemSubtext {
+          font-size: 12px;
+          color: #94a3b8;
+          margin: 0;
+        }
+      }
+
+      .outlineActionButton {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        color: #334155;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 10px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f8fafc;
+        }
+      }
+
+      .dangerActionButton {
+        background: none;
+        border: 1px solid #f87171;
+        color: #ef4444;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 10px 16px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+
+        .shieldIcon {
+          width: 14px;
+          height: 14px;
+        }
+
+        &:hover {
+          background-color: #fef2f2;
+        }
+      }
+    }
+  }
+}

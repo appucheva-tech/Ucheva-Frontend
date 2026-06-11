@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./CTAnnouncement.css";
+import calendar from "../../../../assets/AnnounceCalendar.svg";
+import time from "../../../../assets/AnnounceTime.svg";
 
 const CTAnnouncement = () => {
   const [activeFilter, setActiveFilter] = useState("all");
@@ -98,11 +100,11 @@ const CTAnnouncement = () => {
 
               <div className="CT-announcement-meta">
                 <span className="CT-announcement-date">
-                  📅 {announcement.date}
+                  <img src={calendar} alt="" /> {announcement.date}
                 </span>
 
                 <span className="CT-announcement-time">
-                  🕐 {announcement.time}
+                  <img src={time} alt="" /> {announcement.time}
                 </span>
               </div>
             </div>

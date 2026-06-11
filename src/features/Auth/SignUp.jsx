@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./AuthStyles/SignUp.css";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ApiClient } from "../../config/AxiosInstance";

@@ -4,8 +4,8 @@ import Ucheva from "../../../../assets/UchevaLogo.svg";
 
 const CTSettings = () => {
   return (
-    <main>
-      <article>
+    <main className="CTSettings">
+      <article className="CTSettingsWrapper">
         <section className="CTSettingsProfileCard">
           <nav className="CTSettingsCardTitle">Profile Information</nav>
 

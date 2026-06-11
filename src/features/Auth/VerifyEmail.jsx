@@ -84,7 +84,7 @@ const VerifyEmail = () => {
     setError("");
 
     try {
-      const response = await axios.post(`${BaseUrl}/admin/resend-otp`, {
+      const response = await ApiClient.post("/admin/resend-otp", {
         email: userEmail,
       });
       toast.success(response.data.message || "OTP code resent successfully!");
