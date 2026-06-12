@@ -7,13 +7,14 @@ import UchevaLogo from "../../../assets/UchevaLogo.svg";
 import Steps from "../../../assets/Steps.svg";
 import Camera from "../../../assets/CameraIcon.svg";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Step1 = () => {
   const [schoolProfile, setSchoolProfile] = useState({});
   const [showTypes, setShowTypes] = useState(false);
   const [schoolTypes, setSchoolTypes] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-
+  const token = useSelector((state) => state.user.token);
   const nav = useNavigate();
 
   const baseURL = import.meta.env.VITE_Base_Url;
@@ -64,19 +65,25 @@ const Step1 = () => {
   };
 
   useEffect(() => {
+    if (!token) return;
+
     const getProfile = async () => {
       try {
-        const response = await axios.get(`${baseURL}/api/v1/admin/get-admin`);
+        const response = await axios.get(`${baseURL}/admin/get-admin`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-        console.log(response);
-        setSchoolProfile(response.data);
+        console.log(response.data);
+        setSchoolProfile(response.data.data);
       } catch (error) {
-        console.log(error.message);
+        console.log(error.response?.data || error.message);
       }
     };
 
     getProfile();
-  }, []);
+  }, [token]);
 
   return (
     <main className="Step1Container geist-content">

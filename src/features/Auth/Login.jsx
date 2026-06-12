@@ -74,42 +74,42 @@ const Login = () => {
       dispatch(setUser(response?.data?.data));
 
       toast.success(response?.data?.message);
-
-      const user = response?.data?.data;
+      nav("/step1");
+      // const user = response?.data?.data;
 
       // ADMIN
-      if (user?.role === "admin") {
-        nav("/admin");
-      }
+      // if (user?.role === "admin") {
+      //   nav("/admin");
+      // }
 
-      // PARENT
-      else if (user?.role === "parent") {
-        nav("/parent");
-      }
+      // // PARENT
+      // else if (user?.role === "parent") {
+      //   nav("/parent");
+      // }
 
-      // STAFF (handled by backend staffType)
-      else if (user?.role === "staff") {
-        switch (user?.staffType) {
-          case "classTeacher":
-            nav("/CTdashboard");
-            break;
+      // // STAFF (handled by backend staffType)
+      // else if (user?.role === "staff") {
+      //   switch (user?.staffType) {
+      //     case "classTeacher":
+      //       nav("/CTdashboard");
+      //       break;
 
-          case "subjectTeacher":
-            nav("/subjectteacherdashboard");
-            break;
+      //     case "subjectTeacher":
+      //       nav("/subjectteacherdashboard");
+      //       break;
 
-          case "security":
-            nav("/securitydashboard");
-            break;
+      //     case "security":
+      //       nav("/securitydashboard");
+      //       break;
 
-          case "bursary":
-            nav("/bursary");
-            break;
+      //     case "bursary":
+      //       nav("/bursary");
+      //       break;
 
-          default:
-            nav("/staff");
-        }
-      }
+      //     default:
+      //       nav("/staff");
+      //   }
+      // }
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Login failed. Please try again.",

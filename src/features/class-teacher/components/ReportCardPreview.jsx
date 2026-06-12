@@ -210,7 +210,103 @@ const ReportCardPreview = () => {
                   <td className="remark">{subject.remark}</td>
                 </tr>
               ))}
-              <tr className="total-row">
+            </tbody>
+          </table>
+        </div>
+
+        <section className="OverallRemarkHolder">
+          <div className="TotalOverAllRemark">
+            <nav className="OverallRemarkScore">Total Score</nav>
+            <nav className="OverallRemarkScore1">308</nav>
+            <nav className="OverallRemarkScore1">507</nav>
+            <nav className="OverallRemarkScore1">815</nav>
+            <nav className="OverallRemarkScore1"></nav>
+          </div>
+          <div className="TotalOverAllRemark">
+            <nav className="OverallRemarkScore">Average Score</nav>
+            <nav className="OverallRemarkScore2">81.5</nav>
+          </div>
+          <div className="TotalOverAllRemark">
+            <nav className="OverallRemarkScore">Overall Grade</nav>
+            <nav className="OverallRemarkScore3">A</nav>
+          </div>
+          <div className="TotalOverAllRemark4">
+            <nav className="OverallRemarkScore">Overall Remark</nav>
+            <nav className="OverallRemarkScore4">Excellent</nav>
+          </div>
+        </section>
+        <section className="KeyToGrade">
+          <div className="KeyToGradeLeft">
+            <nav className="KeyToGradeLeftTitle">Key To Grades</nav>
+            <nav className="KeyToGradeLeftTitle">
+              <div className="KeyToGradeLeftTable">Grade</div>
+              <div className="KeyToGradeLeftTable">Score Range</div>
+              <div className="KeyToGradeLeftTable3">Remark</div>
+            </nav>
+            <nav className="KeyToGradeLeftTitleContent">
+              <div className="KeyToGradeLeftTable2">A</div>
+              <div className="KeyToGradeLeftTable2">70-100</div>
+              <div className="KeyToGradeLeftTable23">Excellent</div>
+            </nav>
+            <nav className="KeyToGradeLeftTitleContent">
+              <div className="KeyToGradeLeftTable2">A</div>
+              <div className="KeyToGradeLeftTable2">70-100</div>
+              <div className="KeyToGradeLeftTable23">Excellent</div>
+            </nav>
+            <nav className="KeyToGradeLeftTitleContent">
+              <div className="KeyToGradeLeftTable2">A</div>
+              <div className="KeyToGradeLeftTable2">70-100</div>
+              <div className="KeyToGradeLeftTable23">Excellent</div>
+            </nav>
+            <nav className="KeyToGradeLeftTitleContent">
+              <div className="KeyToGradeLeftTable2">A</div>
+              <div className="KeyToGradeLeftTable2">70-100</div>
+              <div className="KeyToGradeLeftTable23">Excellent</div>
+            </nav>
+            <nav className="KeyToGradeLeftTitleContent">
+              <div className="KeyToGradeLeftTable2">A</div>
+              <div className="KeyToGradeLeftTable2">70-100</div>
+              <div className="KeyToGradeLeftTable23">Excellent</div>
+            </nav>
+          </div>
+          <div className="KeyToGradeRight">
+            <nav className="KeyToGradeLeftTitle">Class Reacher's Remark</nav>
+            <div className="SigDateHolder">
+              <article className="SIgDate">
+                <nav>
+                  Signature: <span>zxjkbx</span>
+                </nav>
+                <nav>
+                  Date: <span>20 May, 2027</span>
+                </nav>
+              </article>
+            </div>
+          </div>
+        </section>
+        <section className="PrincipalsRemarkHolder">
+          <nav className="PrincipalsRemarkTitle">Principals's Remark</nav>
+          <nav className="PrincipalsRemarkContent">
+            David has shown a commendable performance this term. Keep up the
+            good work.
+            <div className="PrincipalsRemarkSigDate">
+              <nav className="PrincipalSIG">
+                Signature: <span>DSHVD</span>
+              </nav>
+              <nav className="PrincipalSIG">
+                Date: <span>30 May, 2027</span>
+              </nav>
+            </div>
+          </nav>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default ReportCardPreview;
+
+{
+  /* <tr className="total-row">
                 <td className="label">TOTAL SCORE</td>
                 <td className="total-score">308</td>
                 <td className="total-score">507</td>
@@ -236,66 +332,60 @@ const ReportCardPreview = () => {
                 <td colSpan="4" className="overall-remark">
                   Excellent
                 </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+              </tr> */
+}
 
-        {/* Bottom Section with Grade Key and Remarks */}
-        <div className="bottom-section">
-          <div className="grade-key-section">
-            <h3 className="section-title">KEY TO GRADES</h3>
-            <table className="grade-key-table">
-              <thead>
-                <tr>
-                  <th>GRADE</th>
-                  <th>SCORE RANGE</th>
-                  <th>REMARK</th>
-                </tr>
-              </thead>
-              <tbody>
-                {gradeKey.map((item, index) => (
-                  <tr key={index}>
-                    <td className="grade-cell">{item.grade}</td>
-                    <td className="range-cell">{item.range}</td>
-                    <td className="remark-cell">{item.remark}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+{
+  /* Bottom Section with Grade Key and Remarks */
+}
+// <div className="bottom-section">
+//   <div className="grade-key-section">
+//     <h3 className="section-title">KEY TO GRADES</h3>
+//     <table className="grade-key-table1">
+//       <thead>
+//         <tr>
+//           <th>GRADE</th>
+//           <th>SCORE RANGE</th>
+//           <th>REMARK</th>
+//         </tr>
+//       </thead>
+//       <tbody>
+//         {gradeKey.map((item, index) => (
+//           <tr key={index}>
+//             <td className="grade-cell">{item.grade}</td>
+//             <td className="range-cell">{item.range}</td>
+//             <td className="remark-cell">{item.remark}</td>
+//           </tr>
+//         ))}
+//       </tbody>
+//     </table>
+//   </div>
 
-          <div className="remarks-section">
-            <div className="class-teacher-remark">
-              <h3 className="section-title">CLASS TEACHER&apos;S REMARK</h3>
-              <div className="signature-line">
-                <span className="signature">Kfft</span>
-              </div>
-              <div className="date-line">Date: 26 May 2026</div>
-            </div>
+//   <div className="remarks-section">
+//     <div className="class-teacher-remark">
+//       <h3 className="section-title">CLASS TEACHER&apos;S REMARK</h3>
+//       <div className="signature-line">
+//         <span className="signature">Kfft</span>
+//       </div>
+//       <div className="date-line">Date: 26 May 2026</div>
+//     </div>
 
-            <div className="principal-remark">
-              <h3 className="section-title">PRINCIPAL&apos;S REMARK</h3>
-              <p className="remark-text">
-                David has shown a commendable performance this term.
-                <br />
-                Keep up the good work.
-              </p>
-              <div className="signature-section">
-                <div className="sig-item">
-                  <label>Signature:</label>
-                  <div className="sig-line"></div>
-                </div>
-                <div className="sig-item">
-                  <label>Date: 30 May 2026</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ReportCardPreview;
+//     <div className="principal-remark">
+//       <h3 className="section-title">PRINCIPAL&apos;S REMARK</h3>
+//       <p className="remark-text">
+//         David has shown a commendable performance this term.
+//         <br />
+//         Keep up the good work.
+//       </p>
+//       <div className="signature-section">
+//         <div className="sig-item">
+//           <label>Signature:</label>
+//           <div className="sig-line"></div>
+//         </div>
+//         <div className="sig-item">
+//           <label>Date: 30 May 2026</label>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// </div>
