@@ -79,6 +79,7 @@ const Login = () => {
 
       ADMIN;
       if (user?.role === "admin") {
+        console.log(user);
         nav("/AdminDashboard");
       }
 
