@@ -111,7 +111,7 @@ const App = () => {
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="studentreport" element={<STReport />} />
+          <Route path="STreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
