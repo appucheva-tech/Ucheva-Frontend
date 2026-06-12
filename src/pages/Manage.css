@@ -12,6 +12,7 @@
   .cta-content-wrapper {
     background-image: url("../assets/FreeBackground.png");
     background-position: center;
+    background-repeat: no-repeat;
     background-size: contain;
     border-radius: 30px;
     display: flex;

@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AdminStaff.css'
 import Ifeanacho from '../../assets/Ifeanacho.jpg'
 import { PiStudentFill } from "react-icons/pi";
@@ -8,6 +9,24 @@ import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 const AdminStaff = () => {
+  const [isOpen, setIsOpen] = useState(false);
+    const popupRef = useRef(null);
+    const toggleNotifications = (e) => {
+      e.stopPropagation();
+      setIsOpen(!isOpen);
+    };
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (popupRef.current && !popupRef.current.contains(event.target)) {
+          setIsOpen(false);
+        }
+      };
+  
+      document.addEventListener('click', handleClickOutside);
+      return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+  
+    const nav = useNavigate();
 
   const staffData = [
     { name: 'Adaeze Clinton', role: 'Teacher', class: 'SS 1A', subject: 'Mathematics', phone: '08032456789' },
@@ -21,78 +40,133 @@ const AdminStaff = () => {
 
   return (
     <>
-    <header className="adminDashboard-header">
-      <div className="search-container">
-        <input 
-          type="text" 
-          placeholder="Search staff by name, role..." 
-          className="search-input"
-        />
-        <button className="search-button" aria-label="Search">
-          <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </button>
-      </div>
-
-      <div className="meta-container">
-        <div className="date-display">
-          <svg className="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          <span>Monday, 18 May 2026</span>
-        </div>
-
-        <div className="divider"></div>
-
-        <div className="dropdown">
-          <span>2025/2026 Session</span>
-          <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-
-        <div className="divider"></div>
-
-        <div className="dropdown">
-          <span>Third Term</span>
-          <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </div>
-      </div>
-
-      <div className="profile-container">
-        <button className="notification-button" aria-label="Notifications">
-          <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-          </svg>
-          <span className="notification-badge"></span>
-        </button>
-
-        <div className="user-profile">
-          <img 
-            src={Ifeanacho} 
-            alt="Ifeanacho" 
-            className="avatar"
-          />
-        </div>
-        <div className="Auser-info">
-            <span className="user-name">Ifeanacho Francis</span>
-            <span className="user-role">Admin</span>
+    <header className="BAdminDashboard-header">
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="Search staff by name, role..." 
+              className="search-input"
+            />
+            <button className="search-button" aria-label="Search">
+              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
           </div>
-      </div>
-    </header>
     
-<div className="dashboard-container">
+          <div className="meta-container">
+            <div className="date-display">
+              <svg className="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              <span>Monday, 18 May 2026</span>
+            </div>
+    
+            <div className="divider"></div>
+    
+            <div className="dropdown">
+              <span>2025/2026 Session</span>
+              <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+    
+            <div className="divider"></div>
+    
+            <div className="dropdown">
+              <span>Third Term</span>
+              <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </div>
+          </div>
+    
+          <div className="profile-container">
+            <div className="notification-wrapper" ref={popupRef}>
+              <button 
+                className="notification-button" 
+                aria-label="Notifications"
+                onClick={toggleNotifications}
+              >
+                <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <span className="notification-badge"></span>
+              </button>
+    
+              {isOpen && (
+                <div className="notification-popup">
+                  <div className="popup-header">
+                    <h2>Notifications</h2>
+                    <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close">&times;</button>
+                  </div>
+    
+                  <div className="notification-list">
+                    <div className="notification-item unread">
+                      <div className="notification-content">
+                        <h3>Payment Received</h3>
+                        <p><strong>₦85,000</strong> payment made by Daniels Ogeremu’s parent.</p>
+                        <span class="time-stamp">2 min ago</span>
+                      </div>
+                      <span className="unread-dot"></span>
+                    </div>
+    
+                    <div className="notification-item unread">
+                      <div className="notification-content">
+                        <h3>Withdrawal Approved</h3>
+                        <p>Withdrawal of <strong>₦500,000</strong> completed</p>
+                        <span class="time-stamp">5 min ago</span>
+                      </div>
+                      <span className="unread-dot"></span>
+                    </div>
+    
+                    <div className="notification-item">
+                      <div className="notification-content">
+                        <h3>Withdrawal Rejected</h3>
+                        <p>Withdrawal of <strong>₦250,000</strong> rejected</p>
+                        <span class="time-stamp">Yesterday</span>
+                      </div>
+                    </div>
+    
+                    <div className="notification-item">
+                      <div className="notification-content">
+                        <h3>Payment Received</h3>
+                        <p><strong>₦150,000</strong> payment made by Ebube Udoka’s parent</p>
+                        <span class="time-stamp">Yesterday</span>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div className="popup-footer">
+                    <button className="mark-all-btn">Mark all as read</button>
+                  </div>
+                </div>
+              )}
+            </div>
+    
+            <div className="user-profile">
+              <img 
+                src={Ifeanacho} 
+                alt="Ifeanacho" 
+                className="avatar"
+              />
+            </div>
+            <div className="Auser-info">
+              <span className="user-name">Ifeanacho Francis</span>
+              <span className="user-role">Admin</span>
+            </div>
+          </div>
+        </header> 
+    
+<div className="Bdashboard-container">
       <header className="dashboard-header">
         <h1 className="welcome-text">
-          Staff Management <button className='AddStaff'>+ Add Staff</button>
+          Staff Management <button className='AddStaff' onClick={() => nav ('AdminStaff2')}>+ Add Staff</button>
         </h1>
         <p className="subtitle-text">
           Manage Teaching and non-teaching staff records. Add, edit and assign staff to classes or subjects.
