@@ -229,7 +229,13 @@ const Step3 = () => {
           </div>
         </section>
         <nav className="SkipContinueBtns3">
-          <button type="button" className="SkipBtn3">
+          <button
+            onClick={() => {
+              nav("/AdminDashboard");
+            }}
+            type="button"
+            className="SkipBtn3"
+          >
             Skip
           </button>
           <button
