@@ -47,30 +47,30 @@ const SettingsPage = () => {
   };
 
   return (
-    <div className="settings-container">
-      <div className="settings-header">
+    <div className="parent-settings-container">
+      <div className="parent-settings-header">
         <h1>Settings</h1>
         <p>Manage your profile and account preferences.</p>
       </div>
 
-      <div className="settings-card">
-        <h2 className="card-title">Profile Information</h2>
+      <div className="parent-settings-card">
+        <h2 className="parent-card-title">Profile Information</h2>
 
-        <div className="profile-content">
-          <div className="avatar-section">
-            <div className="avatar-container">
+        <div className="parent-profile-content">
+          <div className="parent-avatar-section">
+            <div className="parent-avatar-container">
               {previewUrl ? (
                 <img
                   src={previewUrl}
                   alt="Profile Avatar"
-                  className="avatar-image"
+                  className="parent-avatar-image"
                 />
               ) : (
-                <div className="avatar-placeholder">
+                <div className="parent-avatar-placeholder">
                   <LuCamera />
                 </div>
               )}
-              <label htmlFor="avatar-upload" className="avatar-upload-btn">
+              <label htmlFor="avatar-upload" className="parent-avatar-upload-btn">
                 <LuCamera />
               </label>
               <input
@@ -78,15 +78,15 @@ const SettingsPage = () => {
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
-                className="avatar-input"
+                className="parent-avatar-input"
               />
             </div>
-            <p className="avatar-info">PNG, JPG, Max 2MB</p>
+            <p className="parent-avatar-info">PNG, JPG, Max 2MB</p>
           </div>
 
-          <div className="form-section">
-            <div className="form-row">
-              <div className="form-group">
+          <div className="parent-form-section">
+            <div className="parent-form-row">
+              <div className="parent-form-group">
                 <label htmlFor="firstName">First Name</label>
                 <input
                   id="firstName"
@@ -97,7 +97,7 @@ const SettingsPage = () => {
                   placeholder="First Name"
                 />
               </div>
-              <div className="form-group">
+              <div className="parent-form-group">
                 <label htmlFor="lastName">Last Name</label>
                 <input
                   id="lastName"
@@ -110,8 +110,8 @@ const SettingsPage = () => {
               </div>
             </div>
 
-            <div className="form-row">
-              <div className="form-group">
+            <div className="parent-form-row">
+              <div className="parent-form-group">
                 <label htmlFor="phone">Phone Number</label>
                 <input
                   id="phone"
@@ -124,7 +124,7 @@ const SettingsPage = () => {
                   placeholder="Phone Number"
                 />
               </div>
-              <div className="form-group">
+              <div className="parent-form-group">
                 <label htmlFor="email">Email Address</label>
                 <input
                   id="email"
@@ -139,7 +139,7 @@ const SettingsPage = () => {
               </div>
             </div>
 
-            <div className="form-group full-width">
+            <div className="parent-form-group full-width">
               <label htmlFor="address">Address</label>
               <input
                 id="address"
@@ -151,8 +151,8 @@ const SettingsPage = () => {
               />
             </div>
 
-            <div className="button-wrapper">
-              <button className="save-btn" onClick={handleSaveChanges}>
+            <div className="parent-button-wrapper">
+              <button className="parent-save-btn" onClick={handleSaveChanges}>
                 Save Changes
               </button>
             </div>
@@ -160,17 +160,17 @@ const SettingsPage = () => {
         </div>
       </div>
 
-      <div className="settings-card">
-        <h2 className="card-title">Security</h2>
+      <div className="parent-settings-card">
+        <h2 className="parent-card-title">Security</h2>
 
-        <div className="security-content">
-          <div className="security-item">
-            <div className="security-text">
+        <div className="parent-security-content">
+          <div className="parent-security-item">
+            <div className="parent-security-text">
               <h3>Change Password</h3>
               <p>Receive real-time notifications and team alerts.</p>
             </div>
             <button
-              className="change-password-btn"
+              className="parent-change-password-btn"
               onClick={handleChangePassword}
             >
               Change Password
