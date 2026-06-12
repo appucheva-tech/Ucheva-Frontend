@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Step1 from "./features/Unboarding/Pages/Step1";
 import Step2 from "./features/Unboarding/Pages/Step2";
 import Step3 from "./features/Unboarding/Pages/Step3";
@@ -45,7 +46,6 @@ import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages
 import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
 import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
 import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
-
 import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminStaff from "./pages/Admin/AdminStaff";
@@ -61,9 +61,21 @@ import AdminSettings from "./pages/Admin/AdminSettings";
 import Features from "./pages/Features";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
 
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+}
+
 const App = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Features" element={<Features />} />
@@ -101,7 +113,7 @@ const App = () => {
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="studentreport" element={<STReport />} />
+          <Route path="STreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
