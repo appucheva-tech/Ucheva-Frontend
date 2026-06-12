@@ -74,12 +74,13 @@ const Login = () => {
       dispatch(setUser(response?.data?.data));
 
       toast.success(response?.data?.message);
-
+      nav("/step1");
       const user = response?.data?.data;
 
-      // ADMIN
+      ADMIN;
       if (user?.role === "admin") {
-        nav("/admin");
+        console.log(user);
+        nav("/AdminDashboard");
       }
 
       // PARENT

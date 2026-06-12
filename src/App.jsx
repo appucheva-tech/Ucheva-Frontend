@@ -59,6 +59,7 @@ import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import Features from "./pages/Features";
+import AdminStaff2 from "./pages/Admin/AdminStaff2";
 
 
 function ScrollToTop() {
@@ -95,6 +96,7 @@ const App = () => {
         <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
+          <Route path="AdminStaff/:id" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
@@ -111,7 +113,7 @@ const App = () => {
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="studentreport" element={<STReport />} />
+          <Route path="STreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>

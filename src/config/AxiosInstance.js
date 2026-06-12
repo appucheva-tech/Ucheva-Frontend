@@ -10,33 +10,44 @@ export const ApiClient = axios.create({
   },
 });
 
-ApiClient.interceptors.request.use((config) => {
-  const token = store.getState().user.token;
+ApiClient.interceptors.request.use(
+  (config) => {
+    const token = store.getState().user.token;
 
-  const isPublicRoute = PublicRoutes.some((routes) => {
-    config.url.includes(routes);
-  });
+    const isPublicRoute = PublicRoutes.some((route) =>
+      config.url?.includes(route),
+    );
 
-  if (token && !PublicRoutes) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
+    if (token && !isPublicRoute) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
 
-  return config;
-  (error) => Promise.reject(error);
-});
+    return config;
+  },
+  (error) => Promise.reject(error),
+);
 
 ApiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    const status = error.response.status;
+    const status = error.response?.status;
 
-    if (error === 401) {
-      store.dispatch(clearUser());
-      window.location.href = "/login";
-    } else if (error === 403) {
-      console.error("Access Forbidden");
-    } else if (error === 500) {
-      console.error("Internal Server error");
+    switch (status) {
+      case 401:
+        store.dispatch(clearUser());
+        window.location.href = "/login";
+        break;
+
+      case 403:
+        console.error("Access Forbidden");
+        break;
+
+      case 500:
+        console.error("Internal Server Error");
+        break;
+
+      default:
+        break;
     }
 
     return Promise.reject(error);
