@@ -37,21 +37,21 @@ const ValuesSection = () => {
   ];
 
   return (
-    <section className="values-container">
-      <div className="values-header">
-        <span className="values-subtitle">Our Values</span>
-        <h2 className="values-title">What We Stand For</h2>
-        <p className="values-intro">The principles that guide every decision we make.</p>
+    <section className="QQvalues-container">
+      <div className="QQvalues-header">
+        <span className="QQvalues-subtitle">Our Values</span>
+        <h2 className="QQvalues-title">What We Stand For</h2>
+        <p className="QQvalues-intro">The principles that guide every decision we make.</p>
       </div>
       
-      <div className="values-grid">
+      <div className="QQvalues-grid">
         {values.map((value, index) => (
-          <div key={index} className="value-card">
-            <div className="value-icon-wrapper">
+          <div key={index} className="QQvalue-card">
+            <div className="QQvalue-icon-wrapper">
               {value.icon}
             </div>
-            <h3 className="value-card-title">{value.title}</h3>
-            <p className="value-card-description">{value.description}</p>
+            <h3 className="QQvalue-card-title">{value.title}</h3>
+            <p className="QQvalue-card-description">{value.description}</p>
           </div>
         ))}
       </div>

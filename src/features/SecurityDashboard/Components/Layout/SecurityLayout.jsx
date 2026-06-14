@@ -6,13 +6,13 @@ import { Outlet } from "react-router-dom";
 
 const SecurityLayout = () => {
   return (
-    <div className="app-layout nunito-content">
+    <div className="security-app-layout nunito-content">
       <SecuritySidebar />
 
-      <div className="main-content">
+      <div className="security-main-content">
         <SecurityHeader />
 
-        <main className="page-content">
+        <main className="security-page-content">
           <Outlet />
         </main>
 

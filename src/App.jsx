@@ -58,7 +58,6 @@ import AdminReportCards from "./pages/Admin/AdminReportCards";
 import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
-import Features from "./pages/Features";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
 
 function ScrollToTop() {
@@ -77,7 +76,6 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />

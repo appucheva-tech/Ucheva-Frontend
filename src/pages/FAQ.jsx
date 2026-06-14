@@ -17,32 +17,36 @@ const FAQ = () => {
   };
 
   return (
-    <section className="faq-container">
-      <div className="faq-info">
-        <span className="faq-tag">FAQs</span>
-        <h2 className="faq-title">
-          Got Questions? We’ve Got <span className="highlight">Answers</span>
+    <section className="MMfaq-container">
+      <div className="MMfaq-info">
+        <span className="MMfaq-tag">FAQs</span>
+        <h2 className="MMfaq-title">
+          Got Questions? We’ve Got <span className="MMhighlight">Answers</span>
         </h2>
-        <p className="faq-description">
+        <p className="MMfaq-description">
           Quick answers to common questions about the platform.
         </p>
       </div>
 
-      <div className="faq-accordion-list">
+      <div className="MMfaq-accordion-list">
         {faqData.map((item, index) => (
           <div 
             key={item.id} 
-            className={`faq-item ${activeIndex === index ? 'active' : ''}`}
+            className={`MMfaq-item ${activeIndex === index ? 'MMactive' : ''}`}
             onClick={() => toggleAccordion(index)}
           >
-            <div className="faq-item-header">
-              <span className="faq-number">{item.id}</span>
-              <h3 className="faq-question">{item.question}</h3>
-              <span className="faq-icon">{activeIndex === index ? '−' : '+'}</span>
+            <div className="MMfaq-item-header">
+              <span className="MMfaq-number">{item.id}</span>
+              <h3 className="MMfaq-question">{item.question}</h3>
+              <span className="MMfaq-icon">{activeIndex === index ? '−' : '+'}</span>
             </div>
             {activeIndex === index && (
-              <div className="faq-item-content">
-                <p>Yes, parents receive important updates and alerts instantly.</p>
+              <div className="MMfaq-item-content">
+                <p>
+                  {item.id === '01' 
+                    ? 'Yes, its designed to be simple and easy for school staff to use.' 
+                    : 'Yes, parents receive important updates and alerts instantly.'}
+                </p>
               </div>
             )}
           </div>

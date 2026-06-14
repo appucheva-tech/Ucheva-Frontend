@@ -1,6 +1,6 @@
-.MainSection{
+.HHMainSection{
     width: 100%;
-    height: 150vh;
+    height: 145vh;
     display: flex;
 
     @media (max-width: 450px) {
@@ -10,23 +10,22 @@
         height: 100%;
     }
 
-    .MainSectionLeft{
+    .HHMainSectionLeft{
         width: 50%;
-        height: 150vh;
+        height: 145vh;
 
         @media (max-width: 450px) {
-        width: 100%;
-        height: 100%;
-    }
-
-        .MainSectionLeftCont1{
             width: 100%;
-            height: 50vh;
+            height: 100%;
+        }
+
+        .HHMainSectionLeftCont1{
+            width: 100%;
+            height: 45vh;
             padding-left: 8%;
-            padding-top: 8%;
             
 
-            .school-promo {
+            .HHschool-promo {
                 font-family: system-ui, -apple-system, sans-serif;
                 max-width: 500px;
                 padding: 20px;
@@ -35,7 +34,7 @@
                     padding-left: 0%;
                  }
 
-                .sub-heading {
+                .HHsub-heading {
                     display: block;
                     color: #8a8a8a;
                     font-size: 15px;
@@ -43,9 +42,9 @@
                     margin-bottom: 16px;
                 }
 
-                .main-heading {
-                    color: #0c337c;
-                    font-size: 32px;
+                .HHmain-heading {
+                    color: #042869;
+                    font-size: 31.5px;
                     font-weight: 700;
                     line-height: 1.3;
                     margin: 0 0 24px 0;
@@ -55,12 +54,13 @@
                     }
                 }
 
-                .description {
-                    color: #1e3a60;
-                    font-size: 24px;
+                .HHdescription {
+                    color: #042869;
+                    font-size: 25px;
                     font-weight: 400;
                     line-height: 1.5;
                     margin: 0;
+                    width: 110%;
 
                      @media (max-width: 450px) {
                         font-size: 17px;
@@ -70,7 +70,7 @@
 
         }
 
-        .MainSectionLeftCont2{
+        .HHMainSectionLeftCont2{
             width: 100%;
             height: 100vh;
             display: flex;
@@ -81,7 +81,7 @@
                 margin-bottom: -350px;
              }
 
-            .UchevaCircle{
+            .HHUchevaCircle{
                 width: 83%;
                 height: 83%;
 
@@ -93,16 +93,16 @@
         }
     }
 
-    .MainSectionRight{
+    .HHMainSectionRight{
         width: 50%;
-        height: 150vh;
+        height: 145vh;
 
         @media (max-width: 450px) {
             width: 100%;
             margin-left: 2%;
         }
 
-            .features-container {
+            .HHfeatures-container {
             display: flex;
             flex-direction: column;
             gap: 16px;
@@ -111,7 +111,7 @@
             padding: 20px;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 
-                .feature-card {
+                .HHfeature-card {
                     display: flex;
                     align-items: flex-start;
                     background-color: #f4f6f9;
@@ -132,7 +132,7 @@
                         }
                     }
 
-                    .icon-wrapper {
+                    .HHicon-wrapper {
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -142,25 +142,25 @@
                     height: 40px;
                     flex-shrink: 0;
 
-                        .feature-icon {
+                        .HHfeature-icon {
                             font-size: 18px;
                             color: #1a56db;
                         }
                     }
 
-                    .text-wrapper {
+                    .HHtext-wrapper {
                     display: flex;
                     flex-direction: column;
                     gap: 6px;
 
-                        .feature-title {
+                        .HHfeature-title {
                             margin: 0;
                             font-size: 20px;
                             font-weight: 600;
                             color: #1e3a8a;
                         }
 
-                        .feature-description {
+                        .HHfeature-description {
                             margin: 0;
                             font-size: 15px;
                             line-height: 1.5;

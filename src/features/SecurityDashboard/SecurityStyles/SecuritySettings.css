@@ -1,268 +1,561 @@
 .security-settings-container {
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  padding: 40px 20px;
+  padding: 40px;
+  background-color: #f5f7fb;
+  /* min-height: 100vh; */
+
+  /* overflow-y: hidden; */
 }
 
-.settings-header {
+.security-settings-header {
   margin-bottom: 40px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-.settings-title {
-  font-size: 32px;
+.security-settings-header h1 {
+  margin: 0 0 12px 0;
+  color: #0f172a;
   font-weight: 700;
-  color: #000;
-  margin-bottom: 8px;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
 }
 
-.settings-subtitle {
-  font-size: 16px;
-  color: #0052cc;
+.security-settings-header p {
+  margin: 0;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
 }
 
-.settings-card {
+.security-settings-card {
   background-color: #fff;
   border-radius: 8px;
-  padding: 32px;
+  padding: 40px;
   margin-bottom: 24px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-.card-title {
-  font-size: 20px;
+.security-card-title {
+  margin: 0 0 32px 0;
+  padding-bottom: 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
   font-weight: 600;
-  color: #000;
-  margin-bottom: 24px;
+  line-height: normal;
 }
 
-/* Profile Card Styles */
-.profile-content {
+.security-profile-content {
   display: flex;
-  gap: 40px;
-  margin-bottom: 32px;
+  gap: 60px;
 }
 
-.profile-image-section {
+.security-avatar-section {
   display: flex;
   flex-direction: column;
   align-items: center;
   flex-shrink: 0;
 }
 
-.profile-image-wrapper {
+.security-avatar-container {
   position: relative;
   width: 140px;
   height: 140px;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
-.profile-image {
+.security-avatar-image,
+.security-avatar-placeholder {
   width: 100%;
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #0052cc;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9da4ae;
 }
 
-.camera-icon-label {
+.security-avatar-placeholder svg {
+  width: 60px;
+  height: 60px;
+}
+
+.security-avatar-upload-btn {
   position: absolute;
   bottom: 0;
   right: 0;
   width: 40px;
   height: 40px;
-  background-color: #fff;
   border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  border: 2px solid #e0e0e0;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
 }
 
-.camera-icon-label:hover {
-  border-color: #0052cc;
-  background-color: #f0f0f0;
+.security-avatar-upload-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #0033cc;
 }
 
-.camera-icon {
+.security-avatar-upload-btn svg {
   width: 20px;
   height: 20px;
-  color: #0052cc;
+  color: #666;
 }
 
-.file-input {
+.security-avatar-input {
   display: none;
 }
 
-.image-info {
-  font-size: 12px;
-  color: #888;
+.security-avatar-info {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
   text-align: center;
 }
 
-.form-grid {
+.security-form-section {
   flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.form-group {
   display: flex;
   flex-direction: column;
 }
 
-.form-group.full-width {
+.security-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.security-form-group {
+  display: flex;
+  flex-direction: column;
+  /* padding: 14px 12px; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* align-self: stretch; */
+}
+
+.security-form-group.full-width {
   grid-column: 1 / -1;
 }
 
-.form-label {
-  font-size: 14px;
-  font-weight: 500;
-  color: #000;
+.security-form-group label {
   margin-bottom: 8px;
+  display: block;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
-.form-input {
-  padding: 12px 14px;
+.security-form-group input {
+  padding: 12px 16px;
   border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #333;
-  background-color: #fff;
-  transition: border-color 0.2s ease;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Geist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 84;
+  line-height: normal;
+  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid var(--Neutral-Color-400, #d2d6db);
+  /* background: var(--Neutral-Color-100, #f9fafb); */
+  background-color: #ffffff;
 }
 
-.form-input:focus {
+.security-form-group input:focus {
   outline: none;
-  border-color: #0052cc;
-  box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+  border-color: #0033cc;
+  box-shadow: 0 0 0 3px rgba(0, 51, 204, 0.1);
 }
 
-.form-input.textarea {
-  resize: vertical;
-  line-height: 1.5;
+.security-form-group input::placeholder {
+  color: #999;
 }
 
-.card-actions {
+.security-form-group input.readonly-field {
+  background-color: #f9fafb;
+  color: #666;
+  cursor: not-allowed;
+  border: 1px solid #d2d6db;
+}
+
+.security-form-group input.readonly-field:focus {
+  outline: none;
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+
+.security-form-group input.readonly-field:hover {
+  border-color: #e0e0e0;
+}
+
+.security-form-group input:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.security-button-wrapper {
   display: flex;
   justify-content: flex-end;
-  padding-top: 24px;
-  border-top: 1px solid #eee;
+  margin-top: 16px;
 }
 
-/* Security Card Styles */
-.security-content {
-  padding: 20px 0;
+.security-save-btn {
+  background-color: #0062f6;
+  width: 127px;
+  height: 54px;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  border: none;
 }
 
-.security-option {
+.security-save-btn:hover {
+  background-color: #0041cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 51, 204, 0.2);
+}
+
+.security-save-btn:active {
+  transform: translateY(0);
+}
+
+.security-security-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.security-security-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0;
-}
-
-.security-info {
-  flex: 1;
-}
-
-.security-option-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #000;
-  margin-bottom: 4px;
-}
-
-.security-option-description {
-  font-size: 14px;
-  color: #888;
-}
-
-/* Button Styles */
-.btn {
-  padding: 12px 24px;
+  /* padding: 24px; */
+  border: 1px solid #eee;
   border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
   border: none;
+  /* background-color: #fafafa; */
+}
+
+.security-security-text h3 {
+  margin: 0 0 8px 0;
+  /* color: #03173c; */
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.security-security-text p {
+  /* margin: 0; */
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+}
+
+.security-change-password-btn {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  padding: 15px 12px;
+  align-items: center;
+  gap: 8px;
+  color: var(--Primary-Color-900, #03173c);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
 }
 
-.btn-primary {
-  background-color: #0052cc;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #0043a8;
-  box-shadow: 0 2px 8px rgba(0, 82, 204, 0.3);
-}
-
-.btn-primary:active {
-  background-color: #003a8a;
-}
-
-.btn-secondary {
-  background-color: #fff;
-  color: #000;
-  border: 1px solid #ddd;
-}
-
-.btn-secondary:hover {
+.security-change-password-btn:hover {
   background-color: #f5f5f5;
   border-color: #999;
 }
 
-.btn-secondary:active {
-  background-color: #e8e8e8;
+.security-change-password-btn:active {
+  background-color: #eee;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
+  .security-settings-container {
+    padding: 30px;
+  }
+
+  .security-settings-header h1 {
+    font-size: 28px;
+  }
+
+  .security-settings-header p {
+    font-size: 16px;
+  }
+
+  .security-settings-card {
+    padding: 30px;
+  }
+
+  .security-card-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .security-profile-content {
+    gap: 40px;
+  }
+
+  .security-form-row {
+    gap: 20px;
+  }
+
+  .security-form-group label {
+    font-size: 16px;
+  }
+
+  .security-security-item {
+    padding: 20px;
+  }
+
+  .security-security-text h3 {
+    font-size: 16px;
+  }
+
+  .security-security-text p {
+    font-size: 14px;
+  }
+
+  .security-change-password-btn {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
   .security-settings-container {
     padding: 20px;
   }
 
-  .settings-card {
-    padding: 20px;
+  .security-settings-header {
+    margin-bottom: 24px;
   }
 
-  .settings-title {
+  .security-settings-header h1 {
     font-size: 24px;
+    margin-bottom: 8px;
   }
 
-  .profile-content {
+  .security-settings-header p {
+    font-size: 14px;
+  }
+
+  .security-settings-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .security-card-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .security-profile-content {
     flex-direction: column;
-    align-items: center;
     gap: 24px;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .security-avatar-section {
+    align-items: center;
   }
 
-  .security-option {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .card-actions {
-    justify-content: center;
-  }
-
-  .profile-image-wrapper {
+  .security-avatar-container {
     width: 120px;
     height: 120px;
+  }
+
+  .security-avatar-placeholder svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .security-avatar-upload-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .security-avatar-upload-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .security-form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .security-form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .security-form-group input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .security-button-wrapper {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .security-save-btn {
+    width: 100%;
+    max-width: 200px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .security-security-content {
+    gap: 16px;
+  }
+
+  .security-security-item {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .security-security-text h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .security-security-text p {
+    font-size: 13px;
+  }
+
+  .security-change-password-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 479px) {
+  .security-settings-container {
+    padding: 16px;
+  }
+
+  .security-settings-header h1 {
+    font-size: 22px;
+  }
+
+  .security-settings-header p {
+    font-size: 13px;
+  }
+
+  .security-settings-card {
+    padding: 16px;
+  }
+
+  .security-card-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .security-profile-content {
+    gap: 20px;
+  }
+
+  .security-avatar-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .security-avatar-placeholder svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .security-avatar-upload-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .security-avatar-upload-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .security-avatar-info {
+    font-size: 11px;
+  }
+
+  .security-form-group label {
+    font-size: 13px;
+  }
+
+  .security-form-group input {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .security-save-btn {
+    height: 44px;
+    max-width: 180px;
+    font-size: 13px;
+  }
+
+  .security-security-item {
+    padding: 14px;
+  }
+
+  .security-security-text h3 {
+    font-size: 15px;
+  }
+
+  .security-security-text p {
+    font-size: 12px;
+  }
+
+  .security-change-password-btn {
+    padding: 10px;
+    font-size: 13px;
   }
 }

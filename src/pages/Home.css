@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
-.geist-content {
+.CCgeist-content {
   font-family: "Geist", sans-serif;
   font-optical-sizing: auto;
 }
 
-.hero-container {
+.CChero-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -27,7 +27,7 @@
     border-bottom-right-radius: 40px;
   }
 
-  .hero-content {
+  .CChero-content {
     width: 45%;
     height: 80vh;
     display: flex;
@@ -41,8 +41,7 @@
       padding-left: 0;
     }
 
-    .badge {
-      background-color: #ffffff;
+    .CCbadge {
       border: 1px solid #0062F6;
       display: flex;
       justify-content: center;
@@ -59,13 +58,13 @@
       }
 
       span {
-        color: #64748b;
+        color: #03173C;
         font-size: 11px;
         font-weight: 500;
       }
     }
 
-    .title {
+    .CCtitle {
       font-size: 44px;
       font-weight: 800;
       line-height: 1.2;
@@ -76,12 +75,12 @@
         font-size: 2rem;
       }
 
-      .highlight {
+      .CChighlight {
         color: #1d4ed8;
       }
     }
 
-    .description {
+    .CCdescription {
       font-size: 24px;
       line-height: 1.6;
       color: #042869;
@@ -92,12 +91,13 @@
       }
     }
 
-    .cta-button {
+    .CCcta-button {
       background-color: #1d4ed8;
       color: #ffffff;
+      width: 20%;
+      height: 45px;
       border: none;
-      padding: 14px 32px;
-      font-size: 1rem;
+      font-size: 15px;
       border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(29, 78, 216, 0.4);
@@ -115,7 +115,7 @@
       }
     }
 
-    .social-proof {
+    .CCsocial-proof {
       width: 80%;
       display: flex;
       align-items: center;
@@ -129,7 +129,7 @@
         margin-top: 2.5rem;
       }
 
-      .client-meta {
+      .CCclient-meta {
         width: 60%;
         display: flex;
         align-items: center;
@@ -139,7 +139,7 @@
           width: 50%;
         }
 
-        .avatar-group {
+        .CCavatar-group {
           width: 45%;
           height: 75px;
           display: flex;
@@ -150,7 +150,7 @@
             height: auto;
           }
 
-          .avatar {
+          .CCavatar {
             width: 35%;
             height: 38px;
             border-radius: 50%;
@@ -170,17 +170,16 @@
           }
         }
 
-        .client-text {
+        .CCclient-text {
           width: 40%;
           display: flex;
           flex-direction: column;
 
-          
           @media (max-width: 450px) {
             width: auto;
           }
 
-          .count {
+          .CCcount {
             font-size: 20px;
             color: #042869;
             font-weight: 500;
@@ -190,7 +189,7 @@
             }
           }
           
-          .label {
+          .CClabel {
             padding: 0%;
             font-size: 14px;
             color: #042869;
@@ -202,7 +201,7 @@
         }
       }
 
-      .rating-divider {
+      .CCrating-divider {
         width: 1px;
         height: 35px;
         margin-left: -15%;
@@ -214,7 +213,7 @@
         }
       }
 
-      .rating-meta {
+      .CCrating-meta {
         width: 35%;
         height: 50px;
         display: flex;
@@ -226,7 +225,7 @@
           height: auto;
         }
 
-        .stars {
+        .CCstars {
           width: 100%;
           display: flex;
           align-items: center;
@@ -235,17 +234,15 @@
           @media (max-width: 450px) {
             width: auto;
           }
-
         }
 
-        .score {
+        .CCscore {
           color: #042869;
           font-size: 22px;
-          /* font-weight: 700; */
         }
 
-        .rating-text {         
-          .reviews {
+        .CCrating-text {         
+          .CCreviews {
             color: #042869;
             font-size: 16px;
           }
@@ -254,7 +251,7 @@
     }
   }
 
-  .grid-container {
+  .CCgrid-container {
     width: 38%;
     height: 80vh;
 
@@ -263,7 +260,7 @@
       height: auto;
     }
 
-    .Home4Pics{
+    .CCHome4Pics{
       margin-top: -7%;
       margin-left: -3%;
       width: 100%;
@@ -271,7 +268,7 @@
   }
 }
 
-.stats-container {
+.CCstats-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -288,7 +285,7 @@
     margin-bottom: 50px;
   }
 
-  .stat-card {
+  .CCstat-card {
     flex: 1;
     text-align: center;
     height: 20vh;
@@ -298,7 +295,7 @@
       height:70px;           
     }
 
-    .stat-value {
+    .CCstat-value {
       font-size: 250%;
       font-weight: 700;
       color: #002b70;
@@ -309,7 +306,7 @@
       }
     }
 
-    .stat-label {
+    .CCstat-label {
       font-size: 150%;
       font-weight: 400;
       color: #002b70;

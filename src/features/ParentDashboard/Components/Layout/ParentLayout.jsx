@@ -6,13 +6,13 @@ import { Outlet } from "react-router-dom";
 
 const ParentLayout = () => {
   return (
-    <div className="app-layout nunito-content">
+    <div className="parent-app-layout nunito-content">
       <ParentSidebar />
 
-      <div className="main-content">
+      <div className="parent-main-content">
         <Header />
 
-        <main className="page-content">
+        <main className="parent-page-content">
           <Outlet />
         </main>
 
