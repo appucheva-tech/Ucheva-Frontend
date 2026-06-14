@@ -60,7 +60,6 @@ import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
 
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -82,7 +81,7 @@ const App = () => {
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/verifyEmail" element={<VerifyEmail />} />
+        <Route path="/verify" element={<VerifyEmail />} />
         <Route path="/forgetpassword" element={<ForgetPassword />} />
         <Route path="/inputCode" element={<InputCode />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
@@ -108,6 +107,7 @@ const App = () => {
 
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
+          <Route path="dashboard" element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
@@ -118,6 +118,7 @@ const App = () => {
 
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
+          <Route path="bursarydashboard" element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
