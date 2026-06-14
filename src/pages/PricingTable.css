@@ -1,4 +1,4 @@
-.pricing-container {
+.JJpricing-container {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   max-width: 1200px;
   margin: 0 auto;
@@ -6,11 +6,11 @@
   background-color: #ffffff;
   color: #1e293b;
 
-  .pricing-header {
+  .JJpricing-header {
     text-align: center;
     margin-bottom: 48px;
 
-    .sub-title {
+    .JJsub-title {
       font-size: 15px;
       color: #94a3b8;
       letter-spacing: 0.5px;
@@ -21,7 +21,7 @@
       }
     }
 
-    .main-titles {
+    .JJmain-titles {
       font-size: 32px;
       font-weight: 700;
       color: #0f172a;
@@ -33,7 +33,7 @@
       }
     }
 
-    .descriptions {
+    .JJdescriptions {
       font-size: 25px;
       color: #475569;
       width: 45%;
@@ -46,10 +46,10 @@
     }
   }
 
-  .cards-grid {
+  .JJcards-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 35px;
     margin-bottom: 48px;
 
     @media (max-width: 450px) {
@@ -59,18 +59,19 @@
     }
   }
 
-  .card {
+  .JJcard {
     background: #ffffff;
     border-radius: 16px;
     border: 1px solid #e2e8f0;
     overflow: hidden;
-    height: 470px;
+    height: 475px;
+    padding: 5%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 
-    .card-content {
+    .JJcard-content {
       padding-top: 20px;
       display: flex;
       flex-direction: column;
@@ -78,63 +79,62 @@
       flex-grow: 1;
     }
 
-    .plan-name {
+    .JJplan-name {
       font-size: 14px;
       font-weight: 500;
-      color: #64748b;
+      color: #042869;
       margin-bottom: 12px;
     }
 
-    .price {
+    .JJprice {
       font-size: 36px;
       font-weight: 700;
-      color: #0f172a;
+      color: #042869;
       margin-bottom: 16px;
     }
 
-    .card-desc {
-      font-size: 15px;
+    .JJcard-desc {
+      font-size: 19.5px;
       line-height: 1.5;
-      color: #475569;
+      color: #042869;
       margin-bottom: 32px;
-      text-align:left;
+      text-align: left;
     }
   }
 
-  .starter-card {
+  .JJstarter-card {
     border: none;
     position: relative;
     justify-content: space-between;
 
-    .text-light {
+    .JJtext-light {
       color: #ffffff;
       z-index: 2;
     }
 
-    .plan-name.text-light {
+    .JJplan-name.JJtext-light {
       color: white;
     }
 
-    .image-container {
-      width: 100%;
-      height: 250px;
+    .JJimage-container {
+      width: 99%;
+      height: 255px;
       margin-top: auto;
       display: flex;
       align-items: flex-end;
       justify-content: center;
 
-      .admin-image {
+      .JJadmin-image {
         width: 115%;
         height: 480px;
       }
     }
   }
 
-  .billing-card {
-    .features-list {
+  .JJbilling-card {
+    .JJfeatures-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 16px 0;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -166,14 +166,13 @@
       }
     }
 
-    .view-all-btn {
+    .JJview-all-btn {
       background: none;
       border: none;
       color: #2563eb;
       font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      margin-bottom: 32px;
       align-self: center;
       
       &:hover {
@@ -181,18 +180,19 @@
       }
     }
 
-    .cta-button {
+    .JJcta-button {
       width: 100%;
+      height: 50px;
       padding: 14px;
       border-radius: 12px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.2s ease;
-      margin-top: auto;
+      margin-top: 20px;
     }
 
-    .primary-btn {
+    .JJprimary-btn {
       background-color: #2563eb;
       color: #ffffff;
       border: none;
@@ -202,7 +202,7 @@
       }
     }
 
-    .secondary-btn {
+    .JJsecondary-btn {
       background-color: #eff6ff;
       color: #2563eb;
       border: none;
@@ -213,11 +213,11 @@
     }
   }
 
-  .active-card {
+  .JJactive-card {
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
   }
 
-  .pricing-footer {
+  .JJpricing-footer {
     text-align: center;
     font-size: 24px;
     color: #334155;
@@ -229,7 +229,7 @@
         font-size: 18px;
       }
 
-    .footer-link {
+    .JJfooter-link {
       color: #2563eb;
       text-decoration: none;
       font-weight: 500;

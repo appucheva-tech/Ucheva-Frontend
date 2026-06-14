@@ -20,13 +20,13 @@ const Carousel = () => {
   const doubleLogos = [...logos, ...logos];
 
   return (
-    <div className="carousel-container">
-      <div className="carousel-label">Trusted By</div>
+    <div className="DDcarousel-container">
+      <div className="DDcarousel-label">Trusted By</div>
       
-      <div className="carousel-slider">
-        <div className="carousel-track">
+      <div className="DDcarousel-slider">
+        <div className="DDcarousel-track">
           {doubleLogos.map((logo, index) => (
-            <div className="carousel-slide" key={`${logo.id}-${index}`}>
+            <div className="DDcarousel-slide" key={`${logo.id}-${index}`}>
               <img src={logo.src} alt={`${logo.name} logo`} />
             </div>
           ))}

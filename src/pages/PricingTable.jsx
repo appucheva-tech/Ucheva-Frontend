@@ -3,79 +3,79 @@ import "./PricingTable.css";
 import FreeLadyBackground from "../assets/FreeLadyBackground.png";
 const PricingTable = () => {
   return (
-    <div className="pricing-container">
-      <div className="pricing-header">
-        <p className="sub-title">Price Plan Preview</p>
-        <h1 className="main-titles">Flexible Pricing for Every School</h1>
-        <p className="descriptions">
+    <div className="JJpricing-container">
+      <div className="JJpricing-header">
+        <p className="JJsub-title">Price Plan Preview</p>
+        <h1 className="JJmain-titles">Flexible Pricing for Every School</h1>
+        <p className="JJdescriptions">
           Choose a plan that fits your school size and operational needs.
         </p>
       </div>
 
-      <div className="cards-grid">
-        <div className="card starter-card">
-          <div className="card-content">
-            <span className="plan-name text-light">Starter Plan</span>
-            <h2 className="price text-light">Free</h2>
-            <p className="card-desc text-light">
+      <div className="JJcards-grid">
+        <div className="JJcard JJstarter-card">
+          <div className="JJcard-content">
+            <span className="JJplan-name JJtext-light">Starter Plan</span>
+            <h2 className="JJprice JJtext-light">Free</h2>
+            <p className="JJcard-desc JJtext-light">
               Perfect for schools getting started with digital management.
             </p>
           </div>
-          <div className="image-container">
+          <div className="JJimage-container">
             <img
               src={FreeLadyBackground}
               alt="School Administrator"
-              className="admin-image"
+              className="JJadmin-image"
             />
           </div>
         </div>
 
-        <div className="card billing-card active-card">
-          <div className="card-content">
-            <span className="plan-name">Standard Plan</span>
-            <h2 className="price">N40,000</h2>
-            <p className="card-desc">
+        <div className="JJcard JJbilling-card JJactive-card">
+          <div className="JJcard-content">
+            <span className="JJplan-name">Standard Plan</span>
+            <h2 className="JJprice">N40,000</h2>
+            <p className="JJcard-desc">
               Built for growing schools that need better visibility and
               organization.
             </p>
 
-            <ul className="features-list">
+            <ul className="JJfeatures-list">
               <li>Up to 600 students</li>
               <li>Full feature access</li>
               <li>Fee tracking dashboard</li>
               <li>WhatsApp parent alerts</li>
             </ul>
 
-            <button className="view-all-btn">View all</button>
-            <button className="cta-button primary-btn">Get Started</button>
+            <button className="JJview-all-btn">View all</button>
+            <button className="JJcta-button JJprimary-btn">Get Started</button>
           </div>
         </div>
 
-        <div className="card billing-card">
-          <div className="card-content">
-            <span className="plan-name">School+ Plan</span>
-            <h2 className="price">N75,000</h2>
-            <p className="card-desc">
+        <div className="JJcard JJbilling-card">
+          <div className="JJcard-content">
+            <span className="JJplan-name">School+ Plan</span>
+            <h2 className="JJprice">N75,000</h2>
+            <p className="JJcard-desc">
               Advanced tools for larger schools and multi-branch operations.
             </p>
 
-            <ul className="features-list">
+            <ul className="JJfeatures-list">
               <li>Unlimited students</li>
               <li>Full feature access</li>
               <li>Multi-admin access</li>
               <li>Priority onboarding</li>
             </ul>
 
-            <button className="view-all-btn">View all</button>
-            <button className="cta-button secondary-btn">Get Started</button>
+            <button className="JJview-all-btn">View all</button>
+            <button className="JJcta-button JJsecondary-btn">Get Started</button>
           </div>
         </div>
       </div>
 
-      <div className="pricing-footer">
+      <div className="JJpricing-footer">
         <p>
           Need a custom solution for your school network or organization?{" "}
-          <a href="#contact" className="footer-link">
+          <a href="#contact" className="JJfooter-link">
             Contact us
           </a>{" "}
           for enterprise support and tailored pricing.

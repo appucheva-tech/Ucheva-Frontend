@@ -11,31 +11,31 @@ const ContactLayout = () => {
   return (
     <>
     <Header/>
-    <div className="contact-layout-wrapper">
-      <div className="contact-layout-container">
+    <div className="TTcontact-layout-wrapper">
+      <div className="TTcontact-layout-container">
         
-        <div className="contact-form-card">
+        <div className="TTcontact-form-card">
           <form onSubmit={(e) => e.preventDefault()}>
-            <div className="contact-form-grid">
+            <div className="TTcontact-form-grid">
               
-              <div className="contact-input-field">
+              <div className="TTcontact-input-field">
                 <label>Name</label>
                 <input type="text" placeholder="John Doe" />
               </div>
 
-              <div className="contact-input-field">
+              <div className="TTcontact-input-field">
                 <label>Email</label>
                 <input type="email" placeholder="example@gmail.com" />
               </div>
 
-              <div className="contact-input-field">
+              <div className="TTcontact-input-field">
                 <label>School name</label>
                 <input type="text" placeholder="E.g.: Green Field Academy" />
               </div>
 
-              <div className="contact-input-field">
+              <div className="TTcontact-input-field">
                 <label>What can we help with?</label>
-                <div className="select-container">
+                <div className="TTselect-container">
                   <select defaultValue="general">
                     <option value="general">General Question</option>
                     <option value="technical">Technical Support</option>
@@ -44,51 +44,51 @@ const ContactLayout = () => {
                 </div>
               </div>
 
-              <div className="contact-input-field full-row">
+              <div className="TTcontact-input-field TTfull-row">
                 <label>Message</label>
                 <textarea placeholder="Type here..."></textarea>
               </div>
 
             </div>
 
-            <div className="action-button-row">
-              <button type="submit" className="submit-action-btn">Send Message</button>
+            <div className="TTaction-button-row">
+              <button type="submit" className="TTsubmit-action-btn">Send Message</button>
             </div>
           </form>
         </div>
 
-        <div className="contact-details-panel">
-          <span className="panel-tagline">Contact Us</span>
-          <h2 className="panel-heading">Get in Touch With Us</h2>
-          <p className="panel-lead-text">
+        <div className="TTcontact-details-panel">
+          <span className="TTpanel-tagline">Contact Us</span>
+          <h2 className="TTpanel-heading">Get in Touch With Us</h2>
+          <p className="TTpanel-lead-text">
             Have questions or need support? We're here to help your school get started.
           </p>
 
-          <div className="panel-data-group">
+          <div className="TTpanel-data-group">
             <h3>Contact</h3>
-            <a href="mailto:app.ucheva@gmail.com" className="data-anchor">app.ucheva@gmail.com</a>
+            <a href="mailto:app.ucheva@gmail.com" className="TTdata-anchor">app.ucheva@gmail.com</a>
           </div>
 
-          <div className="panel-data-group">
+          <div className="TTpanel-data-group">
             <h3>Address</h3>
-            <p className="address-paragraph">
+            <p className="TTaddress-paragraph">
               12 Tech Hub Road, Victoria Island,<br />Lagos, Nigeria
             </p>
           </div>
 
-          <div className="panel-social-group">
+          <div className="TTpanel-social-group">
             <h3>Connect with us on</h3>
-            <div className="social-button-list">
-              <a href="#" className="social-circle-btn" aria-label="Instagram">
+            <div className="TTsocial-button-list">
+              <a href="#" className="TTsocial-circle-btn" aria-label="Instagram">
                 <IoLogoInstagram />
               </a>
-              <a href="#" className="social-circle-btn" aria-label="TikTok">
+              <a href="#" className="TTsocial-circle-btn" aria-label="TikTok">
                 <AiOutlineTikTok />
               </a>
-              <a href="#" className="social-circle-btn" aria-label="X">
+              <a href="#" className="TTsocial-circle-btn" aria-label="X">
                 <RiTwitterXFill />
               </a>
-              <a href="#" className="social-circle-btn" aria-label="LinkedIn">
+              <a href="#" className="TTsocial-circle-btn" aria-label="LinkedIn">
                 <BiLogoLinkedin />
               </a>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Footer.css'
-import Logo from '../assets/UchevaLogo.png'
+import Logo from '../assets/Logo.svg'
 import { RiTwitterXFill } from "react-icons/ri";
 import { FaFacebookF } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
 
         <div className="AAfooter-subscribe">
-          <h3 className="AAcolumn-title">Subscribe</h3>
+          <h3 className="AAsubscribe-heading">Subscribe</h3>
           <p className="AAsubscribe-text">
             Signup to be the first to hear about 
             <br />exclusive deals, special offers and 
