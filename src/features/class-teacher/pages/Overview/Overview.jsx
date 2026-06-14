@@ -1,5 +1,9 @@
 import React from "react";
 import "./Overview.css";
+import PH from "../../../../assets/ph.svg";
+import UIM from "../../../../assets/uim.svg";
+import Streamline from "../../../../assets/streamline.svg";
+import Material from "../../../../assets/material.svg";
 
 const Overview = () => {
   return (
@@ -16,7 +20,7 @@ const Overview = () => {
               <div className="CTPending">Pending</div>
             </nav>
             <div className="CTImageHolder1">
-              <img className="CTImg" src="src/assets/uim_calender.png" alt="" />
+              <img className="CTImg" src={UIM} alt="" />
             </div>
           </div>
           <div className="AssignedClass">
@@ -25,11 +29,7 @@ const Overview = () => {
               <div className="CTClassRoom">SS2A</div>
             </nav>
             <div className="CTImageHolder2">
-              <img
-                className="CTImg"
-                src="src/assets/streamline-plump_class-lesson-remix.png"
-                alt=""
-              />
+              <img className="CTImg" src={Streamline} alt="" />
             </div>
           </div>
           <div className="TotalStudents">
@@ -38,11 +38,7 @@ const Overview = () => {
               <div className="CTStudents">23</div>
             </nav>
             <div className="CTImageHolder3">
-              <img
-                className="CTImg"
-                src="src/assets/ph_student-fill.png"
-                alt=""
-              />
+              <img className="CTImg" src={PH} alt="" />
             </div>
           </div>
           <div className="CTSubject">
@@ -51,11 +47,7 @@ const Overview = () => {
               <div className="SubjectDigit">1</div>
             </nav>
             <div className="CTImageHolder4">
-              <img
-                className="CTImg"
-                src="src/assets/material-symbols-light_menu-book-rounded.png"
-                alt=""
-              />
+              <img className="CTImg" src={Material} alt="" />
             </div>
           </div>
         </article>
