@@ -1,15 +1,11 @@
 .btn-login {
     width: 23%;
-    height: 54px;
+    height: 40px;
     background-color: transparent;
+    border: none;
     color: #0062F6;
-    border: 1px solid #0062F6;
     border-radius: 10px;
     cursor: pointer;
-
-    &:hover {
-        background-color: #f5f3ff;
-    }
 
     @media (max-width: 450px) {
         display: none;
@@ -18,16 +14,12 @@
 
 .btn-get-started {
     width: 35%;
-    height: 54px;
+    height: 40px;
     background-color: #0062F6;
     color: white;
     border: 1px solid transparent;
     border-radius: 10px;
     cursor: pointer;
-
-    &:hover {
-        background-color: #4338ca;
-    }
 
     @media (max-width: 450px) {
         display: none;

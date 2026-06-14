@@ -6,18 +6,18 @@ import AdminMobile from "../assets/AdminMobile.png";
 const Ready = () => {
   const nav = useNavigate();
   return (
-    <div className="bbanner-container">
-      <div className="banner-content">
-        <h1 className="banner-titles">
+    <div className="KKbbanner-container">
+      <div className="KKbanner-content">
+        <h1 className="KKbanner-titles">
           Ready to Transform The Way Your School Operates?
         </h1>
-        <p className="banner-subtitle">
+        <p className="KKbanner-subtitle">
           Simplify attendance, fees, and report cards with one easy platform.
         </p>
-        <button className="banner-btn" onClick={() => nav ('./signup')}>Start Free</button>
+        <button className="KKbanner-btn" onClick={() => nav ('./signup')}>Start Free</button>
       </div>
 
-      <img src={AdminMobile} alt="" className="AdminMobilePh" />
+      <img src={AdminMobile} alt="" className="KKAdminMobilePh" />
     </div>
   );
 };

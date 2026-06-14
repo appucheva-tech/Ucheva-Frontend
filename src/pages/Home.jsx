@@ -5,6 +5,7 @@ import Header from "./Header";
 import Stars5 from '../assets/stars.svg'
 import Footer from "./Footer";
 import Carousel from "./Carousel";
+import Features from "./Features";
 import HappyCL1 from "../assets/HappyCL1.jpg";
 import HappyCL2 from "../assets/HappyCL2.jpg";
 import HappyCL3 from "../assets/HappyCL3.jpg";
@@ -35,73 +36,74 @@ export default function Home() {
   ];
 
   return (
-    <main className="generalHome geist-content">
+    <main className="CCgeneralHome CCgeist-content">
       <Header />
-      <section className="hero-container geist-content">
-        <div className="hero-content">
-          <div className="badge">
+      <section className="CChero-container CCgeist-content">
+        <div className="CChero-content">
+          <div className="CCbadge">
             <span>Welcome to Ucheva</span>
           </div>
 
-          <h1 className="title">
+          <h1 className="CCtitle">
             Run Your School <br />
-            Smarter, <span className="highlight">Not Harder.</span>
+            Smarter, <span className="CChighlight">Not Harder.</span>
           </h1>
 
-          <p className="description">
+          <p className="CCdescription">
             Manage attendance, payments, staff, and
             <br />
             school activities with less stress.
           </p>
 
-          <button className="cta-button" onClick={() => nav ('./signup') }>Get Started</button>
+          <button className="CCcta-button" onClick={() => nav ('./signup') }>Get Started</button>
 
-          <div className="social-proof">
-            <div className="client-meta">
-              <div className="avatar-group">
-                <img src={HappyCL1} alt="User avatar" className="avatar" />
-                <img src={HappyCL2} alt="User avatar" className="avatar" />
-                <img src={HappyCL3} alt="User avatar" className="avatar" />
-                <img src={HappyCL4} alt="User avatar" className="avatar" />
+          <div className="CCsocial-proof">
+            <div className="CCclient-meta">
+              <div className="CCavatar-group">
+                <img src={HappyCL1} alt="User avatar" className="CCavatar" />
+                <img src={HappyCL2} alt="User avatar" className="CCavatar" />
+                <img src={HappyCL3} alt="User avatar" className="CCavatar" />
+                <img src={HappyCL4} alt="User avatar" className="CCavatar" />
               </div>
-              <div className="client-text">
-                <span className="count">50+</span>
-                <span className="label">Happy Clients</span>
+              <div className="CCclient-text">
+                <span className="CCcount">50+</span>
+                <span className="CClabel">Happy Clients</span>
               </div>
             </div>
 
-            <div className="rating-divider" />
+            <div className="CCrating-divider" />
 
-            <div className="rating-meta">
-              <div className="stars">
-                <img src={Stars5} alt="" className="Stars5"/>
-                <span className="score">5.0</span>
+            <div className="CCrating-meta">
+              <div className="CCstars">
+                <img src={Stars5} alt="" className="CCStars5"/>
+                <span className="CCscore">5.0</span>
               </div>
-              <div className="rating-text">
-                <span className="reviews">(1200+ Reviews)</span>
+              <div className="CCrating-text">
+                <span className="CCreviews">(1200+ Reviews)</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="grid-container">
+        <div className="CCgrid-container">
           <img
             src={Home4Pics}
             alt="Team member using tablet"
-            className="Home4Pics"
+            className="CCHome4Pics"
           />
         </div>
       </section>
 
-      <section className="stats-container">
+      <section className="CCstats-container">
         {stats.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <h2 className="stat-value">{stat.value}</h2>
-            <p className="stat-label">{stat.label}</p>
+          <div key={index} className="CCstat-card">
+            <h2 className="CCstat-value">{stat.value}</h2>
+            <p className="CCstat-label">{stat.label}</p>
           </div>
         ))}
       </section>
       <Carousel />
+      <Features />
       <ProductPreview />
       <HowItWorks />
       <WhyChooseUs />

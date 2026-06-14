@@ -12,16 +12,16 @@ export default function AboutUs() {
   return (
     <>
       <Header />
-      <section className="our-story-section">
-        <div className="story-container">
-          <div className="grid-gallery">
-            <img src={AboutUsPic1} alt="" className="AboutUsPic1" />
+      <section className="OOour-story-section">
+        <div className="OOstory-container">
+          <div className="OOgrid-gallery">
+            <img src={AboutUsPic1} alt="" className="OOAboutUsPic1" />
           </div>
 
-          <div className="story-content">
-            <span className="content-subtitle">About Us</span>
-            <h2 className="content-title">Our Story</h2>
-            <p className="content-text">
+          <div className="OOstory-content">
+            <span className="OOcontent-subtitle">About Us</span>
+            <h2 className="OOcontent-title">Our Story</h2>
+            <p className="OOcontent-text">
               The idea began after several conversations with school
               administrators, teachers, and staff who all shared similar
               frustrations. Attendance was being recorded on paper, fee tracking

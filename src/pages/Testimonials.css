@@ -1,4 +1,4 @@
-.testimonials-section {
+.IItestimonials-section {
   background-color: #ffffff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   display: flex;
@@ -9,7 +9,7 @@
     width: 100%;
   }
 
-  .testimonials-container {
+  .IItestimonials-container {
     max-width: 1200px;
     width: 100%;
     display: flex;
@@ -17,19 +17,19 @@
     align-items: center;
   }
 
-  .testimonials-header {
+  .IItestimonials-header {
     text-align: center;
     margin-bottom: 48px;
     max-width: 600px;
 
-    .subtitle {
+    .IIsubtitle {
       font-size: 16px;
       color: #94a3b8;
       text-transform: capitalize;
       letter-spacing: 0.5px;
     }
 
-    .title {
+    .IItitle {
       font-size: 32px;
       color: #0f172a;
       margin: 12px 0 16px;
@@ -40,7 +40,7 @@
         }
     }
 
-    .description {
+    .IIdescription {
       font-size: 26px;
       color: #334155;
       line-height: 1.6;
@@ -51,7 +51,7 @@
     }
   }
 
-  .testimonials-grid {
+  .IItestimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
@@ -67,7 +67,7 @@
     }
   }
 
-  .testimonial-card {
+  .IItestimonial-card {
     background: #ffffff;
     border-radius: 12px;
     padding: 32px;
@@ -75,43 +75,43 @@
     display: flex;
     flex-direction: column;
 
-    .card-header {
+    .IIcard-header {
       display: flex;
       align-items: center;
       gap: 14px;
       margin-bottom: 12px;
 
-      .avatar {
+      .IIavatar {
         width: 52px;
         height: 52px;
         border-radius: 50%;
         object-fit: cover;
       }
 
-      .user-info {
+      .IIuser-info {
         display: flex;
         flex-direction: column;
         height: 100%;
 
-        .user-name {
+        .IIuser-name {
           font-size: 18px;
           color: #0f172a;
           margin: 0;
           font-weight: 600;
         }
 
-        .user-role {
+        .IIuser-role {
           font-size: 13px;
           color: #94a3b8;
           margin-top: 2px;
         }
 
-        .star-rating {
+        .IIstar-rating {
             display: flex;
             gap: 4px;
             margin-bottom: 20px;
 
-            .star {
+            .IIstar {
                 color: #ff9800;
                 font-size: 16px;
             }
@@ -119,7 +119,7 @@
       }
     }
 
-    .testimonial-text {
+    .IItestimonial-text {
       font-size: 14px;
       color: #334155;
       line-height: 1.6;
@@ -127,7 +127,7 @@
     }
   }
 
-  .pagination-controls {
+  .IIpagination-controls {
     display: flex;
     width: 13%;
     justify-content: space-between;
@@ -137,7 +137,7 @@
         width: 40%;
         }
 
-    .nav-btn {
+    .IInav-btn {
       width: 36px;
       height: 36px;
       border-radius: 6px;
@@ -150,7 +150,7 @@
       cursor: pointer;
       transition: all 0.2s ease;
 
-      &.active {
+      &.IIactive {
         background: #0061ff;
         border-color: #0061ff;
         color: #ffffff;
