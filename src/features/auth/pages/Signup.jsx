@@ -184,9 +184,10 @@ const Signup = () => {
           window.location.hostname,
         );
 
-        // let targetUrl = isLocalhost
-        // ? verifyRedirectLocalUrl
-        verifyRedirectUrl;
+        let targetUrl =
+          // isLocalhost
+          // ? verifyRedirectLocalUrl:
+          verifyRedirectUrl;
 
         targetUrl = targetUrl.replace(/www\./g, "");
         try {
