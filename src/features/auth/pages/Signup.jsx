@@ -179,15 +179,14 @@ const Signup = () => {
       const response = await apiClient.post("/admin/register", payload);
       // ... inside your handleSubmit
       if (response.data) {
-        const { verifyRedirectUrl, verifyRedirectLocalUrl } = response.data;
+        const { verifyRedirectUrl, verifyRedirectLocalUrl } = response?.data;
         const isLocalhost = ["localhost", "127.0.0.1"].includes(
-          window.location.hostname,
+          window?.location?.hostname,
         );
 
-        let targetUrl =
-          // isLocalhost
-          // ? verifyRedirectLocalUrl:
-          verifyRedirectUrl;
+        let targetUrl = isLocalhost
+          ? verifyRedirectLocalUrl
+          : verifyRedirectUrl;
 
         targetUrl = targetUrl.replace(/www\./g, "");
         try {
@@ -462,7 +461,7 @@ const Signup = () => {
         </button>
 
         <p className="form-footer">
-          Already have an account? <a href="#login">Log In</a>
+          Already have an account? <a href="login">Log In</a>
         </p>
       </form>
     </div>

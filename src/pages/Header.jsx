@@ -63,7 +63,7 @@ const Header = () => {
           <Button
             text="Get Started"
             onClick={() => {
-              nav("/Auth");
+              nav("/signup");
               setOpen(false);
             }}
             type="get-started"
