@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import './Header.css';
-import Logo from '../assets/Logo.svg'
-import Button from './Button';
-import { useNavigate, useLocation } from 'react-router-dom'; 
-import { FiMenu, FiX } from "react-icons/fi"; 
+import React, { useState } from "react";
+import "./Header.css";
+import Logo from "../assets/Logo.svg";
+import Button from "./Button";
+import { useNavigate, useLocation } from "react-router-dom";
+import { FiMenu, FiX } from "react-icons/fi";
 
 const Header = () => {
   const nav = useNavigate();
-  const location = useLocation(); 
+  const location = useLocation();
 
   const [open, setOpen] = useState(false);
 
-  const handleLogin = () => console.log('Log In clicked');
-  const handleStart = () => console.log('Get Started clicked');
-  
+  const handleLogin = () => console.log("Log In clicked");
+  const handleStart = () => console.log("Get Started clicked");
+
   const handleNavigation = (path) => {
     nav(path);
-    setOpen(false); 
+    setOpen(false);
   };
 
   return (
@@ -25,32 +25,32 @@ const Header = () => {
         <img src={Logo} alt="Ucheva Logo" className="BBHeaderCont1Logo" />
       </div>
 
-      <ul className={`BBHeaderCont2 ${open ? 'BBactive' : ''}`}>
-        <li 
-          className={`BBHeaderCont2Li ${location.pathname === '/' ? 'BBactive-link' : ''}`} 
-          onClick={() => handleNavigation('/')}
+      <ul className={`BBHeaderCont2 ${open ? "BBactive" : ""}`}>
+        <li
+          className={`BBHeaderCont2Li ${location.pathname === "/" ? "BBactive-link" : ""}`}
+          onClick={() => handleNavigation("/")}
         >
           Home
         </li>
-        <li 
-          className={`BBHeaderCont2Li ${location.pathname === '/Pricing' ? 'BBactive-link' : ''}`} 
-          onClick={() => handleNavigation('/Pricing')}
+        <li
+          className={`BBHeaderCont2Li ${location.pathname === "/Pricing" ? "BBactive-link" : ""}`}
+          onClick={() => handleNavigation("/Pricing")}
         >
           Pricing
         </li>
-        <li 
-          className={`BBHeaderCont2Li ${location.pathname === '/AboutUs' ? 'BBactive-link' : ''}`} 
-          onClick={() => handleNavigation('/AboutUs')}
+        <li
+          className={`BBHeaderCont2Li ${location.pathname === "/AboutUs" ? "BBactive-link" : ""}`}
+          onClick={() => handleNavigation("/AboutUs")}
         >
           About Us
         </li>
-        <li 
-          className={`BBHeaderCont2Li ${location.pathname === '/ContactUs' ? 'BBactive-link' : ''}`} 
-          onClick={() => handleNavigation('/ContactUs')}
+        <li
+          className={`BBHeaderCont2Li ${location.pathname === "/ContactUs" ? "BBactive-link" : ""}`}
+          onClick={() => handleNavigation("/ContactUs")}
         >
           Contact Us
         </li>
-        
+
         <div className="BBMobileNavButtons">
           <Button
             text="Log In"
@@ -63,7 +63,7 @@ const Header = () => {
           <Button
             text="Get Started"
             onClick={() => {
-              nav("/signup");
+              nav("/Auth");
               setOpen(false);
             }}
             type="get-started"
