@@ -48,16 +48,16 @@ import AdminReportCards from "./pages/Admin/AdminReportCards";
 import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
-import AdminStaff2 from "./pages/Admin/AdminStaff2";
-import NotSure from "./pages/NotSure";
+import Features from "./pages/Features";
 import Signup from "./features/auth/pages/Signup";
 import Login from "./features/auth/pages/Login";
 import VerifyEmail from "./features/auth/pages/VerifyEmail";
 import ForgotPassword from "./features/auth/pages/ForgotPassword";
-import ResetPassword from "./features/auth/pages/ResetPassword";
-import AuthLayout from "./features/auth/layout/AuthLayout";
 import VerifyForgot from "./features/auth/pages/VerifyForgot";
+import AuthLayout from "./features/auth/layout/AuthLayout";
 import OnboardingStepper from "./features/onboarding/pages/Onboarding";
+import ResetPassword from "./features/auth/pages/ResetPassword";
+import AdminStaff2 from "./pages/Admin/AdminStaff2";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -75,10 +75,9 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
-        <Route path="Pricing/:id" element={<Signup />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="AboutUs/:id" element={<Signup />} />
         <Route path="/ContactUs" element={<ContactUs />} />
 
         <Route element={<AuthLayout />}>
@@ -94,7 +93,7 @@ const App = () => {
         <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
-          <Route path="AdminStaff/:id" element={<AdminStaff2 />} />
+          <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
@@ -107,17 +106,15 @@ const App = () => {
         </Route>
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
-          <Route path="dashboard" element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="STreport" element={<STReport />} />
+          <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
-          <Route path="bursarydashboard" element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />

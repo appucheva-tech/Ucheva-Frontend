@@ -7,8 +7,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
-
-  // Custom Form Value State Architecture
   const [values, setValues] = useState({
     schoolName: "",
     schoolUrl: "",
@@ -17,22 +15,13 @@ const Signup = () => {
     password: "",
     confirmPassword: "",
     address: "",
-    schoolType: [], // Handles multiple selections cleanly
     terms: false,
   });
 
   const [errors, setErrors] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [urlSuggestions, setUrlSuggestions] = useState([]); // Keeps track of the generated list
+  const [urlSuggestions, setUrlSuggestions] = useState([]);
 
-  // Configuration tracking options for school type
-  const schoolTypeOptions = [
-    { label: "Primary", value: "primary" },
-    { label: "Secondary", value: "secondary" },
-    { label: "Tertiary", value: "tertiary" },
-  ];
-
-  // Helper to generate clean URL slugs
   const generateSlug = (text) =>
     text
       .toLowerCase()
@@ -52,7 +41,6 @@ const Signup = () => {
       [name]: fieldValue,
     };
 
-    // YOUR EXACT SUGGESTION LOGIC INTEGRATED HERE PERFECTLY:
     if (name === "schoolName") {
       const slug = generateSlug(value);
       const baseDomain = "ucheva.vercel.app";
@@ -64,7 +52,7 @@ const Signup = () => {
           ]
         : [];
 
-      newFormData.schoolUrl = ""; // Resets the input field when typing a new name
+      newFormData.schoolUrl = "";  
       setUrlSuggestions(suggestions);
     }
 
@@ -78,23 +66,6 @@ const Signup = () => {
       schoolUrl: url,
     }));
     clearFieldError("schoolUrl");
-  };
-
-  // Handles multiple school type selections toggling toggles
-  const handleToggleSchoolType = (typeValue) => {
-    setValues((prev) => {
-      const currentTypes = [...prev.schoolType];
-      const index = currentTypes.indexOf(typeValue);
-
-      if (index > -1) {
-        currentTypes.splice(index, 1);
-      } else {
-        currentTypes.push(typeValue);
-      }
-      return { ...prev, schoolType: currentTypes };
-    });
-
-    clearFieldError("schoolType");
   };
 
   const clearFieldError = (fieldName) => {
@@ -146,8 +117,6 @@ const Signup = () => {
 
     if (!values.address.trim())
       newErrors.address = "Address configuration is required.";
-    if (values.schoolType.length === 0)
-      newErrors.schoolType = "Select at least one school classification.";
     if (!values.terms)
       newErrors.terms = "You must accept our service conditions to register.";
 
@@ -366,73 +335,6 @@ const Signup = () => {
           />
           {errors.address && (
             <span className="error-text">{errors.address}</span>
-          )}
-        </div>
-
-        {/* Custom Multi-Select Dropdown Container */}
-        <div className="form-group relative-container">
-          <label>School Type</label>
-          <p className="select-subtext">
-            Select all that applies to your school.
-          </p>
-
-          <div
-            className={`custom-select-trigger ${errors.schoolType ? "input-error" : ""} ${dropdownOpen ? "active-trigger" : ""}`}
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            <span
-              className={
-                values.schoolType.length === 0
-                  ? "select-placeholder"
-                  : "select-selected-values"
-              }
-            >
-              {values.schoolType.length === 0
-                ? "Select school type"
-                : values.schoolType
-                    .map(
-                      (v) =>
-                        schoolTypeOptions.find((o) => o.value === v)?.label,
-                    )
-                    .join(", ")}
-            </span>
-            <span
-              className={`dropdown-chevron-icon ${dropdownOpen ? "open" : ""}`}
-            >
-              ▼
-            </span>
-          </div>
-
-          {dropdownOpen && (
-            <>
-              <div
-                className="dropdown-overlay-close-helper"
-                onClick={() => setDropdownOpen(false)}
-              />
-              <div className="custom-select-dropdown-list">
-                {schoolTypeOptions.map((option) => {
-                  const isChecked = values.schoolType.includes(option.value);
-                  return (
-                    <div
-                      key={option.value}
-                      className={`custom-select-option-row ${isChecked ? "row-selected" : ""}`}
-                      onClick={() => handleToggleSchoolType(option.value)}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={isChecked}
-                        readOnly
-                        className="custom-row-checkbox"
-                      />
-                      <span>{option.label}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            </>
-          )}
-          {errors.schoolType && (
-            <span className="error-text">{errors.schoolType}</span>
           )}
         </div>
 

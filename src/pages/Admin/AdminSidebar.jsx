@@ -22,11 +22,16 @@ const Sidebar = () => {
   return (
     <div className="Adminsidebar">
       <div className="Adminsidebar-brand">
-        <img src={Logo} alt="" className="AdminDashboardLogo" onClick={() => nav ('/')}/>
+        <img
+          src={Logo}
+          alt=""
+          className="AdminDashboardLogo"
+          onClick={() => nav("/")}
+        />
       </div>
 
       <nav className="sidebar-menu">
-        <NavLink to="/AdminDashboard" end className={getNavClass}>
+        <NavLink to="dashboard" end className={getNavClass}>
           <RxDashboard className="menu-icon" />
           <span>Dashboard</span>
         </NavLink>
