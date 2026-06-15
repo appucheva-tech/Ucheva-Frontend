@@ -147,7 +147,7 @@ const SignUp = () => {
       localStorage.setItem("userInfo", JSON.stringify(formData));
       localStorage.setItem("userEmail", formData.email);
       console.log(response?.data?.verifyRedirectLocalUrl);
-      window.location.href = response?.data?.verifyRedirectLocalUrl;
+      // window.location.href = response?.data?.verifyRedirectLocalUrl;
     } catch (error) {
       console.log(error);
       if (error.response) {
