@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherAnnouncement.css";
-import { ApiClient } from "../../../config/AxiosInstance";
+import { apiClient } from "../../../config/AxiosInstance";
 
 const SubjectTeacherAnnouncement = () => {
   const [activeFilter, setActiveFilter] = useState("all");

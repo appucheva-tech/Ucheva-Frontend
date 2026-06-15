@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "../SecurityStyles/SecurityAnnouncement.css";
-import { ApiClient } from "../../../config/AxiosInstance";
+import { apiClient } from "../../../config/AxiosInstance";
 
-export default function SecurityAnnouncement() {
+const SecurityAnnouncement = () => {
   const [activeTab, setActiveTab] = useState("all");
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -174,4 +174,5 @@ export default function SecurityAnnouncement() {
       </div>
     </>
   );
-}
+};
+export default SecurityAnnouncement;
