@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdminStaff2.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
-import { ApiClient } from "../../config/AxiosInstance";
+// import { ApiClient } from "../../config/AxiosInstance";
 
 const AdminStaff2 = () => {
   const baseURL = import.meta.env.VITE_Base_Url;
