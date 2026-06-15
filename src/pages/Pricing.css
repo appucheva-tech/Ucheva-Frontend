@@ -11,19 +11,19 @@
 
     .LLsub-title {
       color: #8a94a6;
-      font-size: 14px;
+      font-size: 17px;
       margin-bottom: 12px;
     }
 
     .LLmain-title {
-      color: #0c2356;
-      font-size: 32px;
+      color: #042869;
+      font-size: 30px;
       font-weight: 700;
       margin: 0 0 16px 0;
     }
 
     .LLdescription {
-      color: #4e5d78;
+      color: #042869;
       font-size: 25px;
       max-width: 630px;
       margin: 0 auto;
@@ -142,11 +142,22 @@
         flex-direction: column;
         height: 400px;
 
+        @media (max-width: 450px) {
+            width: 100%;
+            padding-left: 30%;
+          }
+
         .LLfeatures-title {
           color: #4e5d78;
           font-size: 17px;
           font-weight: 600;
           margin-bottom: 60px;
+
+          @media (max-width: 450px) {
+            width: 100%;
+            padding-left: 45%;
+            margin-bottom: 5%;
+          }
         }
 
         .LLfeatures-list {

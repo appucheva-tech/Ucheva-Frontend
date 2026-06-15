@@ -108,11 +108,6 @@
         font-size: 12px;         
         text-align: center;
       }
-
-      &:hover {
-        background-color: #1e40af;
-        transform: translateY(-1px);
-      }
     }
 
     .CCsocial-proof {

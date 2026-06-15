@@ -6,6 +6,10 @@
   font-family: system-ui, -apple-system, sans-serif;
   background-color: aliceblue;
 
+    @media (max-width: 450px) {
+      height: 150vh;
+    }
+
   .QQvalues-header {
     text-align: center;
     margin-bottom: 56px;
@@ -24,12 +28,20 @@
       font-size: 32px;
       font-weight: 700;
       margin: 0 0 16px 0;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
     }
 
     .QQvalues-intro {
       color: #042869;
       font-size: 25px;
       margin: 0;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
     }
   }
 
@@ -39,11 +51,8 @@
     grid-template-columns: repeat(3, 30%);
 
     @media (max-width: 450px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 450px) {
       grid-template-columns: 1fr;
+      gap: 20px;
     }
 
     .QQvalue-card {
@@ -56,6 +65,10 @@
       width: 80%;
       flex-direction: column;
       align-items: flex-start;
+
+      @media (max-width: 450px) {
+        width: 100%;
+      }
 
       .QQvalue-icon-wrapper {
         width: 44px;
