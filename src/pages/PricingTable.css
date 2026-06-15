@@ -24,7 +24,7 @@
     .JJmain-titles {
       font-size: 32px;
       font-weight: 700;
-      color: #0f172a;
+      color: #042869;
       margin-bottom: 16px;
 
       @media (max-width: 450px) {
@@ -35,7 +35,7 @@
 
     .JJdescriptions {
       font-size: 25px;
-      color: #475569;
+      color: #042869;
       width: 45%;
       margin: 0 auto;
 
@@ -228,6 +228,10 @@
     @media (max-width: 450px) {
         font-size: 18px;
       }
+
+    .JJfooter-P{
+      cursor: pointer;
+    }
 
     .JJfooter-link {
       color: #2563eb;

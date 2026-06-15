@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './NotSure.css';
 
 const NotSure = () => {
+  const nav = useNavigate();
   return (
     <div className='NNNotSureWrapper'>
     <div className="NNbanner-containerz">
@@ -10,7 +12,7 @@ const NotSure = () => {
         <p className="NNbanner-subtitle">
           Explore flexible plans designed to grow with your school.
         </p>
-        <button className="NNbanner-buttons" onClick={() => window.location.href = '#contact'}>
+        <button className="NNbanner-buttons" onClick={() => nav ('./signup')}>
           Contact Us
         </button>
       </div>

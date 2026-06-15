@@ -5,6 +5,11 @@
   font-family: system-ui, -apple-system, sans-serif;
   background-color: #ffffff;
 
+    @media (max-width: 450px) {
+      padding-top: 20px;
+    }
+
+
   .RRteam-header {
     text-align: center;
     margin-bottom: 56px;
@@ -26,6 +31,10 @@
       .RRhighlight {
         color: #f59e0b;
       }
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
     }
 
     .RRteam-intro {
@@ -42,10 +51,6 @@
 
     @media (max-width: 450px) {
       grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 450px) {
-      grid-template-columns: 1fr;
     }
 
     .RRteam-card {
@@ -86,6 +91,13 @@
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
           z-index: 10;
 
+          @media (max-width: 450px) {
+            right: -10px;
+            bottom: -20px;
+            padding-bottom: 20%;
+          }
+
+
           .RRsocial-icon {
             color: #ffffff;
             width: 28px;
@@ -95,6 +107,12 @@
             justify-content: center;
             text-decoration: none;
             transition: opacity 0.2s ease;
+
+            @media (max-width: 450px) {
+            margin-left: -50%;
+            width: 10px;
+            height: 10px;
+          }
 
             &:hover {
               opacity: 0.8;
@@ -120,6 +138,10 @@
           font-size: 20px;
           font-weight: 600;
           margin: 0 0 6px 0;
+
+          @media (max-width: 450px) {
+            font-size: 11px;
+          }
         }
 
         .RRteam-member-role {
@@ -127,6 +149,10 @@
           font-size: 14px;
           font-weight: 400;
           margin: 0;
+
+          @media (max-width: 450px) {
+            font-size: 11px;
+          }
         }
       }
 
