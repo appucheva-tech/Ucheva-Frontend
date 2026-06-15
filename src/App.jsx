@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Step1 from "./features/Unboarding/Pages/Step1";
-import Step2 from "./features/Unboarding/Pages/Step2";
-import Step3 from "./features/Unboarding/Pages/Step3";
-import Success from "./features/Unboarding/Pages/Success";
+// import Step1 from "./features/Unboarding/Pages/Step1";
+// import Step2 from "./features/Unboarding/Pages/Step2";
+// import Step3 from "./features/Unboarding/Pages/Step3";
+// import Success from "./features/Unboarding/Pages/Success";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import SignUp from "./features/Auth/SignUp";
-import Login from "./features/Auth/Login";
-import VerifyEmail from "./features/Auth/VerifyEmail";
-import ForgetPassword from "./features/Auth/ForgetPassword";
-import InputCode from "./features/Auth/InputCode";
-import ResetPassword from "./features/Auth/ResetPassword";
+// import SignUp from "./features/Auth/SignUp";
+// import Login from "./features/Auth/Login";
+// import VerifyEmail from "./features/Auth/VerifyEmail";
+// import ForgetPassword from "./features/Auth/ForgetPassword";
+// import InputCode from "./features/Auth/InputCode";
+// import ResetPassword from "./features/Auth/ResetPassword";
 import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -60,6 +60,14 @@ import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import NotSure from "./pages/NotSure";
+import Signup from "./features/auth/pages/Signup";
+import Login from "./features/auth/pages/Login";
+import VerifyEmail from "./features/auth/pages/VerifyEmail";
+import ForgotPassword from "./features/auth/pages/ForgotPassword";
+import ResetPassword from "./features/auth/pages/ResetPassword";
+import AuthLayout from "./features/auth/layout/AuthLayout";
+import VerifyForgot from "./features/auth/pages/VerifyForgot";
+import OnboardingStepper from "./features/onboarding/pages/Onboarding";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -78,20 +86,31 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Pricing" element={<Pricing />} />
-        <Route path="Pricing/:id" element={<SignUp />} />
+        <Route path="Pricing/:id" element={<Signup />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="AboutUs/:id" element={<SignUp />} />
+        <Route path="AboutUs/:id" element={<Signup />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify" element={<VerifyEmail />} />
-        <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/inputCode" element={<InputCode />} />
+        <Route path="/forgetpassword" element={<ForgotPassword />} />
+        {/* <Route path="/inputCode" element={<InputCode />} /> */}
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/step1" element={<Step1 />} />
+        {/* <Route path="/step1" element={<Step1 />} />
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/success" element={<Success />} /> */}
+
+        <Route path="/signup" element={<AuthLayout />}>
+          <Route index element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="verify" element={<VerifyEmail />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="verify-password" element={<VerifyForgot />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+        </Route>
+        <Route path="onboarding" element={<OnboardingStepper />}></Route>
 
         <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
           <Route index element={<AdminDashboard />} />

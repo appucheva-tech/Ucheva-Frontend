@@ -1,0 +1,143 @@
+.auth-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #ffffff;
+  font-family: "Geist", sans-serif;
+}
+
+.auth-sidebar {
+  width: 47%;
+  height: 100%;
+  padding: 20px; /* Outer padding so the card floats on the screen */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: url("../../../assets/auth-background.png");
+  background-size: cover;
+  background-position: left center;
+  background-repeat: no-repeat;
+  clip-path: polygon(
+    0% 4mm,
+    0.5% 2mm,
+    1.5% 0.5mm,
+    4% 0%,
+    calc(100% - 4%) 0%,
+    calc(100% - 1.5%) 0.5mm,
+    calc(100% - 0.5%) 2mm,
+    100% 4mm,
+    calc(88% + 2%) calc(100% - 4mm),
+    calc(88% + 1.5%) calc(100% - 2mm),
+    calc(88% + 0.5%) calc(100% - 0.5mm),
+    88% 100%,
+    4% 100%,
+    1.5% calc(100% - 0.5mm),
+    0.5% calc(100% - 2mm),
+    0% calc(100% - 4mm)
+  );
+  border-radius: 24px;
+}
+
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0284c7;
+  z-index: 2;
+}
+
+.brand-logo img {
+  height: 32px;
+  width: auto;
+}
+
+/* Typography section */
+.sidebar-content {
+  margin: auto 0;
+  max-width: 75%; /* Keeps your text safe inside the slanted area */
+  z-index: 2;
+}
+
+.sidebar-content h1 {
+  font-size: 2.5rem;
+  color: #0f172a;
+  line-height: 1.25;
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+
+.sidebar-content p {
+  font-size: 1.1rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   3. Right Section (Scrollable Form Container)
+   ========================================================================== */
+.auth-content {
+  width: 53%;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.form-wrapper {
+  width: 100%;
+  max-width: 550px;
+}
+
+/* ==========================================================================
+   4. Responsive Adjustments (Mobile & Tablets)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .auth-sidebar {
+    width: 42%;
+  }
+  .auth-content {
+    width: 58%;
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-container {
+    flex-direction: column;
+    overflow-y: auto;
+    height: auto;
+  }
+
+  .auth-sidebar {
+    display: none;
+  }
+
+  .sidebar-card {
+    /* Optional: On mobile, you can switch to cover if 100% looks squished vertically */
+    background-size: cover;
+    background-position: center;
+  }
+
+  .sidebar-content {
+    max-width: 100%;
+  }
+
+  .auth-content {
+    width: 100%;
+    height: auto;
+    padding: 32px 20px;
+  }
+}

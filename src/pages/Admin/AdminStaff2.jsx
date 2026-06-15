@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./AdminStaff2.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
-import { ApiClient } from "../../config/AxiosInstance";
+// import { ApiClient } from "../../config/AxiosInstance";
 
 const AdminStaff2 = () => {
   const baseURL = import.meta.env.VITE_Base_Url;
@@ -433,9 +433,8 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Staff Type
                   </option>
-                  <option value="Subject Teacher">Subject Teacher</option>
-                  <option value="Security">Security</option>
-                  <option value="Bursary">Bursary</option>
+                  <option value="Teaching Staff">Teaching Staff</option>
+                  <option value="Non Teaching Staff">Non Teaching Staff</option>
                 </select>
               </div>
               <div className="form-group">
@@ -451,8 +450,10 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Role
                   </option>
-                  <option value="Staff">Staff</option>
                   <option value="Admin">Admin</option>
+                  <option value="Bursary">Bursary</option>
+                  <option value="Security">Security</option>
+                  <option value="Teacher">Teacher</option>
                 </select>
               </div>
               <div className="form-group">
@@ -472,7 +473,7 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Teacher Type</label>
                 <select
-                  name="techingType"
+                  name="teachingType"
                   value={formData.teachingType}
                   onChange={handleChange}
                   defaultChecked=""
@@ -488,7 +489,7 @@ const AdminStaff2 = () => {
                 <label>Assign Class</label>
                 <select
                   value={formData.classesToTeach}
-                  name="selectClass"
+                  name="classesToTeach"
                   onChange={handleChange}
                 >
                   <option value="" disabled>
@@ -503,7 +504,7 @@ const AdminStaff2 = () => {
                 <select
                   value={formData.subjectAssigned}
                   onChange={handleChange}
-                  name="selectSubject"
+                  name="subjectAssigned"
                 >
                   <option value="" disabled>
                     Select Subjects
@@ -516,6 +517,7 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Classes to Teach</label>
                 <select
+                  name="classesToTeach"
                   value={formData.classesToTeach}
                   onChange={handleChange}
                   defaultValue=""
@@ -523,6 +525,8 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Class
                   </option>
+                  <option value="Jss1">Jss1</option>
+                  <option value="Jss2">Jss2</option>
                 </select>
                 <span className="field-hint">Select one or more classes</span>
               </div>
@@ -533,7 +537,12 @@ const AdminStaff2 = () => {
                   onChange={handleChange}
                   defaultValue=""
                 >
-                  <option disabled>Select Department</option>
+                  <option value="" disabled>
+                    Select Department
+                  </option>
+                  <option value="Art">Art</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="">Science</option>
                 </select>
                 <span className="field-hint">Select one or more classes</span>
               </div>
