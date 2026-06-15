@@ -1,7 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./PricingTable.css";
 import FreeLadyBackground from "../assets/FreeLadyBackground.png";
+
+
 const PricingTable = () => {
+  const nav = useNavigate();
+
   return (
     <div className="JJpricing-container">
       <div className="JJpricing-header">
@@ -46,8 +51,8 @@ const PricingTable = () => {
               <li>WhatsApp parent alerts</li>
             </ul>
 
-            <button className="JJview-all-btn">View all</button>
-            <button className="JJcta-button JJprimary-btn">Get Started</button>
+            <button className="JJview-all-btn" onClick={() => nav ('./Pricing')}>View all</button>
+            <button className="JJcta-button JJprimary-btn" onClick={() => nav ('./signup') }>Get Started</button>
           </div>
         </div>
 
@@ -66,14 +71,14 @@ const PricingTable = () => {
               <li>Priority onboarding</li>
             </ul>
 
-            <button className="JJview-all-btn">View all</button>
-            <button className="JJcta-button JJsecondary-btn">Get Started</button>
+            <button className="JJview-all-btn" onClick={() => nav ('./Pricing')}>View all</button>
+            <button className="JJcta-button JJsecondary-btn" onClick={() => nav ('./signup') }>Get Started</button>
           </div>
         </div>
       </div>
 
       <div className="JJpricing-footer">
-        <p>
+        <p className="JJfooter-P" onClick={() => nav ('./Pricing')}>
           Need a custom solution for your school network or organization?{" "}
           <a href="#contact" className="JJfooter-link">
             Contact us

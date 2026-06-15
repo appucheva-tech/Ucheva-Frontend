@@ -5,7 +5,7 @@
   font-optical-sizing: auto;
 }
 .security-header {
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: flex-end;
   padding: 1rem 2rem;
@@ -13,7 +13,23 @@
   border-bottom: 1px solid #e5e7eb;
   height: 70px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  gap: 20px;
+  gap: 20px; */
+
+  display: flex;
+  /* padding: 1rem 2rem; */
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 4px 30px 0 rgba(0, 98, 246, 0.05);
+  padding: 15px 64px 15px 20px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
 }
 
 .date-section {

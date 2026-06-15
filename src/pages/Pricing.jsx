@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Pricing.css'
 import Header from './Header';
 import Footer from './Footer';
@@ -6,6 +7,7 @@ import FAQ from './FAQ';
 import NotSure from './NotSure';
 
 const Pricing = () => {
+  const nav = useNavigate();
   return (
     <>
     <Header/>
@@ -25,7 +27,7 @@ const Pricing = () => {
             <h3 className="LLplan-price">Free</h3>
             <p className="LLplan-desc">Perfect for schools exploring digital school management.</p>
           </div>
-          <button className="LLbtn LLbtn-secondary">Get Started</button>
+          <button className="LLbtn LLbtn-secondary" onClick={() => nav ('./signup') }>Get Started</button>
           <div className="LLfeatures-container">
             <p className="LLfeatures-title">Features</p>
             <ul className="LLfeatures-list">
@@ -49,7 +51,7 @@ const Pricing = () => {
             </h3>
             <p className="LLplan-desc">Built for growing schools that need better visibility and organization.</p>
           </div>
-          <button className="LLbtn LLbtn-primary">Choose Standard</button>
+          <button className="LLbtn LLbtn-primary" onClick={() => nav ('./signup') }>Choose Standard</button>
           <div className="LLfeatures-container">
             <p className="LLfeatures-title">Features</p>
             <ul className="LLfeatures-list">
@@ -75,7 +77,7 @@ const Pricing = () => {
             </h3>
             <p className="LLplan-desc">Advanced tools for larger schools and multi-branch operations.</p>
           </div>
-          <button className="LLbtn LLbtn-secondary">Get Started</button>
+          <button className="LLbtn LLbtn-secondary" onClick={() => nav ('./signup') }>Get Started</button>
           <div className="LLfeatures-container">
             <p className="LLfeatures-title">Features</p>
             <ul className="LLfeatures-list">

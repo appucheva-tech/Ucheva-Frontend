@@ -5,9 +5,9 @@ import { Outlet } from "react-router-dom";
 
 const AdminDashboardLayout = () => {
   return (
-    <div className="main_body">
+    <div className="Zmain_body">
       <AdminSidebar />
-      <main className="main-content">
+      <main className="Zmain-content">
         <Outlet />
       </main>
     </div>

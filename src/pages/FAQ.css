@@ -2,14 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 60px 20px;
+  width: 100%;
+  height: 95vh;
+  padding-top: 50px;
+  padding-left: 5.5%;
+  padding-right: 4.5%;
   font-family: system-ui, -apple-system, sans-serif;
   gap: 40px;
 
   .MMfaq-info {
-    margin-top: 130px;
+    margin-top: 135px;
     flex: 1;
     max-width: 400px;
 
@@ -24,37 +26,38 @@
     .MMfaq-title {
       font-size: 32px;
       font-weight: 700;
-      color: #0b1a4a;
+      color: #042869;
       line-height: 1.3;
       margin: 0 0 16px 0;
 
       .MMhighlight {
-        color: #f6ad55;
+        color: orange;
       }
     }
 
     .MMfaq-description {
-      font-size: 23px;
-      color: #4a5568;
+      font-size: 24px;
+      color: #042869;
       line-height: 1.5;
       margin: 0;
     }
   }
 
   .MMfaq-accordion-list {
-    flex: 1.5;
+    width: 54.2%;
     display: flex;
     flex-direction: column;
     gap: 16px;
 
     .MMfaq-item {
-      background-color: #f7fafc;
+      background-color: #F3F4F6;
+      width: 100%;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.2s ease;
 
       &:hover {
-        background-color: #edf2f7;
+        background-color: aliceblue;
       }
 
       .MMfaq-item-header {
@@ -66,14 +69,14 @@
         .MMfaq-number {
           font-size: 14px;
           font-weight: 600;
-          color: #2d3748;
+          color: #042869;
           min-width: 24px;
         }
 
         .MMfaq-question {
           font-size: 15px;
           font-weight: 500;
-          color: #2d3748;
+          color: #042869;
           margin: 0;
           flex-grow: 1;
           text-align: center;
@@ -81,7 +84,7 @@
 
         .MMfaq-icon {
           font-size: 20px;
-          color: #2d3748;
+          color: #042869;
           font-weight: 300;
           user-select: none;
         }
@@ -90,7 +93,7 @@
       .MMfaq-item-content {
         padding: 0 24px 24px 72px;
         font-size: 15px;
-        color: #4a5568;
+        color: #042869;
         line-height: 1.6;
         display: flex;
         justify-content: center;

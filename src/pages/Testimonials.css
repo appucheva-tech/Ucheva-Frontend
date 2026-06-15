@@ -31,7 +31,7 @@
 
     .IItitle {
       font-size: 32px;
-      color: #0f172a;
+      color: #042869;
       margin: 12px 0 16px;
       font-weight: 700;
 
@@ -42,7 +42,7 @@
 
     .IIdescription {
       font-size: 26px;
-      color: #334155;
+      color: #042869;
       line-height: 1.6;
 
       @media (max-width: 450px) {
@@ -94,14 +94,14 @@
         height: 100%;
 
         .IIuser-name {
-          font-size: 18px;
-          color: #0f172a;
+          font-size: 25px;
+          color: #042869;
           margin: 0;
           font-weight: 600;
         }
 
         .IIuser-role {
-          font-size: 13px;
+          font-size: 16px;
           color: #94a3b8;
           margin-top: 2px;
         }
@@ -113,15 +113,15 @@
 
             .IIstar {
                 color: #ff9800;
-                font-size: 16px;
+                font-size: 25px;
             }
         }
       }
     }
 
     .IItestimonial-text {
-      font-size: 14px;
-      color: #334155;
+      font-size: 15.5px;
+      color: #042869;
       line-height: 1.6;
       margin: 0;
     }

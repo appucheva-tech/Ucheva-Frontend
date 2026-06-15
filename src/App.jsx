@@ -59,6 +59,7 @@ import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
+import NotSure from "./pages/NotSure";
 
 
 function ScrollToTop() {
@@ -78,7 +79,9 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Pricing" element={<Pricing />} />
+        <Route path="Pricing/:id" element={<SignUp />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="AboutUs/:id" element={<SignUp />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

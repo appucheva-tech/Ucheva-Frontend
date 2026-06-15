@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Manage.css';
 import FreeLady from '../assets/FreeLady.png'
 
 const CTASection = () => {
+  const nav = useNavigate(); 
   return (
     <section className="SScta-banner">
       <div className="SScta-content-wrapper">
@@ -19,7 +21,7 @@ const CTASection = () => {
           <p className="SScta-subheading">
             Our team is here to help you get set up fast and start managing your school.
           </p>
-          <button className="SScta-button" type="button">
+          <button className="SScta-button" type="button" onClick={() => nav ('./signup')}>
             Start Free
           </button>
         </div>

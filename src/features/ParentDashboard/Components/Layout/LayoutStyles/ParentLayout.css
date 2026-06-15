@@ -5,13 +5,13 @@
   font-optical-sizing: auto;
 }
 
-.app-layout {
+.parent-app-layout {
   display: flex;
   min-height: 100vh;
   background-color: #f5f6fa;
 }
 
-.main-content {
+.parent-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -21,36 +21,36 @@
   min-height: 100vh;
 }
 
-.page-content {
+.parent-page-content {
   flex: 1;
   padding: 24px 32px;
   background-color: #f5f6fa;
 }
 
 @media (max-width: 768px) {
-  .main-content {
+  .parent-main-content {
     margin-left: 0;
   }
 
-  .page-content {
+  .parent-page-content {
     padding: 20px 24px;
   }
 }
 
 @media (max-width: 480px) {
-  .page-content {
+  .parent-page-content {
     padding: 16px;
   }
 }
 
 @media (max-width: 380px) {
-  .page-content {
+  .parent-page-content {
     padding: 12px;
   }
 }
 
 @media (min-width: 769px) {
-  .main-content {
+  .parent-main-content {
     margin-left: 280px;
   }
 }

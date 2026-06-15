@@ -17,11 +17,19 @@
     width: 42%;
     margin-left: -1.6%;
 
+    @media (max-width: 450px) {
+      width: 100%;
+    }
+
     .PPsubtitle {
       font-size: 15.5px;
       color: #94a3b8;
       margin-bottom: -5%;
       font-weight: 500;
+
+      @media (max-width: 450px) {
+        font-size: 12px;
+      }
     }
 
     .PPcontent-block {
@@ -34,6 +42,10 @@
         color: #0f2d69;
         margin: 0;
         font-weight: 700;
+
+        @media (max-width: 450px) {
+        font-size: 20px;
+        }
       }
 
       .PPOurdescription {
@@ -41,6 +53,10 @@
         color: #042869;
         line-height: 1.6;
         margin: 0;
+
+        @media (max-width: 450px) {
+        font-size: 18px;
+        }
       }
     }
   }
@@ -49,6 +65,10 @@
     margin-right: -3%;
     width: 50%;
     height: 580px;
+
+    @media (max-width: 450px) {
+      width: 100%;
+    }
   }
 
   @media (max-width: 450px) {
