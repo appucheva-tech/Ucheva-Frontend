@@ -52,7 +52,7 @@ const Signup = () => {
           ]
         : [];
 
-      newFormData.schoolUrl = "";  
+      newFormData.schoolUrl = "";
       setUrlSuggestions(suggestions);
     }
 
