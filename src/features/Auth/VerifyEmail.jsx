@@ -17,6 +17,7 @@ const VerifyEmail = () => {
   const BaseUrl = import.meta.env.VITE_Base_Url;
 
   const userEmail = localStorage.getItem("userEmail");
+  console.log(userEmail);
 
   useEffect(() => {
     if (timeLeft > 0 && !isExpired) {
@@ -123,6 +124,7 @@ const VerifyEmail = () => {
     }
 
     if (!userEmail) {
+      console.log(userEmail);
       toast.error("Email not found. Please sign up again.");
       nav("/signup");
       return;
@@ -140,10 +142,11 @@ const VerifyEmail = () => {
       toast.success(response.data.message || "Email verified successfully!");
 
       localStorage.removeItem("userEmail");
-
-      setTimeout(() => {
-        nav("/login");
-      }, 2000);
+      console.log(response?.data?.verifyRedirectLocalUrl);
+      // window.location.href = response?.data?.verifyRedirectLocalUrl;
+      // setTimeout(() => {
+      //   // nav("/login");
+      // }, 2000);
     } catch (error) {
       console.error("Verification error:", error);
 

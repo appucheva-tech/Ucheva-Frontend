@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./Pop.css";
+import Attendancecheck from "../../../../assets/Check.svg";
+import Attendanclose from "../../../../assets/mingcute_close-line.svg";
 
 const students = [
   { name: "Adaeze Clinton", gender: "Female" },
@@ -45,7 +47,7 @@ const AttendanceModal = ({ onClose }) => {
                 className="Attendanceabsent"
                 onClick={() => mark("Absent")}
               >
-                <img src="/src/assets/mingcute_close-line.png" alt="" />
+                <img src={Attendanclose} alt="" />
                 <span> Absent </span>
               </button>
 
@@ -53,7 +55,7 @@ const AttendanceModal = ({ onClose }) => {
                 className="Attendancepresent"
                 onClick={() => mark("Present")}
               >
-                <img src="/src/assets/Check.png" alt="" />
+                <img src={Attendancecheck} alt="" />
                 <span> Present </span>
               </button>
             </div>

@@ -142,12 +142,12 @@ const SignUp = () => {
 
     try {
       const response = await ApiClient.post("/admin/register", payload);
+      console.log(response?.data);
       toast.success(response?.data?.message || "Registration successful!");
       localStorage.setItem("userInfo", JSON.stringify(formData));
       localStorage.setItem("userEmail", formData.email);
-      setTimeout(() => {
-        nav("/verifyEmail");
-      }, 2000);
+      console.log(response?.data?.verifyRedirectLocalUrl);
+      window.location.href = response?.data?.verifyRedirectLocalUrl;
     } catch (error) {
       console.log(error);
       if (error.response) {

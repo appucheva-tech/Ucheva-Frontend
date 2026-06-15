@@ -1,6 +1,10 @@
 import React from "react";
 import "./BursaryFees.css";
 import { Link } from "react-router-dom";
+import Health from "../../../assets/BRhealthicons.svg";
+import Mingcute from "../../../assets/BRmingcute.svg";
+import PH from "../../../assets/BRph.svg";
+import UIM from "../../../assets/BRuim.svg";
 
 const BursaryFees = () => {
   const payments = [
@@ -84,11 +88,7 @@ const BursaryFees = () => {
               <div className="fm-number">340000000</div>
             </nav>
             <div className="fm-image-holder1">
-              <img
-                className="fm-img"
-                src="src/assets/uim_calender.png"
-                alt=""
-              />
+              <img className="fm-img" src={PH} alt="" />
             </div>
           </div>
           <div className="fm-fee-collected">
@@ -97,11 +97,7 @@ const BursaryFees = () => {
               <div className="fm-number">6</div>
             </nav>
             <div className="fm-image-holder2">
-              <img
-                className="fm-img"
-                src="src/assets/streamline-plump_class-lesson-remix.png"
-                alt=""
-              />
+              <img className="fm-img" src={Mingcute} alt="" />
             </div>
           </div>
           <div className="fm-outstanding-fee">
@@ -110,11 +106,7 @@ const BursaryFees = () => {
               <div className="fm-number">23</div>
             </nav>
             <div className="fm-image-holder3">
-              <img
-                className="fm-img"
-                src="src/assets/ph_student-fill.png"
-                alt=""
-              />
+              <img className="fm-img" src={UIM} alt="" />
             </div>
           </div>
           <div className="fm-collection-rate">
@@ -122,11 +114,7 @@ const BursaryFees = () => {
               Collection Rate %<div className="fm-percentage">85%</div>
             </nav>
             <div className="fm-image-holder4">
-              <img
-                className="fm-img"
-                src="src/assets/material-symbols-light_menu-book-rounded.png"
-                alt=""
-              />
+              <img className="fm-img" src={Health} alt="" />
             </div>
           </div>
         </article>

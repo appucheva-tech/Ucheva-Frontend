@@ -50,7 +50,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Navigation Menu */}
         <nav className="br-sidebar-nav">
           <NavLink
-            to="/bursary"
+            to="bursarydashboard"
             className={({ isActive }) =>
               `br-nav-link ${isActive ? "active" : ""}`
             }
