@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css'
 import Ifeanacho from '../../assets/Ifeanacho.jpg'
 import { PiStudentFill } from "react-icons/pi";
@@ -8,6 +9,25 @@ import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
 const AdminDashboard = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef(null);
+  const toggleNotifications = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, []);
+
+  const nav = useNavigate();
+
   const attendanceData = [
     { name: 'Adaeze Clinton', role: 'Teacher', time: '7:48 AM', status: 'Checked In' },
     { name: 'Emeka Ugonna', role: 'Teacher', time: '8:02 AM', status: 'Checked In' },
@@ -25,6 +45,14 @@ const AdminDashboard = () => {
     }
   };
 
+  const [isQrModalOpen, setIsQrModalOpen] = useState(false);
+  const handleCardClick = (action) => {
+    if (action.type === 'qr') {
+      setIsQrModalOpen(true);
+    } else if (action.path) {
+      nav(action.path);
+    }
+  };
   const actions = [
     {
       id: 1,
@@ -42,8 +70,9 @@ const AdminDashboard = () => {
       title: 'Add Students',
       description: 'Register a student',
       type: 'students',
+      path: 'AdminStudents',
       icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" >
           <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
           <circle cx="8.5" cy="7" r="4" />
           <circle cx="19" cy="11" r="3" />
@@ -56,6 +85,7 @@ const AdminDashboard = () => {
       title: 'Send Announcement',
       description: 'Notify staff or parents',
       type: 'announcement',
+      path: 'AdminAnnouncement',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M11 5L6 9H2v6h4l5 4V5zM15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" />
@@ -67,6 +97,7 @@ const AdminDashboard = () => {
       title: 'View Report Cards',
       description: 'View student results',
       type: 'reports',
+      path: 'AdminReportCards',
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -114,7 +145,7 @@ const data = {
 
   return (
     <>
-    <header className="AdminDashboard-header">
+    <header className="AAdminDashboard-header">
       <div className="search-container">
         <input 
           type="text" 
@@ -160,13 +191,68 @@ const data = {
       </div>
 
       <div className="profile-container">
-        <button className="notification-button" aria-label="Notifications">
-          <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-          </svg>
-          <span className="notification-badge"></span>
-        </button>
+        <div className="notification-wrapper" ref={popupRef}>
+          <button 
+            className="notification-button" 
+            aria-label="Notifications"
+            onClick={toggleNotifications}
+          >
+            <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span className="notification-badge"></span>
+          </button>
+
+          {isOpen && (
+            <div className="notification-popup">
+              <div className="popup-header">
+                <h2>Notifications</h2>
+                <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close">&times;</button>
+              </div>
+
+              <div className="notification-list">
+                <div className="notification-item unread">
+                  <div className="notification-content">
+                    <h3>Payment Received</h3>
+                    <p><strong>₦85,000</strong> payment made by Daniels Ogeremu’s parent.</p>
+                    <span class="time-stamp">2 min ago</span>
+                  </div>
+                  <span className="unread-dot"></span>
+                </div>
+
+                <div className="notification-item unread">
+                  <div className="notification-content">
+                    <h3>Withdrawal Approved</h3>
+                    <p>Withdrawal of <strong>₦500,000</strong> completed</p>
+                    <span class="time-stamp">5 min ago</span>
+                  </div>
+                  <span className="unread-dot"></span>
+                </div>
+
+                <div className="notification-item">
+                  <div className="notification-content">
+                    <h3>Withdrawal Rejected</h3>
+                    <p>Withdrawal of <strong>₦250,000</strong> rejected</p>
+                    <span class="time-stamp">Yesterday</span>
+                  </div>
+                </div>
+
+                <div className="notification-item">
+                  <div className="notification-content">
+                    <h3>Payment Received</h3>
+                    <p><strong>₦150,000</strong> payment made by Ebube Udoka’s parent</p>
+                    <span class="time-stamp">Yesterday</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="popup-footer">
+                <button className="mark-all-btn">Mark all as read</button>
+              </div>
+            </div>
+          )}
+        </div>
 
         <div className="user-profile">
           <img 
@@ -176,13 +262,13 @@ const data = {
           />
         </div>
         <div className="Auser-info">
-            <span className="user-name">Ifeanacho Francis</span>
-            <span className="user-role">Admin</span>
-          </div>
+          <span className="user-name">Ifeanacho Francis</span>
+          <span className="user-role">Admin</span>
+        </div>
       </div>
     </header>
     
-    <div className="dashboard-container">
+    <div className="Adashboard-container">
       <header className="dashboard-header">
         <h1 className="welcome-text">
           Good morning, Mr Ifeanacho <span className="wave-emoji">👋</span>
@@ -260,7 +346,7 @@ const data = {
       <div className="attendance-card">
         <div className="card-header">
           <h2>Today's Staff Attendance</h2>
-          <a href="#view-all" className="view-all-link">
+          <a href="#view-all" className="view-all-link" onClick={() => nav ('AdminAttendance')}>
             View All
             <svg className="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
@@ -297,26 +383,61 @@ const data = {
       </div>
 
       <div className="quick-actions-container">
-      <h2 className="title">Quick Actions</h2>
-      <div className="grid-layout">
-        {actions.map((action) => (
-          <div key={action.id} className={`card ${action.type}`}>
-            <div className="card-content">
-              <div className="icon-wrapper">{action.icon}</div>
-              <div className="text-wrapper">
-                <h3>{action.title}</h3>
-                <p>{action.description}</p>
+        <h2 className="title">Quick Actions</h2>
+        <div className="grid-layout">
+          {actions.map((action) => (
+            <div 
+              key={action.id} 
+              className={`card ${action.type}`} 
+              onClick={() => handleCardClick(action)}
+            >
+              <div className="card-content">
+                <div className="icon-wrapper">{action.icon}</div>
+                <div className="text-wrapper">
+                  <h3>{action.title}</h3>
+                  <p>{action.description}</p>
+                </div>
               </div>
+              <button className="arrow-button" aria-label={`Go to ${action.title}`}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
             </div>
-            <button className="arrow-button" aria-label={`Go to ${action.title}`}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="9 18 15 12 9 6" />
-              </svg>
-            </button>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+
+      {isQrModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsQrModalOpen(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <button className="close-btn" onClick={() => setIsQrModalOpen(false)}>&times;</button>
+            
+            <div className="qr-code-wrapper">
+              <img 
+                src="https://qrserver.com" 
+                alt="Attendance QR Code" 
+                className="qr-image" 
+              />
+            </div>
+            
+            <p className="modal-text">
+              This QR code refreshes automatically every day for secure staff attendance tracking.
+            </p>
+            
+            <div className="modal-actions">
+              <button className="btn btn-download">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M5 20h14v-2H5v2zm7-18L6.5 7.5l1.41 1.41L11 5.83V16h2V5.83l3.09 3.08 1.41-1.41L12 2z" transform="rotate(180 12 12)"/></svg>
+                Download
+              </button>
+              <button className="btn btn-print">
+                <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+                Print
+              </button>
+            </div>
+          </div>
+        </div>
+        )}
     </div>
 
     <div className='AdminAnnouncementHolder'>

@@ -6,6 +6,7 @@ import { MdOutlineCreditScore } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { useNavigate, NavLink } from "react-router-dom";
+import ucheva from "../../../../assets/UchevaLogo.svg";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
   const navigate = useNavigate();
@@ -31,11 +32,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Logo Section */}
         <div className="ct-sidebar-logo">
           <div className="ct-logo-icon">
-            <img
-              src="https://i.postimg.cc/Y9zb4hsp/Ucheva-Logo.png"
-              alt="Ucheva Logo"
-              className="ct-logo"
-            />
+            <img src={ucheva} alt="Ucheva Logo" className="ct-logo" />
           </div>
         </div>
 
@@ -50,7 +47,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Navigation Menu */}
         <nav className="ct-sidebar-nav">
           <NavLink
-            to="/CTdashboard"
+            to="dashboard"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }

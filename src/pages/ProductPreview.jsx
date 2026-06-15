@@ -5,16 +5,16 @@ import dark from '../assets/dark.svg'
 const ProductPreview = () => {
   return (
     <>
-    <div className="preview-container">
-      <span className="preview-tag">Product Preview</span>
-      <h1 className="preview-title">Your School. One Powerful Dashboard</h1>
-      <p className="preview-description">
+    <div className="FFpreview-container">
+      <span className="FFpreview-tag">Product Preview</span>
+      <h1 className="FFpreview-title">Your School. One Powerful Dashboard</h1>
+      <p className="FFpreview-description">
         Get started in minutes with a simple process designed to
         help schools manage operations more efficiently.
       </p>
     </div>
-    <section className='AdminSection'>
-        <img src={dark} alt="" className='AdminDashboard'/>
+    <section className='FFAdminSection'>
+        <img src={dark} alt="" className='FFAdminDashboard'/>
     </section>
     </>
   );

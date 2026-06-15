@@ -1,4 +1,4 @@
-.carousel-container {
+.DDcarousel-container {
   display: flex;
   align-items: center;
   width: 100%;
@@ -17,7 +17,7 @@
 
 
 
-  .carousel-label {
+  .DDcarousel-label {
     font-size: 28px;
     font-weight: 600;
     color: #0f2d59; 
@@ -28,7 +28,7 @@
     }
   }
 
-  .carousel-slider {
+  .DDcarousel-slider {
     overflow: hidden;
     position: relative;
     width: 80%;
@@ -58,7 +58,7 @@
       right: 0;
     }
 
-    .carousel-track {
+    .DDcarousel-track {
       display: flex;
       align-items: center;
       gap: 5%; 
@@ -73,7 +73,7 @@
     }
 
     
-    .carousel-slide {
+    .DDcarousel-slide {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -103,4 +103,3 @@
     transform: translateX(-50%); 
   }
 }
-

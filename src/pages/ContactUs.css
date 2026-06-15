@@ -1,4 +1,4 @@
-.contact-layout-wrapper {
+.TTcontact-layout-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -7,7 +7,7 @@
   font-family: system-ui, -apple-system, sans-serif;
   padding: 40px 24px;
 
-  .contact-layout-container {
+  .TTcontact-layout-container {
     display: grid;
     grid-template-columns: 1.15fr 0.85fr;
     gap: 72px;
@@ -21,16 +21,17 @@
     }
   }
 
-  .contact-form-card {
+  .TTcontact-form-card {
     background-color: #f3f4f6;
     border-radius: 20px;
     padding: 44px;
 
     @media (max-width: 450px) {
-      padding: 24px;
+      padding: 14px;
+      order: 2;
     }
 
-    .contact-form-grid {
+    .TTcontact-form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 24px;
@@ -42,12 +43,12 @@
       }
     }
 
-    .contact-input-field {
+    .TTcontact-input-field {
       display: flex;
       flex-direction: column;
       gap: 10px;
 
-      &.full-row {
+      &.TTfull-row {
         grid-column: 1 / -1;
       }
 
@@ -79,7 +80,7 @@
         resize: none;
       }
 
-      .select-container {
+      .TTselect-container {
         position: relative;
         width: 100%;
 
@@ -105,57 +106,62 @@
       }
     }
 
-    .action-button-row {
+    .TTaction-button-row {
       display: flex;
       justify-content: flex-end;
       margin-top: 28px;
     }
 
-    .submit-action-btn {
+    .TTsubmit-action-btn {
       background-color: #0061ff;
       color: #ffffff;
       font-size: 14px;
-      font-weight: 600;
       border: none;
+      width: 25%;
+      height: 40px;
       border-radius: 10px;
-      padding: 15px 32px;
       cursor: pointer;
-      transition: background-color 0.2s ease;
 
-      &:hover {
-        background-color: #004ecc;
+      @media (max-width: 450px) {
+        width: 35%;
+        height: 40px;
       }
     }
   }
 
-  .contact-details-panel {
+  .TTcontact-details-panel {
     color: #0c1e36;
     margin-left: 10%;
     width: 90%;
 
-    .panel-tagline {
+    @media (max-width: 450px) {
+        width: 100%;
+        margin-left: 0%;
+      }
+
+    .TTpanel-tagline {
       display: block;
       font-size: 15px;
       color: #94a3b8;
       margin-bottom: 12px;
     }
 
-    .panel-heading {
+    .TTpanel-heading {
       font-size: 32px;
       font-weight: 700;
       line-height: 1.25;
       margin: 0 0 16px 0;
-      color: #071a30;
+      color: #042869;
 
       @media (max-width: 450px) {
         font-size: 20px;
       }
     }
 
-    .panel-lead-text {
+    .TTpanel-lead-text {
       font-size: 21.5px;
       line-height: 1.5;
-      color: #334155;
+      color: #042869;
       margin: 0 0 36px 0;
       max-width: 380px;
 
@@ -164,18 +170,18 @@
       }
     }
 
-    .panel-data-group {
+    .TTpanel-data-group {
       margin-bottom: 24px;
 
       h3 {
         font-size: 19px;
         font-weight: 700;
         margin: 0 0 8px 0;
-        color: #071a30;
+        color: #042869;
       }
 
-      .data-anchor {
-        color: #334155;
+      .TTdata-anchor {
+        color: #042869;
         text-decoration: none;
         font-size: 18px;
 
@@ -184,30 +190,30 @@
         }
       }
 
-      .address-paragraph {
+      .TTaddress-paragraph {
         font-size: 18px;
         line-height: 1.5;
-        color: #334155;
+        color: #042869;
         margin: 0;
       }
     }
 
-    .panel-social-group {
+    .TTpanel-social-group {
       margin-top: 36px;
 
       h3 {
         font-size: 18px;
         font-weight: 700;
         margin: 0 0 14px 0;
-        color: #071a30;
+        color: #042869;
       }
 
-      .social-button-list {
+      .TTsocial-button-list {
         display: flex;
         gap: 12px;
       }
 
-      .social-circle-btn {
+      .TTsocial-circle-btn {
         width: 34px;
         height: 34px;
         background-color: #0061ff;

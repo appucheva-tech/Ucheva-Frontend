@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AttendanceModal from "./Popup";
 import "./MyClass.css";
 import { FaArrowsRotate } from "react-icons/fa6";
+import PH from "../../../../assets/ph.svg";
+import UIM from "../../../../assets/uim.svg";
+import Streamline from "../../../../assets/streamline.svg";
+import Material from "../../../../assets/material.svg";
+import axios from "axios";
+
 const initialStudents = [
   {
     name: "Adaeze Clinton",
@@ -48,15 +54,30 @@ const initialStudents = [
 ];
 
 const MyClass = () => {
+  const [myClass, setMyClass] = useState(null);
   const [open, setOpen] = useState(false);
   const [feeFilter, setFeeFilter] = useState("All Fee Status");
-
+  const baseUrl = import.meta.env.VITE_Base_Url;
   const resetFilter = () => setFeeFilter("All Fee Status");
 
   const filteredStudents =
     feeFilter === "All Fee Status"
       ? initialStudents
       : initialStudents.filter((s) => s.fee === feeFilter);
+
+  useEffect(() => {
+    const myClass = async () => {
+      try {
+        const res = await axios.get(
+          `${baseUrl}/classteacher/class-teacher-dashboard`,
+        );
+        console.log(res);
+      } catch (error) {
+        console.log(error?.message || "there is an error");
+      }
+    };
+    myClass();
+  }, []);
 
   return (
     <div className="myClassPage">
@@ -77,11 +98,7 @@ const MyClass = () => {
             <div className="myClassCTtextnum">23</div>
           </nav>
           <div className="myClassCTImageHolder1">
-            <img
-              className="myClassCTImg"
-              src="https://i.postimg.cc/KzdG8q6g/uim-calender.png"
-              alt=""
-            />
+            <img className="myClassCTImg" src={UIM} alt="" />
           </div>
         </div>
         <div className="myClassTotalFemale">
@@ -90,11 +107,7 @@ const MyClass = () => {
             <div className="myClassCTtextnum">20</div>
           </nav>
           <div className="myClassCTImageHolder1">
-            <img
-              className="myClassCTImg"
-              src="https://i.postimg.cc/BnMJKnWj/streamline-plump-class-lesson-remix.png"
-              alt=""
-            />
+            <img className="myClassCTImg" src={Streamline} alt="" />
           </div>
         </div>
         <div className="myClassTotalMale">
@@ -103,11 +116,7 @@ const MyClass = () => {
             <div className="myClassCTtextnum">20</div>
           </nav>
           <div className="myClassCTImageHolder1">
-            <img
-              className="myClassCTImg"
-              src="https://i.postimg.cc/YqxH5CCY/ph-student-fill.png"
-              alt=""
-            />
+            <img className="myClassCTImg" src={PH} alt="" />
           </div>
         </div>
         <div className="myClassTotalPresent">
@@ -116,11 +125,7 @@ const MyClass = () => {
             <div className="myClassCTtextnum">20</div>
           </nav>
           <div className="myClassCTImageHolder1">
-            <img
-              className="myClassCTImg"
-              src="https://i.postimg.cc/tJtKGBp1/material-symbols-light-menu-book-rounded.png"
-              alt=""
-            />
+            <img className="myClassCTImg" src={Material} alt="" />
           </div>
         </div>
       </article>

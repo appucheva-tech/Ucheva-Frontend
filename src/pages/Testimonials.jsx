@@ -33,46 +33,45 @@ const testimonialsData = [
 
 export default function Testimonials() {
   return (
-    <section className="testimonials-section">
-      <div className="testimonials-container">
+    <section className="IItestimonials-section">
+      <div className="IItestimonials-container">
         
-        <header className="testimonials-header">
-          <span className="subtitle">Testimonials</span>
-          <h2 className="title">See What Our Users Think</h2>
-          <p className="description">
+        <header className="IItestimonials-header">
+          <span className="IIsubtitle">Testimonials</span>
+          <h2 className="IItitle">See What Our Users Think</h2>
+          <p className="IIdescription">
             Real feedback from schools using ucheva to manage daily operations more efficiently.
           </p>
         </header>
 
-        <div className="testimonials-grid">
+        <div className="IItestimonials-grid">
           {testimonialsData.map((item) => (
-            <div key={item.id} className="testimonial-card">
-              <div className="card-header">
-                <img src={item.avatar} alt={item.name} className="avatar" />
-                <div className="user-info">
-                  <h3 className="user-name">{item.name}</h3>
-                  <span className="user-role">{item.role}</span>
-                    <div className="star-rating">
+            <div key={item.id} className="IItestimonial-card">
+              <div className="IIcard-header">
+                <img src={item.avatar} alt={item.name} className="IIavatar" />
+                <div className="IIuser-info">
+                  <h3 className="IIuser-name">{item.name}</h3>
+                  <span className="IIuser-role">{item.role}</span>
+                    <div className="IIstar-rating">
                     {Array.from({ length: item.stars }).map((_, index) => (
-                    <span key={index} className="star">★</span>
+                    <span key={index} className="IIstar">★</span>
                     ))}
                     </div>
                 </div>
               </div>
               
-              
-              <p className="testimonial-text">{item.text}</p>
+              <p className="IItestimonial-text">{item.text}</p>
             </div>
           ))}
         </div>
 
-        <div className="pagination-controls">
-          <button className="nav-btn prev-btn" aria-label="Previous testimonial">
+        <div className="IIpagination-controls">
+          <button className="IInav-btn IIprev-btn" aria-label="Previous testimonial">
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" fill="currentColor"/>
             </svg>
           </button>
-          <button className="nav-btn next-btn active" aria-label="Next testimonial">
+          <button className="IInav-btn IInext-btn IIactive" aria-label="Next testimonial">
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="currentColor"/>
             </svg>

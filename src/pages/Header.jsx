@@ -20,46 +20,58 @@ const Header = () => {
   };
 
   return (
-    <header className="Header geist-content">
-      <div className="HeaderCont1">
-        <img src={Logo} alt="Ucheva Logo" className="HeaderCont1Logo" />
+    <header className="BBHeader BBgeist-content">
+      <div className="BBHeaderCont1">
+        <img src={Logo} alt="Ucheva Logo" className="BBHeaderCont1Logo" />
       </div>
 
-      <ul className={`HeaderCont2 ${open ? 'active' : ''}`}>
-
+      <ul className={`BBHeaderCont2 ${open ? 'BBactive' : ''}`}>
         <li 
-          className={`HeaderCont2Li ${location.pathname === '/' ? 'active-link' : ''}`} 
+          className={`BBHeaderCont2Li ${location.pathname === '/' ? 'BBactive-link' : ''}`} 
           onClick={() => handleNavigation('/')}
         >
           Home
         </li>
         <li 
-          className={`HeaderCont2Li ${location.pathname === '/Features' ? 'active-link' : ''}`} 
-          onClick={() => handleNavigation('/Features')}
-        >
-          Features
-        </li>
-        <li 
-          className={`HeaderCont2Li ${location.pathname === '/Pricing' ? 'active-link' : ''}`} 
+          className={`BBHeaderCont2Li ${location.pathname === '/Pricing' ? 'BBactive-link' : ''}`} 
           onClick={() => handleNavigation('/Pricing')}
         >
           Pricing
         </li>
         <li 
-          className={`HeaderCont2Li ${location.pathname === '/AboutUs' ? 'active-link' : ''}`} 
+          className={`BBHeaderCont2Li ${location.pathname === '/AboutUs' ? 'BBactive-link' : ''}`} 
           onClick={() => handleNavigation('/AboutUs')}
         >
           About Us
         </li>
         <li 
-          className={`HeaderCont2Li ${location.pathname === '/ContactUs' ? 'active-link' : ''}`} 
+          className={`BBHeaderCont2Li ${location.pathname === '/ContactUs' ? 'BBactive-link' : ''}`} 
           onClick={() => handleNavigation('/ContactUs')}
         >
           Contact Us
         </li>
+        
+        <div className="BBMobileNavButtons">
+          <Button
+            text="Log In"
+            onClick={() => {
+              nav("/login");
+              setOpen(false);
+            }}
+            type="login"
+          />
+          <Button
+            text="Get Started"
+            onClick={() => {
+              nav("/signup");
+              setOpen(false);
+            }}
+            type="get-started"
+          />
+        </div>
       </ul>
 
-      <div className="HeaderCont3">
+      <div className="BBHeaderCont3">
         <Button
           text="Log In"
           onClick={(handleLogin) => {
@@ -75,7 +87,7 @@ const Header = () => {
           type="get-started"
         />
 
-        <div className="MobileMenuIconDiv">
+        <div className="BBMobileMenuIconDiv">
           <button onClick={() => setOpen(!open)} aria-label="Toggle menu">
             {open ? <FiX /> : <FiMenu />}
           </button>

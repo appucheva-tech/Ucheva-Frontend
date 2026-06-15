@@ -1,4 +1,4 @@
-.main_body {
+.Zmain_body {
   width: 100%;
   height: 100vh;
   min-height: max-content;
@@ -6,9 +6,9 @@
   overflow: hidden; 
 }
 
-.main-content {
+.Zmain-content {
   flex-grow: 1; 
-  height: 120vh;
+  height: auto;
   overflow-y: auto; 
   background-color: #F5F7FB;
   margin-left: 19%;

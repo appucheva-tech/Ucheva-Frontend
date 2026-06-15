@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
-.geist-content {
+.BBgeist-content {
   font-family: "Geist", sans-serif;
   font-optical-sizing: auto;
 }
 
-.Header {
+.BBHeader {
   width: 100%;
   height: 10vh;
   display: flex;
@@ -17,14 +17,13 @@
   z-index: 100;
   background-color: white;
 
-
   @media (max-width: 450px) {
     justify-content: space-between;
-    padding: 0 1rem;
+    padding: 0 1.5rem;
     height: 10vh;
   }
 
-  .HeaderCont1 {
+  .BBHeaderCont1 {
     width: 25%;
     height: 10vh;
     display: flex;
@@ -36,9 +35,9 @@
       justify-content: flex-start;
     }
 
-    .HeaderCont1Logo {
-      width: 180.38px;
-      height: 49px;
+    .BBHeaderCont1Logo {
+      width: 140px;
+      height: 40px;
       object-fit: contain;
 
       @media (max-width: 450px) {
@@ -48,57 +47,90 @@
     }
   }
 
-  .HeaderCont2 {
+  .BBHeaderCont2 {
     width: 50%;
     height: 10vh;
     list-style: none;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 28px;
+    gap: 35px;
 
     @media (max-width: 450px) {
       display: none;
 
-      &.active {
+      &.BBactive {
         display: flex;
         flex-direction: column;
-        position: absolute;
+        position: fixed;
         top: 10vh;
         left: 0;
         width: 100%;
-        height: auto;
+        height: 90vh;
         background-color: white;
-        border-bottom: 2px solid #faa200;
-        gap: 1.5rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        border-bottom: none;
+        gap: 0;
+        padding: 0;
+        align-items: flex-start;
+        justify-content: flex-start;
+        box-shadow: none;
+        z-index: 99;
       }
     }
 
-    .HeaderCont2Li {
+    .BBHeaderCont2Li {
       font-size: 18px;
       color: #03173C;
       cursor: pointer;
       transition: all 0.2s ease-in-out;
 
       @media (max-width: 450px) {
-        font-size: 18px;
+        font-size: 20px;
+        font-weight: 500;
         width: 100%;
+        padding: 1.5rem 1.5rem;
+        border-bottom: 1px solid #f0f0f0;
       }
     }
 
-    .HeaderCont2Li.active-link {
+    .BBHeaderCont2Li.BBactive-link {
       color: #0000ff !important;
       border-bottom: 2px solid #0000ff;
 
       @media (max-width: 450px) {
         border-bottom: none;
-        background-color: #f0f4ff;
+        border-left: 4px solid #faa200;
+        background-color: #ffffff;
+        padding-left: calc(1.5rem - 4px);
+      }
+    }
+
+    .BBMobileNavButtons {
+      display: none;
+
+      @media (max-width: 450px) {
+        display: flex;
+        width: 100%;
+        gap: 1rem;
+        padding: 2rem 1.5rem;
+        margin-top: auto;
+        box-sizing: border-box;
+
+        button, .BBHeaderCont3 button {
+          display: flex !important;
+          flex: 1;
+          justify-content: center;
+          align-items: center;
+          padding: 0.8rem 0;
+          font-size: 16px;
+          font-weight: 600;
+          border-radius: 8px;
+        }
       }
     }
   }
 
-  .HeaderCont3 {
+  .BBHeaderCont3 {
     width: 25%;
     height: 10vh;
     display: flex;
@@ -111,13 +143,13 @@
       gap: 15px;
     }
 
-    button:not(.MobileMenuIconDiv button) {
+    button:not(.BBMobileMenuIconDiv button) {
       @media (max-width: 450px) {
         display: none;
       }
     }
 
-    .MobileMenuIconDiv {
+    .BBMobileMenuIconDiv {
       display: none;
 
       @media (max-width: 450px) {

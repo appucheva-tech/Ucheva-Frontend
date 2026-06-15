@@ -1,20 +1,20 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Step1 from "./features/Unboarding/Pages/Step1";
-import Step2 from "./features/Unboarding/Pages/Step2";
-import Step3 from "./features/Unboarding/Pages/Step3";
-import Success from "./features/Unboarding/Pages/Success";
+// import Step1 from "./features/Unboarding/Pages/Step1";
+// import Step2 from "./features/Unboarding/Pages/Step2";
+// import Step3 from "./features/Unboarding/Pages/Step3";
+// import Success from "./features/Unboarding/Pages/Success";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import SignUp from "./features/Auth/SignUp";
-import Login from "./features/Auth/Login";
-import VerifyEmail from "./features/Auth/VerifyEmail";
-import ForgetPassword from "./features/Auth/ForgetPassword";
-import InputCode from "./features/Auth/InputCode";
-import ResetPassword from "./features/Auth/ResetPassword";
+// import SignUp from "./features/Auth/SignUp";
+// import Login from "./features/Auth/Login";
+// import VerifyEmail from "./features/Auth/VerifyEmail";
+// import ForgetPassword from "./features/Auth/ForgetPassword";
+// import InputCode from "./features/Auth/InputCode";
+// import ResetPassword from "./features/Auth/ResetPassword";
 import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -58,8 +58,16 @@ import AdminReportCards from "./pages/Admin/AdminReportCards";
 import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
-import Features from "./pages/Features";
-
+import AdminStaff2 from "./pages/Admin/AdminStaff2";
+import NotSure from "./pages/NotSure";
+import Signup from "./features/auth/pages/Signup";
+import Login from "./features/auth/pages/Login";
+import VerifyEmail from "./features/auth/pages/VerifyEmail";
+import ForgotPassword from "./features/auth/pages/ForgotPassword";
+import ResetPassword from "./features/auth/pages/ResetPassword";
+import AuthLayout from "./features/auth/layout/AuthLayout";
+import VerifyForgot from "./features/auth/pages/VerifyForgot";
+import OnboardingStepper from "./features/onboarding/pages/Onboarding";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -77,24 +85,37 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
+        <Route path="Pricing/:id" element={<Signup />} />
         <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="AboutUs/:id" element={<Signup />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/signup" element={<SignUp />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/verifyEmail" element={<VerifyEmail />} />
-        <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/inputCode" element={<InputCode />} />
+        <Route path="/verify" element={<VerifyEmail />} />
+        <Route path="/forgetpassword" element={<ForgotPassword />} />
+        {/* <Route path="/inputCode" element={<InputCode />} /> */}
         <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/step1" element={<Step1 />} />
+        {/* <Route path="/step1" element={<Step1 />} />
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
-        <Route path="/success" element={<Success />} />
+        <Route path="/success" element={<Success />} /> */}
+
+        <Route path="/signup" element={<AuthLayout />}>
+          <Route index element={<Signup />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="verify" element={<VerifyEmail />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="verify-password" element={<VerifyForgot />} />
+          <Route path="reset-password" element={<ResetPassword />} />
+        </Route>
+        <Route path="onboarding" element={<OnboardingStepper />}></Route>
 
         <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
+          <Route path="AdminStaff/:id" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
@@ -108,16 +129,18 @@ const App = () => {
 
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
+          <Route path="dashboard" element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="studentreport" element={<STReport />} />
+          <Route path="STreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
 
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
+          <Route path="bursarydashboard" element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />

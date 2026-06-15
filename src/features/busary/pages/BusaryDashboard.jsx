@@ -1,5 +1,9 @@
 import React from "react";
 import "./BusaryDashboard.css";
+import PH from "../../../assets/ph.svg";
+import UIM from "../../../assets/uim.svg";
+import Streamline from "../../../assets/streamline.svg";
+import Material from "../../../assets/material.svg";
 
 const BusaryDashboard = () => {
   return (
@@ -16,11 +20,7 @@ const BusaryDashboard = () => {
               <div className="br-pending">Checked in</div>
             </nav>
             <div className="br-image-holder1">
-              <img
-                className="br-img"
-                src="src/assets/uim_calender.png"
-                alt=""
-              />
+              <img className="br-img" src={UIM} alt="" />
             </div>
           </div>
           <div className="br-fee-collected">
@@ -29,11 +29,7 @@ const BusaryDashboard = () => {
               <div className="br-number">6</div>
             </nav>
             <div className="br-image-holder2">
-              <img
-                className="br-img"
-                src="src/assets/streamline-plump_class-lesson-remix.png"
-                alt=""
-              />
+              <img className="br-img" src={Streamline} alt="" />
             </div>
           </div>
           <div className="br-outstanding-fee">
@@ -42,11 +38,7 @@ const BusaryDashboard = () => {
               <div className="br-number">23</div>
             </nav>
             <div className="br-image-holder3">
-              <img
-                className="br-img"
-                src="src/assets/ph_student-fill.png"
-                alt=""
-              />
+              <img className="br-img" src={PH} alt="" />
             </div>
           </div>
           <div className="br-collection-rate">
@@ -54,11 +46,7 @@ const BusaryDashboard = () => {
               Collection Rate %<div className="br-percentage">85%</div>
             </nav>
             <div className="br-image-holder4">
-              <img
-                className="br-img"
-                src="src/assets/material-symbols-light_menu-book-rounded.png"
-                alt=""
-              />
+              <img className="br-img" src={Material} alt="" />
             </div>
           </div>
         </article>

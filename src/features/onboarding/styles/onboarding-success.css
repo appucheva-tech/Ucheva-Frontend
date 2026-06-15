@@ -1,0 +1,122 @@
+/* Onboarding Success Container */
+.onboarding-success-wrapper {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3rem 0;
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Success Circle Badge Container */
+.success-circle-badge {
+  width: 9rem;
+  height: 9rem;
+  border-radius: 50%;
+  background-color: #f0fdf4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2rem;
+  border: 1px solid #dcfce7;
+}
+
+/* Inner Success Check Circle */
+.success-check-circle {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background-color: #10b981;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px rgba(16, 185, 129, 0.25);
+  font-size: 2.25rem;
+}
+
+/* Success Title */
+.success-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #0f172a;
+  margin-bottom: 0.5rem;
+}
+
+/* Success Description */
+.success-description {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  max-width: 28rem;
+  margin: 0 auto 2rem;
+  line-height: 1.5;
+}
+
+/* Get Started Button */
+.get-started-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: #fff;
+  font-weight: bold;
+  font-size: 0.875rem;
+  padding: 0.875rem 1.5rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.25);
+  transition: all 0.15s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.get-started-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .onboarding-success-wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .success-circle-badge {
+    width: 7rem;
+    height: 7rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .success-check-circle {
+    width: 4.5rem;
+    height: 4.5rem;
+    font-size: 1.875rem;
+  }
+
+  .success-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .success-description {
+    font-size: 0.6875rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .get-started-btn {
+    font-size: 0.8125rem;
+    padding: 0.75rem 1.25rem;
+  }
+}

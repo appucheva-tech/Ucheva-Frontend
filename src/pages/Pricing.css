@@ -1,29 +1,29 @@
-.pricing-container {
+.LLpricing-container {
   font-family: system-ui, -apple-system, sans-serif;
   padding: 60px 20px;
   background-color: #ffffff;
   max-width: 1200px;
   margin: 0 auto;
 
-  .pricing-header {
+  .LLpricing-header {
     text-align: center;
     margin-bottom: 50px;
 
-    .sub-title {
+    .LLsub-title {
       color: #8a94a6;
-      font-size: 14px;
+      font-size: 17px;
       margin-bottom: 12px;
     }
 
-    .main-title {
-      color: #0c2356;
-      font-size: 32px;
+    .LLmain-title {
+      color: #042869;
+      font-size: 30px;
       font-weight: 700;
       margin: 0 0 16px 0;
     }
 
-    .description {
-      color: #4e5d78;
+    .LLdescription {
+      color: #042869;
       font-size: 25px;
       max-width: 630px;
       margin: 0 auto;
@@ -31,13 +31,13 @@
     }
   }
 
-  .cards-grid {
+  .LLcards-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     align-items: start;
 
-    .pricing-card {
+    .LLpricing-card {
       background: #ffffff;
       border: 1px solid #e2e8f0;
       border-radius: 16px;
@@ -46,15 +46,15 @@
       box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.02);
       display: flex;
       flex-direction: column;
-      height: 670px;
+      height: 635px;
 
-      &.featured {
+      &.LLfeatured {
         border: 2px solid #1877f2;
         box-shadow: 0px 15px 35px rgba(24, 119, 242, 0.1);
-        height: 700px;
+        height: 670px;
         margin-top: -10px;
 
-        .badge {
+        .LLbadge {
           position: absolute;
           top: -18px;
           left: 50%;
@@ -71,24 +71,27 @@
         }
       }
 
-      .card-header {
+      .LLcard-header {
         margin-bottom: 24px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
 
-        .plan-name {
-          color: #4e5d78;
+        .LLplan-name {
+          color: #042869;
           font-size: 14px;
           font-weight: 500;
         }
 
-        .plan-price {
-          color: #0c2356;
+        .LLplan-price {
+          color: #042869;
           font-size: 36px;
           font-weight: 700;
           margin: 12px 0;
           display: flex;
           align-items: baseline;
 
-          .period {
+          .LLperiod {
             color: #8a94a6;
             font-size: 15px;
             font-weight: 400;
@@ -96,8 +99,8 @@
           }
         }
 
-        .plan-desc {
-          color: #4e5d78;
+        .LLplan-desc {
+          color: #042869;
           font-size: 18px;
           line-height: 1.5;
           margin: 0;
@@ -105,18 +108,19 @@
          }
       }
 
-      .btn {
+      .LLbtn {
         width: 100%;
+        height: 55px;
         padding: 14px;
         border-radius: 8px;
         font-weight: 600;
-        font-size: 15px;
+        font-size: 17px;
         cursor: pointer;
         border: none;
         transition: background-color 0.2s ease;
         margin-bottom: 32px;
 
-        &.btn-primary {
+        &.LLbtn-primary {
           background-color: #1877f2;
           color: #ffffff;
           &:hover {
@@ -124,7 +128,7 @@
           }
         }
 
-        &.btn-secondary {
+        &.LLbtn-secondary {
           background-color: #e8f0fe;
           color: #1877f2;
           &:hover {
@@ -133,19 +137,30 @@
         }
       }
 
-      .features-container {
+      .LLfeatures-container {
         display: flex;
         flex-direction: column;
         height: 400px;
 
-        .features-title {
+        @media (max-width: 450px) {
+            width: 100%;
+            padding-left: 30%;
+          }
+
+        .LLfeatures-title {
           color: #4e5d78;
           font-size: 17px;
           font-weight: 600;
-          margin-bottom: 16px;
+          margin-bottom: 60px;
+
+          @media (max-width: 450px) {
+            width: 100%;
+            padding-left: 45%;
+            margin-bottom: 5%;
+          }
         }
 
-        .features-list {
+        .LLfeatures-list {
           list-style: none;
           padding: 0;
           margin-top: -40px;
@@ -183,44 +198,44 @@
   @media (max-width: 450px) {
     padding: 40px 16px;
 
-    .pricing-header {
+    .LLpricing-header {
       margin-bottom: 32px;
 
-      .main-title {
+      .LLmain-title {
         font-size: 19px;
       }
 
-      .description {
+      .LLdescription {
         font-size: 18px;
       }
     }
 
-    .cards-grid {
+    .LLcards-grid {
       grid-template-columns: 1fr;
       gap: 24px;
 
-      .pricing-card {
+      .LLpricing-card {
         padding: 24px 16px;
 
-        &.featured {
+        &.LLfeatured {
           height: auto;
           margin-top: 0;
         }
 
-        .card-header {
-          .plan-price {
+        .LLcard-header {
+          .LLplan-price {
             font-size: 30px;
           }
         }
 
-        .features-container {
+        .LLfeatures-container {
           height: auto;
 
-          .features-title {
+          .LLfeatures-title {
             margin-left: -80%;
           }
 
-          .features-list {
+          .LLfeatures-list {
             margin-top: 0;
             margin-left: -40%;
           }
