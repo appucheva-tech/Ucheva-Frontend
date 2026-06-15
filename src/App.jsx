@@ -101,10 +101,10 @@ const App = () => {
         <Route path="/step3" element={<Step3 />} />
         <Route path="/success" element={<Success />} /> */}
 
-        <Route path="/signup" element={<AuthLayout />}>
+        <Route path="/Auth" element={<AuthLayout />}>
           <Route index element={<Signup />} />
           <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          {/* <Route path="signup" element={<Signup />} /> */}
           <Route path="verify" element={<VerifyEmail />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="verify-password" element={<VerifyForgot />} />
