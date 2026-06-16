@@ -1,35 +1,34 @@
 .Adminsidebar {
-    width: 19%;
-    height: 100vh;
-    background-color: #ffffff; 
-    box-sizing: border-box;
-    padding-left: 4%;
+  width: 19%;
+  height: 100vh;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  padding-left: 4%;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+
+  .Adminsidebar-brand {
     display: flex;
-    flex-direction: column;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    position: fixed;   
-    top: 0;            
-    left: 0;           
-    height: 100vh;     
-    z-index: 1000;    
+    justify-content: center;
+    padding: 20px 12px;
 
-    .Adminsidebar-brand {
-      display: flex;
-      justify-content: center;
-      padding: 24px 16px;
-
-      .AdminDashboardLogo{
-        width: 90%;
-        cursor: pointer;
-      }
+    .AdminDashboardLogo {
+      width: 80%;
+      cursor: pointer;
     }
+  }
 
   .sidebar-menu {
     display: flex;
     flex-direction: column;
     width: 100%;
     height: 85vh;
-    gap: 4px; 
+    gap: 4px;
 
     .menu-item {
       width: 90%;
@@ -37,217 +36,222 @@
       display: flex;
       align-items: center;
       padding: 14px 24px;
-      color: #1A202C; 
+      color: #1a202c;
       text-decoration: none;
       font-size: 15px;
       font-weight: 500;
-      position: relative; 
+      position: relative;
       border-radius: 10px;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
     }
 
     .menu-icon {
       font-size: 18px;
       margin-right: 14px;
       flex-shrink: 0;
-      color: #4A5568;
+      color: #4a5568;
     }
 
     .menu-item:not(.active):hover {
-      background-color: #F7FAFC; 
-      color: #1A202C;
+      background-color: #f7fafc;
+      color: #1a202c;
     }
 
     .menu-item.active {
-      background-color: #F0F5FF !important; 
-      color: #0066FF !important; 
+      background-color: #f0f5ff !important;
+      color: #0066ff !important;
       font-weight: 600;
 
       .menu-icon {
-        color: #0066FF !important; 
+        color: #0066ff !important;
       }
 
       &::before {
         content: "";
         position: absolute;
-        left: 0.5%; 
+        left: 0.5%;
         top: 15%;
-        
-  .AdminDashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 12vh;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
-  border-bottom: 1px solid #f0f0f5;
 
-  .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 29%;
+        .AdminDashboard-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          height: 12vh;
+          padding: 12px 24px;
+          background-color: #ffffff;
+          font-family:
+            system-ui,
+            -apple-system,
+            sans-serif;
+          border-bottom: 1px solid #f0f0f5;
 
-    .search-input {
-      width: 100%;
-      padding: 10px 40px 10px 16px;
-      font-size: 14px;
-      color: #1e1e2f;
-      background-color: #ffffff;
-      border: 1px solid #e2e2ec;
-      border-radius: 8px;
-      outline: none;
+          .search-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 29%;
 
-      &::placeholder {
-        color: #a0a0b0;
-      }
+            .search-input {
+              width: 100%;
+              padding: 10px 40px 10px 16px;
+              font-size: 14px;
+              color: #1e1e2f;
+              background-color: #ffffff;
+              border: 1px solid #e2e2ec;
+              border-radius: 8px;
+              outline: none;
 
-      &:focus {
-        border-color: #3b82f6;
-      }
-    }
+              &::placeholder {
+                color: #a0a0b0;
+              }
 
-    .search-button {
-      position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+              &:focus {
+                border-color: #3b82f6;
+              }
+            }
 
-      .search-icon {
-        width: 16px;
-        height: 16px;
-        color: #2563eb;
-      }
-    }
-  }
+            .search-button {
+              position: absolute;
+              right: 12px;
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
 
-  .meta-container {
-    display: flex;
-    align-items: center;
-    margin-left: 8%;
-    gap: 12px;
-    width: 35%;
-    font-size: 11px;
-    color: #4a4a6a;
+              .search-icon {
+                width: 16px;
+                height: 16px;
+                color: #2563eb;
+              }
+            }
+          }
 
-    .date-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+          .meta-container {
+            display: flex;
+            align-items: center;
+            margin-left: 8%;
+            gap: 12px;
+            width: 35%;
+            font-size: 11px;
+            color: #4a4a6a;
 
-      .calendar-icon {
-        width: 16px;
-        height: 16px;
-        color: #71718a;
-      }
-    }
+            .date-display {
+              display: flex;
+              align-items: center;
+              gap: 8px;
 
-    .divider {
-      width: 1px;
-      height: 16px;
-      background-color: #e2e2ec;
-    }
+              .calendar-icon {
+                width: 16px;
+                height: 16px;
+                color: #71718a;
+              }
+            }
 
-    .dropdown {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
+            .divider {
+              width: 1px;
+              height: 16px;
+              background-color: #e2e2ec;
+            }
 
-      &:hover {
-        color: #1e1e2f;
-      }
+            .dropdown {
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              cursor: pointer;
+              user-select: none;
 
-      .chevron-icon {
-        width: 14px;
-        height: 14px;
-        color: #71718a;
-      }
-    }
-  }
+              &:hover {
+                color: #1e1e2f;
+              }
 
-  .profile-container {
-    display: flex;
-    align-items: center;
-    margin-right: -2%;
-    gap: 10px;
-    width: 22%;
-    height: 10vh;
+              .chevron-icon {
+                width: 14px;
+                height: 14px;
+                color: #71718a;
+              }
+            }
+          }
 
-    .notification-button {
-      position: relative;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+          .profile-container {
+            display: flex;
+            align-items: center;
+            margin-right: -2%;
+            gap: 10px;
+            width: 22%;
+            height: 10vh;
 
-      .bell-icon {
-        width: 22px;
-        height: 22px;
-        color: #1e1e2f;
-        fill: #1e1e2f;
-      }
+            .notification-button {
+              position: relative;
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 4px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
 
-      .notification-badge {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 8px;
-        height: 8px;
-        background-color: #eab308; 
-        border-radius: 50%;
-        border: 1.5px solid #ffffff;
-      }
-    }
+              .bell-icon {
+                width: 22px;
+                height: 22px;
+                color: #1e1e2f;
+                fill: #1e1e2f;
+              }
 
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+              .notification-badge {
+                position: absolute;
+                top: 4px;
+                right: 4px;
+                width: 8px;
+                height: 8px;
+                background-color: #eab308;
+                border-radius: 50%;
+                border: 1.5px solid #ffffff;
+              }
+            }
 
-      .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
+            .user-profile {
+              display: flex;
+              align-items: center;
+              gap: 12px;
 
-    .Auser-info {
-        display: flex;
-        flex-direction: column;
-        width: 60%;
+              .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+            }
 
-        .user-name {
-          font-size: 14px;
-          font-weight: 500;
-          color: #1e1e2f;
-          line-height: 1.2;
+            .Auser-info {
+              display: flex;
+              flex-direction: column;
+              width: 60%;
+
+              .user-name {
+                font-size: 14px;
+                font-weight: 500;
+                color: #1e1e2f;
+                line-height: 1.2;
+              }
+
+              .user-role {
+                font-size: 12px;
+                color: #71718a;
+                margin-top: 2px;
+              }
+            }
+          }
         }
-
-        .user-role {
-          font-size: 12px;
-          color: #71718a;
-          margin-top: 2px;
-        }
-      }
-  }
-}
 
         height: 70%;
-        width: 4px; 
-        background-color: #0066FF; 
+        width: 4px;
+        background-color: #0066ff;
         border-top-right-radius: 100px;
         border-bottom-right-radius: 100px;
       }
