@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-// import Step1 from "./features/Unboarding/Pages/Step1";
-// import Step2 from "./features/Unboarding/Pages/Step2";
-// import Step3 from "./features/Unboarding/Pages/Step3";
-// import Success from "./features/Unboarding/Pages/Success";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
@@ -107,7 +103,6 @@ const App = () => {
           <Route path="AdminWallet" element={<AdminWallet />} />
           <Route path="AdminSettings" element={<AdminSettings />} />
         </Route>
-
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -117,7 +112,6 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
-
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
@@ -125,19 +119,16 @@ const App = () => {
           <Route path="bursarySettings" element={<BursarySettings />} />
           <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
         </Route>
-
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
-
         <Route path="/securitydashboard" element={<SecurityLayout />}>
           <Route index element={<SecuritysDashboard />} />
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
         </Route>
-
         <Route
           path="/subjectteacherdashboard"
           element={<SubjectTeacherLayout />}

@@ -4,10 +4,7 @@
   justify-content: space-between;
   width: 100%;
   height: 12vh;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
-  border-bottom: 1px solid #f0f0f5;
+
 
   .search-container {
     position: relative;

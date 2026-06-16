@@ -1,15 +1,306 @@
+/* ==========================================================================
+   GLOBAL LAYOUT WRAPPER (Fixes Header Over-Shrinking)
+   ========================================================================== */
+
 .Zmain_body {
   width: 100%;
   height: 100vh;
   min-height: max-content;
-  display: flex; 
-  overflow: hidden; 
+  display: flex;
+  overflow: hidden;
+  font-family: "Nunito", sans-serif;
 }
 
+/* CRITICAL FIX: This new structural wrapper sits between your layout body 
+   and your content. It ensures the header and content panel take up 100% 
+   of the remaining row space next to your sidebar.
+*/
+.Zcontent-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 19%; /* Cleanly offsets your sidebar position */
+}
+
+/* Your original content pane - adjusted to flow seamlessly underneath */
 .Zmain-content {
-  flex-grow: 1; 
+  flex-grow: 1;
   height: auto;
-  overflow-y: auto; 
-  background-color: #F5F7FB;
-  margin-left: 19%;
+  overflow-y: auto;
+  background-color: #f5f7fb;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   GLOBAL ADMIN DASHBOARD HEADER
+   ========================================================================== */
+
+.BAdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 14px 32px;
+  border-bottom: 1px solid #e2e8f0;
+  height: 70px;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 10;
+  flex-shrink: 0; /* Hard boundary limit to stop any shrinking quirks */
+}
+
+/* Grouping container pushing dates, session, term, and profile to the far right */
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 32px; /* Distinct separation between layout metadata and profile engines */
+}
+
+/* --- Left: Search Section --- */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 320px;
+  padding: 0 12px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* --- Right Side: Meta Information Indicators --- */
+.meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.calendar-icon {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: #cbd5e1;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chevron-icon {
+  width: 14px;
+  height: 14px;
+  color: #64748b;
+}
+
+/* --- Right Side: Profiles, Dropdowns, and Alerts --- */
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+  position: relative;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.bell-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: #eab308;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+}
+
+.user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2e8f0;
+}
+
+.unique-school-avatar {
+  background-color: #eff6ff !important;
+  color: #2563eb;
+}
+
+.school-avatar-fallback-icon {
+  font-size: 20px;
+}
+
+.Auser-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #64748b;
+}
+
+/* --- Notification Dropdowns --- */
+.notification-popup {
+  position: absolute;
+  top: 42px;
+  right: -20px;
+  width: 320px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.popup-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.notification-list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  padding: 14px 16px;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  background-color: #ffffff;
+}
+
+.notification-item.unread {
+  background-color: #f8fafc;
+}
+
+.notification-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 3px 0;
+}
+
+.notification-content p {
+  font-size: 12px;
+  color: #475569;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.time-stamp {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.unread-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
 }

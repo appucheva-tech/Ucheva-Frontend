@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import "./AdminStaff2.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
-// import { ApiClient } from "../../config/AxiosInstance";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminStaff2 = () => {
-  const baseURL = import.meta.env.VITE_Base_Url;
+  const subdomain = window.location.hostname.split(".")[0];
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,12 +19,15 @@ const AdminStaff2 = () => {
     phoneNumber: "",
     email: "",
     staffType: "",
-    role: "",
-    teachingType: "",
-    subjectAssigned: [],
+    staffRole: "",
+    teacherType: "",
+    classAssigned: "",
+    subjectAssigned: "",
     classesToTeach: "",
     department: "",
+    qualification: "",
   });
+  console.log(formData.classAssigned);
 
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -50,22 +53,40 @@ const AdminStaff2 = () => {
       setLoading(true);
 
       const payload = {
-        ...formData,
-        phoneNumber: Number(formData.phoneNumber),
+        firstName: formData.firstName.trim().toLowerCase(),
+        lastName: formData.lastName.trim().toLowerCase(),
+        otherName: formData.otherName.trim(),
+        gender: formData.gender.toLowerCase(),
+        dateOfBirth: new Date(formData.dateOfBirth).toISOString().split("T")[0],
+        nationality: formData.nationality.toLowerCase(),
+        address: formData.address.trim().toLowerCase(),
+        maritalStatus: formData.maritalStatus.toLowerCase(),
+        phoneNumber: formData.phoneNumber.trim().toLowerCase(),
+        email: formData.email.trim().toLowerCase(),
+        qualification: formData.qualification.trim().toLowerCase(),
 
-        // Converts:
-        // Mathematics,Physics
-        // into:
-        // ["Mathematics", "Physics"]
+        staffType: formData.staffType.toLowerCase(),
+        staffRole: formData.staffRole.toLowerCase(),
+        teacherType: formData.teacherType.toLowerCase(),
+
+        classAssigned: formData.classAssigned.toLowerCase(),
 
         subjectAssigned: formData.subjectAssigned
-          .split(",")
-          .map((subject) => subject.trim()),
+          ? [formData.subjectAssigned.toLowerCase()]
+          : [],
+
+        classesToTeach: formData.classesToTeach
+          ? [formData.classesToTeach.toLowerCase()]
+          : [],
+
+        department: formData.department.toLowerCase(),
       };
 
-      const response = await ApiClient.post("staff/staff", payload);
-
-      console.log(response.data);
+      const response = await apiClient.post("/staff/staff", payload, {
+        headers: {
+          "x-tenant": subdomain,
+        },
+      });
 
       toast.success(response?.data?.message || "Staff created successfully");
 
@@ -81,16 +102,18 @@ const AdminStaff2 = () => {
         phoneNumber: "",
         email: "",
         staffType: "",
-        role: "",
-        teachingType: "",
-        subjectAssigned: [],
+        staffRole: "",
+        teacherType: "",
+        classAssigned: "",
+        subjectAssigned: "",
         classesToTeach: "",
         department: "",
+        qualification: "",
       });
     } catch (error) {
       console.error(error);
 
-      alert(error.response?.data?.message || "Failed to create staff");
+      toast.error(error.response?.data?.message || "Failed to create staff");
     } finally {
       setLoading(false);
     }
@@ -111,171 +134,6 @@ const AdminStaff2 = () => {
 
   return (
     <>
-      <header className="B2AdminDashboard-header">
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search staff by name, role..."
-            className="search-input"
-          />
-          <button className="search-button" aria-label="Search">
-            <svg
-              className="search-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </button>
-        </div>
-
-        <div className="meta-container">
-          <div className="date-display">
-            <svg
-              className="calendar-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-              <line x1="16" y1="2" x2="16" y2="6"></line>
-              <line x1="8" y1="2" x2="8" y2="6"></line>
-              <line x1="3" y1="10" x2="21" y2="10"></line>
-            </svg>
-            <span>Monday, 18 May 2026</span>
-          </div>
-
-          <div className="divider"></div>
-
-          <div className="dropdown">
-            <span>2025/2026 Session</span>
-            <svg
-              className="chevron-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-
-          <div className="divider"></div>
-
-          <div className="dropdown">
-            <span>Third Term</span>
-            <svg
-              className="chevron-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div>
-        </div>
-
-        <div className="profile-container">
-          <div className="notification-wrapper" ref={popupRef}>
-            <button
-              className="notification-button"
-              aria-label="Notifications"
-              onClick={toggleNotifications}
-            >
-              <svg
-                className="bell-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-              </svg>
-              <span className="notification-badge"></span>
-            </button>
-
-            {isOpen && (
-              <div className="notification-popup">
-                <div className="popup-header">
-                  <h2>Notifications</h2>
-                  <button
-                    className="close-btn"
-                    onClick={() => setIsOpen(false)}
-                    aria-label="Close"
-                  >
-                    &times;
-                  </button>
-                </div>
-
-                <div className="notification-list">
-                  <div className="notification-item unread">
-                    <div className="notification-content">
-                      <h3>Payment Received</h3>
-                      <p>
-                        <strong>₦85,000</strong> payment made by Daniels
-                        Ogeremu’s parent.
-                      </p>
-                      <span class="time-stamp">2 min ago</span>
-                    </div>
-                    <span className="unread-dot"></span>
-                  </div>
-
-                  <div className="notification-item unread">
-                    <div className="notification-content">
-                      <h3>Withdrawal Approved</h3>
-                      <p>
-                        Withdrawal of <strong>₦500,000</strong> completed
-                      </p>
-                      <span class="time-stamp">5 min ago</span>
-                    </div>
-                    <span className="unread-dot"></span>
-                  </div>
-
-                  <div className="notification-item">
-                    <div className="notification-content">
-                      <h3>Withdrawal Rejected</h3>
-                      <p>
-                        Withdrawal of <strong>₦250,000</strong> rejected
-                      </p>
-                      <span class="time-stamp">Yesterday</span>
-                    </div>
-                  </div>
-
-                  <div className="notification-item">
-                    <div className="notification-content">
-                      <h3>Payment Received</h3>
-                      <p>
-                        <strong>₦150,000</strong> payment made by Ebube Udoka’s
-                        parent
-                      </p>
-                      <span class="time-stamp">Yesterday</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="popup-footer">
-                  <button className="mark-all-btn">Mark all as read</button>
-                </div>
-              </div>
-            )}
-          </div>
-
-          <div className="user-profile">
-            <img src={Ifeanacho} alt="Ifeanacho" className="avatar" />
-          </div>
-          <div className="Auser-info">
-            <span className="user-name">Ifeanacho Francis</span>
-            <span className="user-role">Admin</span>
-          </div>
-        </div>
-      </header>
-
       <div className="form-container">
         <div className="form-header">
           <div className="header-top">
@@ -294,7 +152,7 @@ const AdminStaff2 = () => {
           </p>
         </div>
 
-        <form className="staff-form">
+        <form className="staff-form" onSubmit={handleSubmit}>
           <div className="form-section">
             <h2>Personal Information</h2>
             <div className="form-grid type-3-col">
@@ -303,8 +161,10 @@ const AdminStaff2 = () => {
                   First Name<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   placeholder="Enter First Name"
                 />
               </div>
@@ -313,16 +173,20 @@ const AdminStaff2 = () => {
                   Last Name<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   placeholder="Enter Last Name"
                 />
               </div>
               <div className="form-group">
                 <label>Other Name</label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="otherName"
+                  value={formData.otherName}
+                  onChange={handleChange}
                   placeholder="Enter Other Name"
                 />
               </div>
@@ -348,8 +212,10 @@ const AdminStaff2 = () => {
                 </label>
                 <div className="date-input-wrapper">
                   <input
+                    type="date"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
                     onChange={handleChange}
-                    type="text"
                     placeholder="Select Date of Birth"
                   />
                   <span className="calendar-icon">📅</span>
@@ -366,8 +232,8 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Country
                   </option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Ghana">Ghana</option>
+                  <option value="Nigerian">Nigerian</option>
+                  <option value="non-nigerian">Non-Nigerian</option>
                 </select>
               </div>
               <div className="form-group">
@@ -375,9 +241,11 @@ const AdminStaff2 = () => {
                   Phone Number<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
-                  placeholder="Enter First Name"
+                  placeholder="Enter Phone Number"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
                 />
               </div>
               <div className="form-group">
@@ -385,8 +253,10 @@ const AdminStaff2 = () => {
                   Email Address<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter Email"
                 />
               </div>
@@ -411,8 +281,10 @@ const AdminStaff2 = () => {
                 Address<span className="required">*</span>
               </label>
               <input
-                onChange={handleChange}
                 type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
                 placeholder="Enter Residencial Address"
               />
             </div>
@@ -433,8 +305,8 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Staff Type
                   </option>
-                  <option value="Teaching Staff">Teaching Staff</option>
-                  <option value="Non Teaching Staff">Non Teaching Staff</option>
+                  <option value="Teaching staff">Teacher</option>
+                  <option value="Non-Teaching staff">Non Teaching Staff</option>
                 </select>
               </div>
               <div className="form-group">
@@ -442,8 +314,8 @@ const AdminStaff2 = () => {
                   Role<span className="required">*</span>
                 </label>
                 <select
-                  name="role"
-                  value={formData.role}
+                  name="staffRole"
+                  value={formData.staffRole}
                   onChange={handleChange}
                   defaultValue=""
                 >
@@ -459,8 +331,10 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Qualification</label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="qualification"
+                  value={formData.qualification}
+                  onChange={handleChange}
                   placeholder="Enter Qualification"
                 />
               </div>
@@ -473,8 +347,8 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Teacher Type</label>
                 <select
-                  name="teachingType"
-                  value={formData.teachingType}
+                  name="teacherType"
+                  value={formData.teacherType}
                   onChange={handleChange}
                   defaultChecked=""
                 >
@@ -488,14 +362,14 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Assign Class</label>
                 <select
-                  value={formData.classesToTeach}
-                  name="classesToTeach"
+                  name="classAssigned"
+                  value={formData.classAssigned}
                   onChange={handleChange}
                 >
                   <option value="" disabled>
                     Select Class
                   </option>
-                  <option value="Primary 1">Primary 1</option>
+                  <option value="-1">Primary 1</option>
                   <option value="Primary 2">Primary 2</option>
                 </select>
               </div>
@@ -533,7 +407,8 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Department</label>
                 <select
-                  vvalue={formData.department}
+                  name="department"
+                  value={formData.department}
                   onChange={handleChange}
                   defaultValue=""
                 >
@@ -549,7 +424,7 @@ const AdminStaff2 = () => {
             </div>
           </div>
 
-          <button onClick={handleSubmit} type="submit" className="submit-btn">
+          <button type="submit" className="submit-btn">
             Create Staff
           </button>
         </form>

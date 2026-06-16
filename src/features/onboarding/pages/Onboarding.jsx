@@ -25,6 +25,12 @@ const OnboardingStepper = () => {
     schoolType: "Secondary School",
     selectedSections: ["primary", "secondary"],
     classConfig: {
+      nursery: {
+        classFrom: "Creche",
+        classTo: "Nursery 3",
+        armFrom: "A",
+        armTo: "",
+      },
       primary: {
         classFrom: "Primary 1",
         classTo: "Primary 5",
@@ -36,11 +42,13 @@ const OnboardingStepper = () => {
     fees: [
       {
         feeType: "",
-        paymentTerm: "",
+        paymentTerm: "", // maps to paymentOption or numberofInstallments based on context
         amount: "",
+        className: "", // Included if your FeeStructureStep captures specific classes
       },
     ],
   });
+  console.log(formData);
 
   const steps = [
     {
@@ -88,34 +96,92 @@ const OnboardingStepper = () => {
       try {
         const payload = new FormData();
         if (logoFile) payload.append("image", logoFile);
+
+        // 1. School Type mapping passed as a stringified array so backend can run .forEach()
         payload.append("schoolType", JSON.stringify(formData.selectedSections));
 
-        if (formData.classConfig.primary) {
+        // 2. Nursery Configuration Mapping
+        if (
+          formData.classConfig.nursery &&
+          formData.selectedSections.includes("nursery")
+        ) {
+          payload.append(
+            "classFromNur",
+            formData.classConfig.nursery.classFrom || "",
+          );
+          payload.append(
+            "classToNur",
+            formData.classConfig.nursery.classTo || "",
+          );
+          payload.append(
+            "armFromNur",
+            formData.classConfig.nursery.armFrom || "",
+          );
+          payload.append("armToNur", formData.classConfig.nursery.armTo || "");
+        }
+
+        // 3. Primary Configuration Mapping
+        if (
+          formData.classConfig.primary &&
+          formData.selectedSections.includes("primary")
+        ) {
           payload.append(
             "classFromPry",
-            formData.classConfig.primary.classFrom,
+            formData.classConfig.primary.classFrom || "",
           );
-          payload.append("classToPry", formData.classConfig.primary.classTo);
-          payload.append("armFromPry", formData.classConfig.primary.armFrom);
-          payload.append("armToPry", formData.classConfig.primary.armTo);
+          payload.append(
+            "classToPry",
+            formData.classConfig.primary.classTo || "",
+          );
+          payload.append(
+            "armFromPry",
+            formData.classConfig.primary.armFrom || "",
+          );
+          payload.append("armToPry", formData.classConfig.primary.armTo || "");
         }
-        if (formData.classConfig.secondary) {
+
+        // 4. Secondary Configuration Mapping
+        if (
+          formData.classConfig.secondary &&
+          formData.selectedSections.includes("secondary")
+        ) {
           payload.append(
             "classFromSec",
-            formData.classConfig.secondary.classFrom,
+            formData.classConfig.secondary.classFrom || "",
           );
-          payload.append("classToSec", formData.classConfig.secondary.classTo);
-          payload.append("armFromSec", formData.classConfig.secondary.armFrom);
-          payload.append("armToSec", formData.classConfig.secondary.armTo);
+          payload.append(
+            "classToSec",
+            formData.classConfig.secondary.classTo || "",
+          );
+          payload.append(
+            "armFromSec",
+            formData.classConfig.secondary.armFrom || "",
+          );
+          payload.append(
+            "armToSec",
+            formData.classConfig.secondary.armTo || "",
+          );
+        }
+
+        // 5. Fees Structured Matrix Mapping
+        if (formData.fees && formData.fees.length > 0) {
+          const mainFee = formData.fees[0];
+          payload.append("className", mainFee.className || "All");
+          payload.append("feeType", mainFee.feeType || "");
+          payload.append("amount", mainFee.amount || "");
+          payload.append("paymentOption", mainFee.paymentTerm || "Full");
+          payload.append(
+            "numberOfInstallments",
+            mainFee.numberOfInstallments || "1",
+          );
         }
 
         await apiClient.post("/admin/profile", payload, {
           headers: {
             "x-tenant": subdomain,
-            "Content-Type": null,
+            "Content-Type": null, // Content-Type is auto-managed by standard FormData processing
           },
         });
-
         setIsCompleted(true);
       } catch (error) {
         console.error("API Error:", error);
