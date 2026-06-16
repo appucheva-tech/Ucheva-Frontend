@@ -79,7 +79,8 @@ const App = () => {
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="" element={<AuthLayout />}>
+
+        <Route element={<AuthLayout />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<VerifyEmail />} />
@@ -87,10 +88,10 @@ const App = () => {
           <Route path="/verify-password" element={<VerifyForgot />} />
           <Route path="/reset-password" element={<ResetPassword />} />
         </Route>
-        <Route path="/onboarding" element={<OnboardingStepper />} />
 
-        <Route path="/admin" element={<AdminDashboardLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="onboarding" element={<OnboardingStepper />}></Route>
+        <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
+          <Route index element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
