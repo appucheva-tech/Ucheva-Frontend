@@ -7,7 +7,6 @@ import FeeStructureStep from "../components/FeeStructureStep";
 import OnboardingSuccess from "../components/OnboardingSuccess";
 import "../styles/onboarding.css";
 import { apiClient } from "../../../config/AxiosInstance";
-import axios from "axios";
 
 const OnboardingStepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -38,16 +37,14 @@ const OnboardingStepper = () => {
         armFrom: "A",
         armTo: "",
       },
-      secondary: { classFrom: "JS1", classTo: "SS3", armFrom: "A", armTo: "" },
-    },
-    fees: [
-      {
-        feeType: "",
-        paymentTerm: "", // maps to paymentOption or numberofInstallments based on context
-        amount: "",
-        className: "", // Included if your FeeStructureStep captures specific classes
+      secondary: {
+        classFrom: "JSS 1",
+        classTo: "SS 3",
+        armFrom: "A",
+        armTo: "",
       },
-    ],
+    },
+    fees: [], // ✅ fixed: start with empty array, FeeStructureStep populates it
   });
   console.log(formData);
 
@@ -94,7 +91,6 @@ const OnboardingStepper = () => {
       setCurrentStep((prev) => prev + 1);
     } else {
       setIsSubmitting(true);
-
       try {
         const payload = new FormData();
         if (logoFile) payload.append("image", logoFile);
@@ -168,20 +164,23 @@ const OnboardingStepper = () => {
         // 5. Fees Structured Matrix Mapping
         if (formData.fees && formData.fees.length > 0) {
           const mainFee = formData.fees[0];
-          payload.append("className", mainFee.className || "All");
+          payload.append("className", (mainFee.className || [])[0] || ""); // ✅ send first class only
           payload.append("feeType", mainFee.feeType || "");
           payload.append("amount", mainFee.amount || "");
-          payload.append("paymentOption", mainFee.paymentTerm || "Full");
+          payload.append(
+            "paymentOption",
+            mainFee.paymentOption || "Full Payment",
+          );
           payload.append(
             "numberOfInstallments",
-            mainFee.numberOfInstallments || "1",
+            mainFee.numInstallments || "1",
           );
         }
 
         await apiClient.post("/admin/profile", payload, {
           headers: {
             "x-tenant": subdomain,
-            "Content-Type": null, // Content-Type is auto-managed by standard FormData processing
+            "Content-Type": null,
           },
         });
         setIsCompleted(true);

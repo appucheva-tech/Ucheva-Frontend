@@ -27,7 +27,7 @@ const AdminStaff2 = () => {
     department: "",
     qualification: "",
   });
-  console.log(formData.classAssigned);
+  console.log(formData);
 
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -79,7 +79,7 @@ const AdminStaff2 = () => {
           ? [formData.classesToTeach.toLowerCase()]
           : [],
 
-        department: formData.department.toLowerCase(),
+        // department: formData.department.toLowerCase(),
       };
 
       const response = await apiClient.post("/staff/staff", payload, {
@@ -218,7 +218,7 @@ const AdminStaff2 = () => {
                     onChange={handleChange}
                     placeholder="Select Date of Birth"
                   />
-                  <span className="calendar-icon">📅</span>
+                  {/* <span className="calendar-icon">📅</span> */}
                 </div>
               </div>
               <div className="form-group">
@@ -305,7 +305,7 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Staff Type
                   </option>
-                  <option value="Teaching staff">Teacher</option>
+                  <option value="Teaching staff">Teaching Staff</option>
                   <option value="Non-Teaching staff">Non Teaching Staff</option>
                 </select>
               </div>
@@ -369,7 +369,7 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Class
                   </option>
-                  <option value="-1">Primary 1</option>
+                  <option value="Primary 1">Primary 1</option>
                   <option value="Primary 2">Primary 2</option>
                 </select>
               </div>

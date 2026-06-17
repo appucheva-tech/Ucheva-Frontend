@@ -58,6 +58,7 @@ import AuthLayout from "./features/auth/layout/AuthLayout";
 import OnboardingStepper from "./features/onboarding/pages/Onboarding";
 import ResetPassword from "./features/auth/pages/ResetPassword";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
+import CreatePassword from "./features/auth/pages/CreatePassword";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -87,11 +88,12 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-password" element={<VerifyForgot />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/create-password" element={<CreatePassword/>}/>
         </Route>
 
         <Route path="onboarding" element={<OnboardingStepper />}></Route>
-        <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
-          <Route index element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminDashboardLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />

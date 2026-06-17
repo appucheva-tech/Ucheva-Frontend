@@ -25,12 +25,12 @@ const ClassesStep = ({ formData, setFormData }) => {
       { value: "Primary 6", label: "Primary 6" },
     ],
     secondary: [
-      { value: "JS1", label: "JS1" },
-      { value: "JS2", label: "JS2" },
-      { value: "JS3", label: "JS3" },
-      { value: "SS1", label: "SS1" },
-      { value: "SS2", label: "SS2" },
-      { value: "SS3", label: "SS3" },
+      { value: "JSS 1", label: "JS1" },
+      { value: "JSS 2", label: "JS2" },
+      { value: "JSS 3", label: "JS3" },
+      { value: "SS 1", label: "SS1" },
+      { value: "SS 2", label: "SS2" },
+      { value: "SS 3", label: "SS3" },
     ],
     arms: [
       { value: "A", label: "A" },
