@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherDashboard.css";
-
+import { apiClient } from "../../../config/AxiosInstance";
+import { toast } from "react-toastify";
 const SubjectTeacherDashboard = () => {
-  const announcements = [
+  const [dashboardData, setDashboardData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const [announcements, setAnnouncements] = useState([
     {
       id: 1,
       title: "Staff Meeting",
@@ -21,7 +24,28 @@ const SubjectTeacherDashboard = () => {
       description: "Weekly environmental sanitation will be held on...",
       date: "May 13, 2026",
     },
-  ];
+  ]);
+
+  const fetchDashboardData = async () => {
+    try {
+      const response = await apiClient.get(
+        "/subjectTeacher/subject-teacher-dashboard",
+      );
+      console.log("Dashbaord Data:", response?.data);
+      // setAnnouncements(response.data?.announcements || []);
+    } catch (err) {
+      console.error(err);
+      const errorMessage =
+        err.response?.data?.message || "Unable to load announcements.";
+      toast.error(errorMessage);
+      setAnnouncements([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
 
   return (
     <div className="SubjectTeacherDashboard-dashboard-container">

@@ -4,8 +4,45 @@ import PH from "../../../assets/ph.svg";
 import UIM from "../../../assets/uim.svg";
 import Streamline from "../../../assets/streamline.svg";
 import Material from "../../../assets/material.svg";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 const BusaryDashboard = () => {
+  const scannerRef = useRef(null);
+  const [showScanner, setShowScanner] = useState(false);
+
+  const startScanner = () => {
+    setShowScanner(true);
+  };
+
+  useEffect(() => {
+    if (!showScanner) return;
+
+    const scanner = new Html5QrcodeScanner(
+      "reader",
+      { fps: 10, qrbox: 250 },
+      false,
+    );
+
+    scanner.render(
+      (decodedText) => {
+        console.log("QR Code:", decodedText);
+
+        // stop scanner after success
+        scanner.clear();
+        setShowScanner(false);
+      },
+      (error) => {
+        console.log("Scan error:", error);
+      },
+    );
+
+    scannerRef.current = scanner;
+
+    return () => {
+      scanner.clear().catch(() => {});
+    };
+  }, [showScanner]);
+
   return (
     <main className="br-dash">
       <article className="br-dash-wrapper">
@@ -51,15 +88,17 @@ const BusaryDashboard = () => {
           </div>
         </article>
         <section className="br-checkin">
-          <div className="br-qr">
-            <nav className="br-qr-holder">
-              <img className="br-qr-img" src="src/assets/Icon.png" alt="" />
-            </nav>
-            <ul className="br-reminder">
-              You have not checked in today
-              <span>Please scan the QR code to mark your attendance</span>
-            </ul>
-            <button className="br-scan">Scan QR to Check In</button>
+          <div>
+            <p>You have not checked in today</p>
+
+            <button onClick={startScanner}>Scan QR to Check In</button>
+
+            {showScanner && (
+              <div
+                id="reader"
+                style={{ width: "100%", maxWidth: "400px", marginTop: "20px" }}
+              />
+            )}
           </div>
           <div className="br-announcement">
             <nav className="br-announce-head">Recent Announcements</nav>

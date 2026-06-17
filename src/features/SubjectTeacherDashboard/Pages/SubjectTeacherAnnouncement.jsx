@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherAnnouncement.css";
 import { apiClient } from "../../../config/AxiosInstance";
 
@@ -64,7 +64,7 @@ const SubjectTeacherAnnouncement = () => {
 
   return (
     <>
-      <ToastContainer />
+      
 
       <div className="SubjectTeacher-announcement-container">
         <div className="SubjectTeacher-announcement-header">

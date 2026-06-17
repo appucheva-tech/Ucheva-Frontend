@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherScores.css";
+import { apiClient } from "../../../config/AxiosInstance";
 
 const SubjectTeacherScores = () => {
   const [selectedSubject, setSelectedSubject] = useState(0);

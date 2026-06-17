@@ -48,7 +48,6 @@ const ResetPassword = () => {
 
       console.log("[API Call] Submitting new password credentials.");
 
-      // Fire your reset completion route
       await apiClient.post("/admin/reset-password", payload, {
         headers: {
           "x-tenant": subdomain,
@@ -59,7 +58,6 @@ const ResetPassword = () => {
         "Password updated successfully! Redirecting to log in...",
       );
 
-      // Manual navigation route shift to login after success
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -94,7 +92,6 @@ const ResetPassword = () => {
               marginBottom: "20px",
             }}
           >
-            {/* New Password Input Field */}
             <div
               style={{
                 display: "flex",
@@ -126,7 +123,6 @@ const ResetPassword = () => {
               />
             </div>
 
-            {/* Confirm Password Input Field */}
             <div
               style={{
                 display: "flex",

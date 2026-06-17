@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { apiClient } from "../../config/AxiosInstance";
 import "./AdminStaffDetails.css";
+import { useNavigate } from "react-router-dom";
 
 const StaffDetails = () => {
+  const nav = useNavigate();
   const { id } = useParams();
   const subdomain = window.location.hostname.split(".")[0];
 
   const [staff, setStaff] = useState(null);
 
-  // Dummy fallback
   const dummyStaff = {
     firstName: "James",
     lastName: "Brown",
@@ -61,7 +62,7 @@ const StaffDetails = () => {
         <h1 className="Ftitle">Staff Details</h1>
 
         <div className="Fbreadcrumb">
-          <span>Staff Management</span>
+          <span className="FStaffManagement" onClick={() => {nav(-1)}}>Staff Management</span>
           <span className="Fseparator">&gt;</span>
           <span className="Factive">Staff Details</span>
         </div>

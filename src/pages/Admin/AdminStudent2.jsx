@@ -7,7 +7,7 @@ import { apiClient } from "../../config/AxiosInstance";
 
 const AdminStudent2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
-  const [formData, setFormData] = useState({
+  const initialState = {
     firstName: "",
     lastName: "",
     otherName: "",
@@ -22,9 +22,12 @@ const AdminStudent2 = () => {
     relationship: "",
     phoneNumber: "",
     email: "",
-  });
-  console.log(formData);
+    religion: "",
+    parentGuardiansAddress: "",
+  };
 
+  // console.log(formData);
+  const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
@@ -44,6 +47,10 @@ const AdminStudent2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.firstName || !formData.lastName || !formData.email) {
+      alert("Please fill all required fields");
+      return;
+    }
 
     try {
       setLoading(true);
@@ -58,11 +65,13 @@ const AdminStudent2 = () => {
         address: formData.address.trim(),
         studentClass: formData.studentClass,
         department: formData.department,
-        session: Number(formData.session),
+        session: formData.session,
         parentGuardiansName: formData.parentGuardiansName.trim(),
         relationship: formData.relationship.toLowerCase(),
-        phoneNumber: Number(formData.phoneNumber),
+        phoneNumber: formData.phoneNumber.trim(),
         email: formData.email.trim().toLowerCase(),
+        religion: formData.religion,
+        parentGuardiansAddress: formData.parentGuardiansAddress,
       };
 
       console.log(payload);
@@ -74,8 +83,14 @@ const AdminStudent2 = () => {
       });
 
       console.log(response.data);
+
+      alert("Student created successfully!");
+
+      setFormData(initialState);
     } catch (error) {
       console.error(error);
+
+      alert(error?.response?.data?.message || "Failed to create student");
     } finally {
       setLoading(false);
     }
@@ -352,7 +367,7 @@ const AdminStudent2 = () => {
               <div className="form-group full-width-field">
                 <label>Address</label>
                 <textarea
-                  name="parentAddress"
+                  name="parentGuardiansAddress"
                   value={formData.parentAddress}
                   onChange={handleChange}
                   placeholder="Enter Residential Address"
@@ -361,8 +376,8 @@ const AdminStudent2 = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn">
-            Create Student
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Creating Student..." : "Create Student"}
           </button>
         </form>
 

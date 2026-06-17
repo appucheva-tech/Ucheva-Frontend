@@ -41,6 +41,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminStaff from "./pages/Admin/AdminStaff";
 import AdminStudents from "./pages/Admin/AdminStudents";
 import AdminAttendance from "./pages/Admin/AdminAttendance";
+import AdminStudentAttendance from "./pages/Admin/AdminStudentAttendance";
 import AdminSubjects from "./pages/Admin/AdminSubjects";
 import AdminClass from "./pages/Admin/AdminClass";
 import AdminFees from "./pages/Admin/AdminFees";
@@ -61,6 +62,10 @@ import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import CreatePassword from "./features/auth/pages/CreatePassword";
 import StaffDetails from "./pages/Admin/AdminStaffDetails";
 import AdminStudent2 from "./pages/Admin/AdminStudent2";
+import { ToastContainer } from "react-toastify";
+import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
+import AdminEditStudent from "./pages/Admin/AdminEditStudent";
+import AttendancePage from "./features/busary/components/AttendancePage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -90,7 +95,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-password" element={<VerifyForgot />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/create-password" element={<CreatePassword />} />
+          <Route path="/create-password/:token" element={<CreatePassword />} />
         </Route>
 
         <Route path="onboarding" element={<OnboardingStepper />}></Route>
@@ -101,7 +106,16 @@ const App = () => {
           <Route path="staff-details/:id" element={<StaffDetails />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminStudent2" element={<AdminStudent2 />} />
+          <Route
+            path="AdminStudentDetails/:id"
+            element={<AdminStudentDetails />}
+          />
+          <Route path="AdminEditStudent" element={<AdminEditStudent />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
+          <Route
+            path="AdminStudentAttendance"
+            element={<AdminStudentAttendance />}
+          />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
           <Route path="AdminClass" element={<AdminClass />} />
           <Route path="AdminFees" element={<AdminFees />} />
@@ -119,12 +133,16 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
+
+        <Route path="/attendance/:token" element={<AttendancePage />} />
+
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
           <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
         </Route>
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
@@ -146,6 +164,7 @@ const App = () => {
           <Route path="settings" element={<SubjectTeacherSettings />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   );
 };

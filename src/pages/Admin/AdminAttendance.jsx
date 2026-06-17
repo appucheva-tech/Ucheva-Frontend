@@ -1,9 +1,13 @@
 import React from "react";
 import "./AdminAttendance.css";
+import { useNavigate, useLocation } from "react-router-dom";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 
 const AdminAttendance = () => {
+  const nav = useNavigate();
+  const { pathname } = useLocation();
   const categories = ["Staff Attendance", "Student Attendance"];
+  const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
 
   const attendanceData = [
     {
@@ -71,7 +75,14 @@ const AdminAttendance = () => {
             {categories.map((tab, idx) => (
               <button
                 key={tab}
-                className={`tabItem ${idx === 0 ? "activeTabItem" : ""}`}
+                className={`tabItem ${activeTab === idx ? "activeTabItem" : ""}`}
+                onClick={() =>
+                  nav(
+                    idx === 0
+                      ? "/admin/AdminAttendance"
+                      : "/admin/AdminStudentAttendance",
+                  )
+                }
               >
                 {tab}
               </button>

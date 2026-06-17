@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./userSlice";
+import { userReducer, staffReducer } from "./userSlice";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/es/storage";
@@ -14,6 +14,7 @@ const persistedUserReducer = persistReducer(persistConfig, userReducer);
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
+    staff: staffReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

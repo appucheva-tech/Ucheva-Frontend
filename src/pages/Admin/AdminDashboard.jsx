@@ -8,8 +8,10 @@ import { IoQrCodeOutline, IoMegaphoneOutline } from "react-icons/io5";
 import { LuUserPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { HiChevronRight } from "react-icons/hi";
 import { apiClient } from "../../config/AxiosInstance";
+import QRModal from "./QRModal";
 
 const AdminDashboard = () => {
+  const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
   const [attendance, setAttendance] = useState([]);
 
@@ -31,7 +33,7 @@ const AdminDashboard = () => {
     const getTodayAttendance = async () => {
       try {
         const res = await apiClient.get("/staffattendance/today");
-
+console.log("res : ",res)
         setAttendance(res?.data?.Attendance);
       } catch (error) {
         console.error(error);
@@ -43,7 +45,6 @@ const AdminDashboard = () => {
 
   return (
     <div className="Bddashboard-container">
-      {/* Welcome Banner */}
       <div className="dashboard-header">
         <div className="header-text-group">
           <h1 className="welcome-text">
@@ -55,7 +56,6 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Metric Cards Grid */}
       <div className="metrics-grid">
         <div className="metric-card card-total">
           <div className="card-content">
@@ -124,9 +124,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Middle Split Grid System */}
       <div className="dashboard-split-grid">
-        {/* Attendance Tracker Component */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Today's Staff Attendance</h2>
@@ -198,13 +196,16 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions Component */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Quick Actions</h2>
           </div>
           <div className="actions-grid">
-            <div className="action-button-card action-qr">
+            <div
+              onClick={() => setShowQRModal(true)}
+              style={{ background: "red" }}
+              className="action-button-card action-qr"
+            >
               <div className="action-main-content">
                 <div className="action-icon-box">
                   <IoQrCodeOutline />
@@ -267,15 +268,12 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Bottom Split Grid System */}
       <div className="dashboard-split-grid">
-        {/* Recent Announcements Panel */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Recent Announcements</h2>
           </div>
           <div className="announcements-list">
-            {/* The CSS above ensures these 3 items stack in a column */}
             <div className="announcement-item color-blue">
               <h3>PTA Meeting</h3>
               <span className="announcement-date">
@@ -303,13 +301,11 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Fee Collection Summary Card Analytics */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Fee Collection Summary</h2>
           </div>
           <div className="fees-summary-container">
-            {/* Native SVG Circular Chart Graphic Representation */}
             <div className="donut-chart-wrapper">
               <svg viewBox="0 0 100 100" className="donut-svg">
                 <circle cx="50" cy="50" r="40" className="donut-bg" />
@@ -321,7 +317,6 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* Financial Ledger Block Display */}
             <div className="fees-ledger-pane">
               <div className="ledger-item">
                 <div className="ledger-label-group">
@@ -350,6 +345,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      <QRModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>
   );
 };
