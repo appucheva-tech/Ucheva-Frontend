@@ -1,312 +1,14 @@
-.B2AdminDashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 12vh;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
-  border-bottom: 1px solid #f0f0f5;
-
-  .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 29%;
-
-    .search-input {
-      width: 100%;
-      padding: 10px 40px 10px 16px;
-      font-size: 14px;
-      color: #1e1e2f;
-      background-color: #ffffff;
-      border: 1px solid #e2e2ec;
-      border-radius: 8px;
-      outline: none;
-
-      &::placeholder {
-        color: #a0a0b0;
-      }
-
-      &:focus {
-        border-color: #3b82f6;
-      }
-    }
-
-    .search-button {
-      position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .search-icon {
-        width: 16px;
-        height: 16px;
-        color: #2563eb;
-      }
-    }
-  }
-
-  .meta-container {
-    display: flex;
-    align-items: center;
-    margin-left: 8%;
-    gap: 12px;
-    width: 36%;
-    font-size: 11px;
-    color: #4a4a6a;
-
-    .date-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .calendar-icon {
-        width: 16px;
-        height: 16px;
-        color: #71718a;
-      }
-    }
-
-    .divider {
-      width: 1px;
-      height: 16px;
-      background-color: #e2e2ec;
-    }
-
-    .dropdown {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
-
-      &:hover {
-        color: #1e1e2f;
-      }
-
-      .chevron-icon {
-        width: 14px;
-        height: 14px;
-        color: #71718a;
-      }
-    }
-  }
-
-  .profile-container {
-    display: flex;
-    align-items: center;
-    margin-right: -2%;
-    gap: 10px;
-    width: 22%;
-    height: 10vh;
-
-    .notification-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      .notification-popup {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 16px;
-        z-index: 1000;
-        width: 420px;
-        background-color: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        border: 1px solid #f0f0f5;
-
-        .popup-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 20px 24px;
-
-          h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e1e2f;
-            margin: 0;
-          }
-
-          .close-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: #71718a;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-
-            &:hover {
-              color: #1e1e2f;
-            }
-          }
-        }
-
-        .notification-list {
-          display: flex;
-          flex-direction: column;
-          max-height: 380px; 
-          overflow-y: auto;  
-
-          .notification-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            border-top: 1px solid #f0f0f5;
-            text-align: left;
-            transition: background-color 0.2s ease;
-
-            &:hover {
-              background-color: #f9fafb;
-            }
-
-            .notification-content {
-              flex: 1;
-              padding-right: 12px;
-
-              h3 {
-                font-size: 14px;
-                font-weight: 600;
-                color: #1e3a8a;
-                margin: 0 0 4px 0;
-              }
-
-              p {
-                font-size: 13px;
-                color: #374151;
-                margin: 0 0 6px 0;
-                line-height: 1.4;
-                
-                strong {
-                  font-weight: 600;
-                }
-              }
-
-              .time-stamp {
-                font-size: 12px;
-                color: #9ca3af;
-              }
-            }
-
-            .unread-dot {
-              width: 8px;
-              height: 8px;
-              background-color: #0066ff;
-              border-radius: 50%;
-              flex-shrink: 0;
-            }
-          }
-        }
-
-        .popup-footer {
-          border-top: 1px solid #f0f0f5;
-          padding: 14px;
-          text-align: center;
-
-          .mark-all-btn {
-            background: none;
-            border: none;
-            color: #0066ff;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-
-    .notification-button {
-      position: relative;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .bell-icon {
-        width: 22px;
-        height: 22px;
-        color: #1e1e2f;
-        fill: #1e1e2f;
-      }
-
-      .notification-badge {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 8px;
-        height: 8px;
-        background-color: #eab308; 
-        border-radius: 50%;
-        border: 1.5px solid #ffffff;
-      }
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
-
-    .Auser-info {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
-
-      .user-name {
-        font-size: 14px;
-        font-weight: 500;
-        color: #1e1e2f;
-        line-height: 1.2;
-      }
-
-      .user-role {
-        font-size: 12px;
-        color: #71718a;
-        margin-top: 2px;
-      }
-    }
-  }
-}
-
-
-.form-container {
+.Eform-container {
   background-color: #f7f9fc;
   padding: 40px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   min-height: 100vh;
   box-sizing: border-box;
 
-  .form-header {
+  .Eform-header {
     margin-bottom: 24px;
 
-    .header-top {
+    .Eheader-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -318,42 +20,42 @@
         font-weight: 600;
       }
 
-      .breadcrumb {
+      .Ebreadcrumb {
         font-size: 13px;
         color: #a0aec0;
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .Sactive{
+        .ESactive{
             font-size: 17px;
             cursor: pointer;
         }
 
-        .separator {
+        .Eseparator {
           font-size: 11px;
         }
 
-        .active {
+        .Eactive {
             font-size: 17px;
           color: #3182ce;
         }
       }
     }
 
-    .subtitle {
+    .Esubtitle {
       font-size: 13px;
       color: #718096;
       margin: 8px 0 0 0;
     }
   }
 
-  .staff-form {
+  .Estaff-form {
     display: flex;
     flex-direction: column;
     gap: 24px;
 
-    .form-section {
+    .Eform-section {
       background-color: #ffffff;
       border-radius: 8px;
       padding: 24px;
@@ -366,21 +68,21 @@
         font-weight: 600;
       }
 
-      .form-grid {
+      .Eform-grid {
         display: grid;
         gap: 20px;
 
-        &.type-3-col {
+        &.Etype-3-col {
           grid-template-columns: repeat(3, 1fr);
         }
       }
 
-      .form-group {
+      .Eform-group {
         display: flex;
         flex-direction: column;
         gap: 8px;
 
-        &.full-width-field {
+        &.Efull-width-field {
           margin-top: 20px;
         }
 
@@ -389,7 +91,7 @@
           color: #4a5568;
           font-weight: 500;
 
-          .required {
+          .Erequired {
             color: #e53e3e;
             margin-left: 2px;
           }
@@ -423,12 +125,12 @@
           padding-right: 32px;
         }
 
-        .date-input-wrapper {
+        .Edate-input-wrapper {
           position: relative;
           display: flex;
           align-items: center;
 
-          .calendar-icon {
+          .Ecalendar-icon {
             position: absolute;
             right: 12px;
             font-size: 14px;
@@ -437,7 +139,7 @@
           }
         }
 
-        .field-hint {
+        .Efield-hint {
           font-size: 11px;
           color: #a0aec0;
           margin-top: -2px;
@@ -445,7 +147,7 @@
       }
     }
 
-    .submit-btn {
+    .Esubmit-btn {
       background-color: #0066ff;
       color: #ffffff;
       border: none;
@@ -458,62 +160,40 @@
       width: max-content;
     }
   }
-
-  .form-footer {
-    margin-top: 40px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: #a0aec0;
-
-    .support {
-      a {
-        color: #3182ce;
-        text-decoration: none;
-      }
-    }
-  }
 }
 
 @media (max-width: 450px) {
-  .form-container {
+  .Eform-container {
     padding: 16px;
 
-    .form-header {
-      .header-top {
+    .Eform-header {
+      .Eheader-top {
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
 
-        .breadcrumb {
+        .Ebreadcrumb {
           align-self: flex-start;
         }
       }
     }
 
-    .staff-form {
+    .Estaff-form {
       gap: 16px;
 
-      .form-section {
+      .Eform-section {
         padding: 16px;
 
-        .form-grid {
-          &.type-3-col {
+        .Eform-grid {
+          &.Etype-3-col {
             grid-template-columns: 1fr;
           }
         }
       }
 
-      .submit-btn {
+      .Esubmit-btn {
         width: 100%;
       }
-    }
-
-    .form-footer {
-      flex-direction: column;
-      gap: 12px;
-      text-align: center;
     }
   }
 }

@@ -1,302 +1,4 @@
-.AAdminDashboard-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 12vh;
-  padding: 12px 24px;
-  background-color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
-  border-bottom: 1px solid #f0f0f5;
-
-  .search-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 29%;
-
-    .search-input {
-      width: 100%;
-      padding: 10px 40px 10px 16px;
-      font-size: 14px;
-      color: #1e1e2f;
-      background-color: #ffffff;
-      border: 1px solid #e2e2ec;
-      border-radius: 8px;
-      outline: none;
-
-      &::placeholder {
-        color: #a0a0b0;
-      }
-
-      &:focus {
-        border-color: #3b82f6;
-      }
-    }
-
-    .search-button {
-      position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .search-icon {
-        width: 16px;
-        height: 16px;
-        color: #2563eb;
-      }
-    }
-  }
-
-  .meta-container {
-    display: flex;
-    align-items: center;
-    margin-left: 8%;
-    gap: 12px;
-    width: 36%;
-    font-size: 11px;
-    color: #4a4a6a;
-
-    .date-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .calendar-icon {
-        width: 16px;
-        height: 16px;
-        color: #71718a;
-      }
-    }
-
-    .divider {
-      width: 1px;
-      height: 16px;
-      background-color: #e2e2ec;
-    }
-
-    .dropdown {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
-
-      &:hover {
-        color: #1e1e2f;
-      }
-
-      .chevron-icon {
-        width: 14px;
-        height: 14px;
-        color: #71718a;
-      }
-    }
-  }
-
-  .profile-container {
-    display: flex;
-    align-items: center;
-    margin-right: -2%;
-    gap: 10px;
-    width: 22%;
-    height: 10vh;
-
-    .notification-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      .notification-popup {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 16px;
-        z-index: 1000;
-        width: 420px;
-        background-color: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        border: 1px solid #f0f0f5;
-
-        .popup-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 20px 24px;
-
-          h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e1e2f;
-            margin: 0;
-          }
-
-          .close-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: #71718a;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
-
-            &:hover {
-              color: #1e1e2f;
-            }
-          }
-        }
-
-        .notification-list {
-          display: flex;
-          flex-direction: column;
-          max-height: 380px; 
-          overflow-y: auto;  
-
-          .notification-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            border-top: 1px solid #f0f0f5;
-            text-align: left;
-            transition: background-color 0.2s ease;
-
-            &:hover {
-              background-color: #f9fafb;
-            }
-
-            .notification-content {
-              flex: 1;
-              padding-right: 12px;
-
-              h3 {
-                font-size: 14px;
-                font-weight: 600;
-                color: #1e3a8a;
-                margin: 0 0 4px 0;
-              }
-
-              p {
-                font-size: 13px;
-                color: #374151;
-                margin: 0 0 6px 0;
-                line-height: 1.4;
-                
-                strong {
-                  font-weight: 600;
-                }
-              }
-
-              .time-stamp {
-                font-size: 12px;
-                color: #9ca3af;
-              }
-            }
-
-            .unread-dot {
-              width: 8px;
-              height: 8px;
-              background-color: #0066ff;
-              border-radius: 50%;
-              flex-shrink: 0;
-            }
-          }
-        }
-
-        .popup-footer {
-          border-top: 1px solid #f0f0f5;
-          padding: 14px;
-          text-align: center;
-
-          .mark-all-btn {
-            background: none;
-            border: none;
-            color: #0066ff;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
-
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
-
-    .notification-button {
-      position: relative;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .bell-icon {
-        width: 22px;
-        height: 22px;
-        color: #1e1e2f;
-        fill: #1e1e2f;
-      }
-
-      .notification-badge {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 8px;
-        height: 8px;
-        background-color: #eab308; 
-        border-radius: 50%;
-        border: 1.5px solid #ffffff;
-      }
-    }
-
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-
-      .avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
-
-    .Auser-info {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
-
-      .user-name {
-        font-size: 14px;
-        font-weight: 500;
-        color: #1e1e2f;
-        line-height: 1.2;
-      }
-
-      .user-role {
-        font-size: 12px;
-        color: #71718a;
-        margin-top: 2px;
-      }
-    }
-  }
-}
-
-
-.Adashboard-container {
+.CAdashboard-container {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   width: 100%;
   min-height: 40vh;
@@ -305,10 +7,10 @@
   padding-top: 20px;
   margin-bottom: 15px;
 
-  .dashboard-header {
+  .Cdashboard-header {
     margin-bottom: 32px;
 
-    .welcome-text {
+    .Cwelcome-text {
       font-size: 32px;
       font-weight: 700;
       color: #03173C;
@@ -317,19 +19,19 @@
       align-items: center;
       gap: 10px;
 
-      .wave-emoji {
+      .Cwave-emoji {
         display: inline-block;
       }
     }
 
-    .subtitle-text {
+    .Csubtitle-text {
       font-size: 17.4px;
       color: #042869;
       margin: 0;
     }
   }
 
-  .metrics-grid {
+  .Cmetrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
@@ -344,7 +46,7 @@
       grid-template-columns: 1fr;
     }
 
-    .metric-card {
+    .Cmetric-card {
       background: #ffffff;
       border-radius: 12px;
       padding: 15px;
@@ -354,38 +56,38 @@
       height: 110px;
       flex-direction: column;
       justify-content: space-between;
-      border-left: 5px solid transparent;
+      border-left: 2px solid transparent;
 
-      &.card-students { border-left-color: #3b82f6; }
-      &.card-staff { border-left-color: #a855f7; }
-      &.card-attendance { border-left-color: #f59e0b; }
-      &.card-fees { border-left-color: #10b981; }
+      &.Ccard-students { border-left-color: #3b82f6; }
+      &.Ccard-staff { border-left-color: #a855f7; }
+      &.Ccard-attendance { border-left-color: #f59e0b; }
+      &.Ccard-fees { border-left-color: #10b981; }
 
-      .card-content {
+      .Ccard-content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         width: 100%;
 
-        .text-section {
+        .Ctext-section {
           display: flex;
           flex-direction: column;
           gap: 8px;
 
-          .card-label {
+          .Ccard-label {
             font-size: 15px;
             color: #03173C;
             font-weight: 500;
           }
 
-          .card-value {
+          .Ccard-value {
             font-size: 25px;
             font-weight: 700;
             color: #03173C;
           }
         }
 
-        .icon-wrapper {
+        .Cicon-wrapper {
           width: 65px;
           height: 65px;
           border-radius: 16px;
@@ -393,42 +95,41 @@
           align-items: center;
           justify-content: center;
 
-          .DashIcon{
+          .CDashIcon{
             width: 70%;
             height: 70%;
           }
 
-          &.icon-students {
+          &.Cicon-students {
             background-color: #eff6ff;
             color: #2563eb;
           }
-          &.icon-staff {
+          &.Cicon-staff {
             background-color: #f3e8ff;
             color: #9333ea;
           }
-          &.icon-attendance {
+          &.Cicon-attendance {
             background-color: #fef3c7;
             color: #d97706;
           }
-          &.icon-fees {
+          &.Cicon-fees {
             background-color: #ecfdf5;
             color: #059669;
           }
         }
       }
 
-      .card-footer {
+      .Ccard-footer {
         font-size: 14px;
         font-weight: 500;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         gap: 4px;
-        margin-top: -20px;
         height: 20px;
         color: #10b981; 
 
-        .arrow {
+        .Carrow {
           width: 7%;
           font-weight: bold;
         }
@@ -437,26 +138,24 @@
   }
 }
 
-.AdminCardHolder {
+.CAdminCardHolder {
   width: 100%;
   display: flex;
   padding-left: 3%;
 
-  .attendance-card {
+  .Cattendance-card {
     background-color: #ffffff;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    
     width: 100%;
-    max-width: 560px; 
-    height: 300px;
-    
+    max-width: 570px; 
+    height: 310px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 
-    .card-header {
+  	.Ccard-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -465,32 +164,28 @@
 
       h2 {
         color: #1e293b;
-        font-size: 18px; 
+        font-size: 21px; 
         font-weight: 600;
         margin: 0;
       }
 
-      .view-all-link {
+      .Cview-all-link {
         color: #2563eb;
         display: flex;
         align-items: center;
-        font-size: 13px;
+        font-size: 15px;
         font-weight: 500;
         text-decoration: none;
-        gap: 4px;
+        gap: 5px;
 
-        &:hover {
-          text-decoration: underline;
-        }
-
-        .link-icon {
+        .Clink-icon {
           width: 16px;
           height: 16px;
         }
       }
     }
 
-    .attendance-table {
+    .Cattendance-table {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
@@ -507,7 +202,7 @@
 
         th {
           color: #03173C;
-          font-size: 13px;
+          font-size: 15px;
           font-weight: 600;
           padding: 8px 16px; 
 
@@ -533,39 +228,42 @@
           &:first-child { padding-left: 20px; }
         }
 
-        .staff-name {
+        .Cstaff-name {
+          font-size: 15px;
           font-weight: 500;
-          color: #03173C;
+          color: #042869;
         }
 
-        .staff-role {
-          color: #4a4a6a;
+        .Cstaff-role {
+          font-size: 15px;
+          color: #042869;
         }
 
-        .staff-time {
-          color: #71718a;
+        .Cstaff-time {
+          font-size: 15px;
+          color: #042869;
         }
 
-        .status-badge {
+        .Cstatus-badge {
           display: inline-block;
           padding: 2px 10px;
           border-radius: 20px;
-          font-size: 11.5px;
+          font-size: 12.5px;
           font-weight: 500;
           text-align: center;
         }
 
-        .status-checked-in {
+        .Cstatus-checked-in {
           background-color: #e6f7ed;
           color: #1ea955;
         }
 
-        .status-checked-out {
+        .Cstatus-checked-out {
           background-color: #fff1e6;
           color: #f97316;
         }
 
-        .status-absent {
+        .Cstatus-absent {
           background-color: #ffebe6;
           color: #ff5252;
         }
@@ -573,34 +271,37 @@
     }
   }
 
-  .quick-actions-container {
+  .Cquick-actions-container {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     background: #ffffff;
     padding: 24px;
-    border-radius: 16px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 10px;
     border: 1px solid #f0f2f5;
-    width: 430px;
+    width: 435px;
     height: 300px;
     margin-left: 2%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
 
-    .title {
+    .Ctitle {
       color: #0c1a30;
       font-size: 20px;
       font-weight: 600;
       margin: 0 0 16px 0;
     }
 
-    .grid-layout {
+    .Cgrid-layout {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
       flex-grow: 1;
+      width: 100%;
     }
 
-    .card {
+    .Ccard {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -610,20 +311,20 @@
       box-sizing: border-box;
       cursor: pointer;
 
-      .card-content {
+      .Ccard-content {
         display: flex;
         flex-direction: column;
         gap: 6px;
       }
 
-      .icon-wrapper {
+      .Cicon-wrapper {
         width: 22px;
         height: 22px;
         display: flex;
         align-items: center;
       }
 
-      .text-wrapper {
+      .Ctext-wrapper {
         h3 {
           margin: 0 0 2px 0;
           font-size: 14px;
@@ -638,7 +339,7 @@
         }
       }
 
-      .arrow-button {
+      .Carrow-button {
         background: #ffffff;
         border: none;
         border-radius: 50%;
@@ -660,54 +361,54 @@
         }
       }
 
-      &.qr {
+      &.Cqr {
         background-color: #eef4ff;
-        .icon-wrapper { color: #1e56a0; }
-        .text-wrapper h3 { color: #0f2c59; }
-        .text-wrapper p { color: #5a7397; }
-        .arrow-button { 
+        .Cicon-wrapper { color: #1e56a0; }
+        .Ctext-wrapper h3 { color: #0f2c59; }
+        .Ctext-wrapper p { color: #5a7397; }
+        .Carrow-button { 
           color: #1e56a0;
           border: 1px solid #d0e1fd;
         }
       }
 
-      &.students {
+      &.Cstudents {
         background-color: #f7effc;
-        .icon-wrapper { color: #8e44ad; }
-        .text-wrapper h3 { color: #4a154b; }
-        .text-wrapper p { color: #826383; }
-        .arrow-button { 
+        .Cicon-wrapper { color: #8e44ad; }
+        .Ctext-wrapper h3 { color: #4a154b; }
+        .Ctext-wrapper p { color: #826383; }
+        .Carrow-button { 
           color: #8e44ad;
           border: 1px solid #ebd4f9;
         }
       }
 
-      &.announcement {
+      &.Cannouncement {
         background-color: #fff9e6;
-        .icon-wrapper { color: #d4a373; }
-        .text-wrapper h3 { color: #5c3d2e; }
-        .text-wrapper p { color: #8c786e; }
-        .arrow-button { 
+        .Cicon-wrapper { color: #d4a373; }
+        .Ctext-wrapper h3 { color: #5c3d2e; }
+        .Ctext-wrapper p { color: #8c786e; }
+        .Carrow-button { 
           color: #d4a373;
           border: 1px solid #ffe9ad;
         }
       }
 
-      &.reports {
+      &.Creports {
         background-color: #edf9f2;
-        .icon-wrapper { color: #27ae60; }
-        .text-wrapper h3 { color: #145a32; }
-        .text-wrapper p { color: #618264; }
-        .arrow-button { 
+        .Cicon-wrapper { color: #27ae60; }
+        .Ctext-wrapper h3 { color: #145a32; }
+        .Ctext-wrapper p { color: #618264; }
+        .Carrow-button { 
           color: #27ae60;
           border: 1px solid #c8eed7;
         }
       }
     }
   }
+}
 
-
-.modal-overlay {
+.Cmodal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -722,7 +423,7 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.modal-container {
+.Cmodal-container {
   background-color: #ffffff;
   width: 90%;
   max-width: 440px;
@@ -733,7 +434,7 @@
   text-align: center;
   box-sizing: border-box;
 
-  .close-btn {
+  .Cclose-btn {
     position: absolute;
     top: 24px;
     right: 24px;
@@ -746,19 +447,19 @@
     line-height: 1;
   }
 
-  .qr-code-wrapper {
+  .Cqr-code-wrapper {
     margin: 12px auto 24px auto;
     display: flex;
     justify-content: center;
     
-    .qr-image {
+    .Cqr-image {
       width: 180px;
       height: 180px;
       object-fit: contain;
     }
   }
 
-  .modal-text {
+  .Cmodal-text {
     font-size: 15px;
     color: #334155;
     line-height: 1.5;
@@ -766,12 +467,12 @@
     padding: 0 16px;
   }
 
-  .modal-actions {
+  .Cmodal-actions {
     display: flex;
     gap: 16px;
     justify-content: center;
 
-    .btn {
+    .Cbtn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -790,7 +491,7 @@
         flex-shrink: 0;
       }
 
-      &.btn-download {
+      &.Cbtn-download {
         width: 40%;
         height: 60px;
         display: flex;
@@ -804,7 +505,7 @@
         }
       }
 
-      &.btn-print {
+      &.Cbtn-print {
         width: 40%;
         height: 60px;
         display: flex;
@@ -821,37 +522,40 @@
   }
 }
 
-}
-
-.AdminAnnouncementHolder {
+.CAdminAnnouncementHolder {
   width: 100%;
   height: 80vh;
   display: flex;
   padding-left: 3%;
   padding-top: 20px;
 
-  .announcements-card {
+  .Cannouncements-card {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #ffffff;
     border: 1px solid #eef2f6;
-    border-radius: 16px;
-    padding: 24px;
-    max-width: 460px;
+    border-radius: 10px;
+    padding: 15px;
+    width: 455px;
     height: 330px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
 
-    .card-title {
+    .Ccard-title {
       color: #0c1a30;
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 600;
-      margin-top: -20px;
       flex-shrink: 0;
+      width: 100%;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: solid;
+      border-width: 1px;
+      border-color: lightgray;
     }
 
-    .announcements-list {
+    .Cannouncements-list {
       display: flex;
       flex-direction: column;
       gap: 18px;
@@ -859,7 +563,7 @@
       padding-right: 4px;
     }
 
-    .announcement-item {
+    .Cannouncement-item {
       position: relative;
       padding-left: 16px;
       flex-shrink: 0;
@@ -872,19 +576,19 @@
         left: 0;
         top: 0;
         bottom: 0;
-        width: 4px; 
-        background-color: #0066cc;
-        border-radius: 2px;
+        width: 3px; 
+        background-color: #0062F6;
+        border-radius: 100px;
       }
 
-      .item-title {
+      .Citem-title {
         color: #333333;
         font-size: 15px;
         font-weight: 500;
         margin: 0 0 5px 0;
       }
 
-      .item-date {
+      .Citem-date {
         display: flex;
         align-items: center;
         gap: 6px;
@@ -892,14 +596,14 @@
         font-size: 12px;
         margin-bottom: 6px;
 
-        .calendar-icon {
+        .Ccalendar-icon {
           width: 13px;
           height: 13px;
         }
       }
 
-      .item-description {
-        color: #0c1a30;
+      .Citem-description {
+        color: #042869;
         font-size: 13px;
         line-height: 1.4;
         margin: 0;
@@ -907,189 +611,156 @@
     }
   }
 
-
-.fee-summary-container {
-  background-color: #ffffff;
-  border: 1px solid #eaeaea;
-  border-radius: 12px;
-  padding: 24px 32px;
-  margin-left: 2%;
-  width: 565px;
-  height: 330px;
-  box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-  display: flex;
-  flex-direction: column;
-
-  .fee-summary-title {
-    color: #0c1a30;
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 24px 0;
-  }
-
-  .fee-summary-content {
+  .Cfee-summary-container {
+    background-color: #ffffff;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    padding: 15px;
+    margin-left: 2%;
+    width: 550px;
+    height: 330px;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 48px;
-    flex-grow: 1;
-  }
+    flex-direction: column;
 
-  .chart-wrapper {
-    position: relative;
-    width: 160px;
-    height: 160px;
-    flex-shrink: 0;
-
-    .donut-chart {
-      width: 100%;
-      height: 100%;
+    .Cfee-summary-title {
+      color: #0c1a30;
+      font-size: 21px;
+      font-weight: 600;
+      margin: 0 0 24px 0;
+      padding-bottom: 15px;
+      margin-bottom: 15px;
+      border-bottom: solid;
+      border-width: 1px;
+      border-color: lightgray;
     }
 
-    .chart-track {
-      fill: transparent;
-      stroke: #fdf5ec;
-    }
-
-    .chart-progress {
-      fill: transparent;
-      stroke: #f99f06;
-    }
-
-    .chart-labels {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
+    .Cfee-summary-content {
       display: flex;
-      flex-direction: column;
-
-      .percentage-text {
-        font-size: 26px;
-        font-weight: 700;
-        color: #0c1a30;
-        line-height: 1.1;
-      }
-
-      .sub-text {
-        font-size: 13px;
-        color: #4a5568;
-        margin-top: 2px;
-      }
-    }
-  }
-
-  .breakdown-wrapper {
-    flex-grow: 1;
-
-    .breakdown-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .breakdown-item {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 14px;
+      justify-content: space-between;
+      gap: 48px;
+      flex-grow: 1;
+    }
 
-      .label-group {
+    .Cchart-wrapper {
+      position: relative;
+      width: 230px;
+      height: 230px;
+      flex-shrink: 0;
+
+      .Cdonut-chart {
+        width: 100%;
+        height: 100%;
+      }
+
+      .Cchart-track {
+        fill: transparent;
+        stroke: #fdf5ec;
+        stroke-width: 20px;
+      }
+
+      .Cchart-progress {
+        fill: transparent;
+        stroke: #f99f06;
+        stroke-width: 20px;
+      }
+
+      .Cchart-labels {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
         display: flex;
+        flex-direction: column;
+
+        .Cpercentage-text {
+          font-size: 30px;
+          font-weight: 700;
+          color: #03173C;
+          line-height: 1.1;
+        }
+
+        .Csub-text {
+          font-size: 20px;
+          color: #03173C;
+          margin-top: 2px;
+        }
+      }
+    }
+
+    .Cbreakdown-wrapper {
+      flex-grow: 1;
+      padding-left: 20px;
+
+      
+      .Cbreakdown-list {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .Cbreakdown-item {
+        display: flex;
+        justify-content: space-between;
         align-items: center;
-        gap: 12px;
-      }
+        font-size: 14px;
 
-      .color-indicator {
-        width: 12px;
-        height: 12px;
-        border-radius: 2px;
-        
-        &.collected-indicator {
-          background-color: #f99f06;
+        .Clabel-group {
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
-        
-        &.outstanding-indicator {
-          background-color: #fdf5ec;
+
+        .Ccolor-indicator {
+          width: 12px;
+          height: 12px;
+          border-radius: 2px;
+          
+          &.Ccollected-indicator {
+            background-color: #f99f06;
+          }
+          
+          &.Coutstanding-indicator {
+            background-color: #fdf5ec;
+          }
+        }
+
+        .Citem-label {
+          color: #042869;
+          font-size: 15px;
+        }
+
+        .Citem-value {
+          color: #042869;
+          font-weight: 500;
+          font-size: 15px;
         }
       }
 
-      .item-label {
-        color: #4a5568;
+      .Cdivider {
+        height: 1px;
+        background-color: #e2e8f0;
+        margin: 20px 0;
+      }
+
+      .Ctotal-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-size: 15px;
-      }
 
-      .item-value {
-        color: #0c1a30;
-        font-weight: 500;
-        font-size: 15px;
-      }
-    }
+        .Ctotal-label {
+          color: #042869;
+        }
 
-    .divider {
-      height: 1px;
-      background-color: #e2e8f0;
-      margin: 20px 0;
-    }
-
-    .total-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 15px;
-
-      .total-label {
-        color: #4a5568;
-      }
-
-      .total-value {
-        color: #0c1a30;
-        font-weight: 600;
-        font-size: 16px;
-      }
-    }
-  }
-}
-}
-
-.footer-container {
-  width: 100%;
-  height: 70px;
-  background-color: #ffffff;
-  padding: 25px 40px;
-  box-sizing: border-box;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 30px;
-  margin-top: -150px;
-
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    font-family: system-ui, -apple-system, sans-serif;
-    font-size: 14px;
-
-    .copyright {
-      color: #a0a0a0;
-      margin: 0;
-    }
-
-    .support {
-      color: #a0a0a0;
-      margin: 0;
-
-      .support-link {
-        color: #1a73e8;
-        text-decoration: none;
-
-        &:hover {
-          text-decoration: underline;
+        .Ctotal-value {
+          color: #042869;
+          font-weight: 600;
+          font-size: 16px;
         }
       }
     }

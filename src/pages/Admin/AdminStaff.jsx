@@ -1,257 +1,120 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminStaff.css'
-import Ifeanacho from '../../assets/Ifeanacho.jpg'
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { MdOutlineEdit } from "react-icons/md";
+import { RiDeleteBinLine } from "react-icons/ri";
 
-const AdminStaff = () => {
-  const [isOpen, setIsOpen] = useState(false);
-    const popupRef = useRef(null);
-    const toggleNotifications = (e) => {
-      e.stopPropagation();
-      setIsOpen(!isOpen);
-    };
-    useEffect(() => {
-      const handleClickOutside = (event) => {
-        if (popupRef.current && !popupRef.current.contains(event.target)) {
-          setIsOpen(false);
-        }
-      };
-  
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
-    }, []);
-  
+const AdminStaff = () => {  
     const nav = useNavigate();
 
   const staffData = [
-    { name: 'Adaeze Clinton', role: 'Teacher', class: 'SS 1A', subject: 'Mathematics', phone: '08032456789' },
-    { name: 'Emeka Ugonna', role: 'Teacher', class: 'JSS 2C', subject: 'English Language', phone: '08061234567' },
-    { name: 'Tolu Adesunya', role: 'Bursar', class: '--', subject: '--', phone: '08029876543' },
-    { name: 'Chidi Okoronkwo', role: 'Security', class: '--', subject: '--', phone: '08098765432' },
-    { name: 'Grace Obidi', role: 'Cleaner', class: '--', subject: '--', phone: '08101122233' },
-    { name: 'Ifeanyi Okafor', role: 'Teacher', class: 'SS 2A', subject: 'Physics', phone: '08055567788' },
-    { name: 'Ngozi Bassey', role: 'Teacher', class: 'JSS 1B', subject: 'Basic Science', phone: '08073345566' }
+    { id:1, name: 'Adaeze Clinton', role: 'Teacher', class: 'SS 1A', subject: 'Mathematics', phone: '08032456789' },
+    { id:2, name: 'Emeka Ugonna', role: 'Teacher', class: 'JSS 2C', subject: 'English Language', phone: '08061234567' },
+    { id:3, name: 'Tolu Adesunya', role: 'Bursar', class: '--', subject: '--', phone: '08029876543' },
+    { id:4, name: 'Chidi Okoronkwo', role: 'Security', class: '--', subject: '--', phone: '08098765432' },
+    { id:5, name: 'Grace Obidi', role: 'Cleaner', class: '--', subject: '--', phone: '08101122233' },
+    { id:6, name: 'Ifeanyi Okafor', role: 'Teacher', class: 'SS 2A', subject: 'Physics', phone: '08055567788' },
+    { id:7, name: 'Ngozi Bassey', role: 'Teacher', class: 'JSS 1B', subject: 'Basic Science', phone: '08073345566' }
   ];
 
   return (
     <>
-    <header className="BAdminDashboard-header">
-          <div className="search-container">
-            <input 
-              type="text" 
-              placeholder="Search staff by name, role..." 
-              className="search-input"
-            />
-            <button className="search-button" aria-label="Search">
-              <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-            </button>
-          </div>
-    
-          <div className="meta-container">
-            <div className="date-display">
-              <svg className="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span>Monday, 18 May 2026</span>
-            </div>
-    
-            <div className="divider"></div>
-    
-            <div className="dropdown">
-              <span>2025/2026 Session</span>
-              <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-    
-            <div className="divider"></div>
-    
-            <div className="dropdown">
-              <span>Third Term</span>
-              <svg className="chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </div>
-          </div>
-    
-          <div className="profile-container">
-            <div className="notification-wrapper" ref={popupRef}>
-              <button 
-                className="notification-button" 
-                aria-label="Notifications"
-                onClick={toggleNotifications}
-              >
-                <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
-                <span className="notification-badge"></span>
-              </button>
-    
-              {isOpen && (
-                <div className="notification-popup">
-                  <div className="popup-header">
-                    <h2>Notifications</h2>
-                    <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close">&times;</button>
-                  </div>
-    
-                  <div className="notification-list">
-                    <div className="notification-item unread">
-                      <div className="notification-content">
-                        <h3>Payment Received</h3>
-                        <p><strong>₦85,000</strong> payment made by Daniels Ogeremu’s parent.</p>
-                        <span class="time-stamp">2 min ago</span>
-                      </div>
-                      <span className="unread-dot"></span>
-                    </div>
-    
-                    <div className="notification-item unread">
-                      <div className="notification-content">
-                        <h3>Withdrawal Approved</h3>
-                        <p>Withdrawal of <strong>₦500,000</strong> completed</p>
-                        <span class="time-stamp">5 min ago</span>
-                      </div>
-                      <span className="unread-dot"></span>
-                    </div>
-    
-                    <div className="notification-item">
-                      <div className="notification-content">
-                        <h3>Withdrawal Rejected</h3>
-                        <p>Withdrawal of <strong>₦250,000</strong> rejected</p>
-                        <span class="time-stamp">Yesterday</span>
-                      </div>
-                    </div>
-    
-                    <div className="notification-item">
-                      <div className="notification-content">
-                        <h3>Payment Received</h3>
-                        <p><strong>₦150,000</strong> payment made by Ebube Udoka’s parent</p>
-                        <span class="time-stamp">Yesterday</span>
-                      </div>
-                    </div>
-                  </div>
-    
-                  <div className="popup-footer">
-                    <button className="mark-all-btn">Mark all as read</button>
-                  </div>
-                </div>
-              )}
-            </div>
-    
-            <div className="user-profile">
-              <img 
-                src={Ifeanacho} 
-                alt="Ifeanacho" 
-                className="avatar"
-              />
-            </div>
-            <div className="Auser-info">
-              <span className="user-name">Ifeanacho Francis</span>
-              <span className="user-role">Admin</span>
-            </div>
-          </div>
-        </header> 
-    
-<div className="Bdashboard-container">
-      <header className="dashboard-header">
-        <h1 className="welcome-text">
-          Staff Management <button className='AddStaff' onClick={() => nav ('AdminStaff2')}>+ Add Staff</button>
+<div className="Ddashboard-container">
+      <header className="Ddashboard-header">
+        <h1 className="Dwelcome-text">
+          Staff Management <button className='DAddStaff' onClick={() => nav ('AdminStaff2')}>+ Add Staff</button>
         </h1>
-        <p className="subtitle-text">
+        <p className="Dsubtitle-text">
           Manage Teaching and non-teaching staff records. Add, edit and assign staff to classes or subjects.
         </p>
       </header>
 
-      <div className="metrics-grid">
-        <div className="metric-card card-students">
-          <div className="card-content">
-            <div className="text-section">
-              <span className="card-label">Total Staff</span>
-              <span className="card-value">38</span>
+      <div className="Dmetrics-grid">
+        <div className="Dmetric-card Dcard-students">
+          <div className="Dcard-content">
+            <div className="Dtext-section">
+              <span className="Dcard-label">Total Staff</span>
+              <span className="Dcard-value">38</span>
             </div>
-            <div className="icon-wrapper icon-students">
-              <PiStudentFill className='DashIcon'/>
-            </div>
-          </div>
-          <div className="card-footer trend-up">
-          </div>
-        </div>
-
-        <div className="metric-card card-staff">
-          <div className="card-content">
-            <div className="text-section">
-              <span className="card-label">Teaching Staff</span>
-              <span className="card-value">28</span>
-            </div>
-            <div className="icon-wrapper icon-staff">
-              <HiMiniUserGroup className='DashIcon'/>
+            <div className="Dicon-wrapper Dicon-students">
+              <PiStudentFill className='DDashIcon'/>
             </div>
           </div>
-          <div className="card-footer trend-up">
+          <div className="Dcard-footer Dtrend-up">
           </div>
         </div>
 
-        <div className="metric-card card-attendance">
-          <div className="card-content">
-            <div className="text-section">
-              <span className="card-label">Non-Teaching Staff</span>
-              <span className="card-value">10</span>
+        <div className="Dmetric-card Dcard-staff">
+          <div className="Dcard-content">
+            <div className="Dtext-section">
+              <span className="Dcard-label">Teaching Staff</span>
+              <span className="Dcard-value">28</span>
             </div>
-            <div className="icon-wrapper icon-attendance">
-              <PiCalendarBlankFill className='DashIcon'/>
+            <div className="Dicon-wrapper Dicon-staff">
+              <HiMiniUserGroup className='DDashIcon'/>
             </div>
           </div>
-          <div className="card-footer trend-up">
+          <div className="Dcard-footer Dtrend-up">
           </div>
         </div>
 
-        <div className="metric-card card-fees">
-          <div className="card-content">
-            <div className="text-section">
-              <span className="card-label">Class Teachers</span>
-              <span className="card-value">32</span>
+        <div className="Dmetric-card Dcard-attendance">
+          <div className="Dcard-content">
+            <div className="Dtext-section">
+              <span className="Dcard-label">Non-Teaching Staff</span>
+              <span className="Dcard-value">10</span>
             </div>
-            <div className="icon-wrapper icon-fees">
-              <FaSackDollar className='DashIcon'/>
+            <div className="Dicon-wrapper Dicon-attendance">
+              <PiCalendarBlankFill className='DDashIcon'/>
             </div>
           </div>
-          <div className="card-footer trend-pct">
+          <div className="Dcard-footer Dtrend-up">
+          </div>
+        </div>
+
+        <div className="Dmetric-card Dcard-fees">
+          <div className="Dcard-content">
+            <div className="Dtext-section">
+              <span className="Dcard-label">Class Teachers</span>
+              <span className="Dcard-value">32</span>
+            </div>
+            <div className="Dicon-wrapper Dicon-fees">
+              <FaSackDollar className='DDashIcon'/>
+            </div>
+          </div>
+          <div className="Dcard-footer Dtrend-pct">
           </div>
         </div>
       </div>
     </div>
 
-    <div className="tableContainer">
-      <div className="filterSection">
-        <div className="filterGroup">
-          <label className="filterLabel">Staff Type</label>
-          <div className="selectWrapper">
-            <select className="selectInput" defaultValue="all">
+    <div className="DtableContainer">
+      <div className="DfilterSection">
+        <div className="DfilterGroup">
+          <label className="DfilterLabel">Staff Type</label>
+          <div className="DselectWrapper">
+            <select className="DselectInput" defaultValue="all">
               <option value="all">All Types</option>
+              <option value="all">Teaching Staff</option>
+              <option value="all">Non-Teaching Staff</option>
             </select>
           </div>
         </div>
-        <button className="resetBtn">
-          <svg className="resetIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <button className="DresetBtn">
+          <svg className="DresetIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
           </svg>
           Reset
         </button>
       </div>
 
-      <div className="tableWrapper">
-        <table className="staffTable">
+      <div className="DtableWrapper">
+        <table className="DstaffTable">
           <thead>
             <tr>
               <th>Staff Name</th>
@@ -264,25 +127,16 @@ const AdminStaff = () => {
           </thead>
           <tbody>
             {staffData.map((staff, index) => (
-              <tr key={index}>
-                <td className="staffName">{staff.name}</td>
-                <td className="roleText">{staff.role}</td>
-                <td className="classText">{staff.class}</td>
-                <td className="subjectText">{staff.subject}</td>
+              <tr key={index} >
+                <td className="DstaffName" onClick={() => nav (`AdminStaffDetails/${staff.id}`)}>{staff.name}</td>
+                <td className="DroleText">{staff.role}</td>
+                <td className="DclassText">{staff.class}</td>
+                <td className="DsubjectText">{staff.subject}</td>
                 <td>{staff.phone}</td>
                 <td>
-                  <div className="actionButtons">
-                    <button className="editBtn">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-                      </svg>
-                    </button>
-                    <button className="deleteBtn">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="3 6 5 6 21 6"/>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
-                      </svg>
-                    </button>
+                  <div className="DactionButtons">
+                      <MdOutlineEdit className="DeditBtn"/>
+                      <RiDeleteBinLine className="DdeleteBtn"/>
                   </div>
                 </td>
               </tr>
@@ -290,37 +144,32 @@ const AdminStaff = () => {
           </tbody>
         </table>
 
-        <div className="paginationRow">
-          <div className="paginationInfo">
+        <div className="DpaginationRow">
+          <div className="DpaginationInfo">
             Showing pages of 1 to 7
           </div>
           
-          <div className="paginationControls">
-            <button className="arrowBtn" disabled>&lt;</button>
-            <button className="pageBtn activePage">1</button>
-            <button className="pageBtn">2</button>
-            <button className="pageBtn">3</button>
-            <span className="ellipsis">...</span>
-            <button className="pageBtn">6</button>
-            <button className="pageBtn">7</button>
-            <button className="arrowBtn">&gt;</button>
+          <div className="DpaginationControls">
+            <button className="DarrowBtn" disabled>&lt;</button>
+            <button className="DpageBtn DactivePage">1</button>
+            <button className="DpageBtn">2</button>
+            <button className="DpageBtn">3</button>
+            <span className="Dellipsis">...</span>
+            <button className="DpageBtn">6</button>
+            <button className="DpageBtn">7</button>
+            <button className="DarrowBtn">&gt;</button>
           </div>
 
-          <div className="rowsPerPageGroup">
-            <span className="rowsLabel">Rows per page</span>
-            <div className="rowsSelectWrapper">
-              <select className="rowsSelect" defaultValue="10">
+          <div className="DrowsPerPageGroup">
+            <span className="DrowsLabel">Rows per page</span>
+            <div className="DrowsSelectWrapper">
+              <select className="DrowsSelect" defaultValue="10">
                 <option value="10">10</option>
               </select>
             </div>
           </div>
         </div>
       </div>
-      
-      <footer className="footerRow">
-        <span className="copyrightText">© 2026 Ucheva school operating management system . All right reserved.</span>
-        <span className="supportText">Need help? <a href="#support" className="supportLink">Contact support</a></span>
-      </footer>
     </div>
     </>
   )

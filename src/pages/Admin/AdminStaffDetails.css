@@ -1,0 +1,173 @@
+.Fcontainer {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  padding: 40px;
+  min-height: 100vh;
+
+  .Fheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .Ftitle {
+      font-size: 24px;
+      color: #0f172a;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .Fbreadcrumb {
+      font-size: 14px;
+      color: #94a3b8;
+
+      .Fseparator {
+        margin: 0 8px;
+      }
+
+      .Factive {
+        color: #334155;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .Fmain-content {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    .Fprofile-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+
+      .Fprofile-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .Fprofile-info {
+        flex: 1;
+
+        .Fprofile-name {
+          font-size: 18px;
+          color: #1e3a8a;
+          font-weight: 600;
+          margin: 0 0 12px 0;
+        }
+
+        .Fprofile-meta {
+          display: flex;
+          gap: 48px;
+
+          .Flabel {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 4px;
+          }
+
+          .Fvalue {
+            display: block;
+            font-size: 14px;
+            color: #334155;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .Finfo-section {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+
+      .Fsection-title {
+        font-size: 16px;
+        color: #1e293b;
+        font-weight: 600;
+        background-color: #f8fafc;
+        padding: 16px 24px;
+        margin: 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .Fgrid-layout {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 48px;
+        padding: 24px;
+
+        .Finfo-group {
+          display: flex;
+          align-items: flex-start;
+
+          .Finfo-label {
+            width: 160px;
+            font-size: 14px;
+            color: #1e3a8a;
+            font-weight: 500;
+            flex-shrink: 0;
+          }
+
+          .Finfo-value {
+            font-size: 14px;
+            color: #334155;
+          }
+        }
+      }
+    }
+
+    .Femail-link {
+      color: #2563eb !important;
+    }
+
+    .Faction-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+
+      button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .Fbtn-edit {
+        background-color: #2563eb;
+        color: #ffffff;
+        border: none;
+
+        &:hover {
+          background-color: #1d4ed8;
+        }
+      }
+
+      .Fbtn-delete {
+        background-color: #ffffff;
+        color: #ef4444;
+        border: 1px solid #fca5a5;
+
+        &:hover {
+          background-color: #fef2f2;
+        }
+      }
+    }
+  }
+}

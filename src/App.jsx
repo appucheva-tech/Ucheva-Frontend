@@ -59,6 +59,7 @@ import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
+import AdminStaffDetails from './pages/Admin/AdminStaffDetails';
 import NotSure from "./pages/NotSure";
 
 function ScrollToTop() {
@@ -95,8 +96,11 @@ const App = () => {
 
         <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
           <Route index element={<AdminDashboard />} />
-          <Route path="AdminStaff" element={<AdminStaff />} />
-          <Route path="AdminStaff/:id" element={<AdminStaff2 />} />
+          <Route path="AdminStaff">
+            <Route index element={<AdminStaff />} />
+            <Route path="AdminStaffDetails/:id" element={<AdminStaffDetails />} />
+            <Route path="AdminStaff2" element={<AdminStaff2 />} />
+          </Route>
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
