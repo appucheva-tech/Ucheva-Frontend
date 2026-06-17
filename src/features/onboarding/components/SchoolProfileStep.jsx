@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../styles/schoolprofile.css";
+import { apiClient } from "../../../config/AxiosInstance";
 
 const SchoolProfileStep = ({
   formData,
@@ -19,6 +20,7 @@ const SchoolProfileStep = ({
   ];
 
   useEffect(() => {
+    
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);

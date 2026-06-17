@@ -7,6 +7,7 @@ import FeeStructureStep from "../components/FeeStructureStep";
 import OnboardingSuccess from "../components/OnboardingSuccess";
 import "../styles/onboarding.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import axios from "axios";
 
 const OnboardingStepper = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -93,6 +94,7 @@ const OnboardingStepper = () => {
       setCurrentStep((prev) => prev + 1);
     } else {
       setIsSubmitting(true);
+
       try {
         const payload = new FormData();
         if (logoFile) payload.append("image", logoFile);
