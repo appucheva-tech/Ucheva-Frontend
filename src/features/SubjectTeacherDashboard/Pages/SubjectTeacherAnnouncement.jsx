@@ -7,6 +7,8 @@ const SubjectTeacherAnnouncement = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     fetchAnnouncements();
@@ -16,7 +18,7 @@ const SubjectTeacherAnnouncement = () => {
     setLoading(true);
 
     try {
-      const response = await ApiClient.get("/announcement/getAllAnnouncements");
+      const response = await apiClient.get("/announcement/getAllAnnouncements");
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);
@@ -27,6 +29,11 @@ const SubjectTeacherAnnouncement = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAnnouncementClick = (announcement) => {
+    setSelectedAnnouncement(announcement);
+    setShowModal(true);
   };
 
   const filters = [
@@ -125,6 +132,7 @@ const SubjectTeacherAnnouncement = () => {
               <div
                 key={announcement.id}
                 className="SubjectTeacher-announcement-card"
+                onClick={() => handleAnnouncementClick(announcement)}
               >
                 <div className="SubjectTeacher-announcement-content">
                   <h3 className="SubjectTeacher-announcement-card-title">
@@ -162,6 +170,48 @@ const SubjectTeacherAnnouncement = () => {
           )}
         </div>
       </div>
+      {showModal && selectedAnnouncement && (
+        <div
+          className="SubjectTeacher-modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="SubjectTeacher-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="SubjectTeacher-modal-close"
+              onClick={() => setShowModal(false)}
+            >
+              ×
+            </button>
+
+            <div className="SubjectTeacher-modal-header">
+              <div className="SubjectTeacher-modal-avatar">
+                {selectedAnnouncement.announcementTitle?.charAt(0)}
+              </div>
+
+              <div className="SubjectTeacher-modal-info">
+                <h3>School Administration</h3>
+
+                <span>
+                  {new Date(selectedAnnouncement.createdAt).toLocaleString()}
+                </span>
+              </div>
+            </div>
+
+            <div className="SubjectTeacher-modal-body">
+              <h2>{selectedAnnouncement.announcementTitle}</h2>
+
+              <p>{selectedAnnouncement.announcementContent}</p>
+
+              <div className="SubjectTeacher-modal-footer">
+                Audience: {selectedAnnouncement.audience}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
