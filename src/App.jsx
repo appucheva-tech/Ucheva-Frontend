@@ -66,7 +66,7 @@ import { ToastContainer } from "react-toastify";
 import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
 import AdminEditStudent from "./pages/Admin/AdminEditStudent";
 import AttendancePage from "./features/busary/components/AttendancePage";
-
+import PrivateRoute from "./pages/PrivateRoute";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -133,9 +133,10 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
+<Route element={<PrivateRoute />}>
 
         <Route path="/attendance/:token" element={<AttendancePage />} />
-
+</Route>
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
