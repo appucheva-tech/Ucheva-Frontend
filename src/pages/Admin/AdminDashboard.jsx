@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -7,8 +7,40 @@ import { FiTrendingUp, FiExternalLink } from "react-icons/fi";
 import { IoQrCodeOutline, IoMegaphoneOutline } from "react-icons/io5";
 import { LuUserPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { HiChevronRight } from "react-icons/hi";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminDashboard = () => {
+  const [sumarry, setSumarry] = useState({});
+  const [attendance, setAttendance] = useState([]);
+
+  useEffect(() => {
+    const getDashboardSummary = async () => {
+      try {
+        const res = await apiClient.get("/admin/dashboard");
+
+        setSumarry(res?.data?.summary);
+      } catch (error) {
+        console.error("Error fetching dashboard summary:", error);
+      }
+    };
+
+    getDashboardSummary();
+  }, []);
+
+  useEffect(() => {
+    const getTodayAttendance = async () => {
+      try {
+        const res = await apiClient.get("/staffattendance/today");
+
+        setAttendance(res?.data?.Attendance);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getTodayAttendance();
+  }, []);
+
   return (
     <div className="Bddashboard-container">
       {/* Welcome Banner */}
@@ -29,7 +61,7 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Total Students</span>
-              <span className="card-value">342</span>
+              <span className="card-value">{sumarry.totalStudents}</span>
             </div>
             <div className="icon-wrapper icon-students">
               <PiStudentFill className="DashIcon" />
@@ -45,7 +77,7 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Total Staff</span>
-              <span className="card-value">28</span>
+              <span className="card-value">{sumarry.totalStaff}</span>
             </div>
             <div className="icon-wrapper icon-staff">
               <HiMiniUserGroup className="DashIcon" />
@@ -61,7 +93,9 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Attendance Rate</span>
-              <span className="card-value">93%</span>
+              <span className="card-value">
+                {sumarry.totalStaffAttendancePercent}%
+              </span>
             </div>
             <div className="icon-wrapper icon-attendance">
               <PiCalendarBlankFill className="DashIcon" />
@@ -77,7 +111,7 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Fees Collected</span>
-              <span className="card-value">N1,200,000</span>
+              <span className="card-value">{sumarry.totalFeesCollected}</span>
             </div>
             <div className="icon-wrapper icon-fees">
               <FaSackDollar className="DashIcon" />
