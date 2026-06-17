@@ -1,199 +1,280 @@
-.Eform-container {
-  background-color: #f7f9fc;
-  padding: 40px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+.form-container {
   min-height: 100vh;
   box-sizing: border-box;
 
-  .Eform-header {
-    margin-bottom: 24px;
+  .form-header {
+    margin-bottom: 28px;
 
-    .Eheader-top {
+    .header-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       h1 {
-        font-size: 24px;
-        color: #0b1a30;
+        font-size: 26px;
+        color: #0f172a;
         margin: 0;
-        font-weight: 600;
+        font-weight: 700;
+        letter-spacing: -0.02em;
       }
 
-      .Ebreadcrumb {
+      .breadcrumb {
         font-size: 13px;
-        color: #a0aec0;
+        color: #94a3b8;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
+        font-weight: 500;
 
-        .ESactive{
-            font-size: 17px;
-            cursor: pointer;
+        .Sactive {
+          cursor: pointer;
+          transition: color 0.15s ease;
+
+          &:hover {
+            color: #1e40af;
+          }
         }
 
-        .Eseparator {
+        .separator {
           font-size: 11px;
+          color: #cbd5e1;
         }
 
-        .Eactive {
-            font-size: 17px;
-          color: #3182ce;
+        .active {
+          color: #2563eb;
+          font-weight: 600;
         }
       }
     }
 
-    .Esubtitle {
-      font-size: 13px;
-      color: #718096;
+    .subtitle {
+      font-size: 14px;
+      color: #475569;
       margin: 8px 0 0 0;
+      line-height: 1.5;
     }
   }
 
-  .Estaff-form {
+  .staff-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 28px;
 
-    .Eform-section {
+    .form-section {
       background-color: #ffffff;
-      border-radius: 8px;
-      padding: 24px;
-      border: 1px solid #edf2f7;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
 
       h2 {
         font-size: 16px;
-        color: #2d3748;
-        margin: 0 0 20px 0;
+        color: #0f172a;
+        margin: 0 0 24px 0;
         font-weight: 600;
+        letter-spacing: -0.01em;
       }
 
-      .Eform-grid {
+      .form-grid {
         display: grid;
         gap: 20px;
 
-        &.Etype-3-col {
+        &.type-3-col {
           grid-template-columns: repeat(3, 1fr);
         }
       }
 
-      .Eform-group {
+      @media (max-width: 900px) {
+        .form-grid.type-3-col {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .form-grid.type-3-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .form-group {
         display: flex;
         flex-direction: column;
         gap: 8px;
 
-        &.Efull-width-field {
-          margin-top: 20px;
+        &.full-width-field {
+          margin-top: 4px;
+          grid-column: 1 / -1;
         }
 
         label {
           font-size: 13px;
-          color: #4a5568;
-          font-weight: 500;
+          color: #475569;
+          font-weight: 600;
 
-          .Erequired {
-            color: #e53e3e;
-            margin-left: 2px;
+          .required {
+            color: #ef4444;
+            margin-left: 3px;
           }
         }
 
         input[type="text"],
         input[type="email"],
+        input[type="date"],
         select {
-          height: 40px;
-          padding: 0 12px;
-          border: 1px solid #e2e8f0;
-          border-radius: 6px;
-          font-size: 13px;
-          color: #2d3748;
+          height: 42px;
+          padding: 0 14px;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-size: 14px;
+          color: #0f172a;
           background-color: #ffffff;
           outline: none;
           box-sizing: border-box;
           width: 100%;
+          transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
 
           &::placeholder {
-            color: #a0aec0;
+            color: #94a3b8;
+          }
+
+          &:hover {
+            border-color: #94a3b8;
+          }
+
+          &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
           }
         }
 
         select {
           appearance: none;
-          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://w3.org' viewBox='0 0 24 24' fill='none' stroke='%23718096' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
           background-repeat: no-repeat;
-          background-position: right 12px center;
+          background-position: right 14px center;
           background-size: 14px;
-          padding-right: 32px;
+          padding-right: 40px;
+          cursor: pointer;
         }
 
-        .Edate-input-wrapper {
+        .date-input-wrapper {
           position: relative;
           display: flex;
           align-items: center;
+          width: 100%;
 
-          .Ecalendar-icon {
+          input[type="date"] {
+            padding-right: 40px;
+          }
+
+          .calendar-icon {
             position: absolute;
-            right: 12px;
+            right: 14px;
             font-size: 14px;
-            color: #718096;
+            color: #64748b;
             pointer-events: none;
+            user-select: none;
           }
         }
 
-        .Efield-hint {
-          font-size: 11px;
-          color: #a0aec0;
-          margin-top: -2px;
+        .field-hint {
+          font-size: 12px;
+          color: #64748b;
+          margin-top: 2px;
+          font-style: italic;
         }
       }
     }
 
-    .Esubmit-btn {
-      background-color: #0066ff;
+    .submit-btn {
+      background-color: #2563eb;
       color: #ffffff;
       border: none;
-      border-radius: 6px;
-      height: 40px;
-      padding: 0 24px;
-      font-size: 13px;
-      font-weight: 500;
+      border-radius: 8px;
+      height: 46px;
+      padding: 0 32px;
+      font-size: 14px;
+      font-weight: 600;
       cursor: pointer;
       width: max-content;
+      align-self: flex-start;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition:
+        background-color 0.15s ease,
+        transform 0.1s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  .form-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #64748b;
+
+    .support {
+      font-weight: 500;
+      a {
+        color: #2563eb;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
 }
 
-@media (max-width: 450px) {
-  .Eform-container {
+@media (max-width: 640px) {
+  .form-container {
     padding: 16px;
 
-    .Eform-header {
-      .Eheader-top {
+    .form-header {
+      margin-bottom: 20px;
+
+      .header-top {
         flex-direction: column;
         align-items: flex-start;
-        gap: 8px;
+        gap: 12px;
 
-        .Ebreadcrumb {
+        .breadcrumb {
           align-self: flex-start;
         }
       }
     }
 
-    .Estaff-form {
-      gap: 16px;
+    .staff-form {
+      gap: 20px;
 
-      .Eform-section {
-        padding: 16px;
-
-        .Eform-grid {
-          &.Etype-3-col {
-            grid-template-columns: 1fr;
-          }
-        }
+      .form-section {
+        padding: 20px 16px;
       }
 
-      .Esubmit-btn {
+      .submit-btn {
         width: 100%;
+        align-self: center;
       }
+    }
+
+    .form-footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      margin-top: 36px;
     }
   }
 }

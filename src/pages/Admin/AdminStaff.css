@@ -1,211 +1,613 @@
-.Ddashboard-container {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+.BAdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  min-height: 40vh;
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-top: 20px;
+  height: 72px;
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
 
-  .Ddashboard-header {
-    margin-bottom: 32px;
+  .search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 320px;
 
-    .Dwelcome-text {
-      font-size: 32px;
-      font-weight: 700;
-      color: #03173C;
-      margin: 0 0 8px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+    .search-input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      font-size: 14px;
+      color: #0f172a;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s ease;
 
-      .DAddStaff{
-        background-color: #0062F6;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 15px;
-        width: 12%;
-        height: 50px;
-        cursor: pointer;
+      &::placeholder {
+        color: #94a3b8;
+      }
+
+      &:focus {
+        border-color: #2563eb;
       }
     }
 
-    .Dsubtitle-text {
-      font-size: 17.5px;
-      color: #042868;
-      margin: 0;
+    .search-button {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+
+      .search-icon {
+        width: 16px;
+        height: 16px;
+        color: #2563eb;
+      }
     }
   }
 
-  .Dmetrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    height: 110px;
-    width: 100%;
+  .meta-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: #475569;
+    margin-left: 24px;
+    margin-right: auto;
 
-    @media (max-width: 450px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: 450px) {
-      grid-template-columns: 1fr;
-    }
-
-    .Dmetric-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    .date-display {
       display: flex;
-      width: 100%;
-      height: 90px;
-      flex-direction: column;
-      justify-content: space-between;
-      border-left: 2px solid transparent;
+      align-items: center;
+      gap: 8px;
 
-      &.Dcard-students { border-left-color: #3b82f6; }
-      &.Dcard-staff { border-left-color: #a855f7; }
-      &.Dcard-attendance { border-left-color: #f59e0b; }
-      &.Dcard-fees { border-left-color: #10b981; }
+      .calendar-icon {
+        width: 16px;
+        height: 16px;
+        color: #94a3b8;
+      }
+    }
 
-      .Dcard-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 100%;
+    .divider {
+      width: 1px;
+      height: 16px;
+      background-color: #e2e8f0;
+    }
 
-        .Dtext-section {
+    .dropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0f172a;
+      }
+
+      .chevron-icon {
+        width: 14px;
+        height: 14px;
+        color: #94a3b8;
+      }
+    }
+  }
+
+  .profile-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .notification-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .notification-popup {
+        position: absolute;
+        top: calc(100% + 12px);
+        right: 0;
+        z-index: 1000;
+        width: 380px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #e2e8f0;
+
+        .popup-header {
           display: flex;
-          flex-direction: column;
-          gap: 8px;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px 20px;
+          border-bottom: 1px solid #e2e8f0;
 
-          .Dcard-label {
-            font-size: 15px;
-            color: #03173C;
-            font-weight: 500;
+          h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #0f172a;
+            margin: 0;
           }
 
-          .Dcard-value {
-            font-size: 25px;
-            font-weight: 700;
-            color: #03173C;
+          .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+
+            &:hover {
+              color: #0f172a;
+            }
           }
         }
 
-        .Dicon-wrapper {
-          width: 65px;
-          height: 65px;
-          border-radius: 16px;
+        .notification-list {
           display: flex;
-          align-items: center;
-          justify-content: center;
+          flex-direction: column;
+          max-height: 320px;
+          overflow-y: auto;
 
-          .DDashIcon{
-            width: 70%;
-            height: 70%;
+          .notification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: none;
+            border-left: 3px solid transparent;
+            transition: background-color 0.2s ease;
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &:hover {
+              background-color: #f8fafc;
+            }
+
+            .notification-content {
+              flex: 1;
+              padding-right: 12px;
+              text-align: left;
+
+              h3 {
+                font-size: 13px;
+                font-weight: 600;
+                color: #2563eb;
+                margin: 0 0 4px 0;
+              }
+
+              p {
+                font-size: 13px;
+                color: #475569;
+                margin: 0 0 6px 0;
+                line-height: 1.4;
+
+                strong {
+                  font-weight: 600;
+                  color: #0f172a;
+                }
+              }
+
+              .time-stamp {
+                font-size: 11px;
+                color: #94a3b8;
+              }
+            }
+
+            .unread-dot {
+              width: 6px;
+              height: 6px;
+              background-color: #2563eb;
+              border-radius: 50%;
+              margin-top: 6px;
+              flex-shrink: 0;
+            }
           }
+        }
 
-          &.Dicon-students {
-            background-color: #eff6ff;
+        .popup-footer {
+          border-top: 1px solid #e2e8f0;
+          padding: 12px;
+          text-align: center;
+          background-color: #f8fafc;
+
+          .mark-all-btn {
+            background: none;
+            border: none;
             color: #2563eb;
-          }
-          &.Dicon-staff {
-            background-color: #f3e8ff;
-            color: #9333ea;
-          }
-          &.Dicon-attendance {
-            background-color: #fef3c7;
-            color: #d97706;
-          }
-          &.Dicon-fees {
-            background-color: #ecfdf5;
-            color: #059669;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+
+            &:hover {
+              color: #1d4ed8;
+              text-decoration: underline;
+            }
           }
         }
       }
+    }
 
-      .Dcard-footer {
+    .notification-button {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #f8fafc;
+      }
+
+      .bell-icon {
+        width: 20px;
+        height: 20px;
+        color: #0f172a;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        width: 8px;
+        height: 8px;
+        background-color: #f59e0b;
+        border-radius: 50%;
+        border: 2px solid #ffffff;
+      }
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .avatar {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #e2e8f0;
+      }
+    }
+
+    .Auser-info {
+      display: flex;
+      flex-direction: column;
+
+      .user-name {
         font-size: 14px;
         font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        color: #10b981; 
+        color: #0f172a;
+        line-height: 1.2;
+      }
 
-        .Darrow {
-          width: 7%;
-          font-weight: bold;
-        }
+      .user-role {
+        font-size: 12px;
+        color: #94a3b8;
+        margin-top: 2px;
       }
     }
   }
 }
 
-.DtableContainer {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #f4f7fc;
+.Bdashboard-container {
+  width: 100%;
+  box-sizing: border-box;
 
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
 
-  .DfilterSection {
-    margin-left: 35px;
-    margin-right: 35px;
+    .welcome-text {
+      font-size: 28px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+
+    .subtitle-text {
+      font-size: 14px;
+      color: #475569;
+      margin: 0;
+    }
+
+    .AddStaff {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 20px;
+      height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 32px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 640px) {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px 30px;
+      border: 1px solid #e2e8f0;
+      border-left: 6px solid transparent;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 140px;
+      box-sizing: border-box;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+
+      &.card-total {
+        border-left-color: #2563eb;
+      }
+      &.card-teaching {
+        border-left-color: #a855f7;
+      }
+      &.card-non-teaching {
+        border-left-color: #f59e0b;
+      }
+      &.card-teachers {
+        border-left-color: #10b981;
+      }
+
+      .card-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .text-section {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .card-label {
+            font-size: 14px;
+            color: #1e293b;
+            font-weight: 500;
+          }
+
+          .card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1;
+          }
+        }
+
+        .icon-wrapper {
+          width: 64px;
+          height: 64px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+
+          .DashIcon {
+            width: 30px;
+            height: 30px;
+          }
+
+          &.icon-students {
+            background-color: #eff6ff;
+            color: #2563eb;
+          }
+          &.icon-staff {
+            background-color: #f3e8ff;
+            color: #a855f7;
+          }
+          &.icon-attendance {
+            background-color: #fef3c7;
+            color: #f59e0b;
+          }
+          &.icon-fees {
+            background-color: #ecfdf5;
+            color: #10b981;
+          }
+        }
+      }
+    }
+  }
+}
+.tableContainer {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+
+  .dashboard-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #2563eb;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+  }
+
+  .staff-empty-state-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 24px;
+    text-align: center;
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 12px;
+    border: 2px dashed #e2e8f0;
+    margin-bottom: 32px;
+
+    .empty-state-icon-bg {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background-color: #f8fafc;
+      margin-bottom: 16px;
+      color: #2563eb;
+    }
+
+    h3 {
+      color: #0f172a;
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 8px 0;
+    }
+
+    p {
+      color: #475569;
+      max-width: 400px;
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+
+    .empty-state-add-btn {
+      padding: 10px 24px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+  }
+
+  .filterSection {
+    background-color: #ffffff;
+    border-radius: 12px;
     border: 1px solid #e2e8f0;
-    padding: 16px 15px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    gap: 16px;
+    flex-wrap: wrap;
 
-    .DfilterGroup {
+    .filterGroup {
       display: flex;
       flex-direction: column;
 
-      .DfilterLabel {
+      .filterLabel {
         font-size: 13px;
-        color: #042869;
-        margin-bottom: 8px;
+        color: #475569;
+        margin-bottom: 6px;
         font-weight: 500;
       }
 
-      .DselectWrapper {
+      .selectWrapper {
         position: relative;
         width: 180px;
 
-        .DselectInput {
-          width: 93%;
-          height: 40px;
-          padding: 10px 36px 10px 16px;
+        .selectInput {
+          width: 100%;
+          padding: 10px 36px 10px 14px;
           font-size: 14px;
           border: 1px solid #e2e8f0;
-          border-radius: 10px;
+          border-radius: 8px;
           background-color: #ffffff;
-          color: #042869;
+          color: #0f172a;
+          appearance: none;
           cursor: pointer;
+          outline: none;
+
+          &:focus {
+            border-color: #2563eb;
+          }
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          right: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 8px;
+          height: 5px;
+          background-color: #475569;
+          clip-path: polygon(100% 0, 0 0, 50% 100%);
+          pointer-events: none;
         }
       }
     }
 
-    .DresetBtn {
+    .resetBtn {
       background-color: #ffffff;
-      border: 1px solid #1070e0;
-      color: #042869;
+      border: 1px solid #e2e8f0;
+      color: #475569;
       border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 9%;
-      height: 45px;
+      padding: 10px 16px;
       font-size: 14px;
       font-weight: 500;
-      
+      display: flex;
+      align-items: center;
       cursor: pointer;
+      transition: all 0.2s ease;
 
-      .DresetIcon {
+      &:hover {
+        background-color: #f8fafc;
+        color: #0f172a;
+        border-color: #94a3b8;
+      }
+
+      .resetIcon {
         width: 16px;
         height: 16px;
         margin-right: 8px;
@@ -213,82 +615,110 @@
     }
   }
 
-  .DtableWrapper {
+  .tableWrapper {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
-    margin-left: 35px;
-    margin-right: 35px;
-    border-radius: 8px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-    margin-bottom: 40px;
+    margin-bottom: 32px;
 
-    .DstaffTable {
+    .staffTable {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
 
       th {
-        background-color: #E5E7EB;
-        color: #042869;
-        font-size: 17px;
-        font-weight: 500;
+        background-color: #f8fafc;
+        color: #475569;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 14px 20px;
+        border-bottom: 1px solid #e2e8f0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
       td {
-        border-bottom: 1px solid #f1f5f9;
-        font-size: 15px;
-        color: #042869;
+        padding: 16px 20px;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 14px;
+        color: #0f172a;
       }
 
-      .DstaffName {
-        color: #042869;
+      tr:last-child td {
+        border-bottom: none;
       }
 
-      .DroleText, .DclassText, .DsubjectText {
-        color: #042869;
+      .staffName {
+        color: #2563eb;
+        font-weight: 500;
       }
 
-      .DactionButtons {
+      .actionButtons {
         display: flex;
-        gap: 16px;
+        gap: 12px;
 
-        .DeditBtn{
-          width: 20px;
-          height: 20px;
+        .editBtn,
+        .deleteBtn {
+          background: none;
+          border: none;
           cursor: pointer;
-          color: #03173C;
+          padding: 4px;
+          border-radius: 4px;
+          display: inline-flex;
+          align-items: center;
+          transition: background-color 0.2s ease;
+
+          svg {
+            width: 16px;
+            height: 16px;
+          }
         }
 
-        .DdeleteBtn{
-          width: 20px;
-          height: 20px;
-          color: red;
-          cursor: pointer;
+        .editBtn {
+          &:hover {
+            background-color: #f8fafc;
+          }
+          svg {
+            stroke: #475569;
+          }
+        }
+
+        .deleteBtn {
+          &:hover {
+            background-color: #fef2f2;
+          }
+          svg {
+            stroke: #ef4444;
+          }
         }
       }
     }
 
-    .DpaginationRow {
+    .paginationRow {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 24px;
+      padding: 16px 20px;
+      border-top: 1px solid #e2e8f0;
       background-color: #ffffff;
+      flex-wrap: wrap;
+      gap: 16px;
 
-      .DpaginationInfo {
+      .paginationInfo {
         font-size: 14px;
-        color: #64748b;
+        color: #475569;
       }
 
-      .DpaginationControls {
+      .paginationControls {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 4px;
 
-        .DpageBtn, .DarrowBtn {
+        .pageBtn,
+        .arrowBtn {
           background: none;
-          border: none;
+          border: 1px solid transparent;
           min-width: 32px;
           height: 32px;
           display: flex;
@@ -296,66 +726,120 @@
           justify-content: center;
           border-radius: 6px;
           font-size: 14px;
-          color: #64748b;
+          color: #475569;
           cursor: pointer;
+          transition: all 0.2s ease;
+
+          &:hover:not(:disabled) {
+            background-color: #f8fafc;
+            color: #0f172a;
+          }
         }
 
-        .DactivePage {
-          background-color: #1070e0;
-          color: #ffffff;
+        .activePage {
+          background-color: #2563eb;
+          color: white;
           font-weight: 500;
+
+          &:hover {
+            background-color: #1d4ed8;
+            color: white;
+          }
         }
 
-        .DarrowBtn:disabled {
-          color: #cbd5e1;
+        .arrowBtn:disabled {
+          color: #94a3b8;
           cursor: not-allowed;
         }
 
-        .Dellipsis {
-          color: #64748b;
+        .ellipsis {
+          color: #94a3b8;
           font-size: 14px;
           padding: 0 4px;
         }
       }
 
-      .DrowsPerPageGroup {
+      .rowsPerPageGroup {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .DrowsLabel {
+        .rowsLabel {
           font-size: 14px;
-          color: #64748b;
+          color: #475569;
         }
 
-        .DrowsSelectWrapper {
+        .rowsSelectWrapper {
           position: relative;
 
-          .DrowsSelect {
-            padding: 6px 32px 6px 12px;
+          .rowsSelect {
+            padding: 6px 28px 6px 10px;
             font-size: 14px;
             border: 1px solid #e2e8f0;
             border-radius: 6px;
             background-color: #ffffff;
-            color: #1a202c;
+            color: #0f172a;
             appearance: none;
             cursor: pointer;
+            outline: none;
+
+            &:focus {
+              border-color: #2563eb;
+            }
           }
 
           &::after {
             content: "";
             position: absolute;
-            right: 12px;
+            right: 10px;
             top: 50%;
             transform: translateY(-50%);
             width: 8px;
             height: 5px;
-            background-color: #4a5568;
+            background-color: #475569;
             clip-path: polygon(100% 0, 0 0, 50% 100%);
             pointer-events: none;
           }
         }
       }
     }
+  }
+
+  .footerRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0 8px 0;
+    font-size: 13px;
+    width: 100%;
+    background-color: transparent;
+    border-top: 1px solid #e2e8f0;
+
+    .copyrightText {
+      color: #94a3b8;
+    }
+
+    .supportText {
+      color: #475569;
+
+      .supportLink {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

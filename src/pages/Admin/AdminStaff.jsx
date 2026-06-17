@@ -1,178 +1,367 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './AdminStaff.css'
-import { PiStudentFill } from "react-icons/pi";
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AdminStaff.css";
+import Ifeanacho from "../../assets/Ifeanacho.jpg";
+import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
-import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
-import { FaArrowTrendUp } from "react-icons/fa6";
-import { MdOutlineEdit } from "react-icons/md";
-import { RiDeleteBinLine } from "react-icons/ri";
+import { apiClient } from "../../config/AxiosInstance";
+import { PlusSquare } from "lucide-react";
+import { FaPlus } from "react-icons/fa";
 
-const AdminStaff = () => {  
-    const nav = useNavigate();
+const AdminStaff = () => {
+  const nav = useNavigate();
+  const popupRef = useRef(null);
+  const subdomain = window.location.hostname.split(".")[0];
 
-  const staffData = [
-    { id:1, name: 'Adaeze Clinton', role: 'Teacher', class: 'SS 1A', subject: 'Mathematics', phone: '08032456789' },
-    { id:2, name: 'Emeka Ugonna', role: 'Teacher', class: 'JSS 2C', subject: 'English Language', phone: '08061234567' },
-    { id:3, name: 'Tolu Adesunya', role: 'Bursar', class: '--', subject: '--', phone: '08029876543' },
-    { id:4, name: 'Chidi Okoronkwo', role: 'Security', class: '--', subject: '--', phone: '08098765432' },
-    { id:5, name: 'Grace Obidi', role: 'Cleaner', class: '--', subject: '--', phone: '08101122233' },
-    { id:6, name: 'Ifeanyi Okafor', role: 'Teacher', class: 'SS 2A', subject: 'Physics', phone: '08055567788' },
-    { id:7, name: 'Ngozi Bassey', role: 'Teacher', class: 'JSS 1B', subject: 'Basic Science', phone: '08073345566' }
-  ];
+  // Component states
+  const [isOpen, setIsOpen] = useState(false);
+
+  // const staffList = [
+  //   {
+  //     _id: "1",
+  //     name: "Ifeanacho Okafor",
+  //     role: "Teacher",
+  //     class: "JSS 1A",
+  //     subject: "Mathematics",
+  //     phone: "08012345678",
+  //   },
+  //   {
+  //     _id: "2",
+  //     name: "Grace Johnson",
+  //     role: "Teacher",
+  //     class: "SSS 2B",
+  //     subject: "English Language",
+  //     phone: "08087654321",
+  //   },
+  //   {
+  //     _id: "3",
+  //     name: "Samuel Adeyemi",
+  //     role: "Administrator",
+  //     class: "--",
+  //     subject: "--",
+  //     phone: "08123456789",
+  //   },
+  // ];
+  // const [staffList, setStaffList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [staffList, setStaffList] = useState([] || null);
+  // Dynamic Metrics states calculated from live API data
+  const [metrics, setMetrics] = useState({
+    total: 0,
+    teaching: 0,
+    nonTeaching: 0,
+    classTeachers: 0,
+  });
+
+  // Fetch live staff data on mount
+  useEffect(() => {
+    const fetchStaffRecords = async () => {
+      try {
+        setIsLoading(true);
+        const response = await apiClient.get("/staff/staffs", {
+          headers: { "x-tenant": subdomain },
+        });
+
+        console.log("response:  ", response);
+
+        const records = Array.isArray(response.data)
+          ? response.data
+          : response.data?.staffData || response.data?.data || [];
+        console.log(records);
+        setStaffList(records);
+
+        // Derive dashboard metric card counts directly from data
+        const teachingCount = records.filter(
+          (s) => s.role?.toLowerCase() === "teacher",
+        ).length;
+        const nonTeachingCount = records.filter(
+          (s) => s.role?.toLowerCase() !== "teacher",
+        ).length;
+        const classTeachersCount = records.filter(
+          (s) => s.class && s.class !== "--",
+        ).length;
+
+        setMetrics({
+          total: records.length,
+          teaching: teachingCount,
+          nonTeaching: nonTeachingCount,
+          classTeachers: classTeachersCount,
+        });
+      } catch (error) {
+        console.error("Failed fetching live institutional staff logs:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchStaffRecords();
+  }, [subdomain]);
+
+  // Click outside listener for notifications layout
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  const toggleNotifications = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  const handleAddStaff = () => {
+    nav("/admin/AdminStaff2");
+  };
+
+  // Loading Viewport Layout
+  if (isLoading) {
+    return (
+      <div className="tableContainer">
+        <div className="dashboard-loading-container">
+          <div className="loading-spinner"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-<div className="Ddashboard-container">
-      <header className="Ddashboard-header">
-        <h1 className="Dwelcome-text">
-          Staff Management <button className='DAddStaff' onClick={() => nav ('AdminStaff2')}>+ Add Staff</button>
-        </h1>
-        <p className="Dsubtitle-text">
-          Manage Teaching and non-teaching staff records. Add, edit and assign staff to classes or subjects.
-        </p>
-      </header>
+      <div className="Bdashboard-container">
+        <div className="dashboard-header">
+          <div className="header-text-group">
+            <h1 className="welcome-text">Staff Management</h1>
+            <p className="subtitle-text">
+              Manage Teaching and non-teaching staff records. Add, edit and
+              assign staff to classes or subjects.
+            </p>
+          </div>
 
-      <div className="Dmetrics-grid">
-        <div className="Dmetric-card Dcard-students">
-          <div className="Dcard-content">
-            <div className="Dtext-section">
-              <span className="Dcard-label">Total Staff</span>
-              <span className="Dcard-value">38</span>
-            </div>
-            <div className="Dicon-wrapper Dicon-students">
-              <PiStudentFill className='DDashIcon'/>
-            </div>
-          </div>
-          <div className="Dcard-footer Dtrend-up">
-          </div>
+          <button className="AddStaff" onClick={handleAddStaff}>
+            {" "}
+            <FaPlus /> Add Staff
+          </button>
         </div>
 
-        <div className="Dmetric-card Dcard-staff">
-          <div className="Dcard-content">
-            <div className="Dtext-section">
-              <span className="Dcard-label">Teaching Staff</span>
-              <span className="Dcard-value">28</span>
-            </div>
-            <div className="Dicon-wrapper Dicon-staff">
-              <HiMiniUserGroup className='DDashIcon'/>
+        {/* Dynamic Metric Cards Component Grid */}
+        <div className="metrics-grid">
+          <div className="metric-card card-total">
+            <div className="card-content">
+              <div className="text-section">
+                <span className="card-label">Total Staff</span>
+                <span className="card-value">{metrics.total}</span>
+              </div>
+              <div className="icon-wrapper icon-students">
+                <PiStudentFill className="DashIcon" />
+              </div>
             </div>
           </div>
-          <div className="Dcard-footer Dtrend-up">
-          </div>
-        </div>
 
-        <div className="Dmetric-card Dcard-attendance">
-          <div className="Dcard-content">
-            <div className="Dtext-section">
-              <span className="Dcard-label">Non-Teaching Staff</span>
-              <span className="Dcard-value">10</span>
-            </div>
-            <div className="Dicon-wrapper Dicon-attendance">
-              <PiCalendarBlankFill className='DDashIcon'/>
+          <div className="metric-card card-teaching">
+            <div className="card-content">
+              <div className="text-section">
+                <span className="card-label">Teaching Staff</span>
+                <span className="card-value">{metrics.teaching}</span>
+              </div>
+              <div className="icon-wrapper icon-staff">
+                <HiMiniUserGroup className="DashIcon" />
+              </div>
             </div>
           </div>
-          <div className="Dcard-footer Dtrend-up">
-          </div>
-        </div>
 
-        <div className="Dmetric-card Dcard-fees">
-          <div className="Dcard-content">
-            <div className="Dtext-section">
-              <span className="Dcard-label">Class Teachers</span>
-              <span className="Dcard-value">32</span>
-            </div>
-            <div className="Dicon-wrapper Dicon-fees">
-              <FaSackDollar className='DDashIcon'/>
+          <div className="metric-card card-non-teaching">
+            <div className="card-content">
+              <div className="text-section">
+                <span className="card-label">Non-Teaching Staff</span>
+                <span className="card-value">{metrics.nonTeaching}</span>
+              </div>
+              <div className="icon-wrapper icon-attendance">
+                <PiCalendarBlankFill className="DashIcon" />
+              </div>
             </div>
           </div>
-          <div className="Dcard-footer Dtrend-pct">
+
+          <div className="metric-card card-teachers">
+            <div className="card-content">
+              <div className="text-section">
+                <span className="card-label">Class Teachers</span>
+                <span className="card-value">{metrics.classTeachers}</span>
+              </div>
+              <div className="icon-wrapper icon-fees">
+                <FaSackDollar className="DashIcon" />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div className="DtableContainer">
-      <div className="DfilterSection">
-        <div className="DfilterGroup">
-          <label className="DfilterLabel">Staff Type</label>
-          <div className="DselectWrapper">
-            <select className="DselectInput" defaultValue="all">
-              <option value="all">All Types</option>
-              <option value="all">Teaching Staff</option>
-              <option value="all">Non-Teaching Staff</option>
-            </select>
+      <div className="tableContainer">
+        {staffList.length === 0 ? (
+          /* Redesigned Premium Empty State Card Viewport */
+          <div className="staff-empty-state-card">
+            <div className="empty-state-icon-bg">
+              <svg
+                width="44"
+                height="44"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.656-5.64 9.094 9.094 0 00-3.741.479m4.656 5.64c.007.08.011.162.011.245v.39m-4.656-.635c0-.708-.19-1.371-.52-1.945M18 14v4.72m0 0H8M10.125 19.5H3.75A.75.75 0 013 18.75V18a3.75 3.75 0 013.75-3.75h.375a3.75 3.75 0 013.75 3.75v.75c0 .414-.336.75-.75.75z"
+                />
+                <circle cx="6.75" cy="9.75" r="2.25" />
+                <circle cx="15" cy="7.5" r="2" />
+              </svg>
+            </div>
+            <h3>No Team Records Configured</h3>
+            <p>
+              Your personnel deployment is empty. Get started by establishing
+              structural configurations and adding profiles to your
+              administration staff workspace.
+            </p>
+            <button className="empty-state-add-btn" onClick={handleAddStaff}>
+              Create Personnel Profile
+            </button>
           </div>
-        </div>
-        <button className="DresetBtn">
-          <svg className="DresetIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
-          </svg>
-          Reset
-        </button>
-      </div>
+        ) : (
+          <>
+            <div className="filterSection">
+              <div className="filterGroup">
+                <label className="filterLabel">Staff Type</label>
+                <div className="selectWrapper">
+                  <select className="selectInput" defaultValue="all">
+                    <option value="all">All Types</option>
+                    <option value="teacher">Teaching Staff</option>
+                    <option value="non-teacher">Non-Teaching Staff</option>
+                  </select>
+                </div>
+              </div>
+              <button className="resetBtn">
+                <svg
+                  className="resetIcon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+                </svg>
+                Reset
+              </button>
+            </div>
 
-      <div className="DtableWrapper">
-        <table className="DstaffTable">
-          <thead>
-            <tr>
-              <th>Staff Name</th>
-              <th>Role</th>
-              <th>Assigned Class</th>
-              <th>Subject</th>
-              <th>Phone</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {staffData.map((staff, index) => (
-              <tr key={index} >
-                <td className="DstaffName" onClick={() => nav (`AdminStaffDetails/${staff.id}`)}>{staff.name}</td>
-                <td className="DroleText">{staff.role}</td>
-                <td className="DclassText">{staff.class}</td>
-                <td className="DsubjectText">{staff.subject}</td>
-                <td>{staff.phone}</td>
-                <td>
-                  <div className="DactionButtons">
-                      <MdOutlineEdit className="DeditBtn"/>
-                      <RiDeleteBinLine className="DdeleteBtn"/>
+            <div className="tableWrapper">
+              <table className="staffTable">
+                <thead>
+                  <tr>
+                    <th>Staff Name</th>
+                    <th>Role</th>
+                    <th>Assigned Class</th>
+                    <th>Subject</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {staffList.map((staff, index) => (
+                    <tr key={staff._id || index}>
+                      <td className="staffName card-content-populated">
+                        {staff.name ||
+                          `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
+                          "Unnamed Staff"}
+                      </td>
+                      <td className="roleText card-content-populated">
+                        {staff.staffRole || "--"}
+                      </td>
+                      <td className="classText">{staff.class || "test"}</td>
+                      <td className="subjectText card-content-populated">
+                        {staff.subject || "test"}
+                      </td>
+                      <td>{staff.phone || staff.phoneNumber || "test"}</td>
+                      <td>
+                        <div className="actionButtons">
+                          <button className="editBtn" aria-label="Edit staff">
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                            </svg>
+                          </button>
+                          <button
+                            className="deleteBtn"
+                            aria-label="Delete staff"
+                          >
+                            <svg
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                            >
+                              <polyline points="3 6 5 6 21 6" />
+                              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            </svg>
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              <div className="paginationRow">
+                <div className="paginationInfo">
+                  Showing 1 to {staffList.length} of {staffList.length} records
+                </div>
+
+                <div className="paginationControls">
+                  <button className="arrowBtn" disabled>
+                    &lt;
+                  </button>
+                  <button className="pageBtn activePage">1</button>
+                  <button className="arrowBtn" disabled>
+                    &gt;
+                  </button>
+                </div>
+
+                <div className="rowsPerPageGroup">
+                  <span className="rowsLabel">Rows per page</span>
+                  <div className="rowsSelectWrapper">
+                    <select className="rowsSelect" defaultValue="10">
+                      <option value="10">10</option>
+                    </select>
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className="DpaginationRow">
-          <div className="DpaginationInfo">
-            Showing pages of 1 to 7
-          </div>
-          
-          <div className="DpaginationControls">
-            <button className="DarrowBtn" disabled>&lt;</button>
-            <button className="DpageBtn DactivePage">1</button>
-            <button className="DpageBtn">2</button>
-            <button className="DpageBtn">3</button>
-            <span className="Dellipsis">...</span>
-            <button className="DpageBtn">6</button>
-            <button className="DpageBtn">7</button>
-            <button className="DarrowBtn">&gt;</button>
-          </div>
-
-          <div className="DrowsPerPageGroup">
-            <span className="DrowsLabel">Rows per page</span>
-            <div className="DrowsSelectWrapper">
-              <select className="DrowsSelect" defaultValue="10">
-                <option value="10">10</option>
-              </select>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </>
-  )
-} 
+          </>
+        )}
 
-export default AdminStaff
+        <footer className="footerRow">
+          <span className="copyrightText">
+            © 2026 Ucheva school operating management system . All right
+            reserved.
+          </span>
+          <span className="supportText">
+            Need help?{" "}
+            <a href="#support" className="supportLink">
+              Contact support
+            </a>
+          </span>
+        </footer>
+      </div>
+    </>
+  );
+};
+
+export default AdminStaff;

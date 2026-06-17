@@ -1,20 +1,10 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Step1 from "./features/Unboarding/Pages/Step1";
-import Step2 from "./features/Unboarding/Pages/Step2";
-import Step3 from "./features/Unboarding/Pages/Step3";
-import Success from "./features/Unboarding/Pages/Success";
 import Home from "./pages/Home";
 import Pricing from "./pages/Pricing";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/ContactUs";
-import SignUp from "./features/Auth/SignUp";
-import Login from "./features/Auth/Login";
-import VerifyEmail from "./features/Auth/VerifyEmail";
-import ForgetPassword from "./features/Auth/ForgetPassword";
-import InputCode from "./features/Auth/InputCode";
-import ResetPassword from "./features/Auth/ResetPassword";
 import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -58,9 +48,17 @@ import AdminReportCards from "./pages/Admin/AdminReportCards";
 import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
 import AdminWallet from "./pages/Admin/AdminWallet";
 import AdminSettings from "./pages/Admin/AdminSettings";
+import Features from "./pages/Features";
+import Signup from "./features/auth/pages/Signup";
+import Login from "./features/auth/pages/Login";
+import VerifyEmail from "./features/auth/pages/VerifyEmail";
+import ForgotPassword from "./features/auth/pages/ForgotPassword";
+import VerifyForgot from "./features/auth/pages/VerifyForgot";
+import AuthLayout from "./features/auth/layout/AuthLayout";
+import OnboardingStepper from "./features/onboarding/pages/Onboarding";
+import ResetPassword from "./features/auth/pages/ResetPassword";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
-import AdminStaffDetails from './pages/Admin/AdminStaffDetails';
-import NotSure from "./pages/NotSure";
+import CreatePassword from "./features/auth/pages/CreatePassword";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -78,29 +76,26 @@ const App = () => {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
-        <Route path="Pricing/:id" element={<SignUp />} />
         <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="AboutUs/:id" element={<SignUp />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/verify" element={<VerifyEmail />} />
-        <Route path="/forgetpassword" element={<ForgetPassword />} />
-        <Route path="/inputCode" element={<InputCode />} />
-        <Route path="/resetpassword" element={<ResetPassword />} />
-        <Route path="/step1" element={<Step1 />} />
-        <Route path="/step2" element={<Step2 />} />
-        <Route path="/step3" element={<Step3 />} />
-        <Route path="/success" element={<Success />} />
 
-        <Route path="/AdminDashboard" element={<AdminDashboardLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="AdminStaff">
-            <Route index element={<AdminStaff />} />
-            <Route path="AdminStaffDetails/:id" element={<AdminStaffDetails />} />
-            <Route path="AdminStaff2" element={<AdminStaff2 />} />
-          </Route>
+        <Route element={<AuthLayout />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/verify" element={<VerifyEmail />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verify-password" element={<VerifyForgot />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/create-password" element={<CreatePassword/>}/>
+        </Route>
+
+        <Route path="onboarding" element={<OnboardingStepper />}></Route>
+        <Route path="/admin" element={<AdminDashboardLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="AdminStaff" element={<AdminStaff />} />
+          <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
@@ -111,39 +106,32 @@ const App = () => {
           <Route path="AdminWallet" element={<AdminWallet />} />
           <Route path="AdminSettings" element={<AdminSettings />} />
         </Route>
-
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
-          <Route path="dashboard" element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
-          <Route path="STreport" element={<STReport />} />
+          <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
-
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
-          <Route path="bursarydashboard" element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
           <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
         </Route>
-
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
           <Route path="settings" element={<SettingsPage />} />
         </Route>
-
         <Route path="/securitydashboard" element={<SecurityLayout />}>
           <Route index element={<SecuritysDashboard />} />
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
         </Route>
-
         <Route
           path="/subjectteacherdashboard"
           element={<SubjectTeacherLayout />}
@@ -158,4 +146,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default App;     

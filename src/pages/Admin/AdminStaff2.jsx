@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminStaff2.css";
+import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
-import { ApiClient } from "../../config/AxiosInstance";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminStaff2 = () => {
-  const baseURL = import.meta.env.VITE_Base_Url;
+  const subdomain = window.location.hostname.split(".")[0];
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -18,14 +19,24 @@ const AdminStaff2 = () => {
     phoneNumber: "",
     email: "",
     staffType: "",
-    role: "",
-    teachingType: "",
-    subjectAssigned: [],
+    staffRole: "",
+    teacherType: "",
+    classAssigned: "",
+    subjectAssigned: "",
     classesToTeach: "",
     department: "",
+    qualification: "",
   });
+  console.log(formData);
 
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef(null);
+  const toggleNotifications = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -42,22 +53,40 @@ const AdminStaff2 = () => {
       setLoading(true);
 
       const payload = {
-        ...formData,
-        phoneNumber: Number(formData.phoneNumber),
+        firstName: formData.firstName.trim().toLowerCase(),
+        lastName: formData.lastName.trim().toLowerCase(),
+        otherName: formData.otherName.trim(),
+        gender: formData.gender.toLowerCase(),
+        dateOfBirth: new Date(formData.dateOfBirth).toISOString().split("T")[0],
+        nationality: formData.nationality.toLowerCase(),
+        address: formData.address.trim().toLowerCase(),
+        maritalStatus: formData.maritalStatus.toLowerCase(),
+        phoneNumber: formData.phoneNumber.trim().toLowerCase(),
+        email: formData.email.trim().toLowerCase(),
+        qualification: formData.qualification.trim().toLowerCase(),
 
-        // Converts:
-        // Mathematics,Physics
-        // into:
-        // ["Mathematics", "Physics"]
+        staffType: formData.staffType.toLowerCase(),
+        staffRole: formData.staffRole.toLowerCase(),
+        teacherType: formData.teacherType.toLowerCase(),
+
+        classAssigned: formData.classAssigned.toLowerCase(),
 
         subjectAssigned: formData.subjectAssigned
-          .split(",")
-          .map((subject) => subject.trim()),
+          ? [formData.subjectAssigned.toLowerCase()]
+          : [],
+
+        classesToTeach: formData.classesToTeach
+          ? [formData.classesToTeach.toLowerCase()]
+          : [],
+
+        // department: formData.department.toLowerCase(),
       };
 
-      const response = await ApiClient.post("staff/staff", payload);
-
-      console.log(response.data);
+      const response = await apiClient.post("/staff/staff", payload, {
+        headers: {
+          "x-tenant": subdomain,
+        },
+      });
 
       toast.success(response?.data?.message || "Staff created successfully");
 
@@ -73,78 +102,97 @@ const AdminStaff2 = () => {
         phoneNumber: "",
         email: "",
         staffType: "",
-        role: "",
-        teachingType: "",
-        subjectAssigned: [],
+        staffRole: "",
+        teacherType: "",
+        classAssigned: "",
+        subjectAssigned: "",
         classesToTeach: "",
         department: "",
+        qualification: "",
       });
     } catch (error) {
       console.error(error);
 
-      alert(error.response?.data?.message || "Failed to create staff");
+      toast.error(error.response?.data?.message || "Failed to create staff");
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
   const nav = useNavigate();
 
   return (
     <>
-      <div className="Eform-container">
-        <div className="Eform-header">
-          <div className="Eheader-top">
+      <div className="form-container">
+        <div className="form-header">
+          <div className="header-top">
             <h1>Add New Staff</h1>
-            <div className="Ebreadcrumb">
-              <span className="ESactive" onClick={() => nav(-1)}>
+            <div className="breadcrumb">
+              <span className="Sactive" onClick={() => nav(-1)}>
                 Staff Management
               </span>
-              <span className="Eseparator">&gt;</span>
-              <span className="Eactive">Add Staff</span>
+              <span className="separator">&gt;</span>
+              <span className="active">Add Staff</span>
             </div>
           </div>
-          <p className="Esubtitle">
+          <p className="subtitle">
             Enter the staff member's information below to add them to the
             system.
           </p>
         </div>
 
-        <form className="Estaff-form">
-          <div className="Eform-section">
+        <form className="staff-form" onSubmit={handleSubmit}>
+          <div className="form-section">
             <h2>Personal Information</h2>
-            <div className="Eform-grid Etype-3-col">
-              <div className="Eform-group">
+            <div className="form-grid type-3-col">
+              <div className="form-group">
                 <label>
-                  First Name<span className="Erequired">*</span>
+                  First Name<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   placeholder="Enter First Name"
                 />
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Last Name<span className="Erequired">*</span>
+                  Last Name<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   placeholder="Enter Last Name"
                 />
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Other Name</label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="otherName"
+                  value={formData.otherName}
+                  onChange={handleChange}
                   placeholder="Enter Other Name"
                 />
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Gender<span className="Erequired">*</span>
+                  Gender<span className="required">*</span>
                 </label>
                 <select
                   name="gender"
@@ -158,20 +206,22 @@ const AdminStaff2 = () => {
                   <option value="Female">Female</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Date of Birth<span className="Erequired">*</span>
+                  Date of Birth<span className="required">*</span>
                 </label>
-                <div className="Edate-input-wrapper">
+                <div className="date-input-wrapper">
                   <input
+                    type="date"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
                     onChange={handleChange}
-                    type="text"
                     placeholder="Select Date of Birth"
                   />
-                  <span className="Ecalendar-icon">📅</span>
+                  {/* <span className="calendar-icon">📅</span> */}
                 </div>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Nationality</label>
                 <select
                   name="nationality"
@@ -182,31 +232,35 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Country
                   </option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Ghana">Ghana</option>
+                  <option value="Nigerian">Nigerian</option>
+                  <option value="non-nigerian">Non-Nigerian</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Phone Number<span className="Erequired">*</span>
+                  Phone Number<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="text"
-                  placeholder="Enter First Name"
+                  placeholder="Enter Phone Number"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
                 />
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Email Address<span className="Erequired">*</span>
+                  Email Address<span className="required">*</span>
                 </label>
                 <input
-                  onChange={handleChange}
                   type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="Enter Email"
                 />
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Marital Status</label>
                 <select
                   name="maritalStatus"
@@ -222,24 +276,26 @@ const AdminStaff2 = () => {
                 </select>
               </div>
             </div>
-            <div className="Eform-group Efull-width-field">
+            <div className="form-group full-width-field">
               <label>
-                Address<span className="Erequired">*</span>
+                Address<span className="required">*</span>
               </label>
               <input
-                onChange={handleChange}
                 type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
                 placeholder="Enter Residencial Address"
               />
             </div>
           </div>
 
-          <div className="Eform-section">
+          <div className="form-section">
             <h2>Employment Information</h2>
-            <div className="Eform-grid Etype-3-col">
-              <div className="Eform-group">
+            <div className="form-grid type-3-col">
+              <div className="form-group">
                 <label>
-                  Staff Type<span className="Erequired">*</span>
+                  Staff Type<span className="required">*</span>
                 </label>
                 <select
                   name="staffType"
@@ -249,47 +305,50 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Staff Type
                   </option>
-                  <option value="Subject Teacher">Subject Teacher</option>
-                  <option value="Security">Security</option>
-                  <option value="Bursary">Bursary</option>
+                  <option value="Teaching staff">Teaching Staff</option>
+                  <option value="Non-Teaching staff">Non Teaching Staff</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>
-                  Role<span className="Erequired">*</span>
+                  Role<span className="required">*</span>
                 </label>
                 <select
-                  name="role"
-                  value={formData.role}
+                  name="staffRole"
+                  value={formData.staffRole}
                   onChange={handleChange}
                   defaultValue=""
                 >
                   <option value="" disabled>
                     Select Role
                   </option>
-                  <option value="Staff">Staff</option>
                   <option value="Admin">Admin</option>
+                  <option value="Bursary">Bursary</option>
+                  <option value="Security">Security</option>
+                  <option value="Teacher">Teacher</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Qualification</label>
                 <input
-                  onChange={handleChange}
                   type="text"
+                  name="qualification"
+                  value={formData.qualification}
+                  onChange={handleChange}
                   placeholder="Enter Qualification"
                 />
               </div>
             </div>
           </div>
 
-          <div className="Eform-section">
+          <div className="form-section">
             <h2>Teaching Information (For Teaching Staff)</h2>
-            <div className="Eform-grid Etype-3-col">
-              <div className="Eform-group">
+            <div className="form-grid type-3-col">
+              <div className="form-group">
                 <label>Teacher Type</label>
                 <select
-                  name="techingType"
-                  value={formData.teachingType}
+                  name="teacherType"
+                  value={formData.teacherType}
                   onChange={handleChange}
                   defaultChecked=""
                 >
@@ -300,11 +359,11 @@ const AdminStaff2 = () => {
                   <option value="Subject Teacher">Subject Teacher</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Assign Class</label>
                 <select
-                  value={formData.classesToTeach}
-                  name="selectClass"
+                  name="classAssigned"
+                  value={formData.classAssigned}
                   onChange={handleChange}
                 >
                   <option value="" disabled>
@@ -314,12 +373,12 @@ const AdminStaff2 = () => {
                   <option value="Primary 2">Primary 2</option>
                 </select>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Assign Subject</label>
                 <select
                   value={formData.subjectAssigned}
                   onChange={handleChange}
-                  name="selectSubject"
+                  name="subjectAssigned"
                 >
                   <option value="" disabled>
                     Select Subjects
@@ -327,11 +386,12 @@ const AdminStaff2 = () => {
                   <option value="Mathematics">Mathematics</option>
                   <option value="English">English</option>
                 </select>
-                <span className="Efield-hint">Select one or more subjects</span>
+                <span className="field-hint">Select one or more subjects</span>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Classes to Teach</label>
                 <select
+                  name="classesToTeach"
                   value={formData.classesToTeach}
                   onChange={handleChange}
                   defaultValue=""
@@ -339,27 +399,44 @@ const AdminStaff2 = () => {
                   <option value="" disabled>
                     Select Class
                   </option>
+                  <option value="Jss1">Jss1</option>
+                  <option value="Jss2">Jss2</option>
                 </select>
-                <span className="Efield-hint">Select one or more classes</span>
+                <span className="field-hint">Select one or more classes</span>
               </div>
-              <div className="Eform-group">
+              <div className="form-group">
                 <label>Department</label>
                 <select
-                  vvalue={formData.department}
+                  name="department"
+                  value={formData.department}
                   onChange={handleChange}
                   defaultValue=""
                 >
-                  <option disabled>Select Department</option>
+                  <option value="" disabled>
+                    Select Department
+                  </option>
+                  <option value="Art">Art</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="">Science</option>
                 </select>
-                <span className="Efield-hint">Select one or more classes</span>
+                <span className="field-hint">Select one or more classes</span>
               </div>
             </div>
           </div>
 
-          <button onClick={handleSubmit} type="submit" className="Esubmit-btn">
+          <button type="submit" className="submit-btn">
             Create Staff
           </button>
         </form>
+
+        <div className="form-footer">
+          <span className="copyright">
+            © 2026 Uchee school operating management system. All right reserved.
+          </span>
+          <span className="support">
+            Need help? <a href="#">Contact support</a>
+          </span>
+        </div>
       </div>
     </>
   );
