@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import {toast } from "react-toastify";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherAnnouncement.css";
 import { apiClient } from "../../../config/AxiosInstance";
 
@@ -16,7 +16,7 @@ const SubjectTeacherAnnouncement = () => {
     setLoading(true);
 
     try {
-      const response = await ApiClient.get("/announcement/getAllAnnouncements");
+      const response = await apiClient.get("/announcement/getAllAnnouncements");
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);
@@ -57,7 +57,7 @@ const SubjectTeacherAnnouncement = () => {
 
   return (
     <>
-      <ToastContainer />
+      
 
       <div className="SubjectTeacher-announcement-container">
         <div className="SubjectTeacher-announcement-header">

@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import "../styles/verify-email.css"; // Reusing your layout styling classes
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { apiClient } from "../../../config/AxiosInstance";
+import "../styles/verify-email.css";
 
 const CreatePassword = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const subdomain = window.location.hostname.split(".")[0];
+  const [searchParams] = useSearchParams();
 
-  // Safely grab the passed email context from the router state
-  const userEmail = location.state?.email || "";
+  const token = searchParams.get("token");
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -20,8 +18,11 @@ const CreatePassword = () => {
   const handleResetSubmit = async (e) => {
     e.preventDefault();
 
-    if (!userEmail) {
-      setError("Session expired or missing email context. Please start over.");
+    setError("");
+    setSuccessMessage("");
+
+    if (!token) {
+      setError("Invalid or expired invitation link.");
       return;
     }
 
@@ -35,149 +36,102 @@ const CreatePassword = () => {
       return;
     }
 
-//     try {
-//       setLoading(true);
-//       setError("");
-//       setSuccessMessage("");
+    try {
+      setLoading(true);
 
-//       const payload = {
-//         email: userEmail,
-//         password: password,
-//       };
+      const response = await apiClient.post(
+        `/staff/create-password/${token}`,
+        {
+          token,
+          password,
+          confirmPassword,
+        }
+      );
 
-//       console.log("[API Call] Submitting new password credentials.");
+      const data = response.data;
 
-//       // Fire your reset completion route
-//       await apiClient.post("/admin/reset-password", payload, {
-//         headers: {
-//           "x-tenant": subdomain,
-//         },
-//       });
+      setSuccessMessage(
+        data?.message || "Password created successfully! Redirecting..."
+      );
 
-//       setSuccessMessage(
-//         "Password updated successfully! Redirecting to log in...",
-//       );
-
-//       // Manual navigation route shift to login after success
-//       setTimeout(() => {
-//         navigate("/login");
-//       }, 2000);
-//     } catch (err) {
-//       setError(
-//         err.response?.data?.message ||
-//           "Failed to update password. Please try again.",
-//       );
-//     } finally {
-//       setLoading(false);
-//     }
-   };
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || "Something went wrong";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="verify-page-viewport">
       <div className="verify-card-box">
         <h1 className="verify-title">Create Password</h1>
 
-        {/* <p className="verify-subtext">
-          Create a new password secure credentials for <br />
-          <span className="user-email-highlight">
-            {userEmail || "your account"}
-          </span>
-        </p> */}
-
         <form onSubmit={handleResetSubmit}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-              marginBottom: "20px",
-            }}
-          >
-            {/* New Password Input Field */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "20px" }}>
+            
+            <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+              <label style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}>
                 New Password
               </label>
+
               <input
                 type="password"
-                placeholder="Enter new password"
                 value={password}
                 onChange={(e) => {
                   setPassword(e.target.value);
                   if (error) setError("");
                 }}
                 disabled={loading}
+                placeholder="Enter new password"
                 style={{
                   padding: "12px",
                   borderRadius: "6px",
-                  border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                  outline: "none",
+                  border: "1px solid #d9d9d9",
                   fontSize: "15px",
                 }}
               />
             </div>
 
-            {/* Confirm Password Input Field */}
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
+            <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
+              <label style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}>
                 Confirm Password
               </label>
+
               <input
                 type="password"
-                placeholder="Confirm new password"
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
                   if (error) setError("");
                 }}
                 disabled={loading}
+                placeholder="Confirm new password"
                 style={{
                   padding: "12px",
                   borderRadius: "6px",
-                  border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                  outline: "none",
+                  border: "1px solid #d9d9d9",
                   fontSize: "15px",
                 }}
               />
             </div>
           </div>
 
-          {successMessage && (
-            <p className="otp-success-alert">{successMessage}</p>
-          )}
           {error && <p className="otp-error-alert">{error}</p>}
+          {successMessage && <p className="otp-success-alert">{successMessage}</p>}
 
           <button
             type="submit"
-            className="verify-submit-button"
             disabled={loading || !password || !confirmPassword}
+            className="verify-submit-button"
           >
             {loading ? "Saving..." : "Save"}
           </button>
         </form>
-
-        {/* <p className="verify-footer-nav">
-          Remember your password?{" "}
-          <span className="login-link-span" onClick={() => navigate("/login")}>
-            Log in
-          </span>
-        </p> */}
       </div>
     </div>
   );

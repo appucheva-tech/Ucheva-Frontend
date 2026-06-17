@@ -41,7 +41,7 @@ const ResetPassword = () => {
       setSuccessMessage("");
 
       const payload = {
-        email: userEmail,
+        // email: userEmail,
         password: password,
       };
 

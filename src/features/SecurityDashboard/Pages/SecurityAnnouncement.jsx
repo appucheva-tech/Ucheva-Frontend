@@ -16,7 +16,7 @@ const SecurityAnnouncement = () => {
     setLoading(true);
 
     try {
-      const response = await ApiClient.get("/announcement/getAllAnnouncements");
+      const response = await apiClient.get("/announcement/getAllAnnouncements");
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);
