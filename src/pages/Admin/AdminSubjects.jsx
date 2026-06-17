@@ -59,11 +59,11 @@ const AdminSubjects = () => {
 
       const payload = {
         subjectName: formData.subjectName,
-        section: formData.section,
-        department: formData.department,
+        applicableSection: formData.section,
+        applicableDepartment: formData.department,
       };
 
-      await apiClient.post("/subject/create", payload, {
+      await apiClient.post("/subject/subject", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -123,7 +123,7 @@ const AdminSubjects = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Subjects</span>
-                <span className="card-value">18</span>
+                <span className="card-value">{subjects.length}</span>
               </div>
               <div className="icon-wrapper icon-students">
                 <PiStudentFill className="DashIcon" />
