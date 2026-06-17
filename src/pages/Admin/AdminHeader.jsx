@@ -50,7 +50,6 @@ const AdminHeader = () => {
 
       {/* Right Side Wrapper: Forces everything else to align nicely on the right */}
       <div className="header-right-group">
-        
         {/* Metadata Info (Now positioned on the right side) */}
         <div className="meta-container">
           <div className="date-display">
@@ -69,7 +68,7 @@ const AdminHeader = () => {
             <span>{academicSession.dateString}</span>
           </div>
 
-          <div className="divider"></div>
+          {/* <div className="divider"></div>
 
           <div className="dropdown">
             <span>{academicSession.currentSession}</span>
@@ -82,8 +81,8 @@ const AdminHeader = () => {
             >
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
-
+          </div> */}
+          {/* 
           <div className="divider"></div>
 
           <div className="dropdown">
@@ -97,7 +96,7 @@ const AdminHeader = () => {
             >
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
+          </div> */}
         </div>
 
         {/* Profile & Alert Triggers */}
@@ -157,7 +156,8 @@ const AdminHeader = () => {
           <div className="Auser-info">
             <span className="user-name">
               {user?.schoolName
-                ? user.schoolName.charAt(0).toUpperCase() + user.schoolName.slice(1)
+                ? user.schoolName.charAt(0).toUpperCase() +
+                  user.schoolName.slice(1)
                 : "Curve Academy"}
             </span>
             <span className="user-role">
@@ -167,7 +167,6 @@ const AdminHeader = () => {
             </span>
           </div>
         </div>
-
       </div>
     </header>
   );

@@ -197,15 +197,11 @@ const AdminStaff = () => {
               structural configurations and adding profiles to your
               administration staff workspace.
             </p>
-            <button
-              className="empty-state-add-btn"
-              onClick={() => nav("/AdminStaff2")}
-            >
+            <button className="empty-state-add-btn" onClick={handleAddStaff}>
               Create Personnel Profile
             </button>
           </div>
         ) : (
-          /* Populated Table Layout Viewport */
           <>
             <div className="filterSection">
               <div className="filterGroup">

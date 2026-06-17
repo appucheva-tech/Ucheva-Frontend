@@ -43,7 +43,7 @@ const Signup = () => {
 
     if (name === "schoolName") {
       const slug = generateSlug(value);
-      const baseDomain = "ucheva.vercel.app";
+      const baseDomain = "ucheva.com";
       const suggestions = slug
         ? [
             `${slug}.${baseDomain}`,
