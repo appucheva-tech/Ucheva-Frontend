@@ -1,0 +1,299 @@
+.AAdminDashboardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 12vh;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  border-bottom: 1px solid #f0f0f5;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .Asearch-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 29%;
+
+    .Asearch-input {
+      width: 100%;
+      padding: 10px 40px 10px 16px;
+      font-size: 14px;
+      color: #1e1e2f;
+      background-color: #ffffff;
+      border: 1px solid #e2e2ec;
+      border-radius: 8px;
+      outline: none;
+
+      &::placeholder {
+        color: #a0a0b0;
+      }
+
+      &:focus {
+        border-color: #3b82f6;
+      }
+    }
+
+    .Asearch-button {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .Asearch-icon {
+        width: 16px;
+        height: 16px;
+        color: #2563eb;
+      }
+    }
+  }
+
+  .Ameta-container {
+    display: flex;
+    align-items: center;
+    margin-left: 8%;
+    gap: 12px;
+    width: 36%;
+    font-size: 11px;
+    color: #4a4a6a;
+
+    .Adate-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .Acalendar-icon {
+        width: 16px;
+        height: 16px;
+        color: #71718a;
+      }
+    }
+
+    .Adivider {
+      width: 1px;
+      height: 16px;
+      background-color: #e2e2ec;
+    }
+
+    .Adropdown {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      user-select: none;
+
+      &:hover {
+        color: #1e1e2f;
+      }
+
+      .Achevron-icon {
+        width: 14px;
+        height: 14px;
+        color: #71718a;
+      }
+    }
+  }
+
+  .Aprofile-container {
+    display: flex;
+    align-items: center;
+    margin-right: -2%;
+    gap: 10px;
+    width: 22%;
+    height: 10vh;
+
+    .Anotification-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .Anotification-popup {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        margin-top: 16px;
+        z-index: 1000;
+        width: 420px;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        border: 1px solid #f0f0f5;
+
+        .Apopup-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 24px;
+
+          h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e1e2f;
+            margin: 0;
+          }
+
+          .Aclose-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            color: #71718a;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+
+            &:hover {
+              color: #1e1e2f;
+            }
+          }
+        }
+
+        .Anotification-list {
+          display: flex;
+          flex-direction: column;
+          max-height: 380px; 
+          overflow-y: auto;  
+
+          .Anotification-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-top: 1px solid #f0f0f5;
+            text-align: left;
+            transition: background-color 0.2s ease;
+
+            &:hover {
+              background-color: #f9fafb;
+            }
+
+            .Anotification-content {
+              flex: 1;
+              padding-right: 12px;
+
+              h3 {
+                font-size: 14px;
+                font-weight: 600;
+                color: #1e3a8a;
+                margin: 0 0 4px 0;
+              }
+
+              p {
+                font-size: 13px;
+                color: #374151;
+                margin: 0 0 6px 0;
+                line-height: 1.4;
+                
+                strong {
+                  font-weight: 600;
+                }
+              }
+
+              .Atime-stamp {
+                font-size: 12px;
+                color: #9ca3af;
+              }
+            }
+
+            .Aunread-dot {
+              width: 8px;
+              height: 8px;
+              background-color: #0066ff;
+              border-radius: 50%;
+              flex-shrink: 0;
+            }
+          }
+        }
+
+        .Apopup-footer {
+          border-top: 1px solid #f0f0f5;
+          padding: 14px;
+          text-align: center;
+
+          .Amark-all-btn {
+            background: none;
+            border: none;
+            color: #0066ff;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            width: 100%;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+
+    .Anotification-button {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .Abell-icon {
+        width: 22px;
+        height: 22px;
+        color: #1e1e2f;
+        fill: #1e1e2f;
+      }
+
+      .Anotification-badge {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        width: 8px;
+        height: 8px;
+        background-color: #eab308; 
+        border-radius: 50%;
+        border: 1.5px solid #ffffff;
+      }
+    }
+
+    .Auser-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .Aavatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+    }
+
+    .Auser-info {
+      display: flex;
+      flex-direction: column;
+      width: 60%;
+
+      .Auser-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #1e1e2f;
+        line-height: 1.2;
+      }
+
+      .Auser-role {
+        font-size: 12px;
+        color: #71718a;
+        margin-top: 2px;
+      }
+    }
+  }
+}

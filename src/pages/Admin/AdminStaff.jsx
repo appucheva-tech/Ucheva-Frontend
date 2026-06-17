@@ -16,9 +16,36 @@ const AdminStaff = () => {
 
   // Component states
   const [isOpen, setIsOpen] = useState(false);
-  const [staffList, setStaffList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
+  // const staffList = [
+  //   {
+  //     _id: "1",
+  //     name: "Ifeanacho Okafor",
+  //     role: "Teacher",
+  //     class: "JSS 1A",
+  //     subject: "Mathematics",
+  //     phone: "08012345678",
+  //   },
+  //   {
+  //     _id: "2",
+  //     name: "Grace Johnson",
+  //     role: "Teacher",
+  //     class: "SSS 2B",
+  //     subject: "English Language",
+  //     phone: "08087654321",
+  //   },
+  //   {
+  //     _id: "3",
+  //     name: "Samuel Adeyemi",
+  //     role: "Administrator",
+  //     class: "--",
+  //     subject: "--",
+  //     phone: "08123456789",
+  //   },
+  // ];
+  // const [staffList, setStaffList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [staffList, setStaffList] = useState([] || null);
   // Dynamic Metrics states calculated from live API data
   const [metrics, setMetrics] = useState({
     total: 0,
@@ -36,10 +63,12 @@ const AdminStaff = () => {
           headers: { "x-tenant": subdomain },
         });
 
+        console.log("response:  ", response);
+
         const records = Array.isArray(response.data)
           ? response.data
-          : response.data?.staffs || response.data?.data || [];
-
+          : response.data?.staffData || response.data?.data || [];
+        console.log(records);
         setStaffList(records);
 
         // Derive dashboard metric card counts directly from data
@@ -111,6 +140,7 @@ const AdminStaff = () => {
               assign staff to classes or subjects.
             </p>
           </div>
+
           <button className="AddStaff" onClick={handleAddStaff}>
             {" "}
             <FaPlus /> Add Staff
@@ -249,13 +279,13 @@ const AdminStaff = () => {
                           "Unnamed Staff"}
                       </td>
                       <td className="roleText card-content-populated">
-                        {staff.role || "--"}
+                        {staff.staffRole || "--"}
                       </td>
-                      <td className="classText">{staff.class || "--"}</td>
+                      <td className="classText">{staff.class || "test"}</td>
                       <td className="subjectText card-content-populated">
-                        {staff.subject || "--"}
+                        {staff.subject || "test"}
                       </td>
-                      <td>{staff.phone || staff.phoneNumber || "--"}</td>
+                      <td>{staff.phone || staff.phoneNumber || "test"}</td>
                       <td>
                         <div className="actionButtons">
                           <button className="editBtn" aria-label="Edit staff">

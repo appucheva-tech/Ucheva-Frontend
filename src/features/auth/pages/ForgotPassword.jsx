@@ -24,7 +24,7 @@ const ForgotPassword = () => {
       setError("");
       setSuccessMessage("");
 
-      const payload = { email };
+      const payload = { email }
 
       console.log("[API Call] Requesting password reset for:", payload);
 
