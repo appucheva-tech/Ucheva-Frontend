@@ -13,8 +13,8 @@ import QRModal from "./QRModal";
 const AdminDashboard = () => {
   const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
-const [attendanceData, setAttendanceData] = useState([]);
-const [loadingAttendance, setLoadingAttendance] = useState(false);
+  const [attendance, setAttendance] = useState([]);
+
   useEffect(() => {
     const getDashboardSummary = async () => {
       try {
@@ -29,31 +29,19 @@ const [loadingAttendance, setLoadingAttendance] = useState(false);
     getDashboardSummary();
   }, []);
 
+  useEffect(() => {
+    const getTodayAttendance = async () => {
+      try {
+        const res = await apiClient.get("/staffattendance/today");
+console.log("res : ",res)
+        setAttendance(res?.data?.Attendance);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-const formatTime = (time) => {
-  if (!time) return "--";
-
-  return new Date(time).toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
-const getTodayAttendance = async () => {
-  try {
-    setLoadingAttendance(true);
-
-    const response = await apiClient.get("/staffattendance/today");
-
-    setAttendanceData(response.data.Attendance || []);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoadingAttendance(false);
-  }
-};
-useEffect(() => {
-  getTodayAttendance();
-}, []);
+    getTodayAttendance();
+  }, []);
 
   return (
     <div className="Bddashboard-container">
@@ -136,179 +124,151 @@ useEffect(() => {
         </div>
       </div>
 
-   
-
-
-<div className="dashboard-split-grid">
-  <div className="dashboard-panel">
-    <div className="panel-header">
-      <h2 className="panel-title">Today's Staff Attendance</h2>
-
-      <button className="view-all-link">
-        View All <FiExternalLink />
-      </button>
-    </div>
-
-    <div className="panel-table-wrapper">
-      <table className="dashboard-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Time</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {loadingAttendance ? (
-            <tr>
-              <td colSpan="4">Loading attendance...</td>
-            </tr>
-          ) : attendanceData.length > 0 ? (
-            attendanceData.map((attendance) => (
-              <tr key={attendance.id}>
-                <td className="font-medium text-slate">
-                  {attendance.staff?.fullName || "N/A"}
-                </td>
-
-                <td>
-                  {attendance.staff?.staffType || "Staff"}
-                </td>
-
-                <td>
-                  {formatTime(attendance.timeCheckedIn)}
-                </td>
-
-                <td>
-                  <span
-                    className={`status-badge ${
-                      attendance.timeCheckedOut
-                        ? "badge-checked-out"
-                        : attendance.status === "present"
-                        ? "badge-checked-in"
-                        : "badge-absent"
-                    }`}
-                  >
-                    {attendance.timeCheckedOut
-                      ? "Checked Out"
-                      : attendance.status === "present"
-                      ? "Checked In"
-                      : "Absent"}
-                  </span>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">No attendance records for today.</td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  {/* Quick Actions */}
-  <div className="dashboard-panel">
-    <div className="panel-header">
-      <h2 className="panel-title">Quick Actions</h2>
-    </div>
-
-    <div className="actions-grid">
-      ...
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
       <div className="dashboard-split-grid">
         <div className="dashboard-panel">
           <div className="panel-header">
-            <h2 className="panel-title">Recent Announcements</h2>
+            <h2 className="panel-title">Today's Staff Attendance</h2>
+            <button className="view-all-link">
+              View All <FiExternalLink />
+            </button>
           </div>
-          <div className="announcements-list">
-            <div className="announcement-item color-blue">
-              <h3>PTA Meeting</h3>
-              <span className="announcement-date">
-                Scheduled - May 28, 2026
-              </span>
-              <p>
-                All parents are invited to attend the quarterly meeting to
-                discuss upcoming changes...
-              </p>
-            </div>
-
-            <div className="announcement-item color-sky">
-              <h3>Mid-term break notice</h3>
-              <span className="announcement-date">May 18, 2026</span>
-              <p>
-                School will close for mid-term break from May 20th to 24th...
-              </p>
-            </div>
-
-            <div className="announcement-item color-navy">
-              <h3>Sports Day Event</h3>
-              <span className="announcement-date">May 15, 2026</span>
-              <p>Annual inter-house sports competition will be held...</p>
-            </div>
+          <div className="panel-table-wrapper">
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Role</th>
+                  <th>Time</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="font-medium text-slate">Adaeze Clinton</td>
+                  <td>Teacher</td>
+                  <td>7:48 AM</td>
+                  <td>
+                    <span className="status-badge badge-checked-in">
+                      Checked In
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="font-medium text-slate">Emeka Ugonna</td>
+                  <td>Teacher</td>
+                  <td>8:02 AM</td>
+                  <td>
+                    <span className="status-badge badge-checked-in">
+                      Checked In
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="font-medium text-slate">Tolu Adesunya</td>
+                  <td>Bursar</td>
+                  <td>7:55 AM</td>
+                  <td>
+                    <span className="status-badge badge-checked-in">
+                      Checked In
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="font-medium text-slate">Chidi Okoronkwo</td>
+                  <td>Security</td>
+                  <td>--</td>
+                  <td>
+                    <span className="status-badge badge-absent">Absent</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td className="font-medium text-slate">Grace Obidi</td>
+                  <td>Cleaner</td>
+                  <td>4:10 PM</td>
+                  <td>
+                    <span className="status-badge badge-checked-out">
+                      Checked Out
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
         <div className="dashboard-panel">
           <div className="panel-header">
-            <h2 className="panel-title">Fee Collection Summary</h2>
+            <h2 className="panel-title">Quick Actions</h2>
           </div>
-          <div className="fees-summary-container">
-            <div className="donut-chart-wrapper">
-              <svg viewBox="0 0 100 100" className="donut-svg">
-                <circle cx="50" cy="50" r="40" className="donut-bg" />
-                <circle cx="50" cy="50" r="40" className="donut-fill" />
-              </svg>
-              <div className="donut-text">
-                <span className="percentage">72%</span>
-                <span className="label">collected</span>
+          <div className="actions-grid">
+            <div
+              onClick={() => setShowQRModal(true)}
+              style={{ background: "red" }}
+              className="action-button-card action-qr"
+            >
+              <div className="action-main-content">
+                <div className="action-icon-box">
+                  <IoQrCodeOutline />
+                </div>
+                <div className="action-text">
+                  <h3>Generate QR Code</h3>
+                  <p>For staff to mark attendance</p>
+                </div>
+              </div>
+              <div className="next_icon_holder">
+                <HiChevronRight className="action-arrow" />
               </div>
             </div>
 
-            <div className="fees-ledger-pane">
-              <div className="ledger-item">
-                <div className="ledger-label-group">
-                  <span className="ledger-marker marker-collected"></span>
-                  <span className="ledger-name">Collected</span>
+            <div className="action-button-card action-students">
+              <div className="action-main-content">
+                <div className="action-icon-box">
+                  <LuUserPlus />
                 </div>
-                <span className="ledger-value font-semibold">N1,200,000</span>
-              </div>
-              <div className="ledger-item">
-                <div className="ledger-label-group">
-                  <span className="ledger-marker marker-outstanding"></span>
-                  <span className="ledger-name">Outstanding</span>
+                <div className="action-text">
+                  <h3>Add Students</h3>
+                  <p>Register a student</p>
                 </div>
-                <span className="ledger-value font-semibold">N400,000</span>
               </div>
-              <hr className="ledger-divider" />
-              <div className="ledger-item total-row">
-                <span className="ledger-name font-medium text-slate">
-                  Total fee
-                </span>
-                <span className="ledger-value font-bold text-slate">
-                  N1,600,000
-                </span>
+              <div className="next_icon_holder">
+                <HiChevronRight className="action-arrow" />
+              </div>
+            </div>
+
+            <div className="action-button-card action-announcements">
+              <div className="action-main-content">
+                <div className="action-icon-box">
+                  <IoMegaphoneOutline />
+                </div>
+                <div className="action-text">
+                  <h3>Add Class</h3>
+                  <p>Add Classes</p>
+                </div>
+              </div>
+              <div className="next_icon_holder">
+                <HiChevronRight className="action-arrow" />
+              </div>
+            </div>
+
+            <div className="action-button-card action-reports">
+              <div className="action-main-content">
+                <div className="action-icon-box">
+                  <LuFileSpreadsheet />
+                </div>
+                <div className="action-text">
+                  <h3>View Report Cards</h3>
+                  <p>View student results</p>
+                </div>
+              </div>
+              <div className="next_icon_holder">
+                <HiChevronRight className="action-arrow" />
               </div>
             </div>
           </div>
         </div>
       </div>
+
+
       <QRModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>
   );

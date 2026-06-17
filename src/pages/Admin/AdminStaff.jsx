@@ -16,32 +16,8 @@ const AdminStaff = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-  //   {
-  //     _id: "1",
-  //     name: "Ifeanacho Okafor",
-  //     role: "Teacher",
-  //     class: "JSS 1A",
-  //     subject: "Mathematics",
-  //     phone: "08012345678",
-  //   },
-  //   {
-  //     _id: "2",
-  //     name: "Grace Johnson",
-  //     role: "Teacher",
-  //     class: "SSS 2B",
-  //     subject: "English Language",
-  //     phone: "08087654321",
-  //   },
-  //   {
-  //     _id: "3",
-  //     name: "Samuel Adeyemi",
-  //     role: "Administrator",
-  //     class: "--",
-  //     subject: "--",
-  //     phone: "08123456789",
-  //   },
-  // ];
-  // const [staffList, setStaffList] = useState([]);
+
+
   const [isLoading, setIsLoading] = useState(true);
   const [staffList, setStaffList] = useState([] || null);
   const [metrics, setMetrics] = useState({
