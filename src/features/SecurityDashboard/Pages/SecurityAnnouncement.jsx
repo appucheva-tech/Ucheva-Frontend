@@ -8,6 +8,9 @@ const SecurityAnnouncement = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     fetchAnnouncements();
   }, []);
@@ -16,17 +19,25 @@ const SecurityAnnouncement = () => {
     setLoading(true);
 
     try {
-      const response = await ApiClient.get("/announcement/getAllAnnouncements");
+      const response = await apiClient.get("/announcement/getAllAnnouncements");
+
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);
+
       const errorMessage =
         err.response?.data?.message || "Unable to load announcements.";
+
       toast.error(errorMessage);
       setAnnouncements([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleAnnouncementClick = (announcement) => {
+    setSelectedAnnouncement(announcement);
+    setIsModalOpen(true);
   };
 
   const visibleAnnouncements = announcements;
@@ -87,6 +98,7 @@ const SecurityAnnouncement = () => {
 
               <div className="empty-state-content">
                 <h1 className="empty-state-title">You're all caught up!</h1>
+
                 <p className="empty-state-description">
                   No new announcements at the moment. Check back later.
                 </p>
@@ -94,7 +106,11 @@ const SecurityAnnouncement = () => {
             </div>
           ) : (
             visibleAnnouncements.map((announcement) => (
-              <div key={announcement.id} className="announcement-card">
+              <div
+                key={announcement.id}
+                className="announcement-card"
+                onClick={() => handleAnnouncementClick(announcement)}
+              >
                 <div className="announcement-content">
                   <h2>{announcement.announcementTitle}</h2>
 
@@ -172,7 +188,50 @@ const SecurityAnnouncement = () => {
           )}
         </div>
       </div>
+
+      {isModalOpen && selectedAnnouncement && (
+        <div
+          className="announcement-modal-overlay"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div
+            className="announcement-modal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="announcement-modal-close"
+              onClick={() => setIsModalOpen(false)}
+            >
+              ×
+            </button>
+
+            <div className="announcement-modal-header">
+              <div className="announcement-sender">
+                <div className="announcement-avatar">
+                  {selectedAnnouncement.announcementTitle?.charAt(0)}
+                </div>
+
+                <div>
+                  <h3>School Administration</h3>
+                  <span>{selectedAnnouncement.audience}</span>
+                </div>
+              </div>
+
+              <div className="announcement-modal-date">
+                {new Date(selectedAnnouncement.createdAt).toLocaleString()}
+              </div>
+            </div>
+
+            <div className="announcement-modal-content">
+              <h2>{selectedAnnouncement.announcementTitle}</h2>
+
+              <p>{selectedAnnouncement.announcementContent}</p>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
+
 export default SecurityAnnouncement;

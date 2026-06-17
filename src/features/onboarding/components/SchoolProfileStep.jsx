@@ -18,9 +18,31 @@ const SchoolProfileStep = ({
     { id: "primary", label: "Primary" },
     { id: "secondary", label: "Secondary" },
   ];
+  const [adminProfile, setAdminProfile] = useState({});
 
   useEffect(() => {
-    
+    const fetchSchoolProfile = async () => {
+      try {
+        const { data } = await apiClient.get("/admin/get-admin");
+
+        setAdminProfile((prev) => ({
+          ...prev,
+          schoolName: data?.data?.schoolName,
+          schoolUrl: data?.data?.schoolUrl,
+          email: data?.data?.email,
+          phoneNumber: data?.data?.phoneNumber,
+          address: data?.data?.address,
+        }));
+        console.log(data?.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchSchoolProfile();
+  }, [setFormData]);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
@@ -130,7 +152,7 @@ const SchoolProfileStep = ({
           <input
             type="text"
             className="text-input-field disabled-state"
-            value={formData.schoolName || ""}
+            value={adminProfile?.schoolName}
             disabled
           />
         </div>
@@ -140,7 +162,7 @@ const SchoolProfileStep = ({
           <input
             type="text"
             className="text-input-field disabled-state"
-            value={formData.schoolUrl || ""}
+            value={adminProfile?.schoolUrl || ""}
             disabled
           />
         </div>
@@ -150,7 +172,7 @@ const SchoolProfileStep = ({
           <input
             type="email"
             className="text-input-field disabled-state"
-            value={formData.email || ""}
+            value={adminProfile?.email || ""}
             disabled
           />
         </div>
@@ -158,11 +180,12 @@ const SchoolProfileStep = ({
         <div className="form-field-group">
           <label className="field-label">Phone number</label>
           <input
+            disabled
             type="text"
-            className="text-input-field active-state"
+            className="text-input-field disabled-state"
             placeholder="+234 1234567890"
-            value={formData.phoneNumber || ""}
-            onChange={(e) => handleFieldChange("phoneNumber", e.target.value)}
+            value={adminProfile?.phoneNumber || ""}
+            // onChange={(e) => handleFieldChange("phoneNumber", e.target.value)}
           />
         </div>
 
@@ -171,7 +194,7 @@ const SchoolProfileStep = ({
           <input
             type="text"
             className="text-input-field disabled-state"
-            value={formData.address || ""}
+            value={adminProfile?.address || ""}
             disabled
           />
         </div>
