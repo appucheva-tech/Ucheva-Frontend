@@ -1,0 +1,297 @@
+.form-container {
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  .form-header {
+    margin-bottom: 28px;
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 26px;
+        color: #0f172a;
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .breadcrumb {
+        font-size: 13px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+
+        .Sactive {
+          cursor: pointer;
+          transition: color 0.15s ease;
+
+          &:hover {
+            color: #1e40af;
+          }
+        }
+
+        .separator {
+          font-size: 11px;
+          color: #cbd5e1;
+        }
+
+        .active {
+          color: #2563eb;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #475569;
+      margin: 8px 0 0 0;
+      line-height: 1.5;
+    }
+  }
+
+  .staff-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    .form-section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03);
+
+      h2 {
+        font-size: 16px;
+        color: #0f172a;
+        margin: 0 0 24px 0;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 20px;
+
+        &.type-3-col {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .form-grid.type-3-col {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .form-grid.type-3-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &.full-width-field {
+          margin-top: 4px;
+          grid-column: 1 / -1;
+        }
+
+        label {
+          font-size: 13px;
+          color: #475569;
+          font-weight: 600;
+
+          .required {
+            color: #ef4444;
+            margin-left: 3px;
+          }
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select {
+          height: 42px;
+          padding: 0 14px;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-size: 14px;
+          color: #0f172a;
+          background-color: #ffffff;
+          outline: none;
+          box-sizing: border-box;
+          width: 100%;
+          transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+
+          &:hover {
+            border-color: #94a3b8;
+          }
+
+          &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+          }
+        }
+
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          background-size: 14px;
+          padding-right: 40px;
+          cursor: pointer;
+        }
+
+        .date-input-wrapper {
+          position: relative;
+          display: flex;
+          align-items: center;
+          width: 100%;
+
+          input[type="date"] {
+            padding-right: 40px;
+          }
+
+          .calendar-icon {
+            position: absolute;
+            right: 14px;
+            font-size: 14px;
+            color: #64748b;
+            pointer-events: none;
+            user-select: none;
+          }
+        }
+
+        .field-hint {
+          font-size: 12px;
+          color: #64748b;
+          margin-top: 2px;
+          font-style: italic;
+        }
+      }
+    }
+
+    .submit-btn {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      height: 46px;
+      padding: 0 32px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: max-content;
+      align-self: flex-start;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition:
+        background-color 0.15s ease,
+        transform 0.1s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+
+  .form-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #64748b;
+
+    .support {
+      font-weight: 500;
+      a {
+        color: #2563eb;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .form-container {
+    padding: 16px;
+
+    .form-header {
+      margin-bottom: 20px;
+
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+
+        .breadcrumb {
+          align-self: flex-start;
+        }
+      }
+    }
+
+    .staff-form {
+      gap: 20px;
+
+      .form-section {
+        padding: 20px 16px;
+      }
+
+      .submit-btn {
+        width: 100%;
+        align-self: center;
+      }
+    }
+
+    .form-footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+      margin-top: 36px;
+    }
+  }
+}
+
+textarea {
+  width: 100%;
+  min-height: 72px;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 14px;
+  resize: vertical;
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+  }
+}

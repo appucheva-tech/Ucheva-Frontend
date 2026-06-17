@@ -60,6 +60,7 @@ import ResetPassword from "./features/auth/pages/ResetPassword";
 import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import CreatePassword from "./features/auth/pages/CreatePassword";
 import StaffDetails from "./pages/Admin/AdminStaffDetails";
+import AdminStudent2 from "./pages/Admin/AdminStudent2";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -99,6 +100,7 @@ const App = () => {
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="staff-details/:id" element={<StaffDetails />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
+          <Route path="AdminStudent2" element={<AdminStudent2 />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
           <Route path="AdminClass" element={<AdminClass />} />

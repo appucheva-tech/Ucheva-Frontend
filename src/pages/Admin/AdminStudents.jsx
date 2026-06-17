@@ -4,10 +4,12 @@ import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
-import { FaSackDollar } from "react-icons/fa6";
+import { FaPlus, FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const AdminStudents = () => {
+  const nav = useNavigate();
   const studentData = [
     {
       name: "Adaeze Clinton",
@@ -65,11 +67,19 @@ const AdminStudents = () => {
       <div className="ddashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
-            Good morning, Mr Eric <span className="wave-emoji">👋</span>
+            Good morning, Mr Eric 👋{" "}
+            <span className="subtitle-text">
+              Here's an overview of Green Field Academy activities today.
+            </span>
           </h1>
-          <p className="subtitle-text">
-            Here's an overview of Green Field Academy activities today.
-          </p>
+          <button
+            className="AddStudent"
+            onClick={() => {
+              nav("/admin/AdminStudent2");
+            }}
+          >
+            <FaPlus /> Add Student
+          </button>
         </header>
 
         <div className="metrics-grid">
