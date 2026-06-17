@@ -1,6 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { HiOutlineUsers } from "react-icons/hi2";
 import { PiStudent } from "react-icons/pi";
@@ -11,6 +10,7 @@ import { SiGoogleforms } from "react-icons/si";
 import { CiVolumeHigh } from "react-icons/ci";
 import { IoSettingsOutline } from "react-icons/io5";
 import "./AdminSidebar.css";
+import rocket from "../../assets/rokect.svg";
 import Logo from "../../assets/Logo.svg";
 
 const Sidebar = () => {
@@ -21,15 +21,17 @@ const Sidebar = () => {
 
   return (
     <div className="Adminsidebar">
+      {/* Brand Identity Pinned at Top */}
       <div className="Adminsidebar-brand">
         <img
           src={Logo}
-          alt=""
+          alt="Ucheva Logo"
           className="AdminDashboardLogo"
           onClick={() => nav("/")}
         />
       </div>
 
+      {/* Internal Scrollable Navigation Links List */}
       <nav className="sidebar-menu">
         <NavLink to="dashboard" end className={getNavClass}>
           <RxDashboard className="menu-icon" />
@@ -86,6 +88,22 @@ const Sidebar = () => {
           <span>Settings</span>
         </NavLink>
       </nav>
+
+      <div className="sidebar-footer-container">
+        <div className="sidebar-upgrade-card">
+          {/* Clean, wrapper for your rocket image asset */}
+          <div className="upgrade-rocket-emoji">
+            <img src={rocket} alt="Rocket" className="rocket-image-asset" />
+          </div>
+
+          <p className="upgrade-card-text">You're on the starter plan.</p>
+          <p className="upgrade-card-subtext">Upgrade to go to Pro</p>
+
+          <button type="button" className="upgrade-action-btn">
+            Upgrade
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -58,9 +58,16 @@ const FeeStructureStep = ({ formData, setFormData }) => {
 
     if (activeSections.includes("secondary") && config.secondary) {
       const { classFrom, classTo } = config.secondary;
-      const secondaryTiers = ["JS1", "JS2", "JS3", "SS1", "SS2", "SS3"];
-      const startIdx = secondaryTiers.indexOf(classFrom || "JS1");
-      const endIdx = secondaryTiers.indexOf(classTo || "SS3");
+      const secondaryTiers = [
+        "JSS 1",
+        "JSS 2",
+        "JSS 3",
+        "SS 1",
+        "SS 2",
+        "SS 3",
+      ];
+      const startIdx = secondaryTiers.indexOf(classFrom || "JSS 1");
+      const endIdx = secondaryTiers.indexOf(classTo || "SS 3");
 
       if (startIdx !== -1 && endIdx !== -1) {
         secondaryTiers.slice(startIdx, endIdx + 1).forEach((cls) => {
@@ -150,9 +157,10 @@ const FeeStructureStep = ({ formData, setFormData }) => {
     setNumInstallments(
       targetFee.numInstallments ? String(targetFee.numInstallments) : "2",
     );
-    setSelectedClasses(targetFee.applicableClasses || []);
+    setSelectedClasses(targetFee.className || []); // ✅ fixed: was applicableClasses
     setIsModalOpen(true);
   };
+
   const handleSaveFee = () => {
     if (!feeType || !amount) return;
 
@@ -164,7 +172,7 @@ const FeeStructureStep = ({ formData, setFormData }) => {
         paymentOption === "Installment" ? parseInt(numInstallments, 10) : "N/A",
       installmentDetails:
         paymentOption === "Installment" ? activeInstallmentSplits : [],
-      applicableClasses: selectedClasses,
+      className: selectedClasses, // ✅ fixed: was applicableClasses
     };
 
     const updatedFeesList = [...savedFeesArray];
@@ -218,8 +226,9 @@ const FeeStructureStep = ({ formData, setFormData }) => {
                   <td className="fee-table-fee-type">{fee.feeType}</td>
                   <td>
                     <div className="table-classes-pill-row">
-                      {fee.applicableClasses?.length > 0
-                        ? fee.applicableClasses.join(", ")
+                      {/* ✅ fixed: was fee.applicableClasses */}
+                      {fee.className?.length > 0
+                        ? fee.className.join(", ")
                         : "All Classes"}
                     </div>
                   </td>
@@ -422,7 +431,6 @@ const FeeStructureStep = ({ formData, setFormData }) => {
                 </div>
               </div>
 
-              {/* Dynamic Real-Time Dynamic Installment Split Section */}
               {paymentOption === "Installment" && (
                 <div className="modal-installment-disclosure-box">
                   <h4 className="disclosure-box-title">Installment Plan</h4>
@@ -453,7 +461,6 @@ const FeeStructureStep = ({ formData, setFormData }) => {
                     </div>
                   </div>
 
-                  {/* Real-time Dynamic Breakdowns Output Fields */}
                   {activeInstallmentSplits.length > 0 && (
                     <div className="installment-breakdown-sub-stack">
                       <span className="installment-breakdown-title-header">
