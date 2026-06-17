@@ -1,52 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import "./BursaryAnnouncement.css";
+import { apiClient } from "../../../config/AxiosInstance";
 
-const BursaryAnnouncement = () => {
+const SubjectTeacherAnnouncement = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedAnnouncement, setSelectedAnnouncement] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-  const announcements = [
-    {
-      id: 1,
-      title: "Staff Meeting Reminder",
-      description:
-        "All staff members are required to attend the meeting scheduled for Monday, 19th May 2026 by 2:00 PM in the school hall. Thank you.",
-      date: "May 18, 2026",
-      time: "8:30 AM",
-      read: true,
-    },
-    {
-      id: 2,
-      title: "Resumption of Normal Activities",
-      description:
-        "This is to inform all staff that the school will resume normal activities on Monday, 19th May 2026. Please be punctual.",
-      date: "May 15, 2026",
-      time: "4:45 PM",
-      read: true,
-    },
-    {
-      id: 3,
-      title: "Environmental Sanitation Exercise",
-      description:
-        "Weekly environmental sanitation exercise will hold on Saturday, 24th May 2026. All staff are expected to participate.",
-      date: "May 13, 2026",
-      time: "9:00 AM",
-      read: false,
-    },
-    {
-      id: 4,
-      title: "Emergency Closure Update",
-      description:
-        "Due to the forecasted heavy rainfall, the school will be closed on Tuesday, 20th May 2026 for safety purposes.",
-      date: "May 12, 2026",
-      time: "6:20 PM",
-      read: true,
-    },
-  ];
+  useEffect(() => {
+    fetchAnnouncements();
+  }, []);
+
+  const fetchAnnouncements = async () => {
+    setLoading(true);
+
+    try {
+      const response = await apiClient.get("/announcement/getAllAnnouncements");
+      setAnnouncements(response.data?.announcements || []);
+    } catch (err) {
+      console.error(err);
+      const errorMessage =
+        err.response?.data?.message || "Unable to load announcements.";
+      toast.error(errorMessage);
+      setAnnouncements([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleAnnouncementClick = (announcement) => {
+    setSelectedAnnouncement(announcement);
+    setShowModal(true);
+  };
 
   const filters = [
-    { key: "all", label: "All", count: 12 },
-    { key: "unread", label: "Unread", count: 2 },
-    { key: "read", label: "Read", count: 1 },
+    { key: "all", label: "All", count: announcements.length },
+    {
+      key: "unread",
+      label: "Unread",
+      count: announcements.filter((a) => !a.read).length,
+    },
+    {
+      key: "read",
+      label: "Read",
+      count: announcements.filter((a) => a.read).length,
+    },
   ];
 
   const getFilteredAnnouncements = () => {
@@ -62,66 +63,157 @@ const BursaryAnnouncement = () => {
   const filteredAnnouncements = getFilteredAnnouncements();
 
   return (
-    <div className="BR-announcement-container">
-      <div className="BR-announcement-header">
-        <h1>Announcements</h1>
-        <p>Stay updated with school notices and updates.</p>
-      </div>
+    <>
+      <ToastContainer />
 
-      <div className="BR-announcement-filters">
-        {filters.map((filter) => (
-          <button
-            key={filter.key}
-            className={`BR-filter-tab ${
-              activeFilter === filter.key ? "BR-active" : ""
-            }`}
-            onClick={() => setActiveFilter(filter.key)}
+      <div className="SubjectTeacher-announcement-container">
+        <div className="SubjectTeacher-announcement-header">
+          <h1 className="SubjectTeacher-announcement-title">Announcements</h1>
+          <p className="SubjectTeacher-announcement-subtitle">
+            Stay updated with school notices and updates.
+          </p>
+        </div>
+
+        <div className="SubjectTeacher-announcement-filters">
+          {filters.map((filter) => (
+            <button
+              key={filter.key}
+              className={`SubjectTeacher-filter-tab ${activeFilter === filter.key ? "SubjectTeacher-active" : ""}`}
+              onClick={() => setActiveFilter(filter.key)}
+            >
+              {filter.label} ({filter.count})
+            </button>
+          ))}
+        </div>
+
+        <div className="SubjectTeacher-announcements-list">
+          {loading ? (
+            <div className="SubjectTeacher-announcement-loading">
+              Loading announcements...
+            </div>
+          ) : filteredAnnouncements.length === 0 ? (
+            <div className="empty-state-container">
+              <div className="mailbox-illustration">
+                {/* Antenna circles */}
+                <div className="antenna antenna-left"></div>
+                <div className="antenna antenna-right"></div>
+                <div className="antenna-connector"></div>
+
+                {/* Mailbox top (lid) */}
+                <div className="mailbox-top"></div>
+
+                {/* Mailbox body */}
+                <div className="mailbox-body">
+                  {/* Left eye */}
+                  <div className="eye eye-left"></div>
+                  {/* Right eye */}
+                  <div className="eye eye-right"></div>
+                  {/* Mouth */}
+                  <div className="mouth"></div>
+                </div>
+
+                {/* Mailbox post/stand */}
+                <div className="mailbox-stand"></div>
+              </div>
+
+              <div className="empty-state-content">
+                <h1 className="empty-state-title">You're all caught up!</h1>
+                <p className="empty-state-description">
+                  {activeFilter === "all"
+                    ? "No announcements available at the moment. Check back later."
+                    : activeFilter === "unread"
+                      ? "No unread announcements. You're all caught up!"
+                      : "No read announcements yet. Start reading some announcements!"}
+                </p>
+              </div>
+            </div>
+          ) : (
+            filteredAnnouncements.map((announcement) => (
+              <div
+                key={announcement.id}
+                className="SubjectTeacher-announcement-card"
+                onClick={() => handleAnnouncementClick(announcement)}
+              >
+                <div className="SubjectTeacher-announcement-content">
+                  <h3 className="SubjectTeacher-announcement-card-title">
+                    {announcement.announcementTitle}
+                  </h3>
+                  <p className="SubjectTeacher-announcement-card-description">
+                    {announcement.announcementContent}
+                  </p>
+                  <div className="SubjectTeacher-announcement-meta">
+                    <span className="SubjectTeacher-announcement-date">
+                      📅 {new Date(announcement.createdAt).toLocaleDateString()}
+                    </span>
+                    <span className="SubjectTeacher-announcement-time">
+                      🕐 {new Date(announcement.createdAt).toLocaleTimeString()}
+                    </span>
+                    <span className="SubjectTeacher-announcement-audience">
+                      👥 Audience: {announcement.audience}
+                    </span>
+                  </div>
+                </div>
+                <div className="SubjectTeacher-announcement-arrow">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+      {showModal && selectedAnnouncement && (
+        <div
+          className="SubjectTeacher-modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="SubjectTeacher-modal"
+            onClick={(e) => e.stopPropagation()}
           >
-            {filter.label} ({filter.count})
-          </button>
-        ))}
-      </div>
+            <button
+              className="SubjectTeacher-modal-close"
+              onClick={() => setShowModal(false)}
+            >
+              ×
+            </button>
 
-      <div className="BR-announcements-list">
-        {filteredAnnouncements.map((announcement) => (
-          <div key={announcement.id} className="BR-announcement-card">
-            <div className="BR-announcement-content">
-              <h3 className="BR-announcement-card-title">
-                {announcement.title}
-              </h3>
+            <div className="SubjectTeacher-modal-header">
+              <div className="SubjectTeacher-modal-avatar">
+                {selectedAnnouncement.announcementTitle?.charAt(0)}
+              </div>
 
-              <p className="BR-announcement-card-description">
-                {announcement.description}
-              </p>
+              <div className="SubjectTeacher-modal-info">
+                <h3>School Administration</h3>
 
-              <div className="BR-announcement-meta">
-                <span className="BR-announcement-date">
-                  📅 {announcement.date}
-                </span>
-
-                <span className="BR-announcement-time">
-                  🕐 {announcement.time}
+                <span>
+                  {new Date(selectedAnnouncement.createdAt).toLocaleString()}
                 </span>
               </div>
             </div>
 
-            <div className="BR-announcement-arrow">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
+            <div className="SubjectTeacher-modal-body">
+              <h2>{selectedAnnouncement.announcementTitle}</h2>
+
+              <p>{selectedAnnouncement.announcementContent}</p>
+
+              <div className="SubjectTeacher-modal-footer">
+                Audience: {selectedAnnouncement.audience}
+              </div>
             </div>
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default BursaryAnnouncement;
+export default SubjectTeacherAnnouncement;

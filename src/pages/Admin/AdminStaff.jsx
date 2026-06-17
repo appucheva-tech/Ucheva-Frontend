@@ -16,9 +16,36 @@ const AdminStaff = () => {
 
   // Component states
   const [isOpen, setIsOpen] = useState(false);
-  const [staffList, setStaffList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
+  // const staffList = [
+  //   {
+  //     _id: "1",
+  //     name: "Ifeanacho Okafor",
+  //     role: "Teacher",
+  //     class: "JSS 1A",
+  //     subject: "Mathematics",
+  //     phone: "08012345678",
+  //   },
+  //   {
+  //     _id: "2",
+  //     name: "Grace Johnson",
+  //     role: "Teacher",
+  //     class: "SSS 2B",
+  //     subject: "English Language",
+  //     phone: "08087654321",
+  //   },
+  //   {
+  //     _id: "3",
+  //     name: "Samuel Adeyemi",
+  //     role: "Administrator",
+  //     class: "--",
+  //     subject: "--",
+  //     phone: "08123456789",
+  //   },
+  // ];
+  // const [staffList, setStaffList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [staffList, setStaffList] = useState([] || null);
   // Dynamic Metrics states calculated from live API data
   const [metrics, setMetrics] = useState({
     total: 0,
@@ -36,10 +63,12 @@ const AdminStaff = () => {
           headers: { "x-tenant": subdomain },
         });
 
+        console.log("response:  ", response);
+
         const records = Array.isArray(response.data)
           ? response.data
-          : response.data?.staffs || response.data?.data || [];
-
+          : response.data?.staffData || response.data?.data || [];
+        console.log(records);
         setStaffList(records);
 
         // Derive dashboard metric card counts directly from data
@@ -111,6 +140,7 @@ const AdminStaff = () => {
               assign staff to classes or subjects.
             </p>
           </div>
+
           <button className="AddStaff" onClick={handleAddStaff}>
             {" "}
             <FaPlus /> Add Staff
@@ -242,20 +272,35 @@ const AdminStaff = () => {
                 </thead>
                 <tbody>
                   {staffList.map((staff, index) => (
-                    <tr key={staff._id || index}>
+                    <tr
+                      key={staff.id || index}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        nav(`/admin/staff-details/${staff.id}`);
+                      }}
+                    >
                       <td className="staffName card-content-populated">
                         {staff.name ||
                           `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
                           "Unnamed Staff"}
                       </td>
+
                       <td className="roleText card-content-populated">
-                        {staff.role || "--"}
+                        {staff.staffRole || staff.role || "--"}
                       </td>
-                      <td className="classText">{staff.class || "--"}</td>
+
+                      <td className="classText">
+                        {staff.classAssigned || staff.class || "test"}
+                      </td>
+
                       <td className="subjectText card-content-populated">
-                        {staff.subject || "--"}
+                        {Array.isArray(staff.subjectAssigned)
+                          ? staff.subjectAssigned.join(", ")
+                          : staff.subject || "test"}
                       </td>
-                      <td>{staff.phone || staff.phoneNumber || "--"}</td>
+
+                      <td>{staff.phoneNumber || staff.phone || "test"}</td>
+
                       <td>
                         <div className="actionButtons">
                           <button className="editBtn" aria-label="Edit staff">
@@ -268,6 +313,7 @@ const AdminStaff = () => {
                               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                             </svg>
                           </button>
+
                           <button
                             className="deleteBtn"
                             aria-label="Delete staff"
