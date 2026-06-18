@@ -20,10 +20,6 @@ const SecurityAnnouncement = () => {
 
     try {
       const response = await apiClient.get("/announcement/getAllAnnouncements");
-<<<<<<< HEAD
-=======
-
->>>>>>> 2d5db4dd351b4f4f6821866c16303055ed39853e
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);

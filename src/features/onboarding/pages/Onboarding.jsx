@@ -177,7 +177,9 @@ const OnboardingStepper = () => {
           );
         }
 
-        await apiClient.post("/admin/profile", payload, {
+        console.log("pay: " ,payload)
+
+        await apiClient.post("/admin/profile", formData, {
           headers: {
             "x-tenant": subdomain,
             "Content-Type": null,
@@ -228,7 +230,7 @@ const OnboardingStepper = () => {
           </div>
         </div>
         <OnboardingSuccess
-          onGetStarted={() => (window.location.href = "/dashboard")}
+          onGetStarted={() => (window.location.href = "/admin/dashboard")}
         />
       </div>
     );

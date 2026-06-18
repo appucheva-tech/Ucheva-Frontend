@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams,useParams } from "react-router-dom";
 import { apiClient } from "../../../config/AxiosInstance";
 import "../styles/verify-email.css";
 
@@ -7,8 +7,8 @@ const CreatePassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const token = searchParams.get("token");
-
+  const {token} = useParams();
+console.log(token)
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);

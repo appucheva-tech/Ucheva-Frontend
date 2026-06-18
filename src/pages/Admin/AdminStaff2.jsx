@@ -4,6 +4,7 @@ import "./AdminStaff2.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
 import { apiClient } from "../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
 const AdminStaff2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
@@ -65,11 +66,14 @@ const AdminStaff2 = () => {
         email: formData.email.trim().toLowerCase(),
         qualification: formData.qualification.trim().toLowerCase(),
 
-        staffType: formData.staffType.toLowerCase(),
+        staffType: formData.staffType.toLowerCase() ,
         staffRole: formData.staffRole.toLowerCase(),
-        teacherType: formData.teacherType.toLowerCase(),
-
-        classAssigned: formData.classAssigned.toLowerCase(),
+ ...(formData.teacherType && {
+    teacherType: formData.teacherType.toLowerCase(),
+  }),
+   ...(formData.classAssigned && {
+    teacherType: formData.classAssigned.toLowerCase(),
+  }),
 
         subjectAssigned: formData.subjectAssigned
           ? [formData.subjectAssigned.toLowerCase()]
@@ -118,6 +122,7 @@ const AdminStaff2 = () => {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -341,7 +346,7 @@ const AdminStaff2 = () => {
             </div>
           </div>
 
-          <div className="form-section">
+{   formData.staffType === "Teaching staff" &&     ( <div className="form-section">
             <h2>Teaching Information (For Teaching Staff)</h2>
             <div className="form-grid type-3-col">
               <div className="form-group">
@@ -422,7 +427,8 @@ const AdminStaff2 = () => {
                 <span className="field-hint">Select one or more classes</span>
               </div>
             </div>
-          </div>
+          </div>) }
+      
 
           <button type="submit" className="submit-btn">
             Create Staff

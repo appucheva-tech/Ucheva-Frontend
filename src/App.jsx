@@ -91,7 +91,7 @@ const App = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-password" element={<VerifyForgot />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/create-password" element={<CreatePassword />} />
+          <Route path="/create-password/:token" element={<CreatePassword />} />
         </Route>
 
         <Route path="onboarding" element={<OnboardingStepper />}></Route>

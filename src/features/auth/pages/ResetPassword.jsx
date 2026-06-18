@@ -41,14 +41,9 @@ const ResetPassword = () => {
       setSuccessMessage("");
 
       const payload = {
-<<<<<<< HEAD
-        // email: userEmail,
-        password: password,
-=======
         email: userEmail,
         newPassword: password,
         confirmPassword: password,
->>>>>>> 2d5db4dd351b4f4f6821866c16303055ed39853e
       };
 
       console.log("[API Call] Submitting new password credentials.");
