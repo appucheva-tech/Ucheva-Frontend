@@ -8,6 +8,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .welcome-text {
       font-size: 32px;
       font-weight: 700;
@@ -66,14 +67,13 @@
     .metric-card {
       background: #ffffff;
       border-radius: 12px;
-      padding: 15px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       display: flex;
       width: 100%;
-      height: 110px;
+      height: 100px;
       flex-direction: column;
       justify-content: space-between;
-      border-left: 5px solid transparent;
+      border-left: 2px solid transparent;
 
       &.card-students {
         border-left-color: #3b82f6;
@@ -147,15 +147,8 @@
       .card-footer {
         font-size: 14px;
         font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        color: #10b981;
-
-        .arrow {
-          width: 7%;
-          font-weight: bold;
-        }
+        margin-top: -20px;
+        color: gray
       }
     }
   }
@@ -525,4 +518,158 @@
   color: white;
   border-radius: 10px;
   cursor: pointer;
+}
+
+.editSubjectModal {
+  width: 440px;
+  max-width: 95%;
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 40px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  .editModalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #041434;
+    }
+
+    .editCloseBtn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #041434;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .editFormGroup {
+    margin-bottom: 24px;
+
+    label {
+      display: block;
+      margin-bottom: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #041434;
+    }
+
+    input {
+      width: 100%;
+      height: 48px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0 16px;
+      font-size: 15px;
+      color: #1e293b;
+      outline: none;
+      box-sizing: border-box;
+
+      &:focus {
+        border-color: #0062f6;
+      }
+    }
+
+    .editSelectWrapper {
+      position: relative;
+      width: 100%;
+
+      select {
+        width: 100%;
+        height: 48px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 0 40px 0 16px;
+        font-size: 15px;
+        color: #1e293b;
+        outline: none;
+        appearance: none;
+        background-color: #ffffff;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &:focus {
+          border-color: #0062f6;
+        }
+      }
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 10px;
+        height: 6px;
+        background-color: #041434;
+        clip-path: polygon(100% 0, 0 0, 50% 100%);
+        pointer-events: none;
+      }
+    }
+
+    small {
+      display: block;
+      margin-top: 10px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  }
+
+  .editModalActions {
+    display: flex;
+    gap: 16px;
+    margin-top: 40px;
+
+    button {
+      height: 48px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .editCancelBtn {
+      width: 120px;
+      border: 1px solid #0062f6;
+      background: #ffffff;
+      color: #0062f6;
+
+      &:hover {
+        background: #f0f7ff;
+      }
+    }
+
+    .editSaveBtn {
+      flex: 1;
+      border: none;
+      background: #0062f6;
+      color: #ffffff;
+
+      &:hover {
+        background: #0052cc;
+      }
+
+      &:disabled {
+        background: #94a3b8;
+        cursor: not-allowed;
+      }
+    }
+  }
 }

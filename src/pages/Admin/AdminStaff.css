@@ -318,15 +318,15 @@
     margin-bottom: 28px;
 
     .welcome-text {
-      font-size: 28px;
+      font-size: 30px;
       font-weight: 700;
       color: #0f172a;
       margin: 0;
     }
 
     .subtitle-text {
-      font-size: 14px;
-      color: #475569;
+      font-size: 17px;
+      color: #042869;
       margin: 0;
     }
 
@@ -371,11 +371,11 @@
       border-radius: 12px;
       padding: 20px 30px;
       border: 1px solid #e2e8f0;
-      border-left: 6px solid transparent;
+      border-left: 2px solid transparent;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 140px;
+      min-height: 100px;
       box-sizing: border-box;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 
@@ -556,7 +556,7 @@
         position: relative;
         width: 180px;
 
-        .selectInput {
+        .StaffselectInput {
           width: 100%;
           padding: 10px 36px 10px 14px;
           font-size: 14px;
@@ -571,19 +571,6 @@
           &:focus {
             border-color: #2563eb;
           }
-        }
-
-        &::after {
-          content: "";
-          position: absolute;
-          right: 14px;
-          top: 50%;
-          transform: translateY(-50%);
-          width: 8px;
-          height: 5px;
-          background-color: #475569;
-          clip-path: polygon(100% 0, 0 0, 50% 100%);
-          pointer-events: none;
         }
       }
     }
