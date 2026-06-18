@@ -22,6 +22,10 @@
       font-size: 13px;
       color: #94a3b8;
 
+      .JStudentManager{
+        cursor: pointer;
+      }
+
       .Jseparator {
         margin: 0 8px;
       }

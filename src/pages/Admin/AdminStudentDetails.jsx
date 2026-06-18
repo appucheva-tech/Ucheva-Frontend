@@ -1,13 +1,15 @@
 import React from 'react';
-import './AdminStudentDetails.css'
+import './AdminStudentDetails.css';
+import { useNavigate } from 'react-router-dom';
 
 const StudentDetails = () => {
+  const nav = useNavigate();
   return (
     <div className="Jcontainer">
       <div className="Jheader">
         <h1 className="Jtitle">Student Details</h1>
         <div className="Jbreadcrumb">
-          <span>Student Management</span>
+          <span className='JStudentManager' onClick={() => {nav(-1)}}>Student Management</span>
           <span className="Jseparator">&gt;</span>
           <span className="Jactive">Student Details</span>
         </div>

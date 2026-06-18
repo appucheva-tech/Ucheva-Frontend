@@ -3,45 +3,42 @@
   min-height: 40vh;
 
   .dashboard-header {
-    margin-bottom: 32px;
+    width: 100%;
+    height: 13vh;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
 
-    .welcome-text-div{
-      width: 100%;
+    .welcome-text {
+      font-size: 32px;
+      font-weight: 700;
+      color: #03173c;
       display: flex;
-      justify-content: space-between;
-
-      .welcome-text {
-        font-size: 32px;
-        font-weight: 700;
-        color: #03173c;
-        margin: 0 0 8px 0;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-
-        .wave-emoji {
-          display: inline-block;
-        }
-      }
-
-      .AddStudentsBtn{
-        width: 13.5%;
-        height: 50px;
-        margin-right: 1.5%;
-        font-size: 15px;
-        border-radius: 10px;
-        border: none;
-        color: white;
-        background-color: #0062F6;
-      }
+      flex-direction: column;
+      text-align: left;
+      gap: 4px;
     }
     .subtitle-text {
       font-size: 17px;
       color: #03173c;
-      margin: 0;
+    }
+
+    .AddStudent {
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 0 20px;
+      height: 44px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
     }
   }
 
@@ -257,6 +254,7 @@
 
       .studentName {
         color: #1070e0;
+        cursor: pointer;
       }
 
       .genderText,

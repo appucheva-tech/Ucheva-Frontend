@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AdminDashboard.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -7,11 +7,42 @@ import { FiTrendingUp, FiExternalLink } from "react-icons/fi";
 import { IoQrCodeOutline, IoMegaphoneOutline } from "react-icons/io5";
 import { LuUserPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { HiChevronRight } from "react-icons/hi";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminDashboard = () => {
+  const [sumarry, setSumarry] = useState({});
+  const [attendance, setAttendance] = useState([]);
+
+  useEffect(() => {
+    const getDashboardSummary = async () => {
+      try {
+        const res = await apiClient.get("/admin/dashboard");
+
+        setSumarry(res?.data?.summary);
+      } catch (error) {
+        console.error("Error fetching dashboard summary:", error);
+      }
+    };
+
+    getDashboardSummary();
+  }, []);
+
+  useEffect(() => {
+    const getTodayAttendance = async () => {
+      try {
+        const res = await apiClient.get("/staffattendance/today");
+
+        setAttendance(res?.data?.Attendance);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getTodayAttendance();
+  }, []);
+
   return (
     <div className="Bddashboard-container">
-      {/* Welcome Banner */}
       <div className="dashboard-header">
         <div className="header-text-group">
           <h1 className="welcome-text">
@@ -23,13 +54,12 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Metric Cards Grid */}
       <div className="metrics-grid">
         <div className="metric-card card-total">
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Total Students</span>
-              <span className="card-value">342</span>
+              <span className="card-value">{sumarry.totalStudents}</span>
             </div>
             <div className="icon-wrapper icon-students">
               <PiStudentFill className="DashIcon" />
@@ -45,7 +75,7 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Total Staff</span>
-              <span className="card-value">28</span>
+              <span className="card-value">{sumarry.totalStaff}</span>
             </div>
             <div className="icon-wrapper icon-staff">
               <HiMiniUserGroup className="DashIcon" />
@@ -61,7 +91,9 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Attendance Rate</span>
-              <span className="card-value">93%</span>
+              <span className="card-value">
+                {sumarry.totalStaffAttendancePercent}%
+              </span>
             </div>
             <div className="icon-wrapper icon-attendance">
               <PiCalendarBlankFill className="DashIcon" />
@@ -77,7 +109,7 @@ const AdminDashboard = () => {
           <div className="card-content">
             <div className="text-section">
               <span className="card-label">Fees Collected</span>
-              <span className="card-value">N1,200,000</span>
+              <span className="card-value">{sumarry.totalFeesCollected}</span>
             </div>
             <div className="icon-wrapper icon-fees">
               <FaSackDollar className="DashIcon" />
@@ -90,9 +122,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Middle Split Grid System */}
       <div className="dashboard-split-grid">
-        {/* Attendance Tracker Component */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Today's Staff Attendance</h2>
@@ -164,7 +194,6 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Quick Actions Component */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Quick Actions</h2>
@@ -233,15 +262,12 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Bottom Split Grid System */}
       <div className="dashboard-split-grid">
-        {/* Recent Announcements Panel */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Recent Announcements</h2>
           </div>
           <div className="announcements-list">
-            {/* The CSS above ensures these 3 items stack in a column */}
             <div className="announcement-item color-blue">
               <h3>PTA Meeting</h3>
               <span className="announcement-date">
@@ -269,13 +295,11 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* Fee Collection Summary Card Analytics */}
         <div className="dashboard-panel">
           <div className="panel-header">
             <h2 className="panel-title">Fee Collection Summary</h2>
           </div>
           <div className="fees-summary-container">
-            {/* Native SVG Circular Chart Graphic Representation */}
             <div className="donut-chart-wrapper">
               <svg viewBox="0 0 100 100" className="donut-svg">
                 <circle cx="50" cy="50" r="40" className="donut-bg" />
@@ -287,7 +311,6 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            {/* Financial Ledger Block Display */}
             <div className="fees-ledger-pane">
               <div className="ledger-item">
                 <div className="ledger-label-group">

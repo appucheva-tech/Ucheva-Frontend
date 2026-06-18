@@ -1,7 +1,9 @@
 import React from 'react';
 import './AdminEditStaff.css'
+import { useNavigate } from 'react-router-dom';
 
 const EditStaff = () => {
+  const nav = useNavigate();
   return (
     <div className="Icontainer">
       <div className="Iheader">

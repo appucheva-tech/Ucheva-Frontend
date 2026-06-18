@@ -14,10 +14,8 @@ const AdminStaff = () => {
   const popupRef = useRef(null);
   const subdomain = window.location.hostname.split(".")[0];
 
-  // Component states
   const [isOpen, setIsOpen] = useState(false);
 
-  // const staffList = [
   //   {
   //     _id: "1",
   //     name: "Ifeanacho Okafor",
@@ -46,7 +44,6 @@ const AdminStaff = () => {
   // const [staffList, setStaffList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [staffList, setStaffList] = useState([] || null);
-  // Dynamic Metrics states calculated from live API data
   const [metrics, setMetrics] = useState({
     total: 0,
     teaching: 0,
@@ -54,7 +51,6 @@ const AdminStaff = () => {
     classTeachers: 0,
   });
 
-  // Fetch live staff data on mount
   useEffect(() => {
     const fetchStaffRecords = async () => {
       try {
@@ -71,7 +67,6 @@ const AdminStaff = () => {
         console.log(records);
         setStaffList(records);
 
-        // Derive dashboard metric card counts directly from data
         const teachingCount = records.filter(
           (s) => s.role?.toLowerCase() === "teacher",
         ).length;
@@ -98,7 +93,6 @@ const AdminStaff = () => {
     fetchStaffRecords();
   }, [subdomain]);
 
-  // Click outside listener for notifications layout
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -118,7 +112,6 @@ const AdminStaff = () => {
     nav("/admin/AdminStaff2");
   };
 
-  // Loading Viewport Layout
   if (isLoading) {
     return (
       <div className="tableContainer">
@@ -270,20 +263,33 @@ const AdminStaff = () => {
                 </thead>
                 <tbody>
                   {staffList.map((staff, index) => (
-                    <tr key={staff._id || index}>
+                    <tr
+                      key={staff.id || index}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {nav(`/admin/staff-details/${staff.id}`)}}
+                    >
                       <td className="staffName card-content-populated">
                         {staff.name ||
                           `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
                           "Unnamed Staff"}
                       </td>
+
                       <td className="roleText card-content-populated">
-                        {staff.staffRole || "--"}
+                        {staff.staffRole || staff.role || "--"}
                       </td>
-                      <td className="classText">{staff.class || "test"}</td>
+
+                      <td className="classText">
+                        {staff.classAssigned || staff.class || "test"}
+                      </td>
+
                       <td className="subjectText card-content-populated">
-                        {staff.subject || "test"}
+                        {Array.isArray(staff.subjectAssigned)
+                          ? staff.subjectAssigned.join(", ")
+                          : staff.subject || "test"}
                       </td>
-                      <td>{staff.phone || staff.phoneNumber || "test"}</td>
+
+                      <td>{staff.phoneNumber || staff.phone || "test"}</td>
+
                       <td>
                         <div className="actionButtons">
                           <button className="editBtn" aria-label="Edit staff">
@@ -296,6 +302,7 @@ const AdminStaff = () => {
                               <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                             </svg>
                           </button>
+
                           <button
                             className="deleteBtn"
                             aria-label="Delete staff"

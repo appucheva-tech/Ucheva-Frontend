@@ -48,8 +48,15 @@ const AdminSubjects = () => {
     { name: "Government", departments: "Art", section: "SS", teachers: "1" },
   ];
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const [formData, setFormData] = useState({
+    subjectName: "",
+    section: "",
+    department: "",
+  });
+
+  const [editFormData, setEditFormData] = useState({
     subjectName: "",
     section: "",
     department: "",
@@ -62,6 +69,22 @@ const AdminSubjects = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleEditChange = (e) => {
+    setEditFormData({
+      ...editFormData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleEditClick = (subject) => {
+    setEditFormData({
+      subjectName: subject.name,
+      section: subject.section === "All Sections" ? "" : subject.section,
+      department: subject.departments,
+    });
+    setShowEditModal(true);
   };
 
   const handleSubmit = async () => {
@@ -97,16 +120,27 @@ const AdminSubjects = () => {
     }
   };
 
+  const handleUpdate = async () => {
+    try {
+      setLoading(true);
+      setShowEditModal(false);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="sdashboard-container">
         <header className="dashboard-header">
           <div>
             <h1 className="welcome-text">
-              Good morning, Mr Eric <span className="wave-emoji">👋</span>
+              Subject Management
             </h1>
             <p className="subtitle-text">
-              Here's an overview of Green Field Academy activities today.
+             Create and manage subjects offered in your school.
             </p>
           </div>
           <button className="AddSubject" onClick={() => setShowModal(true)}>
@@ -118,60 +152,60 @@ const AdminSubjects = () => {
           <div className="metric-card card-students">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Total Students</span>
-                <span className="card-value">342</span>
+                <span className="card-label">Total Subjects</span>
+                <span className="card-value">18</span>
               </div>
               <div className="icon-wrapper icon-students">
                 <PiStudentFill className="DashIcon" />
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 12 from last week
+              All subjects
             </div>
           </div>
 
           <div className="metric-card card-staff">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Total Staff</span>
-                <span className="card-value">28</span>
+                <span className="card-label">Core Subjects</span>
+                <span className="card-value">10</span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className="DashIcon" />
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 2 from last week
+              General subjects
             </div>
           </div>
 
           <div className="metric-card card-attendance">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Attendance Rate</span>
-                <span className="card-value">93%</span>
+                <span className="card-label">Elective Subjects</span>
+                <span className="card-value">8</span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className="DashIcon" />
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 2 from last week
+              Departmental subjects
             </div>
           </div>
 
           <div className="metric-card card-fees">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Fees Collected</span>
-                <span className="card-value">N1,200,000</span>
+                <span className="card-label">Levels Covered</span>
+                <span className="card-value">3</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className="DashIcon" />
               </div>
             </div>
             <div className="card-footer trend-pct">
-              <FaArrowTrendUp className="arrow" /> 72% fee collected
+              Nur, Pry, Sec.
             </div>
           </div>
         </div>
@@ -220,7 +254,7 @@ const AdminSubjects = () => {
                   <td className="teachersText">{subject.teachers}</td>
                   <td>
                     <div className="actionButtons">
-                      <button className="editBtn">
+                      <button className="editBtn" onClick={() => handleEditClick(subject)}>
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
@@ -359,6 +393,81 @@ const AdminSubjects = () => {
                 disabled={loading}
               >
                 {loading ? "Creating..." : "Create Subject"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showEditModal && (
+        <div className="modalOverlay">
+          <div className="editSubjectModal">
+            <div className="editModalHeader">
+              <h2>Edit Subject</h2>
+              <button className="editCloseBtn" onClick={() => setShowEditModal(false)}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <div className="editFormGroup">
+              <label>Subject Name</label>
+              <input
+                type="text"
+                name="subjectName"
+                value={editFormData.subjectName}
+                onChange={handleEditChange}
+              />
+            </div>
+
+            <div className="editFormGroup">
+              <label>Applicable Section</label>
+              <div className="editSelectWrapper">
+                <select
+                  name="section"
+                  value={editFormData.section}
+                  onChange={handleEditChange}
+                >
+                  <option value="">Select Level</option>
+                  <option value="Senior Secondary">Senior Secondary</option>
+                  <option value="PRY">Primary</option>
+                  <option value="JSS">JSS</option>
+                  <option value="SS">SS</option>
+                </select>
+              </div>
+              <small>Select the class level(s) this subject is applicable to.</small>
+            </div>
+
+            <div className="editFormGroup">
+              <label>Applicable Departments</label>
+              <div className="editSelectWrapper">
+                <select
+                  name="department"
+                  value={editFormData.department}
+                  onChange={handleEditChange}
+                >
+                  <option value="">Select Department</option>
+                  <option value="General">General</option>
+                  <option value="Science">Science</option>
+                  <option value="Art">Art</option>
+                  <option value="Commercial">Commercial</option>
+                </select>
+              </div>
+              <small>Helps you classify the type of subject.</small>
+            </div>
+
+            <div className="editModalActions">
+              <button className="editCancelBtn" onClick={() => setShowEditModal(false)}>
+                Cancel
+              </button>
+              <button
+                className="editSaveBtn"
+                onClick={handleUpdate}
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save Changes"}
               </button>
             </div>
           </div>

@@ -4,12 +4,15 @@ import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
-import { FaSackDollar } from "react-icons/fa6";
+import { FaPlus, FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const AdminStudents = () => {
+  const nav = useNavigate();
   const studentData = [
     {
+      id: 1,
       name: "Adaeze Clinton",
       gender: "Female",
       class: "JSS 1A",
@@ -64,13 +67,20 @@ const AdminStudents = () => {
     <>
       <div className="ddashboard-container">
         <header className="dashboard-header">
-          <div className="welcome-text-div">
-            <h1 className="welcome-text">Good morning, Mr Eric <span className="wave-emoji">👋</span></h1>
-            <button className="AddStudentsBtn">+ Add Student</button>
-          </div>
-          <p className="subtitle-text">
-            Manage student records, view details and track student information.
-          </p>
+          <h1 className="welcome-text">
+            Student Management{" "}
+            <span className="subtitle-text">
+              Manage student records, view details and track student information.
+            </span>
+          </h1>
+          <button
+            className="AddStudent"
+            onClick={() => {
+              nav("/admin/AdminStudent2");
+            }}
+          >
+            <FaPlus /> Add Student
+          </button>
         </header>
 
         <div className="metrics-grid">
@@ -189,7 +199,7 @@ const AdminStudents = () => {
             <tbody>
               {studentData.map((student, index) => (
                 <tr key={index}>
-                  <td className="studentName">{student.name}</td>
+                  <td className="studentName" onClick={() => {nav(`/admin/AdminStudentDetails/${student.id}`)}}>{student.name}</td>
                   <td className="genderText">{student.gender}</td>
                   <td className="classText">{student.class}</td>
                   <td className="deptText">{student.department}</td>
@@ -197,7 +207,7 @@ const AdminStudents = () => {
                   <td>
                     <div className="actionButtons">
                       <button className="editBtn">
-                        <svg
+                        <svg onClick={() => {nav(`/admin/AdminEditStudent`)}}
                           viewBox="0 0 24 24"
                           fill="none"
                           stroke="currentColor"

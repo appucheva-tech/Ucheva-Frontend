@@ -1,13 +1,15 @@
 import React from 'react';
-import './AdminEditStudent.css'
+import './AdminEditStudent.css';
+import { useNavigate } from 'react-router-dom';
 
 const EditStudent = () => {
+  const nav = useNavigate();
   return (
     <div className="Kcontainer">
       <div className="Kheader">
         <h1 className="Ktitle">Edit Student</h1>
         <div className="Kbreadcrumb">
-          <span>Student Management</span>
+          <span className='KStudentManagement' onClick={() => {nav(-1)}}>Student Management</span>
           <span className="Kseparator">&gt;</span>
           <span className="Kactive">Edit Student</span>
         </div>
