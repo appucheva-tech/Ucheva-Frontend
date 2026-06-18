@@ -21,6 +21,10 @@
       font-size: 14px;
       color: #94a3b8;
 
+      .FStaffManagement{
+        cursor: pointer;
+      }
+
       .Fseparator {
         margin: 0 8px;
       }

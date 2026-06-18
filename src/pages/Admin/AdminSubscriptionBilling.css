@@ -1,0 +1,307 @@
+.Mcontainer {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+  padding: 40px;
+  min-height: 100vh;
+  box-sizing: border-box;
+
+  .Mheader {
+    margin-bottom: 32px;
+
+    .Mtitle {
+      font-size: 24px;
+      color: #0f172a;
+      margin: 0 0 8px 0;
+      font-weight: 600;
+    }
+
+    .Msubtitle {
+      font-size: 14px;
+      color: #475569;
+      margin: 0;
+    }
+  }
+
+  .MpricingGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+    align-items: start;
+
+    .MplanCard {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 32px 24px;
+      position: relative;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+      &.Mrecommended {
+        border: 2px solid #3b82f6;
+        padding-top: 40px;
+
+        .MbadgeRecommended {
+          position: absolute;
+          top: -12px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #0061ff;
+          color: #ffffff;
+          font-size: 11px;
+          font-weight: 600;
+          padding: 4px 16px;
+          border-radius: 20px;
+          text-transform: capitalize;
+        }
+      }
+
+      .MplanHeader {
+        border-bottom: 1px solid #f1f5f9;
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+
+        .MplanName {
+          font-size: 12px;
+          font-weight: 600;
+          color: #475569;
+          display: block;
+          margin-bottom: 12px;
+        }
+
+        .MpriceRow {
+          display: flex;
+          align-items: baseline;
+          gap: 4px;
+          margin-bottom: 12px;
+
+          .Mprice {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0f172a;
+          }
+
+          .Mperiod {
+            font-size: 12px;
+            color: #94a3b8;
+          }
+
+          .MactiveBadge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: #f0fdf4;
+            color: #16a34a;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 12px;
+            margin-left: auto;
+
+            .Mdot {
+              width: 6px;
+              height: 6px;
+              background-color: #16a34a;
+              border-radius: 50%;
+            }
+          }
+        }
+
+        .Mdescription {
+          font-size: 13px;
+          color: #475569;
+          line-height: 1.5;
+          margin: 0 0 24px 0;
+          min-height: 38px;
+        }
+
+        button {
+          width: 100%;
+          height: 44px;
+          border-radius: 6px;
+          font-size: 14px;
+          font-weight: 500;
+          cursor: pointer;
+          transition: all 0.2s;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .McurrentBtn {
+          background-color: #ffffff;
+          border: 1px solid #e2e8f0;
+          color: #475569;
+          cursor: default;
+        }
+
+        .MchooseBtn {
+          background-color: #0061ff;
+          border: none;
+          color: #ffffff;
+          box-shadow: 0 4px 12px rgba(0, 97, 255, 0.2);
+
+          &:hover {
+            background-color: #0052d9;
+          }
+        }
+
+        .MgetStartedBtn {
+          background-color: #e0f2fe;
+          border: none;
+          color: #0061ff;
+
+          &:hover {
+            background-color: #bae6fd;
+          }
+        }
+      }
+
+      .MfeaturesList {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .MfeaturesTitle {
+          font-size: 13px;
+          font-weight: 600;
+          color: #0f172a;
+          margin: 0 0 4px 0;
+        }
+
+        .MfeatureItem {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          font-size: 13px;
+          color: #475569;
+
+          .McheckIcon {
+            color: #0061ff;
+            font-weight: bold;
+            font-size: 14px;
+          }
+        }
+      }
+    }
+  }
+
+  .MactivitySection {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .MactivityTitle {
+      font-size: 16px;
+      color: #1e3a8a;
+      padding: 20px 24px;
+      margin: 0;
+      font-weight: 600;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .MtableWrapper {
+      .MactivityTable {
+        width: 100%;
+        border-collapse: collapse;
+
+        th, td {
+          padding: 16px 24px;
+          font-size: 14px;
+          text-align: left;
+        }
+
+        th {
+          background-color: #e2e8f0;
+          color: #475569;
+          font-weight: 500;
+        }
+
+        td {
+          color: #334155;
+          border-bottom: 1px solid #f1f5f9;
+        }
+
+        tr:last-child td {
+          border-bottom: none;
+        }
+
+        .MactivityText {
+          color: #1e3a8a;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .MpaginationBar {
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid #e2e8f0;
+      font-size: 13px;
+      color: #64748b;
+
+      .MpaginationControls {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        button {
+          height: 32px;
+          min-width: 32px;
+          padding: 0 6px;
+          border: 1px solid #e2e8f0;
+          background-color: #ffffff;
+          color: #475569;
+          border-radius: 4px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 13px;
+
+          &:disabled {
+            color: #cbd5e1;
+            cursor: not-allowed;
+          }
+        }
+
+        .MactivePage {
+          background-color: #0061ff;
+          color: #ffffff;
+          border-color: #0061ff;
+          font-weight: 500;
+        }
+
+        .Mellipsis {
+          padding: 0 4px;
+          color: #94a3b8;
+        }
+      }
+
+      .MrowsPerPage {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .MrowSelect {
+          height: 32px;
+          padding: 0 32px 0 12px;
+          border: 1px solid #e2e8f0;
+          border-radius: 4px;
+          background-color: #ffffff;
+          color: #475569;
+          font-size: 13px;
+          outline: none;
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 8px center;
+          background-size: 14px;
+        }
+      }
+    }
+  }
+}

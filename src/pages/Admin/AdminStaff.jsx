@@ -14,10 +14,8 @@ const AdminStaff = () => {
   const popupRef = useRef(null);
   const subdomain = window.location.hostname.split(".")[0];
 
-  // Component states
   const [isOpen, setIsOpen] = useState(false);
 
-  // const staffList = [
   //   {
   //     _id: "1",
   //     name: "Ifeanacho Okafor",
@@ -46,7 +44,6 @@ const AdminStaff = () => {
   // const [staffList, setStaffList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [staffList, setStaffList] = useState([] || null);
-  // Dynamic Metrics states calculated from live API data
   const [metrics, setMetrics] = useState({
     total: 0,
     teaching: 0,
@@ -54,7 +51,6 @@ const AdminStaff = () => {
     classTeachers: 0,
   });
 
-  // Fetch live staff data on mount
   useEffect(() => {
     const fetchStaffRecords = async () => {
       try {
@@ -71,7 +67,6 @@ const AdminStaff = () => {
         console.log(records);
         setStaffList(records);
 
-        // Derive dashboard metric card counts directly from data
         const teachingCount = records.filter(
           (s) => s.role?.toLowerCase() === "teacher",
         ).length;
@@ -98,7 +93,6 @@ const AdminStaff = () => {
     fetchStaffRecords();
   }, [subdomain]);
 
-  // Click outside listener for notifications layout
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -118,7 +112,6 @@ const AdminStaff = () => {
     nav("/admin/AdminStaff2");
   };
 
-  // Loading Viewport Layout
   if (isLoading) {
     return (
       <div className="tableContainer">
@@ -147,7 +140,6 @@ const AdminStaff = () => {
           </button>
         </div>
 
-        {/* Dynamic Metric Cards Component Grid */}
         <div className="metrics-grid">
           <div className="metric-card card-total">
             <div className="card-content">
@@ -201,7 +193,6 @@ const AdminStaff = () => {
 
       <div className="tableContainer">
         {staffList.length === 0 ? (
-          /* Redesigned Premium Empty State Card Viewport */
           <div className="staff-empty-state-card">
             <div className="empty-state-icon-bg">
               <svg
@@ -237,7 +228,7 @@ const AdminStaff = () => {
               <div className="filterGroup">
                 <label className="filterLabel">Staff Type</label>
                 <div className="selectWrapper">
-                  <select className="selectInput" defaultValue="all">
+                  <select className="StaffselectInput" defaultValue="all">
                     <option value="all">All Types</option>
                     <option value="teacher">Teaching Staff</option>
                     <option value="non-teacher">Non-Teaching Staff</option>
@@ -275,9 +266,7 @@ const AdminStaff = () => {
                     <tr
                       key={staff.id || index}
                       style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        nav(`/admin/staff-details/${staff.id}`);
-                      }}
+                      onClick={() => {nav(`/admin/staff-details/${staff.id}`)}}
                     >
                       <td className="staffName card-content-populated">
                         {staff.name ||

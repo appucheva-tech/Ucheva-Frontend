@@ -41,6 +41,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 import AdminStaff from "./pages/Admin/AdminStaff";
 import AdminStudents from "./pages/Admin/AdminStudents";
 import AdminAttendance from "./pages/Admin/AdminAttendance";
+import AdminStudentAttendance from "./pages/Admin/AdminStudentAttendance";
 import AdminSubjects from "./pages/Admin/AdminSubjects";
 import AdminClass from "./pages/Admin/AdminClass";
 import AdminFees from "./pages/Admin/AdminFees";
@@ -61,7 +62,12 @@ import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import CreatePassword from "./features/auth/pages/CreatePassword";
 import StaffDetails from "./pages/Admin/AdminStaffDetails";
 import AdminStudent2 from "./pages/Admin/AdminStudent2";
+<<<<<<< HEAD
 import { ToastContainer } from "react-toastify";
+=======
+import AdminStudentDetails from './pages/Admin/AdminStudentDetails';
+import AdminEditStudent from './pages/Admin/AdminEditStudent'
+>>>>>>> 70317a12e5bb53bcde1cb8178cd58145242cdd3c
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -102,7 +108,10 @@ const App = () => {
           <Route path="staff-details/:id" element={<StaffDetails />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminStudent2" element={<AdminStudent2 />} />
+          <Route path="AdminStudentDetails/:id" element={<AdminStudentDetails />} />
+          <Route path="AdminEditStudent" element={<AdminEditStudent />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
+          <Route path="AdminStudentAttendance" element={<AdminStudentAttendance />} />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
           <Route path="AdminClass" element={<AdminClass />} />
           <Route path="AdminFees" element={<AdminFees />} />
