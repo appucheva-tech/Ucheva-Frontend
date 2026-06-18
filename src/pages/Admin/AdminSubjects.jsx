@@ -1,52 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminSubjects.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
-import axios from "axios";
 import { useSelector } from "react-redux";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminSubjects = () => {
-  const baseUrl = import.meta.env.VITE_Base_Url;
   const token = useSelector((state) => state?.user?.token);
-  console.log(token);
-  const subjectData = [
-    {
-      name: "Mathematics",
-      departments: "General",
-      section: "All Sections",
-      teachers: "8",
-    },
-    {
-      name: "English Language",
-      departments: "General",
-      section: "All Sections",
-      teachers: "8",
-    },
-    {
-      name: "Civic Education",
-      departments: "General",
-      section: "PRY, JSS, SS",
-      teachers: "7",
-    },
-    {
-      name: "Basic Science",
-      departments: "General",
-      section: "PRY, JSS, SS",
-      teachers: "5",
-    },
-    { name: "Chemistry", departments: "Science", section: "SS", teachers: "1" },
-    {
-      name: "Further Maths",
-      departments: "Science",
-      section: "SS",
-      teachers: "1",
-    },
-    { name: "Government", departments: "Art", section: "SS", teachers: "1" },
-  ];
+
+  const [subjects, setSubjects] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -71,22 +36,23 @@ const AdminSubjects = () => {
     });
   };
 
-  const handleEditChange = (e) => {
-    setEditFormData({
-      ...editFormData,
-      [e.target.name]: e.target.value,
-    });
+  const fetchSubjects = async () => {
+    try {
+      const response = await apiClient.get("/subject/allsubjects", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setSubjects(
+        response.data.data || response.data.subjects || response.data,
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleEditClick = (subject) => {
-    setEditFormData({
-      subjectName: subject.name,
-      section: subject.section === "All Sections" ? "" : subject.section,
-      department: subject.departments,
-    });
-    setShowEditModal(true);
-  };
-
+  // 👇 PUT handleSubmit HERE
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -95,24 +61,23 @@ const AdminSubjects = () => {
         subjectName: formData.subjectName,
         section: formData.section,
         department: formData.department,
-
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
       };
 
-      console.log("Payload:", payload);
-
-      await axios.post(`${baseUrl}/subject/subject`, payload);
-
-      setShowModal(false);
+      await apiClient.post("/subject/create", payload, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setFormData({
         subjectName: "",
         section: "",
         department: "",
       });
+
+      setShowModal(false);
+
+      fetchSubjects();
     } catch (error) {
       console.error(error);
     } finally {
@@ -120,6 +85,11 @@ const AdminSubjects = () => {
     }
   };
 
+  useEffect(() => {
+    if (token) {
+      fetchSubjects();
+    }
+  }, [token]);
   const handleUpdate = async () => {
     try {
       setLoading(true);
@@ -246,12 +216,12 @@ const AdminSubjects = () => {
               </tr>
             </thead>
             <tbody>
-              {subjectData.map((subject, index) => (
+              {subjects.map((subject, index) => (
                 <tr key={index}>
-                  <td className="subjectName">{subject.name}</td>
-                  <td className="deptText">{subject.departments}</td>
-                  <td className="sectionText">{subject.section}</td>
-                  <td className="teachersText">{subject.teachers}</td>
+                  <td>{subject.subjectName}</td>
+                  <td>{subject.department}</td>
+                  <td>{subject.section}</td>
+                  <td>{subject.teachers?.length || 0}</td>{" "}
                   <td>
                     <div className="actionButtons">
                       <button className="editBtn" onClick={() => handleEditClick(subject)}>

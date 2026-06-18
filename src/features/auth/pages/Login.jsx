@@ -46,7 +46,7 @@ const Login = () => {
       dispatch(setToken(token));
 
       // 2. Determine redirect path
-      if (user.role === "admin") {
+      if (user.role === "admin" ) {
         // Check if completedOnboarding is true (handling null/false/undefined)
         if (user.completedOnboarding === true) {
           navigate("/admin/dashboard");
@@ -55,9 +55,9 @@ const Login = () => {
         }
       } else if (user.role === "parent") {
         navigate("/parent/dashboard");
-      } else if (user.role === "staff") {
+      } else if (user.staffType ===  "teaching staff") {
         // ... keep your existing switch case for staff
-        navigate("/staff/dashboard");
+        navigate("/CTdashboard");
       }
     } catch (err) {
       setError(
