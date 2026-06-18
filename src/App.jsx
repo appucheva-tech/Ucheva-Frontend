@@ -62,12 +62,9 @@ import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import CreatePassword from "./features/auth/pages/CreatePassword";
 import StaffDetails from "./pages/Admin/AdminStaffDetails";
 import AdminStudent2 from "./pages/Admin/AdminStudent2";
-<<<<<<< HEAD
 import { ToastContainer } from "react-toastify";
-=======
 import AdminStudentDetails from './pages/Admin/AdminStudentDetails';
 import AdminEditStudent from './pages/Admin/AdminEditStudent'
->>>>>>> 70317a12e5bb53bcde1cb8178cd58145242cdd3c
 
 function ScrollToTop() {
   const { pathname } = useLocation();
