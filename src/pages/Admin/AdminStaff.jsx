@@ -147,7 +147,6 @@ const AdminStaff = () => {
           </button>
         </div>
 
-        {/* Dynamic Metric Cards Component Grid */}
         <div className="metrics-grid">
           <div className="metric-card card-total">
             <div className="card-content">
@@ -201,7 +200,6 @@ const AdminStaff = () => {
 
       <div className="tableContainer">
         {staffList.length === 0 ? (
-          /* Redesigned Premium Empty State Card Viewport */
           <div className="staff-empty-state-card">
             <div className="empty-state-icon-bg">
               <svg
@@ -237,7 +235,7 @@ const AdminStaff = () => {
               <div className="filterGroup">
                 <label className="filterLabel">Staff Type</label>
                 <div className="selectWrapper">
-                  <select className="selectInput" defaultValue="all">
+                  <select className="StaffselectInput" defaultValue="all">
                     <option value="all">All Types</option>
                     <option value="teacher">Teaching Staff</option>
                     <option value="non-teacher">Non-Teaching Staff</option>

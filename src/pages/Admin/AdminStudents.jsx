@@ -64,11 +64,12 @@ const AdminStudents = () => {
     <>
       <div className="ddashboard-container">
         <header className="dashboard-header">
-          <h1 className="welcome-text">
-            Good morning, Mr Eric <span className="wave-emoji">👋</span>
-          </h1>
+          <div className="welcome-text-div">
+            <h1 className="welcome-text">Good morning, Mr Eric <span className="wave-emoji">👋</span></h1>
+            <button className="AddStudentsBtn">+ Add Student</button>
+          </div>
           <p className="subtitle-text">
-            Here's an overview of Green Field Academy activities today.
+            Manage student records, view details and track student information.
           </p>
         </header>
 
@@ -77,59 +78,47 @@ const AdminStudents = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Students</span>
-                <span className="card-value">342</span>
+                <span className="card-value">38</span>
               </div>
               <div className="icon-wrapper icon-students">
                 <PiStudentFill className="DashIcon" />
               </div>
-            </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 12 from last week
             </div>
           </div>
 
           <div className="metric-card card-staff">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Total Staff</span>
+                <span className="card-label">Total Male</span>
                 <span className="card-value">28</span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className="DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 2 from last week
-            </div>
           </div>
 
           <div className="metric-card card-attendance">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Attendance Rate</span>
-                <span className="card-value">93%</span>
+                <span className="card-label">Total Female</span>
+                <span className="card-value">10</span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className="DashIcon" />
               </div>
-            </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" /> 2 from last week
             </div>
           </div>
 
           <div className="metric-card card-fees">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Fees Collected</span>
-                <span className="card-value">N1,200,000</span>
+                <span className="card-label">New Intake</span>
+                <span className="card-value">32</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className="DashIcon" />
               </div>
-            </div>
-            <div className="card-footer trend-pct">
-              <FaArrowTrendUp className="arrow" /> 72% fee collected
             </div>
           </div>
         </div>
@@ -142,6 +131,9 @@ const AdminStudents = () => {
               <div className="selectWrapper">
                 <select className="selectInput" defaultValue="all">
                   <option value="all">All Classes</option>
+                  <option value="all">PRY 1 - PRY 6</option>
+                  <option value="all">JSS 1 - JSS 3</option>
+                  <option value="all">SS 1 - SS 3</option>
                 </select>
               </div>
             </div>
@@ -150,6 +142,8 @@ const AdminStudents = () => {
               <div className="selectWrapper">
                 <select className="selectInput" defaultValue="all">
                   <option value="all">All Gender</option>
+                  <option value="all">Female</option>
+                  <option value="all">Male</option>
                 </select>
               </div>
             </div>
@@ -158,6 +152,10 @@ const AdminStudents = () => {
               <div className="selectWrapper">
                 <select className="selectInput" defaultValue="all">
                   <option value="all">All Departments</option>
+                  <option value="all">Food & Nutrition</option>
+                  <option value="all">Commercial</option>
+                  <option value="all">Science</option>
+                  <option value="all">Art</option>
                 </select>
               </div>
             </div>
