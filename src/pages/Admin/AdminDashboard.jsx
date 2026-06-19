@@ -8,8 +8,10 @@ import { IoQrCodeOutline, IoMegaphoneOutline } from "react-icons/io5";
 import { LuUserPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { HiChevronRight } from "react-icons/hi";
 import { apiClient } from "../../config/AxiosInstance";
+import QRModal from "./QRModal";
 
 const AdminDashboard = () => {
+  const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
   const [attendance, setAttendance] = useState([]);
 
@@ -31,7 +33,7 @@ const AdminDashboard = () => {
     const getTodayAttendance = async () => {
       try {
         const res = await apiClient.get("/staffattendance/today");
-
+console.log("res : ",res)
         setAttendance(res?.data?.Attendance);
       } catch (error) {
         console.error(error);
@@ -199,7 +201,11 @@ const AdminDashboard = () => {
             <h2 className="panel-title">Quick Actions</h2>
           </div>
           <div className="actions-grid">
-            <div className="action-button-card action-qr">
+            <div
+              onClick={() => setShowQRModal(true)}
+              style={{ background: "red" }}
+              className="action-button-card action-qr"
+            >
               <div className="action-main-content">
                 <div className="action-icon-box">
                   <IoQrCodeOutline />
@@ -339,6 +345,7 @@ const AdminDashboard = () => {
           </div>
         </div>
       </div>
+      <QRModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>
   );
 };

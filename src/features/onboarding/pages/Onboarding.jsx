@@ -179,7 +179,7 @@ const OnboardingStepper = () => {
 
         console.log("pay: " ,payload)
 
-        await apiClient.post("/admin/profile", formData, {
+        await apiClient.post("/admin/profile", payload, {
           headers: {
             "x-tenant": subdomain,
             "Content-Type": null,

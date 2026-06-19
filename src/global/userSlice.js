@@ -1,13 +1,16 @@
-    import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+//
+// USER SLICE
+//
+const userInitialState = {
   user: null,
   token: null,
 };
 
 const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: userInitialState,
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload;
@@ -22,5 +25,30 @@ const userSlice = createSlice({
   },
 });
 
+const staffInitialState = {
+  staffUser: null,
+  staffToken: null,
+};
+
+const staffSlice = createSlice({
+  name: "staff",
+  initialState: staffInitialState,
+  reducers: {
+    setStaffUser: (state, action) => {
+      state.staffUser = action.payload;
+    },
+    setStaffToken: (state, action) => {
+      state.staffToken = action.payload;
+    },
+    clearStaff: (state) => {
+      state.staffUser = null;
+      state.staffToken = null;
+    },
+  },
+});
+
 export const { setUser, setToken, clearUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setStaffUser, setStaffToken, clearStaff } = staffSlice.actions;
+
+export const userReducer = userSlice.reducer;
+export const staffReducer = staffSlice.reducer;
