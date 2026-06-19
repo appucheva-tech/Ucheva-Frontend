@@ -13,8 +13,8 @@ import QRModal from "./QRModal";
 const AdminDashboard = () => {
   const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
-  const [attendance, setAttendance] = useState([]);
-
+const [attendanceData, setAttendanceData] = useState([]);
+const [loadingAttendance, setLoadingAttendance] = useState(false);
   useEffect(() => {
     const getDashboardSummary = async () => {
       try {
@@ -29,19 +29,31 @@ const AdminDashboard = () => {
     getDashboardSummary();
   }, []);
 
-  useEffect(() => {
-    const getTodayAttendance = async () => {
-      try {
-        const res = await apiClient.get("/staffattendance/today");
-console.log("res : ",res)
-        setAttendance(res?.data?.Attendance);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    getTodayAttendance();
-  }, []);
+const formatTime = (time) => {
+  if (!time) return "--";
+
+  return new Date(time).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+const getTodayAttendance = async () => {
+  try {
+    setLoadingAttendance(true);
+
+    const response = await apiClient.get("/staffattendance/today");
+
+    setAttendanceData(response.data.Attendance || []);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoadingAttendance(false);
+  }
+};
+useEffect(() => {
+  getTodayAttendance();
+}, []);
 
   return (
     <div className="Bddashboard-container">
@@ -124,149 +136,101 @@ console.log("res : ",res)
         </div>
       </div>
 
-      <div className="dashboard-split-grid">
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Today's Staff Attendance</h2>
-            <button className="view-all-link">
-              View All <FiExternalLink />
-            </button>
-          </div>
-          <div className="panel-table-wrapper">
-            <table className="dashboard-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Role</th>
-                  <th>Time</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="font-medium text-slate">Adaeze Clinton</td>
-                  <td>Teacher</td>
-                  <td>7:48 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Emeka Ugonna</td>
-                  <td>Teacher</td>
-                  <td>8:02 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Tolu Adesunya</td>
-                  <td>Bursar</td>
-                  <td>7:55 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Chidi Okoronkwo</td>
-                  <td>Security</td>
-                  <td>--</td>
-                  <td>
-                    <span className="status-badge badge-absent">Absent</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Grace Obidi</td>
-                  <td>Cleaner</td>
-                  <td>4:10 PM</td>
-                  <td>
-                    <span className="status-badge badge-checked-out">
-                      Checked Out
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+   
 
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Quick Actions</h2>
-          </div>
-          <div className="actions-grid">
-            <div
-              onClick={() => setShowQRModal(true)}
-              style={{ background: "red" }}
-              className="action-button-card action-qr"
-            >
-              <div className="action-main-content">
-                <div className="action-icon-box">
-                  <IoQrCodeOutline />
-                </div>
-                <div className="action-text">
-                  <h3>Generate QR Code</h3>
-                  <p>For staff to mark attendance</p>
-                </div>
-              </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
-              </div>
-            </div>
 
-            <div className="action-button-card action-students">
-              <div className="action-main-content">
-                <div className="action-icon-box">
-                  <LuUserPlus />
-                </div>
-                <div className="action-text">
-                  <h3>Add Students</h3>
-                  <p>Register a student</p>
-                </div>
-              </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
-              </div>
-            </div>
+<div className="dashboard-split-grid">
+  <div className="dashboard-panel">
+    <div className="panel-header">
+      <h2 className="panel-title">Today's Staff Attendance</h2>
 
-            <div className="action-button-card action-announcements">
-              <div className="action-main-content">
-                <div className="action-icon-box">
-                  <IoMegaphoneOutline />
-                </div>
-                <div className="action-text">
-                  <h3>Send Announcement</h3>
-                  <p>Notify staff or parents</p>
-                </div>
-              </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
-              </div>
-            </div>
+      <button className="view-all-link">
+        View All <FiExternalLink />
+      </button>
+    </div>
 
-            <div className="action-button-card action-reports">
-              <div className="action-main-content">
-                <div className="action-icon-box">
-                  <LuFileSpreadsheet />
-                </div>
-                <div className="action-text">
-                  <h3>View Report Cards</h3>
-                  <p>View student results</p>
-                </div>
-              </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="panel-table-wrapper">
+      <table className="dashboard-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {loadingAttendance ? (
+            <tr>
+              <td colSpan="4">Loading attendance...</td>
+            </tr>
+          ) : attendanceData.length > 0 ? (
+            attendanceData.map((attendance) => (
+              <tr key={attendance.id}>
+                <td className="font-medium text-slate">
+                  {attendance.staff?.fullName || "N/A"}
+                </td>
+
+                <td>
+                  {attendance.staff?.staffType || "Staff"}
+                </td>
+
+                <td>
+                  {formatTime(attendance.timeCheckedIn)}
+                </td>
+
+                <td>
+                  <span
+                    className={`status-badge ${
+                      attendance.timeCheckedOut
+                        ? "badge-checked-out"
+                        : attendance.status === "present"
+                        ? "badge-checked-in"
+                        : "badge-absent"
+                    }`}
+                  >
+                    {attendance.timeCheckedOut
+                      ? "Checked Out"
+                      : attendance.status === "present"
+                      ? "Checked In"
+                      : "Absent"}
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4">No attendance records for today.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {/* Quick Actions */}
+  <div className="dashboard-panel">
+    <div className="panel-header">
+      <h2 className="panel-title">Quick Actions</h2>
+    </div>
+
+    <div className="actions-grid">
+      ...
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
       <div className="dashboard-split-grid">
         <div className="dashboard-panel">
