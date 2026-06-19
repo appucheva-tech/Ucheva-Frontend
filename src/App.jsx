@@ -63,8 +63,9 @@ import CreatePassword from "./features/auth/pages/CreatePassword";
 import StaffDetails from "./pages/Admin/AdminStaffDetails";
 import AdminStudent2 from "./pages/Admin/AdminStudent2";
 import { ToastContainer } from "react-toastify";
-import AdminStudentDetails from './pages/Admin/AdminStudentDetails';
-import AdminEditStudent from './pages/Admin/AdminEditStudent'
+import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
+import AdminEditStudent from "./pages/Admin/AdminEditStudent";
+import AttendancePage from "./features/busary/components/AttendancePage";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -105,10 +106,16 @@ const App = () => {
           <Route path="staff-details/:id" element={<StaffDetails />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminStudent2" element={<AdminStudent2 />} />
-          <Route path="AdminStudentDetails/:id" element={<AdminStudentDetails />} />
+          <Route
+            path="AdminStudentDetails/:id"
+            element={<AdminStudentDetails />}
+          />
           <Route path="AdminEditStudent" element={<AdminEditStudent />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
-          <Route path="AdminStudentAttendance" element={<AdminStudentAttendance />} />
+          <Route
+            path="AdminStudentAttendance"
+            element={<AdminStudentAttendance />}
+          />
           <Route path="AdminSubjects" element={<AdminSubjects />} />
           <Route path="AdminClass" element={<AdminClass />} />
           <Route path="AdminFees" element={<AdminFees />} />
@@ -126,12 +133,16 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
+
+        <Route path="/attendance/:token" element={<AttendancePage />} />
+
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
           <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
         </Route>
         <Route path="/parentdashboard" element={<ParentLayout />}>
           <Route index element={<DashboardPage />} />

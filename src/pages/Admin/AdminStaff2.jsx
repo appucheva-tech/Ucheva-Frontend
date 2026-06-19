@@ -66,14 +66,14 @@ const AdminStaff2 = () => {
         email: formData.email.trim().toLowerCase(),
         qualification: formData.qualification.trim().toLowerCase(),
 
-        staffType: formData.staffType.toLowerCase() ,
+        staffType: formData.staffType.toLowerCase(),
         staffRole: formData.staffRole.toLowerCase(),
- ...(formData.teacherType && {
-    teacherType: formData.teacherType.toLowerCase(),
-  }),
-   ...(formData.classAssigned && {
-    teacherType: formData.classAssigned.toLowerCase(),
-  }),
+        ...(formData.teacherType && {
+          teacherType: formData.teacherType.toLowerCase(),
+        }),
+        ...(formData.classAssigned && {
+          teacherType: formData.classAssigned.toLowerCase(),
+        }),
 
         subjectAssigned: formData.subjectAssigned
           ? [formData.subjectAssigned.toLowerCase()]
@@ -83,7 +83,7 @@ const AdminStaff2 = () => {
           ? [formData.classesToTeach.toLowerCase()]
           : [],
 
-        // department: formData.department.toLowerCase(),
+        department: formData.department.toLowerCase(),
       };
 
       const response = await apiClient.post("/staff/staff", payload, {
@@ -122,7 +122,6 @@ const AdminStaff2 = () => {
       setLoading(false);
     }
   };
-
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -346,89 +345,92 @@ const AdminStaff2 = () => {
             </div>
           </div>
 
-{   formData.staffType === "Teaching staff" &&     ( <div className="form-section">
-            <h2>Teaching Information (For Teaching Staff)</h2>
-            <div className="form-grid type-3-col">
-              <div className="form-group">
-                <label>Teacher Type</label>
-                <select
-                  name="teacherType"
-                  value={formData.teacherType}
-                  onChange={handleChange}
-                  defaultChecked=""
-                >
-                  <option value="" disabled>
-                    Select Teacher Type
-                  </option>
-                  <option value="Class Teacher">Class Teacher</option>
-                  <option value="Subject Teacher">Subject Teacher</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Assign Class</label>
-                <select
-                  name="classAssigned"
-                  value={formData.classAssigned}
-                  onChange={handleChange}
-                >
-                  <option value="" disabled>
-                    Select Class
-                  </option>
-                  <option value="Primary 1">Primary 1</option>
-                  <option value="Primary 2">Primary 2</option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label>Assign Subject</label>
-                <select
-                  value={formData.subjectAssigned}
-                  onChange={handleChange}
-                  name="subjectAssigned"
-                >
-                  <option value="" disabled>
-                    Select Subjects
-                  </option>
-                  <option value="Mathematics">Mathematics</option>
-                  <option value="English">English</option>
-                </select>
-                <span className="field-hint">Select one or more subjects</span>
-              </div>
-              <div className="form-group">
-                <label>Classes to Teach</label>
-                <select
-                  name="classesToTeach"
-                  value={formData.classesToTeach}
-                  onChange={handleChange}
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select Class
-                  </option>
-                  <option value="Jss1">Jss1</option>
-                  <option value="Jss2">Jss2</option>
-                </select>
-                <span className="field-hint">Select one or more classes</span>
-              </div>
-              <div className="form-group">
-                <label>Department</label>
-                <select
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                  defaultValue=""
-                >
-                  <option value="" disabled>
-                    Select Department
-                  </option>
-                  <option value="Art">Art</option>
-                  <option value="Commercial">Commercial</option>
-                  <option value="">Science</option>
-                </select>
-                <span className="field-hint">Select one or more classes</span>
+          {formData.staffType === "Teaching staff" && (
+            <div className="form-section">
+              <h2>Teaching Information (For Teaching Staff)</h2>
+              <div className="form-grid type-3-col">
+                <div className="form-group">
+                  <label>Teacher Type</label>
+                  <select
+                    name="teacherType"
+                    value={formData.teacherType}
+                    onChange={handleChange}
+                    defaultChecked=""
+                  >
+                    <option value="" disabled>
+                      Select Teacher Type
+                    </option>
+                    <option value="Class Teacher">Class Teacher</option>
+                    <option value="Subject Teacher">Subject Teacher</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Assign Class</label>
+                  <select
+                    name="classAssigned"
+                    value={formData.classAssigned}
+                    onChange={handleChange}
+                  >
+                    <option value="" disabled>
+                      Select Class
+                    </option>
+                    <option value="Primary 1">Primary 1</option>
+                    <option value="Primary 2">Primary 2</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Assign Subject</label>
+                  <select
+                    value={formData.subjectAssigned}
+                    onChange={handleChange}
+                    name="subjectAssigned"
+                  >
+                    <option value="" disabled>
+                      Select Subjects
+                    </option>
+                    <option value="Mathematics">Mathematics</option>
+                    <option value="English">English</option>
+                  </select>
+                  <span className="field-hint">
+                    Select one or more subjects
+                  </span>
+                </div>
+                <div className="form-group">
+                  <label>Classes to Teach</label>
+                  <select
+                    name="classesToTeach"
+                    value={formData.classesToTeach}
+                    onChange={handleChange}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select Class
+                    </option>
+                    <option value="Jss1">Jss1</option>
+                    <option value="Jss2">Jss2</option>
+                  </select>
+                  <span className="field-hint">Select one or more classes</span>
+                </div>
+                <div className="form-group">
+                  <label>Department</label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                    defaultValue=""
+                  >
+                    <option value="" disabled>
+                      Select Department
+                    </option>
+                    <option value="Art">Art</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="">Science</option>
+                  </select>
+                  <span className="field-hint">Select one or more classes</span>
+                </div>
               </div>
             </div>
-          </div>) }
-      
+          )}
 
           <button type="submit" className="submit-btn">
             Create Staff
