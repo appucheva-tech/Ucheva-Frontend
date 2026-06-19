@@ -16,7 +16,6 @@ const AdminStudent2 = () => {
     nationality: "",
     address: "",
     studentClass: "",
-    department: "",
     session: "",
     parentGuardiansName: "",
     relationship: "",
