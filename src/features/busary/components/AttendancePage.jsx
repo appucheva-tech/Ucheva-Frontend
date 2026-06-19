@@ -8,8 +8,9 @@ import { useSelector } from "react-redux";
 const AttendancePage = () => {
   const staffUser = useSelector((state) => state.staff.staffUser);
   const staffToken = useSelector((state) => state.staff.staffToken);
-  console.log("Staff User:", staffUser);
-  console.log("Staff Token:", staffToken);
+
+  // console.log("Staff User:", staffUser);
+  // console.log("Staff Token:", staffToken);
 
   const [location, setLocation] = useState(null);
   const [status, setStatus] = useState("");
