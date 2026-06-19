@@ -75,6 +75,7 @@ const AdminStaff2 = () => {
           teacherType: formData.classAssigned.toLowerCase(),
         }),
 
+
         subjectAssigned: formData.subjectAssigned
           ? [formData.subjectAssigned.toLowerCase()]
           : [],
@@ -83,7 +84,7 @@ const AdminStaff2 = () => {
           ? [formData.classesToTeach.toLowerCase()]
           : [],
 
-        department: formData.department.toLowerCase(),
+         department: formData.department.toLowerCase()|| "all",
       };
 
       const response = await apiClient.post("/staff/staff", payload, {
