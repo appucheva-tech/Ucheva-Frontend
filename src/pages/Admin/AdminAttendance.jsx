@@ -1,7 +1,8 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import "./AdminAttendance.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminAttendance = () => {
   const nav = useNavigate();
@@ -9,7 +10,7 @@ const AdminAttendance = () => {
   const categories = ["Staff Attendance", "Student Attendance"];
   const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
 
-  const attendanceData = [
+  const dummystaffs = [
     {
       name: "Mr. John Okafor",
       role: "Teacher",
@@ -60,6 +61,27 @@ const AdminAttendance = () => {
       date: "18 May 2026",
     },
   ];
+
+  const [staff, setStaffs] = useState([]);
+
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const res = await apiClient.get("/staffattendance/all");
+
+        setStaffs(res?.data?.Attendance || []);
+        console.log(res?.data);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+        setStaffs([]);
+      }
+    };
+
+    fetchAttendance();
+  }, []);
+
+  const attendanceData = staff?.length > 0 ? staff : dummystaffs;
+
   return (
     <>
       <div className="attendanceContainer">
@@ -127,12 +149,34 @@ const AdminAttendance = () => {
               </thead>
               <tbody>
                 {attendanceData.map((row, index) => (
-                  <tr key={index}>
-                    <td className="staffNameCell">{row.name}</td>
-                    <td className="roleCell">{row.role}</td>
-                    <td className="timeCell">{row.checkIn}</td>
-                    <td className="timeCell">{row.checkOut}</td>
-                    <td className="dateCell">{row.date}</td>
+                  <tr key={row.id || index}>
+                    <td className="staffNameCell">
+                      {row.staffName || row.name || "Mr. John Okafor"}
+                    </td>
+
+                    <td className="roleCell">
+                      {row.staffRole || row.role || "Teacher"}
+                    </td>
+
+                    <td className="timeCell">
+                      {row.timeCheckedIn
+                        ? new Date(row.timeCheckedIn).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : row.checkIn || "--"}
+                    </td>
+
+                    <td className="timeCell">
+                      {row.timeCheckedOut
+                        ? new Date(row.timeCheckedOut).toLocaleTimeString([], {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : row.checkOut || "--"}
+                    </td>
+
+                    <td className="dateCell">{row.date || "18 May 2026"}</td>
                   </tr>
                 ))}
               </tbody>

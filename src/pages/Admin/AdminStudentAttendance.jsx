@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./AdminStudentAttendance.css";
+import { apiClient } from "../../config/AxiosInstance";
 
 const StudentAttendance = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
   const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
-  const students = [
+  const dummyStudents = [
     {
       name: "David Okafor",
       class: "JSS 2A",
@@ -58,10 +59,33 @@ const StudentAttendance = () => {
     },
   ];
 
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const res = await apiClient.get("student/getAllStudents");
+
+        setStudents(res?.data?.students || []);
+        console.log(res.data.students);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+        setStudents([]);
+      }
+    };
+
+    fetchAttendance();
+  }, []);
+
+  const attendanceData = students?.length > 0 ? students : dummyStudents;
+  console.log(attendanceData);
+
   return (
     <div className="Napp-container">
-        <h1 className="Napp-h1">Attendance</h1>
-        <p className="Napp-p">View and monitor staff and student attendance records.</p>
+      <h1 className="Napp-h1">Attendance</h1>
+      <p className="Napp-p">
+        View and monitor staff and student attendance records.
+      </p>
       <header className="Nheader">
         <nav className="Nnavigation">
           <button
@@ -127,23 +151,46 @@ const StudentAttendance = () => {
               </tr>
             </thead>
             <tbody>
-              {students.map((student, index) => (
-                <tr key={index}>
-                  <td className="Nname">{student.name}</td>
-                  <td className="Nclass">{student.class}</td>
-                  <td className="Nteacher">{student.teacher}</td>
+              {attendanceData.map((student, index) => (
+                <tr key={student.id || index}>
+                  <td className="Nname">
+                    {`${student.firstName || ""} ${student.otherName || ""} ${student.lastName || ""}`.trim() ||
+                      student.name ||
+                      "David Okafor"}
+                  </td>
+
+                  <td className="Nclass">
+                    {student.studentClass || student.class || "JSS 2A"}
+                  </td>
+
+                  <td className="Nteacher">
+                    {student.teacher || "Mrs. Adeola"}
+                  </td>
+
                   <td>
                     <span
-                      className={`Nstatus-badge N${student.status.toLowerCase()}`}
+                      className={`Nstatus-badge N${(
+                        student.attendanceStatus ||
+                        student.status ||
+                        "Present"
+                      ).toLowerCase()}`}
                     >
-                      {student.status}
+                      {student.attendanceStatus || student.status || "Present"}
                     </span>
                   </td>
-                  <td>{student.date}</td>
+
+                  <td>{student.date || "18 May 2026"}</td>
+
                   <td>
                     <button
                       className="Nnotify-button"
-                      disabled={student.status === "Present"}
+                      disabled={
+                        (
+                          student.attendanceStatus ||
+                          student.status ||
+                          "Present"
+                        ).toLowerCase() === "present"
+                      }
                     >
                       <i className="Nicon-whatsapp"></i> Notify Parent
                     </button>

@@ -36,8 +36,7 @@ const AttendancePage = () => {
           console.error(error);
 
           setStatus(
-            error.response?.data?.message ||
-              "Unable to record attendance."
+            error.response?.data?.message || "Unable to record attendance.",
           );
         } finally {
           setLoading(false);
@@ -62,7 +61,7 @@ const AttendancePage = () => {
           default:
             setStatus("Unable to obtain your location.");
         }
-      }
+      },
     );
   };
 
