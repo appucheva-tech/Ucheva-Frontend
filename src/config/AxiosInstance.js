@@ -1,9 +1,6 @@
 import axios from "axios";
 import { store } from "../global/store";
 import { clearUser } from "../global/userSlice";
-import { PublicRoutes } from "../lib/PublicRoutes";
-
-
 
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
@@ -13,12 +10,17 @@ export const apiClient = axios.create({
   },
 });
 
-
-
-
+// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    const state = store.getState();
+
+    // Use staff token first, otherwise user token
+    const token = state.staff.token || state.user.token;
+// console.log("State from store:", state);
+// console.log("Staff Token from store:", state.staff.token);
+// console.log("User Token from store:", state.user.token);
+//     console.log("Token from store:", token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -29,20 +31,30 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// Response interceptor
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    const status = error.response.status;
+    const status = error.response?.status;
 
-    if (error === 401) {
-      store.dispatch(clearUser());
-      window.location.href = "/login";
-    } else if (error === 403) {
-      console.error("Access Forbidden");
-    } else if (error === 500) {
-      console.error("Internal Server error");
+    switch (status) {
+      case 401:
+        store.dispatch(clearUser());
+        window.location.href = "/login";
+        break;
+
+      case 403:
+        console.error("Access Forbidden");
+        break;
+
+      case 500:
+        console.error("Internal Server Error");
+        break;
+
+      default:
+        console.error(error.message);
     }
 
     return Promise.reject(error);
-  },
+  }
 );

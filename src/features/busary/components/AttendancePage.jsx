@@ -1,113 +1,111 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
-import "./AttendancePage.css";
 import { apiClient } from "../../../config/AxiosInstance";
-import { useSelector } from "react-redux";
+import "./AttendancePage.css";
 
 const AttendancePage = () => {
-  const staffUser = useSelector((state) => state.staff.staffUser);
-  const staffToken = useSelector((state) => state.staff.staffToken);
-  console.log("Staff User:", staffUser);
-  console.log("Staff Token:", staffToken);
+  const { token } = useParams();
 
   const [location, setLocation] = useState(null);
-  const [status, setStatus] = useState("");
-  const { token } = useParams();
+  const [status, setStatus] = useState("Not checked in");
+  const [loading, setLoading] = useState(false);
 
   const handleCheckIn = () => {
     if (!navigator.geolocation) {
-      setStatus("Geolocation not supported");
+      setStatus("Geolocation is not supported by this browser.");
       return;
     }
-    setStatus("Fetching location...");
+
+    setLoading(true);
+    setStatus("Fetching your current location...");
 
     navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
+      async (position) => {
+        try {
+          const { latitude, longitude } = position.coords;
 
-        axios
-          .post(`/staffattendance/checkin`, {
-            token,
+          await apiClient.post("/staffattendance/check-in", {
+            token: token,
             latitude,
             longitude,
-          })
-          .then((res) => {
-            console.log("Saved:", res?.data);
-            setLocation({ latitude, longitude });
-            setStatus("Checked in successfully ✅");
-          })
-          .catch((err) => {
-            console.log(err);
-            setStatus("Failed to save attendance ❌" || err.message);
           });
+
+          setLocation({ latitude, longitude });
+          setStatus("Attendance recorded successfully.");
+        } catch (error) {
+          console.error(error);
+
+          setStatus(
+            error.response?.data?.message ||
+              "Unable to record attendance."
+          );
+        } finally {
+          setLoading(false);
+        }
       },
       (error) => {
-        console.log(error);
-        setStatus("Location access denied ❌");
-      },
+        setLoading(false);
+
+        switch (error.code) {
+          case 1:
+            setStatus("Location access denied.");
+            break;
+
+          case 2:
+            setStatus("Location unavailable.");
+            break;
+
+          case 3:
+            setStatus("Location request timed out.");
+            break;
+
+          default:
+            setStatus("Unable to obtain your location.");
+        }
+      }
     );
   };
 
   return (
-    <div className="fm-page">
-      <div className="fm-wrapper">
-        {/* HEADER */}
-        <div className="fm-header">
-          <h1>Attendance</h1>
-          <p>Check in by capturing your live location</p>
-        </div>
+    <div className="attendance-container">
+      <div className="attendance-card">
+        <h1>Attendance Check-In</h1>
+        <p className="subtitle">
+          Verify your attendance using your current location.
+        </p>
 
-        {/* STATUS CARDS */}
-        <div className="fm-cards">
-          <div className="fm-attendance">
-            <div className="fm-text">
-              <span>Status</span>
-              <div className="fm-number">{status || "Not checked in"}</div>
-            </div>
+        <div className="status-grid">
+          <div className="info-card">
+            <span>Status</span>
+            <h3>{status}</h3>
           </div>
 
-          <div className="fm-collection-rate">
-            <div className="fm-text">
-              <span>Location</span>
-              <div className="fm-percentage">
-                {location ? "Captured" : "Not captured"}
-              </div>
-            </div>
+          <div className="info-card">
+            <span>Location</span>
+            <h3>{location ? "Captured" : "Not Captured"}</h3>
           </div>
         </div>
 
-        {/* ACTION */}
-        <div className="fm-filter-box">
-          <div className="fm-filters">
-            <div className="fm-field">
-              <label>Attendance Action</label>
+        <button
+          className="attendance-btn"
+          onClick={handleCheckIn}
+          disabled={loading}
+        >
+          {loading ? "Checking In..." : "Check In"}
+        </button>
 
-              <button className="fm-export" onClick={handleCheckIn}>
-                Check In
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* LOCATION DISPLAY */}
         {location && (
-          <div className="fm-table-card">
-            <div className="fm-table-wrapper">
-              <table className="fm-table">
-                <thead>
-                  <tr>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{location.latitude}</td>
-                    <td>{location.longitude}</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div className="location-card">
+            <h2>Captured Coordinates</h2>
+
+            <div className="coordinate-row">
+              <span>Latitude</span>
+              <strong>{location.latitude}</strong>
+            </div>
+
+            <div className="coordinate-row">
+              <span>Longitude</span>
+              <strong>{location.longitude}</strong>
             </div>
           </div>
         )}
