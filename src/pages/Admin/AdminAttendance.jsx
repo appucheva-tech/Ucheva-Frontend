@@ -2,6 +2,7 @@ import React from "react";
 import "./AdminAttendance.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
+import { apiClient } from "../../config/AxiosInstance";
 
 const AdminAttendance = () => {
   const nav = useNavigate();
@@ -60,6 +61,26 @@ const AdminAttendance = () => {
       date: "18 May 2026",
     },
   ];
+
+  const [staff, setStaffs] = useState([]);
+
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const res = await apiClient.post("/staffattendance/all");
+
+        setStaffs(res?.data?.Attendance || []);
+        console.log(res);
+      } catch (error) {
+        console.error("Error fetching attendance:", error);
+        setStudents([]);
+      }
+    };
+
+    fetchAttendance();
+  }, []);
+
+  const attendanceData = students?.length > 0 ? students : dummyStudents;
   return (
     <>
       <div className="attendanceContainer">

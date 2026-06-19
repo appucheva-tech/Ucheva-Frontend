@@ -103,7 +103,8 @@ const AdminStudents = () => {
           <h1 className="welcome-text">
             Student Management{" "}
             <span className="subtitle-text">
-              Manage student records, view details and track student information.
+              Manage student records, view details and track student
+              information.
             </span>
           </h1>
           <button
@@ -258,7 +259,7 @@ const AdminStudents = () => {
                     <td className="genderText">{student.gender}</td>
 
                     <td className="classText">
-                      {student.className || student.class || "--"}
+                      {student.className || student.studentClass || "--"}
                     </td>
 
                     <td className="deptText">{student.department || "--"}</td>
