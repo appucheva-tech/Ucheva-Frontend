@@ -193,9 +193,9 @@ const VerifyForgot = () => {
           </div>
 
           {successMessage && (
-            <p className="otp-success-alert">{successMessage}</p>
+            <p className="otp-success-toast">{successMessage}</p>
           )}
-          {error && <p className="otp-error-alert">{error}</p>}
+          {error && <p className="otp-error-toast">{error}</p>}
 
           {/* Countdown / Resend Indicator */}
           <p className="countdown-timer-text">

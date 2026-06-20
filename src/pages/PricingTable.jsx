@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import "./PricingTable.css";
 import FreeLadyBackground from "../assets/FreeLadyBackground.png";
 
-
 const PricingTable = () => {
   const nav = useNavigate();
 
@@ -48,11 +47,18 @@ const PricingTable = () => {
               <li>Up to 600 students</li>
               <li>Full feature access</li>
               <li>Fee tracking dashboard</li>
-              <li>WhatsApp parent alerts</li>
+              <li>WhatsApp parent toasts</li>
             </ul>
 
-            <button className="JJview-all-btn" onClick={() => nav ('./Pricing')}>View all</button>
-            <button className="JJcta-button JJprimary-btn" onClick={() => nav ('./signup') }>Get Started</button>
+            <button className="JJview-all-btn" onClick={() => nav("./Pricing")}>
+              View all
+            </button>
+            <button
+              className="JJcta-button JJprimary-btn"
+              onClick={() => nav("./signup")}
+            >
+              Get Started
+            </button>
           </div>
         </div>
 
@@ -71,14 +77,21 @@ const PricingTable = () => {
               <li>Priority onboarding</li>
             </ul>
 
-            <button className="JJview-all-btn" onClick={() => nav ('./Pricing')}>View all</button>
-            <button className="JJcta-button JJsecondary-btn" onClick={() => nav ('./signup') }>Get Started</button>
+            <button className="JJview-all-btn" onClick={() => nav("./Pricing")}>
+              View all
+            </button>
+            <button
+              className="JJcta-button JJsecondary-btn"
+              onClick={() => nav("./signup")}
+            >
+              Get Started
+            </button>
           </div>
         </div>
       </div>
 
       <div className="JJpricing-footer">
-        <p className="JJfooter-P" onClick={() => nav ('./Pricing')}>
+        <p className="JJfooter-P" onClick={() => nav("./Pricing")}>
           Need a custom solution for your school network or organization?{" "}
           <a href="#contact" className="JJfooter-link">
             Contact us

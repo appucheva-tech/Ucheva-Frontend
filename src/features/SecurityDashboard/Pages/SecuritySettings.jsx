@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../SecurityStyles/SecuritySettings.css"
+import "../SecurityStyles/SecuritySettings.css";
 import { LuCamera } from "react-icons/lu";
 
 const SettingsPage = () => {
@@ -36,12 +36,12 @@ const SettingsPage = () => {
 
   const handleSaveChanges = () => {
     console.log("Saving profile changes:", profileData);
-    alert("Profile changes saved successfully!");
+    toast("Profile changes saved successfully!");
   };
 
   const handleChangePassword = () => {
     console.log("Opening change password dialog");
-    alert(
+    toast(
       "Change password functionality would open a dialog or navigate to password change page",
     );
   };
@@ -70,7 +70,10 @@ const SettingsPage = () => {
                   <LuCamera />
                 </div>
               )}
-              <label htmlFor="avatar-upload" className="security-avatar-upload-btn">
+              <label
+                htmlFor="avatar-upload"
+                className="security-avatar-upload-btn"
+              >
                 <LuCamera />
               </label>
               <input
@@ -167,7 +170,7 @@ const SettingsPage = () => {
           <div className="security-security-item">
             <div className="security-security-text">
               <h3>Change Password</h3>
-              <p>Receive real-time notifications and team alerts.</p>
+              <p>Receive real-time notifications and team toasts.</p>
             </div>
             <button
               className="security-change-password-btn"

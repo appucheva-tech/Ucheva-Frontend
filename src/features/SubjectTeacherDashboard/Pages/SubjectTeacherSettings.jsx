@@ -35,12 +35,12 @@ const SubjectTeacherSettings = () => {
 
   const handleSaveChanges = () => {
     console.log("Changes saved:", profileData);
-    alert("Profile changes saved successfully!");
+    toast("Profile changes saved successfully!");
   };
 
   const handleChangePassword = () => {
     console.log("Change password clicked");
-    alert("Password change dialog would open here");
+    toast("Password change dialog would open here");
   };
 
   return (
@@ -69,7 +69,10 @@ const SubjectTeacherSettings = () => {
                 />
               )}
             </div>
-            <label htmlFor="image-upload" className="SubjectTeacher-image-upload-btn">
+            <label
+              htmlFor="image-upload"
+              className="SubjectTeacher-image-upload-btn"
+            >
               <svg
                 width="24"
                 height="24"
@@ -185,7 +188,10 @@ const SubjectTeacherSettings = () => {
         </div>
 
         <div className="SubjectTeacher-save-button-container">
-          <button className="SubjectTeacher-save-button" onClick={handleSaveChanges}>
+          <button
+            className="SubjectTeacher-save-button"
+            onClick={handleSaveChanges}
+          >
             Save Changes
           </button>
         </div>
@@ -200,7 +206,7 @@ const SubjectTeacherSettings = () => {
             <div className="SubjectTeacher-security-text">
               <h3 className="SubjectTeacher-security-title">Change Password</h3>
               <p className="SubjectTeacher-security-description">
-                Receive real-time notifications and team alerts.
+                Receive real-time notifications and team toasts.
               </p>
             </div>
             <button

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useSearchParams,useParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { apiClient } from "../../../config/AxiosInstance";
 import "../styles/verify-email.css";
 
@@ -7,8 +7,8 @@ const CreatePassword = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  const {token} = useParams();
-console.log(token)
+  const { token } = useParams();
+  console.log(token);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,19 +39,16 @@ console.log(token)
     try {
       setLoading(true);
 
-      const response = await apiClient.post(
-        `/staff/create-password/${token}`,
-        {
-          token,
-          password,
-          confirmPassword,
-        }
-      );
+      const response = await apiClient.post(`/staff/create-password/${token}`, {
+        token,
+        password,
+        confirmPassword,
+      });
 
       const data = response.data;
 
       setSuccessMessage(
-        data?.message || "Password created successfully! Redirecting..."
+        data?.message || "Password created successfully! Redirecting...",
       );
 
       setTimeout(() => {
@@ -72,10 +69,24 @@ console.log(token)
         <h1 className="verify-title">Create Password</h1>
 
         <form onSubmit={handleResetSubmit}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px", marginBottom: "20px" }}>
-            
-            <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-              <label style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "16px",
+              marginBottom: "20px",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "left",
+              }}
+            >
+              <label
+                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
+              >
                 New Password
               </label>
 
@@ -97,8 +108,16 @@ console.log(token)
               />
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column", textAlign: "left" }}>
-              <label style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                textAlign: "left",
+              }}
+            >
+              <label
+                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
+              >
                 Confirm Password
               </label>
 
@@ -121,8 +140,10 @@ console.log(token)
             </div>
           </div>
 
-          {error && <p className="otp-error-alert">{error}</p>}
-          {successMessage && <p className="otp-success-alert">{successMessage}</p>}
+          {error && <p className="otp-error-toast">{error}</p>}
+          {successMessage && (
+            <p className="otp-success-toast">{successMessage}</p>
+          )}
 
           <button
             type="submit"

@@ -1,52 +1,104 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./AdminClass.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
+import { apiClient } from "../../config/AxiosInstance";
+import { useSelector } from "react-redux";
 
 const AdminClass = () => {
-  const classData = [
-    {
-      name: "SS 1A",
-      section: "Senior Secondary",
-      teacher: "Adaeze Clinton",
-      students: "24",
-    },
-    {
-      name: "JSS 2C",
-      section: "Junior Secondary",
-      teacher: "Emeka Ugonna",
-      students: "20",
-    },
-    {
-      name: "PRY 1",
-      section: "Primary",
-      teacher: "Tolu Adesunya",
-      students: "15",
-    },
-    {
-      name: "NRY 2",
-      section: "Nursery",
-      teacher: "Chidi Okoronkwo",
-      students: "18",
-    },
-    {
-      name: "SS 3B",
-      section: "Senior Secondary",
-      teacher: "Grace Obidi",
-      students: "28",
-    },
-    {
-      name: "SS 2A",
-      section: "Senior Secondary",
-      teacher: "Ifeanyi Okafor",
-      students: "28",
-    },
-    {
-      name: "JSS 1B",
-      section: "Junior Secondary",
-      teacher: "Ngozi Bassey",
-      students: "22",
-    },
-  ];
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const token = useSelector((state) => state?.user?.token);
+
+  const [teachers, setTeachers] = useState([]);
+
+  const [formData, setFormData] = useState({
+    className: "",
+    amount: "",
+    paymentOption: "",
+    teacherId: "",
+    numberOfInstallments: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const fetchTeachers = async () => {
+    try {
+      const response = await apiClient.get("/staff/all-staffs", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const staffList =
+        response.data?.staffsData ||
+        response.data.data ||
+        response.data.staffs ||
+        [];
+
+      setTeachers(staffList);
+      console.log(staffList);
+
+      console.log("Teachers:", staffList);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchTeachers();
+    }
+  }, [token]);
+
+  const createClass = async () => {
+    try {
+      const {
+        className,
+        amount,
+        paymentOption,
+        teacherId,
+        numberOfInstallments,
+      } = formData;
+
+      await apiClient.post(
+        `/class/create-class`,
+        {
+          className,
+          amount: Number(amount),
+          paymentOption,
+          teacherId,
+          numberOfInstallments:
+            paymentOption === "Installment" ? Number(numberOfInstallments) : 1,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setFormData({
+        className: "",
+        amount: "",
+        paymentOption: "",
+        teacherId: "",
+        numberOfInstallments: "",
+      });
+
+      setIsOpen(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const classData = [];
+
   return (
     <>
       <div className="tableContainer">
@@ -58,7 +110,7 @@ const AdminClass = () => {
               information.
             </p>
           </div>
-          <button className="addClassBtn">
+          <button className="addClassBtn" onClick={() => setIsOpen(true)}>
             <span className="plusIcon">+</span> Add Class
           </button>
         </div>
@@ -69,6 +121,10 @@ const AdminClass = () => {
             <div className="selectWrapper">
               <select className="selectInput" defaultValue="all">
                 <option value="all">All Sections</option>
+                <option value="">Nursery</option>
+                <option value="">Primary</option>
+                <option value="">Junior Secondary</option>
+                <option value="">Senior Secondary</option>
               </select>
             </div>
           </div>
@@ -106,7 +162,10 @@ const AdminClass = () => {
                   <td className="studentText textLink">{cls.students}</td>
                   <td>
                     <div className="actionButtons">
-                      <button className="editBtn">
+                      <button
+                        className="editBtn"
+                        onClick={() => setIsEditOpen(true)}
+                      >
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
@@ -116,7 +175,10 @@ const AdminClass = () => {
                           <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                       </button>
-                      <button className="deleteBtn">
+                      <button
+                        className="deleteBtn"
+                        onClick={() => setIsDeleteOpen(true)}
+                      >
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
@@ -163,7 +225,7 @@ const AdminClass = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            © 2026 Ucheva school operating management system . All right
+            ©️ 2026 Ucheva school operating management system . All right
             reserved.
           </span>
           <span className="supportText">
@@ -174,6 +236,300 @@ const AdminClass = () => {
           </span>
         </footer>
       </div>
+
+      {isOpen && (
+        <div className="modalOverlay" onClick={() => setIsOpen(false)}>
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <div className="modalHeader">
+              <h2>Add New Class</h2>
+              <button className="closeBtn" onClick={() => setIsOpen(false)}>
+                &times;
+              </button>
+            </div>
+            <div className="modalBody">
+              <div className="inputGroup">
+                <label>Class Name</label>
+                <input
+                  type="text"
+                  name="className"
+                  placeholder="e.g. SS 1A"
+                  value={formData.className}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label>Amount</label>
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="Enter class fee"
+                  value={formData.amount}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label>Payment Option</label>
+
+                <div className="modalSelectWrapper">
+                  <select
+                    name="paymentOption"
+                    value={formData.paymentOption}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Payment Option</option>
+
+                    <option value="Full Payment">Full Payment</option>
+
+                    <option value="Installment">Installment</option>
+                  </select>
+                </div>
+              </div>
+
+              {formData.paymentOption === "Installment" && (
+                <>
+                  <div className="inputGroup">
+                    <label>Number Of Installments</label>
+
+                    <div className="modalSelectWrapper">
+                      <select
+                        name="numberOfInstallments"
+                        value={formData.numberOfInstallments}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select Number</option>
+
+                        <option value="2">2</option>
+
+                        <option value="3">3</option>
+
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {formData.numberOfInstallments && formData.amount && (
+                    <span className="inputHelp">
+                      Each installment: ₦
+                      {(
+                        Number(formData.amount) /
+                        Number(formData.numberOfInstallments)
+                      ).toLocaleString()}
+                    </span>
+                  )}
+                </>
+              )}
+
+              <div className="inputGroup">
+                <label>Assign Class Teacher</label>
+
+                <div className="modalSelectWrapper">
+                  <select
+                    name="teacherId"
+                    value={formData.teacherId}
+                    onChange={handleChange}
+                  >
+                    <option value="">Search and select a teacher</option>
+
+                    {Array.isArray(teachers) &&
+                      teachers.map((staff) => (
+                        <option key={staff.id} value={staff.id}>
+                          {staff.fullName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="modalFooter">
+              <button className="cancelBtn" onClick={() => setIsOpen(false)}>
+                Cancel
+              </button>
+              <button className="createBtn" onClick={createClass}>
+                Create Class
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isEditOpen && (
+        <div className="modalOverlay" onClick={() => setIsEditOpen(false)}>
+          <div className="modalContent" onClick={(e) => e.stopPropagation()}>
+            <div className="modalHeader">
+              <h2>Edit Class</h2>
+              <button className="closeBtn" onClick={() => setIsEditOpen(false)}>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ width: "18px", height: "18px" }}
+                >
+                  <path
+                    d="M18 6L6 18M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="modalBody">
+              <div className="inputGroup">
+                <label>Class Name</label>
+
+                <input
+                  type="text"
+                  name="className"
+                  placeholder="e.g SS 1A"
+                  value={formData.className}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label>Amount</label>
+
+                <input
+                  type="number"
+                  name="amount"
+                  placeholder="Enter class fee"
+                  value={formData.amount}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="inputGroup">
+                <label>Payment Option</label>
+
+                <div className="modalSelectWrapper">
+                  <select
+                    name="paymentOption"
+                    value={formData.paymentOption}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Payment Option</option>
+
+                    <option value="Full Payment">Full Payment</option>
+
+                    <option value="Installment">Installment</option>
+                  </select>
+                </div>
+              </div>
+
+              {formData.paymentOption === "Installment" && (
+                <>
+                  <div className="inputGroup">
+                    <label>Number Of Installments</label>
+
+                    <div className="modalSelectWrapper">
+                      <select
+                        name="numberOfInstallments"
+                        value={formData.numberOfInstallments}
+                        onChange={handleChange}
+                      >
+                        <option value="">Select</option>
+
+                        <option value="2">2</option>
+
+                        <option value="3">3</option>
+
+                        <option value="4">4</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {formData.numberOfInstallments && formData.amount && (
+                    <div className="inputHelp">
+                      Each installment: ₦
+                      {(
+                        Number(formData.amount) /
+                        Number(formData.numberOfInstallments)
+                      ).toLocaleString()}
+                    </div>
+                  )}
+                </>
+              )}
+
+              <div className="inputGroup">
+                <label>Assign Class Teacher</label>
+
+                <div className="modalSelectWrapper">
+                  <select
+                    name="teacherId"
+                    value={formData.teacherId}
+                    onChange={handleChange}
+                  >
+                    <option value="">Search and select teacher</option>
+
+                    {teachers.map((teacher) => (
+                      <option key={teacher.id} value={teacher.id}>
+                        {teacher.fullName}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="modalFooter">
+              <button
+                className="cancelBtn"
+                onClick={() => setIsEditOpen(false)}
+              >
+                Cancel
+              </button>
+              <button className="saveChangesBtn">Save Changes</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {isDeleteOpen && (
+        <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
+          <div
+            className="modalContent deleteModal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modalHeader">
+              <h2>Delete Class</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setIsDeleteOpen(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ width: "18px", height: "18px" }}
+                >
+                  <path
+                    d="M18 6L6 18M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="modalBody">
+              <p className="deleteWarningText">
+                Are you sure you want to delete this class? This action cannot
+                be undone.
+              </p>
+            </div>
+            <div className="modalFooter">
+              <button
+                className="cancelBtn"
+                onClick={() => setIsDeleteOpen(false)}
+              >
+                Cancel
+              </button>
+              <button className="confirmDeleteBtn">Delete</button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

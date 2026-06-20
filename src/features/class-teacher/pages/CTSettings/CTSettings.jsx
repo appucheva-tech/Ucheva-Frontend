@@ -93,7 +93,7 @@ const CTSettings = () => {
 
             <div className="CTChangePass">
               Change Password
-              <span>Receive real-time notifications and team alerts.</span>
+              <span>Receive real-time notifications and team toasts.</span>
             </div>
           </div>
 

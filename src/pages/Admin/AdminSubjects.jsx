@@ -12,6 +12,7 @@ const AdminSubjects = () => {
   const token = useSelector((state) => state?.user?.token);
 
   const [subjects, setSubjects] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
 
@@ -19,8 +20,8 @@ const AdminSubjects = () => {
     subjectName: "",
     section: "",
     department: "",
+    subjectTeacher: "",
   });
-
   const [editFormData, setEditFormData] = useState({
     subjectName: "",
     section: "",
@@ -52,6 +53,23 @@ const AdminSubjects = () => {
     }
   };
 
+  const fetchTeachers = async () => {
+    try {
+      const response = await apiClient.get(
+        "/teacher/allteachers", // replace with actual endpoint
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      setTeachers(response?.data?.data || response?.data || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // 👇 PUT handleSubmit HERE
   const handleSubmit = async () => {
     try {
@@ -61,6 +79,7 @@ const AdminSubjects = () => {
         subjectName: formData.subjectName,
         applicableSection: formData.section,
         applicableDepartment: formData.department,
+        subjectTeacher: formData.subjectTeacher,
       };
 
       await apiClient.post("/subject/subject", payload, {
@@ -73,6 +92,7 @@ const AdminSubjects = () => {
         subjectName: "",
         section: "",
         department: "",
+        subjectTeacher: "",
       });
 
       setShowModal(false);
@@ -88,6 +108,7 @@ const AdminSubjects = () => {
   useEffect(() => {
     if (token) {
       fetchSubjects();
+      fetchTeachers();
     }
   }, [token]);
   const handleUpdate = async () => {
@@ -106,11 +127,9 @@ const AdminSubjects = () => {
       <div className="sdashboard-container">
         <header className="dashboard-header">
           <div>
-            <h1 className="welcome-text">
-              Subject Management
-            </h1>
+            <h1 className="welcome-text">Subject Management</h1>
             <p className="subtitle-text">
-             Create and manage subjects offered in your school.
+              Create and manage subjects offered in your school.
             </p>
           </div>
           <button className="AddSubject" onClick={() => setShowModal(true)}>
@@ -129,39 +148,33 @@ const AdminSubjects = () => {
                 <PiStudentFill className="DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              All subjects
-            </div>
+            <div className="card-footer trend-up">All subjects</div>
           </div>
 
           <div className="metric-card card-staff">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Core Subjects</span>
-                <span className="card-value">10</span>
+                <span className="card-label">Snr</span>
+                <span className="card-value"></span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className="DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              General subjects
-            </div>
+            <div className="card-footer trend-up">Senior Class </div>
           </div>
 
           <div className="metric-card card-attendance">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Elective Subjects</span>
-                <span className="card-value">8</span>
+                <span className="card-label">Jnr</span>
+                <span className="card-value"></span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className="DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              Departmental subjects
-            </div>
+            <div className="card-footer trend-up">Junior Class </div>
           </div>
 
           <div className="metric-card card-fees">
@@ -174,9 +187,7 @@ const AdminSubjects = () => {
                 <FaSackDollar className="DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-pct">
-              Nur, Pry, Sec.
-            </div>
+            <div className="card-footer trend-pct">Nur, Pry, Sec.</div>
           </div>
         </div>
       </div>
@@ -224,7 +235,10 @@ const AdminSubjects = () => {
                   <td>{subject.teachers?.length || 0}</td>{" "}
                   <td>
                     <div className="actionButtons">
-                      <button className="editBtn" onClick={() => handleEditClick(subject)}>
+                      <button
+                        className="editBtn"
+                        onClick={() => handleEditClick(subject)}
+                      >
                         <svg
                           viewBox="0 0 24 24"
                           fill="none"
@@ -351,6 +365,25 @@ const AdminSubjects = () => {
 
               <small>Helps you classify the type of subject.</small>
             </div>
+            <div className="formGroup">
+              <label>Subject Teacher</label>
+
+              <select
+                name="subjectTeacher"
+                value={formData.subjectTeacher}
+                onChange={handleChange}
+              >
+                <option value="">Select Teacher</option>
+
+                {teachers.map((teacher) => (
+                  <option key={teacher.id} value={teacher.id}>
+                    {teacher.fullName}
+                  </option>
+                ))}
+              </select>
+
+              <small>Select the teacher assigned to this subject.</small>
+            </div>
 
             <div className="modalActions">
               <button className="cancelBtn" onClick={() => setShowModal(false)}>
@@ -374,8 +407,16 @@ const AdminSubjects = () => {
           <div className="editSubjectModal">
             <div className="editModalHeader">
               <h2>Edit Subject</h2>
-              <button className="editCloseBtn" onClick={() => setShowEditModal(false)}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <button
+                className="editCloseBtn"
+                onClick={() => setShowEditModal(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
                   <line x1="18" y1="6" x2="6" y2="18"></line>
                   <line x1="6" y1="6" x2="18" y2="18"></line>
                 </svg>
@@ -407,7 +448,9 @@ const AdminSubjects = () => {
                   <option value="SS">SS</option>
                 </select>
               </div>
-              <small>Select the class level(s) this subject is applicable to.</small>
+              <small>
+                Select the class level(s) this subject is applicable to.
+              </small>
             </div>
 
             <div className="editFormGroup">
@@ -429,7 +472,10 @@ const AdminSubjects = () => {
             </div>
 
             <div className="editModalActions">
-              <button className="editCancelBtn" onClick={() => setShowEditModal(false)}>
+              <button
+                className="editCancelBtn"
+                onClick={() => setShowEditModal(false)}
+              >
                 Cancel
               </button>
               <button

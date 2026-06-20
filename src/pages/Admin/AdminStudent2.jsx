@@ -4,6 +4,7 @@ import "./AdminStudent2.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import axios from "axios";
 import { apiClient } from "../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
 const AdminStudent2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
@@ -20,7 +21,7 @@ const AdminStudent2 = () => {
     parentGuardiansName: "",
     relationship: "",
     phoneNumber: "",
-    email: "",
+    parentGuardiansEmail: "",
     religion: "",
     parentGuardiansAddress: "",
   };
@@ -46,8 +47,12 @@ const AdminStudent2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.firstName || !formData.lastName || !formData.email) {
-      alert("Please fill all required fields");
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.parentGuardiansEmail
+    ) {
+      toast.error("Please fill all required fields");
       return;
     }
 
@@ -68,7 +73,9 @@ const AdminStudent2 = () => {
         parentGuardiansName: formData.parentGuardiansName.trim(),
         relationship: formData.relationship.toLowerCase(),
         phoneNumber: formData.phoneNumber.trim(),
-        email: formData.email.trim().toLowerCase(),
+        parentGuardiansEmail: formData.parentGuardiansEmail
+          .trim()
+          .toLowerCase(),
         religion: formData.religion,
         parentGuardiansAddress: formData.parentGuardiansAddress,
       };
@@ -81,15 +88,15 @@ const AdminStudent2 = () => {
         },
       });
 
-      console.log(response.data);
+      console.log(response);
 
-      alert("Student created successfully!");
+      toast("Student created successfully!");
 
       setFormData(initialState);
     } catch (error) {
       console.error(error);
 
-      alert(error?.response?.data?.message || "Failed to create student");
+      toast(error?.response?.data?.message || "Failed to create student");
     } finally {
       setLoading(false);
     }
@@ -356,8 +363,8 @@ const AdminStudent2 = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
-                  value={formData.email}
+                  name="parentGuardiansEmail"
+                  value={formData.parentGuardiansEmail}
                   onChange={handleChange}
                   placeholder="Enter Email Address"
                 />

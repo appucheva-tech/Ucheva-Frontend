@@ -7,6 +7,7 @@ import UIM from "../../../../assets/uim.svg";
 import Streamline from "../../../../assets/streamline.svg";
 import Material from "../../../../assets/material.svg";
 import axios from "axios";
+import { apiClient } from "../../../../config/AxiosInstance";
 
 const initialStudents = [
   {
@@ -68,8 +69,8 @@ const MyClass = () => {
   useEffect(() => {
     const myClass = async () => {
       try {
-        const res = await axios.get(
-          `${baseUrl}/classteacher/class-teacher-dashboard`,
+        const res = await apiClient.get(
+          "/classteacher/class-teacher-dashboard",
         );
         console.log(res);
       } catch (error) {

@@ -16,48 +16,60 @@ const AdminStaff = () => {
 
   const [isOpen, setIsOpen] = useState(false);
 
-
-
   const [isLoading, setIsLoading] = useState(true);
   const [staffList, setStaffList] = useState([] || null);
+
+  // ✅ ONLY ADDITION HERE
   const [metrics, setMetrics] = useState({
     total: 0,
-    teaching: 0,
-    nonTeaching: 0,
     classTeachers: 0,
+    subjectTeachers: 0,
+    activeStaff: 0, // ADDED
   });
 
   useEffect(() => {
     const fetchStaffRecords = async () => {
       try {
         setIsLoading(true);
-        const response = await apiClient.get("/staff/staffs", {
+        const response = await apiClient.get("/staff/all-staffs", {
           headers: { "x-tenant": subdomain },
         });
 
-        console.log("response:  ", response);
-
         const records = Array.isArray(response.data)
           ? response.data
-          : response.data?.staffData || response.data?.data || [];
-        console.log(records);
+          : response.data?.staffsData || response.data?.data || [];
+
         setStaffList(records);
+        console.log(response);
 
-        const teachingCount = records.filter(
-          (s) => s.role?.toLowerCase() === "teacher",
-        ).length;
-        const nonTeachingCount = records.filter(
-          (s) => s.role?.toLowerCase() !== "teacher",
-        ).length;
-        const classTeachersCount = records.filter(
-          (s) => s.class && s.class !== "--",
-        ).length;
+        const classTeachersCount = records.filter((staff) => {
+          const role = (staff.staffType || staff.role || "").toLowerCase();
+          return role === "class teacher";
+        }).length;
 
+        const subjectTeachersCount = records.filter((staff) => {
+          const role = (staff.staffType || staff.role || "").toLowerCase();
+          return role === "subject teacher";
+        }).length;
+
+        // ✅ ONLY ADDITION HERE
+        const activeStaffCount = records.filter((staff) => {
+          const status = (
+            staff.status ||
+            staff.employmentStatus ||
+            staff.accountStatus ||
+            ""
+          ).toLowerCase();
+
+          return status === "active" || status === "true";
+        }).length;
+
+        // ✅ ONLY ADDITION HERE
         setMetrics({
           total: records.length,
-          teaching: teachingCount,
-          nonTeaching: nonTeachingCount,
           classTeachers: classTeachersCount,
+          subjectTeachers: subjectTeachersCount,
+          activeStaff: activeStaffCount,
         });
       } catch (error) {
         console.error("Failed fetching live institutional staff logs:", error);
@@ -111,7 +123,6 @@ const AdminStaff = () => {
           </div>
 
           <button className="AddStaff" onClick={handleAddStaff}>
-            {" "}
             <FaPlus /> Add Staff
           </button>
         </div>
@@ -132,8 +143,8 @@ const AdminStaff = () => {
           <div className="metric-card card-teaching">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Teaching Staff</span>
-                <span className="card-value">{metrics.teaching}</span>
+                <span className="card-label">Class Teachers</span>
+                <span className="card-value">{metrics.classTeachers}</span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className="DashIcon" />
@@ -144,8 +155,8 @@ const AdminStaff = () => {
           <div className="metric-card card-non-teaching">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Non-Teaching Staff</span>
-                <span className="card-value">{metrics.nonTeaching}</span>
+                <span className="card-label">Subject Teachers</span>
+                <span className="card-value">{metrics.subjectTeachers}</span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className="DashIcon" />
@@ -153,14 +164,15 @@ const AdminStaff = () => {
             </div>
           </div>
 
-          <div className="metric-card card-teachers">
+          {/* ✅ ONLY ADDITION - ACTIVE STAFF CARD */}
+          <div className="metric-card card-active">
             <div className="card-content">
               <div className="text-section">
-                <span className="card-label">Class Teachers</span>
-                <span className="card-value">{metrics.classTeachers}</span>
+                <span className="card-label">Active Staff</span>
+                <span className="card-value">{metrics.activeStaff}</span>
               </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
+              <div className="icon-wrapper icon-staff">
+                <HiMiniUserGroup className="DashIcon" />
               </div>
             </div>
           </div>
@@ -206,8 +218,8 @@ const AdminStaff = () => {
                 <div className="selectWrapper">
                   <select className="StaffselectInput" defaultValue="all">
                     <option value="all">All Types</option>
-                    <option value="teacher">Teaching Staff</option>
-                    <option value="non-teacher">Non-Teaching Staff</option>
+                    <option value="class teacher">Class Teachers</option>
+                    <option value="subject teacher">Subject Teachers</option>
                   </select>
                 </div>
               </div>
@@ -242,26 +254,26 @@ const AdminStaff = () => {
                     <tr
                       key={staff.id || index}
                       style={{ cursor: "pointer" }}
-                      onClick={() => {nav(`/admin/staff-details/${staff.id}`)}}
+                      onClick={() => {
+                        nav(`/admin/staff-details/${staff.id}`);
+                      }}
                     >
                       <td className="staffName card-content-populated">
-                        {staff.name ||
+                        {staff.fullName ||
                           `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
                           "Unnamed Staff"}
                       </td>
 
                       <td className="roleText card-content-populated">
-                        {staff.staffRole || staff.role || "--"}
+                        {staff.staffType || staff.role || "--"}
                       </td>
 
                       <td className="classText">
-                        {staff.classAssigned || staff.class || "test"}
+                        {staff.assignedClass || staff.class || "test"}
                       </td>
 
                       <td className="subjectText card-content-populated">
-                        {Array.isArray(staff.subjectAssigned)
-                          ? staff.subjectAssigned.join(", ")
-                          : staff.subject || "test"}
+                        {staff.assignedSubject || staff.subject}
                       </td>
 
                       <td>{staff.phoneNumber || staff.phone || "test"}</td>

@@ -177,7 +177,7 @@ const OnboardingStepper = () => {
           );
         }
 
-        console.log("pay: " ,payload)
+        console.log("pay: ", payload);
 
         await apiClient.post("/admin/profile", payload, {
           headers: {
@@ -188,7 +188,7 @@ const OnboardingStepper = () => {
         setIsCompleted(true);
       } catch (error) {
         console.error("API Error:", error);
-        alert("Failed to save. Please try again.");
+        toast("Failed to save. Please try again.");
       } finally {
         setIsSubmitting(false);
       }

@@ -76,7 +76,7 @@ const BursarySettings = () => {
 
             <div className="BRChangePass">
               Change Password
-              <span>Receive real-time notifications and team alerts.</span>
+              <span>Receive real-time notifications and team toasts.</span>
             </div>
           </div>
 
