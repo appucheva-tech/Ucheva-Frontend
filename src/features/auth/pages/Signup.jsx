@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 import { apiClient } from "../../../config/AxiosInstance";
-
+import { toast } from "react-toastify";
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -171,11 +171,13 @@ const Signup = () => {
             e,
           );
         }
+        toast.success(response.data.message)
       }
     } catch (err) {
       const serverMessage =
         err.response?.data?.message || "An error occurred during registration.";
       setServerError(serverMessage);
+      toast.error(serverError)
     } finally {
       setLoading(false);
     }
@@ -185,7 +187,6 @@ const Signup = () => {
       <form className="signup-form" onSubmit={handleSubmit} noValidate>
         <h2>Create An Account</h2>
 
-        {serverError && <div className="error-banner">{serverError}</div>}
 
         {/* School Name */}
         <div className="form-group">

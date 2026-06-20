@@ -9,6 +9,7 @@ import {
   setStaffUser,
   setStaffToken,
 } from "../../../global/userSlice";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ const Login = () => {
     } catch (err) {
       setError(
         err.response?.data?.message ||
-          "Invalid credentials or login configurations."
+          "Invalid credentials or login configurations.",
       );
     } finally {
       setLoading(false);
@@ -95,7 +96,7 @@ const Login = () => {
     <div className="login-page-wrapper">
       <h2 className="login-title-heading">Log In</h2>
 
-      {error && <p className="login-error-alert">{error}</p>}
+      {error && <p className="login-error-toast">{error}</p>}
 
       <form onSubmit={handleLoginSubmit} className="login-form">
         {/* Email */}

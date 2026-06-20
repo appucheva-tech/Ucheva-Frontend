@@ -99,7 +99,7 @@ const AdminHeader = () => {
           </div> */}
         </div>
 
-        {/* Profile & Alert Triggers */}
+        {/* Profile & toast Triggers */}
         <div className="profile-container">
           <div className="notification-wrapper" ref={popupRef}>
             <button

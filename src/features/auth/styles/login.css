@@ -168,7 +168,7 @@
 }
 
 /* Error Banners styling */
-.login-error-alert {
+.login-error-toast {
   margin: 0 0 16px 0;
   font-size: 14px;
   color: #dc2626;

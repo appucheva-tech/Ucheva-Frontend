@@ -458,3 +458,194 @@
     }
   }
 }
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(11, 26, 48, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modalContent {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 540px;
+    padding: 32px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+
+    &.deleteModal {
+      max-width: 480px;
+
+      .confirmDeleteBtn {
+        background-color: #dc3545;
+        border: none;
+        color: #ffffff;
+      }
+
+      .deleteWarningText {
+        font-size: 15px;
+        color: #4a5568;
+        line-height: 1.5;
+        margin: 0;
+      }
+    }
+
+    .modalHeader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+
+      h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #0b1a30;
+        margin: 0;
+      }
+
+      .closeBtn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #0b1a30;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .modalBody {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .inputGroup {
+        display: flex;
+        flex-direction: column;
+
+        label {
+          font-size: 14px;
+          font-weight: 500;
+          color: #0b1a30;
+          margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+          width: 100%;
+          padding: 12px 16px;
+          font-size: 14px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          color: #1a202c;
+          outline: none;
+          box-sizing: border-box;
+
+          &::placeholder {
+            color: #a0aec0;
+          }
+
+          &:focus {
+            border-color: #0d6efd;
+          }
+        }
+        input[type="number"] {
+          width: 100%;
+          padding: 12px 16px;
+          font-size: 14px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          color: #1a202c;
+          outline: none;
+          box-sizing: border-box;
+
+          &::placeholder {
+            color: #a0aec0;
+          }
+
+          &:focus {
+            border-color: #0d6efd;
+          }
+        }
+
+        .modalSelectWrapper {
+          position: relative;
+          width: 100%;
+
+          select {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            background-color: #ffffff;
+            color: black;
+            appearance: none;
+            cursor: pointer;
+            outline: none;
+            box-sizing: border-box;
+
+            &:focus {
+              border-color: #0d6efd;
+            }
+          }
+
+          &::after {
+            content: "";
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 10px;
+            height: 6px;
+            background-color: #0b1a30;
+            clip-path: polygon(100% 0, 0 0, 50% 100%);
+            pointer-events: none;
+          }
+        }
+
+        .inputHelp {
+          font-size: 12px;
+          color: #a0aec0;
+          margin-top: 6px;
+        }
+      }
+    }
+
+    .modalFooter {
+      display: flex;
+      justify-content: flex-start;
+      gap: 16px;
+      margin-top: 32px;
+
+      button {
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+
+      .cancelBtn {
+        background-color: #ffffff;
+        border: 1px solid #0d6efd;
+        color: #0d6efd;
+      }
+
+      .createBtn,
+      .saveChangesBtn {
+        background-color: #0d6efd;
+        border: none;
+        color: #ffffff;
+      }
+    }
+  }
+}

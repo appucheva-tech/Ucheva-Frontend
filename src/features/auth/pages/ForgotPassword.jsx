@@ -24,7 +24,7 @@ const ForgotPassword = () => {
       setError("");
       setSuccessMessage("");
 
-      const payload = { email }
+      const payload = { email };
 
       console.log("[API Call] Requesting password reset for:", payload);
 
@@ -65,9 +65,9 @@ const ForgotPassword = () => {
           instructions.
         </p>
 
-        {error && <p className="forgot-password-error-alert">{error}</p>}
+        {error && <p className="forgot-password-error-toast">{error}</p>}
         {successMessage && (
-          <p className="forgot-password-success-alert">{successMessage}</p>
+          <p className="forgot-password-success-toast">{successMessage}</p>
         )}
 
         <form

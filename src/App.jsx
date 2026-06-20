@@ -67,6 +67,7 @@ import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
 import AdminEditStudent from "./pages/Admin/AdminEditStudent";
 import AttendancePage from "./features/busary/components/AttendancePage";
 import PrivateRoute from "./pages/PrivateRoute";
+import NotFound from "./pages/notFound";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -82,6 +83,9 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
+
+                   <Route path="/notfound" element={<NotFound />} />
+
         <Route path="/" element={<Home />} />
         <Route path="/Features" element={<Features />} />
         <Route path="/Pricing" element={<Pricing />} />
@@ -155,6 +159,7 @@ const App = () => {
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
         </Route>
+
         <Route
           path="/subjectteacherdashboard"
           element={<SubjectTeacherLayout />}

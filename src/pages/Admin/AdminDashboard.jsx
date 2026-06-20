@@ -9,12 +9,17 @@ import { LuUserPlus, LuFileSpreadsheet } from "react-icons/lu";
 import { HiChevronRight } from "react-icons/hi";
 import { apiClient } from "../../config/AxiosInstance";
 import QRModal from "./QRModal";
+import { useNavigate } from "react-router-dom";
+import { getGreeting } from "../../helpers/greeting";
+import { useSelector } from "react-redux";
 
 const AdminDashboard = () => {
+  const user = useSelector((state) => state.user.user.schoolName);
+  const [attendanceTable, setAttendanceTable] = useState(false);
   const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
   const [attendance, setAttendance] = useState([]);
-
+  const nav = useNavigate();
   useEffect(() => {
     const getDashboardSummary = async () => {
       try {
@@ -33,8 +38,9 @@ const AdminDashboard = () => {
     const getTodayAttendance = async () => {
       try {
         const res = await apiClient.get("/staffattendance/today");
-console.log("res : ",res)
+        console.log("res : ", res);
         setAttendance(res?.data?.Attendance);
+        setAttendanceTable(true);
       } catch (error) {
         console.error(error);
       }
@@ -48,7 +54,8 @@ console.log("res : ",res)
       <div className="dashboard-header">
         <div className="header-text-group">
           <h1 className="welcome-text">
-            Good morning, Mr Eric <span className="wave-emoji">👋</span>
+            {getGreeting(user)}
+            <span className="wave-emoji">👋</span>
           </h1>
           <p className="subtitle-text">
             Here's an overview of Green Field Academy activities today.
@@ -142,56 +149,22 @@ console.log("res : ",res)
                   <th>Status</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td className="font-medium text-slate">Adaeze Clinton</td>
-                  <td>Teacher</td>
-                  <td>7:48 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Emeka Ugonna</td>
-                  <td>Teacher</td>
-                  <td>8:02 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Tolu Adesunya</td>
-                  <td>Bursar</td>
-                  <td>7:55 AM</td>
-                  <td>
-                    <span className="status-badge badge-checked-in">
-                      Checked In
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Chidi Okoronkwo</td>
-                  <td>Security</td>
-                  <td>--</td>
-                  <td>
-                    <span className="status-badge badge-absent">Absent</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="font-medium text-slate">Grace Obidi</td>
-                  <td>Cleaner</td>
-                  <td>4:10 PM</td>
-                  <td>
-                    <span className="status-badge badge-checked-out">
-                      Checked Out
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
+              {setAttendanceTable ? (
+                <tbody>
+                  <tr>
+                    <td className="font-medium text-slate">Adaeze Clinton</td>
+                    <td>Teacher</td>
+                    <td>7:48 AM</td>
+                    <td>
+                      <span className="status-badge badge-checked-in">
+                        Checked In
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              ) : (
+                <span> loading.... </span>
+              )}
             </table>
           </div>
         </div>
@@ -220,7 +193,11 @@ console.log("res : ",res)
               </div>
             </div>
 
-            <div className="action-button-card action-students">
+            <div
+              className="action-button-card action-students"
+              style={{ background: "blue" }}
+              onClick={() => nav("/admin/AdminStudent2")}
+            >
               <div className="action-main-content">
                 <div className="action-icon-box">
                   <LuUserPlus />
@@ -267,7 +244,6 @@ console.log("res : ",res)
           </div>
         </div>
       </div>
-
 
       <QRModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>

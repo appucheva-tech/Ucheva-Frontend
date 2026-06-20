@@ -1,12 +1,14 @@
-import React from 'react';
-import './AdminSubscriptionBilling.css'
+import React from "react";
+import "./AdminSubscriptionBilling.css";
 
 const SubscriptionBilling = () => {
   return (
     <div className="Mcontainer">
       <div className="Mheader">
         <h1 className="Mtitle">Subscription &amp; Billing</h1>
-        <p className="Msubtitle">Manage your subscription, billing information, and plan limits.</p>
+        <p className="Msubtitle">
+          Manage your subscription, billing information, and plan limits.
+        </p>
       </div>
 
       <div className="MpricingGrid">
@@ -19,8 +21,12 @@ const SubscriptionBilling = () => {
                 <span className="Mdot"></span> Active
               </span>
             </div>
-            <p className="Mdescription">Perfect for schools exploring digital school management.</p>
-            <button className="McurrentBtn" disabled>Current Plan</button>
+            <p className="Mdescription">
+              Perfect for schools exploring digital school management.
+            </p>
+            <button className="McurrentBtn" disabled>
+              Current Plan
+            </button>
           </div>
           <div className="MfeaturesList">
             <p className="MfeaturesTitle">Features</p>
@@ -56,7 +62,10 @@ const SubscriptionBilling = () => {
               <span className="Mprice">N40,000</span>
               <span className="Mperiod">/per term</span>
             </div>
-            <p className="Mdescription">Built for growing schools that need better visibility and organization.</p>
+            <p className="Mdescription">
+              Built for growing schools that need better visibility and
+              organization.
+            </p>
             <button className="MchooseBtn">Choose Standard</button>
           </div>
           <div className="MfeaturesList">
@@ -71,7 +80,7 @@ const SubscriptionBilling = () => {
               <span className="McheckIcon">✓</span> Fee tracking dashboard
             </div>
             <div className="MfeatureItem">
-              <span className="McheckIcon">✓</span> WhatsApp parent alerts
+              <span className="McheckIcon">✓</span> WhatsApp parent toasts
             </div>
             <div className="MfeatureItem">
               <span className="McheckIcon">✓</span> Online fee payments
@@ -83,7 +92,8 @@ const SubscriptionBilling = () => {
               <span className="McheckIcon">✓</span> Attendance reports
             </div>
             <div className="MfeatureItem">
-              <span className="McheckIcon">✓</span> Student &amp; staff management
+              <span className="McheckIcon">✓</span> Student &amp; staff
+              management
             </div>
             <div className="MfeatureItem">
               <span className="McheckIcon">✓</span> Class management
@@ -101,7 +111,9 @@ const SubscriptionBilling = () => {
               <span className="Mprice">N75,000</span>
               <span className="Mperiod">/per term</span>
             </div>
-            <p className="Mdescription">Advanced tools for larger schools and multi-branch operations.</p>
+            <p className="Mdescription">
+              Advanced tools for larger schools and multi-branch operations.
+            </p>
             <button className="MgetStartedBtn">Get Started</button>
           </div>
           <div className="MfeaturesList">
@@ -131,7 +143,8 @@ const SubscriptionBilling = () => {
               <span className="McheckIcon">✓</span> Multi-branch support
             </div>
             <div className="MfeatureItem">
-              <span className="McheckIcon">✓</span> Custom operational assistance
+              <span className="McheckIcon">✓</span> Custom operational
+              assistance
             </div>
           </div>
         </div>
@@ -154,25 +167,33 @@ const SubscriptionBilling = () => {
                 <td>15 May 2026</td>
                 <td>School+ Plan</td>
                 <td>N 75,000</td>
-                <td><span className="MactivityText">Upgraded</span></td>
+                <td>
+                  <span className="MactivityText">Upgraded</span>
+                </td>
               </tr>
               <tr>
                 <td>25 January 2026</td>
                 <td>Standard Plan</td>
                 <td>N 40,000</td>
-                <td><span className="MactivityText">Plan Renewed</span></td>
+                <td>
+                  <span className="MactivityText">Plan Renewed</span>
+                </td>
               </tr>
               <tr>
                 <td>25 January 2026</td>
                 <td>Standard Plan</td>
                 <td>N 40,000</td>
-                <td><span className="MactivityText">Upgraded</span></td>
+                <td>
+                  <span className="MactivityText">Upgraded</span>
+                </td>
               </tr>
               <tr>
                 <td>25 January 2026</td>
                 <td>Starter Plan</td>
                 <td>N 0</td>
-                <td><span className="MactivityText">Free Plan</span></td>
+                <td>
+                  <span className="MactivityText">Free Plan</span>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -181,7 +202,9 @@ const SubscriptionBilling = () => {
         <div className="MpaginationBar">
           <span className="MshowingText">Showing pages of 1 to 7</span>
           <div className="MpaginationControls">
-            <button className="MarrowBtn" disabled>&lt;</button>
+            <button className="MarrowBtn" disabled>
+              &lt;
+            </button>
             <button className="MpageBtn MactivePage">1</button>
             <button className="MpageBtn">2</button>
             <button className="MpageBtn">3</button>

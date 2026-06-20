@@ -144,7 +144,7 @@
   color: #64748b;
 }
 
-/* --- Right Side: Profiles, Dropdowns, and Alerts --- */
+/* --- Right Side: Profiles, Dropdowns, and toasts --- */
 .profile-container {
   display: flex;
   align-items: center;
