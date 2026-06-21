@@ -12,6 +12,13 @@ const AdminClass = () => {
 
   const [teachers, setTeachers] = useState([]);
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   const [formData, setFormData] = useState({
     className: "",
     amount: "",
@@ -20,69 +27,29 @@ const AdminClass = () => {
     numberOfInstallments: "",
   });
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const fetchTeachers = async () => {
+  const createClass = async () => {
     try {
-      const response = await apiClient.get("/staff/all-staffs", {
+      const payload = {
+        className: formData.className,
+        amount: Number(formData.amount),
+        paymentOption: formData.paymentOption.trim().toLowerCase(),
+        numberOfInstallments:
+          formData.paymentOption === "installment"
+            ? Number(formData.numberOfInstallments)
+            : 4,
+      };
+
+      if (formData.teacherId) {
+        payload.teacherId = formData.teacherId;
+      }
+
+      console.log("Payload:", payload);
+
+      await apiClient.post("/class/create-class", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      const staffList =
-        response.data?.staffsData ||
-        response.data.data ||
-        response.data.staffs ||
-        [];
-
-      setTeachers(staffList);
-      console.log(staffList);
-
-      console.log("Teachers:", staffList);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      fetchTeachers();
-    }
-  }, [token]);
-
-  const createClass = async () => {
-    try {
-      const {
-        className,
-        amount,
-        paymentOption,
-        teacherId,
-        numberOfInstallments,
-      } = formData;
-
-      await apiClient.post(
-        `/class/create-class`,
-        {
-          className,
-          amount: Number(amount),
-          paymentOption,
-          teacherId,
-          numberOfInstallments:
-            paymentOption === "Installment" ? Number(numberOfInstallments) : 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
 
       setFormData({
         className: "",
@@ -94,7 +61,7 @@ const AdminClass = () => {
 
       setIsOpen(false);
     } catch (error) {
-      console.log(error);
+      console.log(error.response?.data || error);
     }
   };
   const classData = [];
@@ -421,21 +388,17 @@ const AdminClass = () => {
               {formData.paymentOption === "Installment" && (
                 <>
                   <div className="inputGroup">
-                    <label>Number Of Installments</label>
+                    <label>Payment Option</label>
 
                     <div className="modalSelectWrapper">
                       <select
-                        name="numberOfInstallments"
-                        value={formData.numberOfInstallments}
+                        name="paymentOption"
+                        value={formData.paymentOption}
                         onChange={handleChange}
                       >
-                        <option value="">Select</option>
-
-                        <option value="2">2</option>
-
-                        <option value="3">3</option>
-
-                        <option value="4">4</option>
+                        <option value="">Select Payment Option</option>
+                        <option value="full">Full Payment</option>
+                        <option value="installment">Installment</option>
                       </select>
                     </div>
                   </div>
@@ -463,9 +426,12 @@ const AdminClass = () => {
                   >
                     <option value="">Search and select teacher</option>
 
-                    {teachers.map((teacher) => (
-                      <option key={teacher.id} value={teacher.id}>
-                        {teacher.fullName}
+                    {teachers.map((staff) => (
+                      <option
+                        key={staff.id || staff._id}
+                        value={staff.id || staff._id}
+                      >
+                        {staff.fullName}
                       </option>
                     ))}
                   </select>

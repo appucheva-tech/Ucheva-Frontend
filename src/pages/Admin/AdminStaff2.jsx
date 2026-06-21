@@ -22,8 +22,10 @@ const AdminStaff2 = () => {
     email: "",
     qualification: "",
     staffType: "",
+    classId: "",
   });
 
+  const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
@@ -64,28 +66,11 @@ const AdminStaff2 = () => {
         phoneNumber: formData.phoneNumber.trim(),
         email: formData.email.trim().toLowerCase(),
         qualification: formData.qualification.trim().toLowerCase(),
-        staffType: formData.staffType?.trim()?.toLowerCase() || "",
-        // staffRole: formData.staffRole?.toLowerCase() || "",
+        staffType: formData.staffType?.trim().toLowerCase(),
 
-        // ...(formData.teacherType && {
-        //   teacherType: formData.teacherType.toLowerCase(),
-        // }),
-
-        // ...(formData.classAssigned && {
-        //   classAssigned: formData.classAssigned.toLowerCase(),
-        // }),
-
-        // subjectAssigned: formData.subjectAssigned
-        //   ? [formData.subjectAssigned.toLowerCase()]
-        //   : [],
-
-        // classesToTeach: formData.classesToTeach
-        //   ? [formData.classesToTeach.toLowerCase()]
-        //   : [],
-
-        // department: formData.department
-        //   ? formData.department.toLowerCase()
-        //   : "all",
+        ...(formData.staffType === "Class Teacher" && {
+          classId: formData.classId,
+        }),
       };
 
       const response = await apiClient.post("/staff/staff", payload, {
@@ -93,7 +78,7 @@ const AdminStaff2 = () => {
           "x-tenant": subdomain,
         },
       });
-console.log(response.data)
+      console.log(response.data);
       toast.update(toastId, {
         render: response?.data?.message || "Staff created successfully",
         type: "success",
@@ -114,9 +99,11 @@ console.log(response.data)
         email: "",
         qualification: "",
         staffType: "",
+        classId: "",
       });
     } catch (error) {
       console.error(error);
+      
 
       toast.update(toastId, {
         render: error.response?.data?.message || "Failed to create staff",
@@ -128,6 +115,24 @@ console.log(response.data)
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiClient.get("/class/unassigned-classes", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
+        console.log(response);
+        setClasses(response.data?.classData || []);
+      } catch (error) {
+        console.error("Failed to fetch classes", error);
+      }
+    };
+
+    fetchClasses();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -311,30 +316,33 @@ console.log(response.data)
                   value={formData.staffType}
                   onChange={handleChange}
                 >
-                  <option value="" disabled>
-                    Select Staff Type
-                  </option>
-                  <option value=" Class Teacher">Class Teacher</option>
+                  <option value="">Select Staff Type</option>
+                  <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>
                 </select>
               </div>
 
-              {/* <div className="form-group">
-                <label>
-                  Role<span className="required">*</span>
-                </label>
-                <select
-                  name="teacherType"
-                  value={formData.teacherType}
-                  onChange={handleChange}
-                >
-                  <option value="" disabled>
-                    Select Teacher Type
-                  </option>
-                  <option value=" Teacher">Teaching</option>
-                  <option value="Non Teaching">Non Teaching</option>
-                </select>
-              </div> */}
+              {formData.staffType === "Class Teacher" && (
+                <div className="form-group">
+                  <label>
+                    Assign Class<span className="required">*</span>
+                  </label>
+
+                  <select
+                    name="classId"
+                    value={formData.classId}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Class</option>
+
+                    {classes.map((cls) => (
+                      <option key={cls.id} value={cls.id}>
+                        {cls.className}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               <div className="form-group">
                 <label>Qualification</label>
@@ -348,36 +356,6 @@ console.log(response.data)
               </div>
             </div>
           </div>
-
-          {formData.staffType === "Teaching staff" && (
-            <div className="form-section">
-              <h2>Teaching Information (For Teaching Staff)</h2>
-
-              <div className="form-grid type-3-col">
-                <div className="form-group">
-                  <label>Teacher Type</label>
-                  <select
-                    name="teacherType"
-                    value={formData.teacherType}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Teacher Type</option>
-                    <option value="Class Teacher">Class Teacher</option>
-                    <option value="Subject Teacher">Subject Teacher</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Department</label>
-                <select
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                ></select>
-              </div>
-            </div>
-          )}
 
           <button type="submit" className="submit-btn" disabled={loading}>
             {loading ? "Creating..." : "Create Staff"}

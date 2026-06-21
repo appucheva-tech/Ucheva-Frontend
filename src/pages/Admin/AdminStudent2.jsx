@@ -29,6 +29,7 @@ const AdminStudent2 = () => {
   // console.log(formData);
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [classes, setClasses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const toggleNotifications = (e) => {
@@ -101,6 +102,26 @@ const AdminStudent2 = () => {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiClient.get("/class/unassigned-classes", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
+
+        console.log("Classes Response:", response);
+
+        setClasses(response.data.classData || []);
+      } catch (error) {
+        console.error("Failed to fetch classes", error.message);
+      }
+    };
+
+    fetchClasses();
+  }, [subdomain]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

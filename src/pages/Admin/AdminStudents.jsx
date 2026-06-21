@@ -78,7 +78,7 @@ const AdminStudents = () => {
         },
       });
 
-      console.log(response.data);
+      console.log(response.data?.studentsData);
 
       setStudents(response.data?.students || []);
     } catch (error) {
