@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 const AdminClass = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [empty, setEmpty] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const token = useSelector((state) => state?.user?.token);
@@ -18,6 +19,7 @@ const AdminClass = () => {
       [e.target.name]: e.target.value,
     });
   };
+  // classData.length === 0;
 
   const [formData, setFormData] = useState({
     className: "",
@@ -121,45 +123,53 @@ const AdminClass = () => {
               </tr>
             </thead>
             <tbody>
-              {classData.map((cls, index) => (
-                <tr key={index}>
-                  <td className="className textLink">{cls.name}</td>
-                  <td className="sectionText">{cls.section}</td>
-                  <td className="teacherText textLink">{cls.teacher}</td>
-                  <td className="studentText textLink">{cls.students}</td>
-                  <td>
-                    <div className="actionButtons">
-                      <button
-                        className="editBtn"
-                        onClick={() => setIsEditOpen(true)}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
+              {classData.length > 0 ? (
+                classData.map((cls, index) => (
+                  <tr key={index}>
+                    <td className="className textLink">{cls.name}</td>
+                    <td className="sectionText">{cls.section}</td>
+                    <td className="teacherText textLink">{cls.teacher}</td>
+                    <td className="studentText textLink">{cls.students}</td>
+                    <td>
+                      <div className="actionButtons">
+                        <button
+                          className="editBtn"
+                          onClick={() => setIsEditOpen(true)}
                         >
-                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                        </svg>
-                      </button>
-                      <button
-                        className="deleteBtn"
-                        onClick={() => setIsDeleteOpen(true)}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
+                          Edit
+                        </button>
+
+                        <button
+                          className="deleteBtn"
+                          onClick={() => setIsDeleteOpen(true)}
                         >
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                        </svg>
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5">
+                    <div className="emptyState">
+                      <div className="emptyStateIcon">📚</div>
+                      <h3>No Classes Yet</h3>
+                      <p>
+                        You haven't created any classes yet. Start by creating
+                        your first class.
+                      </p>
+
+                      <button
+                        className="addClassBtn"
+                        onClick={() => setIsOpen(true)}
+                      >
+                        + Create First Class
                       </button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 
@@ -204,6 +214,7 @@ const AdminClass = () => {
         </footer>
       </div>
 
+      {/* ADD CLASS MODAL */}
       {isOpen && (
         <div className="modalOverlay" onClick={() => setIsOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -238,7 +249,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Payment Option</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="paymentOption"
@@ -246,19 +256,16 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select Payment Option</option>
-
-                    <option value="Full Payment">Full Payment</option>
-
-                    <option value="Installment">Installment</option>
+                    <option value="full payment">Full Payment</option>
+                    <option value="installment">Installment</option>
                   </select>
                 </div>
               </div>
 
-              {formData.paymentOption === "Installment" && (
+              {formData.paymentOption === "installment" && (
                 <>
                   <div className="inputGroup">
                     <label>Number Of Installments</label>
-
                     <div className="modalSelectWrapper">
                       <select
                         name="numberOfInstallments"
@@ -266,31 +273,27 @@ const AdminClass = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select Number</option>
-
                         <option value="2">2</option>
-
                         <option value="3">3</option>
-
                         <option value="4">4</option>
                       </select>
                     </div>
                   </div>
 
                   {formData.numberOfInstallments && formData.amount && (
-                    <span className="inputHelp">
+                    <div className="inputHelp">
                       Each installment: ₦
                       {(
                         Number(formData.amount) /
                         Number(formData.numberOfInstallments)
                       ).toLocaleString()}
-                    </span>
+                    </div>
                   )}
                 </>
               )}
 
               <div className="inputGroup">
                 <label>Assign Class Teacher</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -298,7 +301,6 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Search and select a teacher</option>
-
                     {Array.isArray(teachers) &&
                       teachers.map((staff) => (
                         <option key={staff.id} value={staff.id}>
@@ -321,6 +323,7 @@ const AdminClass = () => {
         </div>
       )}
 
+      {/* EDIT CLASS MODAL */}
       {isEditOpen && (
         <div className="modalOverlay" onClick={() => setIsEditOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -345,7 +348,6 @@ const AdminClass = () => {
             <div className="modalBody">
               <div className="inputGroup">
                 <label>Class Name</label>
-
                 <input
                   type="text"
                   name="className"
@@ -357,7 +359,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Amount</label>
-
                 <input
                   type="number"
                   name="amount"
@@ -369,7 +370,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Payment Option</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="paymentOption"
@@ -377,28 +377,26 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select Payment Option</option>
-
-                    <option value="Full Payment">Full Payment</option>
-
-                    <option value="Installment">Installment</option>
+                    <option value="full payment">Full Payment</option>
+                    <option value="installment">Installment</option>
                   </select>
                 </div>
               </div>
 
-              {formData.paymentOption === "Installment" && (
+              {formData.paymentOption === "installment" && (
                 <>
                   <div className="inputGroup">
-                    <label>Payment Option</label>
-
+                    <label>Number Of Installments</label>
                     <div className="modalSelectWrapper">
                       <select
-                        name="paymentOption"
-                        value={formData.paymentOption}
+                        name="numberOfInstallments"
+                        value={formData.numberOfInstallments}
                         onChange={handleChange}
                       >
-                        <option value="">Select Payment Option</option>
-                        <option value="full">Full Payment</option>
-                        <option value="installment">Installment</option>
+                        <option value="">Select Number</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                       </select>
                     </div>
                   </div>
@@ -417,7 +415,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Assign Class Teacher</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -425,7 +422,6 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Search and select teacher</option>
-
                     {teachers.map((staff) => (
                       <option
                         key={staff.id || staff._id}
@@ -451,6 +447,7 @@ const AdminClass = () => {
         </div>
       )}
 
+      {/* DELETE CLASS MODAL */}
       {isDeleteOpen && (
         <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
           <div
