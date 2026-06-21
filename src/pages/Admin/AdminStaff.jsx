@@ -269,7 +269,7 @@ const AdminStaff = () => {
                       </td>
 
                       <td className="classText">
-                        {staff.assignedClass || staff.class || "test"}
+                        {staff.assignedClass || "--" || "test"}
                       </td>
 
                       <td className="subjectText card-content-populated">

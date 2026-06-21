@@ -78,9 +78,9 @@ const AdminStudents = () => {
         },
       });
 
-      console.log(response.data?.studentsData);
+      console.log(response);
 
-      setStudents(response.data?.students || []);
+      setStudents(response.data?.studentsData || []);
     } catch (error) {
       console.error(error);
 
@@ -252,20 +252,20 @@ const AdminStudents = () => {
               ) : (
                 students.map((student, index) => (
                   <tr key={student.id || student._id || index}>
-                    <td className="studentName">
-                      {student.firstName} {student.lastName}
-                    </td>
+                    <td className="studentName">{student.fullName}</td>
 
                     <td className="genderText">{student.gender}</td>
 
                     <td className="classText">
-                      {student.className || student.studentClass || "--"}
+                      {student.classes || student.studentClass || "--"}
                     </td>
 
                     <td className="deptText">{student.department || "--"}</td>
 
                     <td className="phoneText">
-                      {student.parentPhoneNumber || student.phoneNumber || "--"}
+                      {student.parentGuardiansPhoneNumber ||
+                        student.phoneNumber ||
+                        "--"}
                     </td>
 
                     <td>
