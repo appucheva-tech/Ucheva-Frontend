@@ -5,13 +5,12 @@ import { apiClient } from "../../config/AxiosInstance";
 import { useSelector } from "react-redux";
 
 const AdminClass = () => {
+  const [teachers, setTeachers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const token = useSelector((state) => state?.user?.token);
-
-  const [teachers, setTeachers] = useState([]);
 
   const handleChange = (e) => {
     setFormData({
@@ -66,6 +65,22 @@ const AdminClass = () => {
       console.log(error.response?.data || error);
     }
   };
+
+  useEffect(() => {
+    const fetchallStaffs = async () => {
+      try {
+        const response = await apiClient.get("staff/all-staffs");
+        setTeachers(response.data.staffsData);
+        console.log(response);
+        set;
+      } catch (error) {
+        console.log(error.data.message);
+      }
+    };
+
+    fetchallStaffs();
+  }, []);
+
   const classData = [];
 
   return (
