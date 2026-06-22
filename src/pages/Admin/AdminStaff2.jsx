@@ -24,6 +24,7 @@ const AdminStaff2 = () => {
     qualification: "",
     staffType: "",
     classId: "",
+    classId: "",
   });
 
   const [classes, setClasses] = useState([]);
@@ -69,7 +70,11 @@ const AdminStaff2 = () => {
         email: formData.email.trim().toLowerCase(),
         qualification: formData.qualification.trim().toLowerCase(),
         staffType: formData.staffType?.trim().toLowerCase(),
+        staffType: formData.staffType?.trim().toLowerCase(),
 
+        ...(formData.staffType === "Class Teacher" && {
+          classId: formData.classId,
+        }),
         ...(formData.staffType === "Class Teacher" && {
           classId: formData.classId,
         }),
@@ -99,6 +104,7 @@ const AdminStaff2 = () => {
         email: "",
         qualification: "",
         staffType: "",
+        classId: "",
         classId: "",
       });
     } catch (error) {
@@ -304,6 +310,8 @@ const AdminStaff2 = () => {
                   value={formData.staffType}
                   onChange={handleChange}
                 >
+                  <option value="">Select Staff Type</option>
+                  <option value="Class Teacher">Class Teacher</option>
                   <option value="">Select Staff Type</option>
                   <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>

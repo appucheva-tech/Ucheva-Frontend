@@ -1,50 +1,115 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../css/DashboardPages.css";
+import { apiClient } from "../../../config/AxiosInstance";
+import { useSelector } from "react-redux";
 
 const DashboardPage = () => {
-  const paymentHistory = [
-    {
-      date: "Apr 28, 2026",
-      term: "Third Term",
-      amount: "N50,000",
-      status: "Full Payment",
-      statusColor: "#43b75d",
-      background: "#EAFDF1",
-    },
-    {
-      date: "Feb 22, 2026",
-      term: "Second Term",
-      amount: "N25,000",
-      status: "Paid Completely",
-      statusColor: "#43b75d",
-      background: "#EAFDF1",
-    },
-    {
-      date: "Jan 12, 2026",
-      term: "Second Term",
-      amount: "N25,000",
-      status: "Part Payment",
-      statusColor: "#EA580C",
-      background: "#FFEDD5",
-    },
-    {
-      date: "Sep 08, 2025",
-      term: "First Term",
-      amount: "N50,000",
-      status: "Full Payment",
-      statusColor: "#43b75d",
-      background: "#EAFDF1",
-    },
-  ];
+  const studentId = useSelector((state) => state.user.user.id);
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchDashboardDetails = async () => {
+    if (!studentId) return;
+    try {
+      setLoading(true);
+      setError(null);
+
+      const response = await apiClient.get(`/parent/dashboard/${studentId}`);
+
+      setDashboardData(response.data);
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message ||
+        err.message ||
+        "Failed to fetch student dashboard records.";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboardDetails();
+  }, [studentId]);
+
+  // Proper Loading Interface State
+  if (loading) {
+    return (
+      <div className="parent-dashboard-view flex-center-view">
+        <div className="dashboard-loading-card">
+          <div className="loading-spinner-ring"></div>
+          <h3 className="loading-state-title">Loading Dashboard</h3>
+          <p className="loading-state-subtitle">
+            Fetching academic progress and payment history details...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  // Proper Error Display State
+  if (error) {
+    return (
+      <div className="parent-dashboard-view flex-center-view">
+        <div className="dashboard-error-wrapper">
+          <div className="error-icon-circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#DC2626"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <h3 className="error-state-title">Something went wrong</h3>
+          <p className="error-state-subtitle">{error}</p>
+          <button
+            onClick={fetchDashboardDetails}
+            className="error-retry-action-btn"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  // Destructure data safely
+  const {
+    parentName = "Mrs Ola",
+    studentName = "Efe Ogeremu",
+    studentClass = "JSS1A",
+    feeStatus = "Fully Paid",
+    attendanceStatus = "Present",
+    currentTerm = "First Term . 2025/2026",
+    attendancePercentage = 96.4,
+    daysPresent = 18,
+    paymentHistory = [],
+  } = dashboardData || {};
+
+  const totalCircumference = 534.07;
+  const targetStrokeDashoffset =
+    (attendancePercentage / 100) * totalCircumference;
 
   return (
     <div className="parent-dashboard-view">
       <div className="parent-dashboard-container">
         {/* Banner Welcome Section */}
         <div className="parent-welcome-header">
-          <h1 className="parent-greeting-title">Good morning, Mrs Ola 👋</h1>
+          <h1 className="parent-greeting-title">
+            Good morning, {parentName} 👋
+          </h1>
           <p className="parent-greeting-subtitle">
-            Here's Efe's activity summary for today.
+            Here's {studentName.split(" ")[0]}'s activity summary for today.
           </p>
         </div>
 
@@ -68,29 +133,31 @@ const DashboardPage = () => {
           </div>
 
           <div className="student-summary-info">
-            <h2 className="student-profile-name">Efe Ogeremu</h2>
+            <h2 className="student-profile-name">{studentName}</h2>
             <div className="student-quick-metrics">
               <div className="metric-column">
                 <span className="metric-label-text">Class</span>
-                <span className="metric-value-text">JSS1A</span>
+                <span className="metric-value-text">{studentClass}</span>
               </div>
               <div className="metric-column">
                 <span className="metric-label-text">Fee Status</span>
                 <span className="metric-value-text fee-paid-highlight">
-                  Fully Paid
+                  {feeStatus}
                 </span>
               </div>
               <div className="metric-column">
                 <span className="metric-label-text">Attendance</span>
                 <span className="metric-value-text">
-                  <span className="badge-present-pill">Present</span>
+                  <span
+                    className={`badge-pill-${attendanceStatus.toLowerCase().replace(" ", "-") || "present"}`}
+                  >
+                    {attendanceStatus}
+                  </span>
                 </span>
               </div>
               <div className="metric-column">
                 <span className="metric-label-text">Current Term</span>
-                <span className="metric-value-text">
-                  First Term . 2025/2026
-                </span>
+                <span className="metric-value-text">{currentTerm}</span>
               </div>
             </div>
           </div>
@@ -102,36 +169,42 @@ const DashboardPage = () => {
           <div className="parent-dashboard-card main-history-card">
             <h3 className="card-section-title">Payment History</h3>
             <div className="table-viewport-container">
-              <table className="payment-records-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Term</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {paymentHistory.map((item, index) => (
-                    <tr key={index}>
-                      <td data-label="Date">{item.date}</td>
-                      <td data-label="Term">{item.term}</td>
-                      <td data-label="Amount">{item.amount}</td>
-                      <td data-label="Status">
-                        <span
-                          className="payment-status-badge"
-                          style={{
-                            color: item.statusColor,
-                            backgroundColor: item.background,
-                          }}
-                        >
-                          {item.status}
-                        </span>
-                      </td>
+              {paymentHistory.length === 0 ? (
+                <p className="no-records-fallback">
+                  No payment historical logs available.
+                </p>
+              ) : (
+                <table className="payment-records-table">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Term</th>
+                      <th>Amount</th>
+                      <th>Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {paymentHistory.map((item, index) => (
+                      <tr key={index}>
+                        <td data-label="Date">{item.date}</td>
+                        <td data-label="Term">{item.term}</td>
+                        <td data-label="Amount">{item.amount}</td>
+                        <td data-label="Status">
+                          <span
+                            className="payment-status-badge"
+                            style={{
+                              color: item.statusColor || "#43b75d",
+                              backgroundColor: item.background || "#EAFDF1",
+                            }}
+                          >
+                            {item.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
 
@@ -148,13 +221,13 @@ const DashboardPage = () => {
                     r="85"
                     className="radial-progress"
                     style={{
-                      strokeDasharray: `${(96.4 / 100) * 534.07} 534.07`,
+                      strokeDasharray: `${targetStrokeDashoffset} ${totalCircumference}`,
                     }}
                   />
                 </svg>
                 <div className="radial-center-labels">
-                  <p className="radial-percentage">96.4%</p>
-                  <p className="radial-subtext">18 Days Present</p>
+                  <p className="radial-percentage">{attendancePercentage}%</p>
+                  <p className="radial-subtext">{daysPresent} Days Present</p>
                 </div>
               </div>
 

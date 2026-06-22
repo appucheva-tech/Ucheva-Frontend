@@ -9,6 +9,7 @@ export const apiClient = axios.create({
     "Content-Type": "application/json",
   },
 });
+console.log(import.meta.env.VITE_Base_Url);
 
 apiClient.interceptors.request.use(
   (config) => {

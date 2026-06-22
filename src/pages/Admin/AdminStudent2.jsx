@@ -16,7 +16,7 @@ const AdminStudent2 = () => {
     dateOfBirth: "",
     nationality: "",
     address: "",
-    studentClass: "",
+    classId: "",
     session: "",
     parentGuardiansName: "",
     relationship: "",
@@ -29,6 +29,7 @@ const AdminStudent2 = () => {
   // console.log(formData);
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
+  const [classes, setClasses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
   const toggleNotifications = (e) => {
@@ -67,7 +68,7 @@ const AdminStudent2 = () => {
         dateOfBirth: formData.dateOfBirth,
         nationality: formData.nationality.toLowerCase(),
         address: formData.address.trim(),
-        studentClass: formData.studentClass,
+        classId: formData.classId,
         department: formData.department,
         session: formData.session,
         parentGuardiansName: formData.parentGuardiansName.trim(),
@@ -103,6 +104,27 @@ const AdminStudent2 = () => {
   };
 
   useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiClient.get("/class/classes", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
+
+        console.log("Classes Response:", response);
+
+        setClasses(response.data.classes || []);
+      } catch (error) {
+        console.error("Failed to fetch classes", error.message);
+        toast.error(error.message);
+      }
+    };
+
+    fetchClasses();
+  }, [subdomain]);
+
+  useEffect(() => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -114,7 +136,8 @@ const AdminStudent2 = () => {
   }, []);
 
   const nav = useNavigate();
-
+  console.log(classes);
+  console.log(formData.classId);
   return (
     <>
       <div className="form-container">
@@ -255,15 +278,18 @@ const AdminStudent2 = () => {
                 <label>
                   Class<span className="required">*</span>
                 </label>
+
                 <select
-                  name="studentClass"
-                  value={formData.studentClass}
+                  name="classId"
+                  value={formData.classId}
                   onChange={handleChange}
                 >
                   <option value="">Select Class</option>
-                  <option value="JSS1">JSS1</option>
-                  <option value="JSS2">JSS2</option>
-                  <option value="SS1">SS1</option>
+                  {classes.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.className}
+                    </option>
+                  ))}
                 </select>
               </div>
 

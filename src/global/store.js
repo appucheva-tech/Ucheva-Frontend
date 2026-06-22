@@ -15,6 +15,7 @@ export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
     staff: staffReducer,
+    // parent: parentReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

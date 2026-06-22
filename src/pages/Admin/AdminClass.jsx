@@ -5,12 +5,20 @@ import { apiClient } from "../../config/AxiosInstance";
 import { useSelector } from "react-redux";
 
 const AdminClass = () => {
+  const [teachers, setTeachers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [empty, setEmpty] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const token = useSelector((state) => state?.user?.token);
 
-  const [teachers, setTeachers] = useState([]);
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+  // classData.length === 0;
 
   const [formData, setFormData] = useState({
     className: "",
@@ -20,73 +28,29 @@ const AdminClass = () => {
     numberOfInstallments: "",
   });
 
-  // Generate a reliable list of available installment terms (e.g., 2 to 12 months)
-  const installmentOptions = [2, 3, 4, 5, 6, 8, 10, 12];
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const fetchTeachers = async () => {
+  const createClass = async () => {
     try {
-      const response = await apiClient.get("/staff/all-staffs", {
+      const payload = {
+        className: formData.className,
+        amount: Number(formData.amount),
+        paymentOption: formData.paymentOption.trim().toLowerCase(),
+        numberOfInstallments:
+          formData.paymentOption === "installment"
+            ? Number(formData.numberOfInstallments)
+            : 4,
+      };
+
+      if (formData.teacherId) {
+        payload.teacherId = formData.teacherId;
+      }
+
+      console.log("Payload:", payload);
+
+      await apiClient.post("/class/create-class", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
-      const staffList =
-        response.data?.staffsData ||
-        response.data.data ||
-        response.data.staffs ||
-        [];
-
-      setTeachers(staffList);
-    } catch (error) {
-      console.error("Error fetching staff:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (token) {
-      fetchTeachers();
-    }
-  }, [token]);
-
-  const createClass = async () => {
-    try {
-      const {
-        className,
-        amount,
-        paymentOption,
-        teacherId,
-        numberOfInstallments,
-      } = formData;
-
-      // Safe normalization to catch variations in backend/frontend casings
-      const isInstallmentSelected =
-        paymentOption?.toLowerCase() === "installment";
-
-      await apiClient.post(
-        `/class/create-class`,
-        {
-          className,
-          amount: Number(amount),
-          paymentOption: paymentOption?.toLowerCase(),
-          teacherId,
-          numberOfInstallments: isInstallmentSelected
-            ? Number(numberOfInstallments) || 2 // Defaults to 2 if left unselected to bypass backend block
-            : 1,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
 
       // Reset state completely
       setFormData({
@@ -99,9 +63,24 @@ const AdminClass = () => {
 
       setIsOpen(false);
     } catch (error) {
-      console.error("Submission Error:", error.response?.data || error);
+      console.log(error.response?.data || error);
     }
   };
+
+  useEffect(() => {
+    const fetchallStaffs = async () => {
+      try {
+        const response = await apiClient.get("staff/all-staffs");
+        setTeachers(response.data.staffsData);
+        console.log(response);
+        set;
+      } catch (error) {
+        console.log(error.data.message);
+      }
+    };
+
+    fetchallStaffs();
+  }, []);
 
   const classData = [];
 
@@ -160,45 +139,53 @@ const AdminClass = () => {
               </tr>
             </thead>
             <tbody>
-              {classData.map((cls, index) => (
-                <tr key={index}>
-                  <td className="className textLink">{cls.name}</td>
-                  <td className="sectionText">{cls.section}</td>
-                  <td className="teacherText textLink">{cls.teacher}</td>
-                  <td className="studentText textLink">{cls.students}</td>
-                  <td>
-                    <div className="actionButtons">
-                      <button
-                        className="editBtn"
-                        onClick={() => setIsEditOpen(true)}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
+              {classData.length > 0 ? (
+                classData.map((cls, index) => (
+                  <tr key={index}>
+                    <td className="className textLink">{cls.name}</td>
+                    <td className="sectionText">{cls.section}</td>
+                    <td className="teacherText textLink">{cls.teacher}</td>
+                    <td className="studentText textLink">{cls.students}</td>
+                    <td>
+                      <div className="actionButtons">
+                        <button
+                          className="editBtn"
+                          onClick={() => setIsEditOpen(true)}
                         >
-                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                        </svg>
-                      </button>
-                      <button
-                        className="deleteBtn"
-                        onClick={() => setIsDeleteOpen(true)}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
+                          Edit
+                        </button>
+
+                        <button
+                          className="deleteBtn"
+                          onClick={() => setIsDeleteOpen(true)}
                         >
-                          <polyline points="3 6 5 6 21 6" />
-                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                        </svg>
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="5">
+                    <div className="emptyState">
+                      <div className="emptyStateIcon">📚</div>
+                      <h3>No Classes Yet</h3>
+                      <p>
+                        You haven't created any classes yet. Start by creating
+                        your first class.
+                      </p>
+
+                      <button
+                        className="addClassBtn"
+                        onClick={() => setIsOpen(true)}
+                      >
+                        + Create First Class
                       </button>
                     </div>
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 
@@ -291,7 +278,7 @@ const AdminClass = () => {
                 </div>
               </div>
 
-              {formData.paymentOption?.toLowerCase() === "installment" && (
+              {formData.paymentOption === "installment" && (
                 <>
                   <div className="inputGroup">
                     <label>Number Of Installments</label>
@@ -302,23 +289,21 @@ const AdminClass = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select Number</option>
-                        {installmentOptions.map((num) => (
-                          <option key={num} value={num}>
-                            {num} Installments
-                          </option>
-                        ))}
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                       </select>
                     </div>
                   </div>
 
                   {formData.numberOfInstallments && formData.amount && (
-                    <span className="inputHelp">
+                    <div className="inputHelp">
                       Each installment: ₦
                       {(
                         Number(formData.amount) /
                         Number(formData.numberOfInstallments)
                       ).toLocaleString()}
-                    </span>
+                    </div>
                   )}
                 </>
               )}
@@ -414,7 +399,7 @@ const AdminClass = () => {
                 </div>
               </div>
 
-              {formData.paymentOption?.toLowerCase() === "installment" && (
+              {formData.paymentOption === "installment" && (
                 <>
                   <div className="inputGroup">
                     <label>Number Of Installments</label>
@@ -424,12 +409,10 @@ const AdminClass = () => {
                         value={formData.numberOfInstallments}
                         onChange={handleChange}
                       >
-                        <option value="">Select</option>
-                        {installmentOptions.map((num) => (
-                          <option key={num} value={num}>
-                            {num} Installments
-                          </option>
-                        ))}
+                        <option value="">Select Number</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                       </select>
                     </div>
                   </div>
@@ -455,9 +438,12 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Search and select teacher</option>
-                    {teachers.map((teacher) => (
-                      <option key={teacher.id} value={teacher.id}>
-                        {teacher.fullName}
+                    {teachers.map((staff) => (
+                      <option
+                        key={staff.id || staff._id}
+                        value={staff.id || staff._id}
+                      >
+                        {staff.fullName}
                       </option>
                     ))}
                   </select>

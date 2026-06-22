@@ -13,60 +13,17 @@ const AdminStudents = () => {
   const nav = useNavigate();
   const subdomain = window.location.hostname.split(".")[0];
 
-  const studentData = [
-    {
-      id: 1,
-      name: "Adaeze Clinton",
-      gender: "Female",
-      class: "JSS 1A",
-      department: "Science",
-      phone: "08032456789",
-    },
-    {
-      name: "Emeka Ugonna",
-      gender: "Male",
-      class: "JSS 2C",
-      department: "--",
-      phone: "08061234567",
-    },
-    {
-      name: "Tolu Adesunya",
-      gender: "Male",
-      class: "PRY 1",
-      department: "--",
-      phone: "08029876543",
-    },
-    {
-      name: "Chidi Okoronkwo",
-      gender: "Male",
-      class: "NRY 2",
-      department: "--",
-      phone: "08098765432",
-    },
-    {
-      name: "Grace Obidi",
-      gender: "Female",
-      class: "SS 3B",
-      department: "Food & Nut.",
-      phone: "08101122233",
-    },
-    {
-      name: "Ifeanyi Okafor",
-      gender: "Male",
-      class: "SS 2A",
-      department: "Art",
-      phone: "08055567788",
-    },
-    {
-      name: "Ngozi Bassey",
-      gender: "Female",
-      class: "JSS 1B",
-      department: "--",
-      phone: "08073345566",
-    },
-  ];
   const [students, setStudents] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [classes, setClasses] = useState([]);
+
+  // Filter states
+  const [filters, setFilters] = useState({
+    class: "all",
+    gender: "all",
+    department: "all",
+  });
 
   const fetchAllStudents = async () => {
     try {
@@ -78,23 +35,90 @@ const AdminStudents = () => {
         },
       });
 
-      console.log(response.data);
+      console.log(response);
 
-      setStudents(response.data?.students || []);
+      const studentData = response.data?.studentsData || [];
+      setStudents(studentData);
+      setFilteredStudents(studentData);
     } catch (error) {
       console.error(error);
 
       toast.error(error.response?.data?.message || "Failed to fetch students");
 
       setStudents([]);
+      setFilteredStudents([]);
     } finally {
       setLoading(false);
     }
   };
 
+  const fetchClasses = async () => {
+    try {
+      const response = await apiClient.get("/class/classes", {
+        headers: {
+          "x-tenant": subdomain,
+        },
+      });
+
+      console.log("Classes Response:", response);
+      setClasses(response.data.classes || []);
+    } catch (error) {
+      console.error("Failed to fetch classes", error.message);
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     fetchAllStudents();
+    fetchClasses();
   }, []);
+
+  // Filter students whenever filters or students change
+  useEffect(() => {
+    let filtered = [...students];
+
+    // Filter by class
+    if (filters.class !== "all") {
+      filtered = filtered.filter((student) => {
+        const studentClass = student.classes || student.studentClass || "";
+        const selectedClass = classes.find((c) => c.id === filters.class);
+        return selectedClass && studentClass === selectedClass.className;
+      });
+    }
+
+    // Filter by gender
+    if (filters.gender !== "all") {
+      filtered = filtered.filter(
+        (student) =>
+          student.gender &&
+          student.gender.toLowerCase() === filters.gender.toLowerCase(),
+      );
+    }
+
+    // Filter by department
+    if (filters.department !== "all") {
+      filtered = filtered.filter(
+        (student) => student.department === filters.department,
+      );
+    }
+
+    setFilteredStudents(filtered);
+  }, [filters, students, classes]);
+
+  const handleFilterChange = (filterType, value) => {
+    setFilters((prev) => ({
+      ...prev,
+      [filterType]: value,
+    }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      class: "all",
+      gender: "all",
+      department: "all",
+    });
+  };
 
   return (
     <>
@@ -134,7 +158,13 @@ const AdminStudents = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Male</span>
-                <span className="card-value">28</span>
+                <span className="card-value">
+                  {
+                    students.filter(
+                      (s) => s.gender && s.gender.toLowerCase() === "male",
+                    ).length
+                  }
+                </span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className="DashIcon" />
@@ -146,7 +176,13 @@ const AdminStudents = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Female</span>
-                <span className="card-value">10</span>
+                <span className="card-value">
+                  {
+                    students.filter(
+                      (s) => s.gender && s.gender.toLowerCase() === "female",
+                    ).length
+                  }
+                </span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className="DashIcon" />
@@ -173,38 +209,53 @@ const AdminStudents = () => {
             <div className="filterItem">
               <label className="filterLabel">Class</label>
               <div className="selectWrapper">
-                <select className="selectInput" defaultValue="all">
+                <select
+                  className="selectInput"
+                  value={filters.class}
+                  onChange={(e) => handleFilterChange("class", e.target.value)}
+                >
                   <option value="all">All Classes</option>
-                  <option value="all">PRY 1 - PRY 6</option>
-                  <option value="all">JSS 1 - JSS 3</option>
-                  <option value="all">SS 1 - SS 3</option>
+                  {classes.map((cls) => (
+                    <option key={cls.id} value={cls.id}>
+                      {cls.className}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
             <div className="filterItem">
               <label className="filterLabel">Gender</label>
               <div className="selectWrapper">
-                <select className="selectInput" defaultValue="all">
+                <select
+                  className="selectInput"
+                  value={filters.gender}
+                  onChange={(e) => handleFilterChange("gender", e.target.value)}
+                >
                   <option value="all">All Gender</option>
-                  <option value="all">Female</option>
-                  <option value="all">Male</option>
+                  <option value="female">Female</option>
+                  <option value="male">Male</option>
                 </select>
               </div>
             </div>
             <div className="filterItem">
               <label className="filterLabel">Department</label>
               <div className="selectWrapper">
-                <select className="selectInput" defaultValue="all">
+                <select
+                  className="selectInput"
+                  value={filters.department}
+                  onChange={(e) =>
+                    handleFilterChange("department", e.target.value)
+                  }
+                >
                   <option value="all">All Departments</option>
-                  <option value="all">Food & Nutrition</option>
-                  <option value="all">Commercial</option>
-                  <option value="all">Science</option>
-                  <option value="all">Art</option>
+                  <option value="Commercial">Commercial</option>
+                  <option value="Science">Science</option>
+                  <option value="Art">Art</option>
                 </select>
               </div>
             </div>
           </div>
-          <button className="resetBtn">
+          <button className="resetBtn" onClick={resetFilters}>
             <svg
               className="resetIcon"
               viewBox="0 0 24 24"
@@ -240,32 +291,32 @@ const AdminStudents = () => {
                     Loading students...
                   </td>
                 </tr>
-              ) : students.length === 0 ? (
+              ) : filteredStudents.length === 0 ? (
                 <tr>
                   <td
                     colSpan="6"
                     style={{ textAlign: "center", padding: "20px" }}
                   >
-                    No students found.
+                    No students found with the selected filters.
                   </td>
                 </tr>
               ) : (
-                students.map((student, index) => (
+                filteredStudents.map((student, index) => (
                   <tr key={student.id || student._id || index}>
-                    <td className="studentName">
-                      {student.firstName} {student.lastName}
-                    </td>
+                    <td className="studentName">{student.fullName}</td>
 
                     <td className="genderText">{student.gender}</td>
 
                     <td className="classText">
-                      {student.className || student.studentClass || "--"}
+                      {student.classes || student.studentClass || "--"}
                     </td>
 
                     <td className="deptText">{student.department || "--"}</td>
 
                     <td className="phoneText">
-                      {student.parentPhoneNumber || student.phoneNumber || "--"}
+                      {student.parentGuardiansPhoneNumber ||
+                        student.phoneNumber ||
+                        "--"}
                     </td>
 
                     <td>
@@ -300,31 +351,33 @@ const AdminStudents = () => {
             </tbody>
           </table>
 
-          <div className="paginationRow">
-            <div className="paginationInfo">Showing pages of 1 to 7</div>
+          {filteredStudents.length > 0 && (
+            <div className="paginationRow">
+              <div className="paginationInfo">Showing pages of 1 to 7</div>
 
-            <div className="paginationControls">
-              <button className="arrowBtn" disabled>
-                &lt;
-              </button>
-              <button className="pageBtn activePage">1</button>
-              <button className="pageBtn">2</button>
-              <button className="pageBtn">3</button>
-              <span className="ellipsis">...</span>
-              <button className="pageBtn">6</button>
-              <button className="pageBtn">7</button>
-              <button className="arrowBtn">&gt;</button>
-            </div>
+              <div className="paginationControls">
+                <button className="arrowBtn" disabled>
+                  &lt;
+                </button>
+                <button className="pageBtn activePage">1</button>
+                <button className="pageBtn">2</button>
+                <button className="pageBtn">3</button>
+                <span className="ellipsis">...</span>
+                <button className="pageBtn">6</button>
+                <button className="pageBtn">7</button>
+                <button className="arrowBtn">&gt;</button>
+              </div>
 
-            <div className="rowsPerPageGroup">
-              <span className="rowsLabel">Rows per page</span>
-              <div className="rowsSelectWrapper">
-                <select className="rowsSelect" defaultValue="10">
-                  <option value="10">10</option>
-                </select>
+              <div className="rowsPerPageGroup">
+                <span className="rowsLabel">Rows per page</span>
+                <div className="rowsSelectWrapper">
+                  <select className="rowsSelect" defaultValue="10">
+                    <option value="10">10</option>
+                  </select>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
 
         <footer className="footerRow">
