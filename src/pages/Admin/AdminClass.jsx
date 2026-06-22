@@ -20,6 +20,9 @@ const AdminClass = () => {
     numberOfInstallments: "",
   });
 
+  // Generate a reliable list of available installment terms (e.g., 2 to 12 months)
+  const installmentOptions = [2, 3, 4, 5, 6, 8, 10, 12];
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -42,12 +45,8 @@ const AdminClass = () => {
         [];
 
       setTeachers(staffList);
-      console.log(staffList);
-
-      console.log("Teachers:", staffList);
-      console.log(response);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching staff:", error);
     }
   };
 
@@ -67,15 +66,20 @@ const AdminClass = () => {
         numberOfInstallments,
       } = formData;
 
+      // Safe normalization to catch variations in backend/frontend casings
+      const isInstallmentSelected =
+        paymentOption?.toLowerCase() === "installment";
+
       await apiClient.post(
         `/class/create-class`,
         {
           className,
           amount: Number(amount),
-          paymentOption,
+          paymentOption: paymentOption?.toLowerCase(),
           teacherId,
-          numberOfInstallments:
-            paymentOption === "Installment" ? Number(numberOfInstallments) : 1,
+          numberOfInstallments: isInstallmentSelected
+            ? Number(numberOfInstallments) || 2 // Defaults to 2 if left unselected to bypass backend block
+            : 1,
         },
         {
           headers: {
@@ -84,6 +88,7 @@ const AdminClass = () => {
         },
       );
 
+      // Reset state completely
       setFormData({
         className: "",
         amount: "",
@@ -94,9 +99,10 @@ const AdminClass = () => {
 
       setIsOpen(false);
     } catch (error) {
-      console.log(error);
+      console.error("Submission Error:", error.response?.data || error);
     }
   };
+
   const classData = [];
 
   return (
@@ -225,7 +231,7 @@ const AdminClass = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            ©️ 2026 Ucheva school operating management system . All right
+            ©️ 2026 Ucheva school operating management system . All rights
             reserved.
           </span>
           <span className="supportText">
@@ -237,6 +243,7 @@ const AdminClass = () => {
         </footer>
       </div>
 
+      {/* ADD CLASS MODAL */}
       {isOpen && (
         <div className="modalOverlay" onClick={() => setIsOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -271,7 +278,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Payment Option</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="paymentOption"
@@ -279,19 +285,16 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select Payment Option</option>
-
-                    <option value="Full Payment">Full Payment</option>
-
-                    <option value="Installment">Installment</option>
+                    <option value="full payment">Full Payment</option>
+                    <option value="installment">Installment</option>
                   </select>
                 </div>
               </div>
 
-              {formData.paymentOption === "Installment" && (
+              {formData.paymentOption?.toLowerCase() === "installment" && (
                 <>
                   <div className="inputGroup">
                     <label>Number Of Installments</label>
-
                     <div className="modalSelectWrapper">
                       <select
                         name="numberOfInstallments"
@@ -299,12 +302,11 @@ const AdminClass = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select Number</option>
-
-                        <option value="2">2</option>
-
-                        <option value="3">3</option>
-
-                        <option value="4">4</option>
+                        {installmentOptions.map((num) => (
+                          <option key={num} value={num}>
+                            {num} Installments
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -323,7 +325,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Assign Class Teacher</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -331,7 +332,6 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Search and select a teacher</option>
-
                     {Array.isArray(teachers) &&
                       teachers.map((staff) => (
                         <option key={staff.id} value={staff.id}>
@@ -354,6 +354,7 @@ const AdminClass = () => {
         </div>
       )}
 
+      {/* EDIT CLASS MODAL */}
       {isEditOpen && (
         <div className="modalOverlay" onClick={() => setIsEditOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -378,7 +379,6 @@ const AdminClass = () => {
             <div className="modalBody">
               <div className="inputGroup">
                 <label>Class Name</label>
-
                 <input
                   type="text"
                   name="className"
@@ -390,7 +390,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Amount</label>
-
                 <input
                   type="number"
                   name="amount"
@@ -402,7 +401,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Payment Option</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="paymentOption"
@@ -410,19 +408,16 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Select Payment Option</option>
-
-                    <option value="Full Payment">Full Payment</option>
-
-                    <option value="Installment">Installment</option>
+                    <option value="full payment">Full Payment</option>
+                    <option value="installment">Installment</option>
                   </select>
                 </div>
               </div>
 
-              {formData.paymentOption === "Installment" && (
+              {formData.paymentOption?.toLowerCase() === "installment" && (
                 <>
                   <div className="inputGroup">
                     <label>Number Of Installments</label>
-
                     <div className="modalSelectWrapper">
                       <select
                         name="numberOfInstallments"
@@ -430,12 +425,11 @@ const AdminClass = () => {
                         onChange={handleChange}
                       >
                         <option value="">Select</option>
-
-                        <option value="2">2</option>
-
-                        <option value="3">3</option>
-
-                        <option value="4">4</option>
+                        {installmentOptions.map((num) => (
+                          <option key={num} value={num}>
+                            {num} Installments
+                          </option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -454,7 +448,6 @@ const AdminClass = () => {
 
               <div className="inputGroup">
                 <label>Assign Class Teacher</label>
-
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -462,7 +455,6 @@ const AdminClass = () => {
                     onChange={handleChange}
                   >
                     <option value="">Search and select teacher</option>
-
                     {teachers.map((teacher) => (
                       <option key={teacher.id} value={teacher.id}>
                         {teacher.fullName}
@@ -485,6 +477,7 @@ const AdminClass = () => {
         </div>
       )}
 
+      {/* DELETE CLASS MODAL */}
       {isDeleteOpen && (
         <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
           <div

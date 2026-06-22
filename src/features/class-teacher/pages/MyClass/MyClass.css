@@ -1,7 +1,6 @@
 /* Main Container */
 .myClassPage {
   width: 100%;
-  background: #f9fafb;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -21,14 +20,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 700;
   font-size: 28px;
   color: #0f172a;
 }
 
 .myClasstopHeaderText span {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 400;
   font-size: 15px;
   color: #042869;
@@ -40,7 +39,7 @@
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 600;
   font-size: 14px;
   padding: 12px 24px;
@@ -52,7 +51,7 @@
   background: #0052d0;
 }
 
-/* ========== STATS CARDS ========== */
+/* ========== STATS CARDS (SOFT BOX SHADOWS) ========== */
 .myClassCTClassCards {
   width: 100%;
   display: grid;
@@ -70,6 +69,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 18px 20px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
@@ -92,14 +94,14 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #6c737f;
 }
 
 .myClassCTtextnum {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 700;
   font-size: 28px;
   color: #03173c;
@@ -132,13 +134,16 @@
   padding: 16px 20px;
   gap: 16px;
   flex-wrap: wrap;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 .myClassfilterBarLabel {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #03173c;
@@ -161,7 +166,7 @@
   border: none;
   background: none;
   outline: none;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-size: 14px;
   cursor: pointer;
 }
@@ -175,7 +180,7 @@
   border: 2px solid #0062f6;
   border-radius: 8px;
   cursor: pointer;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #042869;
@@ -186,12 +191,15 @@
   background: #f0f7ff;
 }
 
-/* ========== TABLE SECTION ========== */
+/* ========== TABLE CONTAINER CARD ========== */
 .tableCard {
   background: white;
   border-radius: 12px;
   padding: 20px;
   overflow-x: auto;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
 table {
@@ -203,7 +211,7 @@ table {
 th {
   text-align: left;
   padding: 14px 12px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: #03173c;
@@ -212,7 +220,7 @@ th {
 
 td {
   padding: 14px 12px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #042869;
@@ -224,7 +232,7 @@ td {
   display: inline-block;
   padding: 5px 12px;
   border-radius: 20px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 12px;
 }
@@ -233,7 +241,6 @@ td {
   background: #eafdf1;
   color: #009966;
 }
-
 .badge.absent {
   background: #fdecec;
   color: #ee443f;
@@ -243,7 +250,7 @@ td {
   display: inline-block;
   padding: 5px 12px;
   border-radius: 20px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 12px;
 }
@@ -252,15 +259,80 @@ td {
   background: #eafdf1;
   color: #009966;
 }
-
 .partpayment {
   background: #fff3e6;
   color: #ea580c;
 }
-
 .unpaid {
   background: #fdecec;
   color: #ee443f;
+}
+
+/* ========== STANDALONE EMPTY STATE CARD ========== */
+.myClass-empty-state-card {
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  text-align: center;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.empty-state-icon-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.empty-state-icon-svg {
+  color: #94a3b8;
+}
+
+.myClass-empty-state-card h3 {
+  font-family: Nunito, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 8px 0;
+}
+
+.myClass-empty-state-card p {
+  font-family: Nunito, sans-serif;
+  font-size: 14px;
+  color: #64748b;
+  max-width: 400px;
+  margin: 0 0 24px 0;
+  line-height: 1.6;
+}
+
+.empty-clear-btn {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  padding: 9px 20px;
+  font-family: Nunito, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.empty-clear-btn:hover {
+  background-color: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
 }
 
 /* ========== PAGINATION ========== */
@@ -274,7 +346,7 @@ td {
 }
 
 .pagination span {
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #6c737f;
@@ -294,7 +366,7 @@ td {
   border: 1px solid #e5e7eb;
   border-radius: 8px;
   cursor: pointer;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #042869;
@@ -324,7 +396,7 @@ td {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #6c737f;
@@ -349,8 +421,106 @@ td {
   outline: none;
   text-align: center;
   cursor: pointer;
-  font-family: Nunito;
+  font-family: Nunito, sans-serif;
   font-size: 14px;
+}
+
+/* --- Skeleton Shimmer Layout Settings --- */
+.skeleton {
+  background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+  background-size: 200% 100%;
+  animation: shimmerAnimation 1.5s infinite linear;
+  border-radius: 6px;
+}
+
+@keyframes shimmerAnimation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --- Fixing Row Layout constraints during Loading --- */
+.skeleton-header-text {
+  width: 240px;
+  height: 38px;
+}
+.skeleton-button {
+  width: 140px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.skeleton-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 94px; /* Matches your explicit component matrix block heights */
+  box-sizing: border-box;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+}
+
+.skeleton-card-title {
+  width: 60%;
+  height: 16px;
+}
+.skeleton-card-number {
+  width: 30%;
+  height: 28px;
+}
+.skeleton-filter-label {
+  width: 160px;
+  height: 20px;
+}
+.skeleton-filter-btn {
+  width: 90px;
+  height: 36px;
+}
+
+.skeleton-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background-color: #ffffff;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.skeleton-table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 8px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.skeleton-td {
+  height: 20px;
+  width: 18%;
+}
+
+/* --- Error Presentation Box --- */
+.myClass-state-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+
+.myClass-error-text {
+  color: #dc2626;
+  font-weight: 500;
+  background-color: #fef2f2;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(220, 38, 38, 0.06);
 }
 
 /* ========== RESPONSIVE ========== */
@@ -364,56 +534,45 @@ td {
   .myClassPage {
     gap: 20px;
   }
-
   .myClasstopHeader {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .myClassmarkBtn {
     width: 100%;
     white-space: normal;
   }
-
   .myClassCTClassCards {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-
   .myClassTotalStudents,
   .myClassTotalFemale,
   .myClassTotalMale,
   .myClassTotalPresent {
     padding: 16px;
   }
-
   .myClassfilterBar {
     flex-direction: column;
     align-items: flex-start;
   }
-
   .myClassCTSelectHolder {
     width: 100%;
   }
-
   .myClassresetBtn {
     width: 100%;
     justify-content: center;
   }
-
   .tableCard {
     padding: 16px;
   }
-
   .pagination {
     flex-direction: column;
     align-items: center;
   }
-
   .pages {
     justify-content: center;
   }
-
   .CTPageTypeHolder {
     width: 100%;
     justify-content: center;
@@ -424,58 +583,47 @@ td {
   .myClassPage {
     gap: 16px;
   }
-
   .myClasstopHeaderText {
     font-size: 22px;
   }
-
   .myClasstopHeaderText span {
     font-size: 13px;
   }
-
   .myClassCTtextnum {
     font-size: 24px;
   }
-
   .myClassCTClasstext {
     font-size: 13px;
   }
-
   .myClassCTImageHolder1 {
     width: 48px;
     height: 48px;
   }
-
   .myClassCTImg {
     width: 24px;
     height: 24px;
   }
-
   th,
   td {
     padding: 10px 8px;
     font-size: 12px;
   }
-
   .badge,
   .fee {
     padding: 4px 8px;
     font-size: 10px;
   }
-
   .pages button {
     width: 32px;
     height: 32px;
     font-size: 12px;
   }
-
   .CTPageTypeHolder {
     font-size: 12px;
   }
 }
 
 /* ========== ANNOUNCEMENT MODAL ========== */
-
 .CT-modal-overlay {
   position: fixed;
   inset: 0;
@@ -499,7 +647,6 @@ td {
   position: relative;
 }
 
-/* Header */
 .CT-modal-header {
   display: flex;
   justify-content: space-between;
@@ -542,7 +689,6 @@ td {
   gap: 4px;
 }
 
-/* Close button */
 .CT-modal-close {
   position: absolute;
   top: 14px;
@@ -554,7 +700,6 @@ td {
   color: #334155;
 }
 
-/* Body */
 .CT-modal-body {
   display: flex;
   flex-direction: column;

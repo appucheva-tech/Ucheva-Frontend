@@ -10,18 +10,9 @@ const CTLayout = () => {
 
   return (
     <div className="ct-app-layout nunito-content">
-      {/* Mobile menu button */}
-      <button
-        className="ct-mobile-menu-btn"
-        onClick={() => setSidebarOpen(true)}
-      >
-        ☰
-      </button>
-
       {/* Sidebar */}
       <SideBar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Mobile overlay */}
       {sidebarOpen && (
         <div
           className="ct-mobile-overlay"
@@ -29,7 +20,6 @@ const CTLayout = () => {
         />
       )}
 
-      {/* Main Content Area */}
       <div className="ct-main-content">
         <Header setSidebarOpen={setSidebarOpen} />
         <main className="ct-page-content">

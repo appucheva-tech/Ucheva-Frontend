@@ -1,65 +1,77 @@
-/* Sidebar Container */
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
 .ct-sidebar-container {
   width: 280px;
   height: 100vh;
   background-color: #ffffff;
-  border-right: 1px solid #e8e8e8;
+  border-right: 1px solid #f0f1f5;
   display: flex;
   flex-direction: column;
   position: fixed;
   left: 0;
   top: 0;
   overflow-y: auto;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
+  box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.02);
 }
 
-/* Logo Section */
+/* Structural Brand Box Segments */
 .ct-sidebar-logo {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 24px 20px;
-  border-bottom: 1px solid #e8e8e8;
+  width: 100%;
+  border-bottom: 1px solid #f0f1f5;
+  height: 72px;
+  box-sizing: border-box;
 }
 
 .ct-logo-icon {
+  width: 60%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .ct-logo {
-  width: 160px;
-  height: auto;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
 }
 
-/* Close Button (Mobile Only) */
+/* Close Action Trigger Panel Icon Button (Hidden by default on Desktop layout view) */
 .ct-sidebar-close-btn {
   display: none;
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: none;
+  top: 16px;
+  right: 16px;
+  background: transparent;
   border: none;
-  font-size: 24px;
+  font-size: 20px;
   cursor: pointer;
-  color: #6c737f;
+  color: #64748b;
   z-index: 1001;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .ct-sidebar-close-btn:hover {
   color: #03173c;
+  opacity: 0.8;
 }
 
-/* Navigation */
+/* ========== LINK HUB LIST SEGMENT ARRANGEMENTS ========== */
 .ct-sidebar-nav {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 20px 16px;
+  gap: 6px;
+  padding: 24px 16px;
   flex: 1;
 }
 
@@ -68,23 +80,19 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  color: #03173c;
+  color: #475569;
   text-decoration: none;
-  border-radius: 10px;
+  border-radius: 8px;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
-  font-family: Nunito;
-  font-size: 15px;
-  font-weight: 500;
+  font-family: "Nunito", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
 }
 
 .ct-nav-link:hover {
   background-color: #f1f7ff;
-  color: #0062f6;
-}
-
-.ct-nav-link:hover .ct-nav-icon {
   color: #0062f6;
 }
 
@@ -94,32 +102,26 @@
   border-left-color: #0062f6;
 }
 
-.ct-nav-link.active .ct-nav-icon {
-  color: #0062f6;
-}
-
 .ct-nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   font-size: 20px;
   color: inherit;
+  transition: color 0.2s ease;
 }
 
 .ct-nav-text {
   flex: 1;
-  font-weight: 600;
-  font-size: 15px;
   line-height: 100%;
-  letter-spacing: 0%;
   color: inherit;
 }
 
-/* Scrollbar */
+/* Custom Scrollbar Utility Configs */
 .ct-sidebar-container::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 .ct-sidebar-container::-webkit-scrollbar-track {
@@ -127,27 +129,24 @@
 }
 
 .ct-sidebar-container::-webkit-scrollbar-thumb {
-  background: #e0e0e0;
-  border-radius: 3px;
+  background: #cbd5e1;
+  border-radius: 10px;
 }
 
-.ct-sidebar-container::-webkit-scrollbar-thumb:hover {
-  background: #bdbdbd;
-}
-
-/* Mobile Overlay */
+/* ========== TRANSPARENT TRANSITION LAYOUT MASK VEIL ========== */
 .ct-sidebar-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
   z-index: 999;
-  animation: ctFadeIn 0.3s ease;
+  animation: ctSidebarFadeIn 0.2s ease-out;
 }
 
-@keyframes ctFadeIn {
+@keyframes ctSidebarFadeIn {
   from {
     opacity: 0;
   }
@@ -156,13 +155,14 @@
   }
 }
 
-/* ========== RESPONSIVE ========== */
+/* ========== ULTRA-RESPONSIVE VIEWPORT STYLES ========== */
 
-/* Mobile */
+/* Tablets Screens Viewport Breakdown */
 @media (max-width: 768px) {
   .ct-sidebar-container {
     transform: translateX(-100%);
     width: 280px;
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.05);
   }
 
   .ct-sidebar-container.mobile-open {
@@ -170,48 +170,28 @@
   }
 
   .ct-sidebar-close-btn {
-    display: block;
+    display: flex; /* Display control cross button on tablets safely */
   }
 
   .ct-sidebar-logo {
-    padding: 20px;
-  }
-
-  .ct-logo {
-    width: 140px;
-  }
-
-  .ct-sidebar-nav {
-    padding: 16px;
-    gap: 6px;
-  }
-
-  .ct-nav-link {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-
-  .ct-nav-icon {
-    width: 22px;
-    height: 22px;
-    font-size: 18px;
-  }
-
-  .ct-nav-text {
-    font-size: 14px;
+    justify-content: flex-start;
+    padding-left: 20px;
   }
 }
 
-/* Small Mobile */
+/* Small Smartphone Viewports Panels */
 @media (max-width: 480px) {
   .ct-sidebar-container {
-    width: 85%;
-    max-width: 280px;
+    width: 82%;
+    max-width: 230px;
   }
 
   .ct-sidebar-logo {
-    justify-content: center;
+    height: 64px;
     padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .ct-logo {
@@ -219,31 +199,20 @@
   }
 
   .ct-sidebar-nav {
-    padding: 12px;
+    padding: 16px 12px;
   }
 
   .ct-nav-link {
     padding: 10px 12px;
-  }
-
-  .ct-nav-icon {
-    width: 20px;
-    height: 20px;
-    font-size: 16px;
-  }
-
-  .ct-nav-text {
     font-size: 13px;
   }
 
-  .ct-sidebar-close-btn {
-    top: 15px;
-    right: 15px;
-    font-size: 20px;
+  .ct-nav-icon {
+    font-size: 18px;
   }
 }
 
-/* Desktop */
+/* Desktop Hardware Enforcers */
 @media (min-width: 769px) {
   .ct-sidebar-container {
     transform: translateX(0) !important;

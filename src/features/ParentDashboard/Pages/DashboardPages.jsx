@@ -38,20 +38,24 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="dashboard-page">
-      <div className="dashboard-container">
-        <div className="header-section">
-          <h1 className="greeting">Good morning, Mrs Ola 👋</h1>
-          <p className="subtitle">Here's Efe's activity summary for today.</p>
+    <div className="parent-dashboard-view">
+      <div className="parent-dashboard-container">
+        {/* Banner Welcome Section */}
+        <div className="parent-welcome-header">
+          <h1 className="parent-greeting-title">Good morning, Mrs Ola 👋</h1>
+          <p className="parent-greeting-subtitle">
+            Here's Efe's activity summary for today.
+          </p>
         </div>
 
-        <div className="student-card">
-          <div className="student-card-left">
-            <div className="student-icon">
+        {/* Student Profile Overview Card */}
+        <div className="student-summary-banner">
+          <div className="student-avatar-box">
+            <div className="student-badge-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="50"
-                height="50"
+                width="28"
+                height="28"
                 viewBox="0 0 50 50"
                 fill="none"
               >
@@ -62,39 +66,43 @@ const DashboardPage = () => {
               </svg>
             </div>
           </div>
-          <div className="student-card-content">
-            <h2 className="student-name">Efe Ogeremu</h2>
 
-            <div className="student-info-grid">
-              <div className="info-item">
-                <p className="info-label">Class</p>
-                <p className="info-value">JSS1A</p>
+          <div className="student-summary-info">
+            <h2 className="student-profile-name">Efe Ogeremu</h2>
+            <div className="student-quick-metrics">
+              <div className="metric-column">
+                <span className="metric-label-text">Class</span>
+                <span className="metric-value-text">JSS1A</span>
               </div>
-              <div className="info-item">
-                <p className="info-label">Fee Status</p>
-                <p className="info-value">Fully Paid</p>
+              <div className="metric-column">
+                <span className="metric-label-text">Fee Status</span>
+                <span className="metric-value-text fee-paid-highlight">
+                  Fully Paid
+                </span>
               </div>
-              <div className="info-item">
-                <p className="info-label">Attendance</p>
-                <p className="info-value">
-                  <span className="badge-present">Present</span>
-                </p>
+              <div className="metric-column">
+                <span className="metric-label-text">Attendance</span>
+                <span className="metric-value-text">
+                  <span className="badge-present-pill">Present</span>
+                </span>
               </div>
-              <div className="info-item">
-                <p className="info-label">Current Term</p>
-                <p className="info-value">First Term . 2025/2026</p>
+              <div className="metric-column">
+                <span className="metric-label-text">Current Term</span>
+                <span className="metric-value-text">
+                  First Term . 2025/2026
+                </span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="content-grid">
-          <div className="parentcard1 payment-history-card">
-            <h3 className="card-title" style={{ color: "#03173C" }}>
-              Payment History
-            </h3>
-            <div className="table-wrapper">
-              <table className="payment-table">
+        {/* Dynamic Split Cards Grid */}
+        <div className="parent-grid-layout">
+          {/* Card Left: Payment History Component */}
+          <div className="parent-dashboard-card main-history-card">
+            <h3 className="card-section-title">Payment History</h3>
+            <div className="table-viewport-container">
+              <table className="payment-records-table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -111,10 +119,10 @@ const DashboardPage = () => {
                       <td data-label="Amount">{item.amount}</td>
                       <td data-label="Status">
                         <span
-                          className="status-badge"
+                          className="payment-status-badge"
                           style={{
                             color: item.statusColor,
-                            background: item.background,
+                            backgroundColor: item.background,
                           }}
                         >
                           {item.status}
@@ -127,42 +135,37 @@ const DashboardPage = () => {
             </div>
           </div>
 
-          <div className="parentcard2 attendance-card">
-            <h3 className=" parentcard-title" style={{ color: "#03173C" }}>
-              Monthly Attendance
-            </h3>
-            <div className="attendance-content">
-              <div className="circular-chart-container">
-                <svg className="circular-chart" viewBox="0 0 200 200">
+          {/* Card Right: Monthly Attendance Component */}
+          <div className="parent-dashboard-card side-attendance-card">
+            <h3 className="card-section-title">Monthly Attendance</h3>
+            <div className="attendance-chart-layout">
+              <div className="circular-progress-wrapper">
+                <svg className="radial-chart-graphic" viewBox="0 0 200 200">
+                  <circle cx="100" cy="100" r="85" className="radial-track" />
                   <circle
                     cx="100"
                     cy="100"
                     r="85"
-                    className="progress-background"
-                  />
-                  <circle
-                    cx="100"
-                    cy="100"
-                    r="85"
-                    className="progress-fill"
+                    className="radial-progress"
                     style={{
                       strokeDasharray: `${(96.4 / 100) * 534.07} 534.07`,
                     }}
                   />
                 </svg>
-                <div className="chart-text">
-                  <p className="chart-percentage">96.4%</p>
-                  <p className="chart-label">18 Days Present</p>
+                <div className="radial-center-labels">
+                  <p className="radial-percentage">96.4%</p>
+                  <p className="radial-subtext">18 Days Present</p>
                 </div>
               </div>
-              <div className="legend">
-                <div className="legend-item">
-                  <span className="legend-color present"></span>
-                  <span className="legend-label">Present</span>
+
+              <div className="attendance-legend-stack">
+                <div className="legend-row-item">
+                  <span className="legend-color-dot dot-present"></span>
+                  <span className="legend-text">Present</span>
                 </div>
-                <div className="legend-item">
-                  <span className="legend-color absent"></span>
-                  <span className="legend-label">Absent</span>
+                <div className="legend-row-item">
+                  <span className="legend-color-dot dot-absent"></span>
+                  <span className="legend-text">Absent</span>
                 </div>
               </div>
             </div>

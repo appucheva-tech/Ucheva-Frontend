@@ -67,11 +67,15 @@ const Login = () => {
           navigate("/onboarding");
         }
       } else if (user.role === "parent") {
-        navigate("/parent/dashboard");
+        navigate("/parentdashboard");
       } else if (user.role === "staff") {
-        switch (user.staffType?.toLowerCase()) {
-          case "teaching staff":
+        switch (user.staffType?.trim().toLowerCase()) {
+          case "class teacher":
             navigate("/CTdashboard");
+            break;
+
+          case "subject teacher":
+            navigate("/subjectteacherdashboard");
             break;
 
           case "non-teaching staff":

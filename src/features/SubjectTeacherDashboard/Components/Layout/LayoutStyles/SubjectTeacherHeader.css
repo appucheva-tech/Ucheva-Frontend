@@ -8,66 +8,64 @@
 .SubjectTeacherHeader-teacher-header {
   position: fixed;
   top: 0;
-  left: 280px;
+  left: 0;
   right: 0;
   z-index: 900;
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 16px 32px;
   background-color: #ffffff;
   border-bottom: 1px solid #e5e7eb;
   box-sizing: border-box;
-  width: calc(100vw - 280px);
+  transition: padding-left 0.3s ease-in-out;
 }
 
 .SubjectTeacherHeader-header-left {
   display: flex;
   align-items: center;
-  gap: 12px;
-  flex: 1;
 }
 
+/* Master container that forces everything to align neatly to the right */
+.SubjectTeacherHeader-header-right-items {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-left: auto; /* This acts as the anchor pushing items to the far right */
+}
+
+/* Internal Section Arrangements */
+.SubjectTeacherHeader-date-wrapper,
+.SubjectTeacherHeader-session-wrapper,
+.SubjectTeacherHeader-profile-combined {
+  display: flex;
+  align-items: center;
+}
+
+.SubjectTeacherHeader-date-wrapper {
+  gap: 12px;
+}
+
+.SubjectTeacherHeader-session-wrapper {
+  gap: 16px;
+}
+
+.SubjectTeacherHeader-profile-combined {
+  gap: 20px;
+}
+
+/* Icons and Text Typography */
 .SubjectTeacherHeader-calendar-icon {
   color: #374151;
   flex-shrink: 0;
 }
 
-.SubjectTeacherHeader-date-text {
+.SubjectTeacherHeader-date-text,
+.SubjectTeacherHeader-text-session,
+.SubjectTeacherHeader-text-term {
   font-size: 14px;
   color: #374151;
   font-weight: 500;
   white-space: nowrap;
-}
-
-/* Center Section - Session Info */
-.SubjectTeacherHeader-header-center {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex: 1;
-  justify-content: center;
-}
-
-.SubjectTeacherHeader-session-text {
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
-}
-
-.SubjectTeacherHeader-term-text {
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
-}
-
-/* Right Section - Notification and Profile */
-.SubjectTeacherHeader-header-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex: 1;
-  justify-content: flex-end;
 }
 
 .SubjectTeacherHeader-notification-btn {
@@ -117,7 +115,7 @@
   gap: 2px;
 }
 
-.SubjectTeacherHeader-profile-name {
+.SubjectTeacherHeader-text-profile-name {
   font-size: 14px;
   font-weight: 600;
   color: #1f2937;
@@ -125,78 +123,82 @@
   white-space: nowrap;
 }
 
-.SubjectTeacherHeader-profile-role {
+.SubjectTeacherHeader-text-profile-role {
   font-size: 12px;
   color: #6b7280;
   margin: 0;
   white-space: nowrap;
 }
 
-/* Responsive */
+/* Menu Toggle Styling rules */
+.SubjectTeacherHeader-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.SubjectTeacherHeader-menu-toggle .hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: #1f2937;
+  transition: all 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translateY(-2px);
+}
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translateY(2px);
+}
+
+/* --- Media Breakpoints --- */
+
+@media (min-width: 769px) {
+  .SubjectTeacherHeader-teacher-header {
+    padding-left: 312px; /* 280px sidebar layout safety space */
+  }
+}
+
 @media (max-width: 1024px) {
   .SubjectTeacherHeader-teacher-header {
     padding: 12px 24px;
   }
-
-  .SubjectTeacherHeader-header-center {
-    gap: 16px;
-  }
-
-  .SubjectTeacherHeader-header-right {
-    gap: 16px;
-  }
-
-  .SubjectTeacherHeader-session-text,
-  .SubjectTeacherHeader-term-text {
-    font-size: 13px;
+  .SubjectTeacherHeader-header-right-items {
+    gap: 20px;
   }
 }
 
 @media (max-width: 768px) {
   .SubjectTeacherHeader-teacher-header {
-    left: 0;
-    width: 100vw;
     padding: 12px 16px;
-    flex-wrap: wrap;
-    gap: 12px;
   }
 
-  .SubjectTeacherHeader-header-left,
-  .SubjectTeacherHeader-header-center,
-  .SubjectTeacherHeader-header-right {
-    flex: none;
+  .SubjectTeacherHeader-menu-toggle {
+    display: flex; /* Displays mobile toggle cleanly on the left */
   }
 
-  .SubjectTeacherHeader-header-left {
-    flex-basis: 100%;
-    order: 1;
-  }
-
-  .SubjectTeacherHeader-header-center {
-    flex-basis: 100%;
-    order: 2;
-    gap: 12px;
-  }
-
-  .SubjectTeacherHeader-header-right {
-    flex-basis: 100%;
-    order: 3;
-    justify-content: flex-start;
-  }
-
-  .SubjectTeacherHeader-date-text,
-  .SubjectTeacherHeader-session-text,
-  .SubjectTeacherHeader-term-text {
-    font-size: 12px;
-  }
-
-  .SubjectTeacherHeader-profile-avatar {
-    width: 36px;
-    height: 36px;
-  }
-
-  .SubjectTeacherHeader-profile-name,
-  .SubjectTeacherHeader-profile-role {
+  /* Safely drop extra structural texts to prevent overflow cramped states */
+  .SubjectTeacherHeader-date-wrapper,
+  .SubjectTeacherHeader-session-wrapper {
     display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .SubjectTeacherHeader-text-profile-name,
+  .SubjectTeacherHeader-text-profile-role {
+    display: none; /* Shows profile avatar icon cleanly on phones */
   }
 }

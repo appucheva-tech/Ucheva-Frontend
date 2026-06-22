@@ -1,24 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./SideBar.css";
 import { PiSquaresFourBold, PiCertificateBold } from "react-icons/pi";
 import { FaPersonChalkboard } from "react-icons/fa6";
 import { MdOutlineCreditScore } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import ucheva from "../../../../assets/UchevaLogo.svg";
 
 const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
-  const navigate = useNavigate();
-
-  const handleNavigation = (path, dashboardName) => {
-    navigate(path);
-    setSidebarOpen(false); // Close sidebar on mobile after navigation
-  };
-
   return (
     <>
-      {/* Mobile overlay */}
+      {/* Mobile structural backing panel overlay overlay shade veil */}
       {sidebarOpen && (
         <div
           className="ct-sidebar-overlay"
@@ -29,25 +22,26 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
       <div
         className={`ct-sidebar-container ${sidebarOpen ? "mobile-open" : ""}`}
       >
-        {/* Logo Section */}
+        {/* Header App Brand Logo Area */}
         <div className="ct-sidebar-logo">
           <div className="ct-logo-icon">
-            <img src={ucheva} alt="Ucheva Logo" className="ct-logo" />
+            <img src={ucheva} alt="Ucheva App Brand Logo" className="ct-logo" />
           </div>
         </div>
 
-        {/* Close button for mobile */}
-        <button
+        {/* Floating Contextual Close Button Trigger (Mobile Only Viewport) */}
+        {/* <button
           className="ct-sidebar-close-btn"
           onClick={() => setSidebarOpen(false)}
+          aria-label="Close Sidebar Navigation Menu"
         >
           ✕
-        </button>
+        </button> */}
 
-        {/* Navigation Menu */}
+        {/* Navigation Routed Links Segment Anchor Hub */}
         <nav className="ct-sidebar-nav">
           <NavLink
-            to="dashboard"
+            to="/CTdashboard"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }

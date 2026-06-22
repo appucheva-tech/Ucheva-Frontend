@@ -83,8 +83,7 @@ const App = () => {
     <BrowserRouter>
       <ScrollToTop />
       <Routes>
-
-                   <Route path="/notfound" element={<NotFound />} />
+        <Route path="/notfound" element={<NotFound />} />
 
         <Route path="/" element={<Home />} />
         <Route path="/Features" element={<Features />} />
@@ -137,10 +136,9 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
         </Route>
-<Route element={<PrivateRoute />}>
-
-        <Route path="/attendance/:token" element={<AttendancePage />} />
-</Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/attendance/:token" element={<AttendancePage />} />
+        </Route>
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
