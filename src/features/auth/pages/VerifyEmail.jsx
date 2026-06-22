@@ -14,6 +14,19 @@ const VerifyEmail = () => {
     "your-email@domain.com";
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  useEffect(() => {
+  const isComplete = otp.every((digit) => digit !== "");
+
+  if (!isComplete) return;
+  if (loading) return;
+
+  const timeout = setTimeout(() => {
+    handleVerifySubmit();
+  }, 300); // small delay prevents double-trigger issues
+
+  return () => clearTimeout(timeout);
+}, [otp, loading]);
+
   const [timeLeft, setTimeLeft] = useState(59);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -111,7 +124,7 @@ const VerifyEmail = () => {
   };
 
   const handleVerifySubmit = async (e) => {
-    e.preventDefault();
+  if (e) e.preventDefault();
     const verificationCode = otp.join("");
 
     if (verificationCode.length < 6) {
