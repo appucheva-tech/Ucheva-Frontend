@@ -77,18 +77,19 @@
     }
 
     .EELeftDownCont {
-      width: 65%;
+      width: 103%;
       height: 45vh;
       background: #ffffff;
       border: 1px solid #f0f4f8;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.01);
       border-radius: 12px;
       margin-top: 25.5%;
-      margin-left: 38%;
+      margin-left: 0%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       padding: 24px;
+      position: sticky;
 
       @media (max-width: 450px) {
         width: 100%;
@@ -184,7 +185,7 @@
 
       .EEcard-title {
         font-size: 19px;
-        font-weight: 600;
+        font-weight: 400;
         color: #042869;
         margin: 0 0 10px 0;
       }
