@@ -6,7 +6,7 @@ import { apiClient } from "../../config/AxiosInstance";
 const StudentAttendance = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
-  const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
+  const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0; 
   // const dummyStudents = [
   //   {
   //     name: "David Okafor",
