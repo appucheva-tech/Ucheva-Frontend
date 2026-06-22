@@ -28,11 +28,6 @@
   font-family: Inter, sans-serif;
 }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
 /* Layout */
 
 .notfound-page {
@@ -43,6 +38,8 @@ body {
   justify-content: center;
   align-items: center;
   padding: 32px;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* ==========================
@@ -99,14 +96,7 @@ body {
   width: 700px;
   height: 700px;
   border-radius: 50%;
-  background:
-    conic-gradient(
-      from 0deg,
-      #6366f1,
-      #22d3ee,
-      #a855f7,
-      #6366f1
-    );
+  background: conic-gradient(from 0deg, #6366f1, #22d3ee, #a855f7, #6366f1);
   filter: blur(90px);
   opacity: 0.55;
   animation:
@@ -215,11 +205,7 @@ body {
 
 .primary {
   color: white;
-  background: linear-gradient(
-    135deg,
-    #6366f1,
-    #8b5cf6
-  );
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
   box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
 }
 
