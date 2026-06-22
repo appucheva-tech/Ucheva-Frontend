@@ -39,6 +39,7 @@ const AdminStudents = () => {
 
       const studentData = response.data?.studentsData || [];
       setStudents(studentData);
+      console.log(studentData);
       setFilteredStudents(studentData);
     } catch (error) {
       console.error(error);
@@ -194,7 +195,7 @@ const AdminStudents = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">New Intake</span>
-                <span className="card-value">32</span>
+                <span className="card-value">{0}</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className="DashIcon" />

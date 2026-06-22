@@ -16,9 +16,10 @@ import { useSelector } from "react-redux";
 const AdminDashboard = () => {
   const user = useSelector((state) => state.user.user.schoolName);
   const [attendanceTable, setAttendanceTable] = useState(false);
+  const [attendance, setAttendance] = useState([]);
+const [loadingAttendance, setLoadingAttendance] = useState(true);
   const [showQRModal, setShowQRModal] = useState(false);
   const [sumarry, setSumarry] = useState({});
-  const [attendance, setAttendance] = useState([]);
   const nav = useNavigate();
   useEffect(() => {
     const getDashboardSummary = async () => {
@@ -34,20 +35,25 @@ const AdminDashboard = () => {
     getDashboardSummary();
   }, []);
 
-  useEffect(() => {
-    const getTodayAttendance = async () => {
-      try {
-        const res = await apiClient.get("/staffattendance/today");
-        console.log("res : ", res);
-        setAttendance(res?.data?.Attendance);
-        setAttendanceTable(true);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+   const subdomain = window.location.hostname.split(".")[0];
 
-    getTodayAttendance();
-  }, []);
+
+useEffect(() => {
+  const getTodayAttendance = async () => {
+    try {
+      const res = await apiClient.get("/staffattendance/today",   { headers: {
+          "x-tenant": subdomain,
+        }});
+      setAttendance(res?.data?.Attendance || []);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoadingAttendance(false);
+    }
+  };
+
+  getTodayAttendance();
+}, []);
 
   return (
     <div className="Bddashboard-container">
@@ -150,18 +156,43 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               {setAttendanceTable ? (
-                <tbody>
-                  <tr>
-                    <td className="font-medium text-slate">Adaeze Clinton</td>
-                    <td>Teacher</td>
-                    <td>7:48 AM</td>
-                    <td>
-                      <span className="status-badge badge-checked-in">
-                        Checked In
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
+           <tbody>
+  {loadingAttendance ? (
+    <tr>
+      <td colSpan="4" className="table-loading">
+        Loading attendance...
+      </td>
+    </tr>
+  ) : attendance.length > 0 ? (
+    attendance.map((staff) => (
+      <tr key={staff.id}>
+        <td className="font-medium text-slate">
+          {staff.staff?.fullName}
+        </td>
+        <td>{staff.staff?.role || "N/A"}</td>
+        <td>
+          {staff.checkInTime
+            ? new Date(staff.checkInTime).toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+              })
+            : "--"}
+        </td>
+        <td>
+          <span className="status-badge badge-checked-in">
+            Checked In
+          </span>
+        </td>
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="4" className="table-loading">
+        No attendance records found today.
+      </td>
+    </tr>
+  )}
+</tbody>
               ) : (
                 <span> loading.... </span>
               )}
@@ -176,7 +207,7 @@ const AdminDashboard = () => {
           <div className="actions-grid">
             <div
               onClick={() => setShowQRModal(true)}
-              style={{ background: "red" }}
+              // style={{ background: "red" }}
               className="action-button-card action-qr"
             >
               <div className="action-main-content">
@@ -195,7 +226,7 @@ const AdminDashboard = () => {
 
             <div
               className="action-button-card action-students"
-              style={{ background: "blue" }}
+          
               onClick={() => nav("/admin/AdminStudent2")}
             >
               <div className="action-main-content">
@@ -217,7 +248,11 @@ const AdminDashboard = () => {
                 <div className="action-icon-box">
                   <IoMegaphoneOutline />
                 </div>
-                <div className="action-text">
+                <div className="action-text"
+                              onClick={() => nav("/admin/AdminClass")}
+                >
+                  
+
                   <h3>Add Class</h3>
                   <p>Add Classes</p>
                 </div>
