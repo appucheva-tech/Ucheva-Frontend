@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/verify-email.css"; // Reusing your layout styling classes
 import { apiClient } from "../../../config/AxiosInstance";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Ucheva from "../../../assets/Logo.svg";
 
 const ResetPassword = () => {
+
   const navigate = useNavigate();
   const location = useLocation();
   const subdomain = window.location.hostname.split(".")[0];
@@ -16,6 +19,11 @@ const ResetPassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
 
   const handleResetSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +35,13 @@ const ResetPassword = () => {
 
     if (!password || !confirmPassword) {
       setError("Please fill out all input fields.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 8 characters long and include an uppercase letter, lowercase letter, number, and special character.",
+      );
       return;
     }
 
@@ -74,6 +89,9 @@ const ResetPassword = () => {
   return (
     <div className="verify-page-viewport">
       <div className="verify-card-box">
+        <div className="mobile-logo">
+          <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")}/>
+        </div>
         <h1 className="verify-title">Reset Password</h1>
 
         <p className="verify-subtext">
@@ -104,23 +122,41 @@ const ResetPassword = () => {
               >
                 New Password
               </label>
-              <input
-                type="password"
-                placeholder="Enter new password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  if (error) setError("");
-                }}
-                disabled={loading}
-                style={{
-                  padding: "12px",
-                  borderRadius: "6px",
-                  border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                  outline: "none",
-                  fontSize: "15px",
-                }}
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter new password"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    if (error) setError("");
+                  }}
+                  disabled={loading}
+                  style={{
+                    padding: "12px",
+                    borderRadius: "6px",
+                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
+                    outline: "none",
+                    fontSize: "15px",
+                    width: "100%",
+                    paddingRight: "40px",
+                  }}
+                />
+
+                <span
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#666",
+                  }}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
             </div>
 
             <div
@@ -135,23 +171,41 @@ const ResetPassword = () => {
               >
                 Confirm Password
               </label>
-              <input
-                type="password"
-                placeholder="Confirm new password"
-                value={confirmPassword}
-                onChange={(e) => {
-                  setConfirmPassword(e.target.value);
-                  if (error) setError("");
-                }}
-                disabled={loading}
-                style={{
-                  padding: "12px",
-                  borderRadius: "6px",
-                  border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                  outline: "none",
-                  fontSize: "15px",
-                }}
-              />
+              <div style={{ position: "relative" }}>
+                <input
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm new password"
+                  value={confirmPassword}
+                  onChange={(e) => {
+                    setConfirmPassword(e.target.value);
+                    if (error) setError("");
+                  }}
+                  disabled={loading}
+                  style={{
+                    padding: "12px",
+                    borderRadius: "6px",
+                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
+                    outline: "none",
+                    fontSize: "15px",
+                    width: "100%",
+                    paddingRight: "40px",
+                  }}
+                />
+
+                <span
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "10px",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#666",
+                  }}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
+              </div>
             </div>
           </div>
 
@@ -163,7 +217,7 @@ const ResetPassword = () => {
           <button
             type="submit"
             className="verify-submit-button"
-            disabled={loading || !password || !confirmPassword}
+            disabled={loading || !password || !confirmPassword || !!error}
           >
             {loading ? "Updating..." : "Update Password"}
           </button>

@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { toast } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -21,6 +23,8 @@ const Signup = () => {
   const [errors, setErrors] = useState({});
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [urlSuggestions, setUrlSuggestions] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const generateSlug = (text) =>
     text
@@ -58,6 +62,7 @@ const Signup = () => {
 
     setValues(newFormData);
     clearFieldError(name);
+    setServerError("");
   };
 
   const selectUrl = (url) => {
@@ -122,7 +127,7 @@ const Signup = () => {
 
     return newErrors;
   };
-
+  console.log(values);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setServerError("");
@@ -171,13 +176,14 @@ const Signup = () => {
             e,
           );
         }
-        toast.success(response.data.message)
+        toast.success(response.data.message);
       }
     } catch (err) {
       const serverMessage =
         err.response?.data?.message || "An error occurred during registration.";
+
       setServerError(serverMessage);
-      toast.error(serverError)
+      toast.error(serverMessage);
     } finally {
       setLoading(false);
     }
@@ -186,7 +192,6 @@ const Signup = () => {
     <div className="form-wrapper">
       <form className="signup-form" onSubmit={handleSubmit} noValidate>
         <h2>Create An Account</h2>
-
 
         {/* School Name */}
         <div className="form-group">
@@ -292,30 +297,64 @@ const Signup = () => {
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className={errors.password ? "input-error" : ""}
-              placeholder="Create password"
-              value={values.password}
-              onChange={handleChange}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                className={errors.password ? "input-error" : ""}
+                placeholder="Create password"
+                value={values.password}
+                onChange={handleChange}
+                style={{ paddingRight: "40px" }}
+              />
+
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#666",
+                }}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             {errors.password && (
               <span className="error-text">{errors.password}</span>
             )}
           </div>
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              className={errors.confirmPassword ? "input-error" : ""}
-              placeholder="Re-enter password"
-              value={values.confirmPassword}
-              onChange={handleChange}
-            />
+            <div style={{ position: "relative" }}>
+              <input
+                type={showConfirmPassword ? "text" : "password"}
+                id="confirmPassword"
+                name="confirmPassword"
+                className={errors.confirmPassword ? "input-error" : ""}
+                placeholder="Re-enter password"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                style={{ paddingRight: "40px" }}
+              />
+
+              <span
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#666",
+                }}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </span>
+            </div>
             {errors.confirmPassword && (
               <span className="error-text">{errors.confirmPassword}</span>
             )}
@@ -359,10 +398,23 @@ const Signup = () => {
           )}
         </div>
 
-        <button type="submit" className="submit-btn" disabled={loading}>
+        <button
+          type="submit"
+          className="signUp-submit-btn"
+          disabled={
+            loading ||
+            !values.schoolName ||
+            !values.schoolUrl ||
+            !values.email ||
+            !values.phone ||
+            !values.password ||
+            !values.confirmPassword ||
+            !values.address ||
+            !values.terms
+          }
+        >
           {loading ? "Creating Account..." : "Create Account"}
         </button>
-
         <p className="form-footer">
           Already have an account? <a href="login">Log In</a>
         </p>

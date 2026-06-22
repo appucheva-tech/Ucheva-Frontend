@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminStaff2.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
-import axios from "axios";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
+import { IoIosAlert } from "react-icons/io";
 
 const AdminStaff2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
+  const nav = useNavigate();
+  const popupRef = useRef(null);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,32 +24,34 @@ const AdminStaff2 = () => {
     qualification: "",
     staffType: "",
     classId: "",
+    classId: "",
   });
 
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const popupRef = useRef(null);
-
-  const toggleNotifications = (e) => {
-    e.stopPropagation();
-    setIsOpen(!isOpen);
-  };
+  const [showNoClassModal, setShowNoClassModal] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
 
-  const nav = useNavigate();
+      // If user switches to Class Teacher and unassigned list is completely empty, trigger the modal alert
+      if (
+        name === "staffType" &&
+        value === "Class Teacher" &&
+        classes.length === 0
+      ) {
+        setShowNoClassModal(true);
+      }
+      return updated;
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const toastId = toast.loading("Creating staff...");
 
     try {
@@ -67,18 +70,20 @@ const AdminStaff2 = () => {
         email: formData.email.trim().toLowerCase(),
         qualification: formData.qualification.trim().toLowerCase(),
         staffType: formData.staffType?.trim().toLowerCase(),
+        staffType: formData.staffType?.trim().toLowerCase(),
 
+        ...(formData.staffType === "Class Teacher" && {
+          classId: formData.classId,
+        }),
         ...(formData.staffType === "Class Teacher" && {
           classId: formData.classId,
         }),
       };
 
       const response = await apiClient.post("/staff/staff", payload, {
-        headers: {
-          "x-tenant": subdomain,
-        },
+        headers: { "x-tenant": subdomain },
       });
-      console.log(response.data);
+
       toast.update(toastId, {
         render: response?.data?.message || "Staff created successfully",
         type: "success",
@@ -100,11 +105,10 @@ const AdminStaff2 = () => {
         qualification: "",
         staffType: "",
         classId: "",
+        classId: "",
       });
     } catch (error) {
       console.error(error);
-      
-
       toast.update(toastId, {
         render: error.response?.data?.message || "Failed to create staff",
         type: "error",
@@ -120,30 +124,15 @@ const AdminStaff2 = () => {
     const fetchClasses = async () => {
       try {
         const response = await apiClient.get("/class/unassigned-classes", {
-          headers: {
-            "x-tenant": subdomain,
-          },
+          headers: { "x-tenant": subdomain },
         });
-        console.log(response);
         setClasses(response.data?.classData || []);
       } catch (error) {
         console.error("Failed to fetch classes", error);
       }
     };
-
     fetchClasses();
-  }, []);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, []);
+  }, [subdomain]);
 
   return (
     <>
@@ -166,11 +155,10 @@ const AdminStaff2 = () => {
         </div>
 
         <form className="staff-form" onSubmit={handleSubmit}>
+          {/* Personal Information */}
           <div className="form-section">
             <h2>Personal Information</h2>
             <div className="form-grid type-3-col">
-              {/* ALL YOUR INPUTS KEPT EXACTLY */}
-
               <div className="form-group">
                 <label>
                   First Name<span className="required">*</span>
@@ -181,6 +169,7 @@ const AdminStaff2 = () => {
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="Enter First Name"
+                  required
                 />
               </div>
 
@@ -194,6 +183,7 @@ const AdminStaff2 = () => {
                   value={formData.lastName}
                   onChange={handleChange}
                   placeholder="Enter Last Name"
+                  required
                 />
               </div>
 
@@ -216,6 +206,7 @@ const AdminStaff2 = () => {
                   name="gender"
                   value={formData.gender}
                   onChange={handleChange}
+                  required
                 >
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
@@ -233,6 +224,7 @@ const AdminStaff2 = () => {
                     name="dateOfBirth"
                     value={formData.dateOfBirth}
                     onChange={handleChange}
+                    required
                   />
                 </div>
               </div>
@@ -260,6 +252,7 @@ const AdminStaff2 = () => {
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   placeholder="Enter Phone Number"
+                  required
                 />
               </div>
 
@@ -273,6 +266,7 @@ const AdminStaff2 = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter Email"
+                  required
                 />
               </div>
 
@@ -300,12 +294,12 @@ const AdminStaff2 = () => {
                 value={formData.address}
                 onChange={handleChange}
                 placeholder="Enter Residencial Address"
+                required
               />
             </div>
           </div>
 
-          {/* FIXED BROKEN DIV STRUCTURE BELOW WITHOUT CHANGING UI */}
-
+          {/* Employment Information */}
           <div className="form-section">
             <h2>Employment Information</h2>
             <div className="form-grid type-3-col">
@@ -318,29 +312,40 @@ const AdminStaff2 = () => {
                 >
                   <option value="">Select Staff Type</option>
                   <option value="Class Teacher">Class Teacher</option>
+                  <option value="">Select Staff Type</option>
+                  <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>
                 </select>
               </div>
 
               {formData.staffType === "Class Teacher" && (
-                <div className="form-group">
+                <div className="form-group animate-fade-in">
                   <label>
                     Assign Class<span className="required">*</span>
                   </label>
-
-                  <select
-                    name="classId"
-                    value={formData.classId}
-                    onChange={handleChange}
-                  >
-                    <option value="">Select Class</option>
-
-                    {classes.map((cls) => (
-                      <option key={cls.id} value={cls.id}>
-                        {cls.className}
-                      </option>
-                    ))}
-                  </select>
+                  {classes.length > 0 ? (
+                    <select
+                      name="classId"
+                      value={formData.classId}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Select Class</option>
+                      {classes.map((cls) => (
+                        <option key={cls.id} value={cls.id}>
+                          {cls.className}
+                        </option>
+                      ))}
+                    </select>
+                  ) : (
+                    <div
+                      className="form-inline-error-banner"
+                      onClick={() => setShowNoClassModal(true)}
+                    >
+                      <IoIosAlert /> No unassigned classes available. Click to
+                      configure.
+                    </div>
+                  )}
                 </div>
               )}
 
@@ -357,7 +362,14 @@ const AdminStaff2 = () => {
             </div>
           </div>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
+          <button
+            type="submit"
+            className="submit-btn"
+            disabled={
+              loading ||
+              (formData.staffType === "Class Teacher" && classes.length === 0)
+            }
+          >
             {loading ? "Creating..." : "Create Staff"}
           </button>
         </form>
@@ -371,6 +383,42 @@ const AdminStaff2 = () => {
           </span>
         </div>
       </div>
+
+      {/* Dynamic Action Modal Fallback View */}
+      {showNoClassModal && (
+        <div
+          className="AdminModalOverlay"
+          onClick={() => setShowNoClassModal(false)}
+        >
+          <div className="AdminModalCard" onClick={(e) => e.stopPropagation()}>
+            <div className="AdminModalHeader">
+              <div className="AlertIconWrapper">
+                <IoIosAlert />
+              </div>
+              <h3>No Available Classes</h3>
+              <p>
+                You selected <strong>Class Teacher</strong>, but all existing
+                classes currently have a teacher assigned, or none have been
+                created yet.
+              </p>
+            </div>
+            <div className="AdminModalActions">
+              <button
+                className="CancelModalBtn"
+                onClick={() => setShowNoClassModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="RedirectModalBtn"
+                onClick={() => nav("/admin/add-class")}
+              >
+                Create & Add Class
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

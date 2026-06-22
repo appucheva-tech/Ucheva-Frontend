@@ -52,6 +52,7 @@ const AdminClass = () => {
         },
       });
 
+      // Reset state completely
       setFormData({
         className: "",
         amount: "",
@@ -217,7 +218,7 @@ const AdminClass = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            ©️ 2026 Ucheva school operating management system . All right
+            ©️ 2026 Ucheva school operating management system . All rights
             reserved.
           </span>
           <span className="supportText">

@@ -1,39 +1,83 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
 
-/* Header Styles */
+/* ========== BASE RIGID HEADER PANEL LAYOUT ========== */
 .ct-header {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0 32px;
   background-color: #ffffff;
-  border-bottom: 1px solid #f0f0f0;
-  height: 70px;
-  gap: 2rem;
+  border-bottom: 1px solid #f0f1f5;
+  height: 72px;
   position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
-  box-shadow: 0 4px 30px 0 rgba(0, 98, 246, 0.05);
+  box-shadow: 0 4px 30px 0 rgba(0, 98, 246, 0.03);
+  box-sizing: border-box;
 }
 
+/* Structural Layout Alignment Blocks */
+.ct-header-left,
+.ct-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.ct-header-left {
+  gap: 16px;
+}
+
+.ct-header-right {
+  gap: 24px;
+}
+
+/* ========== TRANSPARENT MENU ICON BUTTON (NO SOLID BACKGROUND) ========== */
+.ct-header-mobile-menu-btn {
+  display: none; /* Completely hidden out of layout streams by default on desktop */
+  background: transparent;
+  border: none;
+  color: #03173c; /* Coordinates with your app's core heading/icon tones */
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  padding: 0;
+  margin: 0;
+  flex-shrink: 0;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.ct-header-mobile-menu-btn:hover {
+  opacity: 0.75;
+}
+
+.ct-header-mobile-menu-btn:active {
+  transform: scale(0.94);
+}
+
+/* ========== DATE SEGMENT CONTAINER LAYOUT ========== */
 .ct-date-section {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 8px;
   color: #03173c;
-  font-family: Nunito;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 100%;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
 }
 
 .ct-date-section svg {
-  color: #03173c;
+  font-size: 16px;
+  color: #475569;
   flex-shrink: 0;
 }
 
+/* ========== SELECT DROPDOWN MENUS LAYOUT ========== */
 .ct-dropdown-section {
   position: relative;
 }
@@ -41,49 +85,62 @@
 .ct-dropdown-button {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: none;
-  border: none;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   cursor: pointer;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
   color: #03173c;
-  font-family: Nunito;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 100%;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .ct-dropdown-button:hover {
-  background-color: #f5f5f5;
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 .ct-dropdown-button svg {
-  transition: transform 0.2s;
+  font-size: 14px;
+  color: #64748b;
+  transition: transform 0.2s ease;
 }
 
-.ct-dropdown-button:active svg {
+.ct-dropdown-button svg.rotate-icon {
   transform: rotate(180deg);
 }
 
-.ct-dropdown-menu {
+.ct-dropdown-menu,
+.ct-profile-dropdown-menu {
   position: absolute;
-  top: calc(100% + 0.5rem);
-  left: 0;
+  top: calc(100% + 8px);
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
   min-width: 180px;
   z-index: 1000;
-  animation: ctSlideDown 0.2s ease-out;
+  overflow: hidden;
+  animation: ctSlideDown 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ct-dropdown-menu {
+  left: 0;
+}
+.ct-profile-dropdown-menu {
+  right: 0;
+  min-width: 160px;
 }
 
 @keyframes ctSlideDown {
   from {
     opacity: 0;
-    transform: translateY(-8px);
+    transform: translateY(-4px);
   }
   to {
     opacity: 1;
@@ -91,37 +148,70 @@
   }
 }
 
-.ct-dropdown-menu p {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #333;
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #f5f5f5;
-  transition: background-color 0.2s;
+.ct-dropdown-menu p,
+.ct-profile-dropdown-menu p {
+  padding: 10px 16px;
+  color: #334155;
+  font-size: 13px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f5f9;
   margin: 0;
   cursor: pointer;
+  transition: background-color 0.15s ease;
 }
 
-.ct-dropdown-menu p:last-child {
+.ct-dropdown-menu p:last-child,
+.ct-profile-dropdown-menu p:last-child {
   border-bottom: none;
 }
 
-.ct-dropdown-menu p:hover {
-  background-color: #f5f5f5;
+.ct-dropdown-menu p:hover,
+.ct-profile-dropdown-menu p:hover {
+  background-color: #f8fafc;
+  color: #0062f6;
 }
 
+.ct-profile-dropdown-menu .ct-logout-item:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+/* ========== NOTIFICATION HUB SECTION ========== */
 .ct-notification-section {
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
   cursor: pointer;
+  color: #475569;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.ct-notification-section:hover {
+  background-color: #f1f5f9;
   color: #03173c;
 }
 
 .ct-notification-section svg {
-  font-size: 22px;
+  font-size: 20px;
 }
 
+.ct-notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #ef4444;
+  border: 2px solid #ffffff;
+}
+
+/* ========== PROFILE ROW CARD SECTION ========== */
 .ct-profile-section-wrapper {
   position: relative;
 }
@@ -129,133 +219,86 @@
 .ct-profile-section {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 12px;
   cursor: pointer;
-  padding: 0.5rem 0.75rem;
+  padding: 6px 10px;
   border-radius: 8px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .ct-profile-section:hover {
-  background-color: #f5f5f5;
+  background-color: #f8fafc;
 }
 
 .ct-user-profile {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #f0f0f0;
   object-fit: cover;
+  border: 2px solid #e2e8f0;
 }
 
 .ct-user-info {
   display: flex;
   flex-direction: column;
-  gap: 5px;
 }
 
 .ct-user-name {
-  font-weight: 400;
+  font-weight: 700;
   font-size: 14px;
-  line-height: 100%;
   color: #03173c;
+  font-family: "Nunito", sans-serif;
 }
 
 .ct-user-role {
   font-weight: 500;
   font-size: 12px;
-  line-height: 100%;
-  color: #6c737f;
+  color: #64748b;
+  font-family: "Nunito", sans-serif;
 }
 
-.ct-profile-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  right: 0;
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  min-width: 150px;
-  z-index: 1000;
-  animation: ctSlideDown 0.2s ease-out;
-}
+/* ========== ULTRA-RESPONSIVE VIEWPORT STYLES ========== */
 
-.ct-profile-dropdown-menu p {
-  display: block;
-  padding: 0.75rem 1rem;
-  color: #333;
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-bottom: 1px solid #f5f5f5;
-  transition: background-color 0.2s;
-  margin: 0;
-  cursor: pointer;
-}
-
-.ct-profile-dropdown-menu p:last-child {
-  border-bottom: none;
-}
-
-.ct-profile-dropdown-menu p:hover {
-  background-color: #f5f5f5;
-}
-
-.ct-profile-dropdown-menu p:last-child:hover {
-  background-color: #fef2f2;
-}
-
-/* Mobile Responsive Header */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .ct-header {
-    padding: 0.875rem 1.5rem;
-    height: auto;
-    gap: 1.5rem;
-    flex-wrap: wrap;
+    padding: 0 24px;
+    gap: 16px;
+  }
+  .ct-header-right {
+    gap: 16px;
+  }
+}
+
+/* Tablets Viewports Settings */
+@media (max-width: 768px) {
+  .ct-header-mobile-menu-btn {
+    display: flex; /* Safely render hamburger inline on mobile screens */
+  }
+
+  .ct-header {
+    padding: 0 16px;
+    height: 64px;
   }
 
   .ct-date-section {
-    font-size: 0.85rem;
+    font-size: 12px;
   }
 
   .ct-dropdown-button {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.6rem;
+    padding: 6px 10px;
+    font-size: 12px;
   }
+}
 
-  .ct-user-profile {
-    width: 36px;
-    height: 36px;
-  }
-
-  .ct-user-name {
-    font-size: 13px;
-  }
-
-  .ct-user-role {
-    font-size: 11px;
+/* Smartphones Viewports Settings */
+@media (max-width: 600px) {
+  .ct-dropdown-section {
+    display: none;
   }
 }
 
 @media (max-width: 480px) {
-  .ct-header {
-    padding: 0.75rem 1rem;
-    gap: 0.5rem;
-    justify-content: flex-start;
-    flex-wrap: nowrap;
-  }
-
-  .ct-date-section {
-    font-size: 0.75rem;
-    gap: 0.3rem;
-  }
-
-  .ct-date-section svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .ct-dropdown-section {
+  .ct-date-section span {
     display: none;
   }
 
@@ -264,28 +307,11 @@
   }
 
   .ct-profile-section {
-    gap: 0;
-    padding: 0.3rem 0.5rem;
+    padding: 0;
   }
 
   .ct-user-profile {
-    width: 32px;
-    height: 32px;
-  }
-}
-
-@media (max-width: 375px) {
-  .ct-header {
-    padding: 0.6rem 0.8rem;
-    gap: 0.4rem;
-  }
-
-  .ct-date-section {
-    font-size: 0.7rem;
-  }
-
-  .ct-user-profile {
-    width: 28px;
-    height: 28px;
+    width: 36px;
+    height: 36px;
   }
 }

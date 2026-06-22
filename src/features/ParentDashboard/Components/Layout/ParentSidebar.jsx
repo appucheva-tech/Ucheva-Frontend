@@ -1,33 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { FiGrid, FiSettings, FiMenu, FiX } from "react-icons/fi";
+import { FiSettings } from "react-icons/fi";
 import { IoWalletOutline } from "react-icons/io5";
 import "./LayoutStyles/Sidebar.css";
 
-const ParentSidebar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const closeMobileMenu = () => {
-    setIsMobileMenuOpen(false);
-  };
-
+const ParentSidebar = ({ isOpen, onClose }) => {
   return (
     <>
-      <button className="mobile-menu-btn" onClick={toggleMobileMenu}>
-        {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-      </button>
-
-      {isMobileMenuOpen && (
-        <div className="mobile-overlay" onClick={closeMobileMenu}></div>
-      )}
-
-      <div
-        className={`ParentSidebar_Container ${isMobileMenuOpen ? "mobile-open" : ""}`}
-      >
+      {/* The mobile-open class is dynamically added here based on the layout's state.
+        The layout file handles the burger button and backdrop directly.
+      */}
+      <div className={`ParentSidebar_Container ${isOpen ? "mobile-open" : ""}`}>
         <div className="sidebar-logo">
           <div className="logo-icon">
             <img
@@ -43,7 +26,7 @@ const ParentSidebar = () => {
             to="/parentdashboard"
             end
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            onClick={closeMobileMenu}
+            onClick={onClose} // Closes the mobile sidedrawer when a user navigates
           >
             <span className="nav-icon">
               <svg
@@ -65,7 +48,7 @@ const ParentSidebar = () => {
           <NavLink
             to="/parentdashboard/payment"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            onClick={closeMobileMenu}
+            onClick={onClose}
           >
             <span className="nav-icon">
               <IoWalletOutline size={20} />
@@ -76,7 +59,7 @@ const ParentSidebar = () => {
           <NavLink
             to="/parentdashboard/settings"
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            onClick={closeMobileMenu}
+            onClick={onClose}
           >
             <span className="nav-icon">
               <FiSettings size={20} />

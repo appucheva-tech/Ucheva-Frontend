@@ -1,290 +1,225 @@
-.dashboard-page {
-  background-color: #f5f7fb;
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300..800&display=swap");
+
+.parent-dashboard-view {
+  background-color: #f6f8fc;
   min-height: 100vh;
-  padding: 40px 20px;
+  font-family: "Nunito", sans-serif;
 }
 
-.dashboard-container {
-  max-width: 1200px;
+.parent-dashboard-container {
+  max-width: 1240px;
   margin: 0 auto;
 }
 
-.header-section {
-  margin-bottom: 30px;
+.parent-welcome-header {
+  margin-bottom: 24px;
 }
 
-.greeting {
-  margin-bottom: 10px;
-  font-family: Nunito;
+.parent-greeting-title {
+  font-size: 26px;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 32px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #0f172a;
+  color: #0c1a30;
+  margin: 0 0 4px 0;
 }
 
-.subtitle {
-  font-family: Nunito;
+.parent-greeting-subtitle {
+  font-size: 14px;
   font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
+  color: #4f6486;
+  margin: 0;
 }
 
-.student-card {
+/* Master Student Profile Banner */
+.student-summary-banner {
   display: flex;
   background-color: #ffffff;
   border-radius: 12px;
   padding: 24px;
-  margin-bottom: 32px;
-  border-left: 3px solid #0062f6;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  margin-bottom: 24px;
+  border: 1px solid #eef2f6;
+  border-left: 4px solid #0062f6;
+  box-shadow: 0 2px 12px rgba(0, 98, 246, 0.03);
 }
 
-.student-card-left {
+.student-avatar-box {
   display: flex;
   align-items: center;
-  margin-right: 24px;
+  margin-right: 20px;
 }
 
-.student-icon {
-  font-size: 20px;
-  width: 60px;
-  height: 60px;
-  color: #0062f6;
+.student-badge-icon {
+  width: 52px;
+  height: 52px;
   background-color: #eaf2ff;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.student-card-content {
+.student-summary-info {
   flex: 1;
 }
 
-.student-name {
-  margin-bottom: 16px;
-  font-family: Nunito;
+.student-profile-name {
+  font-size: 18px;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 24px;
-  line-height: 100%;
-  letter-spacing: 0%;
   color: #042869;
+  margin: 0 0 16px 0;
 }
 
-.student-info-grid {
+.student-quick-metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 32px;
+  gap: 16px;
 }
 
-.info-item {
+.metric-column {
   display: flex;
   flex-direction: column;
+  gap: 6px;
 }
 
-.info-label {
-  color: #042869;
-  font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  margin-bottom: 10px;
+.metric-label-text {
+  color: #72849a;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.info-value {
-  font-family: Nunito;
+.metric-value-text {
+  font-size: 14px;
   font-weight: 700;
-  font-style: Bold;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
   color: #042869;
 }
 
-.badge-present {
+.metric-value-text.fee-paid-highlight {
+  color: #042869; /* Kept dark color pattern as seen directly in design reference */
+}
+
+.badge-present-pill {
   display: inline-block;
   background-color: #eafdf1;
-  color: #009966;
-  padding: 4px 12px;
+  color: #2e9e51;
+  padding: 2px 12px;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
 }
 
-.content-grid {
-  margin-bottom: 40px;
+/* Base structural layout for lower panels */
+.parent-grid-layout {
   display: flex;
   width: 100%;
   gap: 24px;
+  align-items: stretch;
 }
 
-.parentcard1 {
+.parent-dashboard-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eef2f6;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
   display: flex;
-  width: 620px;
   flex-direction: column;
-  align-items: flex-start;
-  align-self: stretch;
-  border-radius: 10px;
-  border: 1px solid var(--Neutral-Color-300, #e5e7eb);
-  background: #fff;
-  /* padding: 24px; */
 }
 
-.parentcard2 {
-  display: flex;
-  padding: 21px 0px 18px 0px;
-  gap: 10px;
-  align-self: stretch;
-  border-bottom: 1px solid var(--Neutral-Color-300, #e5e7eb);
-  flex-direction: column;
-  border-radius: 10px;
-  border: 1px solid var(--Neutral-Color-300, #e5e7eb);
-  background: #fff;
+.parent-dashboard-card.main-history-card {
+  flex: 1.6; /* Perfectly scales payment module */
 }
-.parentcard-title {
-  margin-bottom: 20px;
-  font-family: Nunito;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 100%;
-  letter-spacing: 0%;
+
+.parent-dashboard-card.side-attendance-card {
+  flex: 1; /* Scales layout alongside tracking elements */
+}
+
+.card-section-title {
+  font-size: 16px;
+  font-weight: 700;
   color: #03173c;
-  margin-left: 20px;
+  padding: 24px 24px 16px 24px;
+  margin: 0;
 }
 
-.card-title {
-  margin-bottom: 20px;
-  font-family: Nunito;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-  padding: 20px;
-}
-
-.table-wrapper {
+/* Clean UI Table Details */
+.table-viewport-container {
+  width: 100%;
   overflow-x: auto;
-
 }
 
-.payment-table {
+.payment-records-table {
+  width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
-
-}
-
-.payment-table thead {
-  background: var(--Neutral-Color-300, #e5e7eb);
-  border-bottom: 1px solid #e5e7eb;
-
-}
-
-.payment-table th {
-  /* padding: 12px 8px; */
   text-align: left;
-  text-transform: capitalize;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
-  padding: 8px 17px;
-  /* gap: 30px; */
 }
 
-.payment-table tbody tr {
-  border-bottom: 1px solid #e5e7eb;
-  
+.payment-records-table th {
+  background: #f8fafc;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #5c6f88;
+  border-bottom: 1px solid #edf2f7;
 }
 
-.payment-table tbody tr:last-child {
+.payment-records-table tr {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.payment-records-table tr:last-child {
   border-bottom: none;
 }
 
-.payment-table td {
-  padding: 12px 8px;
-  color: #042869;
-  font-family: Nunito;
-  font-weight: 400;
+.payment-records-table td {
+  padding: 16px 24px;
+  color: #435570;
   font-size: 13px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  white-space: nowrap;
+  font-weight: 500;
 }
 
-.status-badge {
+.payment-status-badge {
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
   font-size: 11px;
   font-weight: 600;
-  white-space: nowrap;
 }
 
-.payment-table th:nth-child(1),
-.payment-table td:nth-child(1) {
-  width: 25%;
-}
-
-.payment-table th:nth-child(2),
-.payment-table td:nth-child(2) {
-  width: 25%;
-}
-
-.payment-table th:nth-child(3),
-.payment-table td:nth-child(3) {
-  width: 20%;
-}
-
-.payment-table th:nth-child(4),
-.payment-table td:nth-child(4) {
-  width: 30%;
-}
-
-.attendance-content {
+/* Unified Layout for Attendance Donut Section */
+.attendance-chart-layout {
+  padding: 12px 24px 32px 24px;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 24px;
-  border-top: 1px solid var(--Neutral-Color-300, #e5e7eb);
+  justify-content: space-around; /* Generates beautiful parallel formatting */
+  flex: 1;
+  gap: 16px;
 }
 
-.circular-chart-container {
+.circular-progress-wrapper {
   position: relative;
-  width: 230px;
-  height: 230px;
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
 }
 
-.circular-chart {
+.radial-chart-graphic {
   width: 100%;
   height: 100%;
   transform: rotate(-90deg);
 }
 
-.progress-background {
+.radial-track {
   fill: none;
-  stroke: #e5e7eb;
-  stroke-width: 8;
+  stroke: #fff1dc;
+  stroke-width: 14;
 }
 
-.progress-fill {
+.radial-progress {
   fill: none;
-  stroke: #faa200;
-  stroke-width: 8;
+  stroke: #f7a600;
+  stroke-width: 14;
   stroke-linecap: round;
-  transition: stroke-dasharray 0.3s ease;
 }
 
-.chart-text {
+.radial-center-labels {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -292,374 +227,197 @@
   text-align: center;
 }
 
-.chart-percentage {
-  margin-bottom: 4px;
+.radial-percentage {
   font-weight: 700;
-  font-size: 32px;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-size: 24px;
   color: #03173c;
+  margin: 0;
 }
 
-.chart-label {
-  font-size: 14px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #03173c;
+.radial-subtext {
+  font-size: 11px;
+  font-weight: 600;
+  color: #5c6f88;
+  margin: 2px 0 0 0;
 }
 
-.legend {
+.attendance-legend-stack {
   display: flex;
-  gap: 24px;
-  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.legend-item {
+.legend-row-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: #4b5563;
 }
 
-.legend-color {
-  width: 12px;
-  height: 12px;
+.legend-color-dot {
+  width: 10px;
+  height: 10px;
   border-radius: 2px;
 }
 
-.legend-color.present {
-  background-color: #f59e0b;
+.legend-color-dot.dot-present {
+  background-color: #f7a600;
 }
 
-.legend-color.absent {
-  background-color: #e5e7eb;
+.legend-color-dot.dot-absent {
+  background-color: #fff1dc;
 }
 
-.legend-label {
+.legend-text {
+  font-size: 13px;
   font-weight: 500;
+  color: #435570;
 }
 
-@media (max-width: 1023px) {
-  .dashboard-page {
-    padding: 30px 20px;
-  }
+/* Center Alignment Full Screen Container */
+.flex-center-view {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+  width: 100%;
+}
 
-  .greeting {
-    font-size: 28px;
-  }
+/* Loading Block */
+.dashboard-loading-card {
+  text-align: center;
+  padding: 40px;
+}
 
-  .subtitle {
-    font-size: 16px;
-  }
+.loading-spinner-ring {
+  width: 56px;
+  height: 56px;
+  border: 4px solid rgba(0, 98, 246, 0.1);
+  border-top-color: #0062f6;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  animation: spinnerRotate 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
 
-  .student-card {
-    padding: 20px;
-  }
-
-  .student-name {
-    font-size: 22px;
-  }
-
-  .student-info-grid {
-    gap: 20px;
-  }
-
-  .info-label {
-    font-size: 16px;
-  }
-
-  .info-value {
-    font-size: 15px;
-  }
-
-  .content-grid {
-    gap: 20px;
+@keyframes spinnerRotate {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-@media (max-width: 767px) {
-  .dashboard-page {
+.loading-state-title {
+  color: #1e293b;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.loading-state-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Error Display Container */
+.dashboard-error-wrapper {
+  background: #ffffff;
+  border: 1px solid #fee2e2;
+  border-radius: 16px;
+  padding: 40px 32px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+.error-icon-circle {
+  width: 64px;
+  height: 64px;
+  background-color: #fef2f2;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 20px auto;
+}
+
+.error-state-title {
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.error-state-subtitle {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+}
+
+.error-retry-action-btn {
+  background-color: #0062f6;
+  color: #ffffff;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.error-retry-action-btn:hover {
+  background-color: #004ec2;
+  box-shadow: 0 4px 6px -1px rgba(0, 98, 246, 0.2);
+}
+
+/* --- Responsive Layout Breaks --- */
+@media (max-width: 991px) {
+  .parent-grid-layout {
+    flex-direction: column;
+  }
+  .student-quick-metrics {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .attendance-chart-layout {
+    justify-content: center;
+    gap: 48px;
+    padding: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .parent-dashboard-view {
     padding: 20px 16px;
   }
-
-  .greeting {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-
-  .subtitle {
-    font-size: 14px;
-  }
-
-  .student-card {
+  .student-summary-banner {
     flex-direction: column;
-    padding: 20px;
-  }
-
-  .student-card-left {
-    margin-bottom: 16px;
-  }
-
-  .student-icon {
-    width: 70px;
-    height: 70px;
-    font-size: 28px;
-  }
-
-  .student-name {
-    font-size: 20px;
-    margin-bottom: 16px;
-  }
-
-  .student-info-grid {
-    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
-
-  .info-label {
-    font-size: 13px;
-    margin-bottom: 6px;
-  }
-
-  .info-value {
-    font-size: 14px;
-  }
-
-  .badge-present {
-    padding: 3px 10px;
-    font-size: 12px;
-    display: inline-block;
-    width: fit-content;
-  }
-
-  .content-grid {
+  .attendance-chart-layout {
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
   }
 
-  .parentcard1 {
-    width: 100%;
-    padding: 18px;
-  }
-
-  .parentcard2 {
-    width: 100%;
-  }
-
-  .payment-table thead {
+  /* Responsive Tables mapping */
+  .payment-records-table thead {
     display: none;
   }
-
-  .payment-table {
-    table-layout: auto;
+  .payment-records-table tbody tr {
+    display: block;
+    padding: 12px 16px;
   }
-
-  .payment-table tbody tr {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 16px;
-    padding: 16px;
-    background: #fff;
-    border-radius: 12px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  }
-
-  .payment-table td {
+  .payment-records-table td {
     display: flex;
-    flex-direction: column;
-    padding: 0;
-    border: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
   }
-
-  .payment-table td::before {
+  .payment-records-table td::before {
     content: attr(data-label);
-    font-weight: 600;
-    font-size: 10px;
-    color: #666;
-    font-family: Nunito;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .payment-table td:nth-child(1) {
-    grid-column: 1 / 2;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: visible;
-  }
-
-  .payment-table td:nth-child(2) {
-    grid-column: 2 / 3;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: visible;
-  }
-
-  .payment-table td:nth-child(3) {
-    grid-column: 1 / 2;
     font-weight: 700;
-    font-size: 14px;
-    color: #03173c;
-    white-space: nowrap;
-  }
-
-  .payment-table td:nth-child(4) {
-    grid-column: 2 / 3;
-  }
-
-  .payment-table td .status-badge {
-    display: inline-block;
-    align-self: flex-start;
-    white-space: nowrap;
-  }
-
-  .status-badge {
-    font-size: 10px;
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 479px) {
-  .dashboard-page {
-    padding: 16px 12px;
-  }
-
-  .greeting {
-    font-size: 20px;
-  }
-
-  .subtitle {
-    font-size: 13px;
-  }
-
-  .student-card {
-    padding: 16px;
-    margin-bottom: 20px;
-  }
-
-  .student-card-left {
-    margin-bottom: 12px;
-  }
-
-  .student-icon {
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-  }
-
-  .student-name {
-    font-size: 18px;
-    margin-bottom: 14px;
-  }
-
-  .student-info-grid {
-    gap: 12px;
-  }
-
-  .parentcard1 {
-    width: 100%;
-    padding: 16px;
-  }
-
-  .payment-table tbody tr {
-    padding: 12px;
-    gap: 8px;
-  }
-
-  .payment-table td::before {
-    font-size: 9px;
-    margin-bottom: 3px;
-  }
-
-  .payment-table td:nth-child(1),
-  .payment-table td:nth-child(2) {
-    font-size: 10px;
-    white-space: nowrap;
-  }
-
-  .payment-table td:nth-child(3) {
-    font-size: 13px;
-    white-space: nowrap;
-  }
-
-  .status-badge {
-    padding: 3px 6px;
-    font-size: 9px;
-  }
-}
-
-@media (max-width: 359px) {
-  .dashboard-page {
-    padding: 12px 10px;
-  }
-
-  .greeting {
-    font-size: 18px;
-  }
-
-  .subtitle {
-    font-size: 12px;
-  }
-
-  .student-card {
-    padding: 14px;
-  }
-
-  .student-icon {
-    width: 50px;
-    height: 50px;
-    font-size: 20px;
-  }
-
-  .student-name {
-    font-size: 16px;
-  }
-
-  .student-info-grid {
-    gap: 10px;
-  }
-
-  .info-label {
+    color: #72849a;
     font-size: 11px;
-  }
-
-  .info-value {
-    font-size: 12px;
-  }
-
-  .parentcard1 {
-    padding: 14px;
-  }
-
-  .card-title {
-    font-size: 15px;
-  }
-
-  .payment-table tbody tr {
-    padding: 10px;
-    gap: 6px;
-  }
-
-  .payment-table td:nth-child(1),
-  .payment-table td:nth-child(2) {
-    font-size: 9px;
-    white-space: nowrap;
-  }
-
-  .payment-table td:nth-child(3) {
-    font-size: 12px;
-  }
-
-  .payment-table td::before {
-    font-size: 8px;
-  }
-
-  .status-badge {
-    padding: 2px 4px;
-    font-size: 8px;
   }
 }

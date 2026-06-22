@@ -4,19 +4,17 @@ import { clearUser } from "../global/userSlice";
 
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
-  timeout: 8000,
+  // timeout: 8000,
   headers: {
     "Content-Type": "application/json",
   },
 });
 console.log(import.meta.env.VITE_Base_Url);
 
-// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
     const state = store.getState();
 
-    // Use staff token first, otherwise user token
     const token = state.staff.token || state.user.token;
     // console.log("State from store:", state);
     // console.log("Staff Token from store:", state.staff.token);
