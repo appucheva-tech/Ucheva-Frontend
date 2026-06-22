@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { apiClient } from "../../../config/AxiosInstance";
 import "../styles/verify-email.css";
+import Ucheva from "../../../assets/Logo.svg";
+
 
 const CreatePassword = () => {
   const navigate = useNavigate();
@@ -14,6 +16,9 @@ const CreatePassword = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
 
   const handleResetSubmit = async (e) => {
     e.preventDefault();
@@ -28,6 +33,12 @@ const CreatePassword = () => {
 
     if (!password || !confirmPassword) {
       setError("Please fill out all input fields.");
+      return;
+    }
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 8 characters long and include an uppercase letter, lowercase letter, number, and special character.",
+      );
       return;
     }
 
@@ -66,6 +77,9 @@ const CreatePassword = () => {
   return (
     <div className="verify-page-viewport">
       <div className="verify-card-box">
+        <div className="login-mobile-logo">
+                <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
+              </div>
         <h1 className="verify-title">Create Password</h1>
 
         <form onSubmit={handleResetSubmit}>
@@ -147,7 +161,7 @@ const CreatePassword = () => {
 
           <button
             type="submit"
-            disabled={loading || !password || !confirmPassword}
+            disabled={loading || !password || !confirmPassword || !!error}
             className="verify-submit-button"
           >
             {loading ? "Saving..." : "Save"}

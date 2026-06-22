@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "../styles/login.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import Ucheva from "../../../assets/Logo.svg";
 import {
   setToken,
   setUser,
@@ -26,8 +28,25 @@ const Login = () => {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
+
     if (!email || !password) {
       setError("Please fill in all fields.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+
+    if (!passwordRegex.test(password)) {
+      setError(
+        "Password must be at least 8 characters, include uppercase, lowercase, number and special character.",
+      );
       return;
     }
 
@@ -87,6 +106,7 @@ const Login = () => {
         err.response?.data?.message ||
           "Invalid credentials or login configurations.",
       );
+
     } finally {
       setLoading(false);
     }
@@ -94,6 +114,9 @@ const Login = () => {
 
   return (
     <div className="login-page-wrapper">
+      <div className="login-mobile-logo">
+        <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
+      </div>
       <h2 className="login-title-heading">Log In</h2>
 
       {error && <p className="login-error-toast">{error}</p>}
@@ -106,7 +129,10 @@ const Login = () => {
             type="email"
             placeholder="e.g example@email.com"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError("");
+            }}
             disabled={loading}
             className="login-input-field"
           />
@@ -121,7 +147,10 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setError("");
+              }}
               disabled={loading}
               className="login-input-field password-field"
             />
@@ -131,7 +160,7 @@ const Login = () => {
               className="password-toggle-visibility"
               onClick={() => setShowPassword(!showPassword)}
             >
-              {showPassword ? "Hide" : "Show"}
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
         </div>
@@ -165,7 +194,7 @@ const Login = () => {
         {/* Submit */}
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || !email || !password || !!error}
           className="login-submit-button"
         >
           {loading ? "Logging in..." : "Log In"}

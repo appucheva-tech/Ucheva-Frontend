@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/forgot-password.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import Ucheva from "../../../assets/Logo.svg";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -58,7 +59,9 @@ const ForgotPassword = () => {
   return (
     <div className="forgot-password-viewport">
       <div className="forgot-password-box">
-        {/* Title & Subtitle Context */}
+        <div className="forgot-mobile-logo">
+          <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
+        </div>
         <h1 className="forgot-password-title">Forgot Password</h1>
         <p className="forgot-password-subtitle">
           Enter your registered email address below to receive password recovery
@@ -81,7 +84,10 @@ const ForgotPassword = () => {
               type="email"
               placeholder="e.g: example@email.com"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+              }}
               disabled={loading}
               className="forgot-password-input-field"
             />
@@ -90,7 +96,7 @@ const ForgotPassword = () => {
           {/* Action Action Trigger Control Buttons */}
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !email || !!error}
             className="forgot-password-submit-button"
           >
             {loading ? "Sending..." : "Send Reset Link"}
