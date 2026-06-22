@@ -14,9 +14,10 @@ import {
 import { toast } from "react-toastify";
 
 const Login = () => {
+    const subdomain = window.location.hostname.split(".")[0];
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const subdomain = window.location.hostname.split(".")[0];
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -80,17 +81,17 @@ const Login = () => {
 
       // Redirect based on role
       if (user.role === "admin") {
-        if (user.completedOnboarding) {
-          navigate("/admin/dashboard");
-        } else {
-          navigate("/onboarding");
-        }
+        navigate("/admin/dashboard");
       } else if (user.role === "parent") {
-        navigate("/parent/dashboard");
+        navigate("/parentdashboard");
       } else if (user.role === "staff") {
-        switch (user.staffType?.toLowerCase()) {
-          case "teaching staff":
+        switch (user.staffType?.trim().toLowerCase()) {
+          case "class teacher":
             navigate("/CTdashboard");
+            break;
+
+          case "subject teacher":
+            navigate("/subjectteacherdashboard");
             break;
 
           case "non-teaching staff":

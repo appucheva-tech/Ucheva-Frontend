@@ -29,7 +29,7 @@ const SubjectTeacherDashboard = () => {
   const fetchDashboardData = async () => {
     try {
       const response = await apiClient.get(
-        "/subjectTeacher/subject-teacher-dashboard",
+        "/subjectteacher/subject-teacher-dashboard",
       );
       console.log("Dashbaord Data:", response?.data);
       // setAnnouncements(response.data?.announcements || []);

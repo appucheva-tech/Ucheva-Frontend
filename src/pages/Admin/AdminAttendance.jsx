@@ -10,77 +10,29 @@ const AdminAttendance = () => {
   const categories = ["Staff Attendance", "Student Attendance"];
   const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
 
-  const dummystaffs = [
-    {
-      name: "Mr. John Okafor",
-      role: "Teacher",
-      checkIn: "8:30 AM",
-      checkOut: "4:30 PM",
-      date: "18 May 2026",
-    },
-    {
-      name: "Mrs. Jane Adesany",
-      role: "Teacher",
-      checkIn: "07:45 AM",
-      checkOut: "05:45 PM",
-      date: "18 May 2026",
-    },
-    {
-      name: "Mr. Peter Ibrahim",
-      role: "Chef",
-      checkIn: "07:52 AM",
-      checkOut: "04:52 PM",
-      date: "18 May 2026",
-    },
-    {
-      name: "Mrs. Funke Adebay",
-      role: "Security",
-      checkIn: "08:25 AM",
-      checkOut: "04:25 PM",
-      date: "18 May 2026",
-    },
-    {
-      name: "Mr. Samuel Eke",
-      role: "Teacher",
-      checkIn: "08:15 AM",
-      checkOut: "06:15 PM",
-      date: "18 May 2026",
-    },
-    {
-      name: "Ms. Grace Bello",
-      role: "School Nurse",
-      checkIn: "--",
-      checkOut: "--",
-      date: "18 May 2026",
-    },
-    {
-      name: "Mr. Daniel Moses",
-      role: "Teacher",
-      checkIn: "07:40 AM",
-      checkOut: "06:40 PM",
-      date: "18 May 2026",
-    },
-  ];
-
   const [staff, setStaffs] = useState([]);
 
+  const [attendance, setAttendance] = useState([]);
+  const [loadingAttendance, setLoadingAttendance] = useState(true);
+   const subdomain = window.location.hostname.split(".")[0];
+ 
   useEffect(() => {
-    const fetchAttendance = async () => {
+    const getTodayAttendance = async () => {
       try {
-        const res = await apiClient.get("/staffattendance/all");
-
-        setStaffs(res?.data?.Attendance || []);
-        console.log(res?.data);
+        const res = await apiClient.get("/staffattendance/today",   {headers: {
+          "x-tenant": subdomain,
+        },
+      });
+        setAttendance(res?.data?.Attendance || []);
       } catch (error) {
-        console.error("Error fetching attendance:", error);
-        setStaffs([]);
+        console.error(error);
+      } finally {
+        setLoadingAttendance(false);
       }
     };
 
-    fetchAttendance();
+    getTodayAttendance();
   }, []);
-
-  const attendanceData = staff?.length > 0 ? staff : dummystaffs;
 
   return (
     <>
@@ -148,37 +100,58 @@ const AdminAttendance = () => {
                 </tr>
               </thead>
               <tbody>
-                {attendanceData.map((row, index) => (
-                  <tr key={row.id || index}>
-                    <td className="staffNameCell">
-                      {row.staffName || row.name || "Mr. John Okafor"}
+                {loadingAttendance ? (
+                  <tr>
+                    <td colSpan="5" className="dateCell">
+                      Loading attendance...
                     </td>
-
-                    <td className="roleCell">
-                      {row.staffRole || row.role || "Teacher"}
-                    </td>
-
-                    <td className="timeCell">
-                      {row.timeCheckedIn
-                        ? new Date(row.timeCheckedIn).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })
-                        : row.checkIn || "--"}
-                    </td>
-
-                    <td className="timeCell">
-                      {row.timeCheckedOut
-                        ? new Date(row.timeCheckedOut).toLocaleTimeString([], {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })
-                        : row.checkOut || "--"}
-                    </td>
-
-                    <td className="dateCell">{row.date || "18 May 2026"}</td>
                   </tr>
-                ))}
+                ) : attendance.length > 0 ? (
+                  attendance.map((row, index) => (
+                    <tr key={row.id || row._id || index}>
+                      <td className="staffNameCell">
+                        {row.staff?.fullName ||
+                          row.staffName ||
+                          row.name ||
+                          "N/A"}
+                      </td>
+
+                      <td className="roleCell">
+                        {row.staff?.role || row.staffRole || row.role || "N/A"}
+                      </td>
+
+                      <td className="timeCell">
+                        {row.checkInTime
+                          ? new Date(row.checkInTime).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : "--"}
+                      </td>
+
+                      <td className="timeCell">
+                        {row.checkOutTime
+                          ? new Date(row.checkOutTime).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : "--"}
+                      </td>
+
+                      <td className="dateCell">
+                        {row.createdAt
+                          ? new Date(row.createdAt).toLocaleDateString()
+                          : "--"}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5" className="dateCell">
+                      No attendance records found.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

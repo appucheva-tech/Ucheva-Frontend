@@ -1,7 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght=200..1000&display=swap");
 
 .nunito-content {
-  font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
 }
 
@@ -10,19 +9,21 @@
   min-height: 100vh;
   background-color: #f5f6fa;
   overflow-x: hidden;
+  font-family: "Nunito", sans-serif;
+  position: relative;
 }
 
+/* Main Content Area */
 .SubjectTeacherLayout-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 280px;
-  width: calc(100vw - 280px);
+  padding-left: 280px; /* Replaced margin with padding for safer layouts */
   padding-top: 78px;
-  max-width: calc(100vw - 280px);
   min-height: 100vh;
   box-sizing: border-box;
-  transition: margin-left 0.3s ease-in-out;
+  transition: padding-left 0.3s ease-in-out;
+  width: 100%;
 }
 
 .SubjectTeacherLayout-page-content {
@@ -32,17 +33,49 @@
   box-sizing: border-box;
 }
 
+/* Mobile Overlay Backdrop */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998; /* Just below sidebar */
+}
+
+/* --- Responsive Media Queries --- */
+
+@media (max-width: 1024px) {
+  /* Optional: Adjust main content padding slightly for tablets */
+  .SubjectTeacherLayout-page-content {
+    padding: 24px;
+  }
+}
+
 @media (max-width: 768px) {
   .SubjectTeacherLayout-main-content {
-    margin-left: 0;
-    width: 100%;
-    max-width: 100%;
-    padding-top: 78px;
+    padding-left: 0; /* Content takes full width on mobile */
   }
 
   .SubjectTeacherLayout-page-content {
     padding: 20px 24px;
   }
+
+  .sidebar-overlay {
+    display: block; /* Show backdrop when menu is triggered */
+  }
+
+  /* Note: In your SubjectTeacherSidebar.css, make sure your sidebar has:
+     position: fixed;
+     left: -280px; 
+     transition: left 0.3s ease;
+     z-index: 999;
+     
+     And when .sidebar-active is true:
+     .sidebar-active .Your-Sidebar-Class { left: 0; }
+  */
 }
 
 @media (max-width: 480px) {
@@ -54,13 +87,5 @@
 @media (max-width: 380px) {
   .SubjectTeacherLayout-page-content {
     padding: 12px;
-  }
-}
-
-@media (min-width: 769px) {
-  .SubjectTeacherLayout-main-content {
-    margin-left: 280px;
-    width: calc(100vw - 280px);
-    max-width: calc(100vw - 280px);
   }
 }

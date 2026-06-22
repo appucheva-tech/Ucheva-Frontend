@@ -1,35 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght=200..1000&display=swap");
 
 .nunito-content {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
 }
 
+/* Root Layout Structure */
 .parent-app-layout {
   display: flex;
   min-height: 100vh;
+  width: 100%;
   background-color: #f5f6fa;
+  overflow-x: hidden; /* Prevent rogue horizontal scrolling */
 }
 
+/* Main Content Area */
 .parent-main-content {
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 280px;
-  transition: margin-left 0.3s ease-in-out;
-  width: 100%;
   min-height: 100vh;
+  /* Account for desktop sidebar width */
+  margin-left: 280px;
+  max-width: calc(100% - 280px);
+  transition:
+    margin-left 0.3s ease-in-out,
+    max-width 0.3s ease-in-out;
 }
 
+/* Dynamic Page Padding Adjustments */
 .parent-page-content {
   flex: 1;
   padding: 24px 32px;
   background-color: #f5f6fa;
+  width: 100%;
 }
 
-@media (max-width: 768px) {
+/* Mobile Dim Overlay */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 99; /* Just beneath the mobile mobile sidebar */
+}
+
+/* --- Media Queries --- */
+
+/* Tablet & Mobile Breakpoint */
+@media (max-width: 1024px) {
   .parent-main-content {
     margin-left: 0;
+    max-width: 100%;
   }
 
   .parent-page-content {
@@ -37,20 +61,16 @@
   }
 }
 
+/* Small Smartphone Breakpoint */
 @media (max-width: 480px) {
   .parent-page-content {
     padding: 16px;
   }
 }
 
+/* Extra Small Phones */
 @media (max-width: 380px) {
   .parent-page-content {
     padding: 12px;
-  }
-}
-
-@media (min-width: 769px) {
-  .parent-main-content {
-    margin-left: 280px;
   }
 }

@@ -4,23 +4,22 @@ import { clearUser } from "../global/userSlice";
 
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
-  timeout: 8000,
+  // timeout: 8000,
   headers: {
     "Content-Type": "application/json",
   },
 });
+console.log(import.meta.env.VITE_Base_Url);
 
-// Request interceptor
 apiClient.interceptors.request.use(
   (config) => {
     const state = store.getState();
 
-    // Use staff token first, otherwise user token
     const token = state.staff.token || state.user.token;
-// console.log("State from store:", state);
-// console.log("Staff Token from store:", state.staff.token);
-// console.log("User Token from store:", state.user.token);
-//     console.log("Token from store:", token);
+    // console.log("State from store:", state);
+    // console.log("Staff Token from store:", state.staff.token);
+    // console.log("User Token from store:", state.user.token);
+    //     console.log("Token from store:", token);
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -28,7 +27,7 @@ apiClient.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 // Response interceptor
@@ -56,5 +55,5 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
