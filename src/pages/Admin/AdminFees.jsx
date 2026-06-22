@@ -7,30 +7,30 @@ import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 
-const AdminFees = () => {
-  const feesData = [
-    { name: 'Adaeze Clinton', class: 'JSS 1A', total: 'N75,000', paid: 'N39,000', type: 'Bank Transfer', status: 'Full Payment', date: '12 May 2026' },
-    { name: 'Emeka Ugonna', class: 'SS 1C', total: 'N50,000', paid: 'N25,000', type: 'Bank Transfer', status: 'Part Payment', date: '10 May 2026' },
-    { name: 'Tolu Adesunya', class: 'PRY 1', total: 'N150,000', paid: 'N0', type: '--', status: 'Unpaid', date: '--' },
-    { name: 'Chidi Okoronkwo', class: 'NRY 2', total: 'N150,000', paid: 'N75,000', type: 'Bank Transfer', status: 'Fully Paid', date: '14 May 2026' },
-    { name: 'Grace Obidi', class: 'SS 3B', total: 'N50,000', paid: 'N0', type: '--', status: 'Unpaid', date: '--' },
-    { name: 'Ifeanyi Okafor', class: 'SS 2A', total: 'N150,000', paid: 'N150,000', type: 'Card', status: 'Full Payment', date: '09 May 2026' },
-    { name: 'Ngozi Bassey', class: 'JSS 1B', total: 'N150,000', paid: 'N150,000', type: 'Card', status: 'Full Payment', date: '11 May 2026' }
-  ];
+// const AdminFees = () => {
+//   const feesData = [
+//     { name: 'Adaeze Clinton', class: 'JSS 1A', total: 'N75,000', paid: 'N39,000', type: 'Bank Transfer', status: 'Full Payment', date: '12 May 2026' },
+//     { name: 'Emeka Ugonna', class: 'SS 1C', total: 'N50,000', paid: 'N25,000', type: 'Bank Transfer', status: 'Part Payment', date: '10 May 2026' },
+//     { name: 'Tolu Adesunya', class: 'PRY 1', total: 'N150,000', paid: 'N0', type: '--', status: 'Unpaid', date: '--' },
+//     { name: 'Chidi Okoronkwo', class: 'NRY 2', total: 'N150,000', paid: 'N75,000', type: 'Bank Transfer', status: 'Fully Paid', date: '14 May 2026' },
+//     { name: 'Grace Obidi', class: 'SS 3B', total: 'N50,000', paid: 'N0', type: '--', status: 'Unpaid', date: '--' },
+//     { name: 'Ifeanyi Okafor', class: 'SS 2A', total: 'N150,000', paid: 'N150,000', type: 'Card', status: 'Full Payment', date: '09 May 2026' },
+//     { name: 'Ngozi Bassey', class: 'JSS 1B', total: 'N150,000', paid: 'N150,000', type: 'Card', status: 'Full Payment', date: '11 May 2026' }
+//   ];
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case 'Full Payment':
-      case 'Fully Paid':
-        return 'statusFull';
-      case 'Part Payment':
-        return 'statusPart';
-      case 'Unpaid':
-        return 'statusUnpaid';
-      default:
-        return '';
-    }
-  };
+//   const getStatusClass = (status) => {
+//     switch (status) {
+//       case 'Full Payment':
+//       case 'Fully Paid':
+//         return 'statusFull';
+//       case 'Part Payment':
+//         return 'statusPart';
+//       case 'Unpaid':
+//         return 'statusUnpaid';
+//       default:
+//         return '';
+//     }
+//   };
 
   return (
     <>
@@ -38,10 +38,10 @@ const AdminFees = () => {
   <div className="dashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
-            Good morning, Mr Eric <span className="wave-emoji">👋</span>
+            Good afternoon, Mr Eric <span className="wave-emoji">👋</span>
           </h1>
           <p className="subtitle-text">
-            Here's an overview of Green Field Academy activities today.
+            Here's an overview of marvel leaders collage activities today.
           </p>
         </header>
   
@@ -50,7 +50,7 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Students</span>
-                <span className="card-value">342</span>
+                <span className="card-value">0</span>
               </div>
               <div className="icon-wrapper icon-students">
                 <PiStudentFill className='DashIcon'/>
@@ -65,7 +65,7 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Staff</span>
-                <span className="card-value">28</span>
+                <span className="card-value">0</span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className='DashIcon'/>
@@ -80,7 +80,7 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Attendance Rate</span>
-                <span className="card-value">93%</span>
+                <span className="card-value">0%</span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className='DashIcon'/>
@@ -95,7 +95,7 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Fees Collected</span>
-                <span className="card-value">N1,200,000</span>
+                <span className="card-value">N0</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className='DashIcon'/>
@@ -236,6 +236,6 @@ const AdminFees = () => {
     </div>
     </>
   )
-} 
+ 
 
 export default AdminFees
