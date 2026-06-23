@@ -14,15 +14,16 @@ const AdminAttendance = () => {
 
   const [attendance, setAttendance] = useState([]);
   const [loadingAttendance, setLoadingAttendance] = useState(true);
-   const subdomain = window.location.hostname.split(".")[0];
- 
+  const subdomain = window.location.hostname.split(".")[0];
+
   useEffect(() => {
     const getTodayAttendance = async () => {
       try {
-        const res = await apiClient.get("/staffattendance/today",   {headers: {
-          "x-tenant": subdomain,
-        },
-      });
+        const res = await apiClient.get("/staffattendance/today", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
         setAttendance(res?.data?.Attendance || []);
       } catch (error) {
         console.error(error);

@@ -6,58 +6,58 @@ import { apiClient } from "../../config/AxiosInstance";
 const StudentAttendance = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
-  const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0; 
-  // const dummyStudents = [
-  //   {
-  //     name: "David Okafor",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Precious Adebay",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Emmanuel John",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Gloria Solomon",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Michael Uche",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Sarah James",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Absent",
-  //     date: "18 May 2026",
-  //   },
-  //   {
-  //     name: "Clinton Uche",
-  //     class: "JSS 2A",
-  //     teacher: "Mrs. Adeola",
-  //     status: "Present",
-  //     date: "18 May 2026",
-  //   },
-  // ];
+  const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
+  const dummyStudents = [
+    {
+      name: "David Okafor",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+    {
+      name: "Precious Adebay",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+    {
+      name: "Emmanuel John",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+    {
+      name: "Gloria Solomon",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+    {
+      name: "Michael Uche",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+    {
+      name: "Sarah James",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Absent",
+      date: "18 May 2026",
+    },
+    {
+      name: "Clinton Uche",
+      class: "JSS 2A",
+      teacher: "Mrs. Adeola",
+      status: "Present",
+      date: "18 May 2026",
+    },
+  ];
 
   const [students, setStudents] = useState([]);
 
