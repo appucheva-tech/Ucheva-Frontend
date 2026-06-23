@@ -5,71 +5,46 @@ import UIM from "../../../../assets/uim.svg";
 import Streamline from "../../../../assets/streamline.svg";
 import Material from "../../../../assets/material.svg";
 import { apiClient } from "../../../../config/AxiosInstance";
+import LoadingScreen from "../../../../components/Loading-Screen";
+import ErrorScreen from "../../../../components/Error-Screen"; // Imported your reusable Error component here
 
 const Overview = () => {
   const [serverData, setServerData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchDashboardData = async () => {
-      try {
-        setIsLoading(true);
-        const response = await apiClient.get(
-          "/classteacher/class-teacher-dashboard",
-        );
-        setServerData(response.data);
-        setError(null);
-      } catch (err) {
-        console.error("Error fetching dashboard payload:", err);
-        setError("Failed to load dashboard statistics.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const fetchDashboardData = async () => {
+    try {
+      setIsLoading(true);
+      const response = await apiClient.get(
+        "/classteacher/class-teacher-dashboard",
+      );
+      setServerData(response.data);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching dashboard payload:", err);
+      setError("Failed to load dashboard statistics.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchDashboardData();
   }, []);
 
-  // ==================== SKELETON SHIMMER LOADING ROW RENDER ====================
+  // ==================== MODERN FULL-SCREEN BRANDED LOADING LAYER ====================
   if (isLoading) {
-    return (
-      <main className="CTDash">
-        <article className="CTDashWrapper">
-          <div className="CTGreetings">
-            <div className="skeleton skeleton-title"></div>
-            <div className="skeleton skeleton-subtitle"></div>
-          </div>
-
-          {/* Sits side-by-side in accurate horizontal layout row context */}
-          <article className="CTCards">
-            {[1, 2, 3, 4].map((n) => (
-              <div key={n} className="skeleton-overview-card">
-                <div className="skeleton-card-inner-left">
-                  <div className="skeleton skeleton-text-lbl"></div>
-                  <div className="skeleton skeleton-text-val"></div>
-                </div>
-                <div className="skeleton skeleton-img-circle"></div>
-              </div>
-            ))}
-          </article>
-
-          <section className="CTCheckIn">
-            <div className="skeleton-panel-box"></div>
-            <div className="skeleton-panel-box"></div>
-          </section>
-        </article>
-      </main>
-    );
+    return <LoadingScreen />;
   }
 
+  // ==================== REUSABLE BRANDED ERROR COMPONENT LAYER ====================
   if (error || !serverData) {
     return (
-      <main className="CTDash overview-state-error">
-        <p className="overview-error-text">
-          {error || "No data received from server."}
-        </p>
-      </main>
+      <ErrorScreen
+        message={error || "No data received from server."}
+        onRetry={fetchDashboardData}
+      />
     );
   }
 
@@ -105,7 +80,7 @@ const Overview = () => {
             <nav className="CTtext">
               Assigned Class
               <div className="CTClassRoom">
-                {dashboard?.assignedClass?.[0] || "No Class Assigned"}
+                {dashboard?.assignedClass || "No Class Assigned"}
               </div>
             </nav>
             <div className="CTImageHolder2">

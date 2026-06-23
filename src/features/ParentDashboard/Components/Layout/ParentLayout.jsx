@@ -1,17 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ParentSidebar from "./ParentSidebar";
 import Header from "./Header";
 import Footer from "./Footer";
 import "./LayoutStyles/ParentLayout.css";
 import { Outlet } from "react-router-dom";
+import { apiClient } from "../../../../config/AxiosInstance";
+import LoadingScreen from "../../../../components/Loading-Screen";
+import ErrorScreen from "../../../../components/Error-Screen"; // Assuming you have this
 
 const ParentLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(true); // Default to true
+  const [error, setError] = useState(null); // Changed to 'error' for consistency
+  const [students, setStudents] = useState([]);
+  const [selectedStudent, setSelectedStudent] = useState(null);
 
+  const fetchStudentData = async () => {
+    try {
+      setLoading(true);
+      setError(null); // Clear previous errors
+      const response = await apiClient.get("parent/students");
+      const data = response.data.studentsData || [];
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+      setStudents(data);
+      if (data.length > 0) setSelectedStudent(data[0]);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load your dashboard data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchStudentData();
+  }, []);
+
+  // 1. Show Loading Screen
+  if (loading) return <LoadingScreen />;
+
+  // 2. Show Error Screen
+  // if (error) return <ErrorScreen message={error} onRetry={fetchStudentData} />;
 
   return (
     <div className="parent-app-layout nunito-content">
@@ -20,18 +49,16 @@ const ParentLayout = () => {
         onClose={() => setIsSidebarOpen(false)}
       />
 
-      {isSidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={() => setIsSidebarOpen(false)}
-        ></div>
-      )}
-
       <div className="parent-main-content">
-        <Header onMenuClick={toggleSidebar} />
+        <Header
+          onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          students={students}
+          selectedStudent={selectedStudent}
+          setSelectedStudent={setSelectedStudent}
+        />
 
         <main className="parent-page-content">
-          <Outlet />
+          <Outlet context={{ students, selectedStudent, setSelectedStudent }} />
         </main>
 
         <Footer />

@@ -1,4 +1,7 @@
-/* Main Container Base Styles */
+/* ==========================================================================
+   MAIN CONTAINERS & LAYOUT
+   ========================================================================== */
+
 .CTDash {
   width: 100%;
   min-height: auto;
@@ -15,7 +18,7 @@
 
 /* ========== GREETINGS HEADLINE BLOCK ========== */
 .CTGreetings {
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
   font-size: 28px;
   line-height: 1.2;
@@ -25,7 +28,7 @@
 }
 
 .CTGreetings span {
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 16px;
   color: #042869;
@@ -37,14 +40,25 @@
   background: #ffffff;
   border-radius: 12px;
   box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.05),
-    0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    0 4px 6px -1px rgba(0, 0, 0, 0.04),
+    0 2px 4px -2px rgba(0, 0, 0, 0.04);
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ========== KPI SUB-GRID ARRANGEMENTS (ROWS ALWAYS) ========== */
+/* Subtle elevation lift on hover for interactive depth */
+.overview-shadow-card:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 20px -8px rgba(0, 0, 0, 0.08),
+    0 4px 4px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================================================
+   STATISTICS / KPI CARDS GRID
+   ========================================================================== */
+
 .CTCards {
   width: 100%;
   display: grid;
@@ -52,6 +66,7 @@
   gap: 20px;
 }
 
+/* Clean, modern padding and dynamic min-height setup */
 .myAttendance,
 .AssignedClass,
 .TotalStudents,
@@ -59,12 +74,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 20px;
-  height: 120px; /* Increased Height */
+  padding: 24px 22px;
+  min-height: 115px;
   box-sizing: border-box;
 }
 
-/* Accent Indicators cleanly matched to their corresponding Icon background color profiles */
+/* Accent Indicators cleanly matched to their corresponding Icon backgrounds */
 .myAttendance {
   border-left: 5px solid #0062f6;
 }
@@ -82,8 +97,8 @@
 .CTtext4 {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  font-family: Nunito, sans-serif;
+  gap: 6px;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
   font-size: 14px;
   color: #6c737f;
@@ -93,12 +108,14 @@
 .CTClassRoom,
 .CTStudents,
 .SubjectDigit {
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
-  font-size: 26px;
+  font-size: 28px;
   color: #03173c;
+  line-height: 1.1;
 }
 
+/* Attendance Pill Styling */
 .CTPending {
   background: #ffedd5;
   color: #ea580c;
@@ -108,6 +125,7 @@
   border-radius: 20px;
   display: inline-block;
   width: fit-content;
+  margin-top: 2px;
 }
 
 .CTPending-status-present {
@@ -115,12 +133,13 @@
   color: #009966;
 }
 
+/* Graphic Circular Holders */
 .CTImageHolder1,
 .CTImageHolder2,
 .CTImageHolder3,
 .CTImageHolder4 {
-  width: 54px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -142,12 +161,15 @@
 }
 
 .CTImg {
-  width: 26px;
-  height: 26px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
-/* ========== LOWER CONTAINER WIDGET PANELS ========== */
+/* ==========================================================================
+   LOWER PANELS & WIDGET CONTEXTS
+   ========================================================================== */
+
 .CTCheckIn {
   width: 100%;
   display: grid;
@@ -155,6 +177,7 @@
   gap: 24px;
 }
 
+/* --- QR Validation Box --- */
 .CTQR {
   display: flex;
   flex-direction: column;
@@ -187,7 +210,7 @@
   gap: 6px;
   padding: 0;
   margin: 0;
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
   font-size: 20px;
   text-align: center;
@@ -196,7 +219,7 @@
 }
 
 .CTReminder span {
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 400;
   font-size: 14px;
   color: #6c737f;
@@ -207,7 +230,7 @@
   border-radius: 8px;
   border: none;
   padding: 12px 28px;
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: white;
@@ -220,6 +243,7 @@
   background: #0052d0;
 }
 
+/* --- Announcement Stream --- */
 .CTAnnouncement {
   display: flex;
   flex-direction: column;
@@ -229,7 +253,7 @@
 .CTAnnounceHead {
   padding: 18px 24px;
   border-bottom: 1px solid #f3f4f6;
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-weight: 700;
   font-size: 16px;
   color: #03173c;
@@ -245,13 +269,16 @@
 }
 
 .CTAnnouncement-empty-text {
-  font-family: Nunito, sans-serif;
+  font-family: "Nunito", sans-serif;
   font-size: 14px;
   color: #94a3b8;
   margin: 0;
 }
 
-/* ========== RE-ENGINEERED LOADING SHIMMER MOCKS ========== */
+/* ==========================================================================
+   LOADING SHIMMER / SKELETON STATES
+   ========================================================================== */
+
 .skeleton {
   background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
   background-size: 200% 100%;
@@ -273,6 +300,7 @@
   height: 28px;
   margin-bottom: 6px;
 }
+
 .skeleton-subtitle {
   width: 110px;
   height: 16px;
@@ -281,12 +309,12 @@
 .skeleton-overview-card {
   background: #ffffff;
   border-radius: 12px;
-  padding: 22px 20px;
+  padding: 24px 22px; /* Matches dynamic height update of real cards */
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  height: 120px; /* Matches explicit height of cards */
+  min-height: 115px;
   box-sizing: border-box;
 }
 
@@ -296,17 +324,20 @@
   gap: 8px;
   width: 60%;
 }
+
 .skeleton-text-lbl {
   width: 80%;
   height: 14px;
 }
+
 .skeleton-text-val {
   width: 45%;
   height: 22px;
 }
+
 .skeleton-img-circle {
-  width: 54px;
-  height: 54px;
+  width: 52px;
+  height: 52px;
   border-radius: 12px;
   background-color: #f3f4f6;
 }
@@ -317,6 +348,10 @@
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
+
+/* ==========================================================================
+   ERROR LAYOUT WRAPPERS
+   ========================================================================== */
 
 .overview-state-error {
   display: flex;
@@ -334,7 +369,9 @@
   box-shadow: 0 2px 4px rgba(220, 38, 38, 0.05);
 }
 
-/* ========== ULTRA-RESPONSIVE MEDIA VIEWPORTS ========== */
+/* ==========================================================================
+   ULTRA-RESPONSIVE MEDIA VIEWPORTS
+   ========================================================================== */
 
 @media screen and (max-width: 1120px) {
   .CTCards {
@@ -347,9 +384,11 @@
   .CTDashWrapper {
     gap: 20px;
   }
+
   .CTGreetings {
     font-size: 22px;
   }
+
   .CTGreetings span {
     font-size: 14px;
   }
@@ -361,16 +400,17 @@
   .myAttendance,
   .AssignedClass,
   .TotalStudents,
-  .CTSubject {
-    padding: 14px 16px;
-    height: 110px; /* Adapts nicely for tablet screens */
+  .CTSubject,
+  .skeleton-overview-card {
+    padding: 18px 18px;
+    min-height: 105px; /* Adapts cleanly for tablet viewports */
   }
 
   .CTPending,
   .CTClassRoom,
   .CTStudents,
   .SubjectDigit {
-    font-size: 22px;
+    font-size: 24px;
   }
 
   .CTCheckIn {
@@ -391,8 +431,9 @@
   .myAttendance,
   .AssignedClass,
   .TotalStudents,
-  .CTSubject {
+  .CTSubject,
+  .skeleton-overview-card {
     padding: 16px;
-    height: 105px; /* Perfect proportional mobile size */
+    min-height: 100px; /* Perfect proportional layout space on small mobile screens */
   }
 }

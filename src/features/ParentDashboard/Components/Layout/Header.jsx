@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
 import "./LayoutStyles/Header.css";
 
-const Header = ({ onMenuClick }) => {
+const Header = ({
+  onMenuClick,
+  students,
+  selectedStudent,
+  setSelectedStudent,
+}) => {
   const [isStudentDropdownOpen, setIsStudentDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -17,11 +22,8 @@ const Header = ({ onMenuClick }) => {
     return today.toLocaleDateString("en-US", options);
   };
 
-  const students = ["Efe Ogeremu", "simisola", "kareem"];
-
   return (
     <header className="parentdashboard-header">
-      {/* Mobile Burger Button wired to the parent layout state */}
       <button
         className="header-mobile-toggle"
         onClick={onMenuClick}
@@ -41,13 +43,25 @@ const Header = ({ onMenuClick }) => {
             className="dropdown-button"
             onClick={() => setIsStudentDropdownOpen(!isStudentDropdownOpen)}
           >
-            Efe Ogeremu
+            {selectedStudent ? selectedStudent.fullName : "Select Student"}
             <FiChevronDown />
           </button>
+
           {isStudentDropdownOpen && (
             <div className="dropdown-menu">
-              {students.map((student, index) => (
-                <p key={index}>{student}</p>
+              {students.map((student) => (
+                <p
+                  key={student.id}
+                  onClick={() => {
+                    setSelectedStudent(student);
+                    setIsStudentDropdownOpen(false);
+                  }}
+                  className={
+                    selectedStudent?.id === student.id ? "active-student" : ""
+                  }
+                >
+                  {student.fullName}
+                </p>
               ))}
             </div>
           )}
@@ -64,14 +78,14 @@ const Header = ({ onMenuClick }) => {
               className="user-profile"
             />
             <div className="user-info">
-              <div className="user-name">Omoniyi Omosimisola</div>
+              <div className="user-name">{students.parentName}</div>
               <div className="user-role">Parent</div>
             </div>
           </div>
           {isProfileDropdownOpen && (
             <div className="profile-dropdown-menu">
               <p>Settings</p>
-              <p className="#logout">Logout</p>
+              <p className="logout">Logout</p>
             </div>
           )}
         </div>

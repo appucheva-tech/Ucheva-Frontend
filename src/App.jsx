@@ -68,6 +68,7 @@ import AdminEditStudent from "./pages/Admin/AdminEditStudent";
 import AttendancePage from "./features/busary/components/AttendancePage";
 import PrivateRoute from "./pages/PrivateRoute";
 import NotFound from "./pages/notFound";
+import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -90,6 +91,7 @@ const App = () => {
         <Route path="/Pricing" element={<Pricing />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="payment-verification" element={<PaymentVerification />} />
 
         <Route element={<AuthLayout />}>
           <Route path="/signup" element={<Signup />} />
