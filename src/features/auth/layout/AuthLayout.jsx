@@ -3,14 +3,16 @@ import "../styles/auth-layout.css";
 // import logo from "../../../assets/public/logo.png";
 import Ucheva from "../../../assets/Logo.svg";
 import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const AuthLayout = () => {
+  const nav= useNavigate()
   return (
     <div className="auth-container">
       <aside className="auth-sidebar" aria-hidden="true">
         <div className="sidebar-card">
           <div className="brand-logo">
-            <img src={Ucheva} alt="Ucheva Logo" />
+            <img src={Ucheva} alt="Ucheva Logo" onClick={() => nav("/")}/>
           </div>
 
           <div className="sidebar-content">
