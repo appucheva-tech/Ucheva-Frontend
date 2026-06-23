@@ -119,7 +119,6 @@ const AdminStaff2 = () => {
     } finally {
       setLoading(false);
     }
-    nav("/admin/AdminStaff");
   };
 
   useEffect(() => {
