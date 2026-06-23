@@ -12,23 +12,23 @@ const VerifyEmail = () => {
     searchParams.get("email") ||
     localStorage.getItem("userEmail") ||
     "your-email@domain.com";
+  const [loading, setLoading] = useState(false);
 
   const [otp, setOtp] = useState(new Array(6).fill(""));
   useEffect(() => {
-  const isComplete = otp.every((digit) => digit !== "");
+    const isComplete = otp.every((digit) => digit !== "");
 
-  if (!isComplete) return;
-  if (loading) return;
+    if (!isComplete) return;
+    if (loading) return;
 
-  const timeout = setTimeout(() => {
-    handleVerifySubmit();
-  }, 300); // small delay prevents double-trigger issues
+    const timeout = setTimeout(() => {
+      handleVerifySubmit();
+    }, 300); // small delay prevents double-trigger issues
 
-  return () => clearTimeout(timeout);
-}, [otp, loading]);
+    return () => clearTimeout(timeout);
+  }, [otp, loading]);
 
-  const [timeLeft, setTimeLeft] = useState(59);
-  const [loading, setLoading] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(300);
   const [error, setError] = useState("");
 
   const inputRefs = useRef([]);
@@ -72,7 +72,7 @@ const VerifyEmail = () => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
 
-    if (!/^\d+$/.test(pastedData)) return; // Check if it contains only numbers
+    if (!/^\d+$/.test(pastedData)) return;
 
     const splitValues = pastedData.slice(0, 6).split("");
     const updatedOtp = [...otp];
@@ -87,7 +87,6 @@ const VerifyEmail = () => {
     inputRefs.current[focusTargetIndex].focus();
   };
 
-  // Live API handler for resending the OTP code
   const handleResendCode = async () => {
     if (timeLeft > 0) return;
 
@@ -95,36 +94,26 @@ const VerifyEmail = () => {
       setLoading(true);
       setError("");
 
-      // 1. Call your actual backend resend route
       await apiClient.post(
         "/admin/resend-otp",
         { email: userEmail },
         {
-          headers: {
-            "x-tenant": subdomain,
-          },
+          headers: { "x-tenant": subdomain },
         },
       );
 
-      console.log("[API Success] New verification pin dispatched.");
-
-      // 2. Reset the client countdown timer and clear inputs
-      setTimeLeft(59);
+      setTimeLeft(300);
       setOtp(new Array(6).fill(""));
       if (inputRefs.current[0]) inputRefs.current[0].focus();
     } catch (err) {
-      // 3. Capture any server errors (e.g., rate-limiting or network issues)
-      setError(
-        err.response?.data?.message ||
-          "Failed to resend validation code. Please try again.",
-      );
+      setError(err.response?.data?.message || "Failed to resend.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleVerifySubmit = async (e) => {
-  if (e) e.preventDefault();
+    if (e) e.preventDefault();
     const verificationCode = otp.join("");
 
     if (verificationCode.length < 6) {
@@ -224,7 +213,8 @@ const VerifyEmail = () => {
               <>
                 Code will expire in{" "}
                 <span className="timer-countdown">
-                  0:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}s
+                  {Math.floor(timeLeft / 60)}:
+                  {(timeLeft % 60).toString().padStart(2, "0")}s
                 </span>
               </>
             ) : (
