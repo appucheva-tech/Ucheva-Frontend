@@ -62,10 +62,9 @@ const ForgotPassword = () => {
         <div className="forgot-mobile-logo">
           <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
         </div>
-        <h1 className="forgot-password-title">Forgot Password</h1>
+        <h1 className="forgot-password-title">Forgot Password?</h1>
         <p className="forgot-password-subtitle">
-          Enter your registered email address below to receive password recovery
-          instructions.
+          Enter your registered email address and we'll send you a 6 digit code to reset your password.
         </p>
 
         {error && <p className="forgot-password-error-toast">{error}</p>}
@@ -79,7 +78,7 @@ const ForgotPassword = () => {
         >
           {/* Email Input */}
           <div className="form-control-group">
-            <label className="input-field-label">Email Address</label>
+            <label className="input-field-label">Email</label>
             <input
               type="email"
               placeholder="e.g: example@email.com"
