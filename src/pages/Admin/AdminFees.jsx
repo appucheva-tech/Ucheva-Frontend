@@ -50,14 +50,14 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Students</span>
-                <span className="card-value">342</span>
+                <span className="card-value">0</span>
               </div>
               <div className="icon-wrapper icon-students">
                 <PiStudentFill className='DashIcon'/>
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className='arrow'/> 12 from last week
+              <FaArrowTrendUp className='arrow'/> 0 from last week
             </div>
           </div>
   
@@ -65,14 +65,14 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total Staff</span>
-                <span className="card-value">28</span>
+                <span className="card-value">0</span>
               </div>
               <div className="icon-wrapper icon-staff">
                 <HiMiniUserGroup className='DashIcon'/>
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className='arrow'/> 2 from last week
+              <FaArrowTrendUp className='arrow'/> 0 from last week
             </div>
           </div>
   
@@ -80,14 +80,14 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Attendance Rate</span>
-                <span className="card-value">93%</span>
+                <span className="card-value">0%</span>
               </div>
               <div className="icon-wrapper icon-attendance">
                 <PiCalendarBlankFill className='DashIcon'/>
               </div>
             </div>
             <div className="card-footer trend-up">
-              <FaArrowTrendUp className='arrow'/> 2 from last week
+              <FaArrowTrendUp className='arrow'/> 0 from last week
             </div>
           </div>
   
@@ -95,14 +95,14 @@ const AdminFees = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Fees Collected</span>
-                <span className="card-value">N1,200,000</span>
+                <span className="card-value">N0</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className='DashIcon'/>
               </div>
             </div>
             <div className="card-footer trend-pct">
-              <FaArrowTrendUp className='arrow'/> 72% fee collected
+              <FaArrowTrendUp className='arrow'/> 0% fee collected
             </div>
           </div>
   
@@ -171,7 +171,7 @@ const AdminFees = () => {
               <th>Actions</th>
             </tr>
           </thead>
-          <tbody>
+          {/* <tbody>
             {feesData.map((row, index) => (
               <tr key={index}>
                 <td className="checkboxCol">
@@ -199,7 +199,7 @@ const AdminFees = () => {
                 </td>
               </tr>
             ))}
-          </tbody>
+          </tbody> */}
         </table>
 
         <div className="paginationRow">

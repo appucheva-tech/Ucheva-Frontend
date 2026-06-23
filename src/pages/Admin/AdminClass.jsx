@@ -42,6 +42,17 @@ const AdminClass = () => {
     }));
   }, [level, arm]);
 
+  // Function to fetch all classes - extracted to reuse
+  const fetchAllClasses = async () => {
+    try {
+      const response = await apiClient.get("admin/getclass");
+      setAddClass(response.data?.classes);
+      console.log(response);
+    } catch (error) {
+      console.log(error.data?.message || error);
+    }
+  };
+
   const createClass = async () => {
     try {
       const payload = {
@@ -81,12 +92,16 @@ const AdminClass = () => {
       setArm("");
 
       setIsOpen(false);
+
+      // Refresh the class list after successful creation
+      await fetchAllClasses();
     } catch (error) {
       console.log(error.response?.data || error);
       toast.error(error.response?.data?.message || error.response?.data);
     }
   };
 
+  // Initial fetch on component mount
   useEffect(() => {
     const fetchallClass = async () => {
       try {
@@ -95,12 +110,12 @@ const AdminClass = () => {
         console.log(response);
       } catch (error) {
         console.log(error.data.message);
-        toast.error(error.data.message);
       }
     };
 
     fetchallClass();
   }, []);
+
   useEffect(() => {
     const fetchallStaffs = async () => {
       try {
@@ -108,7 +123,7 @@ const AdminClass = () => {
         setTeachers(response.data.staffsData);
         console.log(response);
       } catch (error) {
-        console.log(error.data.message);
+        console.log(error.data?.message || error);
       }
     };
 
