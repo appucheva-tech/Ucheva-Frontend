@@ -3,6 +3,8 @@ import "./AdminClass.css";
 import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { apiClient } from "../../config/AxiosInstance";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminClass = () => {
   const [teachers, setTeachers] = useState([]);
@@ -58,17 +60,20 @@ const AdminClass = () => {
 
       console.log("Payload:", payload);
 
-      await apiClient.post("/class/create-class", payload, {
+      const response = await apiClient.post("/class/create-class", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      toast.success(response?.data?.message || "Class created successfully!");
 
       // Reset state completely
       setFormData({
         className: "",
         amount: "",
         paymentOption: "",
+
         teacherId: "",
         numberOfInstallments: "",
       });
@@ -78,6 +83,7 @@ const AdminClass = () => {
       setIsOpen(false);
     } catch (error) {
       console.log(error.response?.data || error);
+      toast.error(error.response?.data?.message || error.response?.data);
     }
   };
 
@@ -89,6 +95,7 @@ const AdminClass = () => {
         console.log(response);
       } catch (error) {
         console.log(error.data.message);
+        toast.error(error.data.message);
       }
     };
 
