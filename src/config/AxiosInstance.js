@@ -1,6 +1,7 @@
 import axios from "axios";
 import { store } from "../global/store";
 import { clearUser } from "../global/userSlice";
+import { toast } from "react-toastify";
 
 const subdomain = window.location.hostname.split(".")[0];
 export const apiClient = axios.create({
@@ -45,15 +46,15 @@ apiClient.interceptors.response.use(
         break;
 
       case 403:
-        console.error("Access Forbidden");
+        toast.error("Access Forbidden");
         break;
 
       case 500:
-        console.error("Internal Server Error");
+        toast.error("Internal Server Error");
         break;
 
       default:
-        console.error(error.message);
+        toast.error(error.message);
     }
 
     return Promise.reject(error);
