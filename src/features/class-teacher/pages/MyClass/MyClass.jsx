@@ -7,8 +7,11 @@ import UIM from "../../../../assets/uim.svg";
 import Streamline from "../../../../assets/streamline.svg";
 import Material from "../../../../assets/material.svg";
 import { apiClient } from "../../../../config/AxiosInstance";
+import LoadingScreen from "../../../../components/Loading-Screen";
+import ErrorScreen from "../../../../components/Error-Screen";
 
 const MyClass = () => {
+  const subdomain = window.location.hostname.split(".")[0];
   // State to hold data directly from the class-teacher-dashboard payload
   const [classData, setClassData] = useState({
     myClass: {
@@ -64,55 +67,15 @@ const MyClass = () => {
 
   // ==================== SKELETON LOADING INTERFACE ====================
   if (isLoading) {
-    return (
-      <div className="myClassPage skeleton-page">
-        {/* Top Header Skeleton */}
-        <div className="myClasstopHeader">
-          <div className="skeleton skeleton-header-text"></div>
-          <div className="skeleton skeleton-button"></div>
-        </div>
-
-        {/* Cards Skeleton Grid */}
-        <article className="myClassCTClassCards">
-          {[1, 2, 3, 4].map((n) => (
-            <div key={n} className="skeleton-card">
-              <div className="skeleton skeleton-card-title"></div>
-              <div className="skeleton skeleton-card-number"></div>
-            </div>
-          ))}
-        </article>
-
-        {/* Filter Row Skeleton */}
-        <div className="myClassfilterBar">
-          <div className="skeleton skeleton-filter-label"></div>
-          <div className="skeleton skeleton-filter-btn"></div>
-        </div>
-
-        {/* Table Mock Rows Skeleton Container */}
-        <div className="skeleton-table-container">
-          {[1, 2, 3, 4, 5].map((row) => (
-            <div key={row} className="skeleton-table-row">
-              <div className="skeleton skeleton-td"></div>
-              <div className="skeleton skeleton-td"></div>
-              <div className="skeleton skeleton-td"></div>
-              <div className="skeleton skeleton-td"></div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (error) {
-    return (
-      <div className="myClassPage myClass-state-error">
-        <p className="myClass-error-text">{error}</p>
-      </div>
-    );
+    return <ErrorScreen message={error} onRetry={fetchDashboardData} />;
   }
 
   const {
-    myClass: classNameArray,
+    myClass: assignedClass,
     totalStudents,
     totalFemale,
     totalMale,
@@ -126,7 +89,7 @@ const MyClass = () => {
           className="myClasstopHeaderText"
           style={{ textTransform: "capitalize" }}
         >
-          My Class — {classNameArray?.[0] || "N/A"}
+          My Class — {assignedClass || "N/A"}
           <span>{totalStudents ?? 0} students assigned to your class</span>
         </nav>
         <button className="myClassmarkBtn" onClick={() => setOpen(true)}>
@@ -299,6 +262,7 @@ const MyClass = () => {
           students={classData.getAllStudents}
           onClose={() => setOpen(false)}
           onSuccess={fetchDashboardData}
+          subdomain={subdomain}
         />
       )}
     </div>

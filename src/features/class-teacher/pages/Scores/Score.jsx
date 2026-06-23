@@ -3,56 +3,94 @@ import "./Score.css";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { apiClient } from "../../../../config/AxiosInstance";
 import { toast } from "react-toastify";
+import LoadingScreen from "../../../../components/Loading-Screen";
+import ErrorScreen from "../../../../components/Error-Screen";
 
 const Score = () => {
-  const [subject, setSubject] = useState("Mathematics");
+  const [subjects, setSubjects] = useState([]); // Will hold objects: [{ name: "English", className: "JSS 1 A" }]
+  const [activeSubject, setActiveSubject] = useState(null); // Active object selector template tracking
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [error, setError] = useState(null);
 
-  const subjects = [
-    "Mathematics",
-    "English",
-    "Civic Education",
-    "Basic Science",
-    "Social Studies",
-  ];
+  const fetchStudents = async () => {
+    try {
+      setFetching(true);
+      setError(null);
+      const response = await apiClient.get("/classteacher/getscores");
 
-  // Fetch all students on component mount
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        setFetching(true);
-        const response = await apiClient.get("/classteacher/all-students");
+      const rawScores = response?.data?.scores || [];
 
-        // Maps specifically to your backend response payload key: response.data.studentData
-        const rawData = response?.data?.studentData || response?.data || [];
+      const cleanStr = (str) => {
+        if (!str) return "";
+        return str.replace(/^["']|["']$/g, "").trim();
+      };
 
-        const formattedStudents = rawData.map((student) => ({
-          studentId: student.id || student.studentId || student._id,
-          name:
-            student.fullName ||
-            `${student.firstName || ""} ${student.lastName || ""}`.trim() ||
-            "Unknown Student",
-          admissionNumber: student.admissionNumber || student.regNo || "N/A",
-          continuousAssessment:
-            student.continuousAssessment !== undefined
-              ? student.continuousAssessment
-              : "",
-          exam: student.exam !== undefined ? student.exam : "",
-        }));
+      // 1. Extract unique Subject name + Class name pairs dynamically
+      const uniqueMap = [];
+      const seenKeys = new Set();
 
-        setStudents(formattedStudents);
-      } catch (error) {
-        console.error("Error fetching students:", error);
-        toast.error("Failed to load students list");
-      } finally {
-        setFetching(false);
+      rawScores.forEach((record) => {
+        const subName = cleanStr(record.subject);
+        const clsName = cleanStr(record.className) || "N/A";
+        const compositeKey = `${subName.toLowerCase()}-${clsName.toLowerCase()}`;
+
+        if (!seenKeys.has(compositeKey) && subName) {
+          seenKeys.add(compositeKey);
+          uniqueMap.push({
+            name: subName,
+            className: clsName,
+          });
+        }
+      });
+
+      setSubjects(uniqueMap);
+
+      // 2. Set initial active target using the first object pairing found
+      if (uniqueMap.length > 0 && !activeSubject) {
+        setActiveSubject(uniqueMap[0]);
       }
-    };
 
+      const formattedStudents = rawScores.map((record) => ({
+        studentId: record.studentId || record.id || record._id,
+        name: record.studentName || "Unknown Student",
+        admissionNumber: record.admissionNumber || "N/A",
+        subject: cleanStr(record.subject),
+        className: cleanStr(record.className) || "N/A",
+        continuousAssessment:
+          record.continuousAssessment !== undefined &&
+          record.continuousAssessment !== null
+            ? record.continuousAssessment
+            : "",
+        exam:
+          record.exam !== undefined && record.exam !== null ? record.exam : "",
+      }));
+
+      setStudents(formattedStudents);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+      setError(
+        error?.response?.data?.message ||
+          error?.message ||
+          "An error occurred while bringing in the student records.",
+      );
+    } finally {
+      setFetching(false);
+    }
+  };
+
+  useEffect(() => {
     fetchStudents();
   }, []);
+
+  // Filter students based on matching BOTH subject name and class tier criteria
+  const filteredStudents = students.filter(
+    (student) =>
+      student.subject.toLowerCase() === activeSubject?.name?.toLowerCase() &&
+      student.className.toLowerCase() ===
+        activeSubject?.className?.toLowerCase(),
+  );
 
   const handleScoreChange = (studentId, field, value) => {
     const numericVal = value === "" ? "" : Number(value);
@@ -79,12 +117,11 @@ const Score = () => {
       setLoading(true);
 
       const payload = {
-        subject,
-        score: students.map((student) => ({
+        subject: activeSubject?.name || "",
+        score: filteredStudents.map((student) => ({
           studentId: student.studentId,
           continuousAssessment: Number(student.continuousAssessment || 0),
           exam: Number(student.exam || 0),
-          subject,
         })),
       };
 
@@ -102,6 +139,14 @@ const Score = () => {
     }
   };
 
+  if (fetching) {
+    return <LoadingScreen />;
+  }
+
+  if (error) {
+    return <ErrorScreen message={error} onRetry={fetchStudents} />;
+  }
+
   return (
     <main className="CTScoreContainer">
       <article className="CTScoreWrapper">
@@ -110,26 +155,36 @@ const Score = () => {
           <span>Select a subject and class to enter scores</span>
         </div>
 
+        {/* Dynamic Nav Tabs handling distinct subject/class pairs */}
         <div className="CTSubjectsHolder">
-          {subjects.map((item) => (
-            <nav
-              key={item}
-              className={`CTSubjects ${subject === item ? "active" : ""}`}
-              onClick={() => setSubject(item)}
-            >
-              {item}
-              <span>Jss1</span>
-            </nav>
-          ))}
+          {subjects.map((item, index) => {
+            const isActive =
+              activeSubject?.name?.toLowerCase() === item.name.toLowerCase() &&
+              activeSubject?.className?.toLowerCase() ===
+                item.className.toLowerCase();
+
+            return (
+              <nav
+                key={index}
+                className={`CTSubjects ${isActive ? "active" : ""}`}
+                onClick={() => setActiveSubject(item)}
+              >
+                {item.name}
+                <span>{item.className}</span>
+              </nav>
+            );
+          })}
         </div>
 
         <section className="CTScoreTable">
           <div className="CTSubjectSave">
-            <span className="CTSelectedTextName">{subject} - Jss1</span>
+            <span className="CTSelectedTextName">
+              {activeSubject?.name} - {activeSubject?.className}
+            </span>
             <button
               className="CTSaveBtn"
               onClick={saveScores}
-              disabled={loading || fetching || students.length === 0}
+              disabled={loading || fetching || filteredStudents.length === 0}
             >
               {loading ? "Saving..." : "Save Score"}
             </button>
@@ -147,18 +202,13 @@ const Score = () => {
               </nav>
             </div>
 
-            {fetching ? (
-              <div className="CTTableStateFeedback">
-                <div className="CTSpinner"></div>
-                <p>Loading student rosters...</p>
-              </div>
-            ) : students.length === 0 ? (
+            {filteredStudents.length === 0 ? (
               <div className="CTTableStateFeedback CTEmptyState">
                 <IoIosInformationCircleOutline className="CTEmptyIcon" />
-                <p>No active students found assigned to this tier.</p>
+                <p>No active student records found for this selection.</p>
               </div>
             ) : (
-              students.map((student) => (
+              filteredStudents.map((student) => (
                 <ul className="CTActualTableInfo" key={student.studentId}>
                   <span className="CTTableValueName">{student.name}</span>
                   <span className="CTTableValueName admission-num-text">

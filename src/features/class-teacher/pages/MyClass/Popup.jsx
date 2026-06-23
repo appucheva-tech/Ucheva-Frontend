@@ -5,7 +5,7 @@ import Attendanclose from "../../../../assets/mingcute_close-line.svg";
 import { apiClient } from "../../../../config/AxiosInstance";
 import { toast } from "react-toastify";
 
-const AttendanceModal = ({ students = [], onClose, onSuccess }) => {
+const AttendanceModal = ({ students = [], onClose, onSuccess, subdomain }) => {
   const [index, setIndex] = useState(0);
   const [records, setRecords] = useState([]);
   const [completed, setCompleted] = useState(false);
@@ -59,7 +59,11 @@ const AttendanceModal = ({ students = [], onClose, onSuccess }) => {
         attendance: records,
       };
 
-      await apiClient.post("/classteacher/attendance", payload);
+      await apiClient.post("/classteacher/attendance", payload, {
+        headers: {
+          "x-tenant": subdomain,
+        },
+      });
       toast.success("Attendance batch saved successfully!");
 
       if (onSuccess) onSuccess();

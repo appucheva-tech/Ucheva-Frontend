@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
+import { useSelector } from "react-redux";
 import "./Header.css";
 
 const Header = ({ setSidebarOpen }) => {
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const user = useSelector((state) => state.user.user);
+  console.log("User from Redux:", user);
 
   const formatDate = () => {
     const today = new Date();
