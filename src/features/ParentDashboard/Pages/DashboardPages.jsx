@@ -15,7 +15,7 @@ const DashboardPage = () => {
       setLoading(true);
       setError(null);
 
-      const response = await apiClient.get(`/parent/dashboard/${studentId}`);
+      const response = await apiClient.get(`parent/parentdashboard`);
 
       setDashboardData(response.data);
     } catch (err) {

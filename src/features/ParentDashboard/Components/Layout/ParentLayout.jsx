@@ -8,6 +8,7 @@ import { Outlet } from "react-router-dom";
 const ParentLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
