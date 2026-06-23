@@ -101,6 +101,8 @@ const AdminStudent2 = () => {
     } finally {
       setLoading(false);
     }
+
+    nav("/admin/AdminStudents");
   };
 
   useEffect(() => {
@@ -237,7 +239,7 @@ const AdminStudent2 = () => {
                 >
                   <option value="">Select Country</option>
                   <option value="Nigerian">Nigerian</option>
-                  <option value="Ghanaian">Ghanaian</option>
+                  <option value="Ghanaian">non Nigerian</option>
                 </select>
               </div>
 

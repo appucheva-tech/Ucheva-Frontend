@@ -107,6 +107,7 @@ const AdminStaff2 = () => {
         classId: "",
         classId: "",
       });
+      nav("/admin/AdminStaff");
     } catch (error) {
       console.error(error);
       toast.update(toastId, {
@@ -118,6 +119,7 @@ const AdminStaff2 = () => {
     } finally {
       setLoading(false);
     }
+    nav("/admin/AdminStaff");
   };
 
   useEffect(() => {
@@ -126,6 +128,7 @@ const AdminStaff2 = () => {
         const response = await apiClient.get("/class/unassigned-classes", {
           headers: { "x-tenant": subdomain },
         });
+
         setClasses(response.data?.classData || []);
       } catch (error) {
         console.error("Failed to fetch classes", error);
@@ -312,8 +315,6 @@ const AdminStaff2 = () => {
                 >
                   <option value="">Select Staff Type</option>
                   <option value="Class Teacher">Class Teacher</option>
-                  <option value="">Select Staff Type</option>
-                  <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>
                 </select>
               </div>
@@ -411,7 +412,7 @@ const AdminStaff2 = () => {
               </button>
               <button
                 className="RedirectModalBtn"
-                onClick={() => nav("/admin/add-class")}
+                onClick={() => nav("/admin/AdminClass")}
               >
                 Create & Add Class
               </button>

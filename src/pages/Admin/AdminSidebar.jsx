@@ -43,6 +43,11 @@ const Sidebar = () => {
           <span>Staff</span>
         </NavLink>
 
+        <NavLink to="AdminClass" className={getNavClass}>
+          <FaPersonChalkboard className="menu-icon" />
+          <span>Class</span>
+        </NavLink>
+
         <NavLink to="AdminStudents" className={getNavClass}>
           <PiStudent className="menu-icon" />
           <span>Students</span>
@@ -56,11 +61,6 @@ const Sidebar = () => {
         <NavLink to="AdminSubjects" className={getNavClass}>
           <LuCircleFadingPlus className="menu-icon" />
           <span>Subjects</span>
-        </NavLink>
-
-        <NavLink to="AdminClass" className={getNavClass}>
-          <FaPersonChalkboard className="menu-icon" />
-          <span>Class</span>
         </NavLink>
 
         <NavLink to="AdminFees" className={getNavClass}>
