@@ -32,7 +32,7 @@ const AdminClass = () => {
     paymentOption: "",
     teacherId: "",
     numberOfInstallments: "",
-    id: ""
+    id: "",
   });
 
   // Updates formData.className automatically whenever level or arm changes
@@ -57,7 +57,7 @@ const AdminClass = () => {
   const createClass = async () => {
     try {
       const payload = {
-        id: formData.className,
+        className: formData.className,
         amount: Number(formData.amount),
         paymentOption: formData.paymentOption.trim().toLowerCase(),
         numberOfInstallments:
