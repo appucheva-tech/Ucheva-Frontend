@@ -1,6 +1,6 @@
 .btn-login {
     width: 23%;
-    height: 40px;
+    height: 50px;
     background-color: transparent;
     border: none;
     color: #0062F6;
@@ -14,7 +14,7 @@
 
 .btn-get-started {
     width: 35%;
-    height: 40px;
+    height: 50px;
     background-color: #0062F6;
     color: white;
     border: 1px solid transparent;
