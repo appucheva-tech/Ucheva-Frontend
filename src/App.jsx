@@ -102,8 +102,8 @@ const App = () => {
         </Route>
 
         <Route path="onboarding" element={<OnboardingStepper />}></Route>
-        <Route path="/Admin" element={<AdminDashboardLayout />}>
-          <Route path="AdminDashboard" element={<AdminDashboard />} />
+        <Route path="/admin" element={<AdminDashboardLayout />}>
+          <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="staff-details/:id" element={<StaffDetails />} />
