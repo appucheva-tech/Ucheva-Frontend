@@ -10,7 +10,12 @@ const AdminClass = () => {
   const [empty, setEmpty] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [addClass, setAddClass] = useState([]);
   const token = useSelector((state) => state?.user?.token);
+
+  // States for Level and Arm dropdowns
+  const [level, setLevel] = useState("");
+  const [arm, setArm] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -18,7 +23,6 @@ const AdminClass = () => {
       [e.target.name]: e.target.value,
     });
   };
-  // classData.length === 0;
 
   const [formData, setFormData] = useState({
     className: "",
@@ -27,6 +31,14 @@ const AdminClass = () => {
     teacherId: "",
     numberOfInstallments: "",
   });
+
+  // Updates formData.className automatically whenever level or arm changes
+  useEffect(() => {
+    setFormData((prev) => ({
+      ...prev,
+      className: `${level} ${arm}`.trim(),
+    }));
+  }, [level, arm]);
 
   const createClass = async () => {
     try {
@@ -60,6 +72,8 @@ const AdminClass = () => {
         teacherId: "",
         numberOfInstallments: "",
       });
+      setLevel("");
+      setArm("");
 
       setIsOpen(false);
     } catch (error) {
@@ -68,12 +82,24 @@ const AdminClass = () => {
   };
 
   useEffect(() => {
+    const fetchallClass = async () => {
+      try {
+        const response = await apiClient.get("admin/getclass");
+        setAddClass(response.data?.classes);
+        console.log(response);
+      } catch (error) {
+        console.log(error.data.message);
+      }
+    };
+
+    fetchallClass();
+  }, []);
+  useEffect(() => {
     const fetchallStaffs = async () => {
       try {
         const response = await apiClient.get("staff/all-staffs");
         setTeachers(response.data.staffsData);
         console.log(response);
-        set;
       } catch (error) {
         console.log(error.data.message);
       }
@@ -139,13 +165,17 @@ const AdminClass = () => {
               </tr>
             </thead>
             <tbody>
-              {classData.length > 0 ? (
-                classData.map((cls, index) => (
+              {addClass.length > 0 ? (
+                addClass.map((cls, index) => (
                   <tr key={index}>
-                    <td className="className textLink">{cls.name}</td>
-                    <td className="sectionText">{cls.section}</td>
-                    <td className="teacherText textLink">{cls.teacher}</td>
-                    <td className="studentText textLink">{cls.students}</td>
+                    <td className="className textLink">{cls.className}</td>
+                    <td className="sectionText">Secondary</td>
+                    <td className="teacherText textLink">
+                      {cls.teacherName || "--"}
+                    </td>
+                    <td className="studentText textLink">
+                      {cls.totalStudents}
+                    </td>
                     <td>
                       <div className="actionButtons">
                         <button
@@ -243,13 +273,32 @@ const AdminClass = () => {
             <div className="modalBody">
               <div className="inputGroup">
                 <label>Class Name</label>
-                <input
-                  type="text"
-                  name="className"
-                  placeholder="e.g. SS 1A"
-                  value={formData.className}
-                  onChange={handleChange}
-                />
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <select
+                    className="modalSelectWrapper"
+                    style={{ flex: 2, padding: "8px" }}
+                    value={level}
+                    onChange={(e) => setLevel(e.target.value)}
+                  >
+                    <option value="">Select Level</option>
+                    <option value="JSS 1">JSS 1</option>
+                    <option value="JSS 2">JSS 2</option>
+                    <option value="JSS 3">JSS 3</option>
+                    <option value="SS 1">SS 1</option>
+                    <option value="SS 2">SS 2</option>
+                    <option value="SS 3">SS 3</option>
+                  </select>
+                  <select
+                    className="modalSelectWrapper"
+                    style={{ flex: 1, padding: "8px" }}
+                    value={arm}
+                    onChange={(e) => setArm(e.target.value)}
+                  >
+                    <option value="">Arm</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                  </select>
+                </div>
               </div>
 
               <div className="inputGroup">
