@@ -28,7 +28,7 @@ const AttendancePage = () => {
             token: token,
             latitude,
             longitude,
-          });
+          },);
 
           setLocation({ latitude, longitude });
           setStatus("Attendance recorded successfully.");
