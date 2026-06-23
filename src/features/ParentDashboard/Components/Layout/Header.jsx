@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
 import "./LayoutStyles/Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({
   onMenuClick,
@@ -8,6 +9,7 @@ const Header = ({
   selectedStudent,
   setSelectedStudent,
 }) => {
+  const nav = useNavigate();
   const [isStudentDropdownOpen, setIsStudentDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
@@ -76,6 +78,7 @@ const Header = ({
               src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
               alt="Profile"
               className="user-profile"
+              onClick={() => n}
             />
             <div className="user-info">
               <div className="user-name">{students.parentName}</div>

@@ -14,7 +14,7 @@ import {
 import { toast } from "react-toastify";
 
 const Login = () => {
-    const subdomain = window.location.hostname.split(".")[0];
+  const subdomain = window.location.hostname.split(".")[0];
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -107,7 +107,6 @@ const Login = () => {
         err.response?.data?.message ||
           "Invalid credentials or login configurations.",
       );
-
     } finally {
       setLoading(false);
     }
