@@ -71,35 +71,35 @@ const AdminSubjects = () => {
     });
   };
 
-  const handleSectionChange = (sectionId) => {
+  const handleSectionChange = (className) => {
     setFormData((prev) => {
-      const isSelected = prev.sections.includes(sectionId);
+      const isSelected = prev.sections.includes(className);
       if (isSelected) {
         return {
           ...prev,
-          sections: prev.sections.filter((id) => id !== sectionId),
+          sections: prev.sections.filter((name) => name !== className),
         };
       } else {
         return {
           ...prev,
-          sections: [...prev.sections, sectionId],
+          sections: [...prev.sections, className],
         };
       }
     });
   };
 
-  const handleEditSectionChange = (sectionId) => {
+  const handleEditSectionChange = (className) => {
     setEditFormData((prev) => {
-      const isSelected = prev.sections.includes(sectionId);
+      const isSelected = prev.sections.includes(className);
       if (isSelected) {
         return {
           ...prev,
-          sections: prev.sections.filter((id) => id !== sectionId),
+          sections: prev.sections.filter((name) => name !== className),
         };
       } else {
         return {
           ...prev,
-          sections: [...prev.sections, sectionId],
+          sections: [...prev.sections, className],
         };
       }
     });
@@ -117,7 +117,7 @@ const AdminSubjects = () => {
   useEffect(() => {
     let filtered = subjects;
 
-    // Filter by section
+    // Filter by section (using className)
     if (filterSection !== "all") {
       filtered = filtered.filter((subject) => {
         if (Array.isArray(subject.applicableClasses)) {
@@ -200,7 +200,7 @@ const AdminSubjects = () => {
 
       const payload = {
         subjectName: formData.subjectName,
-        applicableClasses: formData.sections,
+        applicableClasses: formData.sections, // Now sending class names instead of IDs
         applicableDepartment: formData.department,
         teacherId: formData.teacherID,
       };
@@ -244,7 +244,7 @@ const AdminSubjects = () => {
 
       const payload = {
         subjectName: editFormData.subjectName,
-        applicableClasses: editFormData.sections,
+        applicableClasses: editFormData.sections, // Sending class names
         applicableDepartment: editFormData.department,
       };
 
@@ -276,13 +276,9 @@ const AdminSubjects = () => {
   };
 
   // Get selected section names for display
-  const getSelectedSectionNames = (sectionIds) => {
-    if (!sectionIds || sectionIds.length === 0) return "Select Classes";
-    const names = sectionIds.map((id) => {
-      const found = classes.find((c) => c.id === id);
-      return found ? found.className : id;
-    });
-    return names.join(", ");
+  const getSelectedSectionNames = (sectionNames) => {
+    if (!sectionNames || sectionNames.length === 0) return "Select Classes";
+    return sectionNames.join(", ");
   };
 
   // Dropdown checkbox component
@@ -312,8 +308,8 @@ const AdminSubjects = () => {
               <label key={item.id} className="dropdown-checkbox-item">
                 <input
                   type="checkbox"
-                  checked={selectedSections.includes(item.id)}
-                  onChange={() => onSectionChange(item.id)}
+                  checked={selectedSections.includes(item.className)}
+                  onChange={() => onSectionChange(item.className)}
                 />
                 <span>{item.className}</span>
               </label>
@@ -394,13 +390,9 @@ const AdminSubjects = () => {
                     subjects.filter(
                       (s) =>
                         Array.isArray(s.applicableClasses) &&
-                        s.applicableClasses.some((id) => {
-                          const cls = classes.find((c) => c.id === id);
-                          return (
-                            cls &&
-                            cls.className.toLowerCase().includes("senior")
-                          );
-                        }),
+                        s.applicableClasses.some((className) =>
+                          className.toLowerCase().includes("senior"),
+                        ),
                     ).length
                   }
                 </span>
@@ -421,13 +413,9 @@ const AdminSubjects = () => {
                     subjects.filter(
                       (s) =>
                         Array.isArray(s.applicableClasses) &&
-                        s.applicableClasses.some((id) => {
-                          const cls = classes.find((c) => c.id === id);
-                          return (
-                            cls &&
-                            cls.className.toLowerCase().includes("junior")
-                          );
-                        }),
+                        s.applicableClasses.some((className) =>
+                          className.toLowerCase().includes("junior"),
+                        ),
                     ).length
                   }
                 </span>
@@ -476,7 +464,7 @@ const AdminSubjects = () => {
               >
                 <option value="all">All Classes</option>
                 {classes.map((item) => (
-                  <option key={item.id} value={item.id}>
+                  <option key={item.id} value={item.className}>
                     {item.className}
                   </option>
                 ))}
@@ -555,12 +543,7 @@ const AdminSubjects = () => {
                     <td>{subject.applicableDepartment || "N/A"}</td>
                     <td>
                       {Array.isArray(subject.applicableClasses)
-                        ? subject.applicableClasses
-                            .map((id) => {
-                              const found = classes.find((c) => c.id === id);
-                              return found ? found.className : id;
-                            })
-                            .join(", ")
+                        ? subject.applicableClasses.join(", ")
                         : subject.applicableClasses || "N/A"}
                     </td>
                     <td>{subject.subjectTeacher || 0}</td>

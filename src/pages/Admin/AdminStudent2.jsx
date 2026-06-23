@@ -92,7 +92,7 @@ const AdminStudent2 = () => {
       console.log(response);
 
       toast("Student created successfully!");
-
+      nav("/admin/AdminStudents");
       setFormData(initialState);
     } catch (error) {
       console.error(error);
@@ -101,8 +101,6 @@ const AdminStudent2 = () => {
     } finally {
       setLoading(false);
     }
-
-    nav("/admin/AdminStudents");
   };
 
   useEffect(() => {
@@ -239,7 +237,7 @@ const AdminStudent2 = () => {
                 >
                   <option value="">Select Country</option>
                   <option value="Nigerian">Nigerian</option>
-                  <option value="Ghanaian">non Nigerian</option>
+                  <option value="non Nigeria">non Nigerian</option>
                 </select>
               </div>
 
@@ -323,10 +321,10 @@ const AdminStudent2 = () => {
                   onChange={handleChange}
                 >
                   <option value="">Select Session</option>
-                  <option value="2025">2025</option>
-                  <option value="2026">2026</option>
-                  <option value="2027">2027</option>
-                  <option value="2028">2028</option>
+                  <option value="2025">{"2025/2026"}</option>
+                  <option value="2026">{"2026/2027"}</option>
+                  <option value="2027">{"2028/2029"}</option>
+                  <option value="2028">{"2029/30000"}</option>
                 </select>
               </div>
             </div>
