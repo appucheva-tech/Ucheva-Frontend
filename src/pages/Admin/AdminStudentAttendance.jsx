@@ -7,10 +7,10 @@ const StudentAttendance = () => {
   const nav = useNavigate();
   const { pathname } = useLocation();
   const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
-
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const subdomain = window.location.hostname.split(".")[0];
 
   useEffect(() => {
     const fetchAttendance = async () => {
@@ -18,7 +18,11 @@ const StudentAttendance = () => {
       setError("");
 
       try {
-        const res = await apiClient.get("/classteacher/attendance/today");
+        const res = await apiClient.get("/classteacher/attendance/today", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
 
         const data = res?.data?.Attendance || [];
 

@@ -3,13 +3,13 @@ import { store } from "../global/store";
 import { clearUser } from "../global/userSlice";
 import { toast } from "react-toastify";
 
-const subdomain = window.location.hostname.split(".")[0];
+// const subdomain = window.location.hostname.split(".")[0];
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
   // timeout: 8000,
   headers: {
     "Content-Type": "application/json",
-    "x-tenant": subdomain,
+    // "x-tenant": subdomain,
   },
 });
 console.log(import.meta.env.VITE_Base_Url);

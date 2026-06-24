@@ -85,7 +85,6 @@ const AdminClass = () => {
         className: "",
         amount: "",
         paymentOption: "",
-
         teacherId: "",
         numberOfInstallments: "",
       });

@@ -1,0 +1,232 @@
+/* QRScanner.css */
+.qr-scanner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 16px;
+}
+
+/* Main Scan Button */
+.scan-qr-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 320px;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-qr-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.scan-qr-btn:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.scan-qr-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.scan-qr-btn:active:not(:disabled) {
+  transform: translateY(0px);
+}
+
+.scan-qr-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.scan-qr-btn.scanning {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.btn-icon {
+  font-size: 20px;
+}
+
+/* Scanner Container */
+.scanner-container {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scanner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.scanner-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-scanner-btn {
+  background: #f3f4f6;
+  border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  color: #666;
+}
+
+.close-scanner-btn:hover {
+  background: #e5e7eb;
+  transform: rotate(90deg);
+}
+
+/* QR Reader */
+.qr-reader {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  position: relative;
+}
+
+.qr-reader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* Scanner Footer */
+.scanner-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  gap: 12px;
+}
+
+.scanner-hint {
+  font-size: 13px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cancel-scan-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.cancel-scan-btn:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+.cancel-scan-btn:active {
+  transform: scale(0.95);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .scan-qr-btn {
+    padding: 12px 24px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .scanner-container {
+    padding: 16px;
+  }
+
+  .scanner-footer {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cancel-scan-btn {
+    width: 100%;
+  }
+}
+
+/* Checked-in state */
+.checked-in-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #10b981;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

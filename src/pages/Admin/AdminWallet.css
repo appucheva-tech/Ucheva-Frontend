@@ -5,7 +5,6 @@
   width: 100%;
   height: 12vh;
 
-
   .search-container {
     position: relative;
     display: flex;
@@ -127,7 +126,7 @@
         right: 4px;
         width: 8px;
         height: 8px;
-        background-color: #eab308; 
+        background-color: #eab308;
         border-radius: 50%;
         border: 1.5px solid #ffffff;
       }
@@ -147,28 +146,34 @@
     }
 
     .Auser-info {
-        display: flex;
-        flex-direction: column;
-        width: 60%;
+      display: flex;
+      flex-direction: column;
+      width: 60%;
 
-        .user-name {
-          font-size: 14px;
-          font-weight: 500;
-          color: #1e1e2f;
-          line-height: 1.2;
-        }
-
-        .user-role {
-          font-size: 12px;
-          color: #71718a;
-          margin-top: 2px;
-        }
+      .user-name {
+        font-size: 14px;
+        font-weight: 500;
+        color: #1e1e2f;
+        line-height: 1.2;
       }
+
+      .user-role {
+        font-size: 12px;
+        color: #71718a;
+        margin-top: 2px;
+      }
+    }
   }
 }
 
 .dashboard-container {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   width: 100%;
   min-height: 40vh;
   padding-left: 35px;
@@ -181,11 +186,13 @@
     .welcome-text {
       font-size: 32px;
       font-weight: 700;
-      color: #03173C;
+      color: #03173c;
       margin: 0 0 8px 0;
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-direction: column;
+      align-items: start;
 
       .wave-emoji {
         display: inline-block;
@@ -194,7 +201,7 @@
 
     .subtitle-text {
       font-size: 16px;
-      color: #03173C;
+      color: #03173c;
       margin: 0;
     }
   }
@@ -226,10 +233,18 @@
       justify-content: space-between;
       border-left: 5px solid transparent;
 
-      &.card-students { border-left-color: #3b82f6; }
-      &.card-staff { border-left-color: #a855f7; }
-      &.card-attendance { border-left-color: #f59e0b; }
-      &.card-fees { border-left-color: #10b981; }
+      &.card-students {
+        border-left-color: #3b82f6;
+      }
+      &.card-staff {
+        border-left-color: #a855f7;
+      }
+      &.card-attendance {
+        border-left-color: #f59e0b;
+      }
+      &.card-fees {
+        border-left-color: #10b981;
+      }
 
       .card-content {
         display: flex;
@@ -244,14 +259,14 @@
 
           .card-label {
             font-size: 15px;
-            color: #03173C;
+            color: #03173c;
             font-weight: 500;
           }
 
           .card-value {
             font-size: 25px;
             font-weight: 700;
-            color: #03173C;
+            color: #03173c;
           }
         }
 
@@ -263,7 +278,7 @@
           align-items: center;
           justify-content: center;
 
-          .DashIcon{
+          .DashIcon {
             width: 70%;
             height: 70%;
           }
@@ -293,7 +308,7 @@
         display: flex;
         align-items: center;
         gap: 4px;
-        color: #10b981; 
+        color: #10b981;
 
         .arrow {
           width: 7%;
@@ -306,7 +321,9 @@
 
 .dashboard-container {
   background-color: #f6f8fa;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
   padding: 24px;
   color: #333333;
   display: flex;
@@ -382,7 +399,7 @@
   border: 1px solid #e2e8f0;
   border-radius: 6px;
   padding: 6px 12px;
-  margin-top: 14px; 
+  margin-top: 14px;
 }
 
 .calendar-icon {
