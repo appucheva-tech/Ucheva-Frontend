@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import "../styles/verify-email.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import logo from "../../../assets/Logo.svg";
 
 const VerifyEmail = () => {
   const navigate = useNavigate();
@@ -13,8 +14,14 @@ const VerifyEmail = () => {
     localStorage.getItem("userEmail") ||
     "your-email@domain.com";
   const [loading, setLoading] = useState(false);
-
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [timeLeft, setTimeLeft] = useState(300);
+
+  const [error, setError] = useState("");
+  const [serverSuccess, setServerSuccess] = useState("");
+
+  const inputRefs = useRef([]);
+
   useEffect(() => {
     const isComplete = otp.every((digit) => digit !== "");
 
@@ -23,15 +30,10 @@ const VerifyEmail = () => {
 
     const timeout = setTimeout(() => {
       handleVerifySubmit();
-    }, 300); // small delay prevents double-trigger issues
+    }, 300);
 
     return () => clearTimeout(timeout);
-  }, [otp, loading]);
-
-  const [timeLeft, setTimeLeft] = useState(300);
-  const [error, setError] = useState("");
-
-  const inputRefs = useRef([]);
+  }, [otp]);
 
   useEffect(() => {
     if (timeLeft === 0) return;
@@ -51,23 +53,21 @@ const VerifyEmail = () => {
     setOtp(updatedOtp);
 
     if (error) setError("");
+    if (serverSuccess) setServerSuccess("");
 
     if (val && index < 5) {
       inputRefs.current[index + 1].focus();
     }
   };
 
-  // Navigates inputs backward on Backspace clicks
   const handleKeyDown = (e, index) => {
     if (e.key === "Backspace") {
       if (!otp[index] && index > 0) {
-        // If current input is empty, focus previous input and clear it
         inputRefs.current[index - 1].focus();
       }
     }
   };
 
-  // Gracefully processes pasted codes (e.g., cmd+v or ctrl+v)
   const handlePaste = (e) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
@@ -81,8 +81,9 @@ const VerifyEmail = () => {
       if (idx < 6) updatedOtp[idx] = char;
     });
     setOtp(updatedOtp);
+    if (error) setError("");
+    if (serverSuccess) setServerSuccess("");
 
-    // Position focus onto the last modified element
     const focusTargetIndex = Math.min(splitValues.length, 5);
     inputRefs.current[focusTargetIndex].focus();
   };
@@ -93,6 +94,7 @@ const VerifyEmail = () => {
     try {
       setLoading(true);
       setError("");
+      setServerSuccess("");
 
       await apiClient.post(
         "/admin/resend-otp",
@@ -102,6 +104,9 @@ const VerifyEmail = () => {
         },
       );
 
+      setServerSuccess(
+        "A new verification code has been dispatched to your email address.",
+      );
       setTimeLeft(300);
       setOtp(new Array(6).fill(""));
       if (inputRefs.current[0]) inputRefs.current[0].focus();
@@ -124,6 +129,7 @@ const VerifyEmail = () => {
     try {
       setLoading(true);
       setError("");
+      setServerSuccess("");
 
       const payload = {
         email: userEmail,
@@ -137,32 +143,31 @@ const VerifyEmail = () => {
       });
 
       console.log("[API Success] OTP Verified successfully!", response.data);
+      setServerSuccess(
+        "Email verification successful! Redirecting you to your workspace...",
+      );
 
       if (response.data) {
         const { loginRedirectUrl, verifyRedirectLocalUrl } = response.data;
 
-        // Use .includes() to accurately catch localhost, IP addresses, or local nip.io domains
         const isLocalhost =
           window.location.hostname.includes("localhost") ||
           window.location.hostname.includes("127.0.0.1") ||
           window.location.hostname.includes("nip.io");
 
-        // 1. Pick the correct login redirect path based on environment
         let targetUrl = isLocalhost
           ? verifyRedirectLocalUrl
           : loginRedirectUrl || "/login";
 
-        // 2. Strip 'www.' automatically to keep local debugging clean
         if (targetUrl.includes("www.")) {
           targetUrl = targetUrl.replace("www.", "");
         }
 
-        console.log(`[Redirecting] Moving to workspace login: ${targetUrl}`);
-
-        // 3. Perform hard page location switch to the tenant's login portal
-        window.location.href = targetUrl;
+        setTimeout(() => {
+          window.location.href = targetUrl;
+        }, 1500);
       } else {
-        navigate("/login");
+        setTimeout(() => navigate("/login"), 1500);
       }
     } catch (err) {
       setError(
@@ -172,76 +177,112 @@ const VerifyEmail = () => {
       setLoading(false);
     }
   };
+
   return (
     <div className="verify-page-viewport">
-      <div className="verify-card-box">
-        <h1 className="verify-title">Verify Your Email</h1>
-
-        <p className="verify-subtext">
-          We've sent an OTP code to your email <br />
-          <span className="user-email-highlight">{userEmail}</span>
-        </p>
-
-        <form onSubmit={handleVerifySubmit}>
-          {/* OTP Box Inputs Container */}
-          <div className="otp-inputs-row">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                type="text"
-                maxLength="1"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                className={`otp-digit-field ${error ? "otp-field-error" : ""}`}
-                value={digit}
-                ref={(el) => (inputRefs.current[index] = el)}
-                onChange={(e) => handleInputChange(e.target, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                onPaste={handlePaste}
-                disabled={loading}
-              />
-            ))}
+      {/* Form Content Area Container */}
+      <div className="verify-form-container">
+        <div className="verify-card-box">
+          <div className="main-app-logo">
+            <img src={logo} alt="Company Logo" />
           </div>
 
-          {error && <p className="otp-error-toast">{error}</p>}
+          <h1 className="verify-title">Verify Your Email</h1>
 
-          {/* Countdown / Resend Indicator */}
-          <p className="countdown-timer-text">
-            {loading ? (
-              <span className="processing-text">Processing request...</span>
-            ) : timeLeft > 0 ? (
-              <>
-                Code will expire in{" "}
-                <span className="timer-countdown">
-                  {Math.floor(timeLeft / 60)}:
-                  {(timeLeft % 60).toString().padStart(2, "0")}s
-                </span>
-              </>
-            ) : (
-              <span
-                className="resend-action-trigger"
-                onClick={handleResendCode}
-              >
-                Resend Code
-              </span>
-            )}
+          <p className="verify-subtext">
+            We've sent an OTP code to your email <br />
+            <span className="user-email-highlight">{userEmail}</span>
           </p>
 
-          <button
-            type="submit"
-            className="verify-submit-button"
-            disabled={loading || otp.includes("")}
-          >
-            {loading ? "Verifying..." : "Verify"}
-          </button>
-        </form>
+          <form onSubmit={handleVerifySubmit} className="verify-form-element">
+            <div className="otp-inputs-row">
+              {otp.map((digit, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  maxLength="1"
+                  pattern="[0-9]*"
+                  inputMode="numeric"
+                  className={`otp-digit-field ${error ? "otp-field-error" : ""}`}
+                  value={digit}
+                  ref={(el) => (inputRefs.current[index] = el)}
+                  onChange={(e) => handleInputChange(e.target, index)}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
+                  onPaste={handlePaste}
+                  disabled={loading}
+                />
+              ))}
+            </div>
 
-        <p className="verify-footer-nav">
-          Already have an account?{" "}
-          <span className="login-link-span" onClick={() => navigate("/login")}>
-            Log in
-          </span>
-        </p>
+            <p className="countdown-timer-text">
+              {loading ? (
+                <span className="processing-text">Processing request...</span>
+              ) : timeLeft > 0 ? (
+                <>
+                  Code will expire in{" "}
+                  <span className="timer-countdown">
+                    {Math.floor(timeLeft / 60)}:
+                    {(timeLeft % 60).toString().padStart(2, "0")}s
+                  </span>
+                </>
+              ) : (
+                <span
+                  className="resend-action-trigger"
+                  onClick={handleResendCode}
+                >
+                  Resend Code
+                </span>
+              )}
+            </p>
+
+            {/* In-Card Dynamic Notification Banners positioned above button */}
+            {error && (
+              <div className="verify-inline-banner banner-error">
+                <span className="banner-icon">⚠️</span>
+                <p className="banner-text">{error}</p>
+                <button
+                  type="button"
+                  className="banner-close-btn"
+                  onClick={() => setError("")}
+                >
+                  &times;
+                </button>
+              </div>
+            )}
+
+            {serverSuccess && (
+              <div className="verify-inline-banner banner-success">
+                <span className="banner-icon">🎉</span>
+                <p className="banner-text">{serverSuccess}</p>
+                <button
+                  type="button"
+                  className="banner-close-btn"
+                  onClick={() => setServerSuccess("")}
+                >
+                  &times;
+                </button>
+              </div>
+            )}
+
+            <button
+              type="submit"
+              className="verify-submit-button"
+              disabled={loading || otp.includes("")}
+            >
+              {loading ? "Verifying..." : "Verify"}
+            </button>
+          </form>
+
+          <p className="verify-footer-nav">
+            Already have an account?{" "}
+            <span
+              className="login-link-span"
+              onClick={() => navigate("/login")}
+            >
+              Log in
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );

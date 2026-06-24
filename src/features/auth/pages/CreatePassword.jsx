@@ -161,7 +161,7 @@ const CreatePassword = () => {
 
           <button
             type="submit"
-            disabled={loading || !password || !confirmPassword || !!error}
+            disabled={loading || !password || !confirmPassword }
             className="verify-submit-button"
           >
             {loading ? "Saving..." : "Save"}

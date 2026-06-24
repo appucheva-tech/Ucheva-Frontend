@@ -23,6 +23,8 @@ export default function NotFound() {
   const parts = host.split(".");
   const subdomain = parts.length > 2 ? parts.slice(0, parts.length - 2).join(".") : null;
 
+
+
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token || state.staff.staffToken);
 

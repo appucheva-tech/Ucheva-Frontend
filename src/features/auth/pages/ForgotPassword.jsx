@@ -95,7 +95,7 @@ const ForgotPassword = () => {
           {/* Action Action Trigger Control Buttons */}
           <button
             type="submit"
-            disabled={loading || !email || !!error}
+            disabled={loading || !email }
             className="forgot-password-submit-button"
           >
             {loading ? "Sending..." : "Send Reset Link"}
