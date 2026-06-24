@@ -56,7 +56,7 @@ const AdminFees = () => {
       <div className="dashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
-            {data?.greeting || "Good morning"}{" "}
+            Fee Management
           </h1>
           <p className="subtitle-text">
             {data?.overviewText ||

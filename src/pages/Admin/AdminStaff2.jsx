@@ -255,6 +255,8 @@ const AdminStaff2 = () => {
                   onChange={handleChange}
                   placeholder="Enter Phone Number"
                   required
+                  inputMode="numeric"
+                  maxLength={11}
                 />
               </div>
 

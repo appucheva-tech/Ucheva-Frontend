@@ -341,7 +341,7 @@ const AdminStudent2 = () => {
                   <option value="2025">{"2025/2026"}</option>
                   <option value="2026">{"2026/2027"}</option>
                   <option value="2027">{"2028/2029"}</option>
-                  <option value="2028">{"2029/30000"}</option>
+                  <option value="2028">{"2029/2030"}</option>
                 </select>
               </div>
             </div>
@@ -389,11 +389,13 @@ const AdminStudent2 = () => {
                   <span className="required">*</span>
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
                   placeholder="Enter phone number"
+                  inputMode="numeric"
+                  maxLength={11}
                 />
                 <span className="field-hint">WhatsApp number preferably</span>
               </div>

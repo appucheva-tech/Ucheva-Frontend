@@ -16,7 +16,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const subdomain = window.location.hostname.split(".")[0];
 
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -69,8 +68,8 @@ const Login = () => {
         },
       });
 
-      const {  user, token } = response.data;
-console.log(response.data)
+      const { user, token } = response.data;
+      console.log(response.data);
       // Save user and token in Redux
       dispatch(setUser(user));
       dispatch(setToken(token));
@@ -105,11 +104,8 @@ console.log(response.data)
         }
       }
     } catch (err) {
-      console.log(err)
-      setError(
-        err.response?.data?.message ||
-          "Something Went wrong",
-      );
+      console.log(err);
+      setError(err.response?.data?.message || "Something Went wrong");
     } finally {
       setLoading(false);
     }
@@ -197,7 +193,7 @@ console.log(response.data)
         {/* Submit */}
         <button
           type="submit"
-          disabled={loading || !email }
+          disabled={loading || !email}
           className="login-submit-button"
         >
           {loading ? "Logging in..." : "Log In"}

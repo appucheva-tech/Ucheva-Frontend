@@ -11,24 +11,24 @@ const StaffDetails = () => {
 
   const [staff, setStaff] = useState(null);
 
-  const dummyStaff = {
-    firstName: "James",
-    lastName: "Brown",
-    otherName: "Chinedu",
-    gender: "Male",
-    dateOfBirth: "1991-04-15",
-    nationality: "Nigerian",
-    address: "15 Adeola Odeku Street, Victoria Island, Lagos",
-    maritalStatus: "Single",
-    phoneNumber: "08029837465",
-    email: "james.brown@example.com",
-    staffType: "Teaching",
-    teachingType: "Class Teacher",
-    classAssigned: "Primary 3",
-    subjectAssigned: ["Mathematics", "Physics"],
-    classesToTeach: "Primary 3, Primary 4",
-    staffUrl: "https://via.placeholder.com/100",
-  };
+  // const dummyStaff = {
+  //   firstName: "James",
+  //   lastName: "Brown",
+  //   otherName: "Chinedu",
+  //   gender: "Male",
+  //   dateOfBirth: "1991-04-15",
+  //   nationality: "Nigerian",
+  //   address: "15 Adeola Odeku Street, Victoria Island, Lagos",
+  //   maritalStatus: "Single",
+  //   phoneNumber: "08029837465",
+  //   email: "james.brown@example.com",
+  //   staffType: "Teaching",
+  //   teachingType: "Class Teacher",
+  //   classAssigned: "Primary 3",
+  //   subjectAssigned: ["Mathematics", "Physics"],
+  //   classesToTeach: "Primary 3, Primary 4",
+  //   staffUrl: "https://via.placeholder.com/100",
+  // };
 
   useEffect(() => {
     const fetchStaffDetails = async () => {
@@ -50,11 +50,11 @@ const StaffDetails = () => {
     fetchStaffDetails();
   }, [id, subdomain]);
 
-  const staffData = staff || dummyStaff;
+  const staffData = staff;
 
-  const fullName = `${staffData.firstName || ""} ${
-    staffData.lastName || ""
-  } ${staffData.otherName || ""}`.trim();
+  const fullName = `${staffData?.firstName || ""} ${
+    staffData?.lastName || ""
+  } ${staffData?.otherName || ""}`.trim();
 
   return (
     <div className="Fcontainer">
@@ -62,7 +62,14 @@ const StaffDetails = () => {
         <h1 className="Ftitle">Staff Details</h1>
 
         <div className="Fbreadcrumb">
-          <span className="FStaffManagement" onClick={() => {nav(-1)}}>Staff Management</span>
+          <span
+            className="FStaffManagement"
+            onClick={() => {
+              nav(-1);
+            }}
+          >
+            Staff Management
+          </span>
           <span className="Fseparator">&gt;</span>
           <span className="Factive">Staff Details</span>
         </div>
@@ -71,7 +78,7 @@ const StaffDetails = () => {
       <main className="Fmain-content">
         <section className="Fprofile-card">
           <img
-            src={staffData.staffUrl || "https://via.placeholder.com/100"}
+            src={staffData?.staffUrl || "https://via.placeholder.com/100"}
             alt={fullName}
             className="Fprofile-img"
           />
@@ -83,19 +90,19 @@ const StaffDetails = () => {
               <div>
                 <span className="Flabel">Bio</span>
                 <span className="Fvalue">
-                  {staffData.teachingType || "N/A"}
+                  {staffData?.teachingType || "N/A"}
                 </span>
               </div>
 
               <div>
                 <span className="Flabel">Phone Number</span>
-                <span className="Fvalue">{staffData.phoneNumber || "N/A"}</span>
+                <span className="Fvalue">{staffData?.phoneNumber || "N/A"}</span>
               </div>
 
               <div>
                 <span className="Flabel">Email</span>
                 <span className="Fvalue Femail-link">
-                  {staffData.email || "N/A"}
+                  {staffData?.email || "N/A"}
                 </span>
               </div>
             </div>
@@ -114,52 +121,52 @@ const StaffDetails = () => {
             <div className="Finfo-group">
               <span className="Finfo-label">Email Address</span>
               <span className="Finfo-value Femail-link">
-                {staffData.email || "N/A"}
+                {staffData?.email || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Gender</span>
-              <span className="Finfo-value">{staffData.gender || "N/A"}</span>
+              <span className="Finfo-value">{staffData?.gender || "N/A"}</span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Address</span>
-              <span className="Finfo-value">{staffData.address || "N/A"}</span>
+              <span className="Finfo-value">{staffData?.address || "N/A"}</span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Date of Birth</span>
               <span className="Finfo-value">
-                {staffData.dateOfBirth || "N/A"}
+                {staffData?.dateOfBirth || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Nationality</span>
               <span className="Finfo-value">
-                {staffData.nationality || "N/A"}
+                {staffData?.nationality || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Phone Number</span>
               <span className="Finfo-value">
-                {staffData.phoneNumber || "N/A"}
+                {staffData?.phoneNumber || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Status</span>
               <span className="Finfo-value">
-                {staffData.isActive ? "Active" : "Inactive"}
+                {staffData?.isActive ? "Active" : "Inactive"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Marital Status</span>
               <span className="Finfo-value">
-                {staffData.maritalStatus || "N/A"}
+                {staffData?.maritalStatus || "N/A"}
               </span>
             </div>
           </div>
@@ -172,44 +179,44 @@ const StaffDetails = () => {
             <div className="Finfo-group">
               <span className="Finfo-label">Staff Type</span>
               <span className="Finfo-value">
-                {staffData.staffType || "N/A"}
+                {staffData?.staffType || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Assigned Subjects</span>
               <span className="Finfo-value">
-                {Array.isArray(staffData.subjectAssigned)
-                  ? staffData.subjectAssigned.join(", ")
-                  : staffData.subjectAssigned || "N/A"}
+                {Array.isArray(staffData?.subjectAssigned)
+                  ? staffData?.subjectAssigned.join(", ")
+                  : staffData?.subjectAssigned || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Class Teacher Of</span>
               <span className="Finfo-value">
-                {staffData.classAssigned || "N/A"}
+                {staffData?.classAssigned || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Teaching Type</span>
               <span className="Finfo-value">
-                {staffData.teachingType || "N/A"}
+                {staffData?.teachingType || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Classes To Teach</span>
               <span className="Finfo-value">
-                {staffData.classesToTeach || "N/A"}
+                {staffData?.classesToTeach || "N/A"}
               </span>
             </div>
 
             <div className="Finfo-group">
               <span className="Finfo-label">Total Students</span>
               <span className="Finfo-value">
-                {staffData.totalStudents || 0}
+                {staffData?.totalStudents || 0}
               </span>
             </div>
           </div>
