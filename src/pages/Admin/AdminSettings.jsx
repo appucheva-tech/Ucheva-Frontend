@@ -169,6 +169,18 @@ const AdminSettings = () => {
     setNepaPreview(URL.createObjectURL(file));
   };
 
+  // ─── Password Strength Calculator ────────────────────────────
+  const getPasswordStrength = (pw) => {
+    let score = 0;
+    if (pw.length >= 8) score++;
+    if (/[A-Z]/.test(pw)) score++;
+    if (/[0-9]/.test(pw)) score++;
+    if (/[^A-Za-z0-9]/.test(pw)) score++;
+    const labels = ["Weak", "Fair", "Good", "Strong"];
+    const colors = ["#ef4444", "#f59e0b", "#3b82f6", "#22c55e"];
+    return { score, label: labels[score - 1], color: colors[score - 1] };
+  };
+
   // ─── SINGLE PUT — every Save Changes button calls this ────────
   const handleSaveAll = async () => {
     if (
@@ -214,15 +226,11 @@ const AdminSettings = () => {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      // ─── Update Redux so the header reflects the new name immediately ───
-      // Use the response if your API returns the updated user, otherwise
-      // build the updated fields from what was just saved.
       const updatedUser = res.data?.admin || res.data?.user || null;
 
       if (updatedUser) {
         dispatch(setUser(updatedUser));
       } else {
-        // Fallback: patch only the name fields in Redux
         dispatch(
           setUser({
             adminFirstName: adminProfile.adminFirstName,
@@ -262,6 +270,10 @@ const AdminSettings = () => {
     }
   };
 
+  const strength = passwordFields.newPassword
+    ? getPasswordStrength(passwordFields.newPassword)
+    : null;
+
   return (
     <>
       {toast && (
@@ -272,184 +284,136 @@ const AdminSettings = () => {
         </div>
       )}
 
-      {/* ─── Update Profile Modal ─────────────────────────────── */}
+      {/* ─── Change Password Modal ────────────────────────────── */}
       {showUpdateProfile && (
         <div className="modalOverlay">
           <div className="modalCard">
             <div className="modalHeader">
-              <h2 className="modalTitle">Update Profile</h2>
+              <div className="modalHeaderLeft">
+                <div className="modalIconBadge">
+                  <svg viewBox="0 0 24 24" fill="none" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <div>
+                  <h2 className="modalTitle">Change Password</h2>
+                  <p className="modalSubtitle">Update your account password</p>
+                </div>
+              </div>
               <button
                 className="modalCloseBtn"
-                onClick={() => setShowUpdateProfile(false)}
+                onClick={() => {
+                  setShowUpdateProfile(false);
+                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                }}
               >
                 ✕
               </button>
             </div>
 
             <div className="modalBody">
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">Admin First Name</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="Admin First Name"
-                    value={adminProfile.adminFirstName}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        adminFirstName: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="inputGroup">
-                  <label className="inputLabel">Admin Last Name</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="Admin Last Name"
-                    value={adminProfile.adminLastName}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        adminLastName: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">School Type</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="e.g. Primary, Secondary"
-                    value={adminProfile.schoolType}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        schoolType: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div className="inputGroup">
-                  <label className="inputLabel">Phone Number</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="Phone Number"
-                    value={adminProfile.phoneNumber}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        phoneNumber: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">CA Config (%)</label>
-                  <input
-                    type="number"
-                    className="textInput numericalInput"
-                    value={reportConfig.continuousAssessmentConfig}
-                    min={0}
-                    max={100}
-                    onChange={(e) => handleCaScoreChange(e.target.value)}
-                  />
-                </div>
-                <div className="inputGroup">
-                  <label className="inputLabel">Exam Config (%)</label>
-                  <input
-                    type="number"
-                    className="textInput numericalInput disabledInput"
-                    value={reportConfig.examConfig}
-                    readOnly
-                  />
-                </div>
-                <div className="inputGroup">
-                  <label className="inputLabel">Total (%)</label>
-                  <input
-                    type="text"
-                    className="textInput numericalInput disabledInput"
-                    value={reportConfig.total}
-                    readOnly
-                  />
-                </div>
-              </div>
-
-              <hr className="modalDivider" />
-              <p className="modalSectionLabel">Change Password (optional)</p>
-
+              {/* Old Password */}
               <div className="inputGroup">
                 <label className="inputLabel">Old Password</label>
-                <input
-                  type="password"
-                  className="textInput"
-                  placeholder="Enter old password"
-                  value={passwordFields.oldPassword}
-                  onChange={(e) =>
-                    setPasswordFields((p) => ({
-                      ...p,
-                      oldPassword: e.target.value,
-                    }))
-                  }
-                />
-              </div>
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">New Password</label>
+                <div className="passwordInputWrapper">
+                    <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                    </svg>
                   <input
                     type="password"
-                    className="textInput"
-                    placeholder="New password"
+                    className="textInput passwordInput"
+                    placeholder="Enter your current password"
+                    value={passwordFields.oldPassword}
+                    onChange={(e) =>
+                      setPasswordFields((p) => ({ ...p, oldPassword: e.target.value }))
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* New Password */}
+              <div className="inputGroup">
+                <label className="inputLabel">New Password</label>
+                <div className="passwordInputWrapper">
+                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                  <input
+                    type="password"
+                    className="textInput passwordInput"
+                    placeholder="Create a strong password"
                     value={passwordFields.newPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({
-                        ...p,
-                        newPassword: e.target.value,
-                      }))
+                      setPasswordFields((p) => ({ ...p, newPassword: e.target.value }))
                     }
                   />
                 </div>
-                <div className="inputGroup">
-                  <label className="inputLabel">Confirm Password</label>
+
+
+ 
+              </div>
+
+              {/* Confirm Password */}
+              <div className="inputGroup">
+                <label className="inputLabel">Confirm Password</label>
+                <div className="passwordInputWrapper">
+                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                    <polyline points="22 4 12 14.01 9 11.01" />
+                  </svg>
                   <input
                     type="password"
-                    className="textInput"
-                    placeholder="Confirm new password"
+                    className="textInput passwordInput"
+                    placeholder="Re-enter your new password"
                     value={passwordFields.confirmPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({
-                        ...p,
-                        confirmPassword: e.target.value,
-                      }))
+                      setPasswordFields((p) => ({ ...p, confirmPassword: e.target.value }))
                     }
                   />
                 </div>
+                {passwordFields.confirmPassword &&
+                  passwordFields.newPassword !== passwordFields.confirmPassword && (
+                    <span className="passwordMismatchHint">⚠ Passwords do not match</span>
+                  )}
+                {passwordFields.confirmPassword &&
+                  passwordFields.newPassword === passwordFields.confirmPassword && (
+                    <span className="passwordMatchHint">✓ Passwords match</span>
+                  )}
               </div>
             </div>
 
             <div className="modalFooter">
               <button
-                className="outlineActionButton"
-                onClick={() => setShowUpdateProfile(false)}
+                className="modalCancelBtn"
+                onClick={() => {
+                  setShowUpdateProfile(false);
+                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                }}
               >
                 Cancel
               </button>
               <button
-                className="saveChangesBtn"
+                className="modalSaveBtn"
                 onClick={handleSaveAll}
                 disabled={saving}
               >
-                {saving ? "Saving..." : "Update Profile"}
+                {saving ? (
+                  <>
+                    <span className="modalSpinner" />
+                    Saving...
+                  </>
+                ) : (
+                  <>
+                    <svg viewBox="0 0 24 24" fill="none" strokeWidth="2.5">
+                      <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+                      <polyline points="17 21 17 13 7 13 7 21" />
+                      <polyline points="7 3 7 8 15 8" />
+                    </svg>
+                    Change Password
+                  </>
+                )}
               </button>
             </div>
           </div>
@@ -879,16 +843,16 @@ const AdminSettings = () => {
           <h2 className="panelCardTitle">Security</h2>
           <div className="actionFlexRow">
             <div className="infoContextBlock">
-              <h3 className="actionItemHeading">Update Profile</h3>
+              <h3 className="actionItemHeading">Change Password</h3>
               <p className="actionItemSubtext">
-                Update your profile details, school configuration, and password.
+                Update your password to keep your account secure.
               </p>
             </div>
             <button
               className="outlineActionButton"
               onClick={() => setShowUpdateProfile(true)}
             >
-              Update Profile
+              Change Password
             </button>
           </div>
         </section>

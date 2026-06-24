@@ -61,7 +61,7 @@
   border-radius: 12px;
   padding: 16px 20px;
   border: 1px solid #e2e8f0;
-  border-left: 4px solid transparent;
+  border-left: 2px solid transparent;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

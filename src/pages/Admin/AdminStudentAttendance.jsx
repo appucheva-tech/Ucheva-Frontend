@@ -48,7 +48,7 @@ const StudentAttendance = () => {
       <p className="Napp-p">
         View and monitor staff and student attendance records.
       </p>
-
+      <section className="NContainer">
       <header className="Nheader">
         <nav className="Nnavigation">
           <button
@@ -190,6 +190,7 @@ const StudentAttendance = () => {
           </div>
         </div>
       </main>
+      </section>
     </div>
   );
 };
