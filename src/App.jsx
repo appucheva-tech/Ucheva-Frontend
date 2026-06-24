@@ -104,7 +104,10 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verify-password" element={<VerifyForgot />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/create-password/:token" element={<CreatePassword />} />
+            <Route
+              path="/create-password/:token"
+              element={<CreatePassword />}
+            />
           </Route>
         </Route>
 
@@ -121,10 +124,16 @@ const App = () => {
             <Route path="staff-details/:id" element={<StaffDetails />} />
             <Route path="AdminStudents" element={<AdminStudents />} />
             <Route path="AdminStudent2" element={<AdminStudent2 />} />
-            <Route path="AdminStudentDetails/:id" element={<AdminStudentDetails />} />
+            <Route
+              path="AdminStudentDetails/:id"
+              element={<AdminStudentDetails />}
+            />
             <Route path="AdminEditStudent" element={<AdminEditStudent />} />
             <Route path="AdminAttendance" element={<AdminAttendance />} />
-            <Route path="AdminStudentAttendance" element={<AdminStudentAttendance />} />
+            <Route
+              path="AdminStudentAttendance"
+              element={<AdminStudentAttendance />}
+            />
             <Route path="AdminSubjects" element={<AdminSubjects />} />
             <Route path="AdminClass" element={<AdminClass />} />
             <Route path="AdminFees" element={<AdminFees />} />
@@ -145,7 +154,14 @@ const App = () => {
         </Route>
 
         {/* CLASS TEACHER ONLY */}
-        <Route element={<PrivateRoute allowedRoles={["staff"]} allowedStaffTypes={["class teacher"]} />}>
+        <Route
+          element={
+            <PrivateRoute
+              allowedRoles={["staff"]}
+              allowedStaffTypes={["class teacher"]}
+            />
+          }
+        >
           <Route path="/CTdashboard" element={<CTLayout />}>
             <Route index element={<Overview />} />
             <Route path="myclass" element={<MyClass />} />
@@ -158,30 +174,60 @@ const App = () => {
         </Route>
 
         {/* SUBJECT TEACHER ONLY */}
-        <Route element={<PrivateRoute allowedRoles={["staff"]} allowedStaffTypes={["subject teacher"]} />}>
-          <Route path="/subjectteacherdashboard" element={<SubjectTeacherLayout />}>
+        <Route
+          element={
+            <PrivateRoute
+              allowedRoles={["staff"]}
+              allowedStaffTypes={["subject teacher"]}
+            />
+          }
+        >
+          <Route
+            path="/subjectteacherdashboard"
+            element={<SubjectTeacherLayout />}
+          >
             <Route index element={<SubjectTeacherDashboard />} />
             <Route path="scores" element={<SubjectTeacherScores />} />
-            <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
+            <Route
+              path="announcement"
+              element={<SubjectTeacherAnnouncement />}
+            />
             <Route path="settings" element={<SubjectTeacherSettings />} />
           </Route>
         </Route>
 
         {/* BURSARY / NON-TEACHING STAFF ONLY */}
-        <Route element={<PrivateRoute allowedRoles={["staff"]} allowedStaffTypes={["non-teaching staff"]} />}>
+        <Route
+          element={
+            <PrivateRoute
+              allowedRoles={["staff"]}
+              allowedStaffTypes={["non-teaching staff"]}
+            />
+          }
+        >
           <Route path="/bursary" element={<BursaryLayout />}>
             <Route index element={<BusaryDashboard />} />
             <Route path="bursaryFees" element={<BursaryFees />} />
             <Route path="studentFee" element={<StudentFee />} />
             <Route path="bursarySettings" element={<BursarySettings />} />
-            <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
+            <Route
+              path="bursaryAnnouncement"
+              element={<BursaryAnnouncement />}
+            />
             <Route path="attendance" element={<AttendancePage />} />
           </Route>
           <Route path="/attendance/:token" element={<AttendancePage />} />
         </Route>
 
         {/* SECURITY ONLY */}
-        <Route element={<PrivateRoute allowedRoles={["staff"]} allowedStaffTypes={["security"]} />}>
+        <Route
+          element={
+            <PrivateRoute
+              allowedRoles={["staff"]}
+              allowedStaffTypes={["security"]}
+            />
+          }
+        >
           <Route path="/securitydashboard" element={<SecurityLayout />}>
             <Route index element={<SecuritysDashboard />} />
             <Route path="announcement" element={<SecurityAnnouncement />} />
