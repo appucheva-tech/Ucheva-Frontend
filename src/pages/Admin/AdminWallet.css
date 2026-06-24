@@ -206,6 +206,16 @@
     }
   }
 
+  .WithdrawFunds {
+    width: 14%;
+    height: 45px;
+    background: #0062f6;
+    border-radius: 7px;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+
   .metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
