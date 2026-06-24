@@ -45,21 +45,23 @@ const AttendancePage = () => {
       (error) => {
         setLoading(false);
 
-        switch (error.code) {
-          case 1:
-            setStatus("Location access denied.");
-            break;
+        if (error) {
+          console.log("errrrrrr: ",error)
+        //   case 1:
+        //     setStatus("Location access denied.");
+        //     break;
 
-          case 2:
-            setStatus("Location unavailable.");
-            break;
+        //   case 2:
+        //     setStatus("Location unavailable.");
+        //     break;
 
-          case 3:
-            setStatus("Location request timed out.");
-            break;
+        //   case 3:
+        //     setStatus("Location request timed out.");
+        //     break;
 
-          default:
-            setStatus("Unable to obtain your location.");
+        //   default:
+        //     setStatus("Unable to obtain your location.");
+        // 
         }
       },
     );
