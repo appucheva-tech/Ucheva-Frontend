@@ -1,8 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminSettings.css";
 import { apiClient } from "../../config/AxiosInstance";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../global/userSlice"
 
 const AdminSettings = () => {
+  const dispatch = useDispatch();
+
   // ─── Admin Profile ────────────────────────────────────────────
   const [adminProfile, setAdminProfile] = useState({
     adminFirstName: "",
@@ -73,7 +77,6 @@ const AdminSettings = () => {
   const handleSignatureChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-
     setSignatureFile(file);
     setSignaturePreview(URL.createObjectURL(file));
   };
@@ -168,7 +171,6 @@ const AdminSettings = () => {
 
   // ─── SINGLE PUT — every Save Changes button calls this ────────
   const handleSaveAll = async () => {
-
     if (
       passwordFields.newPassword &&
       passwordFields.newPassword !== passwordFields.confirmPassword
@@ -208,9 +210,26 @@ const AdminSettings = () => {
         formData.append("confirmPassword", passwordFields.confirmPassword);
       }
 
-      await apiClient.put("/admin/profile-settings", formData, {
+      const res = await apiClient.put("/admin/profile-settings", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+
+      // ─── Update Redux so the header reflects the new name immediately ───
+      // Use the response if your API returns the updated user, otherwise
+      // build the updated fields from what was just saved.
+      const updatedUser = res.data?.admin || res.data?.user || null;
+
+      if (updatedUser) {
+        dispatch(setUser(updatedUser));
+      } else {
+        // Fallback: patch only the name fields in Redux
+        dispatch(
+          setUser({
+            adminFirstName: adminProfile.adminFirstName,
+            adminLastName: adminProfile.adminLastName,
+          })
+        );
+      }
 
       showToast("Settings saved successfully.");
       setShowUpdateProfile(false);
