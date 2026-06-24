@@ -6,14 +6,20 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
-// FIXED: Correct import path - going up two levels to src, then into services
 import { walletService } from "./Services/walletService";
+import WithdrawFundsModal from "../../components/Modals/WithdrawFundsModal";
+import VerifyModal from "../../components/Modals/VerifyModal";
+import SuccessModal from "../../components/Modals/SuccessModal";
 
 const AdminWallet = () => {
   const [wallet, setWallet] = useState(null);
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Modal flow: "withdraw" | "verify" | "success" | null
+  const [activeModal, setActiveModal] = useState(null);
+  const [withdrawalData, setWithdrawalData] = useState(null);
 
   useEffect(() => {
     fetchData();
@@ -37,12 +43,38 @@ const AdminWallet = () => {
     }
   };
 
+  // Step 1: open withdraw form
+  const handleOpenWithdraw = () => setActiveModal("withdraw");
+
+  // Step 2: form submitted → move to OTP verify
+  const handleWithdrawNext = (formData) => {
+    setWithdrawalData(formData);
+    setActiveModal("verify");
+  };
+
+  // Step 3: OTP verified → call API → show success
+  const handleVerify = async (code, data) => {
+    try {
+      // await walletService.requestWithdrawal({ ...data, otp: code });
+      setActiveModal("success");
+      fetchData(); // refresh wallet balance
+    } catch (err) {
+      console.error("Withdrawal failed:", err);
+    }
+  };
+
+  // Close all modals cleanly
+  const handleCloseAll = () => {
+    setActiveModal(null);
+    setWithdrawalData(null);
+  };
+
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
-    }).format(amount);
+    }).format(amount || 0);
   };
 
   const formatDate = (date) => {
@@ -96,6 +128,28 @@ const AdminWallet = () => {
 
   return (
     <>
+      {/* Modals — rendered here so they sit above everything */}
+      <WithdrawFundsModal
+        isOpen={activeModal === "withdraw"}
+        onClose={handleCloseAll}
+        onNext={handleWithdrawNext}
+        balance={wallet?.balance || 0}
+      />
+
+      <VerifyModal
+        isOpen={activeModal === "verify"}
+        onClose={handleCloseAll}
+        onVerify={handleVerify}
+        email={wallet?.email || "your registered email"}
+        withdrawalData={withdrawalData}
+      />
+
+      <SuccessModal
+        isOpen={activeModal === "success"}
+        onClose={handleCloseAll}
+        amount={withdrawalData?.amount || 0}
+      />
+
       <div className="dashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
@@ -104,7 +158,9 @@ const AdminWallet = () => {
               Here's an overview of Green Field Academy activities today.
             </p>
           </h1>
-          <button className="WithdrawFunds">Withdraw Funds</button>
+          <button className="WithdrawFunds" onClick={handleOpenWithdraw}>
+            Withdraw Funds
+          </button>
         </header>
 
         <div className="metrics-grid">
@@ -113,7 +169,7 @@ const AdminWallet = () => {
               <div className="text-section">
                 <span className="card-label">Payment received</span>
                 <span className="card-value">
-                  {wallet ? formatCurrency(wallet.balance * 0.3) : "N0"}
+                  {formatCurrency(wallet?.balance * 0.3)}
                 </span>
               </div>
               <div className="icon-wrapper icon-students">
@@ -131,7 +187,7 @@ const AdminWallet = () => {
               <div className="text-section">
                 <span className="card-label">Withdrawal</span>
                 <span className="card-value">
-                  {wallet ? formatCurrency(wallet.balance * 0.2) : "N0"}
+                  {formatCurrency(wallet?.balance * 0.2)}
                 </span>
               </div>
               <div className="icon-wrapper icon-staff">
@@ -149,7 +205,7 @@ const AdminWallet = () => {
               <div className="text-section">
                 <span className="card-label">Balance</span>
                 <span className="card-value">
-                  {wallet ? formatCurrency(wallet.balance) : "N0"}
+                  {formatCurrency(wallet?.balance)}
                 </span>
               </div>
               <div className="icon-wrapper icon-attendance">
@@ -165,9 +221,7 @@ const AdminWallet = () => {
             <div className="card-content">
               <div className="text-section">
                 <span className="card-label">Total transactions</span>
-                <span className="card-value">
-                  {payments.length > 0 ? payments.length : "0"}
-                </span>
+                <span className="card-value">{payments.length || 0}</span>
               </div>
               <div className="icon-wrapper icon-fees">
                 <FaSackDollar className="DashIcon" />
@@ -182,6 +236,7 @@ const AdminWallet = () => {
       </div>
 
       <div className="dashboard-container">
+        {/* Payment History */}
         <div className="history-card">
           <div className="card-header">
             <h2 className="card-title">Payment History</h2>
@@ -197,10 +252,6 @@ const AdminWallet = () => {
                     <option value="processing">Processing</option>
                   </select>
                 </div>
-              </div>
-              <div className="date-picker-mock">
-                <span className="calendar-icon">📅</span>
-                <span>Monday, May 18 2026</span>
               </div>
             </div>
           </div>
@@ -224,7 +275,7 @@ const AdminWallet = () => {
                       <td>{payment.parentName || "N/A"}</td>
                       <td>{payment.paymentType?.replace("_", " ") || "N/A"}</td>
                       <td className="font-medium">
-                        {formatCurrency(payment.amount || 0)}
+                        {formatCurrency(payment.amount)}
                       </td>
                       <td>
                         {payment.paymentDate
@@ -260,11 +311,6 @@ const AdminWallet = () => {
             </span>
             <div className="pagination-controls">
               <button className="page-btn active">1</button>
-              <button className="page-btn">2</button>
-              <button className="page-btn">3</button>
-              <span className="page-ellipsis">...</span>
-              <button className="page-btn">6</button>
-              <button className="page-btn">7</button>
               <button className="page-nav-btn">&gt;</button>
             </div>
             <div className="rows-per-page">
@@ -278,6 +324,7 @@ const AdminWallet = () => {
           </div>
         </div>
 
+        {/* Withdrawal History */}
         <div className="history-card">
           <div className="card-header">
             <h2 className="card-title">Withdrawal History</h2>
@@ -289,10 +336,6 @@ const AdminWallet = () => {
                     <option value="all">All Status</option>
                   </select>
                 </div>
-              </div>
-              <div className="date-picker-mock">
-                <span className="calendar-icon">📅</span>
-                <span>Monday, May 18 2026</span>
               </div>
             </div>
           </div>
@@ -311,62 +354,18 @@ const AdminWallet = () => {
               </thead>
               <tbody>
                 <tr>
-                  <td className="text-mono">UCH-2026-00057</td>
-                  <td className="font-medium">₦450,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 18, 2026</td>
-                  <td>
-                    <span className="badge badge-info">Processing</span>
+                  <td colSpan="6" className="text-center">
+                    No withdrawals found
                   </td>
-                  <td>May 18, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00056</td>
-                  <td className="font-medium">₦300,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 15, 2025</td>
-                  <td>
-                    <span className="badge badge-success-outline">
-                      Successful
-                    </span>
-                  </td>
-                  <td>May 15, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00055</td>
-                  <td className="font-medium">₦600,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 14, 2025</td>
-                  <td>
-                    <span className="badge badge-success-outline">
-                      Successful
-                    </span>
-                  </td>
-                  <td>May 14, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00054</td>
-                  <td className="font-medium">₦200,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 12, 2025</td>
-                  <td>
-                    <span className="badge badge-danger">Failed</span>
-                  </td>
-                  <td>May 13, 2025</td>
                 </tr>
               </tbody>
             </table>
           </div>
 
           <div className="card-footer">
-            <span className="pagination-info">Showing pages of 1 to 7</span>
+            <span className="pagination-info">Showing 0 results</span>
             <div className="pagination-controls">
               <button className="page-btn active">1</button>
-              <button className="page-btn">2</button>
-              <button className="page-btn">3</button>
-              <span className="page-ellipsis">...</span>
-              <button className="page-btn">6</button>
-              <button className="page-btn">7</button>
               <button className="page-nav-btn">&gt;</button>
             </div>
             <div className="rows-per-page">
