@@ -312,7 +312,9 @@ const AdminStaff2 = () => {
                   value={formData.staffType}
                   onChange={handleChange}
                 >
-                  <option value="">Select Staff Type</option>
+                  <option value="" disabled selected>
+                    Select Staff Type
+                  </option>
                   <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>
                 </select>
@@ -330,7 +332,9 @@ const AdminStaff2 = () => {
                       onChange={handleChange}
                       required
                     >
-                      <option value="">Select Class</option>
+                      <option value="" disabled selected>
+                        Select Class
+                      </option>
                       {classes.map((cls) => (
                         <option key={cls.id} value={cls.id}>
                           {cls.className}
@@ -351,13 +355,21 @@ const AdminStaff2 = () => {
 
               <div className="form-group">
                 <label>Qualification</label>
-                <input
+                <select
                   type="text"
                   name="qualification"
                   value={formData.qualification}
                   onChange={handleChange}
                   placeholder="Enter Qualification"
-                />
+                >
+                  <option value="">Select Qualification Type</option>
+                  <option value="SSCE">SSCE</option>
+                  <option value="OND">OND</option>
+                  <option value="HND">HND</option>
+                  <option value="BSC">BSC</option>
+                  <option value="MSC">MSC</option>
+                  <option value="PHD">PHD</option>
+                </select>
               </div>
             </div>
           </div>
