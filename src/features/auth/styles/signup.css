@@ -5,12 +5,26 @@
   background-color: #ffffff;
 }
 
+/* ==========================================================================
+   Logo Styles
+   ========================================================================== */
+.form-logo-container {
+  display: none;
+}
+
+.form-mobile-logo {
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+
 .signup-form h2 {
   font-size: 1.7rem;
   color: #001233;
   font-weight: 700;
   margin-bottom: 28px;
   letter-spacing: -0.01em;
+  text-align: center;
 }
 
 .form-group {
@@ -46,6 +60,59 @@
   font-size: 0.85rem;
   color: #94a3b8;
   margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Unified Server Response Banner Styling
+   ========================================================================== */
+.server-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  animation: fadeInBanner 0.25s ease-out;
+}
+
+/* Error variations config */
+.error-layout {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+}
+.error-layout .banner-content {
+  color: #991b1b;
+}
+
+/* Success variations config */
+.success-layout {
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+}
+.success-layout .banner-content {
+  color: #166534;
+}
+
+.banner-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.banner-content {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@keyframes fadeInBanner {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ==========================================================================
@@ -109,7 +176,6 @@
   width: 100%;
 }
 
-/* Give the input box a clean read-only locked styling look when chosen */
 .input-locked input {
   background-color: #f8fafc;
   color: #475569;
@@ -377,7 +443,7 @@
 }
 
 .row-selected {
-  background-color: #f0fdf4; /* Valid pure fallback coloring format */
+  background-color: #f0fdf4;
   font-weight: 500;
   color: #2563eb;
 }
@@ -403,8 +469,49 @@
    Responsive Adjustments
    ========================================================================== */
 @media (max-width: 640px) {
+  .form-wrapper {
+    width: 95%;
+    padding: 20px 12px;
+  }
+
   .form-row {
     flex-direction: column;
     gap: 0;
   }
+  .form-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 20px;
+  }
+
+  .signup-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .signUp-submit-btn {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  .url-input-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .form-mobile-logo {
+    max-width: 110px;
+  }
+}
+
+.form-wrapper {
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
 }

@@ -1,14 +1,55 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { apiClient } from "../../config/AxiosInstance";
+import { clearUser } from "../../global/userSlice";
+import { persistor } from "../../global/store";
+import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
 import "./AdminHeader.css";
 
 const AdminHeader = ({ setSidebarOpen }) => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [adminFirstName, setAdminFirstName] = useState("");
+  const [adminLastName, setAdminLastName] = useState("");
   const popupRef = useRef(null);
+  const profileRef = useRef(null);
 
   const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const res = await apiClient.get("/admin/profile");
+        const profile = res.data?.adminProfile;
+        if (profile) {
+          setAdminFirstName(profile.adminFirstName || "");
+          setAdminLastName(profile.adminLastName || "");
+        }
+      } catch {
+        // silently fail
+      }
+    };
+    fetchAdminProfile();
+  }, []);
+
+  const handleLogoutConfirm = async () => {
+    setIsLoggingOut(true);
+    try {
+      await apiClient.post("/admin/logout");
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
+      dispatch(clearUser());
+      await persistor.purge();
+      nav("/login");
+    }
+  };
 
   const academicSession = {
     dateString: "Monday, 18 May 2026",
@@ -20,6 +61,9 @@ const AdminHeader = ({ setSidebarOpen }) => {
     const handleClickOutside = (event) => {
       if (popupRef.current && !popupRef.current.contains(event.target)) {
         setIsNotifOpen(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setIsProfileDropdownOpen(false);
       }
     };
     document.addEventListener("click", handleClickOutside);
@@ -68,7 +112,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
               <line x1="8" y1="2" x2="8" y2="6"></line>
               <line x1="3" y1="10" x2="21" y2="10"></line>
             </svg>
-            <span>{academicSession.dateString}</span>
           </div>
         </div>
 
@@ -117,9 +160,17 @@ const AdminHeader = ({ setSidebarOpen }) => {
                     <span className="AdministrationHeader-unread-dot"></span>
                   </div>
                 </div>
+              )}
+            </div>
+
+            <div className="profile-section-wrapper" ref={profileRef}>
+              <div
+                className="user-profile unique-school-avatar"
+                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                style={{ cursor: "pointer" }}
+              >
+                <HiOutlineBuildingOffice2 className="school-avatar-fallback-icon" />
               </div>
-            )}
-          </div>
 
           {/* Dynamic profile section */}
           <div className="AdministrationHeader-user-profile AdministrationHeader-unique-school-avatar">
@@ -141,6 +192,45 @@ const AdminHeader = ({ setSidebarOpen }) => {
           </div>
         </div>
       </div>
+
+      {showLogoutModal && (
+        <div className="logout-modal-overlay" onClick={() => !isLoggingOut && setShowLogoutModal(false)}>
+          <div className="logout-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="logout-modal-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+              </svg>
+            </div>
+            <h2 className="logout-modal-title">Logout</h2>
+            <p className="logout-modal-message">Are you sure you want to logout?</p>
+            <div className="logout-modal-actions">
+              <button
+                className="logout-modal-cancel"
+                onClick={() => setShowLogoutModal(false)}
+                disabled={isLoggingOut}
+              >
+                Cancel
+              </button>
+              <button
+                className={`logout-modal-confirm${isLoggingOut ? " loading" : ""}`}
+                onClick={handleLogoutConfirm}
+                disabled={isLoggingOut}
+              >
+                {isLoggingOut ? (
+                  <>
+                    <span className="logout-spinner" />
+                    Logging out...
+                  </>
+                ) : (
+                  "Yes, Logout"
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </header>
   );
 };

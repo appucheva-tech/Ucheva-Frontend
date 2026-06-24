@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "../styles/login.css";
@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 const Login = () => {
   const subdomain = window.location.hostname.split(".")[0];
 
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -27,6 +28,7 @@ const Login = () => {
   const [error, setError] = useState("");
 
   const handleLoginSubmit = async (e) => {
+    localStorage.removeItem("schoolUrl");
     e.preventDefault();
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -67,8 +69,8 @@ const Login = () => {
         },
       });
 
-      const { data: user, token } = response.data;
-
+      const {  user, token } = response.data;
+console.log(response.data)
       // Save user and token in Redux
       dispatch(setUser(user));
       dispatch(setToken(token));
@@ -103,9 +105,10 @@ const Login = () => {
         }
       }
     } catch (err) {
+      console.log(err)
       setError(
         err.response?.data?.message ||
-          "Invalid credentials or login configurations.",
+          "Something Went wrong",
       );
     } finally {
       setLoading(false);
@@ -194,7 +197,7 @@ const Login = () => {
         {/* Submit */}
         <button
           type="submit"
-          disabled={loading || !email || !password || !!error}
+          disabled={loading || !email }
           className="login-submit-button"
         >
           {loading ? "Logging in..." : "Log In"}

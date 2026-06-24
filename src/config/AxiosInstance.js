@@ -3,16 +3,15 @@ import { store } from "../global/store";
 import { clearUser } from "../global/userSlice";
 import { toast } from "react-toastify";
 
-// const subdomain = window.location.hostname.split(".")[0];
+const subdomain = window.location.hostname.split(".")[0];
 export const apiClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
   // timeout: 8000,
   headers: {
     "Content-Type": "application/json",
-    // "x-tenant": subdomain,
+   "x-tenant": subdomain,
   },
 });
-console.log(import.meta.env.VITE_Base_Url);
 
 apiClient.interceptors.request.use(
   (config) => {
@@ -33,11 +32,11 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error),
 );
 
-// Response interceptor
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     const status = error.response?.status;
+    let fallbackMessage = "Something went wrong";
 
     switch (status) {
       case 401:
@@ -46,17 +45,30 @@ apiClient.interceptors.response.use(
         break;
 
       case 403:
-        toast.error("Access Forbidden");
+        fallbackMessage = "Access Forbidden";
         break;
 
       case 500:
-        toast.error("Internal Server Error");
+        fallbackMessage = "Internal Server Error";
         break;
 
       default:
-        toast.error(error.message);
+        fallbackMessage =
+          error.response?.data?.message ||
+          error.message ||
+          "Something went wrong";
     }
 
+    // Attach the correct message to error.response.data.message so your Signup catch block can read it seamlessly
+    if (!error.response) {
+      error.response = { data: { message: fallbackMessage } };
+    } else if (!error.response.data) {
+      error.response.data = { message: fallbackMessage };
+    } else if (!error.response.data.message) {
+      error.response.data.message = fallbackMessage;
+    }
+
+    // Crucial fix: reject the promise to drop the response into your signup form's catch block
     return Promise.reject(error);
   },
 );

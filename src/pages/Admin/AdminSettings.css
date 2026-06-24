@@ -1,6 +1,6 @@
 .toastNotification {
   position: fixed;
-  bottom: 28px;
+  top: 28px;
   right: 28px;
   padding: 12px 20px;
   border-radius: 8px;
@@ -27,7 +27,7 @@
 @keyframes slideUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(-12px);
   }
   to {
     opacity: 1;
@@ -692,7 +692,7 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   UPDATE PROFILE MODAL - Complete Styling
+   CHANGE PASSWORD MODAL - Complete Styling
 ═══════════════════════════════════════════════════════════════ */
 
 /* ─── Overlay ─────────────────────────────────────────────────── */
@@ -711,12 +711,8 @@
 }
 
 @keyframes overlayFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* ─── Card ────────────────────────────────────────────────────── */
@@ -724,7 +720,7 @@
   background: #ffffff;
   border-radius: 20px;
   width: 100%;
-  max-width: 560px;
+  max-width: 480px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -805,9 +801,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition:
-    background 0.15s,
-    transform 0.1s;
+  transition: background 0.15s, transform 0.1s;
   flex-shrink: 0;
   font-size: 18px;
   color: #64748b;
@@ -832,19 +826,13 @@
   gap: 20px;
 }
 
-.modalBody::-webkit-scrollbar {
-  width: 5px;
-}
-.modalBody::-webkit-scrollbar-track {
-  background: transparent;
-}
+.modalBody::-webkit-scrollbar { width: 5px; }
+.modalBody::-webkit-scrollbar-track { background: transparent; }
 .modalBody::-webkit-scrollbar-thumb {
   background: #e2e8f0;
   border-radius: 99px;
 }
-.modalBody::-webkit-scrollbar-thumb:hover {
-  background: #cbd5e1;
-}
+.modalBody::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
 
 /* ─── Form Fields in Modal ───────────────────────────────────── */
 .modalBody .formFieldsRow {
@@ -868,16 +856,15 @@
 
 .modalBody .textInput {
   width: 100%;
-  padding: 9px 12px;
+  padding: 10px 12px;
   font-size: 13px;
   border: 1.5px solid #e2e8f0;
   border-radius: 8px;
   background-color: #ffffff;
   color: #1e293b;
   outline: none;
-  transition:
-    border-color 0.15s,
-    box-shadow 0.15s;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
 .modalBody .textInput:focus {
@@ -885,9 +872,7 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.modalBody .textInput::placeholder {
-  color: #94a3b8;
-}
+.modalBody .textInput::placeholder { color: #94a3b8; }
 
 .modalBody .textInput:disabled,
 .modalBody .disabledInput {
@@ -896,37 +881,11 @@
   cursor: not-allowed;
 }
 
-.modalBody .numericalInput {
-  text-align: center;
-  font-weight: 600;
-  max-width: 100px;
-}
-
-.modalBody .numericalInput::-webkit-inner-spin-button {
-  opacity: 1;
-  height: 28px;
-}
-
-/* ─── Modal Sections ──────────────────────────────────────────── */
-.modalSection {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.modalSectionHeader {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 2px;
-}
-
-.modalSectionDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #3b82f6;
-  flex-shrink: 0;
+/* ─── Modal Divider / Section Label ──────────────────────────── */
+.modalDivider {
+  border: none;
+  border-top: 1.5px solid #f1f5f9;
+  margin: 4px 0;
 }
 
 .modalSectionLabel {
@@ -941,23 +900,6 @@
   gap: 8px;
 }
 
-.modalOptionalTag {
-  font-size: 10px;
-  font-weight: 500;
-  color: #94a3b8;
-  background: #f1f5f9;
-  padding: 2px 8px;
-  border-radius: 99px;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-.modalDivider {
-  border: none;
-  border-top: 1.5px solid #f1f5f9;
-  margin: 4px 0;
-}
-
 /* ─── Password Input with Icon ────────────────────────────────── */
 .passwordInputWrapper {
   position: relative;
@@ -968,8 +910,8 @@
 .passwordIcon {
   position: absolute;
   left: 12px;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   color: #94a3b8;
   pointer-events: none;
   flex-shrink: 0;
@@ -979,14 +921,87 @@
   padding-left: 38px !important;
 }
 
-/* ─── Password Mismatch Hint ──────────────────────────────────── */
-.passwordMismatchHint {
-  font-size: 12px;
-  color: #ef4444;
-  margin: -4px 0 0;
+/* ─── Password Strength Meter ─────────────────────────────────── */
+.strengthWrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2px;
+}
+
+.strengthBars {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+}
+
+.strengthBar {
+  height: 4px;
+  flex: 1;
+  border-radius: 99px;
+  transition: background-color 0.25s ease;
+}
+
+.strengthLabel {
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 44px;
+  text-align: right;
+  transition: color 0.25s ease;
+}
+
+/* ─── Strength Hint List ─────────────────────────────────────── */
+.strengthHintList {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+.strengthHintList li {
+  font-size: 11px;
+  color: #94a3b8;
   display: flex;
   align-items: center;
   gap: 4px;
+  transition: color 0.2s;
+}
+
+.strengthHintList li::before {
+  content: "○";
+  font-size: 9px;
+  transition: content 0.2s;
+}
+
+.strengthHintList li.hintMet {
+  color: #22c55e;
+}
+
+.strengthHintList li.hintMet::before {
+  content: "●";
+  color: #22c55e;
+}
+
+/* ─── Password Match / Mismatch Hints ────────────────────────── */
+.passwordMismatchHint {
+  font-size: 12px;
+  color: #ef4444;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.passwordMatchHint {
+  font-size: 12px;
+  color: #22c55e;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
 }
 
 /* ─── Footer ──────────────────────────────────────────────────── */
@@ -1013,10 +1028,7 @@
   font-weight: 500;
   color: #64748b;
   cursor: pointer;
-  transition:
-    background 0.15s,
-    border-color 0.15s,
-    color 0.15s;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .modalCancelBtn:hover {
@@ -1039,10 +1051,7 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  transition:
-    opacity 0.15s,
-    transform 0.1s,
-    box-shadow 0.15s;
+  transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
@@ -1058,9 +1067,7 @@
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
 }
 
-.modalSaveBtn:active:not(:disabled) {
-  transform: scale(0.97);
-}
+.modalSaveBtn:active:not(:disabled) { transform: scale(0.97); }
 
 .modalSaveBtn:disabled {
   opacity: 0.65;
@@ -1078,11 +1085,7 @@
   flex-shrink: 0;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ─── Responsive: Bottom sheet on mobile ─────────────────────── */
 @media (max-width: 600px) {
@@ -1099,14 +1102,8 @@
   }
 
   @keyframes modalSlideUpMobile {
-    from {
-      transform: translateY(100%);
-      opacity: 0.6;
-    }
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    from { transform: translateY(100%); opacity: 0.6; }
+    to { transform: translateY(0); opacity: 1; }
   }
 
   .modalBody .formFieldsRow {
@@ -1124,30 +1121,15 @@
     justify-content: center;
   }
 
-  .modalBody {
-    padding: 18px;
-  }
-
-  .modalHeader {
-    padding: 18px 18px 14px;
-  }
-
-  .modalTitle {
-    font-size: 16px;
-  }
-
-  .modalSubtitle {
-    font-size: 12px;
-  }
+  .modalBody { padding: 18px; }
+  .modalHeader { padding: 18px 18px 14px; }
+  .modalTitle { font-size: 16px; }
+  .modalSubtitle { font-size: 12px; }
 
   .settingsContainer,
-  .notificationSettingsContainer {
-    padding: 16px;
-  }
+  .notificationSettingsContainer { padding: 16px; }
 
-  .settingsCard {
-    padding: 18px;
-  }
+  .settingsCard { padding: 18px; }
 
   .profileLayout,
   .schoolLayout {
@@ -1155,30 +1137,17 @@
     align-items: center;
   }
 
-  .configurationLayout {
-    flex-direction: column;
-  }
-
-  .scoresInlineGrid {
-    flex-direction: column;
-  }
-
-  .schoolFormGrid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .schoolFormGrid .fullWidthRow {
-    grid-column: span 1;
-  }
+  .configurationLayout { flex-direction: column; }
+  .scoresInlineGrid { flex-direction: column; }
+  .schoolFormGrid { grid-template-columns: 1fr !important; }
+  .schoolFormGrid .fullWidthRow { grid-column: span 1; }
 
   .verificationUploadersRow {
     flex-direction: column;
     align-items: center;
   }
 
-  .uploaderBox {
-    width: 100% !important;
-  }
+  .uploaderBox { width: 100% !important; }
 
   .actionFlexRow {
     flex-direction: column;
@@ -1200,30 +1169,11 @@
     border-radius: 16px 16px 0 0;
   }
 
-  .modalHeader {
-    padding: 14px 16px 12px;
-  }
+  .modalHeader { padding: 14px 16px 12px; }
+  .modalBody { padding: 14px 16px; gap: 16px; }
+  .modalFooter { padding: 12px 16px 16px; }
 
-  .modalBody {
-    padding: 14px 16px;
-    gap: 16px;
-  }
-
-  .modalFooter {
-    padding: 12px 16px 16px;
-  }
-
-  .modalIconBadge {
-    width: 34px;
-    height: 34px;
-  }
-
-  .modalIconBadge svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .modalTitle {
-    font-size: 14px;
-  }
+  .modalIconBadge { width: 34px; height: 34px; }
+  .modalIconBadge svg { width: 16px; height: 16px; }
+  .modalTitle { font-size: 14px; }
 }
