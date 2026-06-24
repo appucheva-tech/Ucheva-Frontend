@@ -65,7 +65,7 @@ const AdminDashboard = () => {
             <span className="wave-emoji">👋</span>
           </h1>
           <p className="subtitle-text">
-            Here's an overview of Green Field Academy activities today.
+            Here's an overview of {user} activities today.
           </p>
         </div>
       </div>
@@ -83,7 +83,7 @@ const AdminDashboard = () => {
           </div>
           <div className="card-footer trend-up">
             <FiTrendingUp className="trend-icon" />
-            <span>12 from last week</span>
+            {/* <span>12 from last week</span> */}
           </div>
         </div>
 
@@ -99,7 +99,7 @@ const AdminDashboard = () => {
           </div>
           <div className="card-footer trend-up">
             <FiTrendingUp className="trend-icon" />
-            <span>2 from last week</span>
+            {/* <span>2 from last week</span> */}
           </div>
         </div>
 
@@ -117,7 +117,7 @@ const AdminDashboard = () => {
           </div>
           <div className="card-footer trend-up">
             <FiTrendingUp className="trend-icon" />
-            <span>2 from last week</span>
+            {/* <span>2 from last week</span> */}
           </div>
         </div>
 
@@ -133,7 +133,7 @@ const AdminDashboard = () => {
           </div>
           <div className="card-footer trend-fees">
             <FiTrendingUp className="trend-icon" />
-            <span>72% fee collected</span>
+            {/* <span>72% fee collected</span> */}
           </div>
         </div>
       </div>

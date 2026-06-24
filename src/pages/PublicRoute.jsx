@@ -18,21 +18,16 @@ const getDashboardByRole = (user) => {
   return "/";
 };
 
-const PrivateRoute = ({ allowedRoles, allowedStaffTypes }) => {
+const PublicRoute = () => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector((state) => state.user.token || state.staff.staffToken);
 
-  if (!token) return <Navigate to="/login" replace />;
-
-  if (allowedRoles && !allowedRoles.includes(user?.role)) {
-    return <Navigate to={getDashboardByRole(user)} replace />;
-  }
-
-  if (allowedStaffTypes && !allowedStaffTypes.includes(user?.staffType?.trim().toLowerCase())) {
+  // If logged in, redirect to their dashboard
+  if (token && user) {
     return <Navigate to={getDashboardByRole(user)} replace />;
   }
 
   return <Outlet />;
 };
 
-export default PrivateRoute;
+export default PublicRoute;
