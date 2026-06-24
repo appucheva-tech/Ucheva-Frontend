@@ -129,6 +129,7 @@ const Signup = () => {
   };
   console.log(values);
   const handleSubmit = async (e) => {
+    localStorage.setItem("schoolUrl", values.schoolUrl);
     e.preventDefault();
     setServerError("");
 
