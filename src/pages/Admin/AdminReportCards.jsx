@@ -36,10 +36,10 @@ const AdminReportCards = () => {
     <div className="dashboard-container">
           <header className="dashboard-header">
             <h1 className="welcome-text">
-              Good morning, Mr Eric <span className="wave-emoji">👋</span>
+              Report Cards
             </h1>
             <p className="subtitle-text">
-              Here's an overview of Green Field Academy activities today.
+              Review, finalize and send report cards to parents.
             </p>
           </header>
     
@@ -47,60 +47,48 @@ const AdminReportCards = () => {
             <div className="metric-card card-students">
               <div className="card-content">
                 <div className="text-section">
-                  <span className="card-label">Total Students</span>
-                  <span className="card-value">342</span>
+                  <span className="card-label">Generated Cards</span>
+                  <span className="card-value">38</span>
                 </div>
                 <div className="icon-wrapper icon-students">
                   <PiStudentFill className='DashIcon'/>
                 </div>
-              </div>
-              <div className="card-footer trend-up">
-                <FaArrowTrendUp className='arrow'/> 12 from last week
               </div>
             </div>
     
             <div className="metric-card card-staff">
               <div className="card-content">
                 <div className="text-section">
-                  <span className="card-label">Total Staff</span>
+                  <span className="card-label">Ready to Send</span>
                   <span className="card-value">28</span>
                 </div>
                 <div className="icon-wrapper icon-staff">
                   <HiMiniUserGroup className='DashIcon'/>
                 </div>
               </div>
-              <div className="card-footer trend-up">
-                <FaArrowTrendUp className='arrow'/> 2 from last week
-              </div>
             </div>
     
             <div className="metric-card card-attendance">
               <div className="card-content">
                 <div className="text-section">
-                  <span className="card-label">Attendance Rate</span>
-                  <span className="card-value">93%</span>
+                  <span className="card-label">Pending Cards</span>
+                  <span className="card-value">10</span>
                 </div>
                 <div className="icon-wrapper icon-attendance">
                   <PiCalendarBlankFill className='DashIcon'/>
                 </div>
-              </div>
-              <div className="card-footer trend-up">
-                <FaArrowTrendUp className='arrow'/> 2 from last week
               </div>
             </div>
     
             <div className="metric-card card-fees">
               <div className="card-content">
                 <div className="text-section">
-                  <span className="card-label">Fees Collected</span>
-                  <span className="card-value">N1,200,000</span>
+                  <span className="card-label">Sent to Parents</span>
+                  <span className="card-value">32</span>
                 </div>
                 <div className="icon-wrapper icon-fees">
                   <FaSackDollar className='DashIcon'/>
                 </div>
-              </div>
-              <div className="card-footer trend-pct">
-                <FaArrowTrendUp className='arrow'/> 72% fee collected
               </div>
             </div>
     

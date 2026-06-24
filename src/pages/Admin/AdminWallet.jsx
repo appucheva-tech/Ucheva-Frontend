@@ -99,9 +99,9 @@ const AdminWallet = () => {
       <div className="dashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
-            Good morning, Mr Eric 👋
+            Wallet
             <p className="subtitle-text">
-              Here's an overview of Green Field Academy activities today.
+              Overview of your school's revenue and wallet activity.
             </p>
           </h1>
           <button className="WithdrawFunds">Withdraw Funds</button>

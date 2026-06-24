@@ -123,17 +123,17 @@ const AdminStudents = () => {
 
   return (
     <>
-      <div className="ddashboard-container">
-        <header className="dashboard-header">
-          <h1 className="welcome-text">
+      <div className="AdministrationStudent-ddashboard-container">
+        <header className="AdministrationStudent-dashboard-header">
+          <h1 className="AdministrationStudent-welcome-text">
             Student Management{" "}
-            <span className="subtitle-text">
+            <span className="AdministrationStudent-subtitle-text">
               Manage student records, view details and track student
               information.
             </span>
           </h1>
           <button
-            className="AddStudent"
+            className="AdministrationStudent-AddStudent"
             onClick={() => {
               nav("/admin/AdminStudent2");
             }}
@@ -142,24 +142,24 @@ const AdminStudents = () => {
           </button>
         </header>
 
-        <div className="metrics-grid">
-          <div className="metric-card card-students">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Students</span>
-                <span className="card-value">{students.length}</span>
+        <div className="AdministrationStudent-metrics-grid">
+          <div className="AdministrationStudent-metric-card AdministrationStudent-card-students">
+            <div className="AdministrationStudent-card-content">
+              <div className="AdministrationStudent-text-section">
+                <span className="AdministrationStudent-card-label">Total Students</span>
+                <span className="AdministrationStudent-card-value">{students.length}</span>
               </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
+              <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-students">
+                <PiStudentFill className="AdministrationStudent-DashIcon" />
               </div>
             </div>
           </div>
 
-          <div className="metric-card card-staff">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Male</span>
-                <span className="card-value">
+          <div className="AdministrationStudent-metric-card AdministrationStudent-card-staff">
+            <div className="AdministrationStudent-card-content">
+              <div className="AdministrationStudent-text-section">
+                <span className="AdministrationStudent-card-label">Total Male</span>
+                <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
                       (s) => s.gender && s.gender.toLowerCase() === "male",
@@ -167,17 +167,17 @@ const AdminStudents = () => {
                   }
                 </span>
               </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-staff">
+                <HiMiniUserGroup className="AdministrationStudent-DashIcon" />
               </div>
             </div>
           </div>
 
-          <div className="metric-card card-attendance">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Female</span>
-                <span className="card-value">
+          <div className="AdministrationStudent-metric-card AdministrationStudent-card-attendance">
+            <div className="AdministrationStudent-card-content">
+              <div className="AdministrationStudent-text-section">
+                <span className="AdministrationStudent-card-label">Total Female</span>
+                <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
                       (s) => s.gender && s.gender.toLowerCase() === "female",
@@ -185,33 +185,33 @@ const AdminStudents = () => {
                   }
                 </span>
               </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-attendance">
+                <PiCalendarBlankFill className="AdministrationStudent-DashIcon" />
               </div>
             </div>
           </div>
 
-          <div className="metric-card card-fees">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">New Intake</span>
-                <span className="card-value">{0}</span>
+          <div className="AdministrationStudent-metric-card AdministrationStudent-card-fees">
+            <div className="AdministrationStudent-card-content">
+              <div className="AdministrationStudent-text-section">
+                <span className="AdministrationStudent-card-label">New Intake</span>
+                <span className="AdministrationStudent-card-value">{0}</span>
               </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
+              <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-fees">
+                <FaSackDollar className="AdministrationStudent-DashIcon" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="tableContainer">
-        <div className="filterSection">
-          <div className="filtersGroup">
-            <div className="filterItem">
-              <label className="filterLabel">Class</label>
-              <div className="selectWrapper">
+      <div className="AdministrationStudent-tableContainer">
+        <div className="AdministrationStudent-filterSection">
+          <div className="AdministrationStudent-filtersGroup">
+            <div className="AdministrationStudent-filterItem">
+              <label className="AdministrationStudent-filterLabel">Class</label>
+              <div className="AdministrationStudent-selectWrapper">
                 <select
-                  className="selectInput"
+                  className="AdministrationStudent-selectInput"
                   value={filters.class}
                   onChange={(e) => handleFilterChange("class", e.target.value)}
                 >
@@ -224,11 +224,11 @@ const AdminStudents = () => {
                 </select>
               </div>
             </div>
-            <div className="filterItem">
-              <label className="filterLabel">Gender</label>
-              <div className="selectWrapper">
+            <div className="AdministrationStudent-filterItem">
+              <label className="AdministrationStudent-filterLabel">Gender</label>
+              <div className="AdministrationStudent-selectWrapper">
                 <select
-                  className="selectInput"
+                  className="AdministrationStudent-selectInput"
                   value={filters.gender}
                   onChange={(e) => handleFilterChange("gender", e.target.value)}
                 >
@@ -238,11 +238,11 @@ const AdminStudents = () => {
                 </select>
               </div>
             </div>
-            <div className="filterItem">
-              <label className="filterLabel">Department</label>
-              <div className="selectWrapper">
+            <div className="AdministrationStudent-filterItem">
+              <label className="AdministrationStudent-filterLabel">Department</label>
+              <div className="AdministrationStudent-selectWrapper">
                 <select
-                  className="selectInput"
+                  className="AdministrationStudent-selectInput"
                   value={filters.department}
                   onChange={(e) =>
                     handleFilterChange("department", e.target.value)
@@ -256,9 +256,9 @@ const AdminStudents = () => {
               </div>
             </div>
           </div>
-          <button className="resetBtn" onClick={resetFilters}>
+          <button className="AdministrationStudent-resetBtn" onClick={resetFilters}>
             <svg
-              className="resetIcon"
+              className="AdministrationStudent-resetIcon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -270,8 +270,8 @@ const AdminStudents = () => {
           </button>
         </div>
 
-        <div className="tableWrapper">
-          <table className="studentTable">
+        <div className="AdministrationStudent-tableWrapper">
+          <table className="AdministrationStudent-studentTable">
             <thead>
               <tr>
                 <th>Student Name</th>
@@ -304,25 +304,25 @@ const AdminStudents = () => {
               ) : (
                 filteredStudents.map((student, index) => (
                   <tr key={student.id || student._id || index}>
-                    <td className="studentName">{student.fullName}</td>
+                    <td className="AdministrationStudent-studentName">{student.fullName}</td>
 
-                    <td className="genderText">{student.gender}</td>
+                    <td className="AdministrationStudent-genderText">{student.gender}</td>
 
-                    <td className="classText">
+                    <td className="AdministrationStudent-classText">
                       {student.classes || student.studentClass || "--"}
                     </td>
 
-                    <td className="deptText">{student.department || "--"}</td>
+                    <td className="AdministrationStudent-deptText">{student.department || "--"}</td>
 
-                    <td className="phoneText">
+                    <td className="AdministrationStudent-phoneText">
                       {student.parentGuardiansPhoneNumber ||
                         student.phoneNumber ||
                         "--"}
                     </td>
 
                     <td>
-                      <div className="actionButtons">
-                        <button className="editBtn">
+                      <div className="AdministrationStudent-actionButtons">
+                        <button className="AdministrationStudent-editBtn">
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -333,7 +333,7 @@ const AdminStudents = () => {
                           </svg>
                         </button>
 
-                        <button className="deleteBtn">
+                        <button className="AdministrationStudent-deleteBtn">
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -353,26 +353,26 @@ const AdminStudents = () => {
           </table>
 
           {filteredStudents.length > 0 && (
-            <div className="paginationRow">
-              <div className="paginationInfo">Showing pages of 1 to 7</div>
+            <div className="AdministrationStudent-paginationRow">
+              <div className="AdministrationStudent-paginationInfo">Showing pages of 1 to 7</div>
 
-              <div className="paginationControls">
-                <button className="arrowBtn" disabled>
+              <div className="AdministrationStudent-paginationControls">
+                <button className="AdministrationStudent-arrowBtn" disabled>
                   &lt;
                 </button>
-                <button className="pageBtn activePage">1</button>
-                <button className="pageBtn">2</button>
-                <button className="pageBtn">3</button>
-                <span className="ellipsis">...</span>
-                <button className="pageBtn">6</button>
-                <button className="pageBtn">7</button>
-                <button className="arrowBtn">&gt;</button>
+                <button className="AdministrationStudent-pageBtn AdministrationStudent-activePage">1</button>
+                <button className="AdministrationStudent-pageBtn">2</button>
+                <button className="AdministrationStudent-pageBtn">3</button>
+                <span className="AdministrationStudent-ellipsis">...</span>
+                <button className="AdministrationStudent-pageBtn">6</button>
+                <button className="AdministrationStudent-pageBtn">7</button>
+                <button className="AdministrationStudent-arrowBtn">&gt;</button>
               </div>
 
-              <div className="rowsPerPageGroup">
-                <span className="rowsLabel">Rows per page</span>
-                <div className="rowsSelectWrapper">
-                  <select className="rowsSelect" defaultValue="10">
+              <div className="AdministrationStudent-rowsPerPageGroup">
+                <span className="AdministrationStudent-rowsLabel">Rows per page</span>
+                <div className="AdministrationStudent-rowsSelectWrapper">
+                  <select className="AdministrationStudent-rowsSelect" defaultValue="10">
                     <option value="10">10</option>
                   </select>
                 </div>
@@ -381,14 +381,14 @@ const AdminStudents = () => {
           )}
         </div>
 
-        <footer className="footerRow">
-          <span className="copyrightText">
+        <footer className="AdministrationStudent-footerRow">
+          <span className="AdministrationStudent-copyrightText">
             © 2026 Ucheva school operating management system . All right
             reserved.
           </span>
-          <span className="supportText">
+          <span className="AdministrationStudent-supportText">
             Need help?{" "}
-            <a href="#support" className="supportLink">
+            <a href="#support" className="AdministrationStudent-supportLink">
               Contact support
             </a>
           </span>

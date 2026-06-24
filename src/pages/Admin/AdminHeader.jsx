@@ -2,8 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { IoMdMenu } from "react-icons/io";
+import "./AdminHeader.css";
 
-const AdminHeader = () => {
+const AdminHeader = ({ setSidebarOpen }) => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const popupRef = useRef(null);
 
@@ -26,17 +27,20 @@ const AdminHeader = () => {
   }, []);
 
   return (
-    <header className="BAdminDashboard-header">
-      <IoMdMenu className="AdminMenuBtn"/>
-      <div className="search-container">
+    <header className="AdministrationHeader-BAdminDashboard-header">
+      <IoMdMenu
+        className="AdministrationHeader-AdminMenuBtn"
+        onClick={() => setSidebarOpen(true)}
+      />
+      <div className="AdministrationHeader-search-container">
         <input
           type="text"
           placeholder="Search students, staff, classes, etc..."
-          className="search-input"
+          className="AdministrationHeader-search-input"
         />
-        <button className="search-button" aria-label="Search">
+        <button className="AdministrationHeader-search-button" aria-label="Search">
           <svg
-            className="search-icon"
+            className="AdministrationHeader-search-icon"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -48,13 +52,12 @@ const AdminHeader = () => {
         </button>
       </div>
 
-      {/* Right Side Wrapper: Forces everything else to align nicely on the right */}
-      <div className="header-right-group">
-        {/* Metadata Info (Now positioned on the right side) */}
-        <div className="meta-container">
-          <div className="date-display">
+      {/* Right Side Wrapper */}
+      <div className="AdministrationHeader-header-right-group">
+        <div className="AdministrationHeader-meta-container">
+          <div className="AdministrationHeader-date-display">
             <svg
-              className="calendar-icon"
+              className="AdministrationHeader-calendar-icon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -67,43 +70,13 @@ const AdminHeader = () => {
             </svg>
             <span>{academicSession.dateString}</span>
           </div>
-
-          {/* <div className="divider"></div>
-
-          <div className="dropdown">
-            <span>{academicSession.currentSession}</span>
-            <svg
-              className="chevron-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div> */}
-          {/* 
-          <div className="divider"></div>
-
-          <div className="dropdown">
-            <span>{academicSession.currentTerm}</span>
-            <svg
-              className="chevron-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </div> */}
         </div>
 
         {/* Profile & toast Triggers */}
-        <div className="profile-container">
-          <div className="notification-wrapper" ref={popupRef}>
+        <div className="AdministrationHeader-profile-container">
+          <div className="AdministrationHeader-notification-wrapper" ref={popupRef}>
             <button
-              className="notification-button"
+              className="AdministrationHeader-notification-button"
               aria-label="Notifications"
               onClick={(e) => {
                 e.stopPropagation();
@@ -111,7 +84,7 @@ const AdminHeader = () => {
               }}
             >
               <svg
-                className="bell-icon"
+                className="AdministrationHeader-bell-icon"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -120,47 +93,47 @@ const AdminHeader = () => {
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
               </svg>
-              <span className="notification-badge"></span>
+              <span className="AdministrationHeader-notification-badge"></span>
             </button>
 
             {isNotifOpen && (
-              <div className="notification-popup">
-                <div className="popup-header">
+              <div className="AdministrationHeader-notification-popup">
+                <div className="AdministrationHeader-popup-header">
                   <h2>Notifications</h2>
                   <button
-                    className="close-btn"
+                    className="AdministrationHeader-close-btn"
                     onClick={() => setIsNotifOpen(false)}
                   >
                     &times;
                   </button>
                 </div>
-                <div className="notification-list">
-                  <div className="notification-item unread">
-                    <div className="notification-content">
+                <div className="AdministrationHeader-notification-list">
+                  <div className="AdministrationHeader-notification-item AdministrationHeader-unread">
+                    <div className="AdministrationHeader-notification-content">
                       <h3>System Update</h3>
                       <p>Welcome to your workspace dashboard panel.</p>
-                      <span className="time-stamp">Just now</span>
+                      <span className="AdministrationHeader-time-stamp">Just now</span>
                     </div>
-                    <span className="unread-dot"></span>
+                    <span className="AdministrationHeader-unread-dot"></span>
                   </div>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Dynamic profile section rendering from Redux state details */}
-          <div className="user-profile unique-school-avatar">
-            <HiOutlineBuildingOffice2 className="school-avatar-fallback-icon" />
+          {/* Dynamic profile section */}
+          <div className="AdministrationHeader-user-profile AdministrationHeader-unique-school-avatar">
+            <HiOutlineBuildingOffice2 className="AdministrationHeader-school-avatar-fallback-icon" />
           </div>
 
-          <div className="Auser-info">
-            <span className="user-name">
+          <div className="AdministrationHeader-Auser-info">
+            <span className="AdministrationHeader-user-name">
               {user?.schoolName
                 ? user.schoolName.charAt(0).toUpperCase() +
                   user.schoolName.slice(1)
                 : "Curve Academy"}
             </span>
-            <span className="user-role">
+            <span className="AdministrationHeader-user-role">
               {user?.role
                 ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
                 : "Admin"}
