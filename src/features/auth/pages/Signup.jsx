@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/signup.css";
 import { apiClient } from "../../../config/AxiosInstance";
-import { toast } from "react-toastify";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import logo from "../../../assets/Logo.svg";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
+  const [serverSuccess, setServerSuccess] = useState(""); // New state for success message banner
   const [values, setValues] = useState({
     schoolName: "",
     schoolUrl: "",
@@ -132,6 +133,7 @@ const Signup = () => {
     localStorage.setItem("schoolUrl", values.schoolUrl);
     e.preventDefault();
     setServerError("");
+    setServerSuccess("");
 
     const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
@@ -152,8 +154,10 @@ const Signup = () => {
     try {
       setLoading(true);
       const response = await apiClient.post("/admin/register", payload);
-      // ... inside your handleSubmit
       if (response.data) {
+        // Show success banner layout
+        setServerSuccess(response.data.message || "Registration successful!");
+
         const { verifyRedirectUrl, verifyRedirectLocalUrl } = response?.data;
         const isLocalhost = ["localhost", "127.0.0.1"].includes(
           window?.location?.hostname,
@@ -164,12 +168,16 @@ const Signup = () => {
           : verifyRedirectUrl;
 
         targetUrl = targetUrl.replace(/www\./g, "");
+
         try {
           const urlObj = new URL(targetUrl);
           urlObj.searchParams.append("email", values.email);
-
           console.log("Redirecting to:", urlObj.toString());
-          window.location.href = urlObj.toString();
+
+          // Wait 2 seconds so the user can read your beautiful success banner before navigation
+          setTimeout(() => {
+            window.location.href = urlObj.toString();
+          }, 2000);
         } catch (e) {
           console.error(
             "Failed to construct URL. Cleaned URL was:",
@@ -177,14 +185,12 @@ const Signup = () => {
             e,
           );
         }
-        toast.success(response.data.message);
       }
     } catch (err) {
       const serverMessage =
         err.response?.data?.message || "An error occurred during registration.";
 
       setServerError(serverMessage);
-      toast.error(serverMessage);
     } finally {
       setLoading(false);
     }
@@ -192,7 +198,14 @@ const Signup = () => {
   return (
     <div className="form-wrapper">
       <form className="signup-form" onSubmit={handleSubmit} noValidate>
+        {/* Logo Container */}
+        <div className="form-logo-container">
+          <img src={logo} alt="Logo" className="form-mobile-logo" />
+        </div>
+
         <h2>Create An Account</h2>
+
+        {/* Dynamic Server Response Banners */}
 
         {/* School Name */}
         <div className="form-group">
@@ -230,7 +243,7 @@ const Signup = () => {
           )}
         </div>
 
-        {/* School URL Input (Featuring Inline Change Selection Button) */}
+        {/* School URL Input */}
         <div className="form-group">
           <label htmlFor="schoolUrl">School URL</label>
           <span className="input-hint">
@@ -286,9 +299,11 @@ const Signup = () => {
               id="phone"
               name="phone"
               className={errors.phone ? "input-error" : ""}
-              placeholder="+234"
+              placeholder="e.g 08010000000"
               value={values.phone}
               onChange={handleChange}
+              inputMode="numeric"
+              maxLength={11}
             />
             {errors.phone && <span className="error-text">{errors.phone}</span>}
           </div>
@@ -398,6 +413,20 @@ const Signup = () => {
             <span className="error-text check-error">{errors.terms}</span>
           )}
         </div>
+
+        {serverError && (
+          <div className="server-banner error-layout">
+            <span className="banner-icon">⚠️</span>
+            <div className="banner-content">{serverError}</div>
+          </div>
+        )}
+
+        {serverSuccess && (
+          <div className="server-banner success-layout">
+            <span className="banner-icon">🎉</span>
+            <div className="banner-content">{serverSuccess}</div>
+          </div>
+        )}
 
         <button
           type="submit"

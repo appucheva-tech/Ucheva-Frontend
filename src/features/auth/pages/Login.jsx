@@ -16,29 +16,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const subdomain = window.location.hostname.split(".")[0];
 
-  // Add this block right after:  const subdomain = window.location.hostname.split(".")[0];
-
-useEffect(() => {
-  const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname);
-  const storedSchoolUrl = localStorage.getItem("schoolUrl");
-
-  if (storedSchoolUrl && isLocalhost) {
-    // On localhost, just show the subdomain in the page title for dev purposes
-    document.title = `Login — ${storedSchoolUrl}`;
-    return;
-  }
-
-  if (storedSchoolUrl) {
-    const currentHost = window.location.hostname; // e.g. "ucheva.com"
-    const expectedHost = storedSchoolUrl;          // e.g. "prestonacademy.ucheva.com"
-
-    if (currentHost !== expectedHost) {
-      // Redirect to their school subdomain login page
-      const redirectUrl = `https://${expectedHost}${window.location.pathname}${window.location.search}`;
-      window.location.href = redirectUrl;
-    }
-  }
-}, []);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -92,8 +69,8 @@ useEffect(() => {
         },
       });
 
-      const { data: user, token } = response.data;
-
+      const {  user, token } = response.data;
+console.log(response.data)
       // Save user and token in Redux
       dispatch(setUser(user));
       dispatch(setToken(token));
@@ -128,9 +105,10 @@ useEffect(() => {
         }
       }
     } catch (err) {
+      console.log(err)
       setError(
         err.response?.data?.message ||
-          "Invalid credentials or login configurations.",
+          "Something Went wrong",
       );
     } finally {
       setLoading(false);
@@ -219,7 +197,7 @@ useEffect(() => {
         {/* Submit */}
         <button
           type="submit"
-          disabled={loading || !email || !password || !!error}
+          disabled={loading || !email }
           className="login-submit-button"
         >
           {loading ? "Logging in..." : "Log In"}

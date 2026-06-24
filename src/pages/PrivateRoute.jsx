@@ -1,34 +1,84 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
-
-const getDashboardByRole = (user) => {
-  if (!user) return "/login";
-  if (user.role === "admin") return "/admin/dashboard";
-  if (user.role === "parent") return "/parentdashboard";
-  if (user.role === "staff") {
-    switch (user.staffType?.trim().toLowerCase()) {
-      case "class teacher": return "/CTdashboard";
-      case "subject teacher": return "/subjectteacherdashboard";
-      case "non-teaching staff": return "/bursary";
-      case "security": return "/securitydashboard";
-      default: return "/";
-    }
-  }
-  return "/";
-};
+import { useDispatch, useSelector } from "react-redux";
+import { clearUser } from "../global/userSlice";
+import axios from "axios";
+import NotFound from "./notFound";
+import { domainClient } from "../config/domain";
 
 const PrivateRoute = ({ allowedRoles, allowedStaffTypes }) => {
   const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token || state.staff.staffToken);
+  const token = useSelector(
+    (state) => state.user.token || state.staff.staffToken
+  );
 
-  if (!token) return <Navigate to="/login" replace />;
+  const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(true);
+  const [subdomainValid, setSubdomainValid] = useState(false);
+
+
+const host = window.location.hostname;
+
+let subdomain = null;
+
+if (host.includes("nip.io")) {
+  subdomain = host.split(".")[0];
+} else {
+  const parts = host.split(".");
+  subdomain =
+    parts.length > 2
+      ? parts.slice(0, parts.length - 2).join(".")
+      : null;
+}
+
+
+  useEffect(() => {
+    const checkSubdomain = async () => {
+      try {
+        if (!subdomain ) {
+          setValid(false);
+          setLoading(false);
+          return;
+        }
+
+
+const res = await  domainClient.get("/admin/school-url")
+        const exists = res.data.exists
+
+        setSubdomainValid(exists);
+      } catch (error) {
+        console.error(error);
+        setSubdomainValid(false);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    checkSubdomain();
+  }, [subdomain]);
+
+  if (loading) return null; // or spinner
+
+  if (!subdomainValid) {
+    return <NotFound />;
+  }
+
+  if (!token) {
+    dispatch(clearUser());
+    return <Navigate to="/login" replace />;
+  }
 
   if (allowedRoles && !allowedRoles.includes(user?.role)) {
     return <Navigate to={getDashboardByRole(user)} replace />;
   }
 
-  if (allowedStaffTypes && !allowedStaffTypes.includes(user?.staffType?.trim().toLowerCase())) {
+  if (
+    allowedStaffTypes &&
+    !allowedStaffTypes.includes(
+      user?.staffType?.trim().toLowerCase()
+    )
+  ) {
     return <Navigate to={getDashboardByRole(user)} replace />;
   }
 

@@ -217,7 +217,7 @@ const ResetPassword = () => {
           <button
             type="submit"
             className="verify-submit-button"
-            disabled={loading || !password || !confirmPassword || !!error}
+            disabled={loading || !password || !confirmPassword }
           >
             {loading ? "Updating..." : "Update Password"}
           </button>
