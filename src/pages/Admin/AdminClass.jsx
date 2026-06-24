@@ -153,9 +153,9 @@ const AdminClass = () => {
             <label className="filterLabel">Section</label>
             <div className="selectWrapper">
               <select className="selectInput" defaultValue="all">
-                <option value="all">All Sections</option>
-                <option value="">Nursery</option>
-                <option value="">Primary</option>
+                <option value="all" disabled selected>
+                  All Sections
+                </option>
                 <option value="">Junior Secondary</option>
                 <option value="">Senior Secondary</option>
               </select>
@@ -302,7 +302,9 @@ const AdminClass = () => {
                     value={level}
                     onChange={(e) => setLevel(e.target.value)}
                   >
-                    <option value="">Select Level</option>
+                    <option value="" disabled selected>
+                      Select Level
+                    </option>
                     <option value="JSS 1">JSS 1</option>
                     <option value="JSS 2">JSS 2</option>
                     <option value="JSS 3">JSS 3</option>
@@ -316,7 +318,9 @@ const AdminClass = () => {
                     value={arm}
                     onChange={(e) => setArm(e.target.value)}
                   >
-                    <option value="">Arm</option>
+                    <option value="" disabled selected>
+                      Arm
+                    </option>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
@@ -384,7 +388,7 @@ const AdminClass = () => {
               )}
 
               <div className="inputGroup">
-                <label>Assign Class Teacher</label>
+                <label>Assign Class Teacher(optional)</label>
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -505,7 +509,7 @@ const AdminClass = () => {
               )}
 
               <div className="inputGroup">
-                <label>Assign Class Teacher</label>
+                <label>Assign Class Teacher (optional)</label>
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
