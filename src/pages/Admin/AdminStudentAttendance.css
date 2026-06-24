@@ -1,246 +1,845 @@
 .Napp-container {
   font-family: Arial, sans-serif;
   color: #333;
-  margin: 20px;
-  margin-top: 0px;
-  margin-left: -5px;
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
-  .Napp-h1{
-    margin-left: 5px;
-    font-size: 24px;
-    color: #03173C;
-  }
+.Napp-container .Napp-h1 {
+  font-size: 24px;
+  color: #03173c;
+  margin: 0 0 4px 0;
+}
 
-  .Napp-p{
-    margin-top: 6px;
-    margin-left: 5px;
-    font-size: 14px;
-    color: #03173C;
-  }
+.Napp-container .Napp-p {
+  font-size: 14px;
+  color: #03173c;
+  margin: 0 0 16px 0;
+}
 
-  .NContainer{
-    width: 100%;
-    margin-top: 30px;
-    margin-left: 5px;
-    border-radius: 10px;
-    background-color: white;
-  }
+.Napp-container .NContainer {
+  width: 100%;
+  margin: 0;
+  border-radius: 10px;
+  background-color: white;
+  overflow: hidden;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Nheader {
-  border-bottom: 1px solid #F3F4F6;
-  margin-bottom: 20px;
-  padding-top: 7px;
-  padding-left: 17px;
-  padding-bottom: 9px;
+  border-bottom: 1px solid #f3f4f6;
+  margin-bottom: 16px;
+  padding: 8px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
 
-  .Nnavigation {
-    display: flex;
+.Nheader .Nnavigation {
+  display: flex;
+  gap: 4px;
+  flex-wrap: nowrap;
+  min-width: max-content;
+}
 
-    .Nnav-item {
-      padding: 10px 15px;
-      margin-right: 20px;
-      border: none;
-      background-color: transparent;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      color: #666;
+.Nheader .Nnavigation .Nnav-item {
+  padding: 8px 14px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
 
-      &.Nactive {
-        border-bottom: 2px solid #007bff;
-        color: #007bff;
-      }
-    }
-  }
+.Nheader .Nnavigation .Nnav-item:hover {
+  color: #007bff;
+}
+
+.Nheader .Nnavigation .Nnav-item.Nactive {
+  border-bottom-color: #007bff;
+  color: #007bff;
 }
 
 .Nmain-content {
-  .Ntitle-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 20px;
+  padding: 0 16px 16px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
 
-    .Ntitle {
-      font-size: 24px;
-      font-weight: bold;
-    }
+/* ==========================================================================
+   TITLE ROW - Responsive
+   ========================================================================== */
+.Nmain-content .Ntitle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: 100%;
+}
 
-    .Nfilters {
-      display: flex;
-      gap: 15px;
+.Nmain-content .Ntitle-row .Ntitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
 
-      .Nfilter-group {
-        display: flex;
-        flex-direction: column;
+.Nmain-content .Ntitle-row .Nfilters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
 
-        label {
-          font-size: 12px;
-          color: #888;
-          margin-bottom: 5px;
-        }
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
+  display: flex;
+  flex-direction: column;
+}
 
-        .Nselect-wrapper, .Ndate-wrapper {
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          display: flex;
-          align-items: center;
-          padding: 8px 12px;
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group label {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
 
-          select, input {
-            border: none;
-            padding: 0;
-            cursor: pointer;
-          }
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 120px;
+  transition: border-color 0.2s ease;
+}
 
-          input {
-            margin-left: 8px;
-            color: #333;
-          }
-        }
-      }
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper:focus-within,
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper:focus-within {
+  border-color: #007bff;
+}
 
-      .Nreset-button {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        border: 1px solid #007bff;
-        border-radius: 4px;
-        background-color: transparent;
-        color: #007bff;
-        cursor: pointer;
-      }
-    }
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  width: 100%;
+  outline: none;
+  font-size: 13px;
+  color: #333;
+}
+
+.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
+  margin-left: 4px;
+}
+
+.Nmain-content .Ntitle-row .Nfilters .Nreset-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #007bff;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  height: 36px;
+}
+
+.Nmain-content .Ntitle-row .Nfilters .Nreset-button:hover {
+  background-color: #f0f7ff;
+}
+
+.Nmain-content .Ntitle-row .Nfilters .Nreset-button:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   TABLE - Responsive
+   ========================================================================== */
+.Nmain-content .Ntable-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 16px;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 4px;
+  min-width: 650px;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table thead {
+  background-color: #f5f5f5;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table thead tr th {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #ddd;
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+  font-size: 13px;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table tbody tr:hover {
+  background-color: #fafafa;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #ddd;
+  vertical-align: middle;
+  font-size: 13px;
+}
+
+.Nmain-content .Ntable-container .Nattendance-table tbody tr td .Nstatus-badge {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nstatus-badge.Npresent {
+  background-color: #e0f2f1;
+  color: #2e7d32;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nstatus-badge.Nabsent {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nnotify-button {
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nnotify-button[disabled] {
+  border: 1px solid #eee;
+  background-color: transparent;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nnotify-button:not([disabled]) {
+  border: 1px solid #2e7d32;
+  background-color: transparent;
+  color: #2e7d32;
+}
+
+.Nmain-content
+  .Ntable-container
+  .Nattendance-table
+  tbody
+  tr
+  td
+  .Nnotify-button:not([disabled]):hover {
+  background-color: #e0f2f1;
+}
+
+/* ==========================================================================
+   PAGINATION - Responsive
+   ========================================================================== */
+.Nmain-content .Npagination-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background-color: #fff;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.Nmain-content .Npagination-container .Npagination-info {
+  color: #888;
+  font-size: 13px;
+}
+
+.Nmain-content .Npagination-container .Npagination-controls {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.Nmain-content .Npagination-container .Npagination-controls .Npage-number {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  color: #007bff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Npage-number.Nactive {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Npage-number:hover:not(.Nactive) {
+  background-color: #f0f7ff;
+}
+
+.Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
+.Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #007bff;
+  padding: 4px 8px;
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
+
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Nprev-page[disabled],
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Nnext-page[disabled] {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Nprev-page:hover:not([disabled]),
+.Nmain-content
+  .Npagination-container
+  .Npagination-controls
+  .Nnext-page:hover:not([disabled]) {
+  color: #0056b3;
+}
+
+.Nmain-content .Npagination-container .Nrows-per-page {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Nmain-content .Npagination-container .Nrows-per-page label {
+  color: #888;
+  font-size: 13px;
+}
+
+.Nmain-content .Npagination-container .Nrows-per-page select {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: #ffffff;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.Nmain-content .Npagination-container .Nrows-per-page select:focus {
+  border-color: #007bff;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Large tablets (1024px and below) */
+@media (max-width: 1024px) {
+  .Napp-container {
+    padding: 12px;
   }
 
-  .Ntable-container {
-    .Nattendance-table {
-      width: 100%;
-      border-collapse: collapse;
-      border-radius: 4px;
-      overflow: hidden;
-
-      thead {
-        background-color: #f5f5f5;
-
-        tr th {
-          text-align: left;
-          padding: 15px;
-          border-bottom: 1px solid #ddd;
-          font-weight: bold;
-          color: #555;
-        }
-      }
-
-      tbody {
-        tr {
-          td {
-            padding: 15px;
-            border-bottom: 1px solid #ddd;
-
-            .Nstatus-badge {
-              padding: 4px 8px;
-              border-radius: 12px;
-              font-size: 12px;
-
-              &.Npresent {
-                background-color: #e0f2f1;
-                color: #2e7d32;
-              }
-
-              &.Nabsent {
-                background-color: #ffebee;
-                color: #c62828;
-              }
-            }
-
-            .Nnotify-button {
-              padding: 6px 12px;
-              border-radius: 4px;
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              cursor: pointer;
-
-              &[disabled] {
-                border: 1px solid #eee;
-                background-color: transparent;
-                color: #aaa;
-              }
-
-              &:not([disabled]) {
-                border: 1px solid #2e7d32;
-                background-color: transparent;
-                color: #2e7d32;
-              }
-            }
-          }
-        }
-      }
-    }
+  .Napp-container .Napp-h1 {
+    font-size: 22px;
   }
 
-  .Npagination-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background-color: #fff;
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 20px;
+  }
 
-    .Npagination-info {
-      color: #888;
-    }
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
+    min-width: 100px;
+  }
+}
 
-    .Npagination-controls {
-      display: flex;
-      gap: 10px;
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .Napp-container {
+    padding: 10px;
+  }
 
-      .Npage-number {
-        width: 30px;
-        height: 30px;
-        border: none;
-        background-color: transparent;
-        color: #007bff;
-        cursor: pointer;
+  .Napp-container .Napp-h1 {
+    font-size: 20px;
+  }
 
-        &.Nactive {
-          background-color: #007bff;
-          color: #fff;
-          border-radius: 4px;
-        }
-      }
+  .Napp-container .Napp-p {
+    font-size: 13px;
+  }
 
-      .Nprev-page, .Nnext-page {
-        border: none;
-        background-color: transparent;
-        cursor: pointer;
-        color: #007bff;
+  .Nheader {
+    padding: 6px 12px;
+  }
 
-        &[disabled] {
-          color: #aaa;
-        }
-      }
-    }
+  .Nheader .Nnavigation .Nnav-item {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
 
-    .Nrows-per-page {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+  .Nmain-content {
+    padding: 0 12px 12px 12px;
+  }
 
-      label {
-        color: #888;
-      }
+  .Nmain-content .Ntitle-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
 
-      select {
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        padding: 4px 8px;
-        cursor: pointer;
-      }
-    }
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 18px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters {
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
+    flex: 1 1 140px;
+    min-width: 120px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
+    min-width: auto;
+    padding: 5px 8px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nreset-button {
+    height: 34px;
+    padding: 5px 12px;
+    font-size: 13px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table {
+    min-width: 550px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
+  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .Nmain-content .Npagination-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-info {
+    text-align: center;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls {
+    justify-content: center;
+  }
+
+  .Nmain-content .Npagination-container .Nrows-per-page {
+    justify-content: center;
+  }
+}
+
+/* Small mobile devices (640px and below) */
+@media (max-width: 640px) {
+  .Napp-container {
+    padding: 8px;
+  }
+
+  .Napp-container .Napp-h1 {
+    font-size: 18px;
+  }
+
+  .Napp-container .Napp-p {
+    font-size: 12px;
+  }
+
+  .Nheader {
+    padding: 4px 10px;
+  }
+
+  .Nheader .Nnavigation .Nnav-item {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  .Nmain-content {
+    padding: 0 8px 8px 8px;
+  }
+
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 17px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
+    flex: none;
+    width: 100%;
+    min-width: auto;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
+    font-size: 13px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nreset-button {
+    width: 100%;
+    justify-content: center;
+    height: 36px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table {
+    min-width: 450px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
+  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nstatus-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nnotify-button {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+
+  .Nmain-content .Npagination-container {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-info {
+    font-size: 12px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
+    width: 26px;
+    height: 26px;
+    font-size: 12px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
+  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
+    font-size: 12px;
+    padding: 2px 6px;
+  }
+
+  .Nmain-content .Npagination-container .Nrows-per-page label {
+    font-size: 12px;
+  }
+
+  .Nmain-content .Npagination-container .Nrows-per-page select {
+    font-size: 12px;
+    padding: 3px 6px;
+  }
+}
+
+/* Extra small mobile devices (480px and below) */
+@media (max-width: 480px) {
+  .Napp-container {
+    padding: 6px;
+  }
+
+  .Napp-container .Napp-h1 {
+    font-size: 16px;
+  }
+
+  .Napp-container .Napp-p {
+    font-size: 11px;
+  }
+
+  .Nheader {
+    padding: 4px 8px;
+  }
+
+  .Nheader .Nnavigation .Nnav-item {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+
+  .Nmain-content {
+    padding: 0 6px 6px 6px;
+  }
+
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 16px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group label {
+    font-size: 11px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
+    font-size: 12px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table {
+    min-width: 380px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
+  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nstatus-badge {
+    font-size: 10px;
+    padding: 2px 6px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nnotify-button {
+    font-size: 10px;
+    padding: 2px 6px;
+    gap: 4px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
+  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
+    font-size: 11px;
+    padding: 2px 4px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-info {
+    font-size: 11px;
+  }
+
+  .Nmain-content .Npagination-container .Nrows-per-page label {
+    font-size: 11px;
+  }
+
+  .Nmain-content .Npagination-container .Nrows-per-page select {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+}
+
+/* Very small mobile devices (375px and below) */
+@media (max-width: 375px) {
+  .Napp-container {
+    padding: 4px;
+  }
+
+  .Napp-container .Napp-h1 {
+    font-size: 15px;
+  }
+
+  .Nheader .Nnavigation .Nnav-item {
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 15px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table {
+    min-width: 320px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
+  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nstatus-badge {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+
+  .Nmain-content
+    .Ntable-container
+    .Nattendance-table
+    tbody
+    tr
+    td
+    .Nnotify-button {
+    font-size: 9px;
+    padding: 2px 5px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
+    width: 22px;
+    height: 22px;
+    font-size: 10px;
+  }
+
+  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
+  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
+    font-size: 10px;
+    padding: 2px 3px;
+  }
+}
+
+/* Landscape phone support */
+@media (max-height: 500px) and (orientation: landscape) {
+  .Napp-container {
+    padding: 8px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table {
+    min-width: 500px;
+  }
+
+  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
+  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  .Nmain-content .Ntitle-row .Ntitle {
+    font-size: 16px;
+  }
+
+  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
+    flex: 1 1 80px;
+    min-width: 60px;
+  }
+
+  .Nheader .Nnavigation .Nnav-item {
+    font-size: 11px;
+    padding: 4px 8px;
   }
 }

@@ -1,299 +1,525 @@
-.AAdminDashboardHeader {
+.AdministrationHeader-BAdminDashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 12vh;
-  padding: 12px 24px;
+  height: 72px;
+  border-bottom: 1px solid #e2e8f0;
+  box-sizing: border-box;
   background-color: #ffffff;
-  font-family: system-ui, -apple-system, sans-serif;
-  border-bottom: 1px solid #f0f0f5;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 0 24px;
+}
 
-  .Asearch-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 29%;
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn {
+  display: none;
+  font-size: 24px;
+  color: #0f172a;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s ease;
+  margin-right: 12px;
+}
 
-    .Asearch-input {
-      width: 100%;
-      padding: 10px 40px 10px 16px;
-      font-size: 14px;
-      color: #1e1e2f;
-      background-color: #ffffff;
-      border: 1px solid #e2e2ec;
-      border-radius: 8px;
-      outline: none;
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn:hover {
+  color: #2563eb;
+}
 
-      &::placeholder {
-        color: #a0a0b0;
-      }
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 320px;
+}
 
-      &:focus {
-        border-color: #3b82f6;
-      }
-    }
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  color: #0f172a;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
 
-    .Asearch-button {
-      position: absolute;
-      right: 12px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-input::placeholder {
+  color: #94a3b8;
+}
 
-      .Asearch-icon {
-        width: 16px;
-        height: 16px;
-        color: #2563eb;
-      }
-    }
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-input:focus {
+  border-color: #2563eb;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-button {
+  position: absolute;
+  right: 14px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-button .AdministrationHeader-search-icon {
+  width: 16px;
+  height: 16px;
+  color: #2563eb;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+  color: #475569;
+  margin-left: 24px;
+  margin-right: auto;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-date-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-date-display .AdministrationHeader-calendar-icon {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-divider {
+  width: 1px;
+  height: 16px;
+  background-color: #e2e8f0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-dropdown:hover {
+  color: #0f172a;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-dropdown .AdministrationHeader-chevron-icon {
+  width: 14px;
+  height: 14px;
+  color: #94a3b8;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 1000;
+  width: 380px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header .AdministrationHeader-close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header .AdministrationHeader-close-btn:hover {
+  color: #0f172a;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list {
+  display: flex;
+  flex-direction: column;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background: none;
+  border-left: 3px solid transparent;
+  transition: background-color 0.2s ease;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item:last-child {
+  border-bottom: none;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item:hover {
+  background-color: #f8fafc;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content {
+  flex: 1;
+  padding-right: 12px;
+  text-align: left;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2563eb;
+  margin: 0 0 4px 0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content p {
+  font-size: 13px;
+  color: #475569;
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content p strong {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content .AdministrationHeader-time-stamp {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-unread-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 12px;
+  text-align: center;
+  background-color: #f8fafc;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-footer .AdministrationHeader-mark-all-btn {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  width: 100%;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-footer .AdministrationHeader-mark-all-btn:hover {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button:hover {
+  background-color: #f8fafc;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button .AdministrationHeader-bell-icon {
+  width: 20px;
+  height: 20px;
+  color: #0f172a;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button .AdministrationHeader-notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  background-color: #f59e0b;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-user-profile .AdministrationHeader-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-Auser-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-Auser-info .AdministrationHeader-user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-Auser-info .AdministrationHeader-user-role {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Tablets and smaller laptops (1024px and below) */
+@media (max-width: 1024px) {
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn {
+    display: block;
   }
 
-  .Ameta-container {
-    display: flex;
-    align-items: center;
-    margin-left: 8%;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container {
+    max-width: 240px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container {
+    margin-left: 12px;
     gap: 12px;
-    width: 36%;
-    font-size: 11px;
-    color: #4a4a6a;
-
-    .Adate-display {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-
-      .Acalendar-icon {
-        width: 16px;
-        height: 16px;
-        color: #71718a;
-      }
-    }
-
-    .Adivider {
-      width: 1px;
-      height: 16px;
-      background-color: #e2e2ec;
-    }
-
-    .Adropdown {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      user-select: none;
-
-      &:hover {
-        color: #1e1e2f;
-      }
-
-      .Achevron-icon {
-        width: 14px;
-        height: 14px;
-        color: #71718a;
-      }
-    }
+    font-size: 12px;
   }
 
-  .Aprofile-container {
-    display: flex;
-    align-items: center;
-    margin-right: -2%;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container {
+    gap: 14px;
+  }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+  .AdministrationHeader-BAdminDashboard-header {
+    height: auto;
+    padding: 12px 16px;
+    flex-wrap: wrap;
     gap: 10px;
-    width: 22%;
-    height: 10vh;
+  }
 
-    .Anotification-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn {
+    display: block;
+    font-size: 22px;
+  }
 
-      .Anotification-popup {
-        position: absolute;
-        top: 100%;
-        right: 0;
-        margin-top: 16px;
-        z-index: 1000;
-        width: 420px;
-        background-color: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        border: 1px solid #f0f0f5;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container {
+    max-width: 100%;
+    width: 100%;
+    order: 3;
+  }
 
-        .Apopup-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 20px 24px;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-input {
+    font-size: 13px;
+    padding: 8px 36px 8px 12px;
+  }
 
-          h2 {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1e1e2f;
-            margin: 0;
-          }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container {
+    margin-left: 0;
+    gap: 8px;
+    font-size: 11px;
+  }
 
-          .Aclose-btn {
-            background: none;
-            border: none;
-            font-size: 22px;
-            color: #71718a;
-            cursor: pointer;
-            padding: 0;
-            line-height: 1;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-date-display span:not(.AdministrationHeader-calendar-icon) {
+    display: none;
+  }
 
-            &:hover {
-              color: #1e1e2f;
-            }
-          }
-        }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-dropdown span:not(.AdministrationHeader-chevron-icon) {
+    display: none;
+  }
 
-        .Anotification-list {
-          display: flex;
-          flex-direction: column;
-          max-height: 380px; 
-          overflow-y: auto;  
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-divider {
+    display: none;
+  }
 
-          .Anotification-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 24px;
-            border-top: 1px solid #f0f0f5;
-            text-align: left;
-            transition: background-color 0.2s ease;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container {
+    gap: 10px;
+  }
 
-            &:hover {
-              background-color: #f9fafb;
-            }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-Auser-info {
+    display: none;
+  }
 
-            .Anotification-content {
-              flex: 1;
-              padding-right: 12px;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-user-profile .AdministrationHeader-avatar {
+    width: 34px;
+    height: 34px;
+  }
 
-              h3 {
-                font-size: 14px;
-                font-weight: 600;
-                color: #1e3a8a;
-                margin: 0 0 4px 0;
-              }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button .AdministrationHeader-bell-icon {
+    width: 18px;
+    height: 18px;
+  }
 
-              p {
-                font-size: 13px;
-                color: #374151;
-                margin: 0 0 6px 0;
-                line-height: 1.4;
-                
-                strong {
-                  font-weight: 600;
-                }
-              }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button .AdministrationHeader-notification-badge {
+    top: 4px;
+    right: 4px;
+    width: 6px;
+    height: 6px;
+  }
 
-              .Atime-stamp {
-                font-size: 12px;
-                color: #9ca3af;
-              }
-            }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup {
+    width: 320px;
+    right: -10px;
+  }
+}
 
-            .Aunread-dot {
-              width: 8px;
-              height: 8px;
-              background-color: #0066ff;
-              border-radius: 50%;
-              flex-shrink: 0;
-            }
-          }
-        }
+/* Small mobile devices (480px and below) */
+@media (max-width: 480px) {
+  .AdministrationHeader-BAdminDashboard-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
 
-        .Apopup-footer {
-          border-top: 1px solid #f0f0f5;
-          padding: 14px;
-          text-align: center;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn {
+    font-size: 20px;
+  }
 
-          .Amark-all-btn {
-            background: none;
-            border: none;
-            color: #0066ff;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            width: 100%;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-input {
+    font-size: 12px;
+    padding: 6px 32px 6px 10px;
+  }
 
-            &:hover {
-              text-decoration: underline;
-            }
-          }
-        }
-      }
-    }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-search-container .AdministrationHeader-search-button .AdministrationHeader-search-icon {
+    width: 14px;
+    height: 14px;
+  }
 
-    .Anotification-button {
-      position: relative;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container {
+    font-size: 10px;
+    gap: 6px;
+  }
 
-      .Abell-icon {
-        width: 22px;
-        height: 22px;
-        color: #1e1e2f;
-        fill: #1e1e2f;
-      }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-date-display .AdministrationHeader-calendar-icon {
+    width: 14px;
+    height: 14px;
+  }
 
-      .Anotification-badge {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        width: 8px;
-        height: 8px;
-        background-color: #eab308; 
-        border-radius: 50%;
-        border: 1.5px solid #ffffff;
-      }
-    }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container .AdministrationHeader-dropdown .AdministrationHeader-chevron-icon {
+    width: 12px;
+    height: 12px;
+  }
 
-    .Auser-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container {
+    gap: 8px;
+  }
 
-      .Aavatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-    }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-user-profile .AdministrationHeader-avatar {
+    width: 30px;
+    height: 30px;
+  }
 
-    .Auser-info {
-      display: flex;
-      flex-direction: column;
-      width: 60%;
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-button .AdministrationHeader-bell-icon {
+    width: 16px;
+    height: 16px;
+  }
 
-      .Auser-name {
-        font-size: 14px;
-        font-weight: 500;
-        color: #1e1e2f;
-        line-height: 1.2;
-      }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup {
+    width: 280px;
+    right: -20px;
+  }
 
-      .Auser-role {
-        font-size: 12px;
-        color: #71718a;
-        margin-top: 2px;
-      }
-    }
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header {
+    padding: 12px 16px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-popup-header h2 {
+    font-size: 14px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item {
+    padding: 12px 16px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content h3 {
+    font-size: 12px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup .AdministrationHeader-notification-list .AdministrationHeader-notification-item .AdministrationHeader-notification-content p {
+    font-size: 12px;
+  }
+}
+
+/* Extra small mobile devices (375px and below) */
+@media (max-width: 375px) {
+  .AdministrationHeader-BAdminDashboard-header {
+    padding: 8px 10px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-AdminMenuBtn {
+    font-size: 18px;
+    margin-right: 8px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-user-profile .AdministrationHeader-avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-profile-container .AdministrationHeader-notification-wrapper .AdministrationHeader-notification-popup {
+    width: 240px;
+    right: -30px;
+  }
+
+  .AdministrationHeader-BAdminDashboard-header .AdministrationHeader-meta-container {
+    font-size: 9px;
   }
 }

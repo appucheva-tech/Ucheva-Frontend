@@ -6,8 +6,9 @@ import { clearUser } from "../../global/userSlice";
 import { persistor } from "../../global/store";
 import { useNavigate } from "react-router-dom";
 import { IoMdMenu } from "react-icons/io";
+import "./AdminHeader.css";
 
-const AdminHeader = () => {
+const AdminHeader = ({ setSidebarOpen }) => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -70,17 +71,20 @@ const AdminHeader = () => {
   }, []);
 
   return (
-    <header className="BAdminDashboard-header">
-      <IoMdMenu className="AdminMenuBtn"/>
-      <div className="search-container">
+    <header className="AdministrationHeader-BAdminDashboard-header">
+      <IoMdMenu
+        className="AdministrationHeader-AdminMenuBtn"
+        onClick={() => setSidebarOpen(true)}
+      />
+      <div className="AdministrationHeader-search-container">
         <input
           type="text"
           placeholder="Search students, staff, classes, etc..."
-          className="search-input"
+          className="AdministrationHeader-search-input"
         />
-        <button className="search-button" aria-label="Search">
+        <button className="AdministrationHeader-search-button" aria-label="Search">
           <svg
-            className="search-icon"
+            className="AdministrationHeader-search-icon"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -92,13 +96,12 @@ const AdminHeader = () => {
         </button>
       </div>
 
-      
-      <div className="header-right-group">
-
-        <div className="meta-container">
-          <div className="date-display">
+      {/* Right Side Wrapper */}
+      <div className="AdministrationHeader-header-right-group">
+        <div className="AdministrationHeader-meta-container">
+          <div className="AdministrationHeader-date-display">
             <svg
-              className="calendar-icon"
+              className="AdministrationHeader-calendar-icon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -112,53 +115,49 @@ const AdminHeader = () => {
           </div>
         </div>
 
-        <div className="header-right-group">
-          <div className="meta-container">
-            <div className="date-display">
-              <svg className="calendar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <span>{academicSession.dateString}</span>
-            </div>
-          </div>
-
-          <div className="profile-container">
-            <div className="notification-wrapper" ref={popupRef}>
-              <button
-                className="notification-button"
-                aria-label="Notifications"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsNotifOpen(!isNotifOpen);
-                }}
+        {/* Profile & toast Triggers */}
+        <div className="AdministrationHeader-profile-container">
+          <div className="AdministrationHeader-notification-wrapper" ref={popupRef}>
+            <button
+              className="AdministrationHeader-notification-button"
+              aria-label="Notifications"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsNotifOpen(!isNotifOpen);
+              }}
+            >
+              <svg
+                className="AdministrationHeader-bell-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
               >
-                <svg className="bell-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
-                <span className="notification-badge"></span>
-              </button>
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+              </svg>
+              <span className="AdministrationHeader-notification-badge"></span>
+            </button>
 
-              {isNotifOpen && (
-                <div className="notification-popup">
-                  <div className="popup-header">
-                    <h2>Notifications</h2>
-                    <button className="close-btn" onClick={() => setIsNotifOpen(false)}>
-                      &times;
-                    </button>
-                  </div>
-                  <div className="notification-list">
-                    <div className="notification-item unread">
-                      <div className="notification-content">
-                        <h3>System Update</h3>
-                        <p>Welcome to your workspace dashboard panel.</p>
-                        <span className="time-stamp">Just now</span>
-                      </div>
-                      <span className="unread-dot"></span>
+            {isNotifOpen && (
+              <div className="AdministrationHeader-notification-popup">
+                <div className="AdministrationHeader-popup-header">
+                  <h2>Notifications</h2>
+                  <button
+                    className="AdministrationHeader-close-btn"
+                    onClick={() => setIsNotifOpen(false)}
+                  >
+                    &times;
+                  </button>
+                </div>
+                <div className="AdministrationHeader-notification-list">
+                  <div className="AdministrationHeader-notification-item AdministrationHeader-unread">
+                    <div className="AdministrationHeader-notification-content">
+                      <h3>System Update</h3>
+                      <p>Welcome to your workspace dashboard panel.</p>
+                      <span className="AdministrationHeader-time-stamp">Just now</span>
                     </div>
+                    <span className="AdministrationHeader-unread-dot"></span>
                   </div>
                 </div>
               )}
@@ -173,33 +172,23 @@ const AdminHeader = () => {
                 <HiOutlineBuildingOffice2 className="school-avatar-fallback-icon" />
               </div>
 
-              {isProfileDropdownOpen && (
-                <div className="profile-dropdown-menu">
-                  <p
-                    className="logout"
-                    onClick={() => {
-                      setIsProfileDropdownOpen(false);
-                      setShowLogoutModal(true);
-                    }}
-                  >
-                    Logout
-                  </p>
-                </div>
-              )}
-            </div>
+          {/* Dynamic profile section */}
+          <div className="AdministrationHeader-user-profile AdministrationHeader-unique-school-avatar">
+            <HiOutlineBuildingOffice2 className="AdministrationHeader-school-avatar-fallback-icon" />
+          </div>
 
-            <div className="Auser-info">
-              <span className="user-name">
-                {adminFirstName
-                  ? `${adminFirstName} ${adminLastName}`.trim()
-                  : user?.schoolName || ""}
-              </span>
-              <span className="user-role">
-                {user?.role
-                  ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
-                  : "Admin"}
-              </span>
-            </div>
+          <div className="AdministrationHeader-Auser-info">
+            <span className="AdministrationHeader-user-name">
+              {user?.schoolName
+                ? user.schoolName.charAt(0).toUpperCase() +
+                  user.schoolName.slice(1)
+                : "Curve Academy"}
+            </span>
+            <span className="AdministrationHeader-user-role">
+              {user?.role
+                ? user.role.charAt(0).toUpperCase() + user.role.slice(1)
+                : "Admin"}
+            </span>
           </div>
         </div>
       </div>

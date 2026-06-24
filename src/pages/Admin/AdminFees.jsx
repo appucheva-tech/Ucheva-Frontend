@@ -53,35 +53,29 @@ const AdminFees = () => {
 
   return (
     <>
-      {/* HEADER */}
       <div className="dashboard-container">
         <header className="dashboard-header">
           <h1 className="welcome-text">
             {data?.greeting || "Good morning"}{" "}
-            <span className="wave-emoji">👋</span>
           </h1>
           <p className="subtitle-text">
             {data?.overviewText ||
-              "Here's an overview of school activities today."}
+              "Set up fee structures and monitor student fee payments."}
           </p>
         </header>
 
-        {/* LOADING */}
         {loading && <div style={{ padding: "20px" }}>Loading dashboard...</div>}
 
-        {/* ERROR */}
         {error && !loading && (
           <div style={{ padding: "20px", color: "red" }}>{error}</div>
         )}
 
-        {/* EMPTY STATE */}
         {!loading && !error && !data && (
           <div style={{ padding: "20px", textAlign: "center" }}>
             No dashboard data available.
           </div>
         )}
 
-        {/* CARDS */}
         {!loading && data && (
           <div className="metrics-grid">
             <div className="metric-card card-students">
@@ -159,9 +153,7 @@ const AdminFees = () => {
         )}
       </div>
 
-      {/* TABLE SECTION */}
       <div className="tableContainer">
-        {/* FILTERS (unchanged UI, but dynamic default values) */}
         <div className="filterSection">
           <div className="filtersGroup">
             <div className="filterItem">
@@ -192,19 +184,16 @@ const AdminFees = () => {
           </div>
         </div>
 
-        {/* LOADING TABLE */}
         {loading && (
           <div style={{ padding: "20px" }}>Loading fee records...</div>
         )}
 
-        {/* EMPTY TABLE */}
         {!loading && data && feeRecords.length === 0 && (
           <div style={{ padding: "20px", textAlign: "center" }}>
             No fee records found.
           </div>
         )}
 
-        {/* TABLE */}
         {!loading && feeRecords.length > 0 && (
           <div className="tableWrapper">
             <table className="feesTable">
@@ -248,7 +237,6 @@ const AdminFees = () => {
         )}
       </div>
 
-      {/* FOOTER (unchanged) */}
       <footer className="footerRow">
         <span>© 2026 Ucheva school operating management system</span>
       </footer>
