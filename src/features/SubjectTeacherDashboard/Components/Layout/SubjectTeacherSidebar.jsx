@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { IoWalletOutline } from "react-icons/io5";
 import "./LayoutStyles/SubjectTeacherSidebar.css";
+import { MdOutlineAccessTime } from "react-icons/md";
 
 const SubjectTeacherSidebar = ({ isOpen, toggleSidebar }) => {
   return (
@@ -82,6 +83,18 @@ const SubjectTeacherSidebar = ({ isOpen, toggleSidebar }) => {
             <FiSettings size={20} />
           </span>
           <span className="SubjectTeacherSidebar-nav-text">Settings</span>
+        </NavLink>
+        <NavLink
+          to="/subjectteacherdashboard/attendance/:token"
+          className={({ isActive }) =>
+            `ct-nav-link ${isActive ? "active" : ""}`
+          }
+          onClick={() => setSidebarOpen(false)}
+        >
+          <span className="ct-nav-icon">
+            <MdOutlineAccessTime />
+          </span>
+          <span className="ct-nav-text">Attendance</span>
         </NavLink>
       </nav>
     </div>

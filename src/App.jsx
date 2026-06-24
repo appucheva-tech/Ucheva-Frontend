@@ -67,10 +67,8 @@ import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
 import AdminEditStudent from "./pages/Admin/AdminEditStudent";
 import AttendancePage from "./features/busary/components/AttendancePage";
 import PrivateRoute from "./pages/PrivateRoute";
-import PublicRoute from "./pages/PublicRoute";
 import NotFound from "./pages/notFound";
 import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
-import RequireSubdomain from "./pages/requireSubdomain";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -82,57 +80,30 @@ function ScrollToTop() {
 }
 
 const App = () => {
-
-
-
-
   return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path="/notfound" element={<NotFound />} />
 
-<BrowserRouter>
-  <ScrollToTop />
+        <Route path="/" element={<Home />} />
+        <Route path="/Features" element={<Features />} />
+        <Route path="/Pricing" element={<Pricing />} />
+        <Route path="/AboutUs" element={<AboutUs />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="payment-verification" element={<PaymentVerification />} />
 
-  <Routes>
-    {/* PUBLIC PAGES */}
-    <Route element={<PublicRoute />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/features" element={<Features />} />
-      <Route path="/pricing" element={<Pricing />} />
-      <Route path="/aboutus" element={<AboutUs />} />
-      <Route path="/contactus" element={<ContactUs />} />
-                <Route path="/signup" element={<Signup />} />
-
-    </Route>
-
-    {/* EVERYTHING BELOW REQUIRES SUBDOMAIN */}
-    <Route element={<RequireSubdomain />}>
-              <Route path="/login" element={<Login />} />
-
-      {/* AUTH */}
-      <Route element={<PublicRoute />}>
         <Route element={<AuthLayout />}>
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/verify" element={<VerifyEmail />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verify-password" element={<VerifyForgot />} />
           <Route path="/reset-password" element={<ResetPassword />} />
-          <Route
-            path="/create-password/:token"
-            element={<CreatePassword />}
-          />
+          <Route path="/create-password/:token" element={<CreatePassword />} />
         </Route>
-      </Route>
 
-      <Route
-        path="/payment-verification"
-        element={<PaymentVerification />}
-      />
-
-      <Route
-        path="/onboarding"
-        element={<OnboardingStepper />}
-      />
-
-      {/* ADMIN */}
-      <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+        <Route path="onboarding" element={<OnboardingStepper />}></Route>
         <Route path="/admin" element={<AdminDashboardLayout />}>
           <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
@@ -144,14 +115,8 @@ const App = () => {
             path="AdminStudentDetails/:id"
             element={<AdminStudentDetails />}
           />
-          <Route
-            path="AdminEditStudent"
-            element={<AdminEditStudent />}
-          />
-          <Route
-            path="AdminAttendance"
-            element={<AdminAttendance />}
-          />
+          <Route path="AdminEditStudent" element={<AdminEditStudent />} />
+          <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route
             path="AdminStudentAttendance"
             element={<AdminStudentAttendance />}
@@ -159,37 +124,11 @@ const App = () => {
           <Route path="AdminSubjects" element={<AdminSubjects />} />
           <Route path="AdminClass" element={<AdminClass />} />
           <Route path="AdminFees" element={<AdminFees />} />
-          <Route
-            path="AdminReportCards"
-            element={<AdminReportCards />}
-          />
-          <Route
-            path="AdminAnnouncement"
-            element={<AdminAnnouncement />}
-          />
+          <Route path="AdminReportCards" element={<AdminReportCards />} />
+          <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
           <Route path="AdminWallet" element={<AdminWallet />} />
           <Route path="AdminSettings" element={<AdminSettings />} />
         </Route>
-      </Route>
-
-      {/* PARENT */}
-      <Route element={<PrivateRoute allowedRoles={["parent"]} />}>
-        <Route path="/parentdashboard" element={<ParentLayout />}>
-          <Route index element={<DashboardPage />} />
-          <Route path="payment" element={<PaymentPage />} />
-          <Route path="settings" element={<SettingsPage />} />
-        </Route>
-      </Route>
-
-      {/* CLASS TEACHER */}
-      <Route
-        element={
-          <PrivateRoute
-            allowedRoles={["staff"]}
-            allowedStaffTypes={["class teacher"]}
-          />
-        }
-      >
         <Route path="/CTdashboard" element={<CTLayout />}>
           <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
@@ -198,100 +137,43 @@ const App = () => {
           <Route path="studentreport" element={<STReport />} />
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
         </Route>
-      </Route>
+        <Route element={<PrivateRoute />}>
+          {/* <Route path="/attendance/:token" element={<AttendancePage />} /> */}
+        </Route>
+        <Route path="/bursary" element={<BursaryLayout />}>
+          <Route index element={<BusaryDashboard />} />
+          <Route path="bursaryFees" element={<BursaryFees />} />
+          <Route path="studentFee" element={<StudentFee />} />
+          <Route path="bursarySettings" element={<BursarySettings />} />
+          <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
+        </Route>
+        <Route path="/parentdashboard" element={<ParentLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
+        <Route path="/securitydashboard" element={<SecurityLayout />}>
+          <Route index element={<SecuritysDashboard />} />
+          <Route path="announcement" element={<SecurityAnnouncement />} />
+          <Route path="settings" element={<SecuritySettings />} />
+        </Route>
 
-      {/* SUBJECT TEACHER */}
-      <Route
-        element={
-          <PrivateRoute
-            allowedRoles={["staff"]}
-            allowedStaffTypes={["subject teacher"]}
-          />
-        }
-      >
         <Route
           path="/subjectteacherdashboard"
           element={<SubjectTeacherLayout />}
         >
           <Route index element={<SubjectTeacherDashboard />} />
           <Route path="scores" element={<SubjectTeacherScores />} />
-          <Route
-            path="announcement"
-            element={<SubjectTeacherAnnouncement />}
-          />
-          <Route
-            path="settings"
-            element={<SubjectTeacherSettings />}
-          />
+          <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
+          <Route path="settings" element={<SubjectTeacherSettings />} />
+          <Route path="attendance/:token" element={<AttendancePage />} />
         </Route>
-      </Route>
-
-      {/* BURSARY */}
-      <Route
-        element={
-          <PrivateRoute
-            allowedRoles={["staff"]}
-            allowedStaffTypes={["non-teaching staff"]}
-          />
-        }
-      >
-        <Route path="/bursary" element={<BursaryLayout />}>
-          <Route index element={<BusaryDashboard />} />
-          <Route path="bursaryFees" element={<BursaryFees />} />
-          <Route path="studentFee" element={<StudentFee />} />
-          <Route
-            path="bursarySettings"
-            element={<BursarySettings />}
-          />
-          <Route
-            path="bursaryAnnouncement"
-            element={<BursaryAnnouncement />}
-          />
-          <Route path="attendance" element={<AttendancePage />} />
-        </Route>
-
-        <Route
-          path="/attendance/:token"
-          element={<AttendancePage />}
-        />
-      </Route>
-
-      {/* SECURITY */}
-      <Route
-        element={
-          <PrivateRoute
-            allowedRoles={["staff"]}
-            allowedStaffTypes={["security"]}
-          />
-        }
-      >
-        <Route
-          path="/securitydashboard"
-          element={<SecurityLayout />}
-        >
-          <Route index element={<SecuritysDashboard />} />
-          <Route
-            path="announcement"
-            element={<SecurityAnnouncement />}
-          />
-          <Route
-            path="settings"
-            element={<SecuritySettings />}
-          />
-        </Route>
-      </Route>
-    </Route>
-
-    {/* 404 */}
-    <Route path="*" element={<NotFound />} />
-  </Routes>
-
-  <ToastContainer />
-</BrowserRouter>
-
-
-
+      </Routes>
+      <ToastContainer />
+    </BrowserRouter>
   );
 };
 

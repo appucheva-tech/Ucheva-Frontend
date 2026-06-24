@@ -84,7 +84,7 @@ const AdminSettings = () => {
   useEffect(() => {
     const fetchSchoolProfile = async () => {
       try {
-        const res = await apiClient.get("/admin/profile");
+        const res = await apiClient.get("/subjectteaher/subject ");
         const { admin, adminProfile: profile } = res.data;
 
         setSchoolProfile({
