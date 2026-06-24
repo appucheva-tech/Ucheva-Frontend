@@ -14,39 +14,20 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 24px 20px;
 }
 
-.CTSettingsHead {
-  width: 100%;
-  min-height: 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  font-family: Nunito;
-  font-size: 32px;
-  font-weight: 700;
-  color: #0f172a;
-  padding: 20px 0;
-}
-
-.CTSettingsHead span {
-  font-size: 18px;
-  font-weight: 400;
-  color: #042869;
-  margin-top: 8px;
-}
-
-/* PROFILE CARD */
-
+/* ════════════════════════════════════════════════════════
+   PROFILE CARD
+════════════════════════════════════════════════════════ */
 .CTSettingsProfileCard {
   width: 100%;
-  height: 85vh;
   background: white;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  padding-right: 10px;
+  padding-bottom: 24px;
 }
 
 .CTSettingsCardTitle {
@@ -59,46 +40,77 @@
   font-weight: 600;
   font-size: 22px;
   color: #03173c;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .CTSettingsProfileContent {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padding-top: 10px;
+  padding: 24px 20px 0;
+  gap: 0;
 }
 
+/* ── Avatar column ── */
 .CTSettingsProfileImage {
-  width: 22%;
-  /* max-width: 250px; */
+  width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 20px;
+  gap: 10px;
+  padding-top: 8px;
 }
 
 .CTSettingsAvatarHolder {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 1px solid #d1d5db;
+  border: 2px solid #d1d5db;
   overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.CTSettingsAvatarHolder:hover .CTSettingsAvatarOverlay {
+  opacity: 1;
+}
+
+.CTSettingsAvatarOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.CTSettingsAvatarOverlay span {
+  color: white;
+  font-size: 13px;
+  font-family: Nunito;
+  font-weight: 600;
+  pointer-events: none;
 }
 
 .CTSettingsAvatar {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
-.CTSettingsProfileImage span {
+.CTSettingsProfileImage > span {
   font-family: Nunito;
-  font-size: 16px;
+  font-size: 12px;
   color: #9da4ae;
   font-weight: 400;
+  text-align: center;
 }
 
+/* ── Form area ── */
 .CTSettingsForm {
   flex: 1;
   min-width: 300px;
@@ -119,20 +131,20 @@
   min-width: 180px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .CTSettingsFieldEdit label,
 .CTSettingsField label {
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
   color: #03173c;
   font-family: Nunito;
 }
 
 .CTSettingsFieldEdit input {
   height: 45px;
-  border: 1px solid #d2d6db;
+  border: 1.5px solid #d2d6db;
   border-radius: 8px;
   padding: 0 12px;
   font-size: 14px;
@@ -141,71 +153,93 @@
   font-weight: 400;
   outline: none;
   font-family: Nunito;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.CTSettingsFieldEdit input:focus {
+  border-color: #0062f6;
+  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
 .CTSettingsField input {
   height: 45px;
-  border: 1px solid #d2d6db;
+  border: 1.5px solid #e5e7eb;
   border-radius: 8px;
   padding: 0 12px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   background: #f9fafb;
-  color: #03173c;
+  color: #6b7280;
   font-family: Nunito;
+  cursor: not-allowed;
 }
 
 .CTSettingsAddress {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+}
+
+.CTSettingsAddress label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #03173c;
+  font-family: Nunito;
 }
 
 .CTSettingsAddress input {
   height: 45px;
-  border: 1px solid #d2d6db;
+  border: 1.5px solid #d2d6db;
   border-radius: 8px;
   padding: 0 12px;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
-  background: #f9fafb;
+  background: white;
   color: #03173c;
   font-family: Nunito;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.CTSettingsAddress input:focus {
+  border-color: #0062f6;
+  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
 .CTSettingsSaveBtnHolder {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
-  height: 20%;
+  margin-top: 8px;
 }
 
 .CTSettingsSaveBtn {
-  width: 127px;
-  height: 54px;
+  width: 140px;
+  height: 46px;
   border: none;
   border-radius: 8px;
   background: #0062f6;
   color: white;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.2s ease;
   font-family: Nunito;
+  font-size: 15px;
+  font-weight: 600;
 }
 
-.CTSettingsSaveBtn:hover {
-  background: #0051cc;
-}
+.CTSettingsSaveBtn:hover   { background: #0051cc; }
+.CTSettingsSaveBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-/* SIGNATURE */
-
+/* ════════════════════════════════════════════════════════
+   SIGNATURE CARD
+════════════════════════════════════════════════════════ */
 .CTSettingsSignatureCard {
   background: white;
   border-radius: 10px;
   border: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
 }
 
 .CTSettingsCardTitle2 {
@@ -213,77 +247,84 @@
   font-size: 22px;
   font-weight: 600;
   color: #03173c;
+  font-family: Nunito;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .CTSignatureTextBox {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
-  gap: 1rem;
+  padding: 20px 20px 0;
+  gap: 12px;
 }
 
-.CTSignatureTextBox span {
+.CTSignatureTextBox > span {
   font-family: Nunito;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
+  font-weight: 500;
+  font-size: 15px;
   color: #03173c;
-  font-family: Nunito;
 }
 
 .CTSettingsSignatureBox {
-  width: 22%;
-  min-height: 200px;
-  border: 1px solid #d2d6db;
+  width: 220px;
+  min-height: 180px;
+  border: 1.5px dashed #d2d6db;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   padding: 20px;
 }
 
 .CTSig {
-  width: 84px;
-  height: 86px;
+  width: 100px;
+  height: 80px;
   background: #f9fafb;
   border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.CTSig img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.CTSigPlaceholder {
+  font-size: 11px;
+  color: #9da4ae;
+  font-family: Nunito;
 }
 
 .CTsigUploadHolder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+  gap: 6px;
+  width: 100%;
 }
 
 .CTsigUploadBtn {
-  width: 70%;
-  height: 34px;
-  border: 1px solid #d2d6db;
+  width: 100%;
+  height: 36px;
+  border: 1.5px solid #d2d6db;
   border-radius: 6px;
   color: #0062f6;
   background: transparent;
   cursor: pointer;
   font-family: Nunito;
-}
-
-.CTsigUploadHolder span {
-  font-family: Nunito;
-  font-weight: 500;
-  font-style: Medium;
-  font-size: 12px;
-  leading-trim: NONE;
-  line-height: 100%;
-  letter-spacing: 0%;
-  vertical-align: middle;
-  color: #9da4ae;
-  font-family: Nunito;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
 }
 
 .CTsigUploadBtn:hover {
@@ -291,8 +332,33 @@
   border-color: #0062f6;
 }
 
-/* SECURITY */
+.CTsigUploadHolder span {
+  font-family: Nunito;
+  font-size: 11px;
+  color: #9da4ae;
+  font-weight: 400;
+}
 
+.CTsigSubmitBtn {
+  width: 100%;
+  height: 36px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: Nunito;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.CTsigSubmitBtn:hover    { background: #059669; }
+.CTsigSubmitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ════════════════════════════════════════════════════════
+   SECURITY CARD
+════════════════════════════════════════════════════════ */
 .CTSettingsSecurityCard {
   background: white;
   border-radius: 10px;
@@ -300,46 +366,361 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  height: 22vh;
+  padding: 24px 28px;
+  min-height: 100px;
+}
+
+.CTSettingsSecurityText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .CTSettingsSecurityText nav {
-  font-size: 22px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #03173c;
+  font-family: Nunito;
+  margin-bottom: 6px;
+}
+
+.CTChangePassInfo { display: flex; flex-direction: column; gap: 2px; }
+
+.CTChangePassTitle {
+  font-size: 15px;
   font-weight: 600;
   color: #03173c;
-  height: 10vh;
+  font-family: Nunito;
+  margin: 0;
+}
+
+.CTChangePassSub {
+  font-size: 13px;
+  font-weight: 400;
+  color: #9da4ae;
+  font-family: Nunito;
+  margin: 0;
+}
+
+.CTSettingsPasswordBtn {
+  flex-shrink: 0;
+  height: 44px;
+  padding: 0 22px;
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 600;
+  color: #03173c;
+  transition: all 0.2s ease;
+}
+
+.CTSettingsPasswordBtn:hover {
+  background: #f0f4ff;
+  border-color: #0062f6;
+  color: #0062f6;
+}
+
+/* ════════════════════════════════════════════════════════
+   ALERTS
+════════════════════════════════════════════════════════ */
+.CTSettingsError {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #fecaca;
+  font-family: Nunito;
+  font-size: 14px;
+}
+
+.CTSettingsSuccess {
+  background: #dcfce7;
+  color: #16a34a;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 1px solid #bbf7d0;
+  font-family: Nunito;
+  font-size: 14px;
+}
+
+.CTSettingsLoading {
+  background: #f3f4f6;
+  color: #6b7280;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-family: Nunito;
+  font-size: 14px;
+}
+
+.CTSettingsDisabled {
+  background: #f9fafb !important;
+  cursor: not-allowed !important;
+  color: #6b7280 !important;
+}
+
+/* ════════════════════════════════════════════════════════
+   PASSWORD MODAL
+════════════════════════════════════════════════════════ */
+.CTModalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 23, 60, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: CTFadeIn 0.18s ease;
+}
+
+@keyframes CTFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.CTModalCard {
+  background: white;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 460px;
+  padding: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  animation: CTSlideUp 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0 16px;
+}
+
+@keyframes CTSlideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.CTModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.CTModalHeaderText h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #03173c;
+  font-family: Nunito;
+  margin: 0 0 4px;
+}
+
+.CTModalHeaderText p {
+  font-size: 13px;
+  color: #6b7280;
+  font-family: Nunito;
+  margin: 0;
+}
+
+.CTModalClose {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: white;
+  cursor: pointer;
+  font-size: 13px;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.CTModalClose:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* Step pills */
+.CTModalSteps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.CTModalStep {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-family: Nunito;
+  font-weight: 500;
+  color: #9da4ae;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.CTModalStep span {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #9da4ae;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.CTModalStepActive         { color: #0062f6; }
+.CTModalStepActive span    { background: #0062f6; color: white; }
+
+.CTModalStepLine {
+  flex: 1;
+  height: 2px;
+  background: #e5e7eb;
+  border-radius: 1px;
+}
+
+.CTModalError {
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+  color: #dc2626;
+  font-family: Nunito;
+  font-size: 13px;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.CTModalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.CTModalField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.CTModalField label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #03173c;
+  font-family: Nunito;
+}
+
+.CTModalInputWrap {
+  position: relative;
   display: flex;
   align-items: center;
 }
 
-.CTChangePass {
-  font-size: 18px;
-  font-weight: 600;
-  color: #03173c;
-  display: flex;
-  flex-direction: column;
-  height: 10vh;
-  justify-content: center;
-}
-
-.CTChangePass span {
-  font-size: 16px;
-  font-weight: 400;
-  color: #9da4ae;
-}
-
-.CTSettingsPasswordBtn {
-  width: 170px;
-  height: 45px;
+.CTModalInputWrap input {
+  width: 100%;
+  height: 46px;
+  border: 1.5px solid #d2d6db;
   border-radius: 10px;
-  border: 1px solid #d1d5db;
-  background: white;
-  cursor: pointer;
+  padding: 0 44px 0 14px;
+  font-size: 14px;
+  font-family: Nunito;
+  color: #03173c;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.CTSettingsPasswordBtn:hover {
-  background: #f9fafb;
+.CTModalInputWrap input:focus {
   border-color: #0062f6;
-  color: #0062f6;
+  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.12);
 }
+
+.CTModalEye {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Strength bar */
+.CTPasswordStrength {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.CTStrengthBars { display: flex; gap: 4px; }
+
+.CTStrengthBar {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  transition: background 0.3s;
+}
+
+.CTPasswordStrength span {
+  font-size: 12px;
+  font-family: Nunito;
+  font-weight: 600;
+}
+
+.CTMatchHint {
+  font-size: 12px;
+  font-family: Nunito;
+  font-weight: 500;
+  margin: 4px 0 0;
+}
+
+.CTModalActions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  padding-top: 4px;
+}
+
+.CTModalBtnSecondary {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  background: white;
+  color: #374151;
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.CTModalBtnSecondary:hover { background: #f9fafb; border-color: #9ca3af; }
+
+.CTModalBtnPrimary {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 10px;
+  border: none;
+  background: #0062f6;
+  color: white;
+  font-family: Nunito;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.CTModalBtnPrimary:hover    { background: #0051cc; }
+.CTModalBtnPrimary:disabled { opacity: 0.6; cursor: not-allowed; }

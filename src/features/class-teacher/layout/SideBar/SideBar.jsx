@@ -2,7 +2,7 @@ import React from "react";
 import "./SideBar.css";
 import { PiSquaresFourBold, PiCertificateBold } from "react-icons/pi";
 import { FaPersonChalkboard } from "react-icons/fa6";
-import { MdOutlineCreditScore } from "react-icons/md";
+import { MdOutlineAccessTime, MdOutlineCreditScore } from "react-icons/md";
 import { HiMiniSpeakerWave } from "react-icons/hi2";
 import { IoSettingsOutline } from "react-icons/io5";
 import { NavLink } from "react-router-dom";
@@ -116,6 +116,18 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
               <IoSettingsOutline />
             </span>
             <span className="ct-nav-text">Settings</span>
+          </NavLink>
+          <NavLink
+            to="attendance"
+            className={({ isActive }) =>
+              `ct-nav-link ${isActive ? "active" : ""}`
+            }
+            onClick={() => setSidebarOpen(false)}
+          >
+            <span className="ct-nav-icon">
+              <MdOutlineAccessTime />
+            </span>
+            <span className="ct-nav-text">Attendance</span>
           </NavLink>
         </nav>
       </div>

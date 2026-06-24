@@ -89,7 +89,6 @@ const AdminStudent2 = () => {
         nationality: formData.nationality.toLowerCase(),
         address: formData.address.trim(),
         classId: formData.classId,
-        department: formData.department,
         session: formData.session,
         parentGuardiansName: formData.parentGuardiansName.trim(),
         relationship: formData.relationship.toLowerCase(),
@@ -99,6 +98,11 @@ const AdminStudent2 = () => {
           .toLowerCase(),
         religion: formData.religion,
         parentGuardiansAddress: formData.parentGuardiansAddress,
+
+        // ✅ Only include department if it's a senior class and has a value
+        ...(isSeniorClass && formData.department
+          ? { department: formData.department }
+          : {}),
       };
 
       const response = await apiClient.post("/student/student", payload, {
@@ -248,8 +252,8 @@ const AdminStudent2 = () => {
                   onChange={handleChange}
                 >
                   <option value="">Select Country</option>
-                  <option value="Nigerian">Nigerian</option>
-                  <option value="non Nigeria">non Nigerian</option>
+                  <option value="nigerian">Nigerian</option>
+                  <option value="non Nigeria">Non Nigerian</option>
                 </select>
               </div>
 
