@@ -17,6 +17,7 @@ const AdminStudent2 = () => {
     nationality: "",
     address: "",
     classId: "",
+    department: "",
     session: "",
     parentGuardiansName: "",
     relationship: "",
@@ -26,24 +27,43 @@ const AdminStudent2 = () => {
     parentGuardiansAddress: "",
   };
 
-  // console.log(formData);
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [classes, setClasses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+
   const toggleNotifications = (e) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
+  const selectedClass = classes.find(
+    (c) => String(c.id) === String(formData.classId),
+  );
+  const selectedClassName = selectedClass?.className?.toUpperCase() || "";
+
+  // ✅ Regex handles spaces: matches "SS 1 B", "SS 2 A", "SS 3 B" etc.
+  const isSeniorClass = /^SS\s*[123]/i.test(selectedClassName);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+
+      if (name === "classId") {
+        const chosen = classes.find((c) => String(c.id) === String(value));
+        const chosenName = chosen?.className?.toUpperCase() || "";
+        // ✅ Same regex here
+        const isSenior = /^SS\s*[123]/i.test(chosenName);
+        if (!isSenior) {
+          updated.department = "";
+        }
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -69,7 +89,6 @@ const AdminStudent2 = () => {
         nationality: formData.nationality.toLowerCase(),
         address: formData.address.trim(),
         classId: formData.classId,
-        department: formData.department,
         session: formData.session,
         parentGuardiansName: formData.parentGuardiansName.trim(),
         relationship: formData.relationship.toLowerCase(),
@@ -79,9 +98,12 @@ const AdminStudent2 = () => {
           .toLowerCase(),
         religion: formData.religion,
         parentGuardiansAddress: formData.parentGuardiansAddress,
-      };
 
-      console.log(payload);
+        // ✅ Only include department if it's a senior class and has a value
+        ...(isSeniorClass && formData.department
+          ? { department: formData.department }
+          : {}),
+      };
 
       const response = await apiClient.post("/student/student", payload, {
         headers: {
@@ -89,14 +111,11 @@ const AdminStudent2 = () => {
         },
       });
 
-      console.log(response);
-
       toast("Student created successfully!");
       nav("/admin/AdminStudents");
       setFormData(initialState);
     } catch (error) {
       console.error(error);
-
       toast(error?.response?.data?.message || "Failed to create student");
     } finally {
       setLoading(false);
@@ -111,8 +130,6 @@ const AdminStudent2 = () => {
             "x-tenant": subdomain,
           },
         });
-
-        console.log("Classes Response:", response);
 
         setClasses(response.data.classes || []);
       } catch (error) {
@@ -136,8 +153,7 @@ const AdminStudent2 = () => {
   }, []);
 
   const nav = useNavigate();
-  console.log(classes);
-  console.log(formData.classId);
+
   return (
     <>
       <div className="form-container">
@@ -236,8 +252,8 @@ const AdminStudent2 = () => {
                   onChange={handleChange}
                 >
                   <option value="">Select Country</option>
-                  <option value="Nigerian">Nigerian</option>
-                  <option value="non Nigeria">non Nigerian</option>
+                  <option value="nigerian">Nigerian</option>
+                  <option value="non Nigeria">Non Nigerian</option>
                 </select>
               </div>
 
@@ -278,7 +294,6 @@ const AdminStudent2 = () => {
                 <label>
                   Class<span className="required">*</span>
                 </label>
-
                 <select
                   name="classId"
                   value={formData.classId}
@@ -293,23 +308,25 @@ const AdminStudent2 = () => {
                 </select>
               </div>
 
-              <div className="form-group">
-                <label>
-                  Department<span className="required">*</span>
-                </label>
-                <select
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                >
-                  <option value="">Select Department</option>
-                  <option value="Science">Science</option>
-                  <option value="Commercial">Commercial</option>
-                  <option value="Arts">Arts</option>
-                </select>
-
-                <span className="field-hint">Applies to SS1-SS3 only</span>
-              </div>
+              {/* ✅ Only shows for SS 1, SS 2, SS 3 (with or without spaces/arms) */}
+              {isSeniorClass && (
+                <div className="form-group">
+                  <label>
+                    Department<span className="required">*</span>
+                  </label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                  >
+                    <option value="">Select Department</option>
+                    <option value="Science">Science</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Arts">Arts</option>
+                  </select>
+                  <span className="field-hint">Applies to SS1-SS3 only</span>
+                </div>
+              )}
 
               <div className="form-group">
                 <label>
@@ -378,7 +395,6 @@ const AdminStudent2 = () => {
                   onChange={handleChange}
                   placeholder="Enter phone number"
                 />
-
                 <span className="field-hint">WhatsApp number preferably</span>
               </div>
 
@@ -400,7 +416,7 @@ const AdminStudent2 = () => {
                 <label>Address</label>
                 <textarea
                   name="parentGuardiansAddress"
-                  value={formData.parentAddress}
+                  value={formData.parentGuardiansAddress}
                   onChange={handleChange}
                   placeholder="Enter Residential Address"
                 />

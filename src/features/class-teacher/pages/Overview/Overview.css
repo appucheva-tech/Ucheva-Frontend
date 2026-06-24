@@ -437,3 +437,369 @@
     min-height: 100px; /* Perfect proportional layout space on small mobile screens */
   }
 }
+
+/* Add these to your existing Overview.css */
+.CTQR {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+}
+
+.checkin-time-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  color: #166534;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 8px;
+  animation: fadeIn 0.5s ease;
+}
+
+.checkin-time-icon {
+  font-size: 18px;
+}
+
+/* Override for scanner button in your existing layout */
+.CTQR .scan-qr-btn {
+  margin-top: 8px;
+}
+
+/* Ensure the scanner fits well in your card */
+.CTQR .scanner-container {
+  margin-top: 8px;
+}
+
+/* Responsive adjustments for your layout */
+@media (max-width: 768px) {
+  .CTQR {
+    padding: 16px;
+  }
+
+  .checkin-time-display {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+/* QR Scanner Wrapper Styles */
+.qr-scanner-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 8px;
+}
+
+/* Scan Button */
+.qr-scan-button {
+  background: linear-gradient(135deg, #0062f6 0%, #0052d6 100%);
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 98, 246, 0.25);
+  letter-spacing: 0.3px;
+  position: relative;
+  overflow: hidden;
+}
+
+.qr-scan-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.qr-scan-button:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.qr-scan-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0052d6 0%, #0045b3 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 98, 246, 0.35);
+}
+
+.qr-scan-button:active:not(:disabled) {
+  transform: translateY(0px);
+  box-shadow: 0 2px 8px rgba(0, 98, 246, 0.2);
+}
+
+.qr-scan-button:disabled {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Scanner Container */
+.scanner-container {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 16px;
+  padding: 20px;
+  background: #f8fafc;
+  border-radius: 16px;
+  border: 2px solid #e2e8f0;
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Close Scanner Button */
+.qr-scan-close {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Nunito", sans-serif;
+  width: 100%;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.qr-scan-close:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+/* Checked In Status */
+.checked-in-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid #86efac;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 320px;
+  font-family: "Nunito", sans-serif;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.checkin-icon {
+  font-size: 24px;
+}
+
+.checkin-text {
+  font-weight: 700;
+  color: #166534;
+  font-size: 16px;
+}
+
+.checkin-time {
+  color: #15803d;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Check-in Time Display */
+.checkin-time-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #475569;
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  width: 100%;
+  max-width: 320px;
+  justify-content: center;
+}
+
+.checkin-time-icon {
+  font-size: 18px;
+}
+
+/* Override QRScannerComponent styles to match your design */
+.qr-scanner-container {
+  width: 100%;
+}
+
+.qr-scanner-container .qr-scan-button {
+  background: linear-gradient(135deg, #0062f6 0%, #0052d6 100%);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  width: 100%;
+  max-width: 320px;
+}
+
+.qr-scanner-container .qr-scan-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0052d6 0%, #0045b3 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 98, 246, 0.35);
+}
+
+.qr-scanner-container .qr-scan-button:disabled {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+}
+
+.qr-scanner-wrapper {
+  margin-top: 8px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #e2e8f0;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .qr-scan-button {
+    padding: 12px 20px;
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .scanner-container {
+    padding: 16px;
+    max-width: 100%;
+  }
+
+  .checked-in-status {
+    padding: 14px 20px;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .checkin-time-display {
+    max-width: 100%;
+    font-size: 13px;
+  }
+
+  .qr-scan-close {
+    font-size: 13px;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-scan-button {
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+
+  .scanner-container {
+    padding: 12px;
+  }
+
+  .checkin-text {
+    font-size: 14px;
+  }
+
+  .checkin-time {
+    font-size: 12px;
+  }
+}
+
+/* Additional styles for the QR scanner reader */
+#reader {
+  width: 100% !important;
+}
+
+#reader video {
+  border-radius: 8px !important;
+  width: 100% !important;
+  height: auto !important;
+}
+
+#reader #qr-shaded-region {
+  border-width: 50px !important;
+  border-color: rgba(0, 98, 246, 0.15) !important;
+}
+
+/* Subtle glow effect for the QR box */
+.qr-scanner-wrapper {
+  position: relative;
+}
+
+.qr-scanner-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  padding: 2px;
+  background: linear-gradient(135deg, #0062f6, #00d4ff);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.qr-scanner-wrapper.active::before {
+  opacity: 1;
+}

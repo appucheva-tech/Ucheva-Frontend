@@ -1,10 +1,11 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { FiSettings } from "react-icons/fi";
 import { IoWalletOutline } from "react-icons/io5";
 import "./LayoutStyles/Sidebar.css";
 
 const ParentSidebar = ({ isOpen, onClose }) => {
+  const nav = useNavigate();
   return (
     <>
       {/* The mobile-open class is dynamically added here based on the layout's state.
@@ -17,6 +18,7 @@ const ParentSidebar = ({ isOpen, onClose }) => {
               src="https://i.postimg.cc/zDtBJb6C/logo-cont.png"
               alt="Ucheva Logo"
               className="Ucheva"
+              onClick={() => nav("/")}
             />
           </div>
         </div>

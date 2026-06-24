@@ -44,6 +44,10 @@ const AdminSettings = () => {
   const [stampPreview, setStampPreview] = useState(null);
   const stampRef = useRef();
 
+  const [signatureFile, setSignatureFile] = useState(null);
+  const [signaturePreview, setSignaturePreview] = useState(null);
+  const signatureRef = useRef();
+
   // ─── School Verification ──────────────────────────────────────
   const [cacFile, setCacFile] = useState(null);
   const [nepaFile, setNepaFile] = useState(null);
@@ -66,7 +70,14 @@ const AdminSettings = () => {
     setTimeout(() => setToast(null), 3500);
   };
 
-  // ─── GET School Profile on mount ──────────────────────────────
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    setSignatureFile(file);
+    setSignaturePreview(URL.createObjectURL(file));
+  };
+
   useEffect(() => {
     const fetchSchoolProfile = async () => {
       try {
@@ -90,12 +101,16 @@ const AdminSettings = () => {
             phoneNumber: admin.phoneNumber || "",
           });
           setReportConfig({
-            continuousAssessmentConfig: profile.continuousAssessmentConfig ?? 40,
+            continuousAssessmentConfig:
+              profile.continuousAssessmentConfig ?? 40,
             examConfig: profile.examConfig ?? 60,
             total: profile.total ?? 100,
           });
         } else {
-          setAdminProfile((p) => ({ ...p, phoneNumber: admin.phoneNumber || "" }));
+          setAdminProfile((p) => ({
+            ...p,
+            phoneNumber: admin.phoneNumber || "",
+          }));
         }
       } catch {
         showToast("Could not load school profile.", "error");
@@ -153,6 +168,7 @@ const AdminSettings = () => {
 
   // ─── SINGLE PUT — every Save Changes button calls this ────────
   const handleSaveAll = async () => {
+
     if (
       passwordFields.newPassword &&
       passwordFields.newPassword !== passwordFields.confirmPassword
@@ -165,12 +181,19 @@ const AdminSettings = () => {
     try {
       const formData = new FormData();
 
-      if (adminProfile.adminFirstName) formData.append("adminFirstName", adminProfile.adminFirstName);
-      if (adminProfile.adminLastName) formData.append("adminLastName", adminProfile.adminLastName);
-      if (adminProfile.schoolType) formData.append("schoolType", adminProfile.schoolType);
-      if (adminProfile.phoneNumber) formData.append("phoneNumber", adminProfile.phoneNumber);
+      if (adminProfile.adminFirstName)
+        formData.append("adminFirstName", adminProfile.adminFirstName);
+      if (adminProfile.adminLastName)
+        formData.append("adminLastName", adminProfile.adminLastName);
+      if (adminProfile.schoolType)
+        formData.append("schoolType", adminProfile.schoolType);
+      if (adminProfile.phoneNumber)
+        formData.append("phoneNumber", adminProfile.phoneNumber);
 
-      formData.append("continuousAssessmentConfig", reportConfig.continuousAssessmentConfig);
+      formData.append(
+        "continuousAssessmentConfig",
+        reportConfig.continuousAssessmentConfig,
+      );
       formData.append("examConfig", reportConfig.examConfig);
       formData.append("total", reportConfig.total);
 
@@ -191,7 +214,11 @@ const AdminSettings = () => {
 
       showToast("Settings saved successfully.");
       setShowUpdateProfile(false);
-      setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+      setPasswordFields({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
     } catch (error) {
       showToast(
         error?.response?.data?.message || "Failed to save settings.",
@@ -218,9 +245,10 @@ const AdminSettings = () => {
 
   return (
     <>
-      {/* ─── Toast ───────────────────────────────────────────── */}
       {toast && (
-        <div className={`toastNotification ${toast.type === "error" ? "toastError" : "toastSuccess"}`}>
+        <div
+          className={`toastNotification ${toast.type === "error" ? "toastError" : "toastSuccess"}`}
+        >
           {toast.message}
         </div>
       )}
@@ -231,7 +259,12 @@ const AdminSettings = () => {
           <div className="modalCard">
             <div className="modalHeader">
               <h2 className="modalTitle">Update Profile</h2>
-              <button className="modalCloseBtn" onClick={() => setShowUpdateProfile(false)}>✕</button>
+              <button
+                className="modalCloseBtn"
+                onClick={() => setShowUpdateProfile(false)}
+              >
+                ✕
+              </button>
             </div>
 
             <div className="modalBody">
@@ -243,7 +276,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Admin First Name"
                     value={adminProfile.adminFirstName}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, adminFirstName: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        adminFirstName: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="inputGroup">
@@ -253,7 +291,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Admin Last Name"
                     value={adminProfile.adminLastName}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, adminLastName: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        adminLastName: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -266,7 +309,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="e.g. Primary, Secondary"
                     value={adminProfile.schoolType}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, schoolType: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        schoolType: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="inputGroup">
@@ -276,7 +324,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Phone Number"
                     value={adminProfile.phoneNumber}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, phoneNumber: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        phoneNumber: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -295,11 +348,21 @@ const AdminSettings = () => {
                 </div>
                 <div className="inputGroup">
                   <label className="inputLabel">Exam Config (%)</label>
-                  <input type="number" className="textInput numericalInput disabledInput" value={reportConfig.examConfig} readOnly />
+                  <input
+                    type="number"
+                    className="textInput numericalInput disabledInput"
+                    value={reportConfig.examConfig}
+                    readOnly
+                  />
                 </div>
                 <div className="inputGroup">
                   <label className="inputLabel">Total (%)</label>
-                  <input type="text" className="textInput numericalInput disabledInput" value={reportConfig.total} readOnly />
+                  <input
+                    type="text"
+                    className="textInput numericalInput disabledInput"
+                    value={reportConfig.total}
+                    readOnly
+                  />
                 </div>
               </div>
 
@@ -313,7 +376,12 @@ const AdminSettings = () => {
                   className="textInput"
                   placeholder="Enter old password"
                   value={passwordFields.oldPassword}
-                  onChange={(e) => setPasswordFields((p) => ({ ...p, oldPassword: e.target.value }))}
+                  onChange={(e) =>
+                    setPasswordFields((p) => ({
+                      ...p,
+                      oldPassword: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="formFieldsRow">
@@ -324,7 +392,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="New password"
                     value={passwordFields.newPassword}
-                    onChange={(e) => setPasswordFields((p) => ({ ...p, newPassword: e.target.value }))}
+                    onChange={(e) =>
+                      setPasswordFields((p) => ({
+                        ...p,
+                        newPassword: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="inputGroup">
@@ -334,15 +407,29 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Confirm new password"
                     value={passwordFields.confirmPassword}
-                    onChange={(e) => setPasswordFields((p) => ({ ...p, confirmPassword: e.target.value }))}
+                    onChange={(e) =>
+                      setPasswordFields((p) => ({
+                        ...p,
+                        confirmPassword: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
             </div>
 
             <div className="modalFooter">
-              <button className="outlineActionButton" onClick={() => setShowUpdateProfile(false)}>Cancel</button>
-              <button className="saveChangesBtn" onClick={handleSaveAll} disabled={saving}>
+              <button
+                className="outlineActionButton"
+                onClick={() => setShowUpdateProfile(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="saveChangesBtn"
+                onClick={handleSaveAll}
+                disabled={saving}
+              >
                 {saving ? "Saving..." : "Update Profile"}
               </button>
             </div>
@@ -354,7 +441,8 @@ const AdminSettings = () => {
         <div className="settingsHeader">
           <h1 className="mainTitle">Settings</h1>
           <p className="mainSubtitle">
-            Manage your school preferences, report card setup, notifications, and security.
+            Manage your school preferences, report card setup, notifications,
+            and security.
           </p>
         </div>
 
@@ -365,7 +453,11 @@ const AdminSettings = () => {
             <div className="avatarWrapper">
               <div className="imageContainer">
                 {adminPhotoPreview ? (
-                  <img src={adminPhotoPreview} alt="Admin Profile" className="profileImg" />
+                  <img
+                    src={adminPhotoPreview}
+                    alt="Admin Profile"
+                    className="profileImg"
+                  />
                 ) : (
                   <div className="profileImgPlaceholder">
                     <svg viewBox="0 0 24 24" fill="currentColor">
@@ -373,12 +465,26 @@ const AdminSettings = () => {
                     </svg>
                   </div>
                 )}
-                <button className="cameraBtn" aria-label="Upload profile image" onClick={() => adminPhotoRef.current.click()}>
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="cameraIcon">
+                <button
+                  className="cameraBtn"
+                  aria-label="Upload profile image"
+                  onClick={() => adminPhotoRef.current.click()}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="cameraIcon"
+                  >
                     <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
                   </svg>
                 </button>
-                <input ref={adminPhotoRef} type="file" accept="image/png, image/jpeg" style={{ display: "none" }} onChange={handleAdminPhotoChange} />
+                <input
+                  ref={adminPhotoRef}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  style={{ display: "none" }}
+                  onChange={handleAdminPhotoChange}
+                />
               </div>
               <span className="uploadHint">PNG, JPG. Max 2MB</span>
             </div>
@@ -392,7 +498,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Admin First Name"
                     value={adminProfile.adminFirstName}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, adminFirstName: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        adminFirstName: e.target.value,
+                      }))
+                    }
                   />
                 </div>
                 <div className="inputGroup">
@@ -402,7 +513,12 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Admin Last Name"
                     value={adminProfile.adminLastName}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, adminLastName: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        adminLastName: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
@@ -414,14 +530,23 @@ const AdminSettings = () => {
                     className="textInput"
                     placeholder="Phone Number"
                     value={adminProfile.phoneNumber}
-                    onChange={(e) => setAdminProfile((p) => ({ ...p, phoneNumber: e.target.value }))}
+                    onChange={(e) =>
+                      setAdminProfile((p) => ({
+                        ...p,
+                        phoneNumber: e.target.value,
+                      }))
+                    }
                   />
                 </div>
               </div>
             </div>
           </div>
           <div className="cardActionRow">
-            <button className="saveChangesBtn" onClick={handleSaveAll} disabled={saving}>
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
               {saving ? "Saving..." : "Save Changes"}
             </button>
           </div>
@@ -434,10 +559,19 @@ const AdminSettings = () => {
             <div className="logoWrapper">
               <div className="logoBadgeContainer">
                 {schoolProfile.logoUrl ? (
-                  <img src={schoolProfile.logoUrl} alt="School Logo" className="schoolLogoImg" />
+                  <img
+                    src={schoolProfile.logoUrl}
+                    alt="School Logo"
+                    className="schoolLogoImg"
+                  />
                 ) : (
                   <div className="emblemPlaceholder">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    >
                       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       <path d="M12 8v8M8 12h8" />
                     </svg>
@@ -446,35 +580,69 @@ const AdminSettings = () => {
               </div>
               <span className="uploadHint">PNG, JPG or SVG. Max 2MB</span>
               <div className="logoActionButtons">
-                <button className="changeImgBtn" disabled>Change Image</button>
-                <button className="removeImgBtn" disabled>Remove</button>
+                <button className="changeImgBtn" disabled>
+                  Change Image
+                </button>
+                <button className="removeImgBtn" disabled>
+                  Remove
+                </button>
               </div>
             </div>
 
             <div className="schoolFormGrid">
               <div className="inputGroup">
                 <label className="inputLabel">School Name</label>
-                <input type="text" className="textInput" value={schoolLoading ? "Loading..." : schoolProfile.schoolName} readOnly />
+                <input
+                  type="text"
+                  className="textInput"
+                  value={
+                    schoolLoading ? "Loading..." : schoolProfile.schoolName
+                  }
+                  readOnly
+                />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">School Email</label>
-                <input type="email" className="textInput" value={schoolLoading ? "Loading..." : schoolProfile.email} readOnly />
+                <input
+                  type="email"
+                  className="textInput"
+                  value={schoolLoading ? "Loading..." : schoolProfile.email}
+                  readOnly
+                />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">Phone Number</label>
-                <input type="text" className="textInput" value={schoolLoading ? "Loading..." : schoolProfile.phoneNumber} readOnly />
+                <input
+                  type="text"
+                  className="textInput"
+                  value={
+                    schoolLoading ? "Loading..." : schoolProfile.phoneNumber
+                  }
+                  readOnly
+                />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">Academic Session</label>
                 <div className="selectWrapper">
-                  <select className="selectInput" value={schoolProfile.academicSession} disabled>
-                    <option value={schoolProfile.academicSession}>{schoolProfile.academicSession || "—"}</option>
+                  <select
+                    className="selectInput"
+                    value={schoolProfile.academicSession}
+                    disabled
+                  >
+                    <option value={schoolProfile.academicSession}>
+                      {schoolProfile.academicSession || "—"}
+                    </option>
                   </select>
                 </div>
               </div>
               <div className="inputGroup fullWidthRow">
                 <label className="inputLabel">Address</label>
-                <input type="text" className="textInput" value={schoolLoading ? "Loading..." : schoolProfile.address} readOnly />
+                <input
+                  type="text"
+                  className="textInput"
+                  value={schoolLoading ? "Loading..." : schoolProfile.address}
+                  readOnly
+                />
               </div>
             </div>
           </div>
@@ -499,42 +667,90 @@ const AdminSettings = () => {
                 </div>
                 <div className="inputGroup">
                   <label className="inputLabel">Exam Score (%)</label>
-                  <input type="number" className="textInput numericalInput disabledInput" value={reportConfig.examConfig} readOnly />
+                  <input
+                    type="number"
+                    className="textInput numericalInput disabledInput"
+                    value={reportConfig.examConfig}
+                    readOnly
+                  />
                 </div>
                 <div className="inputGroup">
                   <label className="inputLabel">Total Score (%)</label>
-                  <input type="text" className="textInput numericalInput disabledInput" value={reportConfig.total} readOnly />
+                  <input
+                    type="text"
+                    className="textInput numericalInput disabledInput"
+                    value={reportConfig.total}
+                    readOnly
+                  />
                 </div>
               </div>
               <div className="infotoastCallout">
                 <span className="infotoastIcon">ℹ️</span>
-                <p className="infotoastText">Uploaded stamp will appear on generated report cards.</p>
+                <p className="infotoastText">
+                  Uploaded stamp will appear on generated report cards.
+                </p>
               </div>
             </div>
 
             <div className="uploadsColumn">
               <div className="uploadComponentBox">
                 <label className="inputLabel">School Stamp</label>
-                <div className="dottedDropzone" onClick={() => stampRef.current.click()} style={{ cursor: "pointer" }}>
+                <div
+                  className="dottedDropzone"
+                  onClick={() => stampRef.current.click()}
+                  style={{ cursor: "pointer" }}
+                >
                   {stampPreview ? (
-                    <img src={stampPreview} alt="Stamp preview" style={{ width: 48, height: 48, objectFit: "contain", marginBottom: 8 }} />
+                    <img
+                      src={stampPreview}
+                      alt="Stamp preview"
+                      style={{
+                        width: 48,
+                        height: 48,
+                        objectFit: "contain",
+                        marginBottom: 8,
+                      }}
+                    />
                   ) : (
                     <div className="stampCircularGraphic">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1"
+                      >
                         <circle cx="12" cy="12" r="10" strokeDasharray="3 3" />
                         <circle cx="12" cy="12" r="7" />
                       </svg>
                     </div>
                   )}
-                  <button className="dropzoneUploadBtn" onClick={(e) => { e.stopPropagation(); stampRef.current.click(); }}>Upload</button>
+                  <button
+                    className="dropzoneUploadBtn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      stampRef.current.click();
+                    }}
+                  >
+                    Upload
+                  </button>
                   <span className="dropzoneHint">PNG format recommended</span>
-                  <input ref={stampRef} type="file" accept="image/png" style={{ display: "none" }} onChange={handleStampChange} />
+                  <input
+                    ref={stampRef}
+                    type="file"
+                    accept="image/png"
+                    style={{ display: "none" }}
+                    onChange={handleStampChange}
+                  />
                 </div>
               </div>
             </div>
           </div>
           <div className="cardActionRow">
-            <button className="saveChangesBtn" onClick={handleSaveAll} disabled={saving}>
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
               {saving ? "Saving..." : "Save Changes"}
             </button>
           </div>
@@ -548,34 +764,92 @@ const AdminSettings = () => {
           <div className="verificationUploadersRow">
             <div className="uploaderBox">
               <span className="uploaderLabel">CAC Document</span>
-              <div className="dropzoneBorderArea" onClick={() => cacRef.current.click()} style={{ cursor: "pointer" }}>
+              <div
+                className="dropzoneBorderArea"
+                onClick={() => cacRef.current.click()}
+                style={{ cursor: "pointer" }}
+              >
                 {cacPreview && (
-                  <img src={cacPreview} alt="CAC preview" style={{ width: "100%", height: 80, objectFit: "contain", marginBottom: 8 }} />
+                  <img
+                    src={cacPreview}
+                    alt="CAC preview"
+                    style={{
+                      width: "100%",
+                      height: 80,
+                      objectFit: "contain",
+                      marginBottom: 8,
+                    }}
+                  />
                 )}
-                <button className="innerUploadBtn" onClick={(e) => { e.stopPropagation(); cacRef.current.click(); }}>
+                <button
+                  className="innerUploadBtn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    cacRef.current.click();
+                  }}
+                >
                   {cacFile ? "Change File" : "Upload"}
                 </button>
-                <span className="formatHintText">{cacFile ? cacFile.name : "PNG format recommended"}</span>
-                <input ref={cacRef} type="file" accept="image/png" style={{ display: "none" }} onChange={handleCacChange} />
+                <span className="formatHintText">
+                  {cacFile ? cacFile.name : "PNG format recommended"}
+                </span>
+                <input
+                  ref={cacRef}
+                  type="file"
+                  accept="image/png"
+                  style={{ display: "none" }}
+                  onChange={handleCacChange}
+                />
               </div>
             </div>
 
             <div className="uploaderBox">
               <span className="uploaderLabel">NEPA Bill</span>
-              <div className="dropzoneBorderArea" onClick={() => nepaRef.current.click()} style={{ cursor: "pointer" }}>
+              <div
+                className="dropzoneBorderArea"
+                onClick={() => nepaRef.current.click()}
+                style={{ cursor: "pointer" }}
+              >
                 {nepaPreview && (
-                  <img src={nepaPreview} alt="NEPA Bill preview" style={{ width: "100%", height: 80, objectFit: "contain", marginBottom: 8 }} />
+                  <img
+                    src={nepaPreview}
+                    alt="NEPA Bill preview"
+                    style={{
+                      width: "100%",
+                      height: 80,
+                      objectFit: "contain",
+                      marginBottom: 8,
+                    }}
+                  />
                 )}
-                <button className="innerUploadBtn" onClick={(e) => { e.stopPropagation(); nepaRef.current.click(); }}>
+                <button
+                  className="innerUploadBtn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nepaRef.current.click();
+                  }}
+                >
                   {nepaFile ? "Change File" : "Upload"}
                 </button>
-                <span className="formatHintText">{nepaFile ? nepaFile.name : "PNG format recommended"}</span>
-                <input ref={nepaRef} type="file" accept="image/png" style={{ display: "none" }} onChange={handleNepaChange} />
+                <span className="formatHintText">
+                  {nepaFile ? nepaFile.name : "PNG format recommended"}
+                </span>
+                <input
+                  ref={nepaRef}
+                  type="file"
+                  accept="image/png"
+                  style={{ display: "none" }}
+                  onChange={handleNepaChange}
+                />
               </div>
             </div>
           </div>
           <div className="cardActionRow">
-            <button className="saveChangesBtn" onClick={handleSaveAll} disabled={saving}>
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
               {saving ? "Saving..." : "Save Changes"}
             </button>
           </div>
@@ -591,7 +865,10 @@ const AdminSettings = () => {
                 Update your profile details, school configuration, and password.
               </p>
             </div>
-            <button className="outlineActionButton" onClick={() => setShowUpdateProfile(true)}>
+            <button
+              className="outlineActionButton"
+              onClick={() => setShowUpdateProfile(true)}
+            >
               Update Profile
             </button>
           </div>
@@ -604,11 +881,21 @@ const AdminSettings = () => {
             <div className="infoContextBlock">
               <h3 className="actionItemHeading">Delete account</h3>
               <p className="actionItemSubtext">
-                Once you delete your account, there is no going back. Please be certain.
+                Once you delete your account, there is no going back. Please be
+                certain.
               </p>
             </div>
-            <button className="dangerActionButton" onClick={handleDeleteAccount}>
-              <svg className="shieldIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <button
+              className="dangerActionButton"
+              onClick={handleDeleteAccount}
+            >
+              <svg
+                className="shieldIcon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               Delete Account
