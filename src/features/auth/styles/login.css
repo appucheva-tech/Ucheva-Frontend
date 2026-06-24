@@ -1,14 +1,14 @@
 /* Container Viewport Alignment */
 .login-page-wrapper {
-  min-height: 100vh;
+  min-height: 70vh;
+  width: 83%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   background-color: #ffffff;
   /* padding: 0 24px; */
+  margin-top: 50px;
+  margin-left: 19%;
   box-sizing: border-box;
   flex-direction: column;
-  /* background-color: red; */
 }
 
 /* Card Envelope Wrapper */
@@ -23,7 +23,8 @@
   margin: 0 0 32px 0;
   color: #03173C;
   font-family: Geist;
-  font-size: 38px;
+  font-size: 35px;
+  text-align: left;
 }
 
 /* Form Structural Alignment */
@@ -49,7 +50,7 @@
 
 .login-input-field {
   width: 100%;
-  height: 48px;
+  height: 50px;
   padding: 0 16px;
   border: 1px solid #cbd5e1;
   border-radius: 8px;
@@ -110,7 +111,7 @@ box-shadow: 0 0 4px 0 var(--Primary-Color-300, #5396FF);
 .login-options-row {
   display: flex;
   align-items: center;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   margin-top: 4px;
   font-size: 14px;
   gap: 60px;

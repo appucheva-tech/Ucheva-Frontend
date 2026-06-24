@@ -7,6 +7,10 @@
   border-bottom: 1px solid #e2e8f0;
   box-sizing: border-box;
 
+  .AdminMenuBtn{
+    display: none;
+  }
+
   .search-container {
     position: relative;
     display: flex;

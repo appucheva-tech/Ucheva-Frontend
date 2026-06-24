@@ -11,13 +11,13 @@
     .headerTitle {
       font-size: 24px;
       font-weight: 700;
-      color: #0f172a;
+      color: #03173C;
       margin: 0;
     }
 
     .headerSubtitle {
       font-size: 14px;
-      color: #475569;
+      color: #03173C;
       margin: 0;
     }
   }
@@ -39,7 +39,7 @@
         background: none;
         border: none;
         font-size: 14px;
-        font-weight: 500;
+        font-weight: 600;
         color: #475569;
         padding: 20px 0;
         cursor: pointer;

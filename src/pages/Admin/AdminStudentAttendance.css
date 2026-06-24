@@ -6,17 +6,33 @@
   margin-left: -5px;
 
   .Napp-h1{
-    font-size: 25px;
+    margin-left: 5px;
+    font-size: 24px;
     color: #03173C;
   }
 
   .Napp-p{
+    margin-top: 6px;
+    margin-left: 5px;
+    font-size: 14px;
+    color: #03173C;
+  }
+
+  .NContainer{
+    width: 100%;
+    margin-top: 30px;
+    margin-left: 5px;
+    border-radius: 10px;
+    background-color: white;
   }
 }
 
 .Nheader {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #F3F4F6;
   margin-bottom: 20px;
+  padding-top: 7px;
+  padding-left: 17px;
+  padding-bottom: 9px;
 
   .Nnavigation {
     display: flex;
@@ -27,7 +43,8 @@
       border: none;
       background-color: transparent;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 14px;
+      font-weight: 600;
       color: #666;
 
       &.Nactive {

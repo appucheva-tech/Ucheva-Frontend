@@ -1,6 +1,4 @@
-/* ==========================================================================
-   GLOBAL LAYOUT WRAPPER (Fixes Header Over-Shrinking)
-   ========================================================================== */
+
 
 .Zmain_body {
   width: 100%;
@@ -9,22 +7,31 @@
   display: flex;
   overflow: hidden;
   font-family: "Nunito", sans-serif;
+
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    animation: ctFadeIn 0.2s ease-out;
+  }
 }
 
-/* CRITICAL FIX: This new structural wrapper sits between your layout body 
-   and your content. It ensures the header and content panel take up 100% 
-   of the remaining row space next to your sidebar.
-*/
+
 .Zcontent-wrapper {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   height: 100%;
   overflow: hidden;
-  margin-left: 19%; /* Cleanly offsets your sidebar position */
+  margin-left: 19%; 
 }
 
-/* Your original content pane - adjusted to flow seamlessly underneath */
+
 .Zmain-content {
   flex-grow: 1;
   height: auto;
@@ -34,9 +41,6 @@
   box-sizing: border-box;
 }
 
-/* ==========================================================================
-   GLOBAL ADMIN DASHBOARD HEADER
-   ========================================================================== */
 
 .BAdminDashboard-header {
   display: flex;
@@ -49,17 +53,17 @@
   box-sizing: border-box;
   width: 100%;
   z-index: 10;
-  flex-shrink: 0; /* Hard boundary limit to stop any shrinking quirks */
+  flex-shrink: 0; 
 }
 
-/* Grouping container pushing dates, session, term, and profile to the far right */
+
 .header-right-group {
   display: flex;
   align-items: center;
-  gap: 32px; /* Distinct separation between layout metadata and profile engines */
+  gap: 32px; 
 }
 
-/* --- Left: Search Section --- */
+
 .search-container {
   display: flex;
   align-items: center;
@@ -99,7 +103,7 @@
   height: 18px;
 }
 
-/* --- Right Side: Meta Information Indicators --- */
+
 .meta-container {
   display: flex;
   align-items: center;
@@ -144,7 +148,6 @@
   color: #64748b;
 }
 
-/* --- Right Side: Profiles, Dropdowns, and toasts --- */
 .profile-container {
   display: flex;
   align-items: center;
@@ -223,7 +226,7 @@
   color: #64748b;
 }
 
-/* --- Notification Dropdowns --- */
+
 .notification-popup {
   position: absolute;
   top: 42px;

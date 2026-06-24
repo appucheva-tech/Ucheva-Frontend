@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
-import "../styles/verify-email.css";
+import "../styles/verify-forgot.css";
 import { apiClient } from "../../../config/AxiosInstance";
 
 const VerifyForgot = () => {
@@ -165,7 +165,7 @@ const VerifyForgot = () => {
         <h1 className="verify-title">Input Code</h1>
 
         <p className="verify-subtext">
-          We've sent an OTP code to your email <br />
+          Input the 6-digit OTP code sent to your email <br />
           <span className="user-email-highlight">
             {userEmail || "your email address"}
           </span>
