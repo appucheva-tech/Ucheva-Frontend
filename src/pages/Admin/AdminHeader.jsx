@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
+import { IoMdMenu } from "react-icons/io";
 
 const AdminHeader = () => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
@@ -8,7 +9,6 @@ const AdminHeader = () => {
 
   const user = useSelector((state) => state.user.user);
 
-  // Fallback metadata matching your interface layout
   const academicSession = {
     dateString: "Monday, 18 May 2026",
     currentSession: "2025/2026 Session",
@@ -27,7 +27,7 @@ const AdminHeader = () => {
 
   return (
     <header className="BAdminDashboard-header">
-      {/* Left Side: Search Input Box */}
+      <IoMdMenu className="AdminMenuBtn"/>
       <div className="search-container">
         <input
           type="text"
