@@ -7,14 +7,15 @@ import LoadingScreen from "../../../../components/Loading-Screen";
 import ErrorScreen from "../../../../components/Error-Screen";
 
 const Score = () => {
-  const [subjects, setSubjects] = useState([]); // Will hold objects: [{ name: "English", className: "JSS 1 A" }]
-  const [activeSubject, setActiveSubject] = useState(null); // Active object selector template tracking
+  const [subjects, setSubjects] = useState([]);
+  const [activeSubject, setActiveSubject] = useState(null);
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
+  const [initialLoad, setInitialLoad] = useState(true); // true only on first mount load
   const [error, setError] = useState(null);
 
-  const fetchStudents = async () => {
+  const fetchStudents = async (currentActiveSubject = null) => {
     try {
       setFetching(true);
       setError(null);
@@ -47,9 +48,17 @@ const Score = () => {
 
       setSubjects(uniqueMap);
 
-      // 2. Set initial active target using the first object pairing found
-      if (uniqueMap.length > 0 && !activeSubject) {
-        setActiveSubject(uniqueMap[0]);
+      // 2. Preserve the active subject if it still exists after refetch,
+      //    otherwise fall back to the first item in the list
+      if (uniqueMap.length > 0) {
+        const subjectToRestore = currentActiveSubject || activeSubject;
+        const stillExists = uniqueMap.find(
+          (item) =>
+            item.name.toLowerCase() === subjectToRestore?.name?.toLowerCase() &&
+            item.className.toLowerCase() ===
+              subjectToRestore?.className?.toLowerCase(),
+        );
+        setActiveSubject(stillExists || uniqueMap[0]);
       }
 
       const formattedStudents = rawScores.map((record) => ({
@@ -69,14 +78,25 @@ const Score = () => {
 
       setStudents(formattedStudents);
     } catch (error) {
-      console.error("Error fetching students:", error);
-      setError(
-        error?.response?.data?.message ||
-          error?.message ||
-          "An error occurred while bringing in the student records.",
-      );
+      const status = error?.response?.status;
+
+      if (status === 404) {
+        // No scores saved yet — treat as empty state, not a real error.
+        // The user should still be able to enter and post scores.
+        setSubjects([]);
+        setStudents([]);
+        setActiveSubject(null);
+      } else {
+        console.error("Error fetching students:", error);
+        setError(
+          error?.response?.data?.message ||
+            error?.message ||
+            "An error occurred while bringing in the student records.",
+        );
+      }
     } finally {
       setFetching(false);
+      setInitialLoad(false); // after first fetch, never show full LoadingScreen again
     }
   };
 
@@ -125,12 +145,13 @@ const Score = () => {
         })),
       };
 
-      const response = await apiClient.post(
-        "/classteacher/mark-score",
-        payload,
-      );
-      console.log(response?.data);
+      await apiClient.post("/classteacher/mark-score", payload);
       toast.success("Scores saved successfully");
+
+      // Re-sync with the server after saving so displayed data
+      // always reflects what is actually stored.
+      // Pass the current active subject so the tab stays selected.
+      await fetchStudents(activeSubject);
     } catch (error) {
       console.error(error);
       toast.error(error?.response?.data?.message || "Failed to save scores");
@@ -139,7 +160,9 @@ const Score = () => {
     }
   };
 
-  if (fetching) {
+  // Only block the UI with a full loading screen on the very first mount load.
+  // Background refetches (e.g. after saving) keep the UI visible.
+  if (fetching && initialLoad) {
     return <LoadingScreen />;
   }
 
@@ -156,30 +179,35 @@ const Score = () => {
         </div>
 
         {/* Dynamic Nav Tabs handling distinct subject/class pairs */}
-        <div className="CTSubjectsHolder">
-          {subjects.map((item, index) => {
-            const isActive =
-              activeSubject?.name?.toLowerCase() === item.name.toLowerCase() &&
-              activeSubject?.className?.toLowerCase() ===
-                item.className.toLowerCase();
+        {subjects.length > 0 && (
+          <div className="CTSubjectsHolder">
+            {subjects.map((item, index) => {
+              const isActive =
+                activeSubject?.name?.toLowerCase() ===
+                  item.name.toLowerCase() &&
+                activeSubject?.className?.toLowerCase() ===
+                  item.className.toLowerCase();
 
-            return (
-              <nav
-                key={index}
-                className={`CTSubjects ${isActive ? "active" : ""}`}
-                onClick={() => setActiveSubject(item)}
-              >
-                {item.name}
-                <span>{item.className}</span>
-              </nav>
-            );
-          })}
-        </div>
+              return (
+                <nav
+                  key={index}
+                  className={`CTSubjects ${isActive ? "active" : ""}`}
+                  onClick={() => setActiveSubject(item)}
+                >
+                  {item.name}
+                  <span>{item.className}</span>
+                </nav>
+              );
+            })}
+          </div>
+        )}
 
         <section className="CTScoreTable">
           <div className="CTSubjectSave">
             <span className="CTSelectedTextName">
-              {activeSubject?.name} - {activeSubject?.className}
+              {activeSubject
+                ? `${activeSubject.name} - ${activeSubject.className}`
+                : "No subject selected"}
             </span>
             <button
               className="CTSaveBtn"
