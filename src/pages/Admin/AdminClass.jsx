@@ -13,6 +13,7 @@ const AdminClass = () => {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [addClass, setAddClass] = useState([]);
+  const [loading, setLoading] = useState(false)
   const token = useSelector((state) => state?.user?.token);
 
   // States for Level and Arm dropdowns
@@ -48,6 +49,7 @@ const AdminClass = () => {
     try {
       const response = await apiClient.get("admin/getclass");
       setAddClass(response.data?.classes);
+      console.log("classes from API:", response.data?.classes);
       console.log(response);
     } catch (error) {
       console.log(error.data?.message || error);
@@ -55,6 +57,7 @@ const AdminClass = () => {
   };
 
   const createClass = async () => {
+    setLoading(true);
     try {
       const payload = {
         className: formData.className,
@@ -87,6 +90,7 @@ const AdminClass = () => {
         paymentOption: "",
         teacherId: "",
         numberOfInstallments: "",
+        id: "",
       });
       setLevel("");
       setArm("");
@@ -98,22 +102,51 @@ const AdminClass = () => {
     } catch (error) {
       console.log(error.response?.data || error);
       toast.error(error.response?.data?.message || error.response?.data);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const editClass = async (id) => {
+    setLoading(true);
+    try {
+      const response = await apiClient.put(`/class/updateclasses/${id}`, {
+        className: formData.className,
+        amount: Number(formData.amount),
+        paymentOption: formData.paymentOption,
+        teacherId: formData.teacherId || undefined,
+        numberOfInstallments:
+          formData.paymentOption === "installment"
+            ? Number(formData.numberOfInstallments)
+            : undefined,
+      });
+      toast.success(response?.data?.message || "Class updated successfully!");
+      setIsEditOpen(false);
+      await fetchAllClasses();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to update class");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteClass = async (id) => {
+    setLoading(true);
+    try {
+      const response = await apiClient.delete(`/class/deleteclasses/${id}`);
+      toast.success(response?.data?.message || "Class deleted successfully!");
+      setIsDeleteOpen(false);
+      await fetchAllClasses();
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Failed to delete class");
+    } finally {
+      setLoading(false);
     }
   };
 
   // Initial fetch on component mount
   useEffect(() => {
-    const fetchallClass = async () => {
-      try {
-        const response = await apiClient.get("admin/getclass");
-        setAddClass(response.data?.classes);
-        console.log(response);
-      } catch (error) {
-        console.log(error.data.message);
-      }
-    };
-
-    fetchallClass();
+    fetchAllClasses();
   }, []);
 
   useEffect(() => {
@@ -202,16 +235,50 @@ const AdminClass = () => {
                       <div className="actionButtons">
                         <button
                           className="editBtn"
-                          onClick={() => setIsEditOpen(true)}
+                          aria-label="Edit class"
+                          onClick={() => {
+                            setFormData({
+                              className: cls.className,
+                              amount: cls.amount || "",
+                              paymentOption: cls.paymentOption || "",
+                              teacherId: cls.teacherId || "",
+                              numberOfInstallments:
+                                cls.numberOfInstallments || "",
+                              id: cls.classId, // ✅ fixed from cls.id
+                            });
+                            setIsEditOpen(true);
+                          }}
                         >
-                          Edit
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                          </svg>
                         </button>
 
                         <button
                           className="deleteBtn"
-                          onClick={() => setIsDeleteOpen(true)}
+                          aria-label="Delete class"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              id: cls.classId, // ✅ fixed from cls.id
+                            }));
+                            setIsDeleteOpen(true);
+                          }}
                         >
-                          Delete
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          >
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                          </svg>
                         </button>
                       </div>
                     </td>
@@ -229,10 +296,10 @@ const AdminClass = () => {
                       </p>
 
                       <button
-                        className="addClassBtn"
+                        className="addClassBtn2"
                         onClick={() => setIsOpen(true)}
                       >
-                        + Create First Class
+                        <span className="plusIcon">+</span> Create Class
                       </button>
                     </div>
                   </td>
@@ -270,8 +337,8 @@ const AdminClass = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            ©️ 2026 Ucheva school operating management system . All rights
-            reserved.
+            ©️ {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
           <span className="supportText">
             Need help?{" "}
@@ -410,8 +477,8 @@ const AdminClass = () => {
               <button className="cancelBtn" onClick={() => setIsOpen(false)}>
                 Cancel
               </button>
-              <button className="createBtn" onClick={createClass}>
-                Create Class
+              <button className="createBtn" onClick={createClass} disabled={loading}>
+                {loading ? "Creating..." : "Create Class"}
               </button>
             </div>
           </div>
@@ -536,7 +603,13 @@ const AdminClass = () => {
               >
                 Cancel
               </button>
-              <button className="saveChangesBtn">Save Changes</button>
+              <button
+                className="saveChangesBtn"
+                onClick={() => editClass(formData.id)}
+                disabled={loading}
+              >
+                {loading ? "Saving..." : "Save Changes"}
+              </button>
             </div>
           </div>
         </div>
@@ -583,7 +656,13 @@ const AdminClass = () => {
               >
                 Cancel
               </button>
-              <button className="confirmDeleteBtn">Delete</button>
+              <button
+                className="confirmDeleteBtn"
+                onClick={() => deleteClass(formData.id)}
+                disabled={loading}
+              >
+                {loading ? "Deleting..." : "Delete"}
+              </button>
             </div>
           </div>
         </div>

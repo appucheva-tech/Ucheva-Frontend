@@ -5,7 +5,7 @@
   box-sizing: border-box;
   font-family: "Nunito", sans-serif;
   background-color: #f8fafc;
-  padding: 24px;
+  /* padding: 24px; */
 
   .form-header {
     margin-bottom: 28px;

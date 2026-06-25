@@ -17,6 +17,9 @@ const AdminStudents = () => {
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [classes, setClasses] = useState([]);
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteLoading, setDeleteLoading] = useState(false);
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -28,24 +31,16 @@ const AdminStudents = () => {
   const fetchAllStudents = async () => {
     try {
       setLoading(true);
-
       const response = await apiClient.get("/student/getAllStudents", {
-        headers: {
-          "x-tenant": subdomain,
-        },
+        headers: { "x-tenant": subdomain },
       });
-
       console.log(response);
-
       const studentData = response.data?.studentsData || [];
       setStudents(studentData);
-      console.log(studentData);
       setFilteredStudents(studentData);
     } catch (error) {
       console.error(error);
-
       toast.error(error.response?.data?.message || "Failed to fetch students");
-
       setStudents([]);
       setFilteredStudents([]);
     } finally {
@@ -56,17 +51,38 @@ const AdminStudents = () => {
   const fetchClasses = async () => {
     try {
       const response = await apiClient.get("/class/classes", {
-        headers: {
-          "x-tenant": subdomain,
-        },
+        headers: { "x-tenant": subdomain },
       });
-
       console.log("Classes Response:", response);
       setClasses(response.data.classes || []);
     } catch (error) {
       console.error("Failed to fetch classes", error.message);
       toast.error(error.message);
     }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setDeleteLoading(true);
+      await apiClient.delete(`/student/student/${selectedStudentId}`, {
+        headers: { "x-tenant": subdomain },
+      });
+      toast.success("Student deleted successfully!");
+      setShowDeleteModal(false);
+      setSelectedStudentId(null);
+      await fetchAllStudents();
+    } catch (error) {
+      console.error(error);
+      toast.error(
+        error.response?.data?.message || "Failed to delete student"
+      );
+    } finally {
+      setDeleteLoading(false);
+    }
+  };
+
+  const handleEditStudent = (studentId) => {
+    nav(`/admin/AdminEditStudent/${studentId}`);
   };
 
   useEffect(() => {
@@ -78,7 +94,6 @@ const AdminStudents = () => {
   useEffect(() => {
     let filtered = [...students];
 
-    // Filter by class
     if (filters.class !== "all") {
       filtered = filtered.filter((student) => {
         const studentClass = student.classes || student.studentClass || "";
@@ -87,19 +102,17 @@ const AdminStudents = () => {
       });
     }
 
-    // Filter by gender
     if (filters.gender !== "all") {
       filtered = filtered.filter(
         (student) =>
           student.gender &&
-          student.gender.toLowerCase() === filters.gender.toLowerCase(),
+          student.gender.toLowerCase() === filters.gender.toLowerCase()
       );
     }
 
-    // Filter by department
     if (filters.department !== "all") {
       filtered = filtered.filter(
-        (student) => student.department === filters.department,
+        (student) => student.department === filters.department
       );
     }
 
@@ -134,9 +147,7 @@ const AdminStudents = () => {
           </h1>
           <button
             className="AdministrationStudent-AddStudent"
-            onClick={() => {
-              nav("/admin/AdminStudent2");
-            }}
+            onClick={() => nav("/admin/AdminStudent2")}
           >
             <FaPlus /> Add Student
           </button>
@@ -146,8 +157,12 @@ const AdminStudents = () => {
           <div className="AdministrationStudent-metric-card AdministrationStudent-card-students">
             <div className="AdministrationStudent-card-content">
               <div className="AdministrationStudent-text-section">
-                <span className="AdministrationStudent-card-label">Total Students</span>
-                <span className="AdministrationStudent-card-value">{students.length}</span>
+                <span className="AdministrationStudent-card-label">
+                  Total Students
+                </span>
+                <span className="AdministrationStudent-card-value">
+                  {students.length}
+                </span>
               </div>
               <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-students">
                 <PiStudentFill className="AdministrationStudent-DashIcon" />
@@ -158,11 +173,13 @@ const AdminStudents = () => {
           <div className="AdministrationStudent-metric-card AdministrationStudent-card-staff">
             <div className="AdministrationStudent-card-content">
               <div className="AdministrationStudent-text-section">
-                <span className="AdministrationStudent-card-label">Total Male</span>
+                <span className="AdministrationStudent-card-label">
+                  Total Male
+                </span>
                 <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
-                      (s) => s.gender && s.gender.toLowerCase() === "male",
+                      (s) => s.gender && s.gender.toLowerCase() === "male"
                     ).length
                   }
                 </span>
@@ -176,11 +193,13 @@ const AdminStudents = () => {
           <div className="AdministrationStudent-metric-card AdministrationStudent-card-attendance">
             <div className="AdministrationStudent-card-content">
               <div className="AdministrationStudent-text-section">
-                <span className="AdministrationStudent-card-label">Total Female</span>
+                <span className="AdministrationStudent-card-label">
+                  Total Female
+                </span>
                 <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
-                      (s) => s.gender && s.gender.toLowerCase() === "female",
+                      (s) => s.gender && s.gender.toLowerCase() === "female"
                     ).length
                   }
                 </span>
@@ -194,7 +213,9 @@ const AdminStudents = () => {
           <div className="AdministrationStudent-metric-card AdministrationStudent-card-fees">
             <div className="AdministrationStudent-card-content">
               <div className="AdministrationStudent-text-section">
-                <span className="AdministrationStudent-card-label">New Intake</span>
+                <span className="AdministrationStudent-card-label">
+                  New Intake
+                </span>
                 <span className="AdministrationStudent-card-value">{0}</span>
               </div>
               <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-fees">
@@ -204,6 +225,7 @@ const AdminStudents = () => {
           </div>
         </div>
       </div>
+
       <div className="AdministrationStudent-tableContainer">
         <div className="AdministrationStudent-filterSection">
           <div className="AdministrationStudent-filtersGroup">
@@ -225,12 +247,16 @@ const AdminStudents = () => {
               </div>
             </div>
             <div className="AdministrationStudent-filterItem">
-              <label className="AdministrationStudent-filterLabel">Gender</label>
+              <label className="AdministrationStudent-filterLabel">
+                Gender
+              </label>
               <div className="AdministrationStudent-selectWrapper">
                 <select
                   className="AdministrationStudent-selectInput"
                   value={filters.gender}
-                  onChange={(e) => handleFilterChange("gender", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("gender", e.target.value)
+                  }
                 >
                   <option value="all">All Gender</option>
                   <option value="female">Female</option>
@@ -239,7 +265,9 @@ const AdminStudents = () => {
               </div>
             </div>
             <div className="AdministrationStudent-filterItem">
-              <label className="AdministrationStudent-filterLabel">Department</label>
+              <label className="AdministrationStudent-filterLabel">
+                Department
+              </label>
               <div className="AdministrationStudent-selectWrapper">
                 <select
                   className="AdministrationStudent-selectInput"
@@ -256,7 +284,10 @@ const AdminStudents = () => {
               </div>
             </div>
           </div>
-          <button className="AdministrationStudent-resetBtn" onClick={resetFilters}>
+          <button
+            className="AdministrationStudent-resetBtn"
+            onClick={resetFilters}
+          >
             <svg
               className="AdministrationStudent-resetIcon"
               viewBox="0 0 24 24"
@@ -303,26 +334,33 @@ const AdminStudents = () => {
                 </tr>
               ) : (
                 filteredStudents.map((student, index) => (
-                  <tr key={student.id || student._id || index}>
-                    <td className="AdministrationStudent-studentName">{student.fullName}</td>
-
-                    <td className="AdministrationStudent-genderText">{student.gender}</td>
-
+                  <tr key={student.id || index}>
+                    <td className="AdministrationStudent-studentName">
+                      {student.fullName}
+                    </td>
+                    <td className="AdministrationStudent-genderText">
+                      {student.gender}
+                    </td>
                     <td className="AdministrationStudent-classText">
                       {student.classes || student.studentClass || "--"}
                     </td>
-
-                    <td className="AdministrationStudent-deptText">{student.department || "--"}</td>
-
+                    <td className="AdministrationStudent-deptText">
+                      {student.department || "--"}
+                    </td>
                     <td className="AdministrationStudent-phoneText">
                       {student.parentGuardiansPhoneNumber ||
                         student.phoneNumber ||
                         "--"}
                     </td>
-
                     <td>
                       <div className="AdministrationStudent-actionButtons">
-                        <button className="AdministrationStudent-editBtn">
+                        <button
+                          className="AdministrationStudent-editBtn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleEditStudent(student.id);
+                          }}
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -333,7 +371,14 @@ const AdminStudents = () => {
                           </svg>
                         </button>
 
-                        <button className="AdministrationStudent-deleteBtn">
+                        <button
+                          className="AdministrationStudent-deleteBtn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedStudentId(student.id);
+                            setShowDeleteModal(true);
+                          }}
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -354,13 +399,17 @@ const AdminStudents = () => {
 
           {filteredStudents.length > 0 && (
             <div className="AdministrationStudent-paginationRow">
-              <div className="AdministrationStudent-paginationInfo">Showing pages of 1 to 7</div>
+              <div className="AdministrationStudent-paginationInfo">
+                Showing pages of 1 to 7
+              </div>
 
               <div className="AdministrationStudent-paginationControls">
                 <button className="AdministrationStudent-arrowBtn" disabled>
                   &lt;
                 </button>
-                <button className="AdministrationStudent-pageBtn AdministrationStudent-activePage">1</button>
+                <button className="AdministrationStudent-pageBtn AdministrationStudent-activePage">
+                  1
+                </button>
                 <button className="AdministrationStudent-pageBtn">2</button>
                 <button className="AdministrationStudent-pageBtn">3</button>
                 <span className="AdministrationStudent-ellipsis">...</span>
@@ -370,9 +419,14 @@ const AdminStudents = () => {
               </div>
 
               <div className="AdministrationStudent-rowsPerPageGroup">
-                <span className="AdministrationStudent-rowsLabel">Rows per page</span>
+                <span className="AdministrationStudent-rowsLabel">
+                  Rows per page
+                </span>
                 <div className="AdministrationStudent-rowsSelectWrapper">
-                  <select className="AdministrationStudent-rowsSelect" defaultValue="10">
+                  <select
+                    className="AdministrationStudent-rowsSelect"
+                    defaultValue="10"
+                  >
                     <option value="10">10</option>
                   </select>
                 </div>
@@ -381,19 +435,75 @@ const AdminStudents = () => {
           )}
         </div>
 
-        <footer className="AdministrationStudent-footerRow">
-          <span className="AdministrationStudent-copyrightText">
-            © 2026 Ucheva school operating management system . All right
-            reserved.
+        <footer className="footerRow">
+          <span className="copyrightText">
+            ©️ {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
-          <span className="AdministrationStudent-supportText">
+          <span className="supportText">
             Need help?{" "}
-            <a href="#support" className="AdministrationStudent-supportLink">
+            <a href="#support" className="supportLink">
               Contact support
             </a>
           </span>
         </footer>
       </div>
+
+      {/* Delete Student Modal */}
+      {showDeleteModal && (
+        <div
+          className="modalOverlay"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          <div
+            className="modalContent deleteModal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modalHeader">
+              <h2>Delete Student</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ width: "18px", height: "18px" }}
+                >
+                  <path
+                    d="M18 6L6 18M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="modalBody">
+              <p className="deleteWarningText">
+                Are you sure you want to delete this student? This action
+                cannot be undone.
+              </p>
+            </div>
+            <div className="modalFooter">
+              <button
+                className="cancelBtn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="confirmDeleteBtn"
+                onClick={handleDelete}
+                disabled={deleteLoading}
+              >
+                {deleteLoading ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };
