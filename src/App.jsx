@@ -69,6 +69,7 @@ import AttendancePage from "./features/busary/components/AttendancePage";
 import PrivateRoute from "./pages/PrivateRoute";
 import NotFound from "./pages/notFound";
 import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
+import RequireSubdomain from "./pages/requireSubdomain";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -81,31 +82,45 @@ function ScrollToTop() {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/notfound" element={<NotFound />} />
+  <BrowserRouter>
+  <ScrollToTop />
 
-        <Route path="/" element={<Home />} />
-        <Route path="/Features" element={<Features />} />
-        <Route path="/Pricing" element={<Pricing />} />
-        <Route path="/AboutUs" element={<AboutUs />} />
-        <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="payment-verification" element={<PaymentVerification />} />
+  <Routes>
+    {/* PUBLIC ROUTES */}
+    <Route path="/notfound" element={<NotFound />} />
+    <Route path="/" element={<Home />} />
+    <Route path="/features" element={<Features />} />
+    <Route path="/pricing" element={<Pricing />} />
+    <Route path="/aboutus" element={<AboutUs />} />
+    <Route path="/contactus" element={<ContactUs />} />
+    <Route
+      path="/payment-verification"
+      element={<PaymentVerification />}
+    />
 
-        <Route element={<AuthLayout />}>
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/verify" element={<VerifyEmail />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verify-password" element={<VerifyForgot />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
-          <Route path="/create-password/:token" element={<CreatePassword />} />
-        </Route>
+    {/* Signup does NOT require subdomain */}
+    <Route element={<AuthLayout />}>
+      <Route path="/signup" element={<Signup />} />
+    </Route>
 
-        <Route path="onboarding" element={<OnboardingStepper />}></Route>
-        <Route path="/admin" element={<AdminDashboardLayout />}>
-          <Route path="dashboard" element={<AdminDashboard />} />
+    {/* Everything below requires a subdomain */}
+    <Route element={<RequireSubdomain />}>
+      <Route element={<AuthLayout />}>
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/verify-password" element={<VerifyForgot />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route
+          path="/create-password/:token"
+          element={<CreatePassword />}
+        />
+      </Route>
+
+      <Route path="/onboarding" element={<OnboardingStepper />} />
+
+      <Route path="/admin" element={<AdminDashboardLayout />}>
+<Route path="dashboard" element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
           <Route path="/admin/edit-staff/:staffId" element={<AdminStaff2 />} />
@@ -129,9 +144,16 @@ const App = () => {
           <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
           <Route path="AdminWallet" element={<AdminWallet />} />
           <Route path="AdminSettings" element={<AdminSettings />} />
-        </Route>
-        <Route path="/CTdashboard" element={<CTLayout />}>
-          <Route index element={<Overview />} />
+
+
+      </Route>
+
+      <Route path="/CTdashboard" element={<CTLayout />}>
+        {/* CT routes */}
+
+
+
+        <Route index element={<Overview />} />
           <Route path="myclass" element={<MyClass />} />
           <Route path="CTscore" element={<Score />} />
           <Route path="CTreportcard" element={<CTreport />} />
@@ -142,39 +164,61 @@ const App = () => {
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/attendance/:token" element={<AttendancePage />} />
-        </Route>
-        <Route path="/bursary" element={<BursaryLayout />}>
-          <Route index element={<BusaryDashboard />} />
+      </Route>
+
+      <Route element={<PrivateRoute />}>
+        <Route path="/attendance/:token" element={<AttendancePage />} />
+      </Route>
+
+      <Route path="/bursary" element={<BursaryLayout />}>
+        {/* bursary routes */}
+
+
+
+<Route index element={<BusaryDashboard />} />
           <Route path="bursaryFees" element={<BursaryFees />} />
           <Route path="studentFee" element={<StudentFee />} />
           <Route path="bursarySettings" element={<BursarySettings />} />
           <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
           <Route path="attendance" element={<AttendancePage />} />
-        </Route>
-        <Route path="/parentdashboard" element={<ParentLayout />}>
-          <Route index element={<DashboardPage />} />
+
+      </Route>
+
+      <Route path="/parentdashboard" element={<ParentLayout />}>
+
+
+
+<Route index element={<DashboardPage />} />
           <Route path="payment" element={<PaymentPage />} />
           <Route path="settings" element={<SettingsPage />} />
-        </Route>
-        <Route path="/securitydashboard" element={<SecurityLayout />}>
-          <Route index element={<SecuritysDashboard />} />
+      </Route>
+
+      <Route path="/securitydashboard" element={<SecurityLayout />}>
+
+<Route index element={<SecuritysDashboard />} />
           <Route path="announcement" element={<SecurityAnnouncement />} />
           <Route path="settings" element={<SecuritySettings />} />
-        </Route>
 
-        <Route
-          path="/subjectteacherdashboard"
-          element={<SubjectTeacherLayout />}
-        >
-          <Route index element={<SubjectTeacherDashboard />} />
+      </Route>
+
+      <Route
+        path="/subjectteacherdashboard"
+        element={<SubjectTeacherLayout />}
+      >
+
+<Route index element={<SubjectTeacherDashboard />} />
           <Route path="scores" element={<SubjectTeacherScores />} />
           <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
           <Route path="settings" element={<SubjectTeacherSettings />} />
-          <Route path="attendance" element={<AttendancePage />} />
-        </Route>
-      </Routes>
-      <ToastContainer />
-    </BrowserRouter>
+          <Route path="attendance/:token" element={<AttendancePage />} />
+
+
+      </Route>
+    </Route>
+  </Routes>
+
+  <ToastContainer />
+</BrowserRouter>
   );
 };
 
