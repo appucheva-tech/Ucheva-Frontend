@@ -160,6 +160,7 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
           <Route path="attendance" element={<AttendancePage />} />
+        
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/attendance/:token" element={<AttendancePage />} />
