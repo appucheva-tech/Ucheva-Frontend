@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherScores.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
 const SubjectTeacherScores = () => {
   const [selectedSubject, setSelectedSubject] = useState(0);
@@ -41,6 +42,16 @@ const SubjectTeacherScores = () => {
     startIndex,
     startIndex + rowsPerPage,
   );
+
+  useEffect(() => {
+    const fetchAllStudents = async () => {
+      try {
+        const res = await apiClient.get("");
+      } catch (error) {
+        toast.messae(error.data?.message)
+      }
+    };
+  }, []);
 
   return (
     <div className="scores-container">
