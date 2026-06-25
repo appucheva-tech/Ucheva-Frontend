@@ -6,12 +6,15 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
-// FIXED: Correct import path - going up two levels to src, then into services
+import { FaRegCreditCard } from "react-icons/fa";
+import { MdOutlineHistory } from "react-icons/md";
+import { FiAlertCircle } from "react-icons/fi";
 import { walletService } from "./Services/walletService";
 
 const AdminWallet = () => {
   const [wallet, setWallet] = useState(null);
   const [payments, setPayments] = useState([]);
+  const [withdrawals, setWithdrawals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -27,7 +30,13 @@ const AdminWallet = () => {
         walletService.getPaymentHistory(),
       ]);
       setWallet(walletRes.data.wallet);
-      setPayments(paymentRes.data.payments);
+      setPayments(paymentRes.data.payments || []);
+
+      // If withdrawal history is available from API, use it
+      // Otherwise, keep it empty
+      if (paymentRes.data.withdrawals) {
+        setWithdrawals(paymentRes.data.withdrawals);
+      }
       setError(null);
     } catch (err) {
       console.error("Error fetching data:", err);
@@ -46,6 +55,7 @@ const AdminWallet = () => {
   };
 
   const formatDate = (date) => {
+    if (!date) return "N/A";
     return new Date(date).toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
@@ -60,6 +70,7 @@ const AdminWallet = () => {
       failed: "badge-danger",
       processing: "badge-info",
       refunded: "badge-info",
+      successful: "badge-success",
     };
     return badges[status] || "badge-warning";
   };
@@ -71,9 +82,26 @@ const AdminWallet = () => {
       failed: "Failed",
       processing: "Processing",
       refunded: "Refunded",
+      successful: "Successful",
     };
     return labels[status] || status;
   };
+
+  // Empty state component for tables
+  const EmptyState = ({ icon: Icon, title, message, actionText, onAction }) => (
+    <div className="empty-state">
+      <div className="empty-state-icon">
+        <Icon />
+      </div>
+      <h3 className="empty-state-title">{title}</h3>
+      <p className="empty-state-message">{message}</p>
+      {actionText && onAction && (
+        <button className="empty-state-action" onClick={onAction}>
+          {actionText}
+        </button>
+      )}
+    </div>
+  );
 
   if (loading) {
     return (
@@ -182,6 +210,7 @@ const AdminWallet = () => {
       </div>
 
       <div className="dashboard-container">
+        {/* Payment History Table */}
         <div className="history-card">
           <div className="card-header">
             <h2 className="card-title">Payment History</h2>
@@ -206,20 +235,20 @@ const AdminWallet = () => {
           </div>
 
           <div className="table-responsive">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Student Name</th>
-                  <th>Payment Type</th>
-                  <th>Amount</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Reference ID</th>
-                </tr>
-              </thead>
-              <tbody>
-                {payments.length > 0 ? (
-                  payments.slice(0, 7).map((payment) => (
+            {payments.length > 0 ? (
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Student Name</th>
+                    <th>Payment Type</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Reference ID</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {payments.slice(0, 7).map((payment) => (
                     <tr key={payment.id}>
                       <td>{payment.parentName || "N/A"}</td>
                       <td>{payment.paymentType?.replace("_", " ") || "N/A"}</td>
@@ -242,42 +271,45 @@ const AdminWallet = () => {
                         {payment.reference || "N/A"}
                       </td>
                     </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="6" className="text-center">
-                      No payments found
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <EmptyState
+                icon={FaRegCreditCard}
+                title="No Payment History"
+                message="No payments have been processed yet. When you receive payments, they will appear here."
+              />
+            )}
           </div>
 
-          <div className="card-footer">
-            <span className="pagination-info">
-              Showing 1 to {Math.min(payments.length, 7)} of {payments.length}
-            </span>
-            <div className="pagination-controls">
-              <button className="page-btn active">1</button>
-              <button className="page-btn">2</button>
-              <button className="page-btn">3</button>
-              <span className="page-ellipsis">...</span>
-              <button className="page-btn">6</button>
-              <button className="page-btn">7</button>
-              <button className="page-nav-btn">&gt;</button>
+          {payments.length > 0 && (
+            <div className="card-footer">
+              <span className="pagination-info">
+                Showing 1 to {Math.min(payments.length, 7)} of {payments.length}
+              </span>
+              <div className="pagination-controls">
+                <button className="page-btn active">1</button>
+                <button className="page-btn">2</button>
+                <button className="page-btn">3</button>
+                <span className="page-ellipsis">...</span>
+                <button className="page-btn">6</button>
+                <button className="page-btn">7</button>
+                <button className="page-nav-btn">&gt;</button>
+              </div>
+              <div className="rows-per-page">
+                <span>Rows per page</span>
+                <select defaultValue="10">
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </div>
             </div>
-            <div className="rows-per-page">
-              <span>Rows per page</span>
-              <select defaultValue="10">
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-              </select>
-            </div>
-          </div>
+          )}
         </div>
 
+        {/* Withdrawal History Table */}
         <div className="history-card">
           <div className="card-header">
             <h2 className="card-title">Withdrawal History</h2>
@@ -298,84 +330,70 @@ const AdminWallet = () => {
           </div>
 
           <div className="table-responsive">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Withdrawal ID</th>
-                  <th>Amount</th>
-                  <th>Bank Account</th>
-                  <th>Request Date</th>
-                  <th>Status</th>
-                  <th>Processed Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className="text-mono">UCH-2026-00057</td>
-                  <td className="font-medium">₦450,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 18, 2026</td>
-                  <td>
-                    <span className="badge badge-info">Processing</span>
-                  </td>
-                  <td>May 18, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00056</td>
-                  <td className="font-medium">₦300,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 15, 2025</td>
-                  <td>
-                    <span className="badge badge-success-outline">
-                      Successful
-                    </span>
-                  </td>
-                  <td>May 15, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00055</td>
-                  <td className="font-medium">₦600,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 14, 2025</td>
-                  <td>
-                    <span className="badge badge-success-outline">
-                      Successful
-                    </span>
-                  </td>
-                  <td>May 14, 2025</td>
-                </tr>
-                <tr>
-                  <td className="text-mono">UCH-2026-00054</td>
-                  <td className="font-medium">₦200,000</td>
-                  <td>GTBank ***1234</td>
-                  <td>May 12, 2025</td>
-                  <td>
-                    <span className="badge badge-danger">Failed</span>
-                  </td>
-                  <td>May 13, 2025</td>
-                </tr>
-              </tbody>
-            </table>
+            {withdrawals.length > 0 ? (
+              <table className="data-table">
+                <thead>
+                  <tr>
+                    <th>Withdrawal ID</th>
+                    <th>Amount</th>
+                    <th>Bank Account</th>
+                    <th>Request Date</th>
+                    <th>Status</th>
+                    <th>Processed Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {withdrawals.map((withdrawal) => (
+                    <tr key={withdrawal.id}>
+                      <td className="text-mono">{withdrawal.id}</td>
+                      <td className="font-medium">
+                        {formatCurrency(withdrawal.amount)}
+                      </td>
+                      <td>{withdrawal.bankAccount}</td>
+                      <td>{formatDate(withdrawal.requestDate)}</td>
+                      <td>
+                        <span
+                          className={`badge ${getStatusBadge(withdrawal.status)}`}
+                        >
+                          {getStatusLabel(withdrawal.status)}
+                        </span>
+                      </td>
+                      <td>{formatDate(withdrawal.processedDate)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <EmptyState
+                icon={MdOutlineHistory}
+                title="No Withdrawal History"
+                message="You haven't made any withdrawals yet. When you withdraw funds, they will appear here."
+                actionText="Make a Withdrawal"
+                onAction={() => console.log("Navigate to withdrawal")}
+              />
+            )}
           </div>
 
-          <div className="card-footer">
-            <span className="pagination-info">Showing pages of 1 to 7</span>
-            <div className="pagination-controls">
-              <button className="page-btn active">1</button>
-              <button className="page-btn">2</button>
-              <button className="page-btn">3</button>
-              <span className="page-ellipsis">...</span>
-              <button className="page-btn">6</button>
-              <button className="page-btn">7</button>
-              <button className="page-nav-btn">&gt;</button>
+          {withdrawals.length > 0 && (
+            <div className="card-footer">
+              <span className="pagination-info">Showing pages of 1 to 7</span>
+              <div className="pagination-controls">
+                <button className="page-btn active">1</button>
+                <button className="page-btn">2</button>
+                <button className="page-btn">3</button>
+                <span className="page-ellipsis">...</span>
+                <button className="page-btn">6</button>
+                <button className="page-btn">7</button>
+                <button className="page-nav-btn">&gt;</button>
+              </div>
+              <div className="rows-per-page">
+                <span>Rows per page</span>
+                <select defaultValue="10">
+                  <option value="10">10</option>
+                </select>
+              </div>
             </div>
-            <div className="rows-per-page">
-              <span>Rows per page</span>
-              <select defaultValue="10">
-                <option value="10">10</option>
-              </select>
-            </div>
-          </div>
+          )}
         </div>
 
         <div className="info-banner">

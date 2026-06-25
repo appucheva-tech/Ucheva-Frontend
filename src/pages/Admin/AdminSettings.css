@@ -44,651 +44,535 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
-
-  .settingsHeader {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-
-    .mainTitle {
-      font-size: 24px;
-      font-weight: 700;
-      color: #1e293b;
-      margin: 0;
-    }
-
-    .mainSubtitle {
-      font-size: 13px;
-      color: #64748b;
-      margin: 0;
-    }
-  }
-
-  .settingsCard {
-    background-color: #ffffff;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
-
-    .cardTitle {
-      font-size: 16px;
-      font-weight: 600;
-      color: #1e293b;
-      margin: 0 0 24px 0;
-    }
-
-    .inputGroup {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      flex: 1;
-
-      .inputLabel {
-        font-size: 13px;
-        font-weight: 500;
-        color: #475569;
-      }
-
-      .textInput {
-        width: 100%;
-        padding: 10px 14px;
-        font-size: 13px;
-        border: 1px solid #e2e8f0;
-        border-radius: 8px;
-        background-color: #ffffff;
-        color: #1e293b;
-        box-sizing: border-box;
-        outline: none;
-
-        &:focus {
-          border-color: #0d6efd;
-        }
-
-        &.numericalInput {
-          text-align: left;
-          max-width: 120px;
-        }
-
-        &.disabledInput {
-          background-color: #f8fafc;
-          color: #64748b;
-          cursor: not-allowed;
-        }
-      }
-
-      .selectWrapper {
-        position: relative;
-        width: 100%;
-
-        .selectInput {
-          width: 100%;
-          padding: 10px 36px 10px 14px;
-          font-size: 13px;
-          border: 1px solid #e2e8f0;
-          border-radius: 8px;
-          background-color: #ffffff;
-          color: #1e293b;
-          appearance: none;
-          cursor: pointer;
-          outline: none;
-        }
-
-        &::after {
-          content: "▼";
-          font-size: 8px;
-          position: absolute;
-          right: 14px;
-          top: 50%;
-          transform: translateY(-50%);
-          color: #64748b;
-          pointer-events: none;
-        }
-      }
-    }
-
-    .profileLayout {
-      display: flex;
-      gap: 40px;
-      align-items: flex-start;
-
-      .avatarWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-
-        .imageContainer {
-          position: relative;
-          width: 100px;
-          height: 100px;
-
-          .profileImg {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-
-          .profileImgPlaceholder {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background-color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #94a3b8;
-
-            svg {
-              width: 44px;
-              height: 44px;
-            }
-          }
-
-          .cameraBtn {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            background-color: #ffffff;
-            border: 1px solid #e2e8f0;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-
-            .cameraIcon {
-              width: 14px;
-              height: 14px;
-              color: #64748b;
-            }
-          }
-        }
-
-        .uploadHint {
-          font-size: 11px;
-          color: #94a3b8;
-        }
-      }
-
-      .formFieldsRow {
-        display: flex;
-        gap: 20px;
-        flex: 1;
-        max-width: 760px;
-      }
-    }
-
-    .schoolLayout {
-      display: flex;
-      gap: 40px;
-      align-items: flex-start;
-
-      .logoWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        min-width: 160px;
-
-        .logoBadgeContainer {
-          width: 90px;
-          height: 90px;
-          border-radius: 50%;
-          border: 1px dashed #cbd5e1;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: #fafafa;
-
-          .schoolLogoImg {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-
-          .emblemPlaceholder {
-            width: 44px;
-            height: 44px;
-            color: #94a3b8;
-          }
-        }
-
-        .logoActionButtons {
-          display: flex;
-          gap: 8px;
-          margin-top: 4px;
-
-          .changeImgBtn {
-            background-color: #0d6efd;
-            color: #ffffff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 500;
-            cursor: pointer;
-          }
-
-          .removeImgBtn {
-            background-color: #ffffff;
-            color: #0d6efd;
-            border: 1px solid #0d6efd;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 500;
-            cursor: pointer;
-          }
-        }
-      }
-
-      .schoolFormGrid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px 24px;
-        flex: 1;
-        max-width: 760px;
-
-        .fullWidthRow {
-          grid-column: span 2;
-        }
-      }
-    }
-
-    .configurationLayout {
-      display: flex;
-      gap: 48px;
-      align-items: flex-start;
-
-      .scoresColumn {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        flex: 1;
-        max-width: 420px;
-
-        .scoresInlineGrid {
-          display: flex;
-          gap: 12px;
-        }
-
-        .infotoastCallout {
-          background-color: #e6f2ff;
-          border: 1px solid #b3d7ff;
-          border-radius: 8px;
-          padding: 14px 16px;
-          display: flex;
-          gap: 12px;
-          align-items: flex-start;
-
-          .infotoastIcon {
-            font-size: 14px;
-            color: #0d6efd;
-            margin-top: 1px;
-          }
-
-          .infotoastText {
-            font-size: 12px;
-            line-height: 1.5;
-            color: #0d6efd;
-            margin: 0;
-          }
-        }
-      }
-
-      .uploadsColumn {
-        display: flex;
-        gap: 24px;
-        flex: 1;
-
-        .uploadComponentBox {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
-          flex: 1;
-
-          .dottedDropzone {
-            border: 1px dashed #cbd5e1;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #fafbfc;
-            text-align: center;
-            height: 120px;
-
-            .stampCircularGraphic,
-            .signatureLineGraphic {
-              width: 36px;
-              height: 36px;
-              color: #94a3b8;
-              margin-bottom: 8px;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-            }
-
-            .dropzoneUploadBtn {
-              background: none;
-              border: none;
-              color: #0d6efd;
-              font-size: 13px;
-              font-weight: 500;
-              cursor: pointer;
-              text-decoration: underline;
-              padding: 0;
-              margin-bottom: 4px;
-            }
-
-            .dropzoneHint {
-              font-size: 11px;
-              color: #94a3b8;
-            }
-          }
-        }
-      }
-    }
-
-    .cardActionRow {
-      display: flex;
-      justify-content: flex-end;
-      margin-top: 32px;
-      border-top: 1px solid #f1f5f9;
-      padding-top: 16px;
-
-      .saveChangesBtn {
-        background-color: #0d6efd;
-        color: #ffffff;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 6px;
-        font-size: 13px;
-        font-weight: 500;
-        cursor: pointer;
-
-        &:hover {
-          background-color: #0b5ed7;
-        }
-
-        &:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-      }
-    }
-  }
 }
 
-/* ─── Notification Settings ───────────────────────────────────── */
-.notificationSettingsContainer {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #f4f7fc;
+.settingsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mainTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.mainSubtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.settingsCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
   padding: 24px;
   display: flex;
   flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.inputLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.textInput {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.textInput:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.textInput.numericalInput {
+  text-align: left;
+  max-width: 120px;
+}
+
+.textInput.disabledInput {
+  background-color: #f8fafc;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectInput {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.selectWrapper::after {
+  content: "▼";
+  font-size: 8px;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+/* ─── Profile Layout ──────────────────────────────────────────── */
+.profileLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.avatarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileImgPlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.profileImgPlaceholder svg {
+  width: 44px;
+  height: 44px;
+}
+
+.cameraBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s;
+}
+
+.cameraBtn:hover {
+  background-color: #f8fafc;
+}
+
+.cameraIcon {
+  width: 14px;
+  height: 14px;
+  color: #64748b;
+}
+
+.uploadHint {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.formFieldsCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formFieldsRow {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  max-width: 760px;
+}
+
+/* ─── School Profile Layout ───────────────────────────────────── */
+.schoolLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.logoBadgeContainer {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px dashed #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+}
+
+.schoolLogoImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.emblemPlaceholder {
+  width: 44px;
+  height: 44px;
+  color: #94a3b8;
+}
+
+.schoolFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+  flex: 1;
+  max-width: 760px;
+}
+
+.fullWidthRow {
+  grid-column: span 2;
+}
+
+/* ─── Report Card Configuration ───────────────────────────────── */
+.configurationLayout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.scoresColumn {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
+  flex: 1;
+  max-width: 420px;
+}
 
-  .settingsPanelCard {
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.01);
+.scoresInlineGrid {
+  display: flex;
+  gap: 12px;
+}
 
-    .panelCardTitle {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1e293b;
-      margin: 0 0 4px 0;
+/* ─── School Stamps Layout ────────────────────────────────────── */
+.stampsLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
 
-      &.dangerTitleColor {
-        color: #1e293b;
-      }
-    }
+.stampUploadGroup,
+.signatureUploadGroup {
+  flex: 1;
+  max-width: 300px;
+}
 
-    .panelCardDescription {
-      font-size: 13px;
-      color: #334155;
-      margin: 0;
-    }
+.uploadComponentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
 
-    .cardHeaderRow {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 20px;
+.dottedDropzone {
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafbfc;
+  text-align: center;
+  height: 120px;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
 
-      .headerTextGroup {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
+.dottedDropzone:hover {
+  border-color: #0d6efd;
+  background-color: #f8faff;
+}
 
-      .toggleControlWrapper {
-        display: flex;
-        align-items: center;
+.stampCircularGraphic {
+  width: 36px;
+  height: 36px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-        .switchToggle {
-          position: relative;
-          display: inline-block;
-          width: 40px;
-          height: 22px;
+.stampCircularGraphic svg {
+  width: 100%;
+  height: 100%;
+}
 
-          input {
-            opacity: 0;
-            width: 0;
-            height: 0;
+.dropzoneUploadBtn {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-bottom: 4px;
+}
 
-            &:checked + .toggleSlider {
-              background-color: #0d6efd;
+.dropzoneHint {
+  font-size: 11px;
+  color: #94a3b8;
+}
 
-              &::before {
-                transform: translateX(18px);
-              }
-            }
-          }
+/* ─── Attendance Notifications ────────────────────────────────── */
+.notificationLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
-          .toggleSlider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #cbd5e1;
-            transition: 0.2s;
-            border-radius: 34px;
+.notificationText {
+  font-size: 13px;
+  color: #475569;
+  margin: 0;
+}
 
-            &::before {
-              position: absolute;
-              content: "";
-              height: 16px;
-              width: 16px;
-              left: 3px;
-              bottom: 3px;
-              background-color: white;
-              transition: 0.2s;
-              border-radius: 50%;
-            }
-          }
-        }
-      }
-    }
+.notificationSelectGroup {
+  max-width: 320px;
+}
 
-    .cardBodyGroup {
-      .inputDropdownFieldGroup {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        max-width: 320px;
+/* ─── Card Action Row ─────────────────────────────────────────── */
+.cardActionRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
 
-        .dropdownLabel {
-          font-size: 12px;
-          font-weight: 500;
-          color: #475569;
-        }
+.saveChangesBtn {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
 
-        .customSelectContainer {
-          position: relative;
-          width: 100%;
+.saveChangesBtn:hover {
+  background-color: #0b5ed7;
+}
 
-          .nativeDropdownSelect {
-            width: 100%;
-            padding: 10px 36px 10px 12px;
-            font-size: 13px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            background-color: #ffffff;
-            color: #334155;
-            appearance: none;
-            outline: none;
-            cursor: pointer;
-          }
+.saveChangesBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
-          &::after {
-            content: "▼";
-            font-size: 8px;
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #475569;
-            pointer-events: none;
-          }
-        }
-      }
-    }
+/* ─── School Verification ─────────────────────────────────────── */
+.verificationUploadersRow {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+}
 
-    .verificationUploadersRow {
-      display: flex;
-      gap: 18px;
-      margin-top: 16px;
+.uploaderBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 180px;
+}
 
-      .uploaderBox {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 180px;
+.uploaderLabel {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 400;
+}
 
-        .uploaderLabel {
-          font-size: 13px;
-          color: #475569;
-          font-weight: 400;
-        }
+.dropzoneBorderArea {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.15s;
+}
 
-        .dropzoneBorderArea {
-          border: 1px solid #cbd5e1;
-          border-radius: 6px;
-          height: 160px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: flex-end;
-          padding: 16px;
-          box-sizing: border-box;
-          background-color: #ffffff;
+.dropzoneBorderArea:hover {
+  border-color: #0d6efd;
+}
 
-          .innerUploadBtn {
-            background: none;
-            border: 1px solid #cbd5e1;
-            color: #0d6efd;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 6px 0;
-            width: 100%;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 8px;
-            background-color: #ffffff;
-          }
+.innerUploadBtn {
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #0d6efd;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 0;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  transition: background-color 0.15s;
+}
 
-          .formatHintText {
-            font-size: 10px;
-            color: #94a3b8;
-            text-align: center;
-            white-space: nowrap;
-          }
-        }
-      }
-    }
+.innerUploadBtn:hover {
+  background-color: #f8fafc;
+}
 
-    .actionFlexRow {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 16px;
+.formatHintText {
+  font-size: 10px;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 
-      .infoContextBlock {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+/* ─── Security ────────────────────────────────────────────────── */
+.actionFlexRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
 
-        .actionItemHeading {
-          font-size: 13.5px;
-          font-weight: 600;
-          color: #334155;
-          margin: 0;
-        }
+.infoContextBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
-        .actionItemSubtext {
-          font-size: 12px;
-          color: #94a3b8;
-          margin: 0;
-        }
-      }
+.actionItemHeading {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #334155;
+  margin: 0;
+}
 
-      .outlineActionButton {
-        background-color: #ffffff;
-        border: 1px solid #cbd5e1;
-        color: #334155;
-        font-size: 12px;
-        font-weight: 500;
-        padding: 10px 16px;
-        border-radius: 6px;
-        cursor: pointer;
+.actionItemSubtext {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
 
-        &:hover {
-          background-color: #f8fafc;
-        }
-      }
+.outlineActionButton {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
 
-      .dangerActionButton {
-        background: none;
-        border: 1px solid #f87171;
-        color: #ef4444;
-        font-size: 12px;
-        font-weight: 500;
-        padding: 10px 16px;
-        border-radius: 6px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        cursor: pointer;
+.outlineActionButton:hover {
+  background-color: #f8fafc;
+}
 
-        .shieldIcon {
-          width: 14px;
-          height: 14px;
-        }
+.dangerZoneCard {
+  border-color: #fecaca;
+}
 
-        &:hover {
-          background-color: #fef2f2;
-        }
-      }
-    }
-  }
+.dangerTitleColor {
+  color: #dc2626;
+}
+
+.dangerActionButton {
+  background: none;
+  border: 1px solid #f87171;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.dangerActionButton:hover {
+  background-color: #fef2f2;
+}
+
+.shieldIcon {
+  width: 14px;
+  height: 14px;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -711,8 +595,12 @@
 }
 
 @keyframes overlayFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ─── Card ────────────────────────────────────────────────────── */
@@ -801,7 +689,9 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    transform 0.1s;
   flex-shrink: 0;
   font-size: 18px;
   color: #64748b;
@@ -826,78 +716,18 @@
   gap: 20px;
 }
 
-.modalBody::-webkit-scrollbar { width: 5px; }
-.modalBody::-webkit-scrollbar-track { background: transparent; }
+.modalBody::-webkit-scrollbar {
+  width: 5px;
+}
+.modalBody::-webkit-scrollbar-track {
+  background: transparent;
+}
 .modalBody::-webkit-scrollbar-thumb {
   background: #e2e8f0;
   border-radius: 99px;
 }
-.modalBody::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
-
-/* ─── Form Fields in Modal ───────────────────────────────────── */
-.modalBody .formFieldsRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  margin: 0;
-}
-
-.modalBody .inputGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.modalBody .inputLabel {
-  font-size: 12px;
-  font-weight: 600;
-  color: #475569;
-}
-
-.modalBody .textInput {
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 13px;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 8px;
-  background-color: #ffffff;
-  color: #1e293b;
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-.modalBody .textInput:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.modalBody .textInput::placeholder { color: #94a3b8; }
-
-.modalBody .textInput:disabled,
-.modalBody .disabledInput {
-  background-color: #f8fafc;
-  color: #64748b;
-  cursor: not-allowed;
-}
-
-/* ─── Modal Divider / Section Label ──────────────────────────── */
-.modalDivider {
-  border: none;
-  border-top: 1.5px solid #f1f5f9;
-  margin: 4px 0;
-}
-
-.modalSectionLabel {
-  font-size: 12px;
-  font-weight: 700;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.modalBody::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
 }
 
 /* ─── Password Input with Icon ────────────────────────────────── */
@@ -917,71 +747,8 @@
   flex-shrink: 0;
 }
 
-.modalBody .passwordInput {
+.passwordInput {
   padding-left: 38px !important;
-}
-
-/* ─── Password Strength Meter ─────────────────────────────────── */
-.strengthWrapper {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 2px;
-}
-
-.strengthBars {
-  display: flex;
-  gap: 5px;
-  flex: 1;
-}
-
-.strengthBar {
-  height: 4px;
-  flex: 1;
-  border-radius: 99px;
-  transition: background-color 0.25s ease;
-}
-
-.strengthLabel {
-  font-size: 11px;
-  font-weight: 700;
-  min-width: 44px;
-  text-align: right;
-  transition: color 0.25s ease;
-}
-
-/* ─── Strength Hint List ─────────────────────────────────────── */
-.strengthHintList {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-}
-
-.strengthHintList li {
-  font-size: 11px;
-  color: #94a3b8;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.2s;
-}
-
-.strengthHintList li::before {
-  content: "○";
-  font-size: 9px;
-  transition: content 0.2s;
-}
-
-.strengthHintList li.hintMet {
-  color: #22c55e;
-}
-
-.strengthHintList li.hintMet::before {
-  content: "●";
-  color: #22c55e;
 }
 
 /* ─── Password Match / Mismatch Hints ────────────────────────── */
@@ -1028,7 +795,10 @@
   font-weight: 500;
   color: #64748b;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
 }
 
 .modalCancelBtn:hover {
@@ -1051,7 +821,10 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
+  transition:
+    opacity 0.15s,
+    transform 0.1s,
+    box-shadow 0.15s;
   box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
@@ -1067,7 +840,9 @@
   box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
 }
 
-.modalSaveBtn:active:not(:disabled) { transform: scale(0.97); }
+.modalSaveBtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
 
 .modalSaveBtn:disabled {
   opacity: 0.65;
@@ -1085,10 +860,98 @@
   flex-shrink: 0;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-/* ─── Responsive: Bottom sheet on mobile ─────────────────────── */
+/* ─── Responsive: Mobile ─────────────────────────────────────── */
 @media (max-width: 600px) {
+  .settingsContainer {
+    padding: 16px;
+  }
+
+  .settingsCard {
+    padding: 18px;
+  }
+
+  .profileLayout,
+  .schoolLayout,
+  .stampsLayout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .formFieldsRow {
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .schoolFormGrid {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+  }
+
+  .fullWidthRow {
+    grid-column: span 1;
+  }
+
+  .configurationLayout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .scoresInlineGrid {
+    flex-direction: column;
+  }
+
+  .scoresColumn {
+    max-width: 100%;
+  }
+
+  .textInput.numericalInput {
+    max-width: 100%;
+  }
+
+  .verificationUploadersRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .uploaderBox {
+    width: 100% !important;
+  }
+
+  .stampUploadGroup,
+  .signatureUploadGroup {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .actionFlexRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .outlineActionButton,
+  .dangerActionButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardActionRow {
+    justify-content: center;
+  }
+
+  .saveChangesBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Modal Mobile */
   .modalOverlay {
     align-items: flex-end;
     padding: 0;
@@ -1102,13 +965,30 @@
   }
 
   @keyframes modalSlideUpMobile {
-    from { transform: translateY(100%); opacity: 0.6; }
-    to { transform: translateY(0); opacity: 1; }
+    from {
+      transform: translateY(100%);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 
-  .modalBody .formFieldsRow {
-    grid-template-columns: 1fr;
-    gap: 12px;
+  .modalBody {
+    padding: 18px;
+  }
+
+  .modalHeader {
+    padding: 18px 18px 14px;
+  }
+
+  .modalTitle {
+    font-size: 16px;
+  }
+
+  .modalSubtitle {
+    font-size: 12px;
   }
 
   .modalFooter {
@@ -1120,60 +1000,56 @@
     width: 100%;
     justify-content: center;
   }
-
-  .modalBody { padding: 18px; }
-  .modalHeader { padding: 18px 18px 14px; }
-  .modalTitle { font-size: 16px; }
-  .modalSubtitle { font-size: 12px; }
-
-  .settingsContainer,
-  .notificationSettingsContainer { padding: 16px; }
-
-  .settingsCard { padding: 18px; }
-
-  .profileLayout,
-  .schoolLayout {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .configurationLayout { flex-direction: column; }
-  .scoresInlineGrid { flex-direction: column; }
-  .schoolFormGrid { grid-template-columns: 1fr !important; }
-  .schoolFormGrid .fullWidthRow { grid-column: span 1; }
-
-  .verificationUploadersRow {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .uploaderBox { width: 100% !important; }
-
-  .actionFlexRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .actionFlexRow .outlineActionButton,
-  .actionFlexRow .dangerActionButton {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 /* ─── Small screens ───────────────────────────────────────────── */
 @media (max-width: 480px) {
+  .settingsContainer {
+    padding: 12px;
+  }
+
+  .settingsCard {
+    padding: 14px;
+  }
+
   .modalCard {
     max-height: 96vh;
     border-radius: 16px 16px 0 0;
   }
 
-  .modalHeader { padding: 14px 16px 12px; }
-  .modalBody { padding: 14px 16px; gap: 16px; }
-  .modalFooter { padding: 12px 16px 16px; }
+  .modalHeader {
+    padding: 14px 16px 12px;
+  }
 
-  .modalIconBadge { width: 34px; height: 34px; }
-  .modalIconBadge svg { width: 16px; height: 16px; }
-  .modalTitle { font-size: 14px; }
+  .modalBody {
+    padding: 14px 16px;
+    gap: 16px;
+  }
+
+  .modalFooter {
+    padding: 12px 16px 16px;
+  }
+
+  .modalIconBadge {
+    width: 34px;
+    height: 34px;
+  }
+
+  .modalIconBadge svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .modalTitle {
+    font-size: 14px;
+  }
+
+  .logoWrapper {
+    min-width: auto;
+  }
+
+  .avatarWrapper .imageContainer {
+    width: 80px;
+    height: 80px;
+  }
 }

@@ -633,3 +633,122 @@
 .support-link:hover {
   text-decoration: underline;
 }
+
+/* Empty State Styles */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 300px;
+}
+
+.empty-state-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f0f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  color: #0062f6;
+}
+
+.empty-state-icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.empty-state-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.empty-state-message {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 400px;
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+.empty-state-action {
+  padding: 10px 24px;
+  background: #0062f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.empty-state-action:hover {
+  background: #0041cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 51, 204, 0.2);
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+  min-height: 200px;
+  overflow-x: auto;
+}
+
+/* Update existing table styles for empty state */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Make sure the table container handles empty state properly */
+.history-card .table-responsive {
+  position: relative;
+}
+
+/* Loading and error states */
+.loading-container,
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  padding: 40px;
+}
+
+.loading-spinner {
+  font-size: 18px;
+  color: #0062f6;
+}
+
+.error-message {
+  color: #dc2626;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.retry-btn {
+  padding: 10px 24px;
+  background: #0062f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.retry-btn:hover {
+  background: #0041cc;
+}
