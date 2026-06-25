@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherScores.css";
 import { apiClient } from "../../../config/AxiosInstance";
-import { toast } from "react-toastify";
 
 const SubjectTeacherScores = () => {
   const [subjects, setSubjects] = useState([]);
@@ -16,7 +15,6 @@ const SubjectTeacherScores = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-
   useEffect(() => {
     getSubjects();
   }, []);
@@ -26,14 +24,12 @@ const SubjectTeacherScores = () => {
       setLoading(true);
       const res = await apiClient.get("/subjectteacher/get-all-subjects");
 
-      const data = res.data.subjects
+      const data = res.data.subjects;
       setSubjects(data);
 
-   
-
       if (data.length > 0) {
-  fetchSubject(data[0].classId);
-}
+        fetchSubject(data[0].classId);
+      }
     } catch (err) {
       console.log(err);
     } finally {
@@ -44,41 +40,40 @@ const SubjectTeacherScores = () => {
   // =========================
   // FETCH SINGLE SUBJECT
   // =========================
-const fetchSubject = async (subject) => {
+  const fetchSubject = async (subject) => {
+    try {
+      setLoading(true);
 
-  try {
-    setLoading(true);
+      const res = await apiClient.get(
+        `/subjectteacher/get-students/${subject.classId}`,
+      );
 
-    const res = await apiClient.get(
-      `/subjectteacher/get-students/${subject.classId}`
-    );
+      const data = res.data.getStudents;
+      console.log("subject: ", data);
 
-    const data = res.data.getStudents;
-console.log("subject: ",data)
+      setSelectedSubject(subject); // ✅ store subject correctly
 
-    setSelectedSubject(subject); // ✅ store subject correctly
+      const list = data.students || [];
+      setStudents(data);
 
-    const list = data.students || [];
-    setStudents(data);
+      const map = {};
+      list.forEach((s) => {
+        const id = s.studentId || s.id || s._id;
 
-    const map = {};
-    list.forEach((s) => {
-      const id = s.studentId || s.id || s._id;
+        map[id] = {
+          ca: s.continuousAssessment ?? "",
+          exam: s.exam ?? "",
+        };
+      });
 
-      map[id] = {
-        ca: s.continuousAssessment ?? "",
-        exam: s.exam ?? "",
-      };
-    });
-
-    setScores(map);
-    setCurrentPage(1);
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setLoading(false);
-  }
-};
+      setScores(map);
+      setCurrentPage(1);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // =========================
   // SCORE CHANGE
@@ -99,23 +94,23 @@ console.log("subject: ",data)
   const handleSaveScores = async () => {
     try {
       setSaving(true);
-console.log("api1: ",selectedSubject )
-console.log("api2: ",subjects )
+      console.log("api1: ", selectedSubject);
+      console.log("api2: ", subjects);
 
-   const payload = {
-  subject: selectedSubject?.subjectName,
-  score: Object.keys(scores).map((id) => ({
-    studentId: id,
-    continuousAssessment: Number(scores[id]?.ca || 0),
-    exam: Number(scores[id]?.exam || 0),
-  })),
-};
+      const payload = {
+        subject: selectedSubject?.subjectName,
+        score: Object.keys(scores).map((id) => ({
+          studentId: id,
+          continuousAssessment: Number(scores[id]?.ca || 0),
+          exam: Number(scores[id]?.exam || 0),
+        })),
+      };
 
-await apiClient.post(
-  `/classteacher/mark-score/${selectedSubject.id}`,
-  payload
-);
-console.log("res  :  ",res)
+      await apiClient.post(
+        `/classteacher/mark-score/${selectedSubject.id}`,
+        payload,
+      );
+      console.log("res  :  ", res);
       alert("Scores saved successfully");
     } catch (err) {
       console.log(err);
@@ -133,22 +128,11 @@ console.log("res  :  ",res)
 
   const displayedStudents = students.slice(
     startIndex,
-    startIndex + rowsPerPage
+    startIndex + rowsPerPage,
   );
-
-  useEffect(() => {
-    const fetchAllStudents = async () => {
-      try {
-        const res = await apiClient.get("");
-      } catch (error) {
-        toast.messae(error.data?.message)
-      }
-    };
-  }, []);
 
   return (
     <div className="scores-container">
-
       {/* HEADER */}
       <div className="header-section">
         <h1 className="main-title">Scores</h1>
@@ -165,9 +149,8 @@ console.log("res  :  ",res)
                 ? "active"
                 : ""
             }`}
-
-
-onClick={() => fetchSubject(subject)}          >
+            onClick={() => fetchSubject(subject)}
+          >
             <div className="subject-name">
               {subject.subjectName || subject.name}
             </div>
@@ -180,7 +163,7 @@ onClick={() => fetchSubject(subject)}          >
       {/* SUBJECT HEADER */}
 
       <div className="selected-subject-header">
-   {/* <h2 className="selected-subject-title">
+        {/* <h2 className="selected-subject-title">
 
 
 
@@ -218,27 +201,18 @@ onClick={() => fetchSubject(subject)}          >
           </thead>
 
           <tbody>
-
-            {console.log("diddds:  ",displayedStudents)}
+            {console.log("diddds:  ", displayedStudents)}
             {loading ? (
               <tr>
                 <td colSpan={4}>Loading...</td>
               </tr>
             ) : (
-        
-
-           displayedStudents.map((student) => {
-
-
-                const id =  student.id 
+              displayedStudents.map((student) => {
+                const id = student.id;
 
                 return (
-
-
                   <tr key={id}>
-                    <td className="student-name">
-                      {`${student.firstName}`}
-                    </td>
+                    <td className="student-name">{`${student.firstName}`}</td>
 
                     <td className="admission-number">
                       {student.admissionNumber}
@@ -282,9 +256,7 @@ onClick={() => fetchSubject(subject)}          >
         <div className="pagination-controls">
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) => Math.max(p - 1, 1))
-            }
+            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           >
             ‹
           </button>
@@ -303,11 +275,7 @@ onClick={() => fetchSubject(subject)}          >
 
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) =>
-                Math.min(p + 1, totalPages)
-              )
-            }
+            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           >
             ›
           </button>
@@ -340,4 +308,4 @@ onClick={() => fetchSubject(subject)}          >
   );
 };
 
-export default SubjectTeacherScores
+export default SubjectTeacherScores;
