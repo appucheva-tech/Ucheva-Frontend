@@ -1,19 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherScores.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
 const SubjectTeacherScores = () => {
   const [subjects, setSubjects] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState([] || null);
-
+const [selectedSubject, setSelectedSubject] = useState(null);
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState({});
 
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [seeScores, setSeeScores] = useState([])
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+
+   useEffect(()=>{
+      const seeTheScore = async () => {
+        try {
+           const scoreRes = await apiClient.get(
+      `/subjectteacher/getscores/`
+    );
+    setSeeScores(scoreRes.data.scores)
+console.log("seeScores:", scoreRes)
+        } 
+   
+catch (error) {
+          console.log(error.dada.message)
+        }
+//     const existingScores = scoreRes.data.data || [];
+// console.log("shibobo: ",existingScores)
+//     // 3. Convert scores to map
+//     const scoreMap = {};
+
+//     existingScores.forEach((s) => {
+//       scoreMap[s.studentId] = {
+//         ca: s.continuousAssessment,
+//         exam: s.exam,
+//       };
+//     });
+}
+seeTheScore()
+},[])
 
   useEffect(() => {
     getSubjects();
@@ -28,8 +57,8 @@ const SubjectTeacherScores = () => {
       setSubjects(data);
 
       if (data.length > 0) {
-        fetchSubject(data[0].classId);
-      }
+        fetchSubject(data[0]);
+}
     } catch (err) {
       console.log(err);
     } finally {
@@ -40,41 +69,45 @@ const SubjectTeacherScores = () => {
   // =========================
   // FETCH SINGLE SUBJECT
   // =========================
-  const fetchSubject = async (subject) => {
-    try {
-      setLoading(true);
+const fetchSubject = async (subject) => {
+  try {
+    setLoading(true);
 
-      const res = await apiClient.get(
-        `/subjectteacher/get-students/${subject.classId}`,
-      );
+    // 1. Get students
+    const res = await apiClient.get(
+      `/subjectteacher/get-students/${subject.classId}`
+    );
+// console.log("ebooo:  ",res.data.getStudents)
+const list = res.data.getStudents || [];
+// console.log("listssss:  ",list)
 
-      const data = res.data.getStudents;
-      console.log("subject: ", data);
 
-      setSelectedSubject(subject); // ✅ store subject correctly
+    // 2. Get existing scores
+ 
+    // 4. Build final score state (merge)
+    const finalMap = {};
 
-      const list = data.students || [];
-      setStudents(data);
+    list.forEach((student) => {
+      const id = student.studentId || student.id || student._id;
 
-      const map = {};
-      list.forEach((s) => {
-        const id = s.studentId || s.id || s._id;
+      finalMap[id] = {
+        ca: scoreMap[id]?.ca ?? "",
+        exam: scoreMap[id]?.exam ?? "",
+      };
+    });
 
-        map[id] = {
-          ca: s.continuousAssessment ?? "",
-          exam: s.exam ?? "",
-        };
-      });
+    // 5. Set states
+    setSelectedSubject(subject);
+    setStudents(list);
+    setScores(finalMap);
+    setCurrentPage(1);
 
-      setScores(map);
-      setCurrentPage(1);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setLoading(false);
+  }
+};
   // =========================
   // SCORE CHANGE
   // =========================
@@ -94,8 +127,6 @@ const SubjectTeacherScores = () => {
   const handleSaveScores = async () => {
     try {
       setSaving(true);
-      console.log("api1: ", selectedSubject);
-      console.log("api2: ", subjects);
 
       const payload = {
         subject: selectedSubject?.subjectName,
@@ -106,15 +137,15 @@ const SubjectTeacherScores = () => {
         })),
       };
 
-      await apiClient.post(
-        `/classteacher/mark-score/${selectedSubject.id}`,
-        payload,
-      );
-      console.log("res  :  ", res);
-      alert("Scores saved successfully");
+await apiClient.post(
+  `/classteacher/mark-score/${selectedSubject.id}`,
+  payload
+);
+console.log("res  :  ",res)
+      toast("Scores saved successfully");
     } catch (err) {
       console.log(err);
-      alert("Failed to save scores");
+      toast("Failed to save scores");
     } finally {
       setSaving(false);
     }
@@ -207,22 +238,29 @@ const SubjectTeacherScores = () => {
                 <td colSpan={4}>Loading...</td>
               </tr>
             ) : (
-              displayedStudents.map((student) => {
-                const id = student.id;
+        
+
+           seeScores.map((student) => {
+
+
+                        
+                const id = student.studentId || student.id || student._id;
 
                 return (
                   <tr key={id}>
-                    <td className="student-name">{`${student.firstName}`}</td>
+                    <td className="student-name">
+                      {student?.studentName || "--"}
+                    </td>
 
                     <td className="admission-number">
-                      {student.admissionNumber}
+                      {student?.studentName || "--"}
                     </td>
 
                     <td>
                       <input
                         type="number"
                         className="score-input"
-                        value={scores[id]?.ca || ""}
+                        value={student.continuousAssessment || "--"}
                         onChange={(e) =>
                           handleScoreChange(id, "ca", e.target.value)
                         }
@@ -233,7 +271,7 @@ const SubjectTeacherScores = () => {
                       <input
                         type="number"
                         className="score-input"
-                        value={scores[id]?.exam || ""}
+                        value={student?.exam || "--"}
                         onChange={(e) =>
                           handleScoreChange(id, "exam", e.target.value)
                         }

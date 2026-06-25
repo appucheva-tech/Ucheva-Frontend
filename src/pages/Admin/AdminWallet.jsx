@@ -410,17 +410,17 @@ const AdminWallet = () => {
           <button className="learn-more-btn">Learn More</button>
         </div>
 
-        <footer className="dashboard-footer">
-          <p className="copyright">
-            © 2026 Ucheva school operating management system. All right
-            reserved.
-          </p>
-          <div className="footer-support">
-            <span>Need help?</span>{" "}
-            <a href="#support" className="support-link">
+        <footer className="footerRow">
+          <span className="copyrightText">
+            ©️ {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
+          </span>
+          <span className="supportText">
+            Need help?{" "}
+            <a href="#support" className="supportLink">
               Contact support
             </a>
-          </div>
+          </span>
         </footer>
       </div>
     </>

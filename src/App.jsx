@@ -123,6 +123,7 @@ const App = () => {
 <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="AdminStaff" element={<AdminStaff />} />
           <Route path="AdminStaff2" element={<AdminStaff2 />} />
+          <Route path="/admin/edit-staff/:staffId" element={<AdminStaff2 />} />
           <Route path="staff-details/:id" element={<StaffDetails />} />
           <Route path="AdminStudents" element={<AdminStudents />} />
           <Route path="AdminStudent2" element={<AdminStudent2 />} />
@@ -130,7 +131,7 @@ const App = () => {
             path="AdminStudentDetails/:id"
             element={<AdminStudentDetails />}
           />
-          <Route path="AdminEditStudent" element={<AdminEditStudent />} />
+          <Route path="AdminEditStudent/:id" element={<AdminEditStudent />} />
           <Route path="AdminAttendance" element={<AdminAttendance />} />
           <Route
             path="AdminStudentAttendance"
@@ -160,6 +161,7 @@ const App = () => {
           <Route path="CTsettings" element={<CTSettings />} />
           <Route path="CTAnnouncement" element={<CTAnnouncement />} />
           <Route path="attendance" element={<AttendancePage />} />
+        
         </Route>
         <Route element={<PrivateRoute />}>
           <Route path="/attendance/:token" element={<AttendancePage />} />

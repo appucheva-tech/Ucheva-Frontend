@@ -72,7 +72,7 @@ const CTreport = () => {
             <nav className="CTTableValueName2">Adeaze Clinton</nav>
             <nav className="CTTableValueName2">UCH/2026/001</nav>
             <nav className="CTTableValueName2">Ready for review</nav>
-            <Link className="LinkToST" to="/CTdashboard/STreport">
+            <Link className="LinkToST" to="/CTdashboard/studentreport">
               <nav className="CTTableValueAction">:</nav>
             </Link>
           </ul>

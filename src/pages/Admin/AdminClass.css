@@ -210,6 +210,23 @@
       }
     }
   }
+  .addClassBtn2 {
+    background-color: #0d6efd;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    /* display: flex; */
+    /* align-items: center; */
+    cursor: pointer;
+
+    .plusIcon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+  }
 
   .filterSection {
     background-color: #ffffff;
