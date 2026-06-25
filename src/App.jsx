@@ -169,7 +169,7 @@ const App = () => {
           <Route path="scores" element={<SubjectTeacherScores />} />
           <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
           <Route path="settings" element={<SubjectTeacherSettings />} />
-          <Route path="attendance" element={<AttendancePage />} />
+          <Route path="attendance/:token" element={<AttendancePage />} />
         </Route>
       </Routes>
       <ToastContainer />
