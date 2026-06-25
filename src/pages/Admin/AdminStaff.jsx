@@ -8,6 +8,8 @@ import { FaSackDollar } from "react-icons/fa6";
 import { apiClient } from "../../config/AxiosInstance";
 import { PlusSquare } from "lucide-react";
 import { FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminStaff = () => {
   const nav = useNavigate();
@@ -18,6 +20,9 @@ const AdminStaff = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [staffList, setStaffList] = useState([]);
   const [filteredStaff, setFilteredStaff] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deleteStaffId, setDeleteStaffId] = useState(null);
 
   // Filter states
   const [filters, setFilters] = useState({
@@ -76,6 +81,7 @@ const AdminStaff = () => {
         });
       } catch (error) {
         console.error("Failed fetching live institutional staff logs:", error);
+        toast.error(error.response?.data?.message || "Failed to fetch staff records");
       } finally {
         setIsLoading(false);
       }
@@ -140,27 +146,30 @@ const AdminStaff = () => {
       </div>
     );
   }
-  const handleDeleteStaff = async (e, staffId) => {
-    e.stopPropagation(); // Prevents the row click from triggering navigation
-    if (!window.confirm("Are you sure you want to delete this staff member?"))
-      return;
 
+  const handleDeleteStaff = async () => {
+    setLoading(true);
     try {
-      await apiClient.delete(`/staff/staff/{staffId}/${staffId}`, {
+      await apiClient.delete(`/staff/deletestaff/${deleteStaffId}`, {
         headers: { "x-tenant": subdomain },
       });
       // Update the local state to reflect the deletion
-      setStaffList((prev) => prev.filter((staff) => staff.id !== staffId));
+      setStaffList((prev) => prev.filter((staff) => staff.id !== deleteStaffId));
+      toast.success("Staff member deleted successfully!");
+      setIsDeleteOpen(false);
     } catch (error) {
       console.error("Failed to delete staff:", error);
-      alert("Error deleting staff. Please try again.");
+      toast.error(error.response?.data?.message || "Error deleting staff. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleEditStaff = (e, staffId) => {
-    e.stopPropagation(); // Prevents the row click
-    nav(`/staff/staff/{staffId}/${staffId}`); // Assuming you have an edit route
+    e.stopPropagation();
+    nav(`/admin/edit-staff/${staffId}`);
   };
+
   return (
     <>
       <div className="Bdashboard-container">
@@ -365,39 +374,11 @@ const AdminStaff = () => {
                             <button
                               className="deleteBtn"
                               aria-label="Delete staff"
-                              onClick={(e) => handleDeleteStaff(e, staff.id)}
-                            >
-                              <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                              >
-                                <polyline points="3 6 5 6 21 6" />
-                                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                              </svg>
-                            </button>
-                          </div>
-                          <div className="actionButtons">
-                            <button
-                              className="editBtn"
-                              aria-label="Edit staff"
-                              onClick={(e) => handleEditStaff(e, staff.id)}
-                            >
-                              <svg
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                              >
-                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
-                              </svg>
-                            </button>
-
-                            <button
-                              className="deleteBtn"
-                              aria-label="Delete staff"
-                              onClick={(e) => handleDeleteStaff(e, staff.id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setDeleteStaffId(staff.id);
+                                setIsDeleteOpen(true);
+                              }}
                             >
                               <svg
                                 viewBox="0 0 24 24"
@@ -450,8 +431,8 @@ const AdminStaff = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            © 2026 Ucheva school operating management system . All right
-            reserved.
+            ©️ {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
           <span className="supportText">
             Need help?{" "}
@@ -461,6 +442,59 @@ const AdminStaff = () => {
           </span>
         </footer>
       </div>
+
+      {/* DELETE STAFF MODAL */}
+      {isDeleteOpen && (
+        <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
+          <div
+            className="modalContent deleteModal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modalHeader">
+              <h2>Delete Staff</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setIsDeleteOpen(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ width: "18px", height: "18px" }}
+                >
+                  <path
+                    d="M18 6L6 18M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="modalBody">
+              <p className="deleteWarningText">
+                Are you sure you want to delete this staff member? This action cannot
+                be undone.
+              </p>
+            </div>
+            <div className="modalFooter">
+              <button
+                className="cancelBtn"
+                onClick={() => setIsDeleteOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="confirmDeleteBtn"
+                onClick={handleDeleteStaff}
+                disabled={loading}
+              >
+                {loading ? "Deleting..." : "Delete"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

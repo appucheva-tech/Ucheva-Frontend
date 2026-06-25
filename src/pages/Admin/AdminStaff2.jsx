@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import "./AdminStaff2.css";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
@@ -8,7 +8,8 @@ import { IoIosAlert } from "react-icons/io";
 const AdminStaff2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
   const nav = useNavigate();
-  const popupRef = useRef(null);
+  const { staffId } = useParams();
+  const isEditMode = Boolean(staffId);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -24,21 +25,71 @@ const AdminStaff2 = () => {
     qualification: "",
     staffType: "",
     classId: "",
-    classId: "",
   });
 
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFetching, setIsFetching] = useState(isEditMode);
   const [showNoClassModal, setShowNoClassModal] = useState(false);
+
+  // Prefill form in edit mode
+  useEffect(() => {
+    if (!isEditMode) return;
+
+    const fetchStaff = async () => {
+      try {
+        setIsFetching(true);
+        const response = await apiClient.get(`/staff/staff/${staffId}`, {
+          headers: { "x-tenant": subdomain },
+        });
+
+        const staff = response.data?.staff || response.data;
+
+        setFormData({
+          firstName: staff.firstName || "",
+          lastName: staff.lastName || "",
+          otherName: staff.otherName || "",
+          gender: staff.gender || "",
+          dateOfBirth: staff.dateOfBirth?.split("T")[0] || "",
+          nationality: staff.nationality || "",
+          address: staff.address || "",
+          maritalStatus: staff.maritalStatus || "",
+          phoneNumber: staff.phoneNumber || "",
+          email: staff.email || "",
+          qualification: staff.qualification || "",
+          staffType: staff.staffType || "",
+          classId: staff.classId || "",
+        });
+      } catch (error) {
+        console.error("Failed to fetch staff details", error);
+        toast.error("Could not load staff details.");
+      } finally {
+        setIsFetching(false);
+      }
+    };
+
+    fetchStaff();
+  }, [staffId, isEditMode, subdomain]);
+
+  // Fetch unassigned classes
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiClient.get("/class/unassigned-classes", {
+          headers: { "x-tenant": subdomain },
+        });
+        setClasses(response.data?.classData || []);
+      } catch (error) {
+        console.error("Failed to fetch classes", error);
+      }
+    };
+    fetchClasses();
+  }, [subdomain]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
-
-      // If user switches to Class Teacher and unassigned list is completely empty, trigger the modal alert
       if (
         name === "staffType" &&
         value === "Class Teacher" &&
@@ -52,66 +103,78 @@ const AdminStaff2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const toastId = toast.loading("Creating staff...");
+    const toastId = toast.loading(
+      isEditMode ? "Updating staff..." : "Creating staff...",
+    );
 
     try {
       setLoading(true);
 
-      const payload = {
-        firstName: formData.firstName.trim().toLowerCase(),
-        lastName: formData.lastName.trim().toLowerCase(),
-        otherName: formData.otherName.trim(),
-        gender: formData.gender.toLowerCase(),
-        dateOfBirth: new Date(formData.dateOfBirth).toISOString().split("T")[0],
-        nationality: formData.nationality.toLowerCase(),
-        address: formData.address.trim().toLowerCase(),
-        maritalStatus: formData.maritalStatus.toLowerCase(),
-        phoneNumber: formData.phoneNumber.trim(),
-        email: formData.email.trim().toLowerCase(),
-        qualification: formData.qualification.trim().toLowerCase(),
-        staffType: formData.staffType?.trim().toLowerCase(),
-        staffType: formData.staffType?.trim().toLowerCase(),
+      if (isEditMode) {
+        // PUT — only send fields the API accepts
+        const payload = {
+          firstName: formData.firstName.trim(),
+          lastName: formData.lastName.trim(),
+          phoneNumber: formData.phoneNumber.trim(),
+          staffType: formData.staffType?.trim().toLowerCase(),
+          ...(formData.staffType === "Class Teacher" && {
+            classId: formData.classId,
+          }),
+        };
 
-        ...(formData.staffType === "Class Teacher" && {
-          classId: formData.classId,
-        }),
-        ...(formData.staffType === "Class Teacher" && {
-          classId: formData.classId,
-        }),
-      };
+        const response = await apiClient.put(
+          `/staff/updatestaff/${staffId}`,
+          payload,
+          { headers: { "x-tenant": subdomain } },
+        );
 
-      const response = await apiClient.post("/staff/staff", payload, {
-        headers: { "x-tenant": subdomain },
-      });
+        toast.update(toastId, {
+          render: response?.data?.message || "Staff updated successfully",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      } else {
+        // POST — full payload
+        const payload = {
+          firstName: formData.firstName.trim().toLowerCase(),
+          lastName: formData.lastName.trim().toLowerCase(),
+          otherName: formData.otherName.trim(),
+          gender: formData.gender.toLowerCase(),
+          dateOfBirth: new Date(formData.dateOfBirth)
+            .toISOString()
+            .split("T")[0],
+          nationality: formData.nationality.toLowerCase(),
+          address: formData.address.trim().toLowerCase(),
+          maritalStatus: formData.maritalStatus.toLowerCase(),
+          phoneNumber: formData.phoneNumber.trim(),
+          email: formData.email.trim().toLowerCase(),
+          qualification: formData.qualification.trim().toLowerCase(),
+          staffType: formData.staffType?.trim().toLowerCase(),
+          ...(formData.staffType === "Class Teacher" && {
+            classId: formData.classId,
+          }),
+        };
 
-      toast.update(toastId, {
-        render: response?.data?.message || "Staff created successfully",
-        type: "success",
-        isLoading: false,
-        autoClose: 3000,
-      });
+        const response = await apiClient.post("/staff/staff", payload, {
+          headers: { "x-tenant": subdomain },
+        });
 
-      setFormData({
-        firstName: "",
-        lastName: "",
-        otherName: "",
-        gender: "",
-        dateOfBirth: "",
-        nationality: "",
-        address: "",
-        maritalStatus: "",
-        phoneNumber: "",
-        email: "",
-        qualification: "",
-        staffType: "",
-        classId: "",
-        classId: "",
-      });
+        toast.update(toastId, {
+          render: response?.data?.message || "Staff created successfully",
+          type: "success",
+          isLoading: false,
+          autoClose: 3000,
+        });
+      }
+
       nav("/admin/AdminStaff");
     } catch (error) {
       console.error(error);
       toast.update(toastId, {
-        render: error.response?.data?.message || "Failed to create staff",
+        render:
+          error.response?.data?.message ||
+          `Failed to ${isEditMode ? "update" : "create"} staff`,
         type: "error",
         isLoading: false,
         autoClose: 3000,
@@ -121,38 +184,36 @@ const AdminStaff2 = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchClasses = async () => {
-      try {
-        const response = await apiClient.get("/class/unassigned-classes", {
-          headers: { "x-tenant": subdomain },
-        });
-
-        setClasses(response.data?.classData || []);
-      } catch (error) {
-        console.error("Failed to fetch classes", error);
-      }
-    };
-    fetchClasses();
-  }, [subdomain]);
+  if (isFetching) {
+    return (
+      <div className="tableContainer">
+        <div className="dashboard-loading-container">
+          <div className="loading-spinner"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
       <div className="form-container">
         <div className="form-header">
           <div className="header-top">
-            <h1>Add New Staff</h1>
+            <h1>{isEditMode ? "Edit Staff" : "Add New Staff"}</h1>
             <div className="breadcrumb">
               <span className="Sactive" onClick={() => nav(-1)}>
                 Staff Management
               </span>
               <span className="separator">&gt;</span>
-              <span className="active">Add Staff</span>
+              <span className="active">
+                {isEditMode ? "Edit Staff" : "Add Staff"}
+              </span>
             </div>
           </div>
           <p className="subtitle">
-            Enter the staff member's information below to add them to the
-            system.
+            {isEditMode
+              ? "Update the staff member's information below."
+              : "Enter the staff member's information below to add them to the system."}
           </p>
         </div>
 
@@ -197,6 +258,7 @@ const AdminStaff2 = () => {
                   value={formData.otherName}
                   onChange={handleChange}
                   placeholder="Enter Other Name"
+                  disabled={isEditMode}
                 />
               </div>
 
@@ -209,6 +271,7 @@ const AdminStaff2 = () => {
                   value={formData.gender}
                   onChange={handleChange}
                   required
+                  disabled={isEditMode}
                 >
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
@@ -227,6 +290,7 @@ const AdminStaff2 = () => {
                     value={formData.dateOfBirth}
                     onChange={handleChange}
                     required
+                    disabled={isEditMode}
                   />
                 </div>
               </div>
@@ -237,6 +301,7 @@ const AdminStaff2 = () => {
                   name="nationality"
                   value={formData.nationality}
                   onChange={handleChange}
+                  disabled={isEditMode}
                 >
                   <option value="">Select Country</option>
                   <option value="Nigerian">Nigerian</option>
@@ -271,6 +336,7 @@ const AdminStaff2 = () => {
                   onChange={handleChange}
                   placeholder="Enter Email"
                   required
+                  disabled={isEditMode}
                 />
               </div>
 
@@ -280,6 +346,7 @@ const AdminStaff2 = () => {
                   name="maritalStatus"
                   value={formData.maritalStatus}
                   onChange={handleChange}
+                  disabled={isEditMode}
                 >
                   <option value="">Select Marital status</option>
                   <option value="Married">Married</option>
@@ -297,8 +364,9 @@ const AdminStaff2 = () => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="Enter Residencial Address"
+                placeholder="Enter Residential Address"
                 required
+                disabled={isEditMode}
               />
             </div>
           </div>
@@ -314,7 +382,7 @@ const AdminStaff2 = () => {
                   value={formData.staffType}
                   onChange={handleChange}
                 >
-                  <option value="" disabled selected>
+                  <option value="" disabled>
                     Select Staff Type
                   </option>
                   <option value="Class Teacher">Class Teacher</option>
@@ -334,7 +402,7 @@ const AdminStaff2 = () => {
                       onChange={handleChange}
                       required
                     >
-                      <option value="" disabled selected>
+                      <option value="" disabled>
                         Select Class
                       </option>
                       {classes.map((cls) => (
@@ -358,11 +426,10 @@ const AdminStaff2 = () => {
               <div className="form-group">
                 <label>Qualification</label>
                 <select
-                  type="text"
                   name="qualification"
                   value={formData.qualification}
                   onChange={handleChange}
-                  placeholder="Enter Qualification"
+                  disabled={isEditMode}
                 >
                   <option value="">Select Qualification Type</option>
                   <option value="SSCE">SSCE</option>
@@ -384,13 +451,20 @@ const AdminStaff2 = () => {
               (formData.staffType === "Class Teacher" && classes.length === 0)
             }
           >
-            {loading ? "Creating..." : "Create Staff"}
+            {loading
+              ? isEditMode
+                ? "Updating..."
+                : "Creating..."
+              : isEditMode
+                ? "Update Staff"
+                : "Create Staff"}
           </button>
         </form>
 
         <div className="form-footer">
           <span className="copyright">
-            © 2026 Uchee school operating management system. All right reserved.
+            © 2026 Ucheva school operating management system. All right
+            reserved.
           </span>
           <span className="support">
             Need help? <a href="#">Contact support</a>
@@ -398,7 +472,7 @@ const AdminStaff2 = () => {
         </div>
       </div>
 
-      {/* Dynamic Action Modal Fallback View */}
+      {/* No Class Modal */}
       {showNoClassModal && (
         <div
           className="AdminModalOverlay"

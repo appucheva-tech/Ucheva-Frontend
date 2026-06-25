@@ -19,6 +19,8 @@ const AdminSubjects = () => {
   const [teachers, setTeachers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedSubjectId, setSelectedSubjectId] = useState(null);
   const [classes, setClasses] = useState([]);
   const [filterSection, setFilterSection] = useState("all");
   const [filterDepartment, setFilterDepartment] = useState("all");
@@ -169,7 +171,7 @@ const AdminSubjects = () => {
       });
       console.log(response);
       const data =
-        response.data.data || response.data.subjects || response.data;
+        response.data.subjects || response.data.data || response.data;
       setSubjects(data);
       setFilteredSubjects(data);
     } catch (error) {
@@ -200,7 +202,7 @@ const AdminSubjects = () => {
 
       const payload = {
         subjectName: formData.subjectName,
-        applicableClasses: formData.sections, // Now sending class names instead of IDs
+        applicableClasses: formData.sections,
         applicableDepartment: formData.department,
         teacherId: formData.teacherID,
       };
@@ -224,8 +226,16 @@ const AdminSubjects = () => {
       fetchSubjects();
       toast.success("Subject created successfully!");
     } catch (error) {
-      console.error(error.message);
-      toast.error(error.message);
+      console.error("Create Subject Error:", error);
+
+      console.log("Backend Error Response:", error.response?.data);
+
+      toast.error(
+        error.response?.data?.message ||
+          error.response?.data?.error ||
+          error.message ||
+          "Failed to create subject",
+      );
     } finally {
       setLoading(false);
     }
@@ -244,25 +254,56 @@ const AdminSubjects = () => {
 
       const payload = {
         subjectName: editFormData.subjectName,
-        applicableClasses: editFormData.sections, // Sending class names
+        applicableClasses: editFormData.sections,
         applicableDepartment: editFormData.department,
       };
 
       console.log("Update Payload:", payload);
-      // Add your update API call here
+
+      await apiClient.put(
+        `/subject/updatesubject/${selectedSubjectId}`,
+        payload,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
       setShowEditModal(false);
       toast.success("Subject updated successfully!");
       fetchSubjects();
     } catch (error) {
       console.error(error);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || "Failed to update subject");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      setLoading(true);
+
+      await apiClient.delete(`/subject/deletesubject/${selectedSubjectId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setShowDeleteModal(false);
+      toast.success("Subject deleted successfully!");
+      fetchSubjects();
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to delete subject");
     } finally {
       setLoading(false);
     }
   };
 
   const handleEditClick = (subject) => {
+    setSelectedSubjectId(subject.id);
     setEditFormData({
       subjectName: subject.subjectName || "",
       sections: Array.isArray(subject.applicableClasses)
@@ -270,9 +311,14 @@ const AdminSubjects = () => {
         : subject.applicableClasses
           ? subject.applicableClasses.split(",")
           : [],
-      department: subject.department || "",
+      department: subject.applicableDepartment || "",
     });
     setShowEditModal(true);
+  };
+
+  const handleDeleteClick = (subject) => {
+    setSelectedSubjectId(subject.id);
+    setShowDeleteModal(true);
   };
 
   // Get selected section names for display
@@ -562,7 +608,10 @@ const AdminSubjects = () => {
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                           </svg>
                         </button>
-                        <button className="deleteBtn">
+                        <button
+                          className="deleteBtn"
+                          onClick={() => handleDeleteClick(subject)}
+                        >
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"
@@ -612,8 +661,8 @@ const AdminSubjects = () => {
 
         <footer className="footerRow">
           <span className="copyrightText">
-            © 2026 Ucheva school operating management system . All right
-            reserved.
+            © {new Date().getFullYear()} Ucheva school operating management
+            system. All right reserved.
           </span>
           <span className="supportText">
             Need help?{" "}
@@ -791,6 +840,59 @@ const AdminSubjects = () => {
                 disabled={loading}
               >
                 {loading ? "Saving..." : "Save Changes"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Subject Modal */}
+      {showDeleteModal && (
+        <div className="modalOverlay" onClick={() => setShowDeleteModal(false)}>
+          <div
+            className="modalContent deleteModal"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="modalHeader">
+              <h2>Delete Subject</h2>
+              <button
+                className="closeBtn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  style={{ width: "18px", height: "18px" }}
+                >
+                  <path
+                    d="M18 6L6 18M6 6l12 12"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div className="modalBody">
+              <p className="deleteWarningText">
+                Are you sure you want to delete this subject? This action cannot
+                be undone.
+              </p>
+            </div>
+            <div className="modalFooter">
+              <button
+                className="cancelBtn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="confirmDeleteBtn"
+                onClick={handleDelete}
+                disabled={loading}
+              >
+                {loading ? "Deleting..." : "Delete"}
               </button>
             </div>
           </div>
