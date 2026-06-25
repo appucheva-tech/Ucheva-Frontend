@@ -14,7 +14,8 @@ import "./AdminSidebar.css";
 import rocket from "../../assets/rokect.svg";
 import Logo from "../../assets/Logo.svg";
 
-const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {  // ← Add props here
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  // ← Add props here
   const nav = useNavigate();
   const getNavClass = ({ isActive }) => {
     return isActive ? "menu-item active" : "menu-item";
@@ -28,7 +29,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {  // ← Add props here
   };
 
   return (
-    <div className={`Adminsidebar ${sidebarOpen ? 'open' : ''}`}>  {/* ← Add conditional class */}
+    <div className={`Adminsidebar ${sidebarOpen ? "open" : ""}`}>
+      {" "}
+      {/* ← Add conditional class */}
       <div className="Adminsidebar-brand">
         <img
           src={Logo}
@@ -36,118 +39,115 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {  // ← Add props here
           className="AdminDashboardLogo"
           onClick={() => {
             nav("/");
-            handleMenuClick();  // Close sidebar on mobile when logo is clicked
+            handleMenuClick(); // Close sidebar on mobile when logo is clicked
           }}
         />
         {/* Close button for mobile */}
-        <IoClose 
+        <IoClose
           className="sidebar-close-btn"
           onClick={() => setSidebarOpen(false)}
         />
       </div>
-
       <nav className="sidebar-menu">
-        <NavLink 
-          to="dashboard" 
-          end 
+        <NavLink
+          to="dashboard"
+          end
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <RxDashboard className="menu-icon" />
           <span>Dashboard</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminClass" 
+        <NavLink
+          to="AdminClass"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <FaPersonChalkboard className="menu-icon" />
           <span>Class</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminStaff" 
+        <NavLink
+          to="AdminStaff"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <HiOutlineUsers className="menu-icon" />
           <span>Staff</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminStudents" 
+        <NavLink
+          to="AdminStudents"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <PiStudent className="menu-icon" />
           <span>Students</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminAttendance" 
+        <NavLink
+          to="AdminSubjects"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
+        >
+          <LuCircleFadingPlus className="menu-icon" />
+          <span>Subjects</span>
+        </NavLink>
+        <NavLink
+          to="AdminAttendance"
+          className={getNavClass}
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <LuCircleFadingPlus className="menu-icon" />
           <span>Attendance</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminSubjects" 
+        <NavLink
+          to="AdminFees"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
-        >
-          <LuCircleFadingPlus className="menu-icon" />
-          <span>Subjects</span>
-        </NavLink>
-
-        <NavLink 
-          to="AdminFees" 
-          className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <IoWalletOutline className="menu-icon" />
           <span>Fees</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminReportCards" 
+        <NavLink
+          to="AdminReportCards"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <SiGoogleforms className="menu-icon" />
           <span>Report Cards</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminAnnouncement" 
+        <NavLink
+          to="AdminAnnouncement"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <CiVolumeHigh className="menu-icon" />
           <span>Announcement</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminWallet" 
+        <NavLink
+          to="AdminWallet"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <LuCircleFadingPlus className="menu-icon" />
           <span>Wallet</span>
         </NavLink>
 
-        <NavLink 
-          to="AdminSettings" 
+        <NavLink
+          to="AdminSettings"
           className={getNavClass}
-          onClick={handleMenuClick}  // ← Close on mobile
+          onClick={handleMenuClick} // ← Close on mobile
         >
           <IoSettingsOutline className="menu-icon" />
           <span>Settings</span>
         </NavLink>
       </nav>
-
       <div className="sidebar-footer-container">
         <div className="sidebar-upgrade-card">
           <div className="upgrade-rocket-emoji">
@@ -157,10 +157,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {  // ← Add props here
           <p className="upgrade-card-text">You're on the starter plan.</p>
           <p className="upgrade-card-subtext">Upgrade to go to Pro</p>
 
-          <button 
-            type="button" 
+          <button
+            type="button"
             className="upgrade-action-btn"
-            onClick={handleMenuClick}  // ← Close on mobile
+            onClick={handleMenuClick} // ← Close on mobile
           >
             Upgrade
           </button>

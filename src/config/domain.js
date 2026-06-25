@@ -7,6 +7,6 @@ export const domainClient = axios.create({
   baseURL: import.meta.env.VITE_Base_Url,
   headers: {
     "Content-Type": "application/json",
- "x-tenant": subdomain,
+    "x-tenant": subdomain,
   },
 });
