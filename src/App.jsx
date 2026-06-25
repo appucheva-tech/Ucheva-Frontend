@@ -140,7 +140,7 @@ const App = () => {
           <Route path="attendance" element={<AttendancePage />} />
         </Route>
         <Route element={<PrivateRoute />}>
-          {/* <Route path="/attendance/:token" element={<AttendancePage />} /> */}
+          <Route path="/attendance/:token" element={<AttendancePage />} />
         </Route>
         <Route path="/bursary" element={<BursaryLayout />}>
           <Route index element={<BusaryDashboard />} />
@@ -169,7 +169,7 @@ const App = () => {
           <Route path="scores" element={<SubjectTeacherScores />} />
           <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
           <Route path="settings" element={<SubjectTeacherSettings />} />
-          <Route path="attendance/:token" element={<AttendancePage />} />
+          <Route path="attendance" element={<AttendancePage />} />
         </Route>
       </Routes>
       <ToastContainer />

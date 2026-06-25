@@ -85,7 +85,7 @@ const SubjectTeacherSidebar = ({ isOpen, toggleSidebar }) => {
           <span className="SubjectTeacherSidebar-nav-text">Settings</span>
         </NavLink>
         <NavLink
-          to="/subjectteacherdashboard/attendance/:token"
+          to="attendance"
           className={({ isActive }) =>
             `ct-nav-link ${isActive ? "active" : ""}`
           }
