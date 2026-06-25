@@ -2,6 +2,7 @@ import axios from "axios";
 import { store } from "../global/store";
 import { clearUser } from "../global/userSlice";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const subdomain = window.location.hostname.split(".")[0];
 export const apiClient = axios.create({
@@ -9,19 +10,36 @@ export const apiClient = axios.create({
   // timeout: 8000,
   headers: {
     "Content-Type": "application/json",
-   "x-tenant": subdomain,
+    "x-tenant": subdomain,
   },
 });
+
+// apiClient.interceptors.request.use(
+//   (config) => {
+//     const state = store.getState();
+
+//     let qrToken = useSelector((state = state.user.token));
+//     // const token = state.staff.token || state.user.token;
+//     console.log(qrToken);
+//     // console.log("State from store:", state);
+//     // console.log("Staff Token from store:", state.staff.token);
+//     // console.log("User Token from store:", state.user.token);
+//     //     console.log("Token from store:", token);
+
+//     if (qrToken) {
+//       config.headers.Authorization = `Bearer ${qrToken}`;
+//     }
+
+//     return config;
+//   },
+//   (error) => Promise.reject(error),
+// );
 
 apiClient.interceptors.request.use(
   (config) => {
     const state = store.getState();
 
-    const token = state.staff.token || state.user.token;
-    // console.log("State from store:", state);
-    // console.log("Staff Token from store:", state.staff.token);
-    // console.log("User Token from store:", state.user.token);
-    //     console.log("Token from store:", token);
+    const token = state.staff?.token || state.user?.token;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
