@@ -120,11 +120,49 @@ const App = () => {
       <Route path="/onboarding" element={<OnboardingStepper />} />
 
       <Route path="/admin" element={<AdminDashboardLayout />}>
-        {/* admin routes */}
+<Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="AdminStaff" element={<AdminStaff />} />
+          <Route path="AdminStaff2" element={<AdminStaff2 />} />
+          <Route path="staff-details/:id" element={<StaffDetails />} />
+          <Route path="AdminStudents" element={<AdminStudents />} />
+          <Route path="AdminStudent2" element={<AdminStudent2 />} />
+          <Route
+            path="AdminStudentDetails/:id"
+            element={<AdminStudentDetails />}
+          />
+          <Route path="AdminEditStudent" element={<AdminEditStudent />} />
+          <Route path="AdminAttendance" element={<AdminAttendance />} />
+          <Route
+            path="AdminStudentAttendance"
+            element={<AdminStudentAttendance />}
+          />
+          <Route path="AdminSubjects" element={<AdminSubjects />} />
+          <Route path="AdminClass" element={<AdminClass />} />
+          <Route path="AdminFees" element={<AdminFees />} />
+          <Route path="AdminReportCards" element={<AdminReportCards />} />
+          <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
+          <Route path="AdminWallet" element={<AdminWallet />} />
+          <Route path="AdminSettings" element={<AdminSettings />} />
+
+
       </Route>
 
       <Route path="/CTdashboard" element={<CTLayout />}>
         {/* CT routes */}
+
+
+
+        <Route index element={<Overview />} />
+          <Route path="myclass" element={<MyClass />} />
+          <Route path="CTscore" element={<Score />} />
+          <Route path="CTreportcard" element={<CTreport />} />
+          <Route path="studentreport" element={<STReport />} />
+          <Route path="CTsettings" element={<CTSettings />} />
+          <Route path="CTAnnouncement" element={<CTAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route path="/attendance/:token" element={<AttendancePage />} />
       </Route>
 
       <Route element={<PrivateRoute />}>
@@ -133,21 +171,47 @@ const App = () => {
 
       <Route path="/bursary" element={<BursaryLayout />}>
         {/* bursary routes */}
+
+
+
+<Route index element={<BusaryDashboard />} />
+          <Route path="bursaryFees" element={<BursaryFees />} />
+          <Route path="studentFee" element={<StudentFee />} />
+          <Route path="bursarySettings" element={<BursarySettings />} />
+          <Route path="bursaryAnnouncement" element={<BursaryAnnouncement />} />
+          <Route path="attendance" element={<AttendancePage />} />
+
       </Route>
 
       <Route path="/parentdashboard" element={<ParentLayout />}>
-        {/* parent routes */}
+
+
+
+<Route index element={<DashboardPage />} />
+          <Route path="payment" element={<PaymentPage />} />
+          <Route path="settings" element={<SettingsPage />} />
       </Route>
 
       <Route path="/securitydashboard" element={<SecurityLayout />}>
-        {/* security routes */}
+
+<Route index element={<SecuritysDashboard />} />
+          <Route path="announcement" element={<SecurityAnnouncement />} />
+          <Route path="settings" element={<SecuritySettings />} />
+
       </Route>
 
       <Route
         path="/subjectteacherdashboard"
         element={<SubjectTeacherLayout />}
       >
-        {/* subject teacher routes */}
+
+<Route index element={<SubjectTeacherDashboard />} />
+          <Route path="scores" element={<SubjectTeacherScores />} />
+          <Route path="announcement" element={<SubjectTeacherAnnouncement />} />
+          <Route path="settings" element={<SubjectTeacherSettings />} />
+          <Route path="attendance/:token" element={<AttendancePage />} />
+
+
       </Route>
     </Route>
   </Routes>
