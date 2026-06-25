@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import "./LayoutStyles/SubjectTeacherHeader.css";
 
 const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
+  const staff = useSelector((state) => state.user?.user);
+
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
   const dateString = today.toLocaleDateString("en-US", {
@@ -12,10 +15,11 @@ const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
 
   return (
     <header className="SubjectTeacherHeader-teacher-header nunito-content">
-      {/* Left side ONLY handles the mobile menu trigger button */}
       <div className="SubjectTeacherHeader-header-left">
         <button
-          className={`SubjectTeacherHeader-menu-toggle ${isSidebarOpen ? "open" : ""}`}
+          className={`SubjectTeacherHeader-menu-toggle ${
+            isSidebarOpen ? "open" : ""
+          }`}
           onClick={toggleSidebar}
           aria-label="Toggle navigation menu"
         >
@@ -25,9 +29,7 @@ const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
         </button>
       </div>
 
-      {/* Right side holds ALL header information items grouped together */}
       <div className="SubjectTeacherHeader-header-right-items">
-        {/* Date block */}
         <div className="SubjectTeacherHeader-date-wrapper">
           <svg
             className="SubjectTeacherHeader-calendar-icon"
@@ -48,7 +50,6 @@ const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
           </span>
         </div>
 
-        {/* Session block */}
         <div className="SubjectTeacherHeader-session-wrapper">
           <span className="SubjectTeacherHeader-text-session">
             2025/2026 Session
@@ -56,33 +57,32 @@ const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
           <span className="SubjectTeacherHeader-text-term">Third Term</span>
         </div>
 
-        {/* Notifications & Profile block */}
         <div className="SubjectTeacherHeader-profile-combined">
           <button className="SubjectTeacherHeader-notification-btn">
-            <svg
-              className="SubjectTeacherHeader-bell-icon"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-            </svg>
+            {/* Bell SVG */}
           </button>
 
           <div className="SubjectTeacherHeader-profile-section">
             <div className="SubjectTeacherHeader-profile-avatar">
               <img
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop"
-                alt="Emeka Nnaneme"
+                src={
+                  staff?.profileImage ||
+                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop"
+                }
+                alt={`${staff?.firstName ?? "User"}'s avatar`}
               />
             </div>
+
             <div className="SubjectTeacherHeader-profile-info">
               <p className="SubjectTeacherHeader-text-profile-name">
-                Emeka Nnaneme
+                {staff
+                  ? `${staff.firstName}`
+                  : "Loading..."}
               </p>
-              <p className="SubjectTeacherHeader-text-profile-role">Teacher</p>
+
+              <p className="SubjectTeacherHeader-text-profile-role">
+                {staff?.role}
+              </p>
             </div>
           </div>
         </div>
