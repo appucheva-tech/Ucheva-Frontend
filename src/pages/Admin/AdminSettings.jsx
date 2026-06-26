@@ -81,10 +81,10 @@ const AdminSettings = () => {
   };
 
   // ─── Generate Academic Session Automatically ─────────────────
- const generateAcademicSession = () => {
-  const year = new Date().getFullYear();
-  return `${year}/${year + 1}`;
-};
+  const generateAcademicSession = () => {
+    const year = new Date().getFullYear();
+    return `${year}/${year + 1}`;
+  };
 
   // ─── GET Method - Fetch Settings ─────────────────────────────
   useEffect(() => {
@@ -305,7 +305,7 @@ const AdminSettings = () => {
       }
       if (
         schoolProfile.academicSession &&
-        schoolProfile.academicSession !== ""
+        schoolProfile.academicSession !== ``
       ) {
         formData.append("academicSession", schoolProfile.academicSession);
       }
@@ -355,15 +355,12 @@ const AdminSettings = () => {
         formData.append("newPassword", passwordFields.newPassword);
         formData.append("confirmPassword", passwordFields.confirmPassword);
       }
-console.log(
-  "academicSession:",
-  schoolProfile.academicSession
-);
+      console.log("academicSession:", schoolProfile.academicSession);
 
-for (const [key, value] of formData.entries()) {
-  console.log(key, value);
-}
-// --- SEND THE PUT REQUEST WITH FORM DATA ---
+      for (const [key, value] of formData.entries()) {
+        console.log(key, value);
+      }
+      // --- SEND THE PUT REQUEST WITH FORM DATA ---
       const res = await apiClient.put("/admin/profile-settings", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -834,22 +831,20 @@ for (const [key, value] of formData.entries()) {
               <div className="inputGroup">
                 <label className="inputLabel">Academic Session</label>
                 <div className="selectWrapper">
-
-<select
-  className="selectInput"
-  value={schoolProfile.academicSession}
-  onChange={(e) =>
-    setSchoolProfile((p) => ({
-      ...p,
-      academicSession: e.target.value,
-    }))
-  }
->
-  <option value={generateAcademicSession()}>
-    {generateAcademicSession()}
-  </option>
-</select>
-
+                  <select
+                    className="selectInput"
+                    value={schoolProfile.academicSession}
+                    onChange={(e) =>
+                      setSchoolProfile((p) => ({
+                        ...p,
+                        academicSession: e.target.value,
+                      }))
+                    }
+                  >
+                    <option value={generateAcademicSession()}>
+                      {generateAcademicSession()}
+                    </option>
+                  </select>
                 </div>
               </div>
               <div className="inputGroup">
