@@ -1,388 +1,455 @@
-import React, { useState, useEffect } from 'react';
-import './AdminEditStudent.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import "./AdminEditStudent.css";
 import { apiClient } from "../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
-const EditStudent = () => {
-  const nav = useNavigate();
-  const { id } = useParams(); // Get student ID from URL
+const AdminEditStudent = () => {
   const subdomain = window.location.hostname.split(".")[0];
-  
-  const [isLoading, setIsLoading] = useState(true);
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    otherName: '',
-    gender: '',
-    dateOfBirth: '',
-    nationality: '',
-    religion: '',
-    address: '',
-    class: '',
-    department: '',
-    session: '',
-    parentName: '',
-    relationship: '',
-    parentPhone: '',
-    parentEmail: '',
-    parentAddress: ''
-  });
 
-  // Determine if it's a senior class (SS1-SS3)
-  const isSeniorClass = formData.class && ['SS1', 'SS2', 'SS3'].includes(formData.class);
-
-  // Fetch existing student data when component loads
-  useEffect(() => {
-    const fetchStudentData = async () => {
-      try {
-        setIsLoading(true);
-        // You might need to adjust this endpoint based on your actual API
-        const response = await apiClient.get(`/student/student/${id}`, {
-          headers: { "x-tenant": subdomain }
-        });
-        
-        const student = response.data;
-        // Populate form with existing data
-        setFormData({
-          firstName: student.firstName || '',
-          lastName: student.lastName || '',
-          otherName: student.otherName || '',
-          gender: student.gender || '',
-          dateOfBirth: student.dateOfBirth || '',
-          nationality: student.nationality || '',
-          religion: student.religion || '',
-          address: student.address || '',
-          class: student.class || '',
-          department: student.department || '',
-          session: student.session || '',
-          parentName: student.parent?.name || '',
-          relationship: student.parent?.relationship || '',
-          parentPhone: student.parent?.phone || '',
-          parentEmail: student.parent?.email || '',
-          parentAddress: student.parent?.address || ''
-        });
-      } catch (error) {
-        console.error("Failed to fetch student data:", error);
-        // Optionally show error toast/notification
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (id) {
-      fetchStudentData();
-    }
-  }, [id, subdomain]);
-
-  // Handle form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  const initialState = {
+    firstName: "",
+    lastName: "",
+    otherName: "",
+    gender: "",
+    dateOfBirth: "",
+    nationality: "",
+    address: "",
+    classId: "",
+    department: "",
+    session: "",
+    parentGuardiansFirstName: "", // ✅ FIX 3
+    parentGuardiansLastName: "", // ✅ FIX 3
+    relationship: "",
+    phoneNumber: "",
+    parentGuardiansEmail: "",
+    religion: "",
+    parentGuardiansAddress: "",
   };
 
-  // Handle form submission (UPDATE)
+  const nav = useNavigate(); // ✅ FIX 4: Moved to top
+
+  const [formData, setFormData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+  const [classes, setClasses] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const popupRef = useRef(null);
+
+  const toggleNotifications = (e) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  const selectedClass = classes.find(
+    (c) => String(c.id) === String(formData.classId),
+  );
+  const selectedClassName = selectedClass?.className?.toUpperCase() || "";
+  const isSeniorClass = /^SS\s*[123]/i.test(selectedClassName);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => {
+      const updated = { ...prev, [name]: value };
+
+      if (name === "classId") {
+        const chosen = classes.find((c) => String(c.id) === String(value));
+        const chosenName = chosen?.className?.toUpperCase() || "";
+        const isSenior = /^SS\s*[123]/i.test(chosenName);
+        if (!isSenior) {
+          updated.department = "";
+        }
+      }
+
+      return updated;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
+    // ✅ FIX 5: Full validation
+    // if (
+    //   !formData.firstName ||
+    //   !formData.lastName ||
+    //   !formData.gender ||
+    //   !formData.address ||
+    //   !formData.classId ||
+    //   !formData.session ||
+    //   !formData.parentGuardiansFirstName ||
+    //   !formData.parentGuardiansLastName ||
+    //   !formData.relationship ||
+    //   !formData.phoneNumber ||
+    //   !formData.parentGuardiansEmail
+    // ) {
+    //   toast.error("Please fill all required fields");
+    //   return;
+    // }
+
     try {
-      // Prepare payload matching your backend schema
+      setLoading(true);
+
       const payload = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        otherName: formData.otherName || null,
-        gender: formData.gender,
-        dateOfBirth: formData.dateOfBirth || null,
-        nationality: formData.nationality || null,
-        religion: formData.religion || null,
-        address: formData.address,
-        class: formData.class,
-        department: formData.department || null, // SS1-SS3 only
-        session: formData.session,
-        parent: {
-          name: formData.parentName,
-          relationship: formData.relationship,
-          phone: formData.parentPhone,
-          email: formData.parentEmail,
-          address: formData.parentAddress || null
-        }
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        otherName: formData.otherName.trim(),
+        gender: formData.gender.toLowerCase(),
+        dateOfBirth: formData.dateOfBirth,
+        nationality: formData.nationality.toLowerCase(),
+        address: formData.address.trim(),
+        classId: formData.classId.trim(),
+        session: formData.session.trim(),
+        parentGuardiansFirstName: formData.parentGuardiansFirstName.trim(), // ✅ FIX 3
+        parentGuardiansLastName: formData.parentGuardiansLastName.trim(), // ✅ FIX 3
+        relationship: formData.relationship.toLowerCase(),
+        phoneNumber: formData.phoneNumber.trim(),
+        parentGuardiansEmail: formData.parentGuardiansEmail
+          .trim()
+          .toLowerCase(),
+        religion: formData.religion,
+        parentGuardiansAddress: formData.parentGuardiansAddress,
+        ...(isSeniorClass && formData.department
+          ? { department: formData.department }
+          : {}),
       };
 
-      // THE EXACT API ENDPOINT YOU NEED:
-      const response = await apiClient.put(`/student/student/${id}`, payload, {
-        headers: { "x-tenant": subdomain }
+      await apiClient.put("/student/student/{id}", payload, {
+        headers: { "x-tenant": subdomain },
       });
 
-      console.log('Student updated successfully:', response.data);
-      
-      // Navigate back to student list
-      nav(-1); // or nav('/admin/students') if you have a specific route
-      
+      toast.success("Student created successfully!");
+      nav("/admin/AdminStudents");
+      setFormData(initialState);
     } catch (error) {
-      console.error("Failed to update student:", error);
-      // Handle error - show toast notification
-      alert("Error updating student. Please try again.");
+      console.error(error);
+      toast.error(error?.response?.data?.message || "Failed to create student");
+    } finally {
+      setLoading(false);
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="Kcontainer">
-        <div className="dashboard-loading-container">
-          <div className="loading-spinner"></div>
-        </div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await apiClient.get("/class/classes", {
+          headers: { "x-tenant": subdomain },
+        });
+        setClasses(response.data.classes || []);
+      } catch (error) {
+        console.error("Failed to fetch classes", error.message);
+        toast.error(error.message);
+      }
+    };
+    fetchClasses();
+  }, [subdomain]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (popupRef.current && !popupRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
 
   return (
-    <div className="Kcontainer">
-      <div className="Kheader">
-        <h1 className="Ktitle">Edit Student</h1>
-        <div className="Kbreadcrumb">
-          <span className='KStudentManagement' onClick={() => {nav(-1)}}>Student Management</span>
-          <span className="Kseparator">&gt;</span>
-          <span className="Kactive">Edit Student</span>
-        </div>
-      </div>
-
-      <form className="Kform" onSubmit={handleSubmit}>
-        <div className="Ksection">
-          <h2 className="KsectionTitle">Personal Information</h2>
-          <div className="Kgrid3">
-            <div className="KformGroup">
-              <label className="Klabel">First Name<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="KformGroup">
-              <label className="Klabel">Last Name<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="KformGroup">
-              <label className="Klabel">Other Name</label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                placeholder="Enter Other Name"
-                name="otherName"
-                value={formData.otherName}
-                onChange={handleInputChange}
-              />
+    <>
+      <div className="form-container">
+        <div className="form-header">
+          <div className="header-top">
+            <h1>Edit Student</h1> {/* ✅ FIX 1: Removed nested h1 */}
+            <div className="breadcrumb">
+              <span className="Sactive" onClick={() => nav(-1)}>
+                Student Management
+              </span>
+              <span className="separator">&gt;</span>
+              <span className="active">Add Student</span>
             </div>
           </div>
+          <p className="subtitle">
+            Enter the student's information below to register them in the
+            system.
+          </p>
+        </div>
 
-          <div className="Kgrid3">
-            <div className="KformGroup">
-              <label className="Klabel">Gender<span className="Krequired">*</span></label>
-              <select 
-                className="Kselect" 
-                name="gender"
-                value={formData.gender}
-                onChange={handleInputChange}
-                required
-              >
-                <option value="">Select Gender</option>
-                <option value="Female">Female</option>
-                <option value="Male">Male</option>
-              </select>
-            </div>
-            <div className="KformGroup">
-              <label className="Klabel">Date of Birth</label>
-              <div className="KdateInputWrapper">
-                <input 
-                  type="date" 
-                  className="Kinput" 
+        <form className="staff-form" onSubmit={handleSubmit}>
+          {/* Personal Information */}
+          <div className="form-section">
+            <h2>Personal Information</h2>
+            <div className="form-grid type-3-col">
+              <div className="form-group">
+                <label>
+                  First Name<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="Enter First Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Last Name<span className="required">*</span>
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Enter Last Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Other Name</label>
+                <input
+                  type="text"
+                  name="otherName"
+                  value={formData.otherName}
+                  onChange={handleChange}
+                  placeholder="Enter Other Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Gender<span className="required">*</span>
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Date of Birth</label>
+                <input
+                  type="date"
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Nationality</label>
+                <select
+                  name="nationality"
+                  value={formData.nationality}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Country</option>
+                  <option value="nigerian">Nigerian</option>
+                  <option value="non Nigeria">Non Nigerian</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>Religion</label>
+                <select
+                  name="religion"
+                  value={formData.religion}
+                  onChange={handleChange}
+                >
+                  <option value="">Select Religion</option>
+                  <option value="Christianity">Christianity</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Traditional">Traditional</option>
+                </select>
+              </div>
+
+              <div className="form-group full-width-field">
+                <label>
+                  Address<span className="required">*</span>
+                </label>
+                <textarea
+                  name="address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  placeholder="Enter Residential Address"
                 />
               </div>
             </div>
-            <div className="KformGroup">
-              <label className="Klabel">Nationality</label>
-              <select 
-                className="Kselect" 
-                name="nationality"
-                value={formData.nationality}
-                onChange={handleInputChange}
-              >
-                <option value="">Select Nationality</option>
-                <option value="Nigerian">Nigerian</option>
-                <option value="Non-Nigerian">Non-Nigerian</option>
-              </select>
-            </div>
           </div>
 
-          <div className="KgridLayout">
-            <div className="KformGroup">
-              <label className="Klabel">Religion</label>
-              <select 
-                className="Kselect" 
-                name="religion"
-                value={formData.religion}
-                onChange={handleInputChange}
-              >
-                <option value="">Select Religion</option>
-                <option value="Christian">Christian</option>
-                <option value="Muslim">Muslim</option>
-              </select>
-            </div>
-            <div className="KformGroup Kspan2">
-              <label className="Klabel">Address<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="address"
-                value={formData.address}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-          </div>
-
-          {/* Academic Information Section */}
-          <div className="Ksection">
-            <h2 className="KsectionTitle">Academic Information</h2>
-            <div className="Kgrid3">
-              <div className="KformGroup">
-                <label className="Klabel">Class<span className="Krequired">*</span></label>
-                <select 
-                  className="Kselect" 
-                  name="class"
-                  value={formData.class}
-                  onChange={handleInputChange}
-                  required
+          {/* Academic Information */}
+          <div className="form-section">
+            <h2>Academic Information</h2>
+            <div className="form-grid type-3-col">
+              <div className="form-group">
+                <label>
+                  Class<span className="required">*</span>
+                </label>
+                <select
+                  name="classId"
+                  value={formData.classId}
+                  onChange={handleChange}
                 >
                   <option value="">Select Class</option>
-                  <option value="JSS1">JSS1</option>
-                  <option value="JSS2">JSS2</option>
-                  <option value="JSS3">JSS3</option>
-                  <option value="SS1">SS1</option>
-                  <option value="SS2">SS2</option>
-                  <option value="SS3">SS3</option>
+                  {classes.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.className}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               {isSeniorClass && (
-                <div className="KformGroup">
-                  <label className="Klabel">Department<span className="Krequired">*</span></label>
+                <div className="form-group">
+                  <label>
+                    Department<span className="required">*</span>
+                  </label>
                   <select
-                    className="Kselect"
                     name="department"
                     value={formData.department}
-                    onChange={handleInputChange}
-                    required={isSeniorClass}
+                    onChange={handleChange}
                   >
                     <option value="">Select Department</option>
                     <option value="Science">Science</option>
                     <option value="Commercial">Commercial</option>
                     <option value="Arts">Arts</option>
                   </select>
-                  <span className="Khint">Applies to SS1-SS3 only</span>
+                  <span className="field-hint">Applies to SS1-SS3 only</span>
                 </div>
               )}
 
-              <div className="KformGroup">
-                <label className="Klabel">Session<span className="Krequired">*</span></label>
-                <select 
-                  className="Kselect" 
+              <div className="form-group">
+                <label>
+                  Session<span className="required">*</span>
+                </label>
+                {/* ✅ FIX 6: Corrected session values to match labels */}
+                <select
                   name="session"
                   value={formData.session}
-                  onChange={handleInputChange}
-                  required
+                  onChange={handleChange}
                 >
                   <option value="">Select Session</option>
-                  <option value="2025/2026">2025/2026</option>
+                  <option value="2025">2025/2026</option>
+                  <option value="2026">2026/2027</option>
+                  <option value="2027">2027/2028</option>
+                  <option value="2028">2028/2029</option>
                 </select>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="Ksection">
-          <h2 className="KsectionTitle">Parent/Guardian Information</h2>
-          <div className="Kgrid3">
-            <div className="KformGroup">
-              <label className="Klabel">Parent/Guardian Name<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="parentName"
-                value={formData.parentName}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="KformGroup">
-              <label className="Klabel">Relationship<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="relationship"
-                value={formData.relationship}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="KformGroup">
-              <label className="Klabel">Phone Number<span className="Krequired">*</span></label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="parentPhone"
-                value={formData.parentPhone}
-                onChange={handleInputChange}
-                required
-              />
-              <span className="Khint">WhatsApp number preferably</span>
+          {/* Parent Information */}
+          <div className="form-section">
+            <h2>Parent/Guardian Information</h2>
+            <div className="form-grid type-3-col">
+              <div className="form-group">
+                <label>
+                  First Name<span className="required">*</span>
+                </label>
+                {/* ✅ FIX 2: Correct name attribute */}
+                <input
+                  type="text"
+                  name="parentGuardiansFirstName"
+                  value={formData.parentGuardiansFirstName}
+                  onChange={handleChange}
+                  placeholder="Enter First Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Last Name<span className="required">*</span>
+                </label>
+                {/* ✅ FIX 2: Correct name attribute */}
+                <input
+                  type="text"
+                  name="parentGuardiansLastName"
+                  value={formData.parentGuardiansLastName}
+                  onChange={handleChange}
+                  placeholder="Enter Last Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Relationship<span className="required">*</span>
+                </label>
+                {/* ✅ FIX 7: Removed invalid `select` attribute */}
+                <select
+                  name="relationship"
+                  value={formData.relationship}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Relationship
+                  </option>
+                  <option value="Father">Father</option>
+                  <option value="Mother">Mother</option>
+                  <option value="Guardian">Guardian</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Phone Number<span className="required">*</span>
+                </label>
+                <input
+                  type="number"
+                  name="phoneNumber"
+                  value={formData.phoneNumber}
+                  onChange={handleChange}
+                  placeholder="Enter phone number"
+                  inputMode="numeric"
+                  maxLength={11}
+                />
+                <span className="field-hint">WhatsApp number preferably</span>
+              </div>
+
+              <div className="form-group">
+                <label>
+                  Email Address<span className="required">*</span>
+                </label>
+                <input
+                  type="email"
+                  name="parentGuardiansEmail"
+                  value={formData.parentGuardiansEmail}
+                  onChange={handleChange}
+                  placeholder="Enter Email Address"
+                />
+              </div>
+
+              <div className="form-group full-width-field">
+                <label>Address</label>
+                <textarea
+                  name="parentGuardiansAddress"
+                  value={formData.parentGuardiansAddress}
+                  onChange={handleChange}
+                  placeholder="Enter Residential Address"
+                />
+              </div>
             </div>
           </div>
 
-          <div className="KgridLayout">
-            <div className="KformGroup">
-              <label className="Klabel">Email Address<span className="Krequired">*</span></label>
-              <input 
-                type="email" 
-                className="Kinput" 
-                name="parentEmail"
-                value={formData.parentEmail}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-            <div className="KformGroup Kspan2">
-              <label className="Klabel">Address</label>
-              <input 
-                type="text" 
-                className="Kinput" 
-                name="parentAddress"
-                value={formData.parentAddress}
-                onChange={handleInputChange}
-              />
-            </div>
-          </div>
-        </div>
+          <button type="submit" className="submit-btn" disabled={loading}>
+            {loading ? "Creating Student..." : "Create Student"}
+          </button>
+        </form>
 
-        <button type="submit" className="KsubmitBtn">Save Changes</button>
-      </form>
-    </div>
+        <div className="form-footer">
+          <span className="copyright">
+            © 2026 Uchee school operating management system. All right reserved.
+          </span>
+          <span className="support">
+            Need help? <a href="#">Contact support</a>
+          </span>
+        </div>
+      </div>
+    </>
   );
 };
 
-export default EditStudent;
+export default AdminEditStudent;

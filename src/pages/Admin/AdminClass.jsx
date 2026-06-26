@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
 import "./AdminClass.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { apiClient } from "../../config/AxiosInstance";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+// ── Your three state components ───────────────────────────────────────────────
+import LoadingScreen from "../../components/Loading-Screen"; // adjust path
+import ErrorScreen from "../../components/Error-Screen"; // adjust path
+import EmptyState from "../../components/EmptyState"; // adjust path
+
 const AdminClass = () => {
   const [teachers, setTeachers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const [empty, setEmpty] = useState(false);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [addClass, setAddClass] = useState([]);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+
+  // ── Page-level fetch states ───────────────────────────────────────────────
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
   const token = useSelector((state) => state?.user?.token);
 
-  // States for Level and Arm dropdowns
   const [level, setLevel] = useState("");
   const [arm, setArm] = useState("");
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const [formData, setFormData] = useState({
     className: "",
@@ -36,26 +36,54 @@ const AdminClass = () => {
     id: "",
   });
 
-  // Updates formData.className automatically whenever level or arm changes
+  const handleChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
   useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      className: `${level} ${arm}`.trim(),
-    }));
+    setFormData((prev) => ({ ...prev, className: `${level} ${arm}`.trim() }));
   }, [level, arm]);
 
-  // Function to fetch all classes - extracted to reuse
-  const fetchAllClasses = async () => {
+  // ── Fetch classes ─────────────────────────────────────────────────────────
+  const fetchAllClasses = async (showPageLoader = false) => {
+    if (showPageLoader) setIsLoading(true);
+    setHasError(false);
     try {
       const response = await apiClient.get("admin/getclass");
-      setAddClass(response.data?.classes);
-      console.log("classes from API:", response.data?.classes);
-      console.log(response);
+      setAddClass(response.data?.classes || []);
     } catch (error) {
-      console.log(error.data?.message || error);
+      console.error(error);
+      setHasError(true);
+    } finally {
+      if (showPageLoader) setIsLoading(false);
     }
   };
 
+  // ── Fetch teachers ────────────────────────────────────────────────────────
+  const fetchAllStaffs = async () => {
+    try {
+      const response = await apiClient.get("staff/all-staffs");
+      setTeachers(response.data.staffsData || []);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      setIsLoading(true);
+      setHasError(false);
+      try {
+        await Promise.all([fetchAllClasses(), fetchAllStaffs()]);
+      } catch {
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    init();
+  }, []);
+
+  // ── Create ────────────────────────────────────────────────────────────────
   const createClass = async () => {
     setLoading(true);
     try {
@@ -68,22 +96,13 @@ const AdminClass = () => {
             ? Number(formData.numberOfInstallments)
             : 4,
       };
-
-      if (formData.teacherId) {
-        payload.teacherId = formData.teacherId;
-      }
-
-      console.log("Payload:", payload);
+      if (formData.teacherId) payload.teacherId = formData.teacherId;
 
       const response = await apiClient.post("/class/create-class", payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       toast.success(response?.data?.message || "Class created successfully!");
-
-      // Reset state completely
       setFormData({
         className: "",
         amount: "",
@@ -94,19 +113,16 @@ const AdminClass = () => {
       });
       setLevel("");
       setArm("");
-
       setIsOpen(false);
-
-      // Refresh the class list after successful creation
       await fetchAllClasses();
     } catch (error) {
-      console.log(error.response?.data || error);
-      toast.error(error.response?.data?.message || error.response?.data);
+      toast.error(error.response?.data?.message || "Failed to create class");
     } finally {
       setLoading(false);
     }
   };
 
+  // ── Edit ──────────────────────────────────────────────────────────────────
   const editClass = async (id) => {
     setLoading(true);
     try {
@@ -130,6 +146,7 @@ const AdminClass = () => {
     }
   };
 
+  // ── Delete ────────────────────────────────────────────────────────────────
   const deleteClass = async (id) => {
     setLoading(true);
     try {
@@ -144,30 +161,29 @@ const AdminClass = () => {
     }
   };
 
-  // Initial fetch on component mount
-  useEffect(() => {
-    fetchAllClasses();
-  }, []);
+  // ── Loading state ─────────────────────────────────────────────────────────
+  if (isLoading) return <LoadingScreen />;
 
-  useEffect(() => {
-    const fetchallStaffs = async () => {
-      try {
-        const response = await apiClient.get("staff/all-staffs");
-        setTeachers(response.data.staffsData);
-        console.log(response);
-      } catch (error) {
-        console.log(error.data?.message || error);
-      }
-    };
-
-    fetchallStaffs();
-  }, []);
-
-  const classData = [];
+  // ── Error state ───────────────────────────────────────────────────────────
+  if (hasError) {
+    return (
+      <ErrorScreen
+        title="Class Records Unavailable"
+        message="We couldn't load your class data. Check your connection and try again."
+        onRetry={() => {
+          setIsLoading(true);
+          Promise.all([fetchAllClasses(), fetchAllStaffs()]).finally(() =>
+            setIsLoading(false),
+          );
+        }}
+      />
+    );
+  }
 
   return (
     <>
       <div className="tableContainer">
+        {/* ── Header ── */}
         <div className="headerRow">
           <div>
             <h1 className="title">Class Management</h1>
@@ -181,12 +197,109 @@ const AdminClass = () => {
           </button>
         </div>
 
+        {/* ── Mobile stats ── */}
+        <div className="mobile-stats-grid">
+          <div className="mobile-stat-card">
+            <div className="stat-info">
+              <div className="stat-label">Total Student</div>
+              <div className="stat-value">
+                {addClass.reduce(
+                  (sum, cls) => sum + (cls.totalStudents || 0),
+                  0,
+                )}
+              </div>
+            </div>
+            <div className="stat-icon-wrap blue">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="mobile-stat-card">
+            <div className="stat-info">
+              <div className="stat-label">Total Female</div>
+              <div className="stat-value">
+                {addClass.reduce(
+                  (sum, cls) => sum + (cls.totalFemale || cls.femaleCount || 0),
+                  0,
+                )}
+              </div>
+            </div>
+            <div className="stat-icon-wrap purple">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <circle cx="12" cy="8" r="5" />
+                <path d="M12 13v8M9 18h6" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="mobile-stat-card">
+            <div className="stat-info">
+              <div className="stat-label">Total Male</div>
+              <div className="stat-value">
+                {addClass.reduce(
+                  (sum, cls) => sum + (cls.totalMale || cls.maleCount || 0),
+                  0,
+                )}
+              </div>
+            </div>
+            <div className="stat-icon-wrap amber">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <circle cx="10" cy="14" r="5" />
+                <path d="M21 3l-6 6M21 3h-5M21 3v5" />
+              </svg>
+            </div>
+          </div>
+
+          <div className="mobile-stat-card">
+            <div className="stat-info">
+              <div className="stat-label">New-Intake</div>
+              <div className="stat-value">
+                {addClass.reduce(
+                  (sum, cls) => sum + (cls.newIntake || cls.newStudents || 0),
+                  0,
+                )}
+              </div>
+            </div>
+            <div className="stat-icon-wrap green">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+              >
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
+                <path d="M12 8v8M8 12h8" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Filters ── */}
         <div className="filterSection">
           <div className="filterGroup">
             <label className="filterLabel">Section</label>
             <div className="selectWrapper">
               <select className="selectInput" defaultValue="all">
-                <option value="all" disabled selected>
+                <option value="all" disabled>
                   All Sections
                 </option>
                 <option value="">Junior Secondary</option>
@@ -209,6 +322,7 @@ const AdminClass = () => {
         </div>
 
         <div className="tableWrapper">
+          {/* ── Desktop table ── */}
           <table className="classTable">
             <thead>
               <tr>
@@ -220,7 +334,18 @@ const AdminClass = () => {
               </tr>
             </thead>
             <tbody>
-              {addClass.length > 0 ? (
+              {addClass.length === 0 ? (
+                <tr>
+                  <td colSpan="5" style={{ padding: 0, border: "none" }}>
+                    <EmptyState
+                      title="No Classes Yet"
+                      message="You haven't created any classes yet. Start by creating your first class."
+                      actionText="Create Class"
+                      onAction={() => setIsOpen(true)}
+                    />
+                  </td>
+                </tr>
+              ) : (
                 addClass.map((cls, index) => (
                   <tr key={index}>
                     <td className="className textLink">{cls.className}</td>
@@ -244,7 +369,7 @@ const AdminClass = () => {
                               teacherId: cls.teacherId || "",
                               numberOfInstallments:
                                 cls.numberOfInstallments || "",
-                              id: cls.classId, // ✅ fixed from cls.id
+                              id: cls.classId,
                             });
                             setIsEditOpen(true);
                           }}
@@ -258,14 +383,13 @@ const AdminClass = () => {
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                           </svg>
                         </button>
-
                         <button
                           className="deleteBtn"
                           aria-label="Delete class"
                           onClick={() => {
                             setFormData((prev) => ({
                               ...prev,
-                              id: cls.classId, // ✅ fixed from cls.id
+                              id: cls.classId,
                             }));
                             setIsDeleteOpen(true);
                           }}
@@ -284,33 +408,83 @@ const AdminClass = () => {
                     </td>
                   </tr>
                 ))
-              ) : (
-                <tr>
-                  <td colSpan="5">
-                    <div className="emptyState">
-                      <div className="emptyStateIcon">📚</div>
-                      <h3>No Classes Yet</h3>
-                      <p>
-                        You haven't created any classes yet. Start by creating
-                        your first class.
-                      </p>
-
-                      <button
-                        className="addClassBtn2"
-                        onClick={() => setIsOpen(true)}
-                      >
-                        <span className="plusIcon">+</span> Create Class
-                      </button>
-                    </div>
-                  </td>
-                </tr>
               )}
             </tbody>
           </table>
 
+          {/* ── Mobile card list ── */}
+          <div className="mobile-class-list">
+            {addClass.length === 0 ? (
+              <EmptyState
+                title="No Classes Yet"
+                message="You haven't created any classes yet."
+                actionText="Create Class"
+                onAction={() => setIsOpen(true)}
+              />
+            ) : (
+              <>
+                <div className="mobile-list-header">Class List</div>
+                {addClass.map((cls, index) => (
+                  <div className="mobile-class-card" key={index}>
+                    <div className="card-left">
+                      <span className="class-name">{cls.className}</span>
+                      <div className="class-meta">
+                        <span>Section: Senior Secondary</span>
+                        <span>Class Teacher: {cls.teacherName || "--"}</span>
+                        <span>Total Student: {cls.totalStudents}</span>
+                      </div>
+                    </div>
+                    <div className="card-actions">
+                      <button
+                        className="editBtn"
+                        onClick={() => {
+                          setFormData({
+                            className: cls.className,
+                            amount: cls.amount || "",
+                            paymentOption: cls.paymentOption || "",
+                            teacherId: cls.teacherId || "",
+                            numberOfInstallments:
+                              cls.numberOfInstallments || "",
+                            id: cls.classId,
+                          });
+                          setIsEditOpen(true);
+                        }}
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                      </button>
+                      <button
+                        className="deleteBtn"
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, id: cls.classId }));
+                          setIsDeleteOpen(true);
+                        }}
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </div>
+
           <div className="paginationRow">
             <div className="paginationInfo">Showing pages of 1 to 7</div>
-
             <div className="paginationControls">
               <button className="arrowBtn" disabled>
                 &lt;
@@ -323,7 +497,6 @@ const AdminClass = () => {
               <button className="pageBtn">7</button>
               <button className="arrowBtn">&gt;</button>
             </div>
-
             <div className="rowsPerPageGroup">
               <span className="rowsLabel">Rows per page</span>
               <div className="rowsSelectWrapper">
@@ -349,7 +522,7 @@ const AdminClass = () => {
         </footer>
       </div>
 
-      {/* ADD CLASS MODAL */}
+      {/* ── Add class modal ── */}
       {isOpen && (
         <div className="modalOverlay" onClick={() => setIsOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -369,7 +542,7 @@ const AdminClass = () => {
                     value={level}
                     onChange={(e) => setLevel(e.target.value)}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Select Level
                     </option>
                     <option value="JSS 1">JSS 1</option>
@@ -385,7 +558,7 @@ const AdminClass = () => {
                     value={arm}
                     onChange={(e) => setArm(e.target.value)}
                   >
-                    <option value="" disabled selected>
+                    <option value="" disabled>
                       Arm
                     </option>
                     <option value="A">A</option>
@@ -441,7 +614,6 @@ const AdminClass = () => {
                       </select>
                     </div>
                   </div>
-
                   {formData.numberOfInstallments && formData.amount && (
                     <div className="inputHelp">
                       Each installment: ₦
@@ -455,7 +627,7 @@ const AdminClass = () => {
               )}
 
               <div className="inputGroup">
-                <label>Assign Class Teacher(optional)</label>
+                <label>Assign Class Teacher (optional)</label>
                 <div className="modalSelectWrapper">
                   <select
                     name="teacherId"
@@ -477,7 +649,11 @@ const AdminClass = () => {
               <button className="cancelBtn" onClick={() => setIsOpen(false)}>
                 Cancel
               </button>
-              <button className="createBtn" onClick={createClass} disabled={loading}>
+              <button
+                className="createBtn"
+                onClick={createClass}
+                disabled={loading}
+              >
                 {loading ? "Creating..." : "Create Class"}
               </button>
             </div>
@@ -485,7 +661,7 @@ const AdminClass = () => {
         </div>
       )}
 
-      {/* EDIT CLASS MODAL */}
+      {/* ── Edit class modal ── */}
       {isEditOpen && (
         <div className="modalOverlay" onClick={() => setIsEditOpen(false)}>
           <div className="modalContent" onClick={(e) => e.stopPropagation()}>
@@ -562,7 +738,6 @@ const AdminClass = () => {
                       </select>
                     </div>
                   </div>
-
                   {formData.numberOfInstallments && formData.amount && (
                     <div className="inputHelp">
                       Each installment: ₦
@@ -615,7 +790,7 @@ const AdminClass = () => {
         </div>
       )}
 
-      {/* DELETE CLASS MODAL */}
+      {/* ── Delete class modal ── */}
       {isDeleteOpen && (
         <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
           <div

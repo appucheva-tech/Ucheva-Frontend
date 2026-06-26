@@ -8,6 +8,7 @@ import { FaSackDollar } from "react-icons/fa6";
 import { FaArrowTrendUp } from "react-icons/fa6";
 // FIXED: Correct import path - going up two levels to src, then into services
 import { walletService } from "./Services/walletService";
+import LoadingScreen from "../../components/Loading-Screen";
 
 const AdminWallet = () => {
   const [wallet, setWallet] = useState(null);
@@ -76,11 +77,7 @@ const AdminWallet = () => {
   };
 
   if (loading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">Loading...</div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (error) {

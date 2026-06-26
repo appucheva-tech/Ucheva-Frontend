@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminStudent2.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
-import axios from "axios";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 
 const AdminStudent2 = () => {
   const subdomain = window.location.hostname.split(".")[0];
+
   const initialState = {
     firstName: "",
     lastName: "",
@@ -19,13 +18,16 @@ const AdminStudent2 = () => {
     classId: "",
     department: "",
     session: "",
-    parentGuardiansName: "",
+    parentGuardiansFirstName: "",   // ✅ FIX 3
+    parentGuardiansLastName: "",    // ✅ FIX 3
     relationship: "",
     phoneNumber: "",
     parentGuardiansEmail: "",
     religion: "",
     parentGuardiansAddress: "",
   };
+
+  const nav = useNavigate(); // ✅ FIX 4: Moved to top
 
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
@@ -42,8 +44,6 @@ const AdminStudent2 = () => {
     (c) => String(c.id) === String(formData.classId),
   );
   const selectedClassName = selectedClass?.className?.toUpperCase() || "";
-
-  // ✅ Regex handles spaces: matches "SS 1 B", "SS 2 A", "SS 3 B" etc.
   const isSeniorClass = /^SS\s*[123]/i.test(selectedClassName);
 
   const handleChange = (e) => {
@@ -55,7 +55,6 @@ const AdminStudent2 = () => {
       if (name === "classId") {
         const chosen = classes.find((c) => String(c.id) === String(value));
         const chosenName = chosen?.className?.toUpperCase() || "";
-        // ✅ Same regex here
         const isSenior = /^SS\s*[123]/i.test(chosenName);
         if (!isSenior) {
           updated.department = "";
@@ -68,9 +67,19 @@ const AdminStudent2 = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // ✅ FIX 5: Full validation
     if (
       !formData.firstName ||
       !formData.lastName ||
+      !formData.gender ||
+      !formData.address ||
+      !formData.classId ||
+      !formData.session ||
+      !formData.parentGuardiansFirstName ||
+      !formData.parentGuardiansLastName ||
+      !formData.relationship ||
+      !formData.phoneNumber ||
       !formData.parentGuardiansEmail
     ) {
       toast.error("Please fill all required fields");
@@ -88,35 +97,30 @@ const AdminStudent2 = () => {
         dateOfBirth: formData.dateOfBirth,
         nationality: formData.nationality.toLowerCase(),
         address: formData.address.trim(),
-        classId: formData.classId,
-        session: formData.session,
-        parentGuardiansName: formData.parentGuardiansName.trim(),
+        classId: formData.classId.trim(),
+        session: formData.session.trim(),
+        parentGuardiansFirstName: formData.parentGuardiansFirstName.trim(), // ✅ FIX 3
+        parentGuardiansLastName: formData.parentGuardiansLastName.trim(),   // ✅ FIX 3
         relationship: formData.relationship.toLowerCase(),
         phoneNumber: formData.phoneNumber.trim(),
-        parentGuardiansEmail: formData.parentGuardiansEmail
-          .trim()
-          .toLowerCase(),
+        parentGuardiansEmail: formData.parentGuardiansEmail.trim().toLowerCase(),
         religion: formData.religion,
         parentGuardiansAddress: formData.parentGuardiansAddress,
-
-        // ✅ Only include department if it's a senior class and has a value
         ...(isSeniorClass && formData.department
           ? { department: formData.department }
           : {}),
       };
 
-      const response = await apiClient.post("/student/student", payload, {
-        headers: {
-          "x-tenant": subdomain,
-        },
+      await apiClient.post("/student/student", payload, {
+        headers: { "x-tenant": subdomain },
       });
 
-      toast("Student created successfully!");
+      toast.success("Student created successfully!");
       nav("/admin/AdminStudents");
       setFormData(initialState);
     } catch (error) {
       console.error(error);
-      toast(error?.response?.data?.message || "Failed to create student");
+      toast.error(error?.response?.data?.message || "Failed to create student");
     } finally {
       setLoading(false);
     }
@@ -126,18 +130,14 @@ const AdminStudent2 = () => {
     const fetchClasses = async () => {
       try {
         const response = await apiClient.get("/class/classes", {
-          headers: {
-            "x-tenant": subdomain,
-          },
+          headers: { "x-tenant": subdomain },
         });
-
         setClasses(response.data.classes || []);
       } catch (error) {
         console.error("Failed to fetch classes", error.message);
         toast.error(error.message);
       }
     };
-
     fetchClasses();
   }, [subdomain]);
 
@@ -147,21 +147,16 @@ const AdminStudent2 = () => {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
-
-  const nav = useNavigate();
 
   return (
     <>
       <div className="form-container">
         <div className="form-header">
           <div className="header-top">
-            <h1>
-              <h1>Add New Student</h1>
-            </h1>
+            <h1>Add New Student</h1> {/* ✅ FIX 1: Removed nested h1 */}
             <div className="breadcrumb">
               <span className="Sactive" onClick={() => nav(-1)}>
                 Student Management
@@ -171,8 +166,7 @@ const AdminStudent2 = () => {
             </div>
           </div>
           <p className="subtitle">
-            Enter the student's information below to register them in the
-            system.
+            Enter the student's information below to register them in the system.
           </p>
         </div>
 
@@ -180,12 +174,9 @@ const AdminStudent2 = () => {
           {/* Personal Information */}
           <div className="form-section">
             <h2>Personal Information</h2>
-
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>
-                  First Name<span className="required">*</span>
-                </label>
+                <label>First Name<span className="required">*</span></label>
                 <input
                   type="text"
                   name="firstName"
@@ -196,9 +187,7 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>
-                  Last Name<span className="required">*</span>
-                </label>
+                <label>Last Name<span className="required">*</span></label>
                 <input
                   type="text"
                   name="lastName"
@@ -220,14 +209,8 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>
-                  Gender<span className="required">*</span>
-                </label>
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                >
+                <label>Gender<span className="required">*</span></label>
+                <select name="gender" value={formData.gender} onChange={handleChange}>
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -246,11 +229,7 @@ const AdminStudent2 = () => {
 
               <div className="form-group">
                 <label>Nationality</label>
-                <select
-                  name="nationality"
-                  value={formData.nationality}
-                  onChange={handleChange}
-                >
+                <select name="nationality" value={formData.nationality} onChange={handleChange}>
                   <option value="">Select Country</option>
                   <option value="nigerian">Nigerian</option>
                   <option value="non Nigeria">Non Nigerian</option>
@@ -259,11 +238,7 @@ const AdminStudent2 = () => {
 
               <div className="form-group">
                 <label>Religion</label>
-                <select
-                  name="religion"
-                  value={formData.religion}
-                  onChange={handleChange}
-                >
+                <select name="religion" value={formData.religion} onChange={handleChange}>
                   <option value="">Select Religion</option>
                   <option value="Christianity">Christianity</option>
                   <option value="Islam">Islam</option>
@@ -272,9 +247,7 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group full-width-field">
-                <label>
-                  Address<span className="required">*</span>
-                </label>
+                <label>Address<span className="required">*</span></label>
                 <textarea
                   name="address"
                   value={formData.address}
@@ -288,17 +261,10 @@ const AdminStudent2 = () => {
           {/* Academic Information */}
           <div className="form-section">
             <h2>Academic Information</h2>
-
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>
-                  Class<span className="required">*</span>
-                </label>
-                <select
-                  name="classId"
-                  value={formData.classId}
-                  onChange={handleChange}
-                >
+                <label>Class<span className="required">*</span></label>
+                <select name="classId" value={formData.classId} onChange={handleChange}>
                   <option value="">Select Class</option>
                   {classes.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -308,17 +274,10 @@ const AdminStudent2 = () => {
                 </select>
               </div>
 
-              {/* ✅ Only shows for SS 1, SS 2, SS 3 (with or without spaces/arms) */}
               {isSeniorClass && (
                 <div className="form-group">
-                  <label>
-                    Department<span className="required">*</span>
-                  </label>
-                  <select
-                    name="department"
-                    value={formData.department}
-                    onChange={handleChange}
-                  >
+                  <label>Department<span className="required">*</span></label>
+                  <select name="department" value={formData.department} onChange={handleChange}>
                     <option value="">Select Department</option>
                     <option value="Science">Science</option>
                     <option value="Commercial">Commercial</option>
@@ -329,19 +288,14 @@ const AdminStudent2 = () => {
               )}
 
               <div className="form-group">
-                <label>
-                  Session<span className="required">*</span>
-                </label>
-                <select
-                  name="session"
-                  value={formData.session}
-                  onChange={handleChange}
-                >
+                <label>Session<span className="required">*</span></label>
+                {/* ✅ FIX 6: Corrected session values to match labels */}
+                <select name="session" value={formData.session} onChange={handleChange}>
                   <option value="">Select Session</option>
-                  <option value="2025">{"2025/2026"}</option>
-                  <option value="2026">{"2026/2027"}</option>
-                  <option value="2027">{"2028/2029"}</option>
-                  <option value="2028">{"2029/2030"}</option>
+                  <option value="2025">2025/2026</option>
+                  <option value="2026">2026/2027</option>
+                  <option value="2027">2027/2028</option>
+                  <option value="2028">2028/2029</option>
                 </select>
               </div>
             </div>
@@ -350,33 +304,36 @@ const AdminStudent2 = () => {
           {/* Parent Information */}
           <div className="form-section">
             <h2>Parent/Guardian Information</h2>
-
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>
-                  Parent/Guardian Name
-                  <span className="required">*</span>
-                </label>
+                <label>First Name<span className="required">*</span></label>
+                {/* ✅ FIX 2: Correct name attribute */}
                 <input
                   type="text"
-                  name="parentGuardiansName"
-                  value={formData.parentGuardiansName}
+                  name="parentGuardiansFirstName"
+                  value={formData.parentGuardiansFirstName}
                   onChange={handleChange}
-                  placeholder="Enter Full Name"
+                  placeholder="Enter First Name"
                 />
               </div>
 
               <div className="form-group">
-                <label>
-                  Relationship
-                  <span className="required">*</span>
-                </label>
-                <select
-                  name="relationship"
-                  value={formData.relationship}
+                <label>Last Name<span className="required">*</span></label>
+                {/* ✅ FIX 2: Correct name attribute */}
+                <input
+                  type="text"
+                  name="parentGuardiansLastName"
+                  value={formData.parentGuardiansLastName}
                   onChange={handleChange}
-                >
-                  <option value="">Select Relationship</option>
+                  placeholder="Enter Last Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label>Relationship<span className="required">*</span></label>
+                {/* ✅ FIX 7: Removed invalid `select` attribute */}
+                <select name="relationship" value={formData.relationship} onChange={handleChange}>
+                  <option value="" disabled>Select Relationship</option>
                   <option value="Father">Father</option>
                   <option value="Mother">Mother</option>
                   <option value="Guardian">Guardian</option>
@@ -384,10 +341,7 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>
-                  Phone Number
-                  <span className="required">*</span>
-                </label>
+                <label>Phone Number<span className="required">*</span></label>
                 <input
                   type="number"
                   name="phoneNumber"
@@ -401,10 +355,7 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>
-                  Email Address
-                  <span className="required">*</span>
-                </label>
+                <label>Email Address<span className="required">*</span></label>
                 <input
                   type="email"
                   name="parentGuardiansEmail"
@@ -421,7 +372,7 @@ const AdminStudent2 = () => {
                   value={formData.parentGuardiansAddress}
                   onChange={handleChange}
                   placeholder="Enter Residential Address"
-                />
+                /> 
               </div>
             </div>
           </div>
