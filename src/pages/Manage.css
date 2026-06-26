@@ -1,0 +1,128 @@
+.SScta-banner {
+  width: 100%;
+  height: 90vh;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 24px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+
+   @media (max-width: 450px) {
+    height: 70vh;
+   }
+
+  .SScta-content-wrapper {
+    background-image: url("../assets/FreeBackground.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 92%;
+    height: 470px;
+    overflow: hidden;
+    position: relative;
+
+    @media (max-width: 450px) {
+      background-size: cover;
+      flex-direction: column;
+      padding: 48px 32px 0 32px;
+      gap: 32px;
+      width: 100%;
+    }
+
+    .SScta-image-side {
+      margin-top: 11%;
+      margin-left: -5%;
+      width: 55%;
+      height: 510px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+      overflow: hidden;
+
+      @media (max-width: 450px) {
+        width: 100%;
+        order: 2;
+        justify-content: center;
+      }
+
+      .SScta-avatar {
+        display: block;
+        max-width: 93%;
+        margin-left: 1%;
+        padding-bottom: 6.5% ;
+        object-fit: contain;
+
+        @media (max-width: 450px) {
+          width: 100%;
+          height: 100%;
+          margin-bottom: -19px;
+        }
+      }
+    }
+
+    .SScta-text-side {
+      width: 50%;
+      display: flex;
+      padding-top: -20px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+      @media (max-width: 450px) {
+        width: 100%;
+        order: 1;
+        padding: 0;
+      }
+
+      .SScta-heading {
+        color: #ffffff;
+        font-size: 38px;
+        font-weight: 700;
+        line-height: 1.2;
+        margin: 0 0 16px 0;
+        letter-spacing: -0.5px;
+
+        @media (max-width: 450px) {
+          font-size: 20px;
+        }
+      }
+
+      .SScta-subheading {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 18px;
+        line-height: 1.5;
+        margin: 0 0 32px 0;
+        max-width: 480px;
+
+        @media (max-width: 450px) {
+          font-size: 13px;
+        }
+      }
+
+      .SScta-button {
+        background-color: #ffffff;
+        color: #1d6bf3;
+        font-size: 15px;
+        font-weight: 600;
+        width: 17%;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        @media (max-width: 450px) {
+          font-size: 13px;
+          width: 30%;
+          height: 35px;
+        }
+      }
+    }
+  }
+}

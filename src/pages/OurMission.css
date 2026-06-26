@@ -1,0 +1,103 @@
+.PPmission-vision-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 40px 20px;
+  gap: 60px;
+  font-family: system-ui, -apple-system, sans-serif;
+
+  .PPOurtext-column {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    height: 60%;
+    width: 42%;
+    margin-left: -1.6%;
+
+    @media (max-width: 450px) {
+      width: 100%;
+    }
+
+    .PPsubtitle {
+      font-size: 15.5px;
+      color: #94a3b8;
+      margin-bottom: -5%;
+      font-weight: 500;
+
+      @media (max-width: 450px) {
+        font-size: 12px;
+      }
+    }
+
+    .PPcontent-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .PPtitle {
+        font-size: 31px;
+        color: #0f2d69;
+        margin: 0;
+        font-weight: 700;
+
+        @media (max-width: 450px) {
+        font-size: 20px;
+        }
+      }
+
+      .PPOurdescription {
+        font-size: 23px;
+        color: #042869;
+        line-height: 1.6;
+        margin: 0;
+
+        @media (max-width: 450px) {
+        font-size: 18px;
+        }
+      }
+    }
+  }
+
+  .PPAboutUsPic2{
+    margin-right: -3%;
+    width: 50%;
+    height: 580px;
+
+    @media (max-width: 450px) {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 450px) {
+    flex-direction: column;
+    gap: 40px;
+    padding: 30px 16px;
+
+    .PPtext-column {
+      gap: 24px;
+      text-align: left;
+
+      .PPcontent-block {
+        .PPtitle {
+          font-size: 24px;
+        }
+        .PPdescription {
+          font-size: 15px;
+        }
+      }
+    }
+
+    .PPimage-column {
+      width: 100%;
+
+      .PPgrid-layout {
+        width: 290px;
+        height: 290px;
+        gap: 12px;
+      }
+    }
+  }
+}

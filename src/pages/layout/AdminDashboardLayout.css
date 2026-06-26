@@ -1,0 +1,1041 @@
+/* ==========================================================================
+   SIDEBAR MAIN LAYOUT WRAPPER FRAME - WITH MOBILE OVERLAY SUPPORT
+   ========================================================================== */
+.Adminsidebar {
+  width: 19%;
+  height: 100vh;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-right: 1px solid #f3f4f6;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.Adminsidebar::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+}
+.Adminsidebar-brand {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 24px 24px 16px 24px;
+  flex-shrink: 0;
+}
+
+.AdminDashboardLogo {
+  height: 32px;
+  cursor: pointer;
+  object-fit: contain;
+}
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  padding: 8px 16px;
+  gap: 6px;
+  box-sizing: border-box;
+}
+
+.menu-item {
+  width: 100%;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  border-radius: 8px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu-icon {
+  font-size: 20px;
+  margin-right: 12px;
+  flex-shrink: 0;
+  color: #64748b;
+  transition: color 0.2s ease-in-out;
+}
+
+.menu-item:not(.active):hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+}
+
+.menu-item:not(.active):hover .menu-icon {
+  color: #1e293b;
+}
+
+.menu-item.active {
+  background-color: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+  border-left: 5px solid blue;
+}
+
+.menu-item.active .menu-icon {
+  color: #2563eb;
+}
+
+.sidebar-footer-container {
+  padding: 16px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.sidebar-footer-container {
+  padding: 40px 16px 16px 16px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.sidebar-upgrade-card {
+  padding: 50px 16px 50px 16px;
+  width: 100%;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  border-radius: 12px;
+  text-align: center;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.upgrade-rocket-emoji {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: -45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+}
+
+/* Forces your image asset to scale cleanly within your layout boundaries */
+.rocket-image-asset {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+}
+
+/* --- Card Typography & Actions --- */
+.upgrade-card-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #eff6ff;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.upgrade-card-subtext {
+  font-size: 12px;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 2px 0 14px 0;
+  line-height: 1.4;
+}
+
+.upgrade-action-btn {
+  width: 100%;
+  background-color: #ffffff;
+  color: #2563eb;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.15s ease-in-out;
+}
+
+.upgrade-action-btn:hover {
+  background-color: #f8fafc;
+}
+
+/* ==========================================================================
+   MAIN LAYOUT - EXISTING STYLES (No changes made)
+   ========================================================================== */
+.Zmain_body {
+  width: 100%;
+  height: 100vh;
+  min-height: max-content;
+  display: flex;
+  overflow: hidden;
+  font-family: "Nunito", sans-serif;
+}
+
+.Zmain_body .mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  animation: ctFadeIn 0.2s ease-out;
+}
+
+.Zcontent-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 100%;
+  overflow: hidden;
+  margin-left: 19%;
+}
+
+.Zmain-content {
+  flex-grow: 1;
+  height: auto;
+  overflow-y: auto;
+  background-color: #f5f7fb;
+  padding: 32px;
+  box-sizing: border-box;
+}
+
+.BAdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 14px 32px;
+  border-bottom: 1px solid #e2e8f0;
+  height: 70px;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  width: 320px;
+  padding: 0 12px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.search-input::placeholder {
+  color: #94a3b8;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.date-display {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.calendar-icon {
+  width: 16px;
+  height: 16px;
+  color: #64748b;
+}
+
+.divider {
+  width: 1px;
+  height: 16px;
+  background-color: #cbd5e1;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #334155;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.chevron-icon {
+  width: 14px;
+  height: 14px;
+  color: #64748b;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.notification-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+  position: relative;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+}
+
+.bell-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.notification-badge {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  width: 8px;
+  height: 8px;
+  background-color: #eab308;
+  border-radius: 50%;
+  border: 1.5px solid #ffffff;
+}
+
+.user-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e2e8f0;
+}
+
+.unique-school-avatar {
+  background-color: #eff6ff !important;
+  color: #2563eb;
+}
+
+.school-avatar-fallback-icon {
+  font-size: 20px;
+}
+
+.Auser-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.notification-popup {
+  position: absolute;
+  top: 42px;
+  right: -20px;
+  width: 320px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.popup-header h2 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.notification-list {
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  padding: 14px 16px;
+  gap: 12px;
+  border-bottom: 1px solid #f1f5f9;
+  background-color: #ffffff;
+}
+
+.notification-item.unread {
+  background-color: #f8fafc;
+}
+
+.notification-content h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 3px 0;
+}
+
+.notification-content p {
+  font-size: 12px;
+  color: #475569;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.time-stamp {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.unread-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS - MOBILE FIRST
+   ========================================================================== */
+
+/* Tablets and smaller laptops (1024px and below) */
+@media screen and (max-width: 1024px) {
+  .Adminsidebar {
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .Adminsidebar.open {
+    transform: translateX(0);
+  }
+
+  .Zcontent-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .Adminsidebar-brand {
+    padding: 20px 20px 14px 20px;
+  }
+
+  .AdminDashboardLogo {
+    height: 28px;
+  }
+
+  .sidebar-menu {
+    padding: 6px 12px;
+    gap: 4px;
+  }
+
+  .menu-item {
+    height: 42px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  .menu-icon {
+    font-size: 18px;
+    margin-right: 10px;
+  }
+
+  .sidebar-footer-container {
+    padding: 30px 12px 12px 12px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 40px 14px 40px 14px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 80px;
+    height: 80px;
+    top: -38px;
+  }
+
+  .upgrade-card-text {
+    font-size: 11px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 11px;
+  }
+
+  .upgrade-action-btn {
+    font-size: 12px;
+    padding: 7px 0;
+  }
+
+  .BAdminDashboard-header {
+    padding: 12px 20px;
+    height: 64px;
+  }
+
+  .search-container {
+    width: 240px;
+  }
+
+  .header-right-group {
+    gap: 20px;
+  }
+
+  .Zmain-content {
+    padding: 24px;
+  }
+}
+
+/* Mobile devices (768px and below) */
+@media screen and (max-width: 768px) {
+  .Adminsidebar {
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .Adminsidebar.open {
+    transform: translateX(0);
+  }
+
+  .Zcontent-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .Adminsidebar-brand {
+    padding: 18px 18px 12px 18px;
+  }
+
+  .AdminDashboardLogo {
+    height: 26px;
+  }
+
+  .sidebar-menu {
+    padding: 4px 10px;
+    gap: 3px;
+  }
+
+  .menu-item {
+    height: 40px;
+    padding: 0 12px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .menu-icon {
+    font-size: 17px;
+    margin-right: 10px;
+  }
+
+  .menu-item.active {
+    border-left-width: 4px;
+  }
+
+  .sidebar-footer-container {
+    padding: 25px 10px 10px 10px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 35px 12px 35px 12px;
+    border-radius: 10px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 70px;
+    height: 70px;
+    top: -33px;
+  }
+
+  .upgrade-card-text {
+    font-size: 10px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 10px;
+    margin: 2px 0 12px 0;
+  }
+
+  .upgrade-action-btn {
+    font-size: 11px;
+    padding: 6px 0;
+    border-radius: 6px;
+  }
+
+  .BAdminDashboard-header {
+    padding: 10px 16px;
+    height: 60px;
+  }
+
+  .search-container {
+    width: 180px;
+  }
+
+  .header-right-group {
+    gap: 16px;
+  }
+
+  .date-display {
+    font-size: 12px;
+  }
+
+  .dropdown {
+    font-size: 12px;
+  }
+
+  .user-name {
+    font-size: 12px;
+  }
+
+  .user-role {
+    font-size: 10px;
+  }
+
+  .Zmain-content {
+    padding: 20px;
+  }
+}
+
+/* Small mobile devices (480px and below) */
+@media screen and (max-width: 480px) {
+  .Adminsidebar {
+    width: 100%;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .Adminsidebar.open {
+    transform: translateX(0);
+  }
+
+  .Zcontent-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .Adminsidebar-brand {
+    padding: 16px 16px 10px 16px;
+  }
+
+  .AdminDashboardLogo {
+    height: 24px;
+  }
+
+  .sidebar-menu {
+    padding: 4px 8px;
+    gap: 2px;
+  }
+
+  .menu-item {
+    height: 38px;
+    padding: 0 10px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+
+  .menu-icon {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  .menu-item.active {
+    border-left-width: 3px;
+  }
+
+  .sidebar-footer-container {
+    padding: 20px 8px 8px 8px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 30px 10px 30px 10px;
+    border-radius: 8px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 60px;
+    height: 60px;
+    top: -28px;
+  }
+
+  .upgrade-card-text {
+    font-size: 9px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 9px;
+    margin: 2px 0 10px 0;
+  }
+
+  .upgrade-action-btn {
+    font-size: 10px;
+    padding: 5px 0;
+    border-radius: 5px;
+  }
+
+  .BAdminDashboard-header {
+    padding: 8px 12px;
+    height: 56px;
+  }
+
+  .search-container {
+    width: 130px;
+    height: 34px;
+  }
+
+  .search-input {
+    font-size: 12px;
+  }
+
+  .header-right-group {
+    gap: 12px;
+  }
+
+  .date-display {
+    font-size: 10px;
+  }
+
+  .date-display span:not(.calendar-icon) {
+    display: none;
+  }
+
+  .dropdown {
+    font-size: 10px;
+  }
+
+  .dropdown span:not(.chevron-icon) {
+    display: none;
+  }
+
+  .user-profile {
+    width: 32px;
+    height: 32px;
+  }
+
+  .school-avatar-fallback-icon {
+    font-size: 16px;
+  }
+
+  .Auser-info {
+    display: none;
+  }
+
+  .notification-popup {
+    width: 280px;
+    right: -80px;
+  }
+
+  .Zmain-content {
+    padding: 16px;
+  }
+}
+
+/* Extra small devices (320px and below) */
+@media screen and (max-width: 320px) {
+  .Adminsidebar {
+    width: 100%;
+    max-width: 280px;
+  }
+
+  .Adminsidebar-brand {
+    padding: 14px 14px 8px 14px;
+  }
+
+  .AdminDashboardLogo {
+    height: 20px;
+  }
+
+  .sidebar-menu {
+    padding: 2px 6px;
+    gap: 2px;
+  }
+
+  .menu-item {
+    height: 34px;
+    padding: 0 8px;
+    font-size: 10px;
+    border-radius: 4px;
+  }
+
+  .menu-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .sidebar-footer-container {
+    padding: 16px 6px 6px 6px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 25px 8px 25px 8px;
+    border-radius: 6px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 50px;
+    height: 50px;
+    top: -23px;
+  }
+
+  .upgrade-card-text {
+    font-size: 8px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 8px;
+    margin: 2px 0 8px 0;
+  }
+
+  .upgrade-action-btn {
+    font-size: 9px;
+    padding: 4px 0;
+    border-radius: 4px;
+  }
+
+  .BAdminDashboard-header {
+    padding: 6px 8px;
+    height: 48px;
+  }
+
+  .search-container {
+    width: 100px;
+    height: 30px;
+    padding: 0 8px;
+  }
+
+  .search-input {
+    font-size: 10px;
+  }
+
+  .search-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .header-right-group {
+    gap: 8px;
+  }
+
+  .bell-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .user-profile {
+    width: 28px;
+    height: 28px;
+  }
+
+  .school-avatar-fallback-icon {
+    font-size: 14px;
+  }
+
+  .notification-popup {
+    width: 240px;
+    right: -60px;
+  }
+
+  .Zmain-content {
+    padding: 12px;
+  }
+}
+
+/* Height-based responsive adjustments */
+@media screen and (max-height: 700px) {
+  .Adminsidebar-brand {
+    padding: 16px 16px 10px 16px;
+  }
+
+  .AdminDashboardLogo {
+    height: 24px;
+  }
+
+  .sidebar-menu {
+    gap: 3px;
+    padding: 4px 12px;
+  }
+
+  .menu-item {
+    height: 36px;
+    font-size: 12px;
+    padding: 0 12px;
+  }
+
+  .menu-icon {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  .sidebar-footer-container {
+    padding: 20px 12px 10px 12px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 30px 12px 30px 12px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 60px;
+    height: 60px;
+    top: -28px;
+  }
+
+  .upgrade-card-text {
+    font-size: 10px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 10px;
+  }
+
+  .upgrade-action-btn {
+    font-size: 10px;
+    padding: 5px 0;
+  }
+}
+
+@media screen and (max-height: 600px) {
+  .Adminsidebar-brand {
+    padding: 12px 12px 8px 12px;
+  }
+
+  .AdminDashboardLogo {
+    height: 20px;
+  }
+
+  .sidebar-menu {
+    gap: 2px;
+    padding: 2px 10px;
+  }
+
+  .menu-item {
+    height: 32px;
+    font-size: 11px;
+    padding: 0 10px;
+  }
+
+  .menu-icon {
+    font-size: 14px;
+    margin-right: 6px;
+  }
+
+  .sidebar-footer-container {
+    padding: 12px 10px 6px 10px;
+  }
+
+  .sidebar-upgrade-card {
+    padding: 20px 10px 20px 10px;
+  }
+
+  .upgrade-rocket-emoji {
+    width: 40px;
+    height: 40px;
+    top: -18px;
+  }
+
+  .upgrade-card-text {
+    font-size: 8px;
+  }
+
+  .upgrade-card-subtext {
+    font-size: 8px;
+    margin: 1px 0 6px 0;
+  }
+
+  .upgrade-action-btn {
+    font-size: 8px;
+    padding: 3px 0;
+  }
+}
+
+/* Animation keyframes for mobile overlay */
+@keyframes ctFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

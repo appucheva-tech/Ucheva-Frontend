@@ -1,0 +1,383 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+.SubjectTeacherHeader-teacher-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-sizing: border-box;
+  transition: padding-left 0.3s ease-in-out;
+}
+
+.SubjectTeacherHeader-header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Master container that forces everything to align neatly to the right */
+.SubjectTeacherHeader-header-right-items {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-left: auto; /* This acts as the anchor pushing items to the far right */
+}
+
+/* Internal Section Arrangements */
+.SubjectTeacherHeader-date-wrapper,
+.SubjectTeacherHeader-session-wrapper,
+.SubjectTeacherHeader-profile-combined {
+  display: flex;
+  align-items: center;
+}
+
+.SubjectTeacherHeader-date-wrapper {
+  gap: 12px;
+}
+
+.SubjectTeacherHeader-session-wrapper {
+  gap: 16px;
+}
+
+.SubjectTeacherHeader-profile-combined {
+  gap: 20px;
+}
+
+/* Icons and Text Typography */
+.SubjectTeacherHeader-calendar-icon {
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.SubjectTeacherHeader-date-text,
+.SubjectTeacherHeader-text-session,
+.SubjectTeacherHeader-text-term {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.SubjectTeacherHeader-notification-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.SubjectTeacherHeader-notification-btn:hover {
+  color: #1f2937;
+}
+
+.SubjectTeacherHeader-bell-icon {
+  color: #1f2937;
+  flex-shrink: 0;
+}
+
+.SubjectTeacherHeader-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.SubjectTeacherHeader-profile-avatar {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #e5e7eb;
+}
+
+.SubjectTeacherHeader-profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.SubjectTeacherHeader-profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.SubjectTeacherHeader-text-profile-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.SubjectTeacherHeader-text-profile-role {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Menu Toggle Styling rules */
+.SubjectTeacherHeader-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+
+.SubjectTeacherHeader-menu-toggle .hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: #1f2937;
+  transition: all 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translateY(-2px);
+}
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(2) {
+  width: 0%;
+  opacity: 0;
+}
+.SubjectTeacherHeader-menu-toggle.open .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translateY(2px);
+}
+
+/* --- Media Breakpoints --- */
+
+@media (min-width: 769px) {
+  .SubjectTeacherHeader-teacher-header {
+    padding-left: 312px; /* 280px sidebar layout safety space */
+  }
+}
+
+@media (max-width: 1024px) {
+  .SubjectTeacherHeader-teacher-header {
+    padding: 12px 24px;
+  }
+  .SubjectTeacherHeader-header-right-items {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .SubjectTeacherHeader-teacher-header {
+    padding: 12px 16px;
+  }
+
+  .SubjectTeacherHeader-menu-toggle {
+    display: flex; /* Displays mobile toggle cleanly on the left */
+  }
+
+  /* Safely drop extra structural texts to prevent overflow cramped states */
+  .SubjectTeacherHeader-date-wrapper,
+  .SubjectTeacherHeader-session-wrapper {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .SubjectTeacherHeader-text-profile-name,
+  .SubjectTeacherHeader-text-profile-role {
+    display: none; /* Shows profile avatar icon cleanly on phones */
+  }
+}
+
+/* ========== PROFILE DROPDOWN ========== */
+.SubjectTeacherHeader-profile-combined {
+  position: relative;
+}
+
+.SubjectTeacherHeader-profile-dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  min-width: 160px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: ctSlideDown 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.SubjectTeacherHeader-profile-dropdown p {
+  padding: 10px 16px;
+  color: #334155;
+  font-size: 13px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f5f9;
+  margin: 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.SubjectTeacherHeader-profile-dropdown p:last-child {
+  border-bottom: none;
+}
+
+.SubjectTeacherHeader-profile-dropdown p:hover {
+  background-color: #f8fafc;
+  color: #0062f6;
+}
+
+.SubjectTeacherHeader-profile-dropdown .SubjectTeacherHeader-logout-item:hover {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+/* ========== LOGOUT CONFIRMATION MODAL ========== */
+.logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInOverlay 0.2s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.logout-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: slideUpModal 0.25s ease;
+}
+
+@keyframes slideUpModal {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.logout-modal-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #eff6ff;
+  margin: 0 auto 20px;
+}
+
+.logout-modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px;
+  font-family: "Nunito", sans-serif;
+}
+
+.logout-modal-message {
+  font-size: 0.95rem;
+  color: #6b7280;
+  margin: 0 0 28px;
+  line-height: 1.5;
+  font-family: "Nunito", sans-serif;
+}
+
+.logout-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.logout-modal-cancel {
+  flex: 1;
+  padding: 11px 0;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+  font-family: "Nunito", sans-serif;
+}
+
+.logout-modal-cancel:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.logout-modal-confirm {
+  flex: 1;
+  padding: 11px 0;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  font-family: "Nunito", sans-serif;
+}
+
+.logout-modal-confirm:hover {
+  background: #1d4ed8;
+}
+
+.logout-modal-confirm:active {
+  transform: scale(0.98);
+}
+
+.logout-modal-confirm.loading {
+  opacity: 0.85;
+  cursor: not-allowed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.logout-modal-cancel:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.logout-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

@@ -1,0 +1,207 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+.security-header {
+  /* display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  height: 70px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  gap: 20px; */
+
+  display: flex;
+  /* padding: 1rem 2rem; */
+  background-color: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  height: 70px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 4px 30px 0 rgba(0, 98, 246, 0.05);
+  padding: 15px 64px 15px 20px;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.date-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.calendar-icon {
+  width: 20px;
+  height: 20px;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.date-text {
+  color: #03173c;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  color: var(--Primary-Color-900, #03173C);
+
+}
+
+.notification-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.notification-button:hover {
+  background-color: #f3f4f6;
+}
+
+.bell-icon {
+  width: 24px;
+  height: 24px;
+  color: #1f2937;
+  flex-shrink: 0;
+}
+
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.profile-section:hover {
+  background-color: #f9fafb;
+}
+
+.profile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e5e7eb;
+  flex-shrink: 0;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.profile-name {
+  color: #03173c;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profile-role {
+  color: var(--Neutral-Color-600, #6c737f);
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@media (max-width: 768px) {
+  .security-header {
+    padding: 0.75rem 1rem;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .header-left,
+  .header-center,
+  .header-right {
+    flex: 0 1 auto;
+  }
+
+  .header-center {
+    order: 2;
+    width: 100%;
+  }
+
+  .header-right {
+    order: 3;
+    justify-content: flex-start;
+  }
+
+  .date-text {
+    font-size: 0.85rem;
+  }
+
+  .profile-section {
+    gap: 0.75rem;
+  }
+
+  .profile-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .profile-name {
+    font-size: 0.85rem;
+  }
+
+  .profile-role {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .security-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  .date-section {
+    gap: 0.5rem;
+  }
+
+  .calendar-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .date-text {
+    font-size: 0.75rem;
+    display: none;
+  }
+
+  .bell-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .profile-avatar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .profile-info {
+    display: none;
+  }
+}

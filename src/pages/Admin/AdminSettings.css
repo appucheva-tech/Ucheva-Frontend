@@ -1,0 +1,1055 @@
+.toastNotification {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  animation: slideUp 0.25s ease;
+  max-width: 400px;
+}
+
+.toastSuccess {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #6ee7b7;
+}
+
+.toastError {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #fca5a5;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Settings Container ──────────────────────────────────────── */
+.settingsContainer {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f4f7fc;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.settingsHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mainTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.mainSubtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.settingsCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 24px 0;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.inputLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+}
+
+.textInput {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.textInput:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.textInput.numericalInput {
+  text-align: left;
+  max-width: 120px;
+}
+
+.textInput.disabledInput {
+  background-color: #f8fafc;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.selectInput {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1e293b;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.selectWrapper::after {
+  content: "▼";
+  font-size: 8px;
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+/* ─── Profile Layout ──────────────────────────────────────────── */
+.profileLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.avatarWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.imageContainer {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+.profileImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileImgPlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+}
+
+.profileImgPlaceholder svg {
+  width: 44px;
+  height: 44px;
+}
+
+.cameraBtn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s;
+}
+
+.cameraBtn:hover {
+  background-color: #f8fafc;
+}
+
+.cameraIcon {
+  width: 14px;
+  height: 14px;
+  color: #64748b;
+}
+
+.uploadHint {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.formFieldsCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formFieldsRow {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  max-width: 760px;
+}
+
+/* ─── School Profile Layout ───────────────────────────────────── */
+.schoolLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.logoWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  min-width: 160px;
+}
+
+.logoBadgeContainer {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px dashed #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafafa;
+}
+
+.schoolLogoImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.emblemPlaceholder {
+  width: 44px;
+  height: 44px;
+  color: #94a3b8;
+}
+
+.schoolFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 24px;
+  flex: 1;
+  max-width: 760px;
+}
+
+.fullWidthRow {
+  grid-column: span 2;
+}
+
+/* ─── Report Card Configuration ───────────────────────────────── */
+.configurationLayout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.scoresColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  max-width: 420px;
+}
+
+.scoresInlineGrid {
+  display: flex;
+  gap: 12px;
+}
+
+/* ─── School Stamps Layout ────────────────────────────────────── */
+.stampsLayout {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.stampUploadGroup,
+.signatureUploadGroup {
+  flex: 1;
+  max-width: 300px;
+}
+
+.uploadComponentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.dottedDropzone {
+  border: 1px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafbfc;
+  text-align: center;
+  height: 120px;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.dottedDropzone:hover {
+  border-color: #0d6efd;
+  background-color: #f8faff;
+}
+
+.stampCircularGraphic {
+  width: 36px;
+  height: 36px;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stampCircularGraphic svg {
+  width: 100%;
+  height: 100%;
+}
+
+.dropzoneUploadBtn {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin-bottom: 4px;
+}
+
+.dropzoneHint {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* ─── Attendance Notifications ────────────────────────────────── */
+.notificationLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notificationText {
+  font-size: 13px;
+  color: #475569;
+  margin: 0;
+}
+
+.notificationSelectGroup {
+  max-width: 320px;
+}
+
+/* ─── Card Action Row ─────────────────────────────────────────── */
+.cardActionRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 16px;
+}
+
+.saveChangesBtn {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.saveChangesBtn:hover {
+  background-color: #0b5ed7;
+}
+
+.saveChangesBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ─── School Verification ─────────────────────────────────────── */
+.verificationUploadersRow {
+  display: flex;
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.uploaderBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 180px;
+}
+
+.uploaderLabel {
+  font-size: 13px;
+  color: #475569;
+  font-weight: 400;
+}
+
+.dropzoneBorderArea {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 16px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  transition: border-color 0.15s;
+}
+
+.dropzoneBorderArea:hover {
+  border-color: #0d6efd;
+}
+
+.innerUploadBtn {
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #0d6efd;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 0;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  transition: background-color 0.15s;
+}
+
+.innerUploadBtn:hover {
+  background-color: #f8fafc;
+}
+
+.formatHintText {
+  font-size: 10px;
+  color: #94a3b8;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* ─── Security ────────────────────────────────────────────────── */
+.actionFlexRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.infoContextBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.actionItemHeading {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #334155;
+  margin: 0;
+}
+
+.actionItemSubtext {
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 0;
+}
+
+.outlineActionButton {
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.outlineActionButton:hover {
+  background-color: #f8fafc;
+}
+
+.dangerZoneCard {
+  border-color: #fecaca;
+}
+
+.dangerTitleColor {
+  color: #dc2626;
+}
+
+.dangerActionButton {
+  background: none;
+  border: 1px solid #f87171;
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.dangerActionButton:hover {
+  background-color: #fef2f2;
+}
+
+.shieldIcon {
+  width: 14px;
+  height: 14px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CHANGE PASSWORD MODAL - Complete Styling
+═══════════════════════════════════════════════════════════════ */
+
+/* ─── Overlay ─────────────────────────────────────────────────── */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  animation: overlayFadeIn 0.25s ease;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── Card ────────────────────────────────────────────────────── */
+.modalCard {
+  background: #ffffff;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.07),
+    0 24px 48px -8px rgba(0, 0, 0, 0.18);
+  animation: modalSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  overflow: hidden;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(32px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ─── Header ──────────────────────────────────────────────────── */
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.modalHeaderLeft {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.modalIconBadge {
+  width: 42px;
+  height: 42px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modalIconBadge svg {
+  width: 20px;
+  height: 20px;
+  color: #2563eb;
+  stroke: #2563eb;
+}
+
+.modalTitle {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2px;
+  line-height: 1.3;
+}
+
+.modalSubtitle {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.modalCloseBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: none;
+  background: #f8fafc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+  flex-shrink: 0;
+  font-size: 18px;
+  color: #64748b;
+}
+
+.modalCloseBtn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.modalCloseBtn:active {
+  transform: scale(0.92);
+}
+
+/* ─── Body (scrollable) ───────────────────────────────────────── */
+.modalBody {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalBody::-webkit-scrollbar {
+  width: 5px;
+}
+.modalBody::-webkit-scrollbar-track {
+  background: transparent;
+}
+.modalBody::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 99px;
+}
+.modalBody::-webkit-scrollbar-thumb:hover {
+  background: #cbd5e1;
+}
+
+/* ─── Password Input with Icon ────────────────────────────────── */
+.passwordInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordIcon {
+  position: absolute;
+  left: 12px;
+  width: 15px;
+  height: 15px;
+  color: #94a3b8;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.passwordInput {
+  padding-left: 38px !important;
+}
+
+/* ─── Password Match / Mismatch Hints ────────────────────────── */
+.passwordMismatchHint {
+  font-size: 12px;
+  color: #ef4444;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.passwordMatchHint {
+  font-size: 12px;
+  color: #22c55e;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────── */
+.modalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+  background: #fafbfc;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Cancel button */
+.modalCancelBtn {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 10px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s;
+}
+
+.modalCancelBtn:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #374151;
+}
+
+/* Save button */
+.modalSaveBtn {
+  height: 40px;
+  padding: 0 22px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition:
+    opacity 0.15s,
+    transform 0.1s,
+    box-shadow 0.15s;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
+}
+
+.modalSaveBtn svg {
+  width: 15px;
+  height: 15px;
+  stroke: #ffffff;
+  flex-shrink: 0;
+}
+
+.modalSaveBtn:hover:not(:disabled) {
+  opacity: 0.92;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.45);
+}
+
+.modalSaveBtn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.modalSaveBtn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* ─── Spinner inside button ───────────────────────────────────── */
+.modalSpinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ─── Responsive: Mobile ─────────────────────────────────────── */
+@media (max-width: 600px) {
+  .settingsContainer {
+    padding: 16px;
+  }
+
+  .settingsCard {
+    padding: 18px;
+  }
+
+  .profileLayout,
+  .schoolLayout,
+  .stampsLayout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .formFieldsRow {
+    flex-direction: column;
+    gap: 12px;
+    max-width: 100%;
+  }
+
+  .schoolFormGrid {
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+  }
+
+  .fullWidthRow {
+    grid-column: span 1;
+  }
+
+  .configurationLayout {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .scoresInlineGrid {
+    flex-direction: column;
+  }
+
+  .scoresColumn {
+    max-width: 100%;
+  }
+
+  .textInput.numericalInput {
+    max-width: 100%;
+  }
+
+  .verificationUploadersRow {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .uploaderBox {
+    width: 100% !important;
+  }
+
+  .stampUploadGroup,
+  .signatureUploadGroup {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .actionFlexRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .outlineActionButton,
+  .dangerActionButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .cardActionRow {
+    justify-content: center;
+  }
+
+  .saveChangesBtn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Modal Mobile */
+  .modalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modalCard {
+    max-width: 100%;
+    max-height: 94vh;
+    border-radius: 20px 20px 0 0;
+    animation: modalSlideUpMobile 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+
+  @keyframes modalSlideUpMobile {
+    from {
+      transform: translateY(100%);
+      opacity: 0.6;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .modalBody {
+    padding: 18px;
+  }
+
+  .modalHeader {
+    padding: 18px 18px 14px;
+  }
+
+  .modalTitle {
+    font-size: 16px;
+  }
+
+  .modalSubtitle {
+    font-size: 12px;
+  }
+
+  .modalFooter {
+    padding-bottom: max(20px, env(safe-area-inset-bottom));
+    flex-direction: column-reverse;
+  }
+
+  .modalFooter button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ─── Small screens ───────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .settingsContainer {
+    padding: 12px;
+  }
+
+  .settingsCard {
+    padding: 14px;
+  }
+
+  .modalCard {
+    max-height: 96vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modalHeader {
+    padding: 14px 16px 12px;
+  }
+
+  .modalBody {
+    padding: 14px 16px;
+    gap: 16px;
+  }
+
+  .modalFooter {
+    padding: 12px 16px 16px;
+  }
+
+  .modalIconBadge {
+    width: 34px;
+    height: 34px;
+  }
+
+  .modalIconBadge svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .modalTitle {
+    font-size: 14px;
+  }
+
+  .logoWrapper {
+    min-width: auto;
+  }
+
+  .avatarWrapper .imageContainer {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -1,0 +1,101 @@
+.OOour-story-section {
+  width: 100%;
+  padding: 80px 24px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    
+  .OOstory-container {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 64px;
+    align-items: center;
+    margin-top: -2.5%;
+  }
+
+  .OOgrid-gallery {
+    display: grid;
+    grid-template-columns: 27% 53%;
+    grid-template-rows: 51% 45%;
+    gap: 16px;
+    width: 92%;
+    height: 100%;
+
+    .OOAboutUsPic1{
+      width: 370%;
+      height: 195%;
+    }
+  }
+
+  .OOstory-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 6%;
+    width: 97%;
+
+    .OOcontent-subtitle {
+      font-size: 15px;
+      font-weight: 600;
+      color: #a0aec0;
+      text-transform: none;
+      margin-top: 30px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .OOcontent-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #042869;
+      margin: 0 0 20px 0;
+      letter-spacing: -0.5px;
+    }
+
+    .OOcontent-text {
+      font-size: 23px;
+      line-height: 1.65;
+      color: #042869;
+      margin: 0;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .OOour-story-section {
+    padding: 40px 16px;
+    width: 98%;
+
+    .OOstory-container {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      width: 100%;
+    }
+
+    .OOgrid-gallery {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+
+      .OOAboutUsPic1{
+        width: 230%;
+      }
+    }
+
+    .OOstory-content {
+      .OOcontent-title {
+        font-size: 20px;
+        width: 90%;
+        margin-bottom: 16px;
+      }
+
+      .OOcontent-text {
+        font-size: 15.3px;
+        width: 90%;
+      }
+    }
+  }
+}

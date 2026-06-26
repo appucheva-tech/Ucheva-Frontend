@@ -1,0 +1,912 @@
+.Bdashboard-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.Bdashboard-container .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.Bdashboard-container .dashboard-header .welcome-text {
+  font-size: 30px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.Bdashboard-container .dashboard-header .subtitle-text {
+  font-size: 17px;
+  color: #042869;
+  margin: 0;
+}
+
+.Bdashboard-container .dashboard-header .AddStaff {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0 20px;
+  height: 44px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.Bdashboard-container .dashboard-header .AddStaff:hover {
+  background-color: #1d4ed8;
+}
+
+/* ==========================================================================
+   METRICS GRID - 4 columns on desktop
+   ========================================================================== */
+.Bdashboard-container .metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.Bdashboard-container .metrics-grid .metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px 30px;
+  border: 1px solid #e2e8f0;
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.Bdashboard-container .metrics-grid .metric-card.card-total {
+  border-left-color: #2563eb;
+}
+
+.Bdashboard-container .metrics-grid .metric-card.card-teaching {
+  border-left-color: #a855f7;
+}
+
+.Bdashboard-container .metrics-grid .metric-card.card-non-teaching {
+  border-left-color: #f59e0b;
+}
+
+.Bdashboard-container .metrics-grid .metric-card.card-teachers {
+  border-left-color: #10b981;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .text-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+  width: 30px;
+  height: 30px;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-students {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-staff {
+  background-color: #f3e8ff;
+  color: #a855f7;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-attendance {
+  background-color: #fef3c7;
+  color: #f59e0b;
+}
+
+.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-fees {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+
+.tableContainer {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+.tableContainer .dashboard-loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.tableContainer .dashboard-loading-container .loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.tableContainer .staff-empty-state-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 24px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+  margin-bottom: 32px;
+}
+
+.tableContainer .staff-empty-state-card .empty-state-icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: #f8fafc;
+  margin-bottom: 16px;
+  color: #2563eb;
+}
+
+.tableContainer .staff-empty-state-card h3 {
+  color: #0f172a;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.tableContainer .staff-empty-state-card p {
+  color: #475569;
+  max-width: 400px;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0 0 20px 0;
+}
+
+.tableContainer .staff-empty-state-card .empty-state-add-btn {
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  transition: background-color 0.2s ease;
+}
+
+.tableContainer .staff-empty-state-card .empty-state-add-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.tableContainer .filterSection {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.tableContainer .filterSection .filterGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableContainer .filterSection .filterGroup .filterLabel {
+  font-size: 13px;
+  color: #475569;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.tableContainer .filterSection .filterGroup .selectWrapper {
+  position: relative;
+  width: 180px;
+}
+
+.tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput {
+  width: 100%;
+  padding: 10px 36px 10px 14px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #0f172a;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput:focus {
+  border-color: #2563eb;
+}
+
+.tableContainer .filterSection .resetBtn {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tableContainer .filterSection .resetBtn:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+  border-color: #94a3b8;
+}
+
+.tableContainer .filterSection .resetBtn .resetIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.tableContainer .tableWrapper {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 32px;
+}
+
+.tableContainer .tableWrapper .staffTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tableContainer .tableWrapper .staffTable th {
+  background-color: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tableContainer .tableWrapper .staffTable td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.tableContainer .tableWrapper .staffTable tr:last-child td {
+  border-bottom: none;
+}
+
+.tableContainer .tableWrapper .staffTable .staffName {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons {
+  display: flex;
+  gap: 12px;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .editBtn,
+.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg,
+.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .editBtn:hover {
+  background-color: #f8fafc;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg {
+  stroke: #475569;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn:hover {
+  background-color: #fef2f2;
+}
+
+.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
+  stroke: #ef4444;
+}
+
+.tableContainer .tableWrapper .paginationRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationInfo {
+  font-size: 14px;
+  color: #475569;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
+.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
+  background: none;
+  border: 1px solid transparent;
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn:hover:not(:disabled),
+.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn:hover:not(:disabled) {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .activePage {
+  background-color: #2563eb;
+  color: white;
+  font-weight: 500;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .activePage:hover {
+  background-color: #1d4ed8;
+  color: white;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn:disabled {
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.tableContainer .tableWrapper .paginationRow .paginationControls .ellipsis {
+  color: #94a3b8;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsLabel {
+  font-size: 14px;
+  color: #475569;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper {
+  position: relative;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect {
+  padding: 6px 28px 6px 10px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #0f172a;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect:focus {
+  border-color: #2563eb;
+}
+
+.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 5px;
+  background-color: #475569;
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+  pointer-events: none;
+}
+
+.tableContainer .footerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0 8px 0;
+  font-size: 13px;
+  width: 100%;
+  background-color: transparent;
+  border-top: 1px solid #e2e8f0;
+}
+
+.tableContainer .footerRow .copyrightText {
+  color: #94a3b8;
+}
+
+.tableContainer .footerRow .supportText {
+  color: #475569;
+}
+
+.tableContainer .footerRow .supportText .supportLink {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.tableContainer .footerRow .supportText .supportLink:hover {
+  text-decoration: underline;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Large tablets and small laptops (1024px and below) - Change to 2 columns */
+@media (max-width: 1024px) {
+  .Bdashboard-container .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card {
+    padding: 16px 20px;
+    min-height: 90px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+    font-size: 24px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+    width: 52px;
+    height: 52px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tableContainer .filterSection .filterGroup .selectWrapper {
+    width: 150px;
+  }
+}
+
+/* Tablets (768px and below) - Keep 2 columns */
+@media (max-width: 768px) {
+  .Bdashboard-container .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .Bdashboard-container .dashboard-header .welcome-text {
+    font-size: 24px;
+  }
+
+  .Bdashboard-container .dashboard-header .subtitle-text {
+    font-size: 15px;
+  }
+
+  .Bdashboard-container .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card {
+    padding: 14px 16px;
+    min-height: 80px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+    font-size: 12px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+    font-size: 20px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tableContainer .filterSection {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .tableContainer .filterSection .filterGroup .selectWrapper {
+    width: 100%;
+  }
+
+  .tableContainer .filterSection .resetBtn {
+    align-self: flex-start;
+  }
+
+  .tableContainer .tableWrapper {
+    overflow-x: auto;
+  }
+
+  .tableContainer .tableWrapper .staffTable {
+    min-width: 600px;
+  }
+
+  .tableContainer .tableWrapper .staffTable th,
+  .tableContainer .tableWrapper .staffTable td {
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .paginationControls {
+    justify-content: center;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup {
+    justify-content: center;
+  }
+
+  .tableContainer .footerRow {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+}
+
+/* Small mobile devices (640px and below) - Keep 2 columns */
+@media (max-width: 640px) {
+  .Bdashboard-container .dashboard-header .AddStaff {
+    width: 100%;
+    justify-content: center;
+    white-space: nowrap;
+  }
+
+  .Bdashboard-container .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card {
+    padding: 12px 14px;
+    min-height: 70px;
+    border-radius: 8px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section {
+    gap: 4px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+    font-size: 11px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+    font-size: 18px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .Bdashboard-container .dashboard-header .welcome-text {
+    font-size: 20px;
+  }
+
+  .Bdashboard-container .dashboard-header .subtitle-text {
+    font-size: 14px;
+  }
+
+  .Bdashboard-container .dashboard-header .AddStaff {
+    font-size: 13px;
+    height: 38px;
+    padding: 0 16px;
+  }
+
+  .tableContainer .staff-empty-state-card {
+    padding: 40px 16px;
+  }
+
+  .tableContainer .staff-empty-state-card h3 {
+    font-size: 16px;
+  }
+
+  .tableContainer .staff-empty-state-card p {
+    font-size: 13px;
+  }
+
+  .tableContainer .filterSection {
+    padding: 16px;
+  }
+
+  .tableContainer .filterSection .filterGroup .filterLabel {
+    font-size: 12px;
+  }
+
+  .tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput {
+    font-size: 13px;
+    padding: 8px 32px 8px 12px;
+  }
+
+  .tableContainer .filterSection .resetBtn {
+    font-size: 13px;
+    padding: 8px 14px;
+  }
+
+  .tableContainer .tableWrapper .staffTable th,
+  .tableContainer .tableWrapper .staffTable td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .tableContainer .tableWrapper .staffTable .actionButtons {
+    gap: 8px;
+  }
+
+  .tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg,
+  .tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .paginationInfo {
+    font-size: 12px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
+  .tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
+    min-width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsLabel {
+    font-size: 12px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect {
+    font-size: 12px;
+    padding: 4px 24px 4px 8px;
+  }
+
+  .tableContainer .footerRow {
+    font-size: 12px;
+  }
+}
+
+/* Extra small mobile devices (480px and below) - Keep 2 columns */
+@media (max-width: 480px) {
+  .Bdashboard-container .dashboard-header .AddStaff {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Bdashboard-container .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card {
+    padding: 10px 12px;
+    min-height: 60px;
+    border-radius: 8px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+    font-size: 10px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+    font-size: 16px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .Bdashboard-container .dashboard-header .welcome-text {
+    font-size: 18px;
+  }
+
+  .Bdashboard-container .dashboard-header .subtitle-text {
+    font-size: 13px;
+  }
+
+  .Bdashboard-container .dashboard-header .AddStaff {
+    font-size: 12px;
+    height: 34px;
+    padding: 0 14px;
+  }
+
+  .Bdashboard-container .dashboard-header .AddStaff svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .tableContainer .tableWrapper .staffTable {
+    min-width: 500px;
+  }
+
+  .tableContainer .tableWrapper .staffTable th,
+  .tableContainer .tableWrapper .staffTable td {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .paginationControls {
+    gap: 2px;
+  }
+
+  .tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
+  .tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
+    min-width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
+}
+
+/* Very small mobile devices (375px and below) - Keep 2 columns */
+@media (max-width: 375px) {
+  .Bdashboard-container .dashboard-header .AddStaff {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Bdashboard-container .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card {
+    padding: 8px 10px;
+    min-height: 55px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+    font-size: 9px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+    font-size: 14px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+  }
+
+  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .Bdashboard-container .dashboard-header .welcome-text {
+    font-size: 16px;
+  }
+
+  .Bdashboard-container .dashboard-header .subtitle-text {
+    font-size: 12px;
+  }
+
+  .Bdashboard-container .dashboard-header .AddStaff {
+    font-size: 11px;
+    height: 30px;
+    padding: 0 12px;
+  }
+}

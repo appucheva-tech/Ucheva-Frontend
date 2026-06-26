@@ -1,0 +1,97 @@
+* {
+  box-sizing: border-box;
+}
+
+.attendance-container {
+  min-height: 100vh;
+  background: #f4f7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.attendance-card {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.attendance-card h1 {
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 30px;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.info-card {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+.info-card span {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.info-card h3 {
+  margin-top: 10px;
+  color: #111827;
+}
+
+.attendance-btn {
+  width: 100%;
+  border: none;
+  background: #2563eb;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.attendance-btn:hover {
+  background: #1d4ed8;
+}
+
+.attendance-btn:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.location-card {
+  margin-top: 30px;
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 25px;
+  border: 1px solid #e5e7eb;
+}
+
+.location-card h2 {
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.coordinate-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  color: #374151;
+}

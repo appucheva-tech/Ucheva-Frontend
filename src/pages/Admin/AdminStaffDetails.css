@@ -1,0 +1,365 @@
+.Fcontainer {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8fafc;
+  padding: 40px;
+  min-height: 100vh;
+
+  .Fheader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    .Ftitle {
+      font-size: 24px;
+      color: #0f172a;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .Fbreadcrumb {
+      font-size: 14px;
+      color: #94a3b8;/* Container & Layout */
+.AdministrationHeader-BAdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 85px;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 20px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Search Bar */
+.AdministrationHeader-search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+.AdministrationHeader-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+}
+
+.AdministrationHeader-search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+}
+
+
+.AdministrationHeader-header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.AdministrationHeader-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.AdministrationHeader-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Profile Section */
+.profile-section-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.AdministrationHeader-Auser-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.AdministrationHeader-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.AdministrationHeader-user-role {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.user-profile.unique-school-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropdown & Modal Styles (Keep your existing styles) */
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  z-index: 100;
+}
+.profile-dropdown-item {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.profile-dropdown-item:hover {
+  background: #f1f5f9;
+}
+.logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.logout-modal {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 350px;
+  text-align: center;
+}
+.AdministrationHeader-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+  padding: 6px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.AdministrationHeader-hamburger:hover {
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 1024px) {
+  .AdministrationHeader-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Hide metadata on smaller screens */
+  .AdministrationHeader-meta-container {
+    display: none;
+  }
+
+  /* Shrink search bar on mobile */
+  .AdministrationHeader-search-container {
+    max-width: 150px;
+  }
+
+  /* Reduce gap on mobile */
+  .AdministrationHeader-header-right-group {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hide user name/role on tiny screens, show only avatar */
+  .AdministrationHeader-Auser-info {
+    display: none;
+  }
+}
+
+      .FStaffManagement{
+        cursor: pointer;
+      }
+
+      .Fseparator {
+        margin: 0 8px;
+      }
+
+      .Factive {
+        color: #334155;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .Fmain-content {
+    background-color: #ffffff;
+    border: 1px solid #f1f5f9;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+    .Fprofile-card {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+
+      .Fprofile-img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .Fprofile-info {
+        flex: 1;
+
+        .Fprofile-name {
+          font-size: 18px;
+          color: #1e3a8a;
+          font-weight: 600;
+          margin: 0 0 12px 0;
+        }
+
+        .Fprofile-meta {
+          display: flex;
+          gap: 48px;
+
+          .Flabel {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 4px;
+          }
+
+          .Fvalue {
+            display: block;
+            font-size: 14px;
+            color: #334155;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+
+    .Finfo-section {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+
+      .Fsection-title {
+        font-size: 16px;
+        color: #1e293b;
+        font-weight: 600;
+        background-color: #f8fafc;
+        padding: 16px 24px;
+        margin: 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .Fgrid-layout {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px 48px;
+        padding: 24px;
+
+        .Finfo-group {
+          display: flex;
+          align-items: flex-start;
+
+          .Finfo-label {
+            width: 160px;
+            font-size: 14px;
+            color: #1e3a8a;
+            font-weight: 500;
+            flex-shrink: 0;
+          }
+
+          .Finfo-value {
+            font-size: 14px;
+            color: #334155;
+          }
+        }
+      }
+    }
+
+    .Femail-link {
+      color: #2563eb !important;
+    }
+
+    .Faction-buttons {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+
+      button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        font-size: 14px;
+        font-weight: 500;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .Fbtn-edit {
+        background-color: #2563eb;
+        color: #ffffff;
+        border: none;
+
+        &:hover {
+          background-color: #1d4ed8;
+        }
+      }
+
+      .Fbtn-delete {
+        background-color: #ffffff;
+        color: #ef4444;
+        border: 1px solid #fca5a5;
+
+        &:hover {
+          background-color: #fef2f2;
+        }
+      }
+    }
+  }
+}

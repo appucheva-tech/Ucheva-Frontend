@@ -1,0 +1,416 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght=400;500;600;700;800&display=swap");
+
+.form-container {
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Nunito", sans-serif;
+  background-color: #f8fafc;
+  /* padding: 24px; */
+
+  .form-header {
+    margin-bottom: 28px;
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      h1 {
+        font-size: 26px;
+        color: #0f172a;
+        margin: 0;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+
+      .breadcrumb {
+        font-size: 13px;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 500;
+
+        .Sactive {
+          cursor: pointer;
+          transition: color 0.15s ease;
+
+          &:hover {
+            color: #2563eb;
+          }
+        }
+
+        .separator {
+          font-size: 11px;
+          color: #cbd5e1;
+        }
+
+        .active {
+          color: #2563eb;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #475569;
+      margin: 8px 0 0 0;
+      line-height: 1.5;
+    }
+  }
+
+  .staff-form {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    .form-section {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 28px;
+      border: 1px solid #e2e8f0;
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.02),
+        0 2px 4px -1px rgba(0, 0, 0, 0.02);
+
+      h2 {
+        font-size: 16px;
+        color: #0f172a;
+        margin: 0 0 24px 0;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        border-left: 3px solid #2563eb;
+        padding-left: 10px;
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 20px;
+
+        &.type-3-col {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .form-grid.type-3-col {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .form-grid.type-3-col {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &.full-width-field {
+          margin-top: 4px;
+          grid-column: 1 / -1;
+        }
+
+        label {
+          font-size: 13px;
+          color: #475569;
+          font-weight: 600;
+
+          .required {
+            color: #ef4444;
+            margin-left: 3px;
+          }
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select {
+          height: 44px;
+          padding: 0 14px;
+          border: 1px solid #cbd5e1;
+          border-radius: 8px;
+          font-size: 14px;
+          color: #0f172a;
+          background-color: #ffffff;
+          outline: none;
+          box-sizing: border-box;
+          width: 100%;
+          transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
+
+          &::placeholder {
+            color: #94a3b8;
+          }
+
+          &:hover {
+            border-color: #94a3b8;
+          }
+
+          &:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+          }
+        }
+
+        select {
+          appearance: none;
+          background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+          background-repeat: no-repeat;
+          background-position: right 14px center;
+          background-size: 14px;
+          padding-right: 40px;
+          cursor: pointer;
+        }
+
+        .form-inline-error-banner {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          background: #fef2f2;
+          border: 1px dashed #f87171;
+          color: #991b1b;
+          height: 44px;
+          padding: 0 14px;
+          border-radius: 8px;
+          font-size: 13px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: background 0.2s ease;
+
+          svg {
+            font-size: 18px;
+            color: #ef4444;
+          }
+
+          &:hover {
+            background: #fee2e2;
+          }
+        }
+      }
+    }
+
+    .submit-btn {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      height: 46px;
+      padding: 0 32px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      width: max-content;
+      align-self: flex-start;
+      box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+      transition:
+        background-color 0.15s ease,
+        transform 0.1s ease,
+        opacity 0.2s ease;
+
+      &:hover:not(:disabled) {
+        background-color: #1d4ed8;
+      }
+
+      &:disabled {
+        background-color: #cbd5e1;
+        box-shadow: none;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .form-footer {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: #64748b;
+
+    .support {
+      font-weight: 500;
+      a {
+        color: #2563eb;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+/* ========== DYNAMIC FALLBACK SYSTEM OVERLAY MODAL ========== */
+.AdminModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: modalFadeIn 0.2s ease-out;
+}
+
+.AdminModalCard {
+  background: #ffffff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 16px;
+  padding: 32px;
+  box-sizing: border-box;
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+
+.AdminModalHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .AlertIconWrapper {
+    width: 56px;
+    height: 56px;
+    background: #fff1f2;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      font-size: 28px;
+      color: #ef4444;
+    }
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin: 0;
+    font-size: 14px;
+    color: #64748b;
+    line-height: 1.6;
+
+    strong {
+      color: #0f172a;
+    }
+  }
+}
+
+.AdminModalActions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+
+  button {
+    flex: 1;
+    height: 44px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .CancelModalBtn {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    color: #475569;
+
+    &:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+  }
+
+  .RedirectModalBtn {
+    background: #2563eb;
+    border: none;
+    color: #ffffff;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2);
+
+    &:hover {
+      background: #1d4ed8;
+    }
+  }
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+@media (max-width: 640px) {
+  .form-container {
+    padding: 16px;
+
+    .form-header .header-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .staff-form {
+      gap: 20px;
+      .form-section {
+        padding: 20px 16px;
+      }
+      .submit-btn {
+        width: 100%;
+      }
+    }
+
+    .form-footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+
+  .AdminModalCard {
+    margin: 16px;
+    padding: 24px;
+  }
+}

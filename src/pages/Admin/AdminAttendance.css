@@ -1,0 +1,302 @@
+.attendanceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  .pageHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    .headerTitle {
+      font-size: 24px;
+      font-weight: 700;
+      color: #03173C;
+      margin: 0;
+    }
+
+    .headerSubtitle {
+      font-size: 14px;
+      color: #03173C;
+      margin: 0;
+    }
+  }
+
+  .attendanceContentCard {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+    display: flex;
+    flex-direction: column;
+
+    .tabsGroup {
+      display: flex;
+      gap: 32px;
+      padding: 0 32px;
+      border-bottom: 1px solid #f1f5f9;
+
+      .tabItem {
+        background: none;
+        border: none;
+        font-size: 14px;
+        font-weight: 600;
+        color: #475569;
+        padding: 20px 0;
+        cursor: pointer;
+        position: relative;
+
+        &.activeTabItem {
+          color: #0d6efd;
+          font-weight: 600;
+
+          &::after {
+            content: "";
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2.5px;
+            background-color: #0d6efd;
+            border-radius: 2px;
+          }
+        }
+      }
+    }
+
+    .toolbarRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 32px;
+
+      .sectionHeading {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1e293b;
+        margin: 0;
+      }
+
+      .toolbarControls {
+        display: flex;
+        align-items: flex-end;
+        gap: 16px;
+
+        .filterBox {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+
+          .filterLabel {
+            font-size: 11px;
+            font-weight: 500;
+            color: #64748b;
+          }
+
+          .datePickerMock {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px 14px;
+            background-color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 38px;
+            box-sizing: border-box;
+
+            .calendarIcon {
+              font-size: 13px;
+            }
+
+            .dateText {
+              font-size: 12px;
+              color: #334155;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .resetButton {
+          background-color: #ffffff;
+          border: 1px solid #0d6efd;
+          color: #0d6efd;
+          border-radius: 6px;
+          padding: 0 16px;
+          font-size: 13px;
+          font-weight: 500;
+          height: 38px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+
+          .resetIcon {
+            width: 14px;
+            height: 14px;
+          }
+
+          &:hover {
+            background-color: #f0f7ff;
+          }
+        }
+      }
+    }
+
+    .tableResponsiveWrapper {
+      overflow-x: auto;
+      padding: 0 32px;
+
+      .attendanceTable {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+
+        th {
+          background-color: #e2e8f0;
+          color: #334155;
+          font-size: 13px;
+          font-weight: 600;
+          padding: 14px 20px;
+          border: none;
+
+          &:first-child {
+            border-top-left-radius: 6px;
+            border-bottom-left-radius: 6px;
+          }
+          &:last-child {
+            border-top-right-radius: 6px;
+            border-bottom-right-radius: 6px;
+          }
+        }
+
+        td {
+          padding: 16px 20px;
+          border-bottom: 1px solid #f1f5f9;
+          font-size: 13.5px;
+          vertical-align: middle;
+        }
+
+        .staffNameCell {
+          color: #0d6efd;
+          font-weight: 500;
+        }
+
+        .roleCell,
+        .timeCell,
+        .dateCell {
+          color: #475569;
+        }
+      }
+    }
+
+    .paginationContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 32px 32px 32px;
+
+      .recordsCountInfo {
+        font-size: 13px;
+        color: #64748b;
+      }
+
+      .paginationControlsGroup {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .pageNumber,
+        .navArrow {
+          background: none;
+          border: none;
+          min-width: 28px;
+          height: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 6px;
+          font-size: 13px;
+          color: #64748b;
+          cursor: pointer;
+        }
+
+        .activePage {
+          background-color: #0d6efd;
+          color: #ffffff;
+          font-weight: 500;
+        }
+
+        .navArrow:disabled {
+          color: #cbd5e1;
+          cursor: not-allowed;
+        }
+
+        .paginationEllipsis {
+          color: #64748b;
+          font-size: 13px;
+          padding: 0 2px;
+        }
+      }
+
+      .pageSizeSelector {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .pageSizeLabel {
+          font-size: 13px;
+          color: #64748b;
+        }
+
+        .customSelectWrapper {
+          position: relative;
+
+          .nativeSelect {
+            padding: 6px 28px 6px 10px;
+            font-size: 13px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            background-color: #ffffff;
+            color: #334155;
+            appearance: none;
+            cursor: pointer;
+            outline: none;
+          }
+
+          &::after {
+            content: "▼";
+            font-size: 8px;
+            position: absolute;
+            right: 10px;
+            top: 52%;
+            transform: translateY(-50%);
+            color: #64748b;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+  }
+
+  .systemFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 4px;
+    font-size: 13px;
+    margin-top: 12px;
+
+    .copyrightNote {
+      color: #94a3b8;
+    }
+
+    .supportNote {
+      color: #64748b;
+
+      .supportAnchor {
+        color: #0d6efd;
+        text-decoration: none;
+        font-weight: 500;
+      }
+    }
+  }
+}

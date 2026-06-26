@@ -1,0 +1,325 @@
+.AAmyfooter {
+  background-color: #03143c;
+  color: #ffffff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  padding: 64px;
+  width: 100%;
+  height: 60vh;
+  box-sizing: border-box;
+
+  @media (max-width: 450px){
+    width: 100%;
+    height: 125vh;
+    padding: 40px 16px 24px 16px; 
+  }
+
+  .AAfooter-container {
+    max-width: 1350px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1fr;
+    gap: 130px;
+    padding-bottom: 48px;
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-bottom: 32px;
+    }
+  }
+
+  .AAfooter-brand {
+    .AAlogo-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .AAbrand-description {
+      color: #ffffff;
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+      max-width: 280px;
+
+      @media (max-width: 450px){
+        max-width: 100%;
+        font-size: 20px; 
+        margin-bottom: 24px;
+        color: #e2e8f0;
+      }
+    }
+
+    .AAsocial-links {
+      display: flex;
+      gap: 12px;
+
+      .AAsocial-links-cont {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        border: 1px solid rgba(255, 255, 255, 0.6);
+        border-radius: 15px; 
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: border-color 0.2s, background-color 0.2s;
+
+        &:hover {
+          border-color: #0066ff;
+          background-color: rgba(0, 102, 255, 0.1);
+        }
+
+        .AAsocial-icons {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+
+  .AAfooter-links-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+      gap: 0; 
+    }
+  }
+
+  .AAfooter-column {
+    @media (max-width: 450px) {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.1); 
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      @media (max-width: 450px) {
+        display: none; 
+        padding-top: 16px;
+        padding-bottom: 4px;
+        
+        &.is-active {
+          display: block;
+        }
+      }
+
+      li {
+        margin-bottom: 12px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        a {
+          color: #94a3b8;
+          text-decoration: none;
+          font-size: 14px;
+          transition: color 0.2s;
+
+          &:hover {
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .AAcolumn-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #ffffff;
+
+    @media (max-width: 450px) {
+      margin-bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 600;
+      padding-right: 4px;
+
+      &:after {
+        content: '';
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-right: 2px solid #ffffff;
+        border-bottom: 2px solid #ffffff;
+        transform: rotate(-135deg); 
+        transition: transform 0.2s ease;
+      }
+      
+      &.is-closed:after {
+        transform: rotate(45deg); 
+      }
+    }
+  }
+
+  .AAcolumn-title-texts {
+    @media (max-width: 450px) {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+  .AAfooter-subscribe {
+    @media (max-width: 450px) {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 32px;
+    }
+
+    .AAsubscribe-heading {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #ffffff;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
+    }
+
+    .AAsubscribe-text {
+      color: #e2e8f0;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+
+      @media (max-width: 450px) {
+        font-size: 22px;
+        margin-bottom: 20px;
+      }
+    }
+
+    .AAsubscribe-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .AAsubscribe-input {
+        width: 100%;
+        height: 40px;
+        padding: 14px 16px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background-color: #ffffff;
+        color: #000000;
+        font-size: 15px;
+        box-sizing: border-box;
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: #0066ff;
+        }
+      }
+
+      .AAsubscribe-button {
+        background-color: #0066ff;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+        height: 40px;
+      }
+    }
+  }
+
+  .AAfooter-bottom {
+    max-width: 1350px;
+    margin: 0 auto;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #94a3b8;
+
+    @media (max-width: 450px) {
+      flex-direction: column; 
+      gap: 24px;
+      align-items: flex-start;
+      text-align: left;
+      padding-top: 24px;
+      border-top: none;
+    }
+
+    .AAcopyright {
+      @media (max-width: 450px) {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+    }
+
+    .AAstatus-location {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      @media (max-width: 450px) {
+        flex-direction: row; 
+        justify-content: flex-start;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .AAstatus-indicator {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #94a3b8;
+        font-size: 13px;
+
+        .AAdot {
+          width: 8px;
+          height: 8px;
+          background-color: #10b981;
+          border-radius: 50%;
+        }
+      }
+
+      .AAdivider {
+        color: #334155;
+        font-size: 12px;
+      }
+
+      .AAlocation {
+        color: #94a3b8;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .AANG {
+          width: 16px;
+          height: auto;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

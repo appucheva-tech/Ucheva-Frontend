@@ -1,0 +1,246 @@
+.JJpricing-container {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  background-color: #ffffff;
+  color: #1e293b;
+
+  .JJpricing-header {
+    text-align: center;
+    margin-bottom: 48px;
+
+    .JJsub-title {
+      font-size: 15px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+
+      @media (max-width: 450px) {
+        font-size: 15px;
+      }
+    }
+
+    .JJmain-titles {
+      font-size: 32px;
+      font-weight: 700;
+      color: #042869;
+      margin-bottom: 16px;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+        width: 100%;
+      }
+    }
+
+    .JJdescriptions {
+      font-size: 25px;
+      color: #042869;
+      width: 45%;
+      margin: 0 auto;
+
+      @media (max-width: 450px) {
+        font-size: 22px;
+        width: 100%;
+      }
+    }
+  }
+
+  .JJcards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    margin-bottom: 48px;
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+      max-width: 400px;
+      margin: 0 auto 48px auto;
+    }
+  }
+
+  .JJcard {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    height: 475px;
+    padding: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+    .JJcard-content {
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+    }
+
+    .JJplan-name {
+      font-size: 14px;
+      font-weight: 500;
+      color: #042869;
+      margin-bottom: 12px;
+    }
+
+    .JJprice {
+      font-size: 36px;
+      font-weight: 700;
+      color: #042869;
+      margin-bottom: 16px;
+    }
+
+    .JJcard-desc {
+      font-size: 19.5px;
+      line-height: 1.5;
+      color: #042869;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+  }
+
+  .JJstarter-card {
+    border: none;
+    position: relative;
+    justify-content: space-between;
+
+    .JJtext-light {
+      color: #ffffff;
+      z-index: 2;
+    }
+
+    .JJplan-name.JJtext-light {
+      color: white;
+    }
+
+    .JJimage-container {
+      width: 99%;
+      height: 255px;
+      margin-top: auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+
+      .JJadmin-image {
+        width: 115%;
+        height: 480px;
+      }
+    }
+  }
+
+  .JJbilling-card {
+    .JJfeatures-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+
+      li {
+        font-size: 14px;
+        color: #334155;
+        margin-bottom: 16px;
+        padding-left: 28px;
+        position: relative;
+
+        &::before {
+          content: "✓";
+          position: absolute;
+          left: 0;
+          top: -1px;
+          width: 18px;
+          height: 18px;
+          background-color: #2563eb;
+          color: white;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .JJview-all-btn {
+      background: none;
+      border: none;
+      color: #2563eb;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      align-self: center;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .JJcta-button {
+      width: 100%;
+      height: 50px;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 20px;
+    }
+
+    .JJprimary-btn {
+      background-color: #2563eb;
+      color: #ffffff;
+      border: none;
+
+      &:hover {
+        background-color: #1d4ed8;
+      }
+    }
+
+    .JJsecondary-btn {
+      background-color: #eff6ff;
+      color: #2563eb;
+      border: none;
+
+      &:hover {
+        background-color: #dbeafe;
+      }
+    }
+  }
+
+  .JJactive-card {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  }
+
+  .JJpricing-footer {
+    text-align: center;
+    font-size: 24px;
+    color: #334155;
+    width: 95%;
+    margin: 0 auto;
+    line-height: 1.6;
+
+    @media (max-width: 450px) {
+        font-size: 18px;
+      }
+
+    .JJfooter-P{
+      cursor: pointer;
+    }
+
+    .JJfooter-link {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: 500;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

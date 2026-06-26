@@ -1,0 +1,231 @@
+.security-dashboard {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 40px 32px;
+}
+
+.header-section {
+  margin-bottom: 40px;
+}
+
+.greeting {
+  color: #0f172a;
+  font-family: Nunito;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.welcome-text {
+  margin: 0;
+  color: var(--Primary-Color-800, #042869);
+
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  max-width: 1400px;
+}
+
+.check-in-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.qr-icon {
+  margin-bottom: 24px;
+  display: flex;
+  width: 80px;
+  height: 80px;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--Primary-Color-Lightest, #f1f7ff);
+}
+
+.qr-icon svg {
+  width: 64px;
+  height: 64px;
+}
+
+.check-in-title {
+  margin: 0 0 12px 0;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.check-in-time {
+  margin: 0 0 16px 0;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.check-in-instruction {
+  margin: 0 0 24px 0;
+  color: var(--Neutral-Color-600, #6c737f);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.scan-button {
+  padding: 16px 24px;
+  transition: 0.2s ease;
+  display: flex;
+  width: 448px;
+  height: 60px;
+  padding: 16px 118px;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  color: #ffffff;
+  background: var(--Primary-Color-500, #0062f6);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 98, 246, 0.2),
+    0 4px 6px -4px rgba(0, 98, 246, 0.2);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  /* font-weight: 600; */
+}
+
+.scan-button:hover {
+  background-color: #0040a3;
+}
+
+.scan-button:active {
+  background-color: #003080;
+}
+
+.announcements-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.announcements-title {
+  color: var(--Primary-Color-900, #03173c);
+
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0 0 24px 0;
+}
+
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.announcement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-left: 3px solid #0062f6;
+  padding-left: 16px;
+  border-radius: 2px;
+}
+
+.announcement-left {
+  flex: 1;
+}
+
+.announcement-name {
+  margin: 0 0 8px 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.announcement-description {
+  margin: 0;
+  line-height: 1.4;
+
+  color: #042869;
+
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.announcement-date {
+  color: #9da4ae;
+  margin: 0;
+  white-space: nowrap;
+  margin-left: 12px;
+  font-family: Nunito;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@media (max-width: 768px) {
+  .security-dashboard {
+    padding: 24px 16px;
+  }
+
+  .greeting {
+    font-size: 24px;
+  }
+
+  .content-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .check-in-card,
+  .announcements-card {
+    padding: 24px;
+  }
+
+  .announcement-item {
+    flex-direction: column;
+  }
+
+  .announcement-date {
+    margin-left: 0;
+    margin-top: 8px;
+  }
+}

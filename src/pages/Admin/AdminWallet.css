@@ -1,0 +1,176 @@
+/* --- Global Dashboard Layout --- */
+.dashboard-container {
+  background-color: #f6f8fa;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1200px;
+  /* margin: 0 auto; */
+  min-height: 100vh;
+}
+
+/* --- Header --- */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.welcome-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: #03173c;
+  margin: 0;
+}
+.subtitle-text {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.WithdrawFunds {
+  padding: 12px 24px;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* --- Metrics Grid --- */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid transparent;
+}
+
+.card-students {
+  border-left-color: #3b82f6;
+}
+.card-staff {
+  border-left-color: #a855f7;
+}
+.card-attendance {
+  border-left-color: #f59e0b;
+}
+.card-fees {
+  border-left-color: #10b981;
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #03173c;
+  display: block;
+}
+.card-label {
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* --- Table Styles --- */
+.history-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eef1f5;
+  padding: 20px;
+}
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+.data-table th {
+  background-color: #f8fafc;
+  padding: 12px;
+  text-align: left;
+  font-size: 12px;
+  color: #64748b;
+}
+.data-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+/* --- Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* --- Empty State --- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+}
+.empty-state-icon {
+  font-size: 40px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+.empty-state-action {
+  padding: 10px 20px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}

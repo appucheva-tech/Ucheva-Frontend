@@ -1,0 +1,159 @@
+.ParentSidebar_Container {
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000; /* Stays above content overlays */
+  box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
+}
+
+.sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  width: 100%;
+}
+
+.logo-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.Ucheva {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+}
+
+.ParentSidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 24px;
+  margin-top: 20px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  color: #666666;
+  text-decoration: none;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  background-color: #f1f7ff;
+  color: #0d62f6;
+}
+
+.nav-link.active {
+  background-color: #f1f7ff;
+  color: #0d62f6;
+  border-left-color: #0d62f6;
+}
+
+.nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.nav-text {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  color: inherit;
+}
+
+/* Custom Webkit Scrollbar */
+.ParentSidebar_Container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.ParentSidebar_Container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ParentSidebar_Container::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+/* --- Responsive Breakpoints --- */
+
+/* Match Tablet and Laptop Layout shifting at 1024px */
+@media (max-width: 1024px) {
+  .ParentSidebar_Container {
+    width: 260px;
+    transform: translateX(-100%); /* Keeps it safely off-screen by default */
+  }
+
+  .ParentSidebar_Container.mobile-open {
+    transform: translateX(
+      0
+    ); /* Slides smoothly into screen via layout triggers */
+  }
+
+  .ParentSidebar-nav {
+    padding: 0 16px;
+  }
+}
+
+/* Smartphone Adjustments */
+@media (max-width: 480px) {
+  .ParentSidebar_Container {
+    width: 80%; /* Takes variable layout footprint on tiny devices */
+    max-width: 260px;
+  }
+
+  .Ucheva {
+    width: 130px;
+  }
+
+  .nav-link {
+    padding: 12px 14px;
+  }
+
+  .nav-text {
+    font-size: 15px;
+  }
+}
+
+/* Extra Tiny Displays */
+@media (max-width: 380px) {
+  .Ucheva {
+    width: 110px;
+  }
+
+  .nav-text {
+    font-size: 14px;
+  }
+}
+
+/* Ensures layout scaling changes don't trap the sidebar drawer */
+@media (min-width: 1025px) {
+  .ParentSidebar_Container {
+    transform: translateX(0) !important;
+  }
+}

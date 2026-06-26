@@ -1,0 +1,790 @@
+.SubjectTeacher-settings-container {
+  padding: 40px;
+  background-color: #f5f7fb;
+  min-height: 100vh;
+}
+
+.SubjectTeacher-settings-header {
+  margin-bottom: 40px;
+}
+
+/* Modal */
+.SubjectTeacher-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.SubjectTeacher-modal-container {
+  background: #fff;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 450px;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  margin: 16px;
+}
+
+.SubjectTeacher-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.SubjectTeacher-modal-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.SubjectTeacher-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+.SubjectTeacher-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.SubjectTeacher-modal-error {
+  color: #e53e3e;
+  font-size: 13px;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  padding: 10px 12px;
+  border-radius: 6px;
+  margin: 0;
+}
+
+.SubjectTeacher-modal-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.SubjectTeacher-modal-form-group label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.SubjectTeacher-modal-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.SubjectTeacher-modal-password-wrapper input {
+  width: 100%;
+  padding: 10px 40px 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.SubjectTeacher-modal-password-wrapper input:focus {
+  border-color: #3b82f6;
+}
+
+.SubjectTeacher-modal-eye-btn {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* Strength Bar */
+.SubjectTeacher-password-strength-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.SubjectTeacher-password-strength-bar-track {
+  flex: 1;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.SubjectTeacher-password-strength-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition:
+    width 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.SubjectTeacher-password-strength-label {
+  font-size: 12px;
+  font-weight: 600;
+  min-width: 40px;
+}
+
+/* Requirements checklist */
+.SubjectTeacher-password-requirements {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.SubjectTeacher-password-requirements li {
+  font-size: 12px;
+  color: #9ca3af;
+  padding-left: 18px;
+  position: relative;
+}
+
+.SubjectTeacher-password-requirements li::before {
+  content: "✗";
+  position: absolute;
+  left: 0;
+  color: #e53e3e;
+}
+
+.SubjectTeacher-password-requirements li.SubjectTeacher-met {
+  color: #374151;
+}
+
+.SubjectTeacher-password-requirements li.SubjectTeacher-met::before {
+  content: "✓";
+  color: #38a169;
+}
+
+/* Match indicator */
+.SubjectTeacher-password-match-indicator {
+  font-size: 12px;
+  font-weight: 500;
+  margin: 2px 0 0;
+}
+
+/* Footer */
+.SubjectTeacher-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.SubjectTeacher-modal-cancel-btn {
+  padding: 10px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.SubjectTeacher-modal-submit-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.SubjectTeacher-modal-submit-btn:disabled,
+.SubjectTeacher-modal-cancel-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.SubjectTeacher-settings-header h1 {
+  margin: 0 0 12px 0;
+  color: #0f172a;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.SubjectTeacher-settings-header p {
+  margin: 0;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+}
+
+.SubjectTeacher-settings-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.SubjectTeacher-card-title {
+  margin: 0 0 32px 0;
+  padding-bottom: 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.SubjectTeacher-profile-content {
+  display: flex;
+  gap: 60px;
+}
+
+.SubjectTeacher-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.SubjectTeacher-avatar-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 16px;
+}
+
+.SubjectTeacher-avatar-image,
+.SubjectTeacher-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9da4ae;
+}
+
+.SubjectTeacher-avatar-placeholder svg {
+  width: 60px;
+  height: 60px;
+}
+
+.SubjectTeacher-avatar-upload-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.SubjectTeacher-avatar-upload-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #0033cc;
+}
+
+.SubjectTeacher-avatar-upload-btn svg {
+  width: 20px;
+  height: 20px;
+  color: #666;
+}
+
+.SubjectTeacher-avatar-input {
+  display: none;
+}
+
+.SubjectTeacher-avatar-info {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  text-align: center;
+}
+
+.SubjectTeacher-form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.SubjectTeacher-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.SubjectTeacher-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.SubjectTeacher-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.SubjectTeacher-form-group label {
+  margin-bottom: 8px;
+  display: block;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.SubjectTeacher-form-group input {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Geist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 84;
+  line-height: normal;
+  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid var(--Neutral-Color-400, #d2d6db);
+  background-color: #ffffff;
+}
+
+.SubjectTeacher-form-group input:focus {
+  outline: none;
+  border-color: #0033cc;
+  box-shadow: 0 0 0 3px rgba(0, 51, 204, 0.1);
+}
+
+.SubjectTeacher-form-group input::placeholder {
+  color: #999;
+}
+
+.SubjectTeacher-form-group input.SubjectTeacher-readonly-field {
+  background-color: #f9fafb;
+  color: #666;
+  cursor: not-allowed;
+  border: 1px solid #d2d6db;
+}
+
+.SubjectTeacher-form-group input.SubjectTeacher-readonly-field:focus {
+  outline: none;
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+
+.SubjectTeacher-form-group input.SubjectTeacher-readonly-field:hover {
+  border-color: #e0e0e0;
+}
+
+.SubjectTeacher-form-group input:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.SubjectTeacher-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.SubjectTeacher-save-btn {
+  background-color: #0062f6;
+  width: 127px;
+  height: 54px;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  border: none;
+}
+
+.SubjectTeacher-save-btn:hover {
+  background-color: #0041cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 51, 204, 0.2);
+}
+
+.SubjectTeacher-save-btn:active {
+  transform: translateY(0);
+}
+
+.SubjectTeacher-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.SubjectTeacher-security-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.SubjectTeacher-security-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+}
+
+.SubjectTeacher-security-text h3 {
+  margin: 0 0 8px 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.SubjectTeacher-security-text p {
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+  margin: 0;
+}
+
+.SubjectTeacher-change-password-btn {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  padding: 15px 12px;
+  align-items: center;
+  gap: 8px;
+  color: var(--Primary-Color-900, #03173c);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.SubjectTeacher-change-password-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #999;
+}
+
+.SubjectTeacher-change-password-btn:active {
+  background-color: #eee;
+}
+
+@media (max-width: 1023px) {
+  .SubjectTeacher-settings-container {
+    padding: 30px;
+  }
+
+  .SubjectTeacher-settings-header h1 {
+    font-size: 28px;
+  }
+
+  .SubjectTeacher-settings-header p {
+    font-size: 16px;
+  }
+
+  .SubjectTeacher-settings-card {
+    padding: 30px;
+  }
+
+  .SubjectTeacher-card-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .SubjectTeacher-profile-content {
+    gap: 40px;
+  }
+
+  .SubjectTeacher-form-row {
+    gap: 20px;
+  }
+
+  .SubjectTeacher-form-group label {
+    font-size: 16px;
+  }
+
+  .SubjectTeacher-security-item {
+    padding: 20px;
+  }
+
+  .SubjectTeacher-security-text h3 {
+    font-size: 16px;
+  }
+
+  .SubjectTeacher-security-text p {
+    font-size: 14px;
+  }
+
+  .SubjectTeacher-change-password-btn {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .SubjectTeacher-settings-container {
+    padding: 20px;
+  }
+
+  .SubjectTeacher-settings-header {
+    margin-bottom: 24px;
+  }
+
+  .SubjectTeacher-settings-header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .SubjectTeacher-settings-header p {
+    font-size: 14px;
+  }
+
+  .SubjectTeacher-settings-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .SubjectTeacher-card-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .SubjectTeacher-profile-content {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .SubjectTeacher-avatar-section {
+    align-items: center;
+  }
+
+  .SubjectTeacher-avatar-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .SubjectTeacher-avatar-placeholder svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .SubjectTeacher-avatar-upload-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .SubjectTeacher-avatar-upload-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .SubjectTeacher-form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .SubjectTeacher-form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .SubjectTeacher-form-group input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .SubjectTeacher-button-wrapper {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .SubjectTeacher-save-btn {
+    width: 100%;
+    max-width: 200px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .SubjectTeacher-security-content {
+    gap: 16px;
+  }
+
+  .SubjectTeacher-security-item {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .SubjectTeacher-security-text h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .SubjectTeacher-security-text p {
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-change-password-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .SubjectTeacher-modal-container {
+    max-width: 95%;
+    padding: 20px;
+    margin: 10px;
+  }
+}
+
+@media (max-width: 479px) {
+  .SubjectTeacher-settings-container {
+    padding: 16px;
+  }
+
+  .SubjectTeacher-settings-header h1 {
+    font-size: 22px;
+  }
+
+  .SubjectTeacher-settings-header p {
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-settings-card {
+    padding: 16px;
+  }
+
+  .SubjectTeacher-card-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .SubjectTeacher-profile-content {
+    gap: 20px;
+  }
+
+  .SubjectTeacher-avatar-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .SubjectTeacher-avatar-placeholder svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .SubjectTeacher-avatar-upload-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .SubjectTeacher-avatar-upload-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .SubjectTeacher-avatar-info {
+    font-size: 11px;
+  }
+
+  .SubjectTeacher-form-group label {
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-form-group input {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-save-btn {
+    height: 44px;
+    max-width: 180px;
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-security-item {
+    padding: 14px;
+  }
+
+  .SubjectTeacher-security-text h3 {
+    font-size: 15px;
+  }
+
+  .SubjectTeacher-security-text p {
+    font-size: 12px;
+  }
+
+  .SubjectTeacher-change-password-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .SubjectTeacher-modal-container {
+    padding: 16px;
+    max-width: 98%;
+  }
+
+  .SubjectTeacher-modal-header h2 {
+    font-size: 16px;
+  }
+
+  .SubjectTeacher-modal-footer {
+    flex-direction: column;
+  }
+
+  .SubjectTeacher-modal-cancel-btn,
+  .SubjectTeacher-modal-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

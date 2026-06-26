@@ -1,0 +1,42 @@
+.br-footer {
+  width: 100%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 32px;
+  margin-top: auto;
+  box-sizing: border-box;
+  border-top: 1px solid #e0e0e0;
+}
+
+.br-footer p {
+  margin: 0;
+  font-family: Nunito;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .br-footer {
+    padding: 14px 24px;
+  }
+
+  .br-footer p {
+    font-size: 11px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .br-footer {
+    padding: 12px 16px;
+  }
+
+  .br-footer p {
+    font-size: 10px;
+  }
+}

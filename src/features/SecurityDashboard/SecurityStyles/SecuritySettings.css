@@ -1,0 +1,561 @@
+.security-settings-container {
+  padding: 40px;
+  background-color: #f5f7fb;
+  /* min-height: 100vh; */
+
+  /* overflow-y: hidden; */
+}
+
+.security-settings-header {
+  margin-bottom: 40px;
+}
+
+.security-settings-header h1 {
+  margin: 0 0 12px 0;
+  color: #0f172a;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.security-settings-header p {
+  margin: 0;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+}
+
+.security-settings-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.security-card-title {
+  margin: 0 0 32px 0;
+  padding-bottom: 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.security-profile-content {
+  display: flex;
+  gap: 60px;
+}
+
+.security-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.security-avatar-container {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  margin-bottom: 16px;
+}
+
+.security-avatar-image,
+.security-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9da4ae;
+}
+
+.security-avatar-placeholder svg {
+  width: 60px;
+  height: 60px;
+}
+
+.security-avatar-upload-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.security-avatar-upload-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #0033cc;
+}
+
+.security-avatar-upload-btn svg {
+  width: 20px;
+  height: 20px;
+  color: #666;
+}
+
+.security-avatar-input {
+  display: none;
+}
+
+.security-avatar-info {
+  font-size: 13px;
+  color: #999;
+  margin: 0;
+  text-align: center;
+}
+
+.security-form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.security-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.security-form-group {
+  display: flex;
+  flex-direction: column;
+  /* padding: 14px 12px; */
+  /* align-items: center; */
+  /* gap: 10px; */
+  /* align-self: stretch; */
+}
+
+.security-form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.security-form-group label {
+  margin-bottom: 8px;
+  display: block;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.security-form-group input {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Geist;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 84;
+  line-height: normal;
+  transition: border-color 0.3s ease;
+  border-radius: 8px;
+  border: 1px solid var(--Neutral-Color-400, #d2d6db);
+  /* background: var(--Neutral-Color-100, #f9fafb); */
+  background-color: #ffffff;
+}
+
+.security-form-group input:focus {
+  outline: none;
+  border-color: #0033cc;
+  box-shadow: 0 0 0 3px rgba(0, 51, 204, 0.1);
+}
+
+.security-form-group input::placeholder {
+  color: #999;
+}
+
+.security-form-group input.readonly-field {
+  background-color: #f9fafb;
+  color: #666;
+  cursor: not-allowed;
+  border: 1px solid #d2d6db;
+}
+
+.security-form-group input.readonly-field:focus {
+  outline: none;
+  border-color: #e0e0e0;
+  box-shadow: none;
+}
+
+.security-form-group input.readonly-field:hover {
+  border-color: #e0e0e0;
+}
+
+.security-form-group input:disabled {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.security-button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.security-save-btn {
+  background-color: #0062f6;
+  width: 127px;
+  height: 54px;
+  gap: 8px;
+  border-radius: 8px;
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #ffffff;
+  border: none;
+}
+
+.security-save-btn:hover {
+  background-color: #0041cc;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 51, 204, 0.2);
+}
+
+.security-save-btn:active {
+  transform: translateY(0);
+}
+
+.security-security-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.security-security-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 24px; */
+  border: 1px solid #eee;
+  border-radius: 6px;
+  border: none;
+  /* background-color: #fafafa; */
+}
+
+.security-security-text h3 {
+  margin: 0 0 8px 0;
+  /* color: #03173c; */
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.security-security-text p {
+  /* margin: 0; */
+  font-weight: 400;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+}
+
+.security-change-password-btn {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  display: flex;
+  padding: 15px 12px;
+  align-items: center;
+  gap: 8px;
+  color: var(--Primary-Color-900, #03173c);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.security-change-password-btn:hover {
+  background-color: #f5f5f5;
+  border-color: #999;
+}
+
+.security-change-password-btn:active {
+  background-color: #eee;
+}
+
+@media (max-width: 1023px) {
+  .security-settings-container {
+    padding: 30px;
+  }
+
+  .security-settings-header h1 {
+    font-size: 28px;
+  }
+
+  .security-settings-header p {
+    font-size: 16px;
+  }
+
+  .security-settings-card {
+    padding: 30px;
+  }
+
+  .security-card-title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+
+  .security-profile-content {
+    gap: 40px;
+  }
+
+  .security-form-row {
+    gap: 20px;
+  }
+
+  .security-form-group label {
+    font-size: 16px;
+  }
+
+  .security-security-item {
+    padding: 20px;
+  }
+
+  .security-security-text h3 {
+    font-size: 16px;
+  }
+
+  .security-security-text p {
+    font-size: 14px;
+  }
+
+  .security-change-password-btn {
+    padding: 12px 10px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .security-settings-container {
+    padding: 20px;
+  }
+
+  .security-settings-header {
+    margin-bottom: 24px;
+  }
+
+  .security-settings-header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .security-settings-header p {
+    font-size: 14px;
+  }
+
+  .security-settings-card {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
+  .security-card-title {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+
+  .security-profile-content {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .security-avatar-section {
+    align-items: center;
+  }
+
+  .security-avatar-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .security-avatar-placeholder svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .security-avatar-upload-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .security-avatar-upload-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .security-form-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .security-form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .security-form-group input {
+    padding: 10px 14px;
+    font-size: 14px;
+  }
+
+  .security-button-wrapper {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .security-save-btn {
+    width: 100%;
+    max-width: 200px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  .security-security-content {
+    gap: 16px;
+  }
+
+  .security-security-item {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .security-security-text h3 {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .security-security-text p {
+    font-size: 13px;
+  }
+
+  .security-change-password-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 479px) {
+  .security-settings-container {
+    padding: 16px;
+  }
+
+  .security-settings-header h1 {
+    font-size: 22px;
+  }
+
+  .security-settings-header p {
+    font-size: 13px;
+  }
+
+  .security-settings-card {
+    padding: 16px;
+  }
+
+  .security-card-title {
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .security-profile-content {
+    gap: 20px;
+  }
+
+  .security-avatar-container {
+    width: 100px;
+    height: 100px;
+  }
+
+  .security-avatar-placeholder svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .security-avatar-upload-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .security-avatar-upload-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .security-avatar-info {
+    font-size: 11px;
+  }
+
+  .security-form-group label {
+    font-size: 13px;
+  }
+
+  .security-form-group input {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .security-save-btn {
+    height: 44px;
+    max-width: 180px;
+    font-size: 13px;
+  }
+
+  .security-security-item {
+    padding: 14px;
+  }
+
+  .security-security-text h3 {
+    font-size: 15px;
+  }
+
+  .security-security-text p {
+    font-size: 12px;
+  }
+
+  .security-change-password-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,27 @@
+.btn-login {
+    width: 23%;
+    height: 50px;
+    background-color: transparent;
+    border: none;
+    color: #0062F6;
+    border-radius: 10px;
+    cursor: pointer;
+
+    @media (max-width: 450px) {
+        display: none;
+    }
+}
+
+.btn-get-started {
+    width: 35%;
+    height: 50px;
+    background-color: #0062F6;
+    color: white;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+
+    @media (max-width: 450px) {
+        display: none;
+    }
+}

@@ -1,0 +1,1238 @@
+.Bddashboard-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Header Text Component Alignment styling */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.dashboard-header .header-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dashboard-header .welcome-text {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.dashboard-header .wave-emoji {
+  display: inline-block;
+}
+
+.dashboard-header .subtitle-text {
+  font-size: 15px;
+  color: #475569;
+  margin: 0;
+}
+
+/* Metric Display Layouts Grid System - 4 columns on desktop */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  border: 1px solid #e2e8f0;
+  border-left: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 125px;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+}
+
+.metric-card.card-total {
+  border-left-color: #2563eb;
+}
+.metric-card.card-teaching {
+  border-left-color: #a855f7;
+}
+.metric-card.card-non-teaching {
+  border-left-color: #f59e0b;
+}
+.metric-card.card-teachers {
+  border-left-color: #10b981;
+}
+
+.metric-card .card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.metric-card .text-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metric-card .card-label {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 500;
+}
+
+.metric-card .card-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.metric-card .icon-wrapper {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.metric-card .icon-wrapper .DashIcon {
+  width: 26px;
+  height: 26px;
+}
+.metric-card .icon-wrapper.icon-students {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.metric-card .icon-wrapper.icon-staff {
+  background-color: #f3e8ff;
+  color: #a855f7;
+}
+.metric-card .icon-wrapper.icon-attendance {
+  background-color: #fef3c7;
+  color: #f59e0b;
+}
+.metric-card .icon-wrapper.icon-fees {
+  background-color: #ecfdf5;
+  color: #10b981;
+}
+
+.metric-card .card-footer {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+.metric-card .card-footer .trend-icon {
+  width: 14px;
+  height: 14px;
+}
+.metric-card .card-footer.trend-up {
+  color: #10b981;
+}
+.metric-card .card-footer.trend-fees {
+  color: #16a34a;
+}
+
+/* Dashboard Split Multi-Column Grid Architecture */
+.dashboard-split-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.dashboard-split-grid > :nth-child(1) {
+  flex: 1.1;
+  min-width: 0;
+}
+
+.dashboard-split-grid > :nth-child(2) {
+  flex: 0.9;
+  min-width: 0;
+}
+
+.dashboard-panel {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-panel1 {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-panel .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dashboard-panel1 .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.dashboard-panel .panel-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.dashboard-panel .view-all-link {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.dashboard-panel .view-all-link:hover {
+  text-decoration: underline;
+}
+
+/* Attendance Tracking Table Layout */
+.panel-table-wrapper {
+  overflow-x: auto;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 400px;
+}
+
+.dashboard-table th {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 12px 10px;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #f1f5f9;
+  white-space: nowrap;
+}
+
+.dashboard-table td {
+  padding: 16px 10px;
+  font-size: 14px;
+  color: #475569;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.dashboard-table tr:last-child td {
+  border-bottom: none;
+}
+.font-medium {
+  font-weight: 500;
+}
+.text-slate {
+  color: #0f172a !important;
+}
+
+/* Status Badges Styling Rules */
+.status-badge {
+  display: inline-flex;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.status-badge.badge-checked-in {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+.status-badge.badge-absent {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+.status-badge.badge-checked-out {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+/* Quick Actions Button Configurations Grid */
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  flex: 1;
+}
+
+.action-button-card {
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.action-button-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.action-main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  flex: 1;
+}
+
+.action-icon-box {
+  width: 40px;
+  height: 40px;
+  max-width: 40px;
+  min-width: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 20px;
+}
+
+.action-text {
+  min-width: 0;
+  flex: 1;
+}
+
+.action-text h3 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 2px 0;
+}
+
+.action-text p {
+  font-size: 12px;
+  margin: 0;
+  color: #64748b;
+}
+
+.action-qr .next_icon_holder {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid #2563eb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-students .next_icon_holder {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid #6b21a8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-announcements .next_icon_holder {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid #92400e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-reports .next_icon_holder {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  border: 2px solid #166534;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.action-button-card .action-arrow {
+  font-size: 22px;
+}
+
+/* Color Themes Configured per Functional Actions Group */
+.action-qr {
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+.action-qr .action-icon-box {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+.action-qr .action-arrow {
+  color: #3b82f6;
+}
+
+.action-students {
+  background-color: #faf5ff;
+  color: #6b21a8;
+}
+.action-students .action-icon-box {
+  background-color: #f3e8ff;
+  color: #a855f7;
+}
+.action-students .action-arrow {
+  color: #c084fc;
+}
+
+.action-announcements {
+  background-color: #fffbeb;
+  color: #92400e;
+}
+.action-announcements .action-icon-box {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+.action-announcements .action-arrow {
+  color: #fbbf24;
+}
+
+.action-reports {
+  background-color: #f0fdf4;
+  color: #166534;
+}
+.action-reports .action-icon-box {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+.action-reports .action-arrow {
+  color: #4ade80;
+}
+
+/* Recent Announcements Structural Viewports */
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.announcement-item {
+  border-left: 3px solid transparent;
+  padding-left: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Specific color classes as per your original design */
+.announcement-item.color-blue {
+  border-left-color: #2563eb;
+}
+.announcement-item.color-sky {
+  border-left-color: #38bdf8;
+}
+.announcement-item.color-navy {
+  border-left-color: #1e3a8a;
+}
+
+/* Content within the item */
+.announcement-item h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.announcement-date {
+  display: block;
+  font-size: 12px;
+  color: #94a3b8;
+  margin: 4px 0;
+}
+
+.announcement-item p {
+  font-size: 13.5px;
+  color: #475569;
+  margin: 0;
+  line-height: 1.4;
+
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Fee Collection Donut Chart System Graphic Design Styles */
+.fees-summary-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 20px;
+  flex: 1;
+}
+
+.donut-chart-wrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+}
+
+.donut-svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.donut-bg {
+  fill: none;
+  stroke: #fff7ed;
+  stroke-width: 12;
+}
+
+.donut-fill {
+  fill: none;
+  stroke: #f59e0b;
+  stroke-width: 12;
+  stroke-dasharray: 251.2;
+  stroke-dashoffset: 70.33;
+  stroke-linecap: round;
+}
+
+.donut-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.donut-text .percentage {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1;
+}
+
+.donut-text .label {
+  font-size: 12px;
+  color: #475569;
+  margin-top: 2px;
+}
+
+/* Financial Information Spreadsheet Details Alignment Layout */
+.fees-ledger-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 200px;
+}
+
+.ledger-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+}
+
+.ledger-label-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ledger-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.ledger-marker.marker-collected {
+  background-color: #f59e0b;
+}
+.ledger-marker.marker-outstanding {
+  background-color: #fff7ed;
+  border: 1px solid #fed7aa;
+}
+.ledger-name {
+  color: #475569;
+}
+.ledger-value {
+  color: #0f172a;
+}
+.font-semibold {
+  font-weight: 600;
+}
+.font-bold {
+  font-weight: 700;
+}
+
+.ledger-divider {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 4px 0;
+}
+
+.ledger-item.total-row {
+  font-size: 15px;
+  margin-top: 2px;
+}
+
+.empty-state-container1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: #64748b;
+}
+
+.empty-state-icon {
+  font-size: 48px;
+  color: #cbd5e1;
+  margin-bottom: 16px;
+}
+
+.empty-state-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.empty-state-description {
+  font-size: 14px;
+  max-width: 250px;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Large tablets and small laptops (1120px and below) */
+@media (max-width: 1120px) {
+  .metrics-grid {
+    gap: 16px;
+  }
+
+  .metric-card {
+    min-height: 110px;
+    padding: 14px 18px;
+  }
+
+  .metric-card .card-value {
+    font-size: 24px;
+  }
+}
+
+/* Tablets (1024px and below) - Change to 2 columns on tablet */
+@media (max-width: 1024px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .dashboard-split-grid {
+    flex-direction: column;
+  }
+
+  .dashboard-split-grid > :nth-child(1),
+  .dashboard-split-grid > :nth-child(2) {
+    flex: none;
+    width: 100%;
+  }
+
+  .dashboard-panel {
+    padding: 20px;
+  }
+  .dashboard-panel1 {
+    padding: 18px;
+  }
+
+  .dashboard-header .welcome-text {
+    font-size: 24px;
+  }
+}
+
+/* Small tablets and large phones (820px and below) */
+@media (max-width: 820px) {
+  .metrics-grid {
+    gap: 14px;
+  }
+
+  .metric-card {
+    min-height: 100px;
+    padding: 12px 16px;
+  }
+
+  .metric-card .card-value {
+    font-size: 22px;
+  }
+
+  .metric-card .icon-wrapper {
+    width: 44px;
+    height: 44px;
+  }
+
+  .metric-card .icon-wrapper .DashIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .fees-summary-container {
+    flex-direction: column;
+    padding: 10px 0;
+    gap: 24px;
+  }
+
+  .donut-chart-wrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .fees-ledger-pane {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* Mobile devices (768px and below) - Keep 2 columns */
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .dashboard-header {
+    margin-bottom: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dashboard-header .welcome-text {
+    font-size: 22px;
+  }
+
+  .dashboard-header .subtitle-text {
+    font-size: 14px;
+  }
+
+  .dashboard-panel .panel-title {
+    font-size: 16px;
+  }
+
+  .dashboard-panel .view-all-link {
+    font-size: 13px;
+  }
+
+  .actions-grid {
+    gap: 12px;
+  }
+
+  .action-button-card {
+    padding: 14px;
+  }
+
+  .action-text h3 {
+    font-size: 13px;
+  }
+
+  .action-text p {
+    font-size: 11px;
+  }
+
+  .action-icon-box {
+    width: 36px;
+    height: 36px;
+    max-width: 36px;
+    min-width: 36px;
+    font-size: 18px;
+  }
+
+  .action-qr .next_icon_holder,
+  .action-students .next_icon_holder,
+  .action-announcements .next_icon_holder,
+  .action-reports .next_icon_holder {
+    width: 26px;
+    height: 26px;
+  }
+
+  .action-button-card .action-arrow {
+    font-size: 18px;
+  }
+
+  .dashboard-table {
+    min-width: 350px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 10px 8px;
+    font-size: 13px;
+  }
+
+  .announcement-item h3 {
+    font-size: 14px;
+  }
+
+  .announcement-item p {
+    font-size: 13px;
+  }
+
+  .donut-chart-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+
+  .donut-text .percentage {
+    font-size: 22px;
+  }
+
+  .donut-text .label {
+    font-size: 11px;
+  }
+
+  .ledger-item {
+    font-size: 13px;
+  }
+}
+
+/* Small mobile devices (640px and below) - Keep 2 columns */
+@media (max-width: 640px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .metric-card {
+    min-height: 90px;
+    padding: 10px 14px;
+  }
+
+  .metric-card .card-value {
+    font-size: 20px;
+  }
+
+  .metric-card .card-label {
+    font-size: 12px;
+  }
+
+  .metric-card .icon-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .metric-card .icon-wrapper .DashIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .dashboard-panel {
+    padding: 16px;
+  }
+  .dashboard-panel1 {
+    padding: 14px;
+  }
+
+  .dashboard-header .welcome-text {
+    font-size: 20px;
+  }
+
+  .dashboard-header .subtitle-text {
+    font-size: 13px;
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .action-button-card {
+    padding: 12px;
+  }
+
+  .action-text h3 {
+    font-size: 12px;
+  }
+
+  .action-text p {
+    font-size: 10px;
+  }
+
+  .action-icon-box {
+    width: 32px;
+    height: 32px;
+    max-width: 32px;
+    min-width: 32px;
+    font-size: 16px;
+  }
+
+  .dashboard-table {
+    min-width: 300px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .status-badge {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .donut-chart-wrapper {
+    width: 100px;
+    height: 100px;
+  }
+
+  .donut-text .percentage {
+    font-size: 18px;
+  }
+
+  .donut-text .label {
+    font-size: 10px;
+  }
+
+  .fees-ledger-pane {
+    gap: 10px;
+  }
+
+  .ledger-item {
+    font-size: 12px;
+  }
+
+  .ledger-marker {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Extra small mobile devices (520px and below) - Keep 2 columns */
+@media (max-width: 520px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .metric-card {
+    min-height: 80px;
+    padding: 8px 12px;
+  }
+
+  .metric-card .card-value {
+    font-size: 18px;
+  }
+
+  .metric-card .card-label {
+    font-size: 11px;
+  }
+
+  .metric-card .icon-wrapper {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+  }
+
+  .metric-card .icon-wrapper .DashIcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .metric-card .card-footer {
+    font-size: 11px;
+  }
+
+  .metric-card .card-footer .trend-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .actions-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .action-button-card {
+    padding: 10px 12px;
+  }
+
+  .action-text h3 {
+    font-size: 11px;
+  }
+
+  .action-text p {
+    font-size: 9px;
+  }
+
+  .action-icon-box {
+    width: 28px;
+    height: 28px;
+    max-width: 28px;
+    min-width: 28px;
+    font-size: 14px;
+  }
+
+  .action-qr .next_icon_holder,
+  .action-students .next_icon_holder,
+  .action-announcements .next_icon_holder,
+  .action-reports .next_icon_holder {
+    width: 22px;
+    height: 22px;
+  }
+
+  .action-button-card .action-arrow {
+    font-size: 16px;
+  }
+
+  .dashboard-table {
+    min-width: 280px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+
+  .dashboard-header .welcome-text {
+    font-size: 18px;
+  }
+
+  .dashboard-header .subtitle-text {
+    font-size: 12px;
+  }
+
+  .dashboard-panel .panel-title {
+    font-size: 15px;
+  }
+
+  .dashboard-panel .view-all-link {
+    font-size: 12px;
+  }
+
+  .fees-summary-container {
+    gap: 16px;
+  }
+
+  .donut-chart-wrapper {
+    width: 90px;
+    height: 90px;
+  }
+
+  .donut-text .percentage {
+    font-size: 16px;
+  }
+
+  .donut-text .label {
+    font-size: 9px;
+  }
+
+  .ledger-item {
+    font-size: 11px;
+  }
+}
+
+/* Very small mobile devices (400px and below) - Keep 2 columns */
+@media (max-width: 400px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .metric-card {
+    min-height: 70px;
+    padding: 6px 10px;
+    border-radius: 8px;
+  }
+
+  .metric-card .card-content {
+    flex-direction: row;
+  }
+
+  .metric-card .text-section {
+    gap: 3px;
+  }
+
+  .metric-card .card-value {
+    font-size: 16px;
+  }
+
+  .metric-card .card-label {
+    font-size: 10px;
+  }
+
+  .metric-card .icon-wrapper {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+  }
+
+  .metric-card .icon-wrapper .DashIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .metric-card .card-footer {
+    font-size: 10px;
+    margin-top: 6px;
+  }
+
+  .metric-card .card-footer .trend-icon {
+    width: 10px;
+    height: 10px;
+  }
+
+  .dashboard-header .welcome-text {
+    font-size: 16px;
+  }
+
+  .dashboard-header .subtitle-text {
+    font-size: 11px;
+  }
+
+  .dashboard-panel {
+    padding: 12px;
+  }
+  .dashboard-panel1 {
+    padding: 10px;
+  }
+
+  .dashboard-panel .panel-title {
+    font-size: 14px;
+  }
+
+  .dashboard-panel .view-all-link {
+    font-size: 11px;
+  }
+
+  .actions-grid {
+    gap: 6px;
+  }
+
+  .action-button-card {
+    padding: 8px 10px;
+  }
+
+  .action-text h3 {
+    font-size: 10px;
+  }
+
+  .action-text p {
+    font-size: 8px;
+  }
+
+  .action-icon-box {
+    width: 24px;
+    height: 24px;
+    max-width: 24px;
+    min-width: 24px;
+    font-size: 12px;
+    border-radius: 6px;
+  }
+
+  .action-qr .next_icon_holder,
+  .action-students .next_icon_holder,
+  .action-announcements .next_icon_holder,
+  .action-reports .next_icon_holder {
+    width: 18px;
+    height: 18px;
+  }
+
+  .action-button-card .action-arrow {
+    font-size: 14px;
+  }
+
+  .dashboard-table {
+    min-width: 250px;
+  }
+
+  .dashboard-table th,
+  .dashboard-table td {
+    padding: 4px 3px;
+    font-size: 10px;
+  }
+
+  .status-badge {
+    font-size: 8px;
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+
+  .donut-chart-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+
+  .donut-text .percentage {
+    font-size: 14px;
+  }
+
+  .donut-text .label {
+    font-size: 8px;
+  }
+
+  .fees-ledger-pane {
+    gap: 6px;
+  }
+
+  .ledger-item {
+    font-size: 10px;
+  }
+
+  .ledger-item.total-row {
+    font-size: 11px;
+  }
+
+  .announcement-item h3 {
+    font-size: 13px;
+  }
+
+  .announcement-item p {
+    font-size: 12px;
+  }
+}

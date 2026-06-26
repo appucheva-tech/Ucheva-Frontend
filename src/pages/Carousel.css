@@ -1,0 +1,105 @@
+.DDcarousel-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 15vh;
+  padding-left: 5%;
+  margin-top: -3%;
+  font-family: system-ui, -apple-system, sans-serif;
+  gap: 30px;
+
+  @media (max-width: 450px) {
+        width: 100%;
+        height: 50px;
+        flex-direction: row !important;
+        align-items: center !important;
+    }
+
+
+
+  .DDcarousel-label {
+    font-size: 28px;
+    font-weight: 600;
+    color: #0f2d59; 
+    white-space: nowrap;
+
+    @media (max-width: 450px) {
+        font-size: 15px;;
+    }
+  }
+
+  .DDcarousel-slider {
+    overflow: hidden;
+    position: relative;
+    width: 80%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 450px) {
+        width: 100%;
+        height: 50px;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      height: 100%;
+      position: absolute;
+      width: 50px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    &::before {
+      left: 0;
+
+    }
+    &::after {
+      right: 0;
+    }
+
+    .DDcarousel-track {
+      display: flex;
+      align-items: center;
+      gap: 5%; 
+      width: max-content;
+      height: 80px;
+      animation: scroll 5s linear infinite;
+
+      
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    
+    .DDcarousel-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-shrink: 0;
+
+      img {
+        height: 40px; 
+        width: 80%;
+        height: 100px;
+        object-fit: contain;
+        mix-blend-mode: multiply; 
+
+        @media (max-width: 450px) {
+          height: 50px;
+        }
+      }
+    }
+  }
+}
+
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%); 
+  }
+}

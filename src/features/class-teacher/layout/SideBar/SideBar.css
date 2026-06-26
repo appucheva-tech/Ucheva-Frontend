@@ -1,0 +1,244 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.ct-sidebar-container {
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #f0f1f5;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.02);
+}
+
+/* Structural Brand Box Segments */
+.ct-sidebar-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #f0f1f5;
+  height: 60px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.ct-logo-icon {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ct-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Close Action Trigger Panel Icon Button (Hidden by default on Desktop layout view) */
+.ct-sidebar-close-btn {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #64748b;
+  z-index: 1001;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.ct-sidebar-close-btn:hover {
+  color: #03173c;
+  opacity: 0.8;
+}
+
+/* ========== LINK HUB LIST SEGMENT ARRANGEMENTS ========== */
+.ct-sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 16px 20px 16px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.ct-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  font-family: "Nunito", sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ct-nav-link:hover {
+  background-color: #f1f7ff;
+  color: #0062f6;
+}
+
+.ct-nav-link.active {
+  background-color: #f1f7ff;
+  color: #0062f6;
+  border-left-color: #0062f6;
+}
+
+.ct-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: inherit;
+  transition: color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ct-nav-text {
+  flex: 1;
+  line-height: 100%;
+  color: inherit;
+  white-space: nowrap;
+}
+
+/* Custom Scrollbar Utility Configs */
+.ct-sidebar-container::-webkit-scrollbar {
+  width: 5px;
+}
+
+.ct-sidebar-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ct-sidebar-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+
+.ct-sidebar-nav::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ct-sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.ct-sidebar-nav::-webkit-scrollbar-thumb {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+/* ========== TRANSPARENT TRANSITION LAYOUT MASK VEIL ========== */
+.ct-sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  animation: ctSidebarFadeIn 0.2s ease-out;
+}
+
+@keyframes ctSidebarFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== ULTRA-RESPONSIVE VIEWPORT STYLES ========== */
+
+/* Tablets Screens Viewport Breakdown */
+@media (max-width: 768px) {
+  .ct-sidebar-container {
+    transform: translateX(-100%);
+    width: 280px;
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.05);
+  }
+
+  .ct-sidebar-container.mobile-open {
+    transform: translateX(0);
+  }
+
+  .ct-sidebar-close-btn {
+    display: flex;
+  }
+
+  .ct-sidebar-logo {
+    justify-content: flex-start;
+    padding-left: 20px;
+    height: 60px;
+  }
+}
+
+/* Small Smartphone Viewports Panels */
+@media (max-width: 480px) {
+  .ct-sidebar-container {
+    width: 82%;
+    max-width: 230px;
+  }
+
+  .ct-sidebar-logo {
+    height: 56px;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ct-logo {
+    width: 100px;
+  }
+
+  .ct-sidebar-nav {
+    padding: 12px 12px 16px 12px;
+    gap: 3px;
+  }
+
+  .ct-nav-link {
+    padding: 8px 12px;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .ct-nav-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Desktop Hardware Enforcers */
+@media (min-width: 769px) {
+  .ct-sidebar-container {
+    transform: translateX(0) !important;
+  }
+}

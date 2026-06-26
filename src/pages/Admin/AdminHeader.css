@@ -1,0 +1,260 @@
+/* Container & Layout */
+.AdminHdr-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 85px;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 20px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Search Bar */
+.AdminHdr-search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+.AdminHdr-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+}
+
+.AdminHdr-search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+}
+
+/* Right Group: Metadata & Profile */
+.AdminHdr-right-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.AdminHdr-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.AdminHdr-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Profile Section */
+.AdminHdr-profile-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.AdminHdr-user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.AdminHdr-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.AdminHdr-user-role {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.AdminHdr-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Dropdown */
+.AdminHdr-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  z-index: 100;
+}
+
+.AdminHdr-dropdown-item {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.AdminHdr-dropdown-item:hover {
+  background: #f1f5f9;
+}
+
+/* Modal */
+.AdminHdr-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.AdminHdr-modal {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 350px;
+  text-align: center;
+}
+
+.AdminHdr-modal-icon {
+  margin-bottom: 16px;
+}
+
+.AdminHdr-modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.AdminHdr-modal-message {
+  font-size: 14px;
+  color: #64748b;
+  margin-bottom: 24px;
+}
+
+.AdminHdr-modal-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.AdminHdr-modal-cancel {
+  padding: 10px 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.AdminHdr-modal-confirm {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.AdminHdr-modal-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.AdminHdr-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid white;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: AdminHdr-spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes AdminHdr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Hamburger */
+.AdminHdr-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+  padding: 6px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.AdminHdr-hamburger:hover {
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 1024px) {
+  .AdminHdr-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .AdminHdr-meta-container {
+    display: none;
+  }
+
+  .AdminHdr-search-container {
+    max-width: 150px;
+  }
+
+  .AdminHdr-right-group {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .AdminHdr-user-info {
+    display: none;
+  }
+}

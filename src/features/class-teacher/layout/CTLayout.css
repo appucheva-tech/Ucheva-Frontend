@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
+
+.nunito-content {
+  font-family: "Nunito", sans-serif;
+  font-optical-sizing: auto;
+}
+
+/* ========== BASE MASTER LAYOUT PANELS ========== */
+.ct-app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f6fa;
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Main content column sits adjacent to the 280px left pinned navbar sidebar */
+.ct-main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-left: 280px;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: calc(100% - 280px);
+  min-height: 100vh;
+}
+
+/* Page Inner Body Wrap Canvas viewport settings */
+.ct-page-content {
+  flex: 1;
+  padding: 32px;
+  background-color: #f5f6fa;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ========== MOBILE FLOATING HUD TRIGGER MENU INTERFACE ========== */
+.ct-mobile-menu-btn {
+  display: none; /* hidden completely on normal monitors */
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1001; /* Layer sits confidently above content elements */
+  background: #0062f6;
+  border: none;
+  color: white;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: 0 4px 10px rgba(0, 98, 246, 0.25);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ct-mobile-menu-btn:hover {
+  background: #0052d0;
+}
+
+.ct-mobile-menu-btn:active {
+  transform: scale(0.95);
+}
+
+/* Transparent backing background window tint layout veil */
+.ct-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  animation: ctFadeIn 0.2s ease-out;
+}
+
+@keyframes ctFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ========== COMPACT SCREEN VIEWPORT MEDIA QUERIES ========== */
+
+/* Handles Small Notebook Screen Adjustments */
+@media (max-width: 1120px) {
+  .ct-page-content {
+    padding: 24px;
+  }
+}
+
+/* Tablets and Large Mobile screens (Collapse sidebar down under overlay view mode) */
+@media (max-width: 768px) {
+  .ct-main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ct-page-content {
+    padding: 20px;
+    margin-top: 60px; /* Provides breathing room below floating menu trigger button */
+  }
+
+  .ct-mobile-menu-btn {
+    display: flex;
+  }
+}
+
+/* Small Smartphone Panels */
+@media (max-width: 480px) {
+  .ct-page-content {
+    padding: 16px;
+  }
+}
+
+/* Ultra Small Viewports */
+@media (max-width: 360px) {
+  .ct-page-content {
+    padding: 12px;
+  }
+}

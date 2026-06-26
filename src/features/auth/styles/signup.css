@@ -1,0 +1,517 @@
+.form-wrapper {
+  width: 100%;
+  max-width: 540px;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* ==========================================================================
+   Logo Styles
+   ========================================================================== */
+.form-logo-container {
+  display: none;
+}
+
+.form-mobile-logo {
+  max-width: 140px;
+  height: auto;
+  object-fit: contain;
+}
+
+.signup-form h2 {
+  font-size: 1.7rem;
+  color: #001233;
+  font-weight: 700;
+  margin-bottom: 28px;
+  letter-spacing: -0.01em;
+  text-align: center;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.input-hint {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.select-subtext {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Unified Server Response Banner Styling
+   ========================================================================== */
+.server-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 24px;
+  animation: fadeInBanner 0.25s ease-out;
+}
+
+/* Error variations config */
+.error-layout {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+}
+.error-layout .banner-content {
+  color: #991b1b;
+}
+
+/* Success variations config */
+.success-layout {
+  background-color: #f0fdf4;
+  border: 1px solid #dcfce7;
+}
+.success-layout .banner-content {
+  color: #166534;
+}
+
+.banner-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.banner-content {
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+@keyframes fadeInBanner {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Native Inputs & Select Styling
+   ========================================================================== */
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="tel"],
+.signup-form input[type="password"],
+.signup-form select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #0f172a;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease;
+}
+
+.signup-form input:focus,
+.signup-form select:focus {
+  border-color: #2563eb;
+}
+
+.signup-form input::placeholder {
+  color: #cbd5e1;
+}
+
+/* ==========================================================================
+   Special Inputs (URL prefix)
+   ========================================================================== */
+.url-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #f8fafc;
+  width: 100%;
+}
+
+.url-input-wrapper:focus-within {
+  border-color: #2563eb;
+}
+
+.url-prefix {
+  padding-left: 16px;
+  padding-right: 4px;
+  color: #64748b;
+  font-size: 0.95rem;
+  user-select: none;
+}
+
+.url-input-wrapper input {
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 4px !important;
+  width: 100%;
+}
+
+.input-locked input {
+  background-color: #f8fafc;
+  color: #475569;
+  font-weight: 500;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Dynamic URL Suggestion Components
+   ========================================================================== */
+.url-suggestions {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.url-suggestions p {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #64748b;
+  margin: 0;
+}
+
+.suggestion-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.url-box {
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.url-box:hover {
+  background-color: #e2e8f0;
+  color: #0f172a;
+  border-color: #cbd5e1;
+}
+
+.url-box.active-url {
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-color: #bae6fd;
+}
+
+.inline-change-selection-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #eff6ff;
+  border: 1px solid #bfdbfe;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.inline-change-selection-btn:hover {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+  border-color: #93c5fd;
+}
+
+/* ==========================================================================
+   Checkbox Styling
+   ========================================================================== */
+.form-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+}
+
+.form-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-checkbox label {
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.form-checkbox a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.form-checkbox a:hover {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Buttons & Footers
+   ========================================================================== */
+.signUp-submit-btn {
+  width: 100%;
+  padding: 16px;
+  background-color: #0066fe;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.signUp-submit-btn:hover {
+  background-color: #0052cc;
+}
+.signUp-submit-btn:disabled {
+  background-color: #94a3b8 !important;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.form-footer a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.form-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Error Utilities */
+.error-text {
+  color: #ef4444;
+  font-size: 0.82rem;
+  font-weight: 500;
+  margin-top: 6px;
+  display: block;
+}
+
+.input-error {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+}
+
+.wrapper-error {
+  border-color: #ef4444 !important;
+}
+
+.check-error {
+  margin-top: 4px;
+  padding-left: 26px;
+}
+
+/* ==========================================================================
+   Custom Dropdown Selection Component Styles
+   ========================================================================== */
+.relative-container {
+  position: relative;
+}
+
+.custom-select-trigger {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  color: #0f172a;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.custom-select-trigger:hover {
+  border-color: #94a3b8;
+}
+
+.active-trigger {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 1px #2563eb;
+}
+
+.select-placeholder {
+  color: #94a3b8;
+}
+
+.select-selected-values {
+  color: #0f172a;
+  font-weight: 500;
+}
+
+.dropdown-chevron-icon {
+  font-size: 0.65rem;
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.dropdown-chevron-icon.open {
+  transform: rotate(180deg);
+}
+
+.custom-select-dropdown-list {
+  position: absolute;
+  top: calc(100% - 4px);
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  margin-top: 8px;
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 4px 6px -2px rgba(0, 0, 0, 0.03);
+  z-index: 50;
+  overflow: hidden;
+  padding: 4px 0;
+}
+
+.custom-select-option-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  user-select: none;
+  color: #334155;
+  font-size: 0.95rem;
+}
+
+.custom-select-option-row:hover {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+.row-selected {
+  background-color: #f0fdf4;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+.custom-row-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+.dropdown-overlay-close-helper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 40;
+  background: transparent;
+}
+
+/* ==========================================================================
+   Responsive Adjustments
+   ========================================================================== */
+@media (max-width: 640px) {
+  .form-wrapper {
+    width: 95%;
+    padding: 20px 12px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  .form-logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .form-row .form-group {
+    margin-bottom: 20px;
+  }
+
+  .signup-form h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  .signUp-submit-btn {
+    padding: 14px;
+    font-size: 0.95rem;
+  }
+
+  .url-input-wrapper {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .form-mobile-logo {
+    max-width: 110px;
+  }
+}
+
+.form-wrapper {
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}

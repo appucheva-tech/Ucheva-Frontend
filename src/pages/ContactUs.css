@@ -1,0 +1,235 @@
+.TTcontact-layout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 40px 24px;
+
+  .TTcontact-layout-container {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 72px;
+    max-width: 1150px;
+    width: 100%;
+    align-items: start;
+
+    @media (max-width: 450px) {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+  }
+
+  .TTcontact-form-card {
+    background-color: #f3f4f6;
+    border-radius: 20px;
+    padding: 44px;
+
+    @media (max-width: 450px) {
+      padding: 14px;
+      order: 2;
+    }
+
+    .TTcontact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 24px;
+      row-gap: 28px;
+
+      @media (max-width: 450px) {
+        grid-template-columns: 1fr;
+        row-gap: 20px;
+      }
+    }
+
+    .TTcontact-input-field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      &.TTfull-row {
+        grid-column: 1 / -1;
+      }
+
+      label {
+        font-size: 13px;
+        font-weight: 500;
+        color: #1e293b;
+      }
+
+      input, textarea, select {
+        width: 100%;
+        background-color: #ffffff;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        padding: 16px;
+        font-size: 14px;
+        color: #0f172a;
+        box-sizing: border-box;
+        outline: none;
+
+        &::placeholder {
+          color: #94a3b8;
+          opacity: 0.8;
+        }
+      }
+
+      textarea {
+        height: 154px;
+        resize: none;
+      }
+
+      .TTselect-container {
+        position: relative;
+        width: 100%;
+
+        select {
+          appearance: none;
+          cursor: pointer;
+          padding-right: 44px;
+        }
+
+        &::after {
+          content: "";
+          position: absolute;
+          right: 20px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid #475569;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .TTaction-button-row {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 28px;
+    }
+
+    .TTsubmit-action-btn {
+      background-color: #0061ff;
+      color: #ffffff;
+      font-size: 14px;
+      border: none;
+      width: 25%;
+      height: 40px;
+      border-radius: 10px;
+      cursor: pointer;
+
+      @media (max-width: 450px) {
+        width: 35%;
+        height: 40px;
+      }
+    }
+  }
+
+  .TTcontact-details-panel {
+    color: #0c1e36;
+    margin-left: 10%;
+    width: 90%;
+
+    @media (max-width: 450px) {
+        width: 100%;
+        margin-left: 0%;
+      }
+
+    .TTpanel-tagline {
+      display: block;
+      font-size: 15px;
+      color: #94a3b8;
+      margin-bottom: 12px;
+    }
+
+    .TTpanel-heading {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 0 0 16px 0;
+      color: #042869;
+
+      @media (max-width: 450px) {
+        font-size: 20px;
+      }
+    }
+
+    .TTpanel-lead-text {
+      font-size: 21.5px;
+      line-height: 1.5;
+      color: #042869;
+      margin: 0 0 36px 0;
+      max-width: 380px;
+
+      @media (max-width: 450px) {
+        font-size: 14px;
+      }
+    }
+
+    .TTpanel-data-group {
+      margin-bottom: 24px;
+
+      h3 {
+        font-size: 19px;
+        font-weight: 700;
+        margin: 0 0 8px 0;
+        color: #042869;
+      }
+
+      .TTdata-anchor {
+        color: #042869;
+        text-decoration: none;
+        font-size: 18px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .TTaddress-paragraph {
+        font-size: 18px;
+        line-height: 1.5;
+        color: #042869;
+        margin: 0;
+      }
+    }
+
+    .TTpanel-social-group {
+      margin-top: 36px;
+
+      h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin: 0 0 14px 0;
+        color: #042869;
+      }
+
+      .TTsocial-button-list {
+        display: flex;
+        gap: 12px;
+      }
+
+      .TTsocial-circle-btn {
+        width: 34px;
+        height: 34px;
+        background-color: #0061ff;
+        color: #ffffff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        font-size: 14px;
+        transition: transform 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

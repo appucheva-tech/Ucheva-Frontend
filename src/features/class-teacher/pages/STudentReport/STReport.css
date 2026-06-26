@@ -1,0 +1,153 @@
+
+.STReportContainer {
+  width: 100%;
+  height: auto;
+  min-height: 150vh;
+  background: #f5f7fb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+.STReportWrapper {
+  width: 100%;
+  min-height: 150vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+}
+
+.STSReportHead {
+  width: 100%;
+  min-height: 12vh;
+  font-family: Nunito;
+  font-weight: bold;
+  font-style: Bold;
+  font-size: 32px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #0f172a;
+}
+
+.STSReportHeadRight {
+  width: 30%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 10px;
+}
+
+.STR {
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 18px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+  cursor: pointer;
+}
+
+.STA {
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 18px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #9da4ae;
+  cursor: pointer;
+}
+
+.STP {
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 18px;
+  leading-trim: NONE;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #042869;
+  cursor: pointer;
+}
+
+.SubToAdmin {
+  width: 100%;
+  min-height: 12vh;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  background: white;
+  border-radius: 10px;
+  padding-right: 3%;
+  gap: 14px;
+}
+
+.STAdd {
+  width: 159px;
+  height: 48px;
+  border-radius: 8px;
+  background: #0062f6;
+  color: white;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.STSubmit {
+  width: 159px;
+  height: 48px;
+  border-radius: 8px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  color: #042869;
+  font-family: Nunito;
+  font-weight: 400px;
+  font-style: Regular;
+  font-size: 16px;
+  leading-trim: NONE;
+  line-height: 24px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  cursor: pointer;
+  outline: none;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}

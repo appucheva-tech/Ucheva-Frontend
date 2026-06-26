@@ -1,0 +1,246 @@
+/* Add these styles to your existing Score.css */
+
+/* Subject Cards Container */
+.subject-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Subject Card Wrapper */
+.subject-card-wrapper {
+  background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.subject-card-wrapper.active {
+  border-color: #0066ff;
+  box-shadow: 0 2px 12px rgba(0, 102, 255, 0.15);
+}
+
+.subject-card-wrapper:hover {
+  border-color: #0066ff;
+}
+
+/* Subject Card Header */
+.subject-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  cursor: pointer;
+  background: #f8f9fa;
+  transition: background 0.3s ease;
+}
+
+.subject-card-header:hover {
+  background: #f0f2f7;
+}
+
+.subject-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.subject-name-main {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.subject-classes-count {
+  font-size: 13px;
+  color: #666;
+  background: #e0e0e0;
+  padding: 2px 12px;
+  border-radius: 12px;
+}
+
+.subject-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.expand-icon {
+  font-size: 14px;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+/* Subject Card Body */
+.subject-card-body {
+  padding: 16px 20px 20px;
+  background: #ffffff;
+  border-top: 1px solid #f0f2f7;
+}
+
+/* Classes List */
+.classes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.class-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.class-item:hover {
+  background: #f0f2f7;
+  border-color: #0066ff;
+}
+
+.class-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #0066ff;
+}
+
+.class-item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1a1a1a;
+}
+
+.class-name {
+  font-weight: 500;
+}
+
+.class-id-badge {
+  font-size: 11px;
+  color: #666;
+  background: #e0e0e0;
+  padding: 1px 8px;
+  border-radius: 10px;
+}
+
+/* Class Actions */
+.class-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f2f7;
+}
+
+.select-all-classes-btn,
+.deselect-all-classes-btn {
+  padding: 6px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-all-classes-btn:hover {
+  background: #0066ff;
+  color: white;
+  border-color: #0066ff;
+}
+
+.deselect-all-classes-btn:hover {
+  background: #ff4444;
+  color: white;
+  border-color: #ff4444;
+}
+
+/* Selected Subject Header */
+.selected-subject-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.selected-subject-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.selected-classes-count {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  background: #f0f2f7;
+  padding: 2px 12px;
+  border-radius: 12px;
+}
+
+.selected-classes-list {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Table styles - add class column */
+.scores-table th:nth-child(3),
+.scores-table td:nth-child(3) {
+  min-width: 100px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .selected-subject-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .save-button {
+    width: 100%;
+  }
+
+  .subject-card-header {
+    padding: 12px 16px;
+  }
+
+  .subject-name-main {
+    font-size: 16px;
+  }
+
+  .class-item {
+    width: 100%;
+  }
+
+  .class-actions {
+    flex-direction: column;
+  }
+
+  .select-all-classes-btn,
+  .deselect-all-classes-btn {
+    width: 100%;
+  }
+}

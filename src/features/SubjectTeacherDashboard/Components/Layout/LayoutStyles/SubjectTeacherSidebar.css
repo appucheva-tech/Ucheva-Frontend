@@ -1,0 +1,220 @@
+.SubjectTeacherSidebar_Container {
+  width: 280px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e8e8e8;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 0px 20px;
+  box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
+}
+
+.SubjectTeacherSidebar-sidebar-logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+  height: 11%;
+  width: 100%;
+}
+
+.SubjectTeacherSidebar-logo-icon {
+  display: flex;
+  width: 75%;
+  height: 100%;
+  justify-content: center;
+}
+
+.SubjectTeacherSidebar-Ucheva {
+  width: 100%;
+  height: 100%;
+}
+
+.SubjectTeacherSidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.SubjectTeacherSidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+  color: #666666;
+  text-decoration: none;
+  border-radius: 8px;
+  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.SubjectTeacherSidebar-nav-link:hover {
+  background-color: #f1f7ff;
+  color: #666666;
+}
+
+.SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-icon {
+  color: #666666;
+}
+
+.SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-text {
+  color: #666666;
+}
+
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active {
+  background-color: #f1f7ff;
+  color: #0d62f6;
+  border-left-color: #0d62f6;
+}
+
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-nav-icon {
+  color: #0d62f6;
+}
+
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-nav-text {
+  color: #0d62f6;
+}
+
+.SubjectTeacherSidebar-nav-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: inherit;
+}
+
+.SubjectTeacherSidebar-nav-text {
+  flex: 1;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: inherit;
+}
+
+.SubjectTeacherSidebar_Container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-thumb {
+  background: #e0e0e0;
+  border-radius: 3px;
+}
+
+.SubjectTeacherSidebar_Container::-webkit-scrollbar-thumb:hover {
+  background: #bdbdbd;
+}
+
+@media (max-width: 768px) {
+  .SubjectTeacherSidebar_Container {
+    width: 240px;
+    transform: translateX(-100%);
+  }
+
+  .SubjectTeacherSidebar_Container.SubjectTeacherSidebar-mobile-open {
+    transform: translateX(0);
+  }
+
+  .SubjectTeacherSidebar-nav-link {
+    font-size: 14px;
+  }
+
+  .SubjectTeacherSidebar-Ucheva {
+    width: 140px;
+    height: 45px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SubjectTeacherSidebar_Container {
+    width: 85%;
+    max-width: 250px;
+    padding: 0px 15px;
+  }
+
+  .SubjectTeacherSidebar-sidebar-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    height: 8%;
+    width: 100%;
+  }
+
+  .SubjectTeacherSidebar-logo-icon {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .SubjectTeacherSidebar-Ucheva {
+    width: 120px;
+    height: 40px;
+  }
+
+  .SubjectTeacherSidebar-nav {
+    padding: 0;
+  }
+
+  .SubjectTeacherSidebar-nav-link {
+    padding: 14px 16px;
+  }
+
+  .SubjectTeacherSidebar-nav-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .SubjectTeacherSidebar-nav-text {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 380px) {
+  .SubjectTeacherSidebar_Container {
+    width: 90%;
+    max-width: 260px;
+  }
+
+  .SubjectTeacherSidebar-Ucheva {
+    width: 100px;
+    height: 35px;
+  }
+
+  .SubjectTeacherSidebar-nav-link {
+    padding: 12px 14px;
+  }
+
+  .SubjectTeacherSidebar-nav-text {
+    font-size: 14px;
+  }
+
+  .SubjectTeacherSidebar-nav-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (min-width: 769px) {
+  .SubjectTeacherSidebar_Container {
+    transform: translateX(0) !important;
+  }
+}

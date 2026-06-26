@@ -1,0 +1,282 @@
+:root {
+  --bg: #060816;
+  --card: rgba(255, 255, 255, 0.05);
+  --text: #ffffff;
+  --muted: rgba(255, 255, 255, 0.7);
+
+  --primary: #6366f1;
+  --secondary: #22d3ee;
+  --accent: #a855f7;
+
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f7f9fc;
+    --text: #111827;
+    --muted: #4b5563;
+    --card: rgba(255, 255, 255, 0.8);
+    --border: rgba(0, 0, 0, 0.08);
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Inter, sans-serif;
+}
+
+/* Layout */
+
+.notfound-page {
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ==========================
+   Animated Starfield
+========================== */
+
+.stars,
+.stars:after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background-repeat: repeat;
+}
+
+.stars {
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 120px 140px, white, transparent),
+    radial-gradient(1px 1px at 250px 70px, white, transparent),
+    radial-gradient(2px 2px at 500px 200px, white, transparent),
+    radial-gradient(2px 2px at 700px 500px, white, transparent);
+  background-size: 800px 800px;
+  animation: drift 120s linear infinite;
+  opacity: 0.4;
+}
+
+.stars-2 {
+  transform: scale(1.5);
+  opacity: 0.25;
+  animation-duration: 180s;
+}
+
+.stars-3 {
+  transform: scale(2);
+  opacity: 0.15;
+  animation-duration: 240s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-1000px);
+  }
+}
+
+/* ==========================
+   Gradient Portal
+========================== */
+
+.portal {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #6366f1, #22d3ee, #a855f7, #6366f1);
+  filter: blur(90px);
+  opacity: 0.55;
+  animation:
+    spin 18s linear infinite,
+    pulse 5s ease-in-out infinite;
+}
+
+.portal::before {
+  content: "";
+  position: absolute;
+  inset: 120px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+/* ==========================
+   Content
+========================== */
+
+.content {
+  position: relative;
+  z-index: 10;
+  max-width: 900px;
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  background: var(--card);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.error-code {
+  font-size: clamp(6rem, 18vw, 14rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -8px;
+
+  background: linear-gradient(
+    90deg,
+    var(--primary),
+    var(--accent),
+    var(--secondary)
+  );
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: float 5s ease-in-out infinite;
+}
+
+.title {
+  margin-top: 10px;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+}
+
+.subtitle {
+  margin: 24px auto;
+  max-width: 650px;
+  color: var(--muted);
+  line-height: 1.8;
+  font-size: 1.1rem;
+}
+
+.subtitle strong {
+  color: var(--text);
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 14px 22px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.primary {
+  color: white;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.35);
+}
+
+.primary:hover {
+  transform: translateY(-3px);
+}
+
+.secondary {
+  border: 1px solid var(--border);
+  color: var(--text);
+  background: var(--card);
+  backdrop-filter: blur(20px);
+}
+
+.secondary:hover {
+  transform: translateY(-3px);
+}
+
+/* ==========================
+   Status Card
+========================== */
+
+.status-card {
+  margin: 50px auto 0;
+  width: min(600px, 100%);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(30px);
+
+  padding: 20px;
+  border-radius: 24px;
+}
+
+.status-card div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  letter-spacing: 1px;
+}
+
+@keyframes float {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width: 768px) {
+  .portal {
+    width: 450px;
+    height: 450px;
+  }
+
+  .status-card {
+    grid-template-columns: 1fr;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+}
