@@ -90,7 +90,7 @@ const AdminStudents = () => {
     fetchClasses();
   }, []);
 
-  // Filter students whenever filters or students change
+
   useEffect(() => {
     let filtered = [...students];
 

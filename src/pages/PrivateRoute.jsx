@@ -36,15 +36,14 @@ if (host.includes("nip.io")) {
   useEffect(() => {
     const checkSubdomain = async () => {
       try {
-        if (!subdomain ) {
-          setValid(false);
+        if (!subdomain) {
+          setSubdomainValid(false);
           setLoading(false);
           return;
         }
 
-
-const res = await  domainClient.get("/admin/school-url")
-        const exists = res.data.exists
+        const res = await domainClient.get("/admin/school-url");
+        const exists = res?.data?.exists ?? false;
 
         setSubdomainValid(exists);
       } catch (error) {
@@ -58,7 +57,7 @@ const res = await  domainClient.get("/admin/school-url")
     checkSubdomain();
   }, [subdomain]);
 
-  if (loading) return null; // or spinner
+  if (loading) return null;
 
   if (!subdomainValid) {
     return <NotFound />;
