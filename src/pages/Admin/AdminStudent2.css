@@ -120,6 +120,7 @@
         input[type="text"],
         input[type="email"],
         input[type="date"],
+        input[type= "number"],
         select {
           height: 42px;
           padding: 0 14px;

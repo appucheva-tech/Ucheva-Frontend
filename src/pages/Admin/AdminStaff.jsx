@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./AdminStaff.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
 import { apiClient } from "../../config/AxiosInstance";
-import { PlusSquare } from "lucide-react";
 import { FaPlus } from "react-icons/fa";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+// ── Your three state components ───────────────────────────────────────────────
+import LoadingScreen from "../../components/Loading-Screen"; // adjust path
+import ErrorScreen from "../../components/Error-Screen"; // adjust path
+import EmptyState from "../../components/EmptyState"; // adjust path
 
 const AdminStaff = () => {
   const nav = useNavigate();
@@ -18,16 +21,14 @@ const AdminStaff = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [staffList, setStaffList] = useState([]);
   const [filteredStaff, setFilteredStaff] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteStaffId, setDeleteStaffId] = useState(null);
 
-  // Filter states
-  const [filters, setFilters] = useState({
-    staffType: "all",
-  });
+  const [filters, setFilters] = useState({ staffType: "all" });
 
   const [metrics, setMetrics] = useState({
     total: 0,
@@ -36,130 +37,106 @@ const AdminStaff = () => {
     activeStaff: 0,
   });
 
+  // ── Fetch staff ─────────────────────────────────────────────────────────────
+  const fetchStaffRecords = async () => {
+    setIsLoading(true);
+    setHasError(false);
+    try {
+      const response = await apiClient.get("/staff/all-staffs", {
+        headers: { "x-tenant": subdomain },
+      });
+
+      const records = Array.isArray(response.data)
+        ? response.data
+        : response.data?.staffsData || response.data?.data || [];
+
+      setStaffList(records);
+      setFilteredStaff(records);
+
+      const classTeachersCount = records.filter(
+        (s) => (s.staffType || s.role || "").toLowerCase() === "class teacher",
+      ).length;
+
+      const subjectTeachersCount = records.filter(
+        (s) =>
+          (s.staffType || s.role || "").toLowerCase() === "subject teacher",
+      ).length;
+
+      const activeStaffCount = records.filter((s) => {
+        const status = (
+          s.status ||
+          s.employmentStatus ||
+          s.accountStatus ||
+          ""
+        ).toLowerCase();
+        return status === "active" || status === "true";
+      }).length;
+
+      setMetrics({
+        total: records.length,
+        classTeachers: classTeachersCount,
+        subjectTeachers: subjectTeachersCount,
+        activeStaff: activeStaffCount,
+      });
+    } catch (error) {
+      console.error("Failed fetching staff records:", error);
+      setHasError(true);
+      toast.error(
+        error.response?.data?.message || "Failed to fetch staff records",
+      );
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchStaffRecords = async () => {
-      try {
-        setIsLoading(true);
-        const response = await apiClient.get("/staff/all-staffs", {
-          headers: { "x-tenant": subdomain },
-        });
-
-        const records = Array.isArray(response.data)
-          ? response.data
-          : response.data?.staffsData || response.data?.data || [];
-
-        setStaffList(records);
-        setFilteredStaff(records);
-        console.log(response);
-
-        const classTeachersCount = records.filter((staff) => {
-          const role = (staff.staffType || staff.role || "").toLowerCase();
-          return role === "class teacher";
-        }).length;
-
-        const subjectTeachersCount = records.filter((staff) => {
-          const role = (staff.staffType || staff.role || "").toLowerCase();
-          return role === "subject teacher";
-        }).length;
-
-        const activeStaffCount = records.filter((staff) => {
-          const status = (
-            staff.status ||
-            staff.employmentStatus ||
-            staff.accountStatus ||
-            ""
-          ).toLowerCase();
-
-          return status === "active" || status === "true";
-        }).length;
-
-        setMetrics({
-          total: records.length,
-          classTeachers: classTeachersCount,
-          subjectTeachers: subjectTeachersCount,
-          activeStaff: activeStaffCount,
-        });
-      } catch (error) {
-        console.error("Failed fetching live institutional staff logs:", error);
-        toast.error(error.response?.data?.message || "Failed to fetch staff records");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
     fetchStaffRecords();
   }, [subdomain]);
 
-  // Filter staff whenever filters or staffList change
   useEffect(() => {
     let filtered = [...staffList];
-
-    // Filter by staff type
     if (filters.staffType !== "all") {
-      filtered = filtered.filter((staff) => {
-        const role = (staff.staffType || staff.role || "").toLowerCase();
-        return role === filters.staffType.toLowerCase();
-      });
+      filtered = filtered.filter(
+        (s) =>
+          (s.staffType || s.role || "").toLowerCase() ===
+          filters.staffType.toLowerCase(),
+      );
     }
-
     setFilteredStaff(filtered);
   }, [filters, staffList]);
 
-  const handleFilterChange = (filterType, value) => {
-    setFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
-  };
+  const handleFilterChange = (filterType, value) =>
+    setFilters((prev) => ({ ...prev, [filterType]: value }));
 
-  const resetFilters = () => {
-    setFilters({
-      staffType: "all",
-    });
-  };
+  const resetFilters = () => setFilters({ staffType: "all" });
 
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (popupRef.current && !popupRef.current.contains(event.target)) {
+    const handleClickOutside = (e) => {
+      if (popupRef.current && !popupRef.current.contains(e.target))
         setIsOpen(false);
-      }
     };
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  const toggleNotifications = (e) => {
-    e.stopPropagation();
-    setIsOpen(!isOpen);
-  };
+  const handleAddStaff = () => nav("/admin/AdminStaff2");
 
-  const handleAddStaff = () => {
-    nav("/admin/AdminStaff2");
-  };
-
-  if (isLoading) {
-    return (
-      <div className="tableContainer">
-        <div className="dashboard-loading-container">
-          <div className="loading-spinner"></div>
-        </div>
-      </div>
-    );
-  }
-
+  // ── Delete ──────────────────────────────────────────────────────────────────
   const handleDeleteStaff = async () => {
     setLoading(true);
     try {
       await apiClient.delete(`/staff/deletestaff/${deleteStaffId}`, {
         headers: { "x-tenant": subdomain },
       });
-      // Update the local state to reflect the deletion
-      setStaffList((prev) => prev.filter((staff) => staff.id !== deleteStaffId));
+      setStaffList((prev) => prev.filter((s) => s.id !== deleteStaffId));
       toast.success("Staff member deleted successfully!");
       setIsDeleteOpen(false);
     } catch (error) {
       console.error("Failed to delete staff:", error);
-      toast.error(error.response?.data?.message || "Error deleting staff. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "Error deleting staff. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -170,9 +147,24 @@ const AdminStaff = () => {
     nav(`/admin/edit-staff/${staffId}`);
   };
 
+  // ── Loading state ───────────────────────────────────────────────────────────
+  if (isLoading) return <LoadingScreen />;
+
+  // ── Error state ─────────────────────────────────────────────────────────────
+  if (hasError) {
+    return (
+      <ErrorScreen
+        title="Staff Records Unavailable"
+        message="We couldn't load your staff records. Check your connection and try again."
+        onRetry={fetchStaffRecords}
+      />
+    );
+  }
+
   return (
     <>
       <div className="Bdashboard-container">
+        {/* ── Header ── */}
         <div className="dashboard-header">
           <div className="header-text-group">
             <h1 className="welcome-text">Staff Management</h1>
@@ -181,12 +173,12 @@ const AdminStaff = () => {
               assign staff to classes or subjects.
             </p>
           </div>
-
           <button className="AddStaff" onClick={handleAddStaff}>
             <FaPlus /> Add Staff
           </button>
         </div>
 
+        {/* ── Metrics ── */}
         <div className="metrics-grid">
           <div className="metric-card card-total">
             <div className="card-content">
@@ -239,38 +231,17 @@ const AdminStaff = () => {
       </div>
 
       <div className="tableContainer">
+        {/* ── Empty state ── */}
         {staffList.length === 0 ? (
-          <div className="staff-empty-state-card">
-            <div className="empty-state-icon-bg">
-              <svg
-                width="44"
-                height="44"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.656-5.64 9.094 9.094 0 00-3.741.479m4.656 5.64c.007.08.011.162.011.245v.39m-4.656-.635c0-.708-.19-1.371-.52-1.945M18 14v4.72m0 0H8M10.125 19.5H3.75A.75.75 0 013 18.75V18a3.75 3.75 0 013.75-3.75h.375a3.75 3.75 0 013.75 3.75v.75c0 .414-.336.75-.75.75z"
-                />
-                <circle cx="6.75" cy="9.75" r="2.25" />
-                <circle cx="15" cy="7.5" r="2" />
-              </svg>
-            </div>
-            <h3>No Team Records Configured</h3>
-            <p>
-              Your personnel deployment is empty. Get started by establishing
-              structural configurations and adding profiles to your
-              administration staff workspace.
-            </p>
-            <button className="empty-state-add-btn" onClick={handleAddStaff}>
-              Create Personnel Profile
-            </button>
-          </div>
+          <EmptyState
+            title="No Staff Records Found"
+            message="Your personnel deployment is empty. Get started by adding profiles to your staff workspace."
+            actionText="Add Staff Member"
+            onAction={handleAddStaff}
+          />
         ) : (
           <>
+            {/* ── Filters ── */}
             <div className="filterSection">
               <div className="filterGroup">
                 <label className="filterLabel">Staff Type</label>
@@ -303,6 +274,7 @@ const AdminStaff = () => {
               </button>
             </div>
 
+            {/* ── Table ── */}
             <div className="tableWrapper">
               <table className="staffTable">
                 <thead>
@@ -318,11 +290,13 @@ const AdminStaff = () => {
                 <tbody>
                   {filteredStaff.length === 0 ? (
                     <tr>
-                      <td
-                        colSpan="6"
-                        style={{ textAlign: "center", padding: "40px" }}
-                      >
-                        No staff found with the selected filters.
+                      <td colSpan="6" style={{ padding: 0, border: "none" }}>
+                        <EmptyState
+                          title="No results"
+                          message="No staff match the selected filter. Try a different type or reset the filter."
+                          actionText="Reset Filters"
+                          onAction={resetFilters}
+                        />
                       </td>
                     </tr>
                   ) : (
@@ -330,30 +304,23 @@ const AdminStaff = () => {
                       <tr
                         key={staff.id || index}
                         style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          nav(`/admin/staff-details/${staff.id}`);
-                        }}
+                        onClick={() => nav(`/admin/staff-details/${staff.id}`)}
                       >
                         <td className="staffName card-content-populated">
                           {staff.fullName ||
                             `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
                             "Unnamed Staff"}
                         </td>
-
                         <td className="roleText card-content-populated">
                           {staff.staffType || staff.role || "--"}
                         </td>
-
                         <td className="classText">
                           {staff.assignedClass || "--"}
                         </td>
-
                         <td className="subjectText card-content-populated">
                           {staff.assignedSubject || staff.subject || "--"}
                         </td>
-
                         <td>{staff.phoneNumber || staff.phone || "--"}</td>
-
                         <td>
                           <div className="actionButtons">
                             <button
@@ -370,7 +337,6 @@ const AdminStaff = () => {
                                 <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                               </svg>
                             </button>
-
                             <button
                               className="deleteBtn"
                               aria-label="Delete staff"
@@ -404,7 +370,6 @@ const AdminStaff = () => {
                     Showing 1 to {filteredStaff.length} of{" "}
                     {filteredStaff.length} records
                   </div>
-
                   <div className="paginationControls">
                     <button className="arrowBtn" disabled>
                       &lt;
@@ -414,7 +379,6 @@ const AdminStaff = () => {
                       &gt;
                     </button>
                   </div>
-
                   <div className="rowsPerPageGroup">
                     <span className="rowsLabel">Rows per page</span>
                     <div className="rowsSelectWrapper">
@@ -443,7 +407,7 @@ const AdminStaff = () => {
         </footer>
       </div>
 
-      {/* DELETE STAFF MODAL */}
+      {/* ── Delete modal ── */}
       {isDeleteOpen && (
         <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
           <div
@@ -473,8 +437,8 @@ const AdminStaff = () => {
             </div>
             <div className="modalBody">
               <p className="deleteWarningText">
-                Are you sure you want to delete this staff member? This action cannot
-                be undone.
+                Are you sure you want to delete this staff member? This action
+                cannot be undone.
               </p>
             </div>
             <div className="modalFooter">

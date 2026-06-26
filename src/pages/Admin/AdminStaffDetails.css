@@ -19,7 +19,195 @@
 
     .Fbreadcrumb {
       font-size: 14px;
-      color: #94a3b8;
+      color: #94a3b8;/* Container & Layout */
+.AdministrationHeader-BAdminDashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 85px;
+  background-color: white;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 20px 28px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Search Bar */
+.AdministrationHeader-search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  position: relative;
+}
+
+.AdministrationHeader-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+}
+
+.AdministrationHeader-search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+}
+
+
+.AdministrationHeader-header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.AdministrationHeader-meta-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #475569;
+  font-size: 14px;
+}
+
+.AdministrationHeader-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Profile Section */
+.profile-section-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+}
+
+.AdministrationHeader-Auser-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.AdministrationHeader-user-name {
+  font-weight: 600;
+  font-size: 14px;
+  color: #0f172a;
+}
+
+.AdministrationHeader-user-role {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.user-profile.unique-school-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropdown & Modal Styles (Keep your existing styles) */
+.profile-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 200px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  z-index: 100;
+}
+.profile-dropdown-item {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.profile-dropdown-item:hover {
+  background: #f1f5f9;
+}
+.logout-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.logout-modal {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  width: 350px;
+  text-align: center;
+}
+.AdministrationHeader-hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0f172a;
+  padding: 6px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.AdministrationHeader-hamburger:hover {
+  background-color: #f1f5f9;
+}
+
+@media (max-width: 1024px) {
+  .AdministrationHeader-hamburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Hide metadata on smaller screens */
+  .AdministrationHeader-meta-container {
+    display: none;
+  }
+
+  /* Shrink search bar on mobile */
+  .AdministrationHeader-search-container {
+    max-width: 150px;
+  }
+
+  /* Reduce gap on mobile */
+  .AdministrationHeader-header-right-group {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Hide user name/role on tiny screens, show only avatar */
+  .AdministrationHeader-Auser-info {
+    display: none;
+  }
+}
 
       .FStaffManagement{
         cursor: pointer;
