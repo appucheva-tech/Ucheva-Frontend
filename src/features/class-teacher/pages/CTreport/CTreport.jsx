@@ -5,17 +5,19 @@ import { Link } from "react-router-dom";
 import { apiClient } from "../../../../config/AxiosInstance";
 
 const CTreport = () => {
-  const [studentReport, getStudentReport] = useState([]);
+  const [studentReport, setStudentReport] = useState([]);
 
   useEffect(() => {
     const fetchStudentReport = async () => {
       try {
         const res = await apiClient.get("/student/getAllStudents");
         console.log(res);
+        setStudentReport(res.data?.studentsData);
       } catch (error) {
         console.log("error:", error.data.message);
       }
     };
+    fetchStudentReport();
   }, []);
 
   return (
@@ -83,8 +85,8 @@ const CTreport = () => {
 
           <ul className="CTActualTableInfo2">
             <input className="CTTableValueName2" type="checkbox" />
-            <nav className="CTTableValueName2">Adeaze Clinton</nav>
-            <nav className="CTTableValueName2">UCH/2026/001</nav>
+            <nav className="CTTableValueName2">{studentReport.fullName}</nav>
+            <nav className="CTTableValueName2">{studentReport.classes}</nav>
             <nav className="CTTableValueName2">Ready for review</nav>
             <Link className="LinkToST" to="/CTdashboard/studentreport">
               <nav className="CTTableValueAction">:</nav>
