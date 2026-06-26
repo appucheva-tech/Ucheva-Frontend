@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./AdminSettings.css";
 import { apiClient } from "../../config/AxiosInstance";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../global/userSlice"
+import { setUser } from "../../global/userSlice";
 
 const AdminSettings = () => {
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ const AdminSettings = () => {
     total: 100,
   });
 
-  // ─── School Profile (GET, read-only) ─────────────────────────
+  // ─── School Profile ─────────────────────────────────────────
   const [schoolProfile, setSchoolProfile] = useState({
     schoolName: "",
     email: "",
@@ -43,7 +43,7 @@ const AdminSettings = () => {
   });
   const [schoolLoading, setSchoolLoading] = useState(true);
 
-  // ─── Stamp ────────────────────────────────────────────────────
+  // ─── Stamp & Signature ──────────────────────────────────────
   const [stampFile, setStampFile] = useState(null);
   const [stampPreview, setStampPreview] = useState(null);
   const stampRef = useRef();
@@ -74,54 +74,84 @@ const AdminSettings = () => {
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleSignatureChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSignatureFile(file);
-    setSignaturePreview(URL.createObjectURL(file));
-  };
-
+  // ─── GET Method - Fetch Settings ─────────────────────────────
   useEffect(() => {
-    const fetchSchoolProfile = async () => {
+    const fetchSettings = async () => {
       try {
-        const res = await apiClient.get("/subjectteaher/subject ");
-        const { admin, adminProfile: profile } = res.data;
+        const response = await apiClient.get("/admin/profile-settings");
+        const data = response.data.admin;
 
-        setSchoolProfile({
-          schoolName: admin.schoolName || "",
-          email: admin.email || "",
-          phoneNumber: admin.phoneNumber || "",
-          academicSession: admin.academicSession || "",
-          address: admin.address || "",
-          logoUrl: admin.logoUrl || null,
-        });
-
-        if (profile) {
+        // Map Admin Profile
+        if (data.adminFirstName) {
           setAdminProfile({
-            adminFirstName: profile.adminFirstName || "",
-            adminLastName: profile.adminLastName || "",
-            schoolType: profile.schoolType || "",
-            phoneNumber: admin.phoneNumber || "",
+            adminFirstName: data.adminFirstName || "",
+            adminLastName: data.adminLastName || "",
+            schoolType: data.schoolType || "",
+            phoneNumber: data.phoneNumber || "",
           });
-          setReportConfig({
-            continuousAssessmentConfig:
-              profile.continuousAssessmentConfig ?? 40,
-            examConfig: profile.examConfig ?? 60,
-            total: profile.total ?? 100,
+        }
+
+        // Map School Profile
+        if (data.school) {
+          setSchoolProfile({
+            schoolName: data.school.schoolName || data.schoolName || "",
+            email: data.school.email || data.email || "",
+            phoneNumber: data.school.phoneNumber || data.phoneNumber || "",
+            academicSession:
+              data.school.academicSession || data.academicSession || "",
+            address: data.school.address || data.address || "",
+            logoUrl: data.school.logoUrl || data.logoUrl || null,
           });
         } else {
-          setAdminProfile((p) => ({
-            ...p,
-            phoneNumber: admin.phoneNumber || "",
-          }));
+          // Fallback mapping
+          setSchoolProfile({
+            schoolName: data.schoolName || "",
+            email: data.email || "",
+            phoneNumber: data.phoneNumber || "",
+            academicSession: data.academicSession || "",
+            address: data.address || "",
+            logoUrl: data.logoUrl || null,
+          });
         }
-      } catch {
-        showToast("Could not load school profile.", "error");
-      } finally {
+
+        // Map Report Card Config
+        if (data.continuousAssessmentConfig !== undefined) {
+          setReportConfig({
+            continuousAssessmentConfig: data.continuousAssessmentConfig || 40,
+            examConfig: data.examConfig || 60,
+            total: data.total || 100,
+          });
+        }
+
+        // Map Stamp Preview
+        if (data.schoolStamp) {
+          setStampPreview(data.schoolStamp);
+        }
+
+        // Map Signature Preview
+        if (data.adminSignature) {
+          setSignaturePreview(data.adminSignature);
+        }
+
+        // Map CAC Document
+        if (data.cacDocument) {
+          setCacPreview(data.cacDocument);
+        }
+
+        // Map NEPA Bill
+        if (data.nepaBill) {
+          setNepaPreview(data.nepaBill);
+        }
+
+        setSchoolLoading(false);
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+        showToast("Failed to load settings", "error");
         setSchoolLoading(false);
       }
     };
-    fetchSchoolProfile();
+
+    fetchSettings();
   }, []);
 
   // ─── Admin Photo Upload ───────────────────────────────────────
@@ -134,6 +164,14 @@ const AdminSettings = () => {
     }
     setAdminPhoto(file);
     setAdminPhotoPreview(URL.createObjectURL(file));
+  };
+
+  // ─── Signature Upload ────────────────────────────────────────
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setSignatureFile(file);
+    setSignaturePreview(URL.createObjectURL(file));
   };
 
   // ─── CA Score change keeps total at 100 ──────────────────────
@@ -195,6 +233,7 @@ const AdminSettings = () => {
     try {
       const formData = new FormData();
 
+      // Admin Profile
       if (adminProfile.adminFirstName)
         formData.append("adminFirstName", adminProfile.adminFirstName);
       if (adminProfile.adminLastName)
@@ -204,6 +243,7 @@ const AdminSettings = () => {
       if (adminProfile.phoneNumber)
         formData.append("phoneNumber", adminProfile.phoneNumber);
 
+      // Report Card Config
       formData.append(
         "continuousAssessmentConfig",
         reportConfig.continuousAssessmentConfig,
@@ -211,11 +251,14 @@ const AdminSettings = () => {
       formData.append("examConfig", reportConfig.examConfig);
       formData.append("total", reportConfig.total);
 
+      // Files
       if (adminPhoto) formData.append("profilePic", adminPhoto);
       if (stampFile) formData.append("schoolStamp", stampFile);
+      if (signatureFile) formData.append("adminSignature", signatureFile);
       if (cacFile) formData.append("cac", cacFile);
       if (nepaFile) formData.append("nepa", nepaFile);
 
+      // Password
       if (passwordFields.oldPassword) {
         formData.append("oldPassword", passwordFields.oldPassword);
         formData.append("newPassword", passwordFields.newPassword);
@@ -235,7 +278,7 @@ const AdminSettings = () => {
           setUser({
             adminFirstName: adminProfile.adminFirstName,
             adminLastName: adminProfile.adminLastName,
-          })
+          }),
         );
       }
 
@@ -305,7 +348,11 @@ const AdminSettings = () => {
                 className="modalCloseBtn"
                 onClick={() => {
                   setShowUpdateProfile(false);
-                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                  setPasswordFields({
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                  });
                 }}
               >
                 ✕
@@ -313,31 +360,44 @@ const AdminSettings = () => {
             </div>
 
             <div className="modalBody">
-              {/* Old Password */}
               <div className="inputGroup">
                 <label className="inputLabel">Old Password</label>
                 <div className="passwordInputWrapper">
-                    <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
                   <input
                     type="password"
                     className="textInput passwordInput"
                     placeholder="Enter your current password"
                     value={passwordFields.oldPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, oldPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        oldPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
               </div>
 
-              {/* New Password */}
               <div className="inputGroup">
                 <label className="inputLabel">New Password</label>
                 <div className="passwordInputWrapper">
-                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                   <input
@@ -346,20 +406,25 @@ const AdminSettings = () => {
                     placeholder="Create a strong password"
                     value={passwordFields.newPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, newPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        newPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
-
-
- 
               </div>
 
-              {/* Confirm Password */}
               <div className="inputGroup">
                 <label className="inputLabel">Confirm Password</label>
                 <div className="passwordInputWrapper">
-                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
@@ -369,16 +434,23 @@ const AdminSettings = () => {
                     placeholder="Re-enter your new password"
                     value={passwordFields.confirmPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, confirmPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        confirmPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
                 {passwordFields.confirmPassword &&
-                  passwordFields.newPassword !== passwordFields.confirmPassword && (
-                    <span className="passwordMismatchHint">⚠ Passwords do not match</span>
+                  passwordFields.newPassword !==
+                    passwordFields.confirmPassword && (
+                    <span className="passwordMismatchHint">
+                      ⚠ Passwords do not match
+                    </span>
                   )}
                 {passwordFields.confirmPassword &&
-                  passwordFields.newPassword === passwordFields.confirmPassword && (
+                  passwordFields.newPassword ===
+                    passwordFields.confirmPassword && (
                     <span className="passwordMatchHint">✓ Passwords match</span>
                   )}
               </div>
@@ -389,7 +461,11 @@ const AdminSettings = () => {
                 className="modalCancelBtn"
                 onClick={() => {
                   setShowUpdateProfile(false);
-                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                  setPasswordFields({
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                  });
                 }}
               >
                 Cancel
@@ -469,17 +545,17 @@ const AdminSettings = () => {
                   onChange={handleAdminPhotoChange}
                 />
               </div>
-              <span className="uploadHint">PNG, JPG. Max 2MB</span>
+              <span className="uploadHint">PNG, JPG, Max 2MB</span>
             </div>
 
             <div className="formFieldsCol">
               <div className="formFieldsRow">
                 <div className="inputGroup">
-                  <label className="inputLabel">Admin First Name</label>
+                  <label className="inputLabel">First Name</label>
                   <input
                     type="text"
                     className="textInput"
-                    placeholder="Admin First Name"
+                    placeholder="First Name"
                     value={adminProfile.adminFirstName}
                     onChange={(e) =>
                       setAdminProfile((p) => ({
@@ -490,11 +566,11 @@ const AdminSettings = () => {
                   />
                 </div>
                 <div className="inputGroup">
-                  <label className="inputLabel">Admin Last Name</label>
+                  <label className="inputLabel">Last Name</label>
                   <input
                     type="text"
                     className="textInput"
-                    placeholder="Admin Last Name"
+                    placeholder="Last Name"
                     value={adminProfile.adminLastName}
                     onChange={(e) =>
                       setAdminProfile((p) => ({
@@ -535,7 +611,7 @@ const AdminSettings = () => {
           </div>
         </section>
 
-        {/* ─── School Profile (read-only) ───────────────────────── */}
+        {/* ─── School Profile ──────────────────────────────────── */}
         <section className="settingsCard">
           <h2 className="cardTitle">School Profile</h2>
           <div className="schoolLayout">
@@ -561,15 +637,6 @@ const AdminSettings = () => {
                   </div>
                 )}
               </div>
-              <span className="uploadHint">PNG, JPG or SVG. Max 2MB</span>
-              <div className="logoActionButtons">
-                <button className="changeImgBtn" disabled>
-                  Change Image
-                </button>
-                <button className="removeImgBtn" disabled>
-                  Remove
-                </button>
-              </div>
             </div>
 
             <div className="schoolFormGrid">
@@ -585,15 +652,6 @@ const AdminSettings = () => {
                 />
               </div>
               <div className="inputGroup">
-                <label className="inputLabel">School Email</label>
-                <input
-                  type="email"
-                  className="textInput"
-                  value={schoolLoading ? "Loading..." : schoolProfile.email}
-                  readOnly
-                />
-              </div>
-              <div className="inputGroup">
                 <label className="inputLabel">Phone Number</label>
                 <input
                   type="text"
@@ -604,7 +662,7 @@ const AdminSettings = () => {
                   readOnly
                 />
               </div>
-              <div className="inputGroup">
+              <div className="inputGroup fullWidthRow">
                 <label className="inputLabel">Academic Session</label>
                 <div className="selectWrapper">
                   <select
@@ -613,7 +671,7 @@ const AdminSettings = () => {
                     disabled
                   >
                     <option value={schoolProfile.academicSession}>
-                      {schoolProfile.academicSession || "—"}
+                      {schoolProfile.academicSession || "2025/2026"}
                     </option>
                   </select>
                 </div>
@@ -667,17 +725,26 @@ const AdminSettings = () => {
                   />
                 </div>
               </div>
-              <div className="infotoastCallout">
-                <span className="infotoastIcon">ℹ️</span>
-                <p className="infotoastText">
-                  Uploaded stamp will appear on generated report cards.
-                </p>
-              </div>
             </div>
+          </div>
+          <div className="cardActionRow">
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+        </section>
 
-            <div className="uploadsColumn">
+        {/* ─── School Stamps ───────────────────────────────────── */}
+        <section className="settingsCard">
+          <h2 className="cardTitle">School Stamps</h2>
+          <div className="stampsLayout">
+            <div className="stampUploadGroup">
               <div className="uploadComponentBox">
-                <label className="inputLabel">School Stamp</label>
+                <label className="inputLabel">Upload</label>
                 <div
                   className="dottedDropzone"
                   onClick={() => stampRef.current.click()}
@@ -727,6 +794,59 @@ const AdminSettings = () => {
                 </div>
               </div>
             </div>
+
+            <div className="signatureUploadGroup">
+              <div className="uploadComponentBox">
+                <label className="inputLabel">Admin Signature</label>
+                <div
+                  className="dottedDropzone"
+                  onClick={() => signatureRef.current.click()}
+                  style={{ cursor: "pointer" }}
+                >
+                  {signaturePreview ? (
+                    <img
+                      src={signaturePreview}
+                      alt="Signature preview"
+                      style={{
+                        width: 48,
+                        height: 48,
+                        objectFit: "contain",
+                        marginBottom: 8,
+                      }}
+                    />
+                  ) : (
+                    <div className="stampCircularGraphic">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1"
+                      >
+                        <path d="M3 16l5 5 13-13" />
+                        <path d="M8 21l-5-5" />
+                      </svg>
+                    </div>
+                  )}
+                  <button
+                    className="dropzoneUploadBtn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      signatureRef.current.click();
+                    }}
+                  >
+                    Upload
+                  </button>
+                  <span className="dropzoneHint">PNG format recommended</span>
+                  <input
+                    ref={signatureRef}
+                    type="file"
+                    accept="image/png"
+                    style={{ display: "none" }}
+                    onChange={handleSignatureChange}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="cardActionRow">
             <button
@@ -738,12 +858,28 @@ const AdminSettings = () => {
             </button>
           </div>
         </section>
-      </div>
 
-      <div className="notificationSettingsContainer">
+        {/* ─── Attendance Notifications ────────────────────────── */}
+        <section className="settingsCard">
+          <h2 className="cardTitle">Attendance Notifications</h2>
+          <div className="notificationLayout">
+            <p className="notificationText">
+              Automatically notify parents when a student is marked absent
+            </p>
+            <div className="inputGroup notificationSelectGroup">
+              <label className="inputLabel">Message Template (WhatsApp)</label>
+              <div className="selectWrapper">
+                <select className="selectInput">
+                  <option>Choose Template</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ─── School Verification ──────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle">School Verification</h2>
+        <section className="settingsCard">
+          <h2 className="cardTitle">School Verification</h2>
           <div className="verificationUploadersRow">
             <div className="uploaderBox">
               <span className="uploaderLabel">CAC Document</span>
@@ -839,13 +975,13 @@ const AdminSettings = () => {
         </section>
 
         {/* ─── Security ─────────────────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle">Security</h2>
+        <section className="settingsCard">
+          <h2 className="cardTitle">Security</h2>
           <div className="actionFlexRow">
             <div className="infoContextBlock">
               <h3 className="actionItemHeading">Change Password</h3>
               <p className="actionItemSubtext">
-                Update your password to keep your account secure.
+                Receive real-time notifications and team alerts.
               </p>
             </div>
             <button
@@ -858,8 +994,8 @@ const AdminSettings = () => {
         </section>
 
         {/* ─── Danger Zone ──────────────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle dangerTitleColor">Danger Zone</h2>
+        <section className="settingsCard dangerZoneCard">
+          <h2 className="cardTitle dangerTitleColor">Danger Zone</h2>
           <div className="actionFlexRow">
             <div className="infoContextBlock">
               <h3 className="actionItemHeading">Delete account</h3>

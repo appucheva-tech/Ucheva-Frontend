@@ -1,450 +1,246 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:wght=200..1000&display=swap");
+/* Add these styles to your existing Score.css */
 
-/* ========== BASE RIGID WRAPPER PANEL STRUCTURES ========== */
-.CTScoreContainer {
-  width: 100%;
-  min-height: auto;
-  background: #f8fafc;
-  display: flex;
-  box-sizing: border-box;
-}
-
-.CTScoreWrapper {
-  width: 100%;
+/* Subject Cards Container */
+.subject-cards-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-/* Header Context Segment */
-.CTScoreHead {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  font-family: "Nunito", sans-serif;
-  font-weight: 700;
-  font-size: 26px;
-  color: #03173c;
-  gap: 6px;
-}
-
-.CTScoreHead span {
-  font-weight: 500;
-  font-size: 14px;
-  color: #64748b;
-}
-
-/* ========== SUBJECT FILTER HORIZONTAL TRACKSCROLL BAR ========== */
-.CTSubjectsHolder {
-  width: 100%;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  overflow-x: auto;
-  padding-bottom: 6px;
-  scrollbar-width: thin;
-}
-
-.CTSubjectsHolder::-webkit-scrollbar {
-  height: 5px;
-}
-
-.CTSubjectsHolder::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 10px;
-}
-
-.CTSubjectsHolder::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 10px;
-}
-
-.CTSubjects {
-  flex-shrink: 0;
-  width: 170px;
-  background: #ffffff;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #475569;
-  display: flex;
-  flex-direction: column;
-  padding: 14px 16px;
-  gap: 6px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-}
-
-.CTSubjects:hover {
-  border-color: #cbd5e1;
-  background: #f8fafc;
-}
-
-.CTSubjects.active {
-  border-color: #0062f6;
-  background: #f1f7ff;
-  color: #0062f6;
-}
-
-.CTSubjects span {
-  font-weight: 700;
-  font-size: 18px;
-  color: #03173c;
-}
-
-.CTSubjects.active span {
-  color: #0062f6;
-}
-
-/* ========== TABLE COMPONENT HOUSING GRID PANEL ========== */
-.CTScoreTable {
-  width: 100%;
-  background: #ffffff;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.02),
-    0 2px 4px -1px rgba(0, 0, 0, 0.02);
-}
-
-.CTSubjectSave {
-  width: 100%;
-  border-bottom: 1px solid #f1f5f9;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  box-sizing: border-box;
-}
-
-.CTSelectedTextName {
-  font-family: "Nunito", sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: #03173c;
-}
-
-.CTSaveBtn {
-  background: #0062f6;
-  border-radius: 6px;
-  color: #ffffff;
-  border: none;
-  padding: 10px 20px;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
-}
-
-.CTSaveBtn:hover:not(:disabled) {
-  background: #0052d0;
-}
-
-.CTSaveBtn:disabled {
-  background: #cbd5e1;
-  cursor: not-allowed;
-}
-
-/* ========== OVERFLOW-X STABLE DATA GRID ========== */
-.CTActualTable {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-x: auto;
-}
-
-.CTActualTableTop {
-  min-width: 680px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 24px;
-  align-items: center;
-}
-
-.CTTableContentValue {
-  font-family: "Nunito", sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: #475569;
-  flex: 2;
-}
-
-.CTTableContentScore {
-  width: 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: "Nunito", sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: #475569;
-  gap: 2px;
-}
-
-.CTTableContentScore span {
-  font-size: 11px;
-  color: #94a3b8;
-  font-weight: 500;
-}
-
-/* Rows Context List Iterations */
-.CTActualTableInfo {
-  margin: 0;
-  min-width: 680px;
-  border-bottom: 1px solid #f1f5f9;
-  display: flex;
-  justify-content: space-between;
-  padding: 12px 24px;
-  align-items: center;
-}
-
-.CTTableValueName {
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #03173c;
-  flex: 2;
-}
-
-.CTTableValueName.admission-num-text {
-  color: #64748b;
-}
-
-.CTCA1Holder {
-  width: 120px;
-  display: flex;
-  justify-content: center;
-}
-
-.CTCA1 {
-  width: 64px;
-  height: 36px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  outline: none;
-  background: transparent;
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: #03173c;
-  transition: all 0.15s ease;
-}
-
-.CTCA1:focus {
-  border-color: #0062f6;
-  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
-}
-
-/* ========== FEEDBACK STATES (LOADING & EMPTY) ========== */
-.CTTableStateFeedback {
-  padding: 60px 24px;
-  text-align: center;
-  font-family: "Nunito", sans-serif;
-  font-size: 15px;
-  color: #64748b;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  background: #ffffff;
-}
-
-.CTSpinner {
-  width: 28px;
-  height: 28px;
-  border: 3px solid #f1f5f9;
-  border-top: 3px solid #0062f6;
-  border-radius: 50%;
-  animation: ctSpin 0.8s linear infinite;
-}
-
-@keyframes ctSpin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.CTEmptyState {
-  color: #94a3b8;
-}
-
-.CTEmptyIcon {
-  font-size: 32px;
-  color: #cbd5e1;
-}
-
-/* ========== INTERACTIVE PAGINATION COMPONENT FOOTER ========== */
-.pagination {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  box-sizing: border-box;
   gap: 16px;
-  flex-wrap: wrap;
-  border-top: 1px solid #e2e8f0;
+  margin-bottom: 32px;
 }
 
-.pagination span {
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  color: #64748b;
-}
-
-.pages {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.pages button {
-  width: 32px;
-  height: 32px;
+/* Subject Card Wrapper */
+.subject-card-wrapper {
   background: #ffffff;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.subject-card-wrapper.active {
+  border-color: #0066ff;
+  box-shadow: 0 2px 12px rgba(0, 102, 255, 0.15);
+}
+
+.subject-card-wrapper:hover {
+  border-color: #0066ff;
+}
+
+/* Subject Card Header */
+.subject-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
   cursor: pointer;
-  border-radius: 6px;
-  border: 1px solid #e2e8f0;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  color: #475569;
+  background: #f8f9fa;
+  transition: background 0.3s ease;
+}
+
+.subject-card-header:hover {
+  background: #f0f2f7;
+}
+
+.subject-info {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.15s ease;
+  gap: 16px;
+  flex: 1;
 }
 
-.pages button:hover:not(:disabled) {
-  background: #f8fafc;
-  border-color: #cbd5e1;
+.subject-name-main {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a1a1a;
 }
 
-.pages button.active {
-  background: #0062f6;
-  color: #ffffff;
-  border-color: #0062f6;
+.subject-classes-count {
+  font-size: 13px;
+  color: #666;
+  background: #e0e0e0;
+  padding: 2px 12px;
+  border-radius: 12px;
 }
 
-.pages button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.subject-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.CTPageTypeHolder {
+.expand-icon {
+  font-size: 14px;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+/* Subject Card Body */
+.subject-card-body {
+  padding: 16px 20px 20px;
+  background: #ffffff;
+  border-top: 1px solid #f0f2f7;
+}
+
+/* Classes List */
+.classes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.class-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  color: #64748b;
-}
-
-.CTPageTypeWrapper {
-  width: 58px;
-  height: 32px;
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  display: flex;
-  background: #ffffff;
-  overflow: hidden;
-}
-
-.CTPageType {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 0 4px;
-  text-align: center;
-  cursor: pointer;
-  font-family: "Nunito", sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #475569;
-}
-
-/* ========== BOTTOM CAUTIONARY INFORMATION ROW ========== */
-.CTScoreCaution {
-  width: auto;
-  gap: 10px;
+  padding: 6px 12px;
+  background: #f8f9fa;
   border-radius: 8px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  font-family: "Nunito", sans-serif;
-  font-weight: 600;
-  font-size: 13px;
-  color: #1d4ed8;
+  border: 1px solid #e0e0e0;
+  transition: all 0.2s ease;
+}
+
+.class-item:hover {
+  background: #f0f2f7;
+  border-color: #0066ff;
+}
+
+.class-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #0066ff;
+}
+
+.class-item label {
   display: flex;
   align-items: center;
-  padding: 12px 16px;
-  margin: 16px 24px;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #1a1a1a;
 }
 
-.CTScoreCaution svg {
-  font-size: 18px;
-  flex-shrink: 0;
-  color: #2563eb;
+.class-name {
+  font-weight: 500;
 }
 
-/* ========== HIGHLY-RESPONSIVE BREAKPOINTS HUB ========== */
-@media screen and (max-width: 768px) {
-  .CTScoreHead {
-    font-size: 22px;
-  }
+.class-id-badge {
+  font-size: 11px;
+  color: #666;
+  background: #e0e0e0;
+  padding: 1px 8px;
+  border-radius: 10px;
+}
 
-  .CTSubjectSave {
+/* Class Actions */
+.class-actions {
+  display: flex;
+  gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f2f7;
+}
+
+.select-all-classes-btn,
+.deselect-all-classes-btn {
+  padding: 6px 16px;
+  border: 1px solid #d0d0d0;
+  border-radius: 6px;
+  background: #ffffff;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.select-all-classes-btn:hover {
+  background: #0066ff;
+  color: white;
+  border-color: #0066ff;
+}
+
+.deselect-all-classes-btn:hover {
+  background: #ff4444;
+  color: white;
+  border-color: #ff4444;
+}
+
+/* Selected Subject Header */
+.selected-subject-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.selected-subject-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.selected-classes-count {
+  font-size: 14px;
+  font-weight: 400;
+  color: #666;
+  background: #f0f2f7;
+  padding: 2px 12px;
+  border-radius: 12px;
+}
+
+.selected-classes-list {
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Table styles - add class column */
+.scores-table th:nth-child(3),
+.scores-table td:nth-child(3) {
+  min-width: 100px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .selected-subject-header {
     flex-direction: column;
     align-items: flex-start;
-    padding: 14px 16px;
     gap: 12px;
   }
 
-  .CTSaveBtn {
+  .save-button {
     width: 100%;
   }
 
-  .CTActualTableTop,
-  .CTActualTableInfo {
+  .subject-card-header {
     padding: 12px 16px;
   }
 
-  .CTScoreCaution {
-    margin: 16px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .CTScoreHead {
-    font-size: 20px;
+  .subject-name-main {
+    font-size: 16px;
   }
 
-  .CTSubjects {
-    width: 130px;
-    padding: 12px;
+  .class-item {
+    width: 100%;
   }
 
-  .pagination {
+  .class-actions {
     flex-direction: column;
-    align-items: center;
-    gap: 14px;
-    padding: 16px;
+  }
+
+  .select-all-classes-btn,
+  .deselect-all-classes-btn {
+    width: 100%;
   }
 }

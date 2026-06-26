@@ -53,10 +53,8 @@ seeTheScore()
       setLoading(true);
       const res = await apiClient.get("/subjectteacher/get-all-subjects");
 
-      const data = res.data.subjects
+      const data = res.data.subjects;
       setSubjects(data);
-
-   
 
       if (data.length > 0) {
         fetchSubject(data[0]);
@@ -130,14 +128,14 @@ const list = res.data.getStudents || [];
     try {
       setSaving(true);
 
-   const payload = {
-  subject: selectedSubject?.subjectName,
-  score: Object.keys(scores).map((id) => ({
-    studentId: id,
-    continuousAssessment: Number(scores[id]?.ca || 0),
-    exam: Number(scores[id]?.exam || 0),
-  })),
-};
+      const payload = {
+        subject: selectedSubject?.subjectName,
+        score: Object.keys(scores).map((id) => ({
+          studentId: id,
+          continuousAssessment: Number(scores[id]?.ca || 0),
+          exam: Number(scores[id]?.exam || 0),
+        })),
+      };
 
 await apiClient.post(
   `/classteacher/mark-score/${selectedSubject.id}`,
@@ -161,12 +159,11 @@ console.log("res  :  ",res)
 
   const displayedStudents = students.slice(
     startIndex,
-    startIndex + rowsPerPage
+    startIndex + rowsPerPage,
   );
 
   return (
     <div className="scores-container">
-
       {/* HEADER */}
       <div className="header-section">
         <h1 className="main-title">Scores</h1>
@@ -183,9 +180,8 @@ console.log("res  :  ",res)
                 ? "active"
                 : ""
             }`}
-
-
-onClick={() => fetchSubject(subject)}          >
+            onClick={() => fetchSubject(subject)}
+          >
             <div className="subject-name">
               {subject.subjectName || subject.name}
             </div>
@@ -198,7 +194,7 @@ onClick={() => fetchSubject(subject)}          >
       {/* SUBJECT HEADER */}
 
       <div className="selected-subject-header">
-   {/* <h2 className="selected-subject-title">
+        {/* <h2 className="selected-subject-title">
 
 
 
@@ -236,8 +232,7 @@ onClick={() => fetchSubject(subject)}          >
           </thead>
 
           <tbody>
-
-            {console.log("diddds:  ",displayedStudents)}
+            {console.log("diddds:  ", displayedStudents)}
             {loading ? (
               <tr>
                 <td colSpan={4}>Loading...</td>
@@ -252,8 +247,6 @@ onClick={() => fetchSubject(subject)}          >
                 const id = student.studentId || student.id || student._id;
 
                 return (
-
-
                   <tr key={id}>
                     <td className="student-name">
                       {student?.studentName || "--"}
@@ -301,9 +294,7 @@ onClick={() => fetchSubject(subject)}          >
         <div className="pagination-controls">
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) => Math.max(p - 1, 1))
-            }
+            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           >
             ‹
           </button>
@@ -322,11 +313,7 @@ onClick={() => fetchSubject(subject)}          >
 
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) =>
-                Math.min(p + 1, totalPages)
-              )
-            }
+            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           >
             ›
           </button>
@@ -359,6 +346,4 @@ onClick={() => fetchSubject(subject)}          >
   );
 };
 
-export default SubjectTeacherScores
-
-//checking for this page
+export default SubjectTeacherScores;

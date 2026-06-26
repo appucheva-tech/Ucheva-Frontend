@@ -5,13 +5,11 @@ import Footer from "./Footer";
 import "./LayoutStyles/ParentLayout.css";
 import { Outlet } from "react-router-dom";
 import { apiClient } from "../../../../config/AxiosInstance";
-import LoadingScreen from "../../../../components/Loading-Screen";
-import ErrorScreen from "../../../../components/Error-Screen"; // Assuming you have this
 
 const ParentLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // Default to true
-  const [error, setError] = useState(null); // Changed to 'error' for consistency
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
@@ -35,12 +33,6 @@ const ParentLayout = () => {
   useEffect(() => {
     fetchStudentData();
   }, []);
-
-  // 1. Show Loading Screen
-  if (loading) return <LoadingScreen />;
-
-  // 2. Show Error Screen
-  // if (error) return <ErrorScreen message={error} onRetry={fetchStudentData} />;
 
   return (
     <div className="parent-app-layout nunito-content">
