@@ -168,8 +168,7 @@
 }
 
 .tableContainer {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: #f4f7fc;
   padding: 40px;
 
@@ -210,6 +209,7 @@
       }
     }
   }
+
   .addClassBtn2 {
     background-color: #0d6efd;
     color: #ffffff;
@@ -218,8 +218,6 @@
     padding: 12px 20px;
     font-size: 14px;
     font-weight: 600;
-    /* display: flex; */
-    /* align-items: center; */
     cursor: pointer;
 
     .plusIcon {
@@ -806,3 +804,295 @@
 .emptyState .addClassBtn {
   margin-top: 10px;
 }
+
+/* ================================================================
+   MOBILE ELEMENTS - hidden by default, desktop untouched above
+   ================================================================ */
+
+.mobile-stats-grid {
+  display: none;
+}
+
+.mobile-class-list {
+  display: none;
+}
+
+/* ================================================================
+   MOBILE BREAKPOINT - 1024px and below
+   ================================================================ */
+
+@media (max-width: 1024px) {
+
+  .tableContainer {
+    padding: 20px 16px;
+  }
+
+  .tableContainer .headerRow {
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .tableContainer .headerRow .title {
+    font-size: 22px;
+  }
+
+  .tableContainer .headerRow .subtitle {
+    font-size: 13px;
+  }
+
+  .tableContainer .headerRow .addClassBtn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  /* Stats grid */
+  .mobile-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .mobile-stat-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .mobile-stat-card .stat-info .stat-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 4px;
+  }
+
+  .mobile-stat-card .stat-info .stat-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  .stat-icon-wrap {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .stat-icon-wrap svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .stat-icon-wrap.blue {
+    background: #eff6ff;
+    color: #2563eb;
+  }
+
+  .stat-icon-wrap.purple {
+    background: #f3e8ff;
+    color: #a855f7;
+  }
+
+  .stat-icon-wrap.amber {
+    background: #fef3c7;
+    color: #f59e0b;
+  }
+
+  .stat-icon-wrap.green {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  .stat-icon-wrap svg {
+    stroke: currentColor;
+  }
+
+  /* Filter section */
+  .tableContainer .filterSection {
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .tableContainer .filterSection .filterGroup {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .tableContainer .filterSection .filterGroup .selectWrapper {
+    width: 100%;
+  }
+
+  .tableContainer .filterSection .filterGroup .selectWrapper .selectInput {
+    width: 100%;
+  }
+
+  .tableContainer .filterSection .resetBtn {
+    align-self: flex-end;
+  }
+
+  /* Hide desktop table */
+  .tableContainer .tableWrapper .classTable {
+    display: none;
+  }
+
+  /* Show mobile card list */
+  .mobile-class-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobile-list-header {
+    padding: 14px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #0f172a;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+  }
+
+  .mobile-class-card {
+    padding: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+  }
+
+  .mobile-class-card .card-left {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .mobile-class-card .class-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1070e0;
+  }
+
+  .mobile-class-card .class-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 12px;
+    color: #64748b;
+  }
+
+  .mobile-class-card .card-actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .mobile-class-card .editBtn,
+  .mobile-class-card .deleteBtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .mobile-class-card .editBtn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #94a3b8;
+  }
+
+  .mobile-class-card .deleteBtn svg {
+    width: 18px;
+    height: 18px;
+    stroke: #f87171;
+  }
+
+  /* Pagination stacks */
+  .tableContainer .tableWrapper .paginationRow {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    padding: 16px;
+  }
+
+  /* Modal fits screen */
+  .modalOverlay .modalContent {
+    margin: 16px;
+    padding: 24px 20px;
+    border-radius: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* Footer stacks */
+  .tableContainer .footerRow {
+    flex-direction: column;
+    gap: 6px;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+/* ================================================================
+   SMALL MOBILE - 640px and below
+   ================================================================ */
+
+@media (max-width: 640px) {
+
+  .tableContainer {
+    padding: 14px 12px;
+  }
+
+  .tableContainer .headerRow .title {
+    font-size: 20px;
+  }
+
+  .mobile-stat-card {
+    padding: 12px;
+  }
+
+  .mobile-stat-card .stat-info .stat-value {
+    font-size: 20px;
+  }
+
+  .stat-icon-wrap {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .stat-icon-wrap svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .mobile-class-card {
+    padding: 14px 12px;
+  }
+
+  .mobile-class-card .class-name {
+    font-size: 14px;
+  }
+
+  .mobile-class-card .class-meta {
+    font-size: 11px;
+  }
+
+  .tableContainer .filterSection {
+    padding: 10px 12px;
+  }
+} 

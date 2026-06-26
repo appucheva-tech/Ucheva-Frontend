@@ -36,6 +36,8 @@ const AdminStudents = () => {
       });
       console.log(response);
       const studentData = response.data?.studentsData || [];
+      console.log("see this:", studentData);
+
       setStudents(studentData);
       setFilteredStudents(studentData);
     } catch (error) {
@@ -73,9 +75,7 @@ const AdminStudents = () => {
       await fetchAllStudents();
     } catch (error) {
       console.error(error);
-      toast.error(
-        error.response?.data?.message || "Failed to delete student"
-      );
+      toast.error(error.response?.data?.message || "Failed to delete student");
     } finally {
       setDeleteLoading(false);
     }
@@ -89,7 +89,6 @@ const AdminStudents = () => {
     fetchAllStudents();
     fetchClasses();
   }, []);
-
 
   useEffect(() => {
     let filtered = [...students];
@@ -106,13 +105,13 @@ const AdminStudents = () => {
       filtered = filtered.filter(
         (student) =>
           student.gender &&
-          student.gender.toLowerCase() === filters.gender.toLowerCase()
+          student.gender.toLowerCase() === filters.gender.toLowerCase(),
       );
     }
 
     if (filters.department !== "all") {
       filtered = filtered.filter(
-        (student) => student.department === filters.department
+        (student) => student.department === filters.department,
       );
     }
 
@@ -179,7 +178,7 @@ const AdminStudents = () => {
                 <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
-                      (s) => s.gender && s.gender.toLowerCase() === "male"
+                      (s) => s.gender && s.gender.toLowerCase() === "male",
                     ).length
                   }
                 </span>
@@ -199,7 +198,7 @@ const AdminStudents = () => {
                 <span className="AdministrationStudent-card-value">
                   {
                     students.filter(
-                      (s) => s.gender && s.gender.toLowerCase() === "female"
+                      (s) => s.gender && s.gender.toLowerCase() === "female",
                     ).length
                   }
                 </span>
@@ -254,9 +253,7 @@ const AdminStudents = () => {
                 <select
                   className="AdministrationStudent-selectInput"
                   value={filters.gender}
-                  onChange={(e) =>
-                    handleFilterChange("gender", e.target.value)
-                  }
+                  onChange={(e) => handleFilterChange("gender", e.target.value)}
                 >
                   <option value="all">All Gender</option>
                   <option value="female">Female</option>
@@ -336,13 +333,13 @@ const AdminStudents = () => {
                 filteredStudents.map((student, index) => (
                   <tr key={student.id || index}>
                     <td className="AdministrationStudent-studentName">
-                      {student.fullName}
+                      {student.fullName || "--"}
                     </td>
                     <td className="AdministrationStudent-genderText">
                       {student.gender}
                     </td>
                     <td className="AdministrationStudent-classText">
-                      {student.classes || student.studentClass || "--"}
+                      {student.classes || student.className || "--"}
                     </td>
                     <td className="AdministrationStudent-deptText">
                       {student.department || "--"}
@@ -451,10 +448,7 @@ const AdminStudents = () => {
 
       {/* Delete Student Modal */}
       {showDeleteModal && (
-        <div
-          className="modalOverlay"
-          onClick={() => setShowDeleteModal(false)}
-        >
+        <div className="modalOverlay" onClick={() => setShowDeleteModal(false)}>
           <div
             className="modalContent deleteModal"
             onClick={(e) => e.stopPropagation()}
@@ -482,8 +476,8 @@ const AdminStudents = () => {
             </div>
             <div className="modalBody">
               <p className="deleteWarningText">
-                Are you sure you want to delete this student? This action
-                cannot be undone.
+                Are you sure you want to delete this student? This action cannot
+                be undone.
               </p>
             </div>
             <div className="modalFooter">
