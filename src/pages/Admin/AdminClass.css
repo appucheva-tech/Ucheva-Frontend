@@ -476,6 +476,7 @@
   }
 }
 
+/* ===== UPDATED MODAL STYLES ===== */
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -487,186 +488,297 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  padding: 20px;
+}
 
-  .modalContent {
-    background-color: #ffffff;
-    border-radius: 24px;
-    width: 100%;
-    max-width: 540px;
-    padding: 32px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+.modalOverlay .modalContent {
+  background-color: #ffffff;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90vh; /* Prevents modal from going off screen */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Keeps everything contained */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  animation: modalSlideIn 0.3s ease-out;
+}
 
-    &.deleteModal {
-      max-width: 480px;
+.modalOverlay .modalContent.deleteModal {
+  max-width: 480px;
+}
 
-      .confirmDeleteBtn {
-        background-color: #dc3545;
-        border: none;
-        color: #ffffff;
-      }
+.modalOverlay .modalContent .modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px 20px 32px;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0; /* Keeps header fixed */
+  background: #ffffff;
+  border-radius: 24px 24px 0 0;
+}
 
-      .deleteWarningText {
-        font-size: 15px;
-        color: #4a5568;
-        line-height: 1.5;
-        margin: 0;
-      }
-    }
+.modalOverlay .modalContent .modalHeader h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0b1a30;
+  margin: 0;
+}
 
-    .modalHeader {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
+.modalOverlay .modalContent .modalHeader .closeBtn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #0b1a30;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-      h2 {
-        font-size: 24px;
-        font-weight: 700;
-        color: #0b1a30;
-        margin: 0;
-      }
+/* MODAL BODY - THIS IS WHERE SCROLLING HAPPENS */
+.modalOverlay .modalContent .modalBody {
+  padding: 24px 32px;
+  overflow-y: auto; /* Enables scrolling */
+  flex: 1; /* Takes remaining space */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-      .closeBtn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: #0b1a30;
-        cursor: pointer;
-        padding: 0;
-        line-height: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-    }
+  /* Custom scrollbar styling */
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
 
-    .modalBody {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
+/* Custom scrollbar for WebKit browsers */
+.modalOverlay .modalContent .modalBody::-webkit-scrollbar {
+  width: 6px;
+}
 
-      .inputGroup {
-        display: flex;
-        flex-direction: column;
+.modalOverlay .modalContent .modalBody::-webkit-scrollbar-track {
+  background: transparent;
+}
 
-        label {
-          font-size: 14px;
-          font-weight: 500;
-          color: #0b1a30;
-          margin-bottom: 8px;
-        }
+.modalOverlay .modalContent .modalBody::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 20px;
+}
 
-        input[type="text"] {
-          width: 100%;
-          padding: 12px 16px;
-          font-size: 14px;
-          border: 1px solid #e2e8f0;
-          border-radius: 8px;
-          color: #1a202c;
-          outline: none;
-          box-sizing: border-box;
+.modalOverlay .modalContent .modalBody::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af;
+}
 
-          &::placeholder {
-            color: #a0aec0;
-          }
+/* For delete modal - center the warning text */
+.modalOverlay .modalContent.deleteModal .modalBody {
+  justify-content: center;
+  min-height: 100px;
+  padding: 32px 32px 24px 32px;
+}
 
-          &:focus {
-            border-color: #0d6efd;
-          }
-        }
-        input[type="number"] {
-          width: 100%;
-          padding: 12px 16px;
-          font-size: 14px;
-          border: 1px solid #e2e8f0;
-          border-radius: 8px;
-          color: #1a202c;
-          outline: none;
-          box-sizing: border-box;
+.modalOverlay .modalContent .modalBody .inputGroup {
+  display: flex;
+  flex-direction: column;
+}
 
-          &::placeholder {
-            color: #a0aec0;
-          }
+.modalOverlay .modalContent .modalBody .inputGroup label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0b1a30;
+  margin-bottom: 8px;
+}
 
-          &:focus {
-            border-color: #0d6efd;
-          }
-        }
+.modalOverlay .modalContent .modalBody .inputGroup input[type="text"],
+.modalOverlay .modalContent .modalBody .inputGroup input[type="number"] {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #1a202c;
+  outline: none;
+  box-sizing: border-box;
+}
 
-        .modalSelectWrapper {
-          position: relative;
-          width: 100%;
+.modalOverlay
+  .modalContent
+  .modalBody
+  .inputGroup
+  input[type="text"]::placeholder,
+.modalOverlay
+  .modalContent
+  .modalBody
+  .inputGroup
+  input[type="number"]::placeholder {
+  color: #a0aec0;
+}
 
-          select {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            background-color: #ffffff;
-            color: black;
-            appearance: none;
-            cursor: pointer;
-            outline: none;
-            box-sizing: border-box;
+.modalOverlay .modalContent .modalBody .inputGroup input[type="text"]:focus,
+.modalOverlay .modalContent .modalBody .inputGroup input[type="number"]:focus {
+  border-color: #0d6efd;
+}
 
-            &:focus {
-              border-color: #0d6efd;
-            }
-          }
+.modalOverlay .modalContent .modalBody .inputGroup .modalSelectWrapper {
+  position: relative;
+  width: 100%;
+}
 
-          &::after {
-            content: "";
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 6px;
-            background-color: #0b1a30;
-            clip-path: polygon(100% 0, 0 0, 50% 100%);
-            pointer-events: none;
-          }
-        }
+.modalOverlay .modalContent .modalBody .inputGroup .modalSelectWrapper select {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: black;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+}
 
-        .inputHelp {
-          font-size: 12px;
-          color: #a0aec0;
-          margin-top: 6px;
-        }
-      }
-    }
+.modalOverlay
+  .modalContent
+  .modalBody
+  .inputGroup
+  .modalSelectWrapper
+  select:focus {
+  border-color: #0d6efd;
+}
 
-    .modalFooter {
-      display: flex;
-      justify-content: flex-start;
-      gap: 16px;
-      margin-top: 32px;
+.modalOverlay .modalContent .modalBody .inputGroup .modalSelectWrapper::after {
+  content: "";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 6px;
+  background-color: #0b1a30;
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+  pointer-events: none;
+}
 
-      button {
-        padding: 12px 24px;
-        font-size: 14px;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-      }
+.modalOverlay .modalContent .modalBody .inputGroup .inputHelp {
+  font-size: 12px;
+  color: #a0aec0;
+  margin-top: 6px;
+}
 
-      .cancelBtn {
-        background-color: #ffffff;
-        border: 1px solid #0d6efd;
-        color: #0d6efd;
-      }
+.modalOverlay .modalContent .modalBody .inputHelp {
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background-color: #f0f9ff;
+  border-radius: 6px;
+  color: #0369a1;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid #bae6fd;
+}
 
-      .createBtn,
-      .saveChangesBtn {
-        background-color: #0d6efd;
-        border: none;
-        color: #ffffff;
-      }
-    }
+/* MODAL FOOTER - KEPT FIXED AT BOTTOM */
+.modalOverlay .modalContent .modalFooter {
+  display: flex;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 16px 32px 24px 32px;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0; /* Keeps footer fixed */
+  background: #ffffff;
+  border-radius: 0 0 24px 24px;
+}
+
+.modalOverlay .modalContent .modalFooter button {
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.modalOverlay .modalContent .modalFooter .cancelBtn {
+  background-color: #ffffff;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.modalOverlay .modalContent .modalFooter .createBtn,
+.modalOverlay .modalContent .modalFooter .saveChangesBtn {
+  background-color: #0d6efd;
+  border: none;
+  color: #ffffff;
+}
+
+.modalOverlay .modalContent.deleteModal .modalFooter .confirmDeleteBtn {
+  background-color: #dc3545;
+  border: none;
+  color: #ffffff;
+}
+
+.modalOverlay .modalContent.deleteModal .modalBody .deleteWarningText {
+  font-size: 15px;
+  color: #4a5568;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+}
+
+/* Modal slide-in animation */
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .modalOverlay {
+    padding: 12px;
+  }
+
+  .modalOverlay .modalContent {
+    max-height: 95vh;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .modalOverlay .modalContent .modalHeader {
+    padding: 16px 20px 14px 20px;
+  }
+
+  .modalOverlay .modalContent .modalBody {
+    padding: 16px 20px;
+    gap: 16px;
+  }
+
+  .modalOverlay .modalContent .modalFooter {
+    padding: 12px 20px 16px 20px;
+    flex-wrap: wrap;
+  }
+
+  .modalOverlay .modalContent .modalFooter button {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .modalOverlay .modalContent.deleteModal .modalBody {
+    min-height: 70px;
+    padding: 24px 20px 16px 20px;
+  }
+}
+
+/* Remaining empty state styles */
 .emptyState {
   padding: 60px 20px;
   text-align: center;
@@ -693,17 +805,4 @@
 
 .emptyState .addClassBtn {
   margin-top: 10px;
-}
-
-.inputHelp {
-  display: block;
-  margin-top: 8px;
-  margin-bottom: 16px;
-  padding: 8px 12px;
-  background-color: #f0f9ff;
-  border-radius: 6px;
-  color: #0369a1;
-  font-size: 14px;
-  font-weight: 500;
-  border: 1px solid #bae6fd;
 }

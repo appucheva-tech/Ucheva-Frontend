@@ -11,8 +11,7 @@ const AdminSettings = () => {
   const [adminProfile, setAdminProfile] = useState({
     adminFirstName: "",
     adminLastName: "",
-    schoolType: "",
-    phoneNumber: "",
+    schoolType: [],
   });
   const [adminPhoto, setAdminPhoto] = useState(null);
   const [adminPhotoPreview, setAdminPhotoPreview] = useState(null);
@@ -38,16 +37,23 @@ const AdminSettings = () => {
     email: "",
     phoneNumber: "",
     academicSession: "",
+    term: "",
     address: "",
-    logoUrl: null,
+    schoolLogoUrl: null,
   });
   const [schoolLoading, setSchoolLoading] = useState(true);
 
-  // ─── Stamp & Signature ──────────────────────────────────────
+  // ─── School Logo Upload ──────────────────────────────────────
+  const [logoFile, setLogoFile] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const logoRef = useRef();
+
+  // ─── Stamp Upload ─────────────────────────────────────────────
   const [stampFile, setStampFile] = useState(null);
   const [stampPreview, setStampPreview] = useState(null);
   const stampRef = useRef();
 
+  // ─── Signature Upload ─────────────────────────────────────────
   const [signatureFile, setSignatureFile] = useState(null);
   const [signaturePreview, setSignaturePreview] = useState(null);
   const signatureRef = useRef();
@@ -74,73 +80,77 @@ const AdminSettings = () => {
     setTimeout(() => setToast(null), 3500);
   };
 
+  // ─── Generate Academic Session Automatically ─────────────────
+ const generateAcademicSession = () => {
+  const year = new Date().getFullYear();
+  return `${year}/${year + 1}`;
+};
+
   // ─── GET Method - Fetch Settings ─────────────────────────────
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await apiClient.get("/admin/profile-settings");
-        const data = response.data.admin;
+        const response = await apiClient.get("/admin/profile");
+        const adminData = response.data.admin;
+        const profileData = response.data.adminProfile;
 
-        // Map Admin Profile
-        if (data.adminFirstName) {
+        // Generate academic session
+        const generatedSession = generateAcademicSession();
+
+        // Map Admin Profile from adminData
+        if (adminData) {
           setAdminProfile({
-            adminFirstName: data.adminFirstName || "",
-            adminLastName: data.adminLastName || "",
-            schoolType: data.schoolType || "",
-            phoneNumber: data.phoneNumber || "",
+            adminFirstName: profileData?.adminFirstName || "",
+            adminLastName: profileData?.adminLastName || "",
+            schoolType: profileData?.schoolType || [],
           });
         }
-
         // Map School Profile
-        if (data.school) {
+        if (adminData) {
           setSchoolProfile({
-            schoolName: data.school.schoolName || data.schoolName || "",
-            email: data.school.email || data.email || "",
-            phoneNumber: data.school.phoneNumber || data.phoneNumber || "",
-            academicSession:
-              data.school.academicSession || data.academicSession || "",
-            address: data.school.address || data.address || "",
-            logoUrl: data.school.logoUrl || data.logoUrl || null,
+            schoolName: adminData.schoolName || "",
+            email: adminData.email || "",
+            phoneNumber: adminData.phoneNumber || "",
+            academicSession: profileData?.academicSession || generatedSession,
+            term: profileData?.term || "",
+            address: adminData.address || "",
+            schoolLogoUrl: profileData?.schoolLogoUrl || null,
           });
-        } else {
-          // Fallback mapping
-          setSchoolProfile({
-            schoolName: data.schoolName || "",
-            email: data.email || "",
-            phoneNumber: data.phoneNumber || "",
-            academicSession: data.academicSession || "",
-            address: data.address || "",
-            logoUrl: data.logoUrl || null,
-          });
+
+          // Set logo preview if exists
+          if (profileData?.schoolLogoUrl) {
+            setLogoPreview(profileData.schoolLogoUrl);
+          }
         }
 
-        // Map Report Card Config
-        if (data.continuousAssessmentConfig !== undefined) {
+        // Map Report Card Config from profileData
+        if (profileData) {
           setReportConfig({
-            continuousAssessmentConfig: data.continuousAssessmentConfig || 40,
-            examConfig: data.examConfig || 60,
-            total: data.total || 100,
+            continuousAssessmentConfig:
+              profileData.continuousAssessmentConfig || 40,
+            examConfig: profileData.examConfig || 60,
+            total: profileData.total || 100,
           });
         }
 
-        // Map Stamp Preview
-        if (data.schoolStamp) {
-          setStampPreview(data.schoolStamp);
+        // Map Stamp Preview from profileData
+        if (profileData?.schoolStampUrl) {
+          setStampPreview(profileData.schoolStampUrl);
         }
 
-        // Map Signature Preview
-        if (data.adminSignature) {
-          setSignaturePreview(data.adminSignature);
+        // Map Signature Preview from profileData
+        if (profileData?.signatureUrl) {
+          setSignaturePreview(profileData.signatureUrl);
         }
 
-        // Map CAC Document
-        if (data.cacDocument) {
-          setCacPreview(data.cacDocument);
+        // Map CAC Document from profileData
+        if (profileData?.cacUrl) {
+          setCacPreview(profileData.cacUrl);
         }
 
-        // Map NEPA Bill
-        if (data.nepaBill) {
-          setNepaPreview(data.nepaBill);
+        // Map NEPA Bill from profileData
+        if (profileData?.nepaUrl) {
+          setNepaPreview(profileData.nepaUrl);
         }
 
         setSchoolLoading(false);
@@ -166,12 +176,63 @@ const AdminSettings = () => {
     setAdminPhotoPreview(URL.createObjectURL(file));
   };
 
-  // ─── Signature Upload ────────────────────────────────────────
+  // ─── School Logo Upload ──────────────────────────────────────
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setLogoFile(file);
+    setLogoPreview(URL.createObjectURL(file));
+  };
+
+  // ─── Stamp Upload ─────────────────────────────────────────────
+  const handleStampChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setStampFile(file);
+    setStampPreview(URL.createObjectURL(file));
+  };
+
+  // ─── Signature Upload ─────────────────────────────────────────
   const handleSignatureChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
     setSignatureFile(file);
     setSignaturePreview(URL.createObjectURL(file));
+  };
+
+  // ─── Verification File Uploads ────────────────────────────────
+  const handleCacChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setCacFile(file);
+    setCacPreview(URL.createObjectURL(file));
+  };
+
+  const handleNepaChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setNepaFile(file);
+    setNepaPreview(URL.createObjectURL(file));
   };
 
   // ─── CA Score change keeps total at 100 ──────────────────────
@@ -182,29 +243,6 @@ const AdminSettings = () => {
       examConfig: 100 - ca,
       total: 100,
     });
-  };
-
-  // ─── Stamp Upload ─────────────────────────────────────────────
-  const handleStampChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setStampFile(file);
-    setStampPreview(URL.createObjectURL(file));
-  };
-
-  // ─── Verification File Uploads ────────────────────────────────
-  const handleCacChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setCacFile(file);
-    setCacPreview(URL.createObjectURL(file));
-  };
-
-  const handleNepaChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setNepaFile(file);
-    setNepaPreview(URL.createObjectURL(file));
   };
 
   // ─── Password Strength Calculator ────────────────────────────
@@ -219,7 +257,7 @@ const AdminSettings = () => {
     return { score, label: labels[score - 1], color: colors[score - 1] };
   };
 
-  // ─── SINGLE PUT — every Save Changes button calls this ────────
+  // ─── SINGLE PUT — Send everything as FormData ────────────────
   const handleSaveAll = async () => {
     if (
       passwordFields.newPassword &&
@@ -231,69 +269,150 @@ const AdminSettings = () => {
 
     setSaving(true);
     try {
+      // Create FormData for the PUT request
       const formData = new FormData();
 
+      // --- TEXT FIELDS ---
       // Admin Profile
-      if (adminProfile.adminFirstName)
+      if (adminProfile.adminFirstName) {
         formData.append("adminFirstName", adminProfile.adminFirstName);
-      if (adminProfile.adminLastName)
+      }
+      if (adminProfile.adminLastName) {
         formData.append("adminLastName", adminProfile.adminLastName);
-      if (adminProfile.schoolType)
-        formData.append("schoolType", adminProfile.schoolType);
-      if (adminProfile.phoneNumber)
-        formData.append("phoneNumber", adminProfile.phoneNumber);
+      }
+      if (adminProfile.schoolType && adminProfile.schoolType.length > 0) {
+        formData.append("schoolType", JSON.stringify(adminProfile.schoolType));
+      }
+
+      // School Profile
+      if (schoolProfile.schoolName) {
+        formData.append("schoolName", schoolProfile.schoolName);
+      }
+      if (schoolProfile.email) {
+        formData.append("email", schoolProfile.email);
+      }
+      if (schoolProfile.phoneNumber) {
+        formData.append("phoneNumber", schoolProfile.phoneNumber);
+      }
+      if (schoolProfile.address) {
+        formData.append("address", schoolProfile.address);
+      }
+
+      // --- CRITICAL FIX: term and academicSession ---
+      // Only append if they have real values (not empty string)
+      if (schoolProfile.term && schoolProfile.term !== "") {
+        formData.append("term", schoolProfile.term);
+      }
+      if (
+        schoolProfile.academicSession &&
+        schoolProfile.academicSession !== ""
+      ) {
+        formData.append("academicSession", schoolProfile.academicSession);
+      }
 
       // Report Card Config
       formData.append(
         "continuousAssessmentConfig",
-        reportConfig.continuousAssessmentConfig,
+        reportConfig.continuousAssessmentConfig.toString(),
       );
-      formData.append("examConfig", reportConfig.examConfig);
-      formData.append("total", reportConfig.total);
+      formData.append("examConfig", reportConfig.examConfig.toString());
+      formData.append("total", reportConfig.total.toString());
 
-      // Files
-      if (adminPhoto) formData.append("profilePic", adminPhoto);
-      if (stampFile) formData.append("schoolStamp", stampFile);
-      if (signatureFile) formData.append("adminSignature", signatureFile);
-      if (cacFile) formData.append("cac", cacFile);
-      if (nepaFile) formData.append("nepa", nepaFile);
+      // --- FILE FIELDS (Append actual File objects) ---
+      // Profile Picture
+      if (adminPhoto && adminPhoto instanceof File) {
+        formData.append("profilePic", adminPhoto);
+      }
 
-      // Password
+      // School Logo
+      if (logoFile && logoFile instanceof File) {
+        formData.append("schoolLogo", logoFile);
+      }
+
+      // School Stamp
+      if (stampFile && stampFile instanceof File) {
+        formData.append("schoolStamp", stampFile);
+      }
+
+      // Admin Signature
+      if (signatureFile && signatureFile instanceof File) {
+        formData.append("schoolSignature", signatureFile);
+      }
+
+      // CAC Document
+      if (cacFile && cacFile instanceof File) {
+        formData.append("cacDoc", cacFile);
+      }
+
+      // NEPA Bill
+      if (nepaFile && nepaFile instanceof File) {
+        formData.append("nepaBill", nepaFile);
+      }
+
+      // --- Password fields (if changing password) ---
       if (passwordFields.oldPassword) {
         formData.append("oldPassword", passwordFields.oldPassword);
         formData.append("newPassword", passwordFields.newPassword);
         formData.append("confirmPassword", passwordFields.confirmPassword);
       }
+console.log(
+  "academicSession:",
+  schoolProfile.academicSession
+);
 
+for (const [key, value] of formData.entries()) {
+  console.log(key, value);
+}
+// --- SEND THE PUT REQUEST WITH FORM DATA ---
       const res = await apiClient.put("/admin/profile-settings", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
+      // Update the user in Redux if needed
       const updatedUser = res.data?.admin || res.data?.user || null;
-
       if (updatedUser) {
         dispatch(setUser(updatedUser));
-      } else {
-        dispatch(
-          setUser({
-            adminFirstName: adminProfile.adminFirstName,
-            adminLastName: adminProfile.adminLastName,
-          }),
-        );
       }
 
-      showToast("Settings saved successfully.");
+      showToast(res.data.message);
       setShowUpdateProfile(false);
       setPasswordFields({
         oldPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
+
+      // Refresh the data to show updated URLs
+      const refreshResponse = await apiClient.get("/admin/profile");
+      const profileData = refreshResponse.data.adminProfile;
+
+      // Update previews with new URLs
+      if (profileData?.schoolLogoUrl) {
+        setLogoPreview(profileData.schoolLogoUrl);
+      }
+      if (profileData?.schoolStampUrl) {
+        setStampPreview(profileData.schoolStampUrl);
+      }
+      if (profileData?.signatureUrl) {
+        setSignaturePreview(profileData.signatureUrl);
+      }
+      if (profileData?.cacUrl) {
+        setCacPreview(profileData.cacUrl);
+      }
+      if (profileData?.nepaUrl) {
+        setNepaPreview(profileData.nepaUrl);
+      }
+      if (profileData?.adminUrl) {
+        setAdminPhotoPreview(profileData.adminUrl);
+      }
     } catch (error) {
       showToast(
         error?.response?.data?.message || "Failed to save settings.",
         "error",
       );
+      console.error("Save error:", error.response?.data);
     } finally {
       setSaving(false);
     }
@@ -581,23 +700,6 @@ const AdminSettings = () => {
                   />
                 </div>
               </div>
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">Phone Number</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="Phone Number"
-                    value={adminProfile.phoneNumber}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        phoneNumber: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
             </div>
           </div>
           <div className="cardActionRow">
@@ -616,10 +718,13 @@ const AdminSettings = () => {
           <h2 className="cardTitle">School Profile</h2>
           <div className="schoolLayout">
             <div className="logoWrapper">
-              <div className="logoBadgeContainer">
-                {schoolProfile.logoUrl ? (
+              <div
+                className="logoBadgeContainer"
+                style={{ position: "relative" }}
+              >
+                {logoPreview ? (
                   <img
-                    src={schoolProfile.logoUrl}
+                    src={logoPreview}
                     alt="School Logo"
                     className="schoolLogoImg"
                   />
@@ -636,7 +741,44 @@ const AdminSettings = () => {
                     </svg>
                   </div>
                 )}
+                <button
+                  className="cameraBtn"
+                  aria-label="Upload school logo"
+                  onClick={() => logoRef.current.click()}
+                  style={{
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+                  }}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="cameraIcon"
+                    style={{ width: "14px", height: "14px", color: "#64748b" }}
+                  >
+                    <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                  </svg>
+                </button>
+                <input
+                  ref={logoRef}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  style={{ display: "none" }}
+                  onChange={handleLogoChange}
+                />
               </div>
+              <span className="uploadHint">PNG, JPG, Max 2MB</span>
             </div>
 
             <div className="schoolFormGrid">
@@ -644,35 +786,89 @@ const AdminSettings = () => {
                 <label className="inputLabel">School Name</label>
                 <input
                   type="text"
+                  readOnly
                   className="textInput"
                   value={
                     schoolLoading ? "Loading..." : schoolProfile.schoolName
                   }
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      schoolName: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div className="inputGroup">
+                <label className="inputLabel">Email</label>
+                <input
+                  type="email"
                   readOnly
+                  className="textInput"
+                  value={schoolLoading ? "Loading..." : schoolProfile.email}
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      email: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">Phone Number</label>
                 <input
                   type="text"
+                  readOnly
                   className="textInput"
                   value={
                     schoolLoading ? "Loading..." : schoolProfile.phoneNumber
                   }
-                  readOnly
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      phoneNumber: e.target.value,
+                    }))
+                  }
                 />
               </div>
-              <div className="inputGroup fullWidthRow">
+              <div className="inputGroup">
                 <label className="inputLabel">Academic Session</label>
+                <div className="selectWrapper">
+
+<select
+  className="selectInput"
+  value={schoolProfile.academicSession}
+  onChange={(e) =>
+    setSchoolProfile((p) => ({
+      ...p,
+      academicSession: e.target.value,
+    }))
+  }
+>
+  <option value={generateAcademicSession()}>
+    {generateAcademicSession()}
+  </option>
+</select>
+
+                </div>
+              </div>
+              <div className="inputGroup">
+                <label className="inputLabel">Term</label>
                 <div className="selectWrapper">
                   <select
                     className="selectInput"
-                    value={schoolProfile.academicSession}
-                    disabled
+                    value={schoolProfile.term || ""}
+                    onChange={(e) =>
+                      setSchoolProfile((p) => ({
+                        ...p,
+                        term: e.target.value,
+                      }))
+                    }
                   >
-                    <option value={schoolProfile.academicSession}>
-                      {schoolProfile.academicSession || "2025/2026"}
-                    </option>
+                    <option value="">Select Term</option>
+                    <option value="First Term">First Term</option>
+                    <option value="Second Term">Second Term</option>
+                    <option value="Third Term">Third Term</option>
                   </select>
                 </div>
               </div>
@@ -681,11 +877,26 @@ const AdminSettings = () => {
                 <input
                   type="text"
                   className="textInput"
-                  value={schoolLoading ? "Loading..." : schoolProfile.address}
                   readOnly
+                  value={schoolLoading ? "Loading..." : schoolProfile.address}
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      address: e.target.value,
+                    }))
+                  }
                 />
               </div>
             </div>
+          </div>
+          <div className="cardActionRow">
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
           </div>
         </section>
 
@@ -888,7 +1099,7 @@ const AdminSettings = () => {
                 onClick={() => cacRef.current.click()}
                 style={{ cursor: "pointer" }}
               >
-                {cacPreview && (
+                {cacPreview ? (
                   <img
                     src={cacPreview}
                     alt="CAC preview"
@@ -899,6 +1110,19 @@ const AdminSettings = () => {
                       marginBottom: 8,
                     }}
                   />
+                ) : (
+                  <div
+                    style={{
+                      height: 80,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#94a3b8",
+                      fontSize: "12px",
+                    }}
+                  >
+                    No file uploaded
+                  </div>
                 )}
                 <button
                   className="innerUploadBtn"
@@ -929,7 +1153,7 @@ const AdminSettings = () => {
                 onClick={() => nepaRef.current.click()}
                 style={{ cursor: "pointer" }}
               >
-                {nepaPreview && (
+                {nepaPreview ? (
                   <img
                     src={nepaPreview}
                     alt="NEPA Bill preview"
@@ -940,6 +1164,19 @@ const AdminSettings = () => {
                       marginBottom: 8,
                     }}
                   />
+                ) : (
+                  <div
+                    style={{
+                      height: 80,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#94a3b8",
+                      fontSize: "12px",
+                    }}
+                  >
+                    No file uploaded
+                  </div>
                 )}
                 <button
                   className="innerUploadBtn"
