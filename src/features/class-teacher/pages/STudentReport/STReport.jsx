@@ -341,5 +341,3 @@ const fetchReportCard = async () => {
 };
 
 export default STReport;
-
-//checking for this page
