@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
-import { LuCamera } from "react-icons/lu";
+import { LuCamera, LuUpload } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./CTSettings.css";
 import { apiClient } from "../../../../config/AxiosInstance";
@@ -128,6 +128,8 @@ const CTSettings = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [signature, setSignature] = useState(null);
+  const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -149,8 +151,8 @@ const CTSettings = () => {
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await apiClient.get("/subjectteacher/getprofiledetails");
-      const data = response?.data?.subjectTeacher || response?.data;
+      const response = await apiClient.get("/classteacher/getprofiledetails");
+      const data = response?.data?.classTeacherData || response?.data;
 
       setProfileData({
         firstName: data?.firstName || "",
@@ -168,13 +170,16 @@ const CTSettings = () => {
         maritalStatus: data?.maritalStatus || "",
         qualification: data?.qualification || "",
         staffType: data?.staffType || "",
-        classAssigned: data?.classAssigned || "No class assigned",
+        classAssigned: Array.isArray(data?.classAssigned)
+          ? data.classAssigned.join(", ")
+          : data?.classAssigned || "No class assigned",
         subjectAssigned: Array.isArray(data?.subjectAssigned)
           ? data.subjectAssigned.join(", ")
           : data?.subjectAssigned || "No subjects assigned",
       });
 
       setPreviewUrl(data?.staffProfileUrl || null);
+      setSignaturePreviewUrl(data?.signatureUrl || null);
     } catch (err) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Failed to load profile.");
@@ -207,6 +212,20 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
+  /* ── Signature change ── */
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Signature must be less than 2MB.");
+      return;
+    }
+    setSignature(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setSignaturePreviewUrl(reader.result);
+    reader.readAsDataURL(file);
+  };
+
   /* ── Password field change ── */
   const handlePasswordInputChange = (e) => {
     const { name, value } = e.target;
@@ -222,15 +241,18 @@ const CTSettings = () => {
       formData.append("firstName", profileData.firstName);
       formData.append("lastName", profileData.lastName);
       formData.append("address", profileData.address);
-      if (avatar) formData.append("profilePicture", avatar);
 
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
+      if (avatar) formData.append("profilePicture", avatar);
+      if (signature) formData.append("signature", signature);
+
+      await apiClient.put("/classteacher/updateprofile", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       toast.success("Profile updated successfully!");
       await fetchProfile();
       setAvatar(null);
+      setSignature(null);
     } catch (err) {
       console.error(err);
       const msg =
@@ -276,7 +298,7 @@ const CTSettings = () => {
       formData.append("newPassword", newPassword);
       formData.append("confirmPassword", confirmPassword);
 
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
+      await apiClient.put("/classteacher/updateprofile", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -369,29 +391,29 @@ const CTSettings = () => {
 
             <div className="ct-form-row">
               <div className="ct-form-group">
-                <label htmlFor="otherName">Other Name</label>
+                <label htmlFor="subjectAssigned">Subject Taught</label>
                 <input
-                  id="otherName"
+                  id="subjectAssigned"
                   type="text"
-                  name="otherName"
-                  value={readOnlyData.otherName}
+                  name="subjectAssigned"
+                  value={readOnlyData.subjectAssigned}
                   readOnly
                   disabled
                   className="ct-readonly-field"
-                  placeholder="Other Name"
+                  placeholder="Subject Taught"
                 />
               </div>
               <div className="ct-form-group">
-                <label htmlFor="email">Email Address</label>
+                <label htmlFor="staffType">Role</label>
                 <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={readOnlyData.email}
+                  id="staffType"
+                  type="text"
+                  name="staffType"
+                  value={readOnlyData.staffType}
                   readOnly
                   disabled
                   className="ct-readonly-field"
-                  placeholder="Email Address"
+                  placeholder="Role"
                 />
               </div>
             </div>
@@ -411,119 +433,18 @@ const CTSettings = () => {
                 />
               </div>
               <div className="ct-form-group">
-                <label htmlFor="gender">Gender</label>
+                <label htmlFor="email">Email Address</label>
                 <input
-                  id="gender"
-                  type="text"
-                  name="gender"
-                  value={readOnlyData.gender}
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={readOnlyData.email}
                   readOnly
                   disabled
                   className="ct-readonly-field"
-                  placeholder="Gender"
+                  placeholder="Email Address"
                 />
               </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="dateOfBirth">Date of Birth</label>
-                <input
-                  id="dateOfBirth"
-                  type="text"
-                  name="dateOfBirth"
-                  value={readOnlyData.dateOfBirth}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Date of Birth"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="nationality">Nationality</label>
-                <input
-                  id="nationality"
-                  type="text"
-                  name="nationality"
-                  value={readOnlyData.nationality}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Nationality"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="maritalStatus">Marital Status</label>
-                <input
-                  id="maritalStatus"
-                  type="text"
-                  name="maritalStatus"
-                  value={readOnlyData.maritalStatus}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Marital Status"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="qualification">Qualification</label>
-                <input
-                  id="qualification"
-                  type="text"
-                  name="qualification"
-                  value={readOnlyData.qualification}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Qualification"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="staffType">Staff Type</label>
-                <input
-                  id="staffType"
-                  type="text"
-                  name="staffType"
-                  value={readOnlyData.staffType}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Staff Type"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="classAssigned">Class Assigned</label>
-                <input
-                  id="classAssigned"
-                  type="text"
-                  name="classAssigned"
-                  value={readOnlyData.classAssigned}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Class Assigned"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-group full-width">
-              <label htmlFor="subjectAssigned">Subject Assigned</label>
-              <input
-                id="subjectAssigned"
-                type="text"
-                name="subjectAssigned"
-                value={readOnlyData.subjectAssigned}
-                readOnly
-                disabled
-                className="ct-readonly-field"
-                placeholder="Subject Assigned"
-              />
             </div>
 
             <div className="ct-form-group full-width">
@@ -551,6 +472,57 @@ const CTSettings = () => {
         </div>
       </div>
 
+      {/* ── Upload Signature ── */}
+      <div className="ct-settings-card">
+        <h2 className="ct-card-title">Upload Signature</h2>
+        <div className="ct-signature-content">
+          <div className="ct-signature-section">
+            <div className="ct-signature-container">
+              <div className="ct-signature-label">
+                Class Teacher's Signature
+              </div>
+              {signaturePreviewUrl ? (
+                <div className="ct-signature-preview">
+                  <img
+                    src={signaturePreviewUrl}
+                    alt="Signature"
+                    className="ct-signature-image"
+                  />
+                  <button
+                    className="ct-signature-remove-btn"
+                    onClick={() => {
+                      setSignature(null);
+                      setSignaturePreviewUrl(null);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <div className="ct-signature-placeholder">
+                  <LuUpload className="ct-signature-upload-icon" />
+                  <span>Upload Signature</span>
+                </div>
+              )}
+              <label
+                htmlFor="signature-upload"
+                className="ct-signature-upload-btn"
+              >
+                {signaturePreviewUrl ? "Change Signature" : "Upload"}
+              </label>
+              <input
+                id="signature-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleSignatureChange}
+                className="ct-signature-input"
+              />
+              <p className="ct-signature-info">PNG format recommended</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Security ── */}
       <div className="ct-settings-card">
         <h2 className="ct-card-title">Security</h2>
@@ -558,7 +530,7 @@ const CTSettings = () => {
           <div className="ct-security-item">
             <div className="ct-security-text">
               <h3>Change Password</h3>
-              <p>Update your password to keep your account secure.</p>
+              <p>Receive real-time notifications and team alerts.</p>
             </div>
             <button
               className="ct-change-password-btn"
