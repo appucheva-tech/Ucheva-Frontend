@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "./AdminSettings.css";
 import { apiClient } from "../../config/AxiosInstance";
 import { useDispatch } from "react-redux";
-import { setUser } from "../../global/userSlice"
+import { setUser } from "../../global/userSlice";
 
 const AdminSettings = () => {
   const dispatch = useDispatch();
@@ -11,8 +11,7 @@ const AdminSettings = () => {
   const [adminProfile, setAdminProfile] = useState({
     adminFirstName: "",
     adminLastName: "",
-    schoolType: "",
-    phoneNumber: "",
+    schoolType: [],
   });
   const [adminPhoto, setAdminPhoto] = useState(null);
   const [adminPhotoPreview, setAdminPhotoPreview] = useState(null);
@@ -32,22 +31,29 @@ const AdminSettings = () => {
     total: 100,
   });
 
-  // ─── School Profile (GET, read-only) ─────────────────────────
+  // ─── School Profile ─────────────────────────────────────────
   const [schoolProfile, setSchoolProfile] = useState({
     schoolName: "",
     email: "",
     phoneNumber: "",
     academicSession: "",
+    term: "",
     address: "",
-    logoUrl: null,
+    schoolLogoUrl: null,
   });
   const [schoolLoading, setSchoolLoading] = useState(true);
 
-  // ─── Stamp ────────────────────────────────────────────────────
+  // ─── School Logo Upload ──────────────────────────────────────
+  const [logoFile, setLogoFile] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const logoRef = useRef();
+
+  // ─── Stamp Upload ─────────────────────────────────────────────
   const [stampFile, setStampFile] = useState(null);
   const [stampPreview, setStampPreview] = useState(null);
   const stampRef = useRef();
 
+  // ─── Signature Upload ─────────────────────────────────────────
   const [signatureFile, setSignatureFile] = useState(null);
   const [signaturePreview, setSignaturePreview] = useState(null);
   const signatureRef = useRef();
@@ -74,54 +80,88 @@ const AdminSettings = () => {
     setTimeout(() => setToast(null), 3500);
   };
 
-  const handleSignatureChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setSignatureFile(file);
-    setSignaturePreview(URL.createObjectURL(file));
-  };
+  // ─── Generate Academic Session Automatically ─────────────────
+ const generateAcademicSession = () => {
+  const year = new Date().getFullYear();
+  return `${year}/${year + 1}`;
+};
 
+  // ─── GET Method - Fetch Settings ─────────────────────────────
   useEffect(() => {
-    const fetchSchoolProfile = async () => {
+    const fetchSettings = async () => {
       try {
-        const res = await apiClient.get("/subjectteaher/subject ");
-        const { admin, adminProfile: profile } = res.data;
+        const response = await apiClient.get("/admin/profile");
+        const adminData = response.data.admin;
+        const profileData = response.data.adminProfile;
 
-        setSchoolProfile({
-          schoolName: admin.schoolName || "",
-          email: admin.email || "",
-          phoneNumber: admin.phoneNumber || "",
-          academicSession: admin.academicSession || "",
-          address: admin.address || "",
-          logoUrl: admin.logoUrl || null,
-        });
+        // Generate academic session
+        const generatedSession = generateAcademicSession();
 
-        if (profile) {
+        // Map Admin Profile from adminData
+        if (adminData) {
           setAdminProfile({
-            adminFirstName: profile.adminFirstName || "",
-            adminLastName: profile.adminLastName || "",
-            schoolType: profile.schoolType || "",
-            phoneNumber: admin.phoneNumber || "",
+            adminFirstName: profileData?.adminFirstName || "",
+            adminLastName: profileData?.adminLastName || "",
+            schoolType: profileData?.schoolType || [],
           });
+        }
+        // Map School Profile
+        if (adminData) {
+          setSchoolProfile({
+            schoolName: adminData.schoolName || "",
+            email: adminData.email || "",
+            phoneNumber: adminData.phoneNumber || "",
+            academicSession: profileData?.academicSession || generatedSession,
+            term: profileData?.term || "",
+            address: adminData.address || "",
+            schoolLogoUrl: profileData?.schoolLogoUrl || null,
+          });
+
+          // Set logo preview if exists
+          if (profileData?.schoolLogoUrl) {
+            setLogoPreview(profileData.schoolLogoUrl);
+          }
+        }
+
+        // Map Report Card Config from profileData
+        if (profileData) {
           setReportConfig({
             continuousAssessmentConfig:
-              profile.continuousAssessmentConfig ?? 40,
-            examConfig: profile.examConfig ?? 60,
-            total: profile.total ?? 100,
+              profileData.continuousAssessmentConfig || 40,
+            examConfig: profileData.examConfig || 60,
+            total: profileData.total || 100,
           });
-        } else {
-          setAdminProfile((p) => ({
-            ...p,
-            phoneNumber: admin.phoneNumber || "",
-          }));
         }
-      } catch {
-        showToast("Could not load school profile.", "error");
-      } finally {
+
+        // Map Stamp Preview from profileData
+        if (profileData?.schoolStampUrl) {
+          setStampPreview(profileData.schoolStampUrl);
+        }
+
+        // Map Signature Preview from profileData
+        if (profileData?.signatureUrl) {
+          setSignaturePreview(profileData.signatureUrl);
+        }
+
+        // Map CAC Document from profileData
+        if (profileData?.cacUrl) {
+          setCacPreview(profileData.cacUrl);
+        }
+
+        // Map NEPA Bill from profileData
+        if (profileData?.nepaUrl) {
+          setNepaPreview(profileData.nepaUrl);
+        }
+
+        setSchoolLoading(false);
+      } catch (error) {
+        console.error("Error fetching settings:", error);
+        showToast("Failed to load settings", "error");
         setSchoolLoading(false);
       }
     };
-    fetchSchoolProfile();
+
+    fetchSettings();
   }, []);
 
   // ─── Admin Photo Upload ───────────────────────────────────────
@@ -136,6 +176,65 @@ const AdminSettings = () => {
     setAdminPhotoPreview(URL.createObjectURL(file));
   };
 
+  // ─── School Logo Upload ──────────────────────────────────────
+  const handleLogoChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setLogoFile(file);
+    setLogoPreview(URL.createObjectURL(file));
+  };
+
+  // ─── Stamp Upload ─────────────────────────────────────────────
+  const handleStampChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setStampFile(file);
+    setStampPreview(URL.createObjectURL(file));
+  };
+
+  // ─── Signature Upload ─────────────────────────────────────────
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setSignatureFile(file);
+    setSignaturePreview(URL.createObjectURL(file));
+  };
+
+  // ─── Verification File Uploads ────────────────────────────────
+  const handleCacChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setCacFile(file);
+    setCacPreview(URL.createObjectURL(file));
+  };
+
+  const handleNepaChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      showToast("Image must be under 2MB", "error");
+      return;
+    }
+    setNepaFile(file);
+    setNepaPreview(URL.createObjectURL(file));
+  };
+
   // ─── CA Score change keeps total at 100 ──────────────────────
   const handleCaScoreChange = (val) => {
     const ca = Math.min(100, Math.max(0, Number(val)));
@@ -144,29 +243,6 @@ const AdminSettings = () => {
       examConfig: 100 - ca,
       total: 100,
     });
-  };
-
-  // ─── Stamp Upload ─────────────────────────────────────────────
-  const handleStampChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setStampFile(file);
-    setStampPreview(URL.createObjectURL(file));
-  };
-
-  // ─── Verification File Uploads ────────────────────────────────
-  const handleCacChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setCacFile(file);
-    setCacPreview(URL.createObjectURL(file));
-  };
-
-  const handleNepaChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    setNepaFile(file);
-    setNepaPreview(URL.createObjectURL(file));
   };
 
   // ─── Password Strength Calculator ────────────────────────────
@@ -181,7 +257,7 @@ const AdminSettings = () => {
     return { score, label: labels[score - 1], color: colors[score - 1] };
   };
 
-  // ─── SINGLE PUT — every Save Changes button calls this ────────
+  // ─── SINGLE PUT — Send everything as FormData ────────────────
   const handleSaveAll = async () => {
     if (
       passwordFields.newPassword &&
@@ -193,64 +269,150 @@ const AdminSettings = () => {
 
     setSaving(true);
     try {
+      // Create FormData for the PUT request
       const formData = new FormData();
 
-      if (adminProfile.adminFirstName)
+      // --- TEXT FIELDS ---
+      // Admin Profile
+      if (adminProfile.adminFirstName) {
         formData.append("adminFirstName", adminProfile.adminFirstName);
-      if (adminProfile.adminLastName)
+      }
+      if (adminProfile.adminLastName) {
         formData.append("adminLastName", adminProfile.adminLastName);
-      if (adminProfile.schoolType)
-        formData.append("schoolType", adminProfile.schoolType);
-      if (adminProfile.phoneNumber)
-        formData.append("phoneNumber", adminProfile.phoneNumber);
+      }
+      if (adminProfile.schoolType && adminProfile.schoolType.length > 0) {
+        formData.append("schoolType", JSON.stringify(adminProfile.schoolType));
+      }
 
+      // School Profile
+      if (schoolProfile.schoolName) {
+        formData.append("schoolName", schoolProfile.schoolName);
+      }
+      if (schoolProfile.email) {
+        formData.append("email", schoolProfile.email);
+      }
+      if (schoolProfile.phoneNumber) {
+        formData.append("phoneNumber", schoolProfile.phoneNumber);
+      }
+      if (schoolProfile.address) {
+        formData.append("address", schoolProfile.address);
+      }
+
+      // --- CRITICAL FIX: term and academicSession ---
+      // Only append if they have real values (not empty string)
+      if (schoolProfile.term && schoolProfile.term !== "") {
+        formData.append("term", schoolProfile.term);
+      }
+      if (
+        schoolProfile.academicSession &&
+        schoolProfile.academicSession !== ""
+      ) {
+        formData.append("academicSession", schoolProfile.academicSession);
+      }
+
+      // Report Card Config
       formData.append(
         "continuousAssessmentConfig",
-        reportConfig.continuousAssessmentConfig,
+        reportConfig.continuousAssessmentConfig.toString(),
       );
-      formData.append("examConfig", reportConfig.examConfig);
-      formData.append("total", reportConfig.total);
+      formData.append("examConfig", reportConfig.examConfig.toString());
+      formData.append("total", reportConfig.total.toString());
 
-      if (adminPhoto) formData.append("profilePic", adminPhoto);
-      if (stampFile) formData.append("schoolStamp", stampFile);
-      if (cacFile) formData.append("cac", cacFile);
-      if (nepaFile) formData.append("nepa", nepaFile);
+      // --- FILE FIELDS (Append actual File objects) ---
+      // Profile Picture
+      if (adminPhoto && adminPhoto instanceof File) {
+        formData.append("profilePic", adminPhoto);
+      }
 
+      // School Logo
+      if (logoFile && logoFile instanceof File) {
+        formData.append("schoolLogo", logoFile);
+      }
+
+      // School Stamp
+      if (stampFile && stampFile instanceof File) {
+        formData.append("schoolStamp", stampFile);
+      }
+
+      // Admin Signature
+      if (signatureFile && signatureFile instanceof File) {
+        formData.append("schoolSignature", signatureFile);
+      }
+
+      // CAC Document
+      if (cacFile && cacFile instanceof File) {
+        formData.append("cacDoc", cacFile);
+      }
+
+      // NEPA Bill
+      if (nepaFile && nepaFile instanceof File) {
+        formData.append("nepaBill", nepaFile);
+      }
+
+      // --- Password fields (if changing password) ---
       if (passwordFields.oldPassword) {
         formData.append("oldPassword", passwordFields.oldPassword);
         formData.append("newPassword", passwordFields.newPassword);
         formData.append("confirmPassword", passwordFields.confirmPassword);
       }
+console.log(
+  "academicSession:",
+  schoolProfile.academicSession
+);
 
+for (const [key, value] of formData.entries()) {
+  console.log(key, value);
+}
+// --- SEND THE PUT REQUEST WITH FORM DATA ---
       const res = await apiClient.put("/admin/profile-settings", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
+      // Update the user in Redux if needed
       const updatedUser = res.data?.admin || res.data?.user || null;
-
       if (updatedUser) {
         dispatch(setUser(updatedUser));
-      } else {
-        dispatch(
-          setUser({
-            adminFirstName: adminProfile.adminFirstName,
-            adminLastName: adminProfile.adminLastName,
-          })
-        );
       }
 
-      showToast("Settings saved successfully.");
+      showToast(res.data.message);
       setShowUpdateProfile(false);
       setPasswordFields({
         oldPassword: "",
         newPassword: "",
         confirmPassword: "",
       });
+
+      // Refresh the data to show updated URLs
+      const refreshResponse = await apiClient.get("/admin/profile");
+      const profileData = refreshResponse.data.adminProfile;
+
+      // Update previews with new URLs
+      if (profileData?.schoolLogoUrl) {
+        setLogoPreview(profileData.schoolLogoUrl);
+      }
+      if (profileData?.schoolStampUrl) {
+        setStampPreview(profileData.schoolStampUrl);
+      }
+      if (profileData?.signatureUrl) {
+        setSignaturePreview(profileData.signatureUrl);
+      }
+      if (profileData?.cacUrl) {
+        setCacPreview(profileData.cacUrl);
+      }
+      if (profileData?.nepaUrl) {
+        setNepaPreview(profileData.nepaUrl);
+      }
+      if (profileData?.adminUrl) {
+        setAdminPhotoPreview(profileData.adminUrl);
+      }
     } catch (error) {
       showToast(
         error?.response?.data?.message || "Failed to save settings.",
         "error",
       );
+      console.error("Save error:", error.response?.data);
     } finally {
       setSaving(false);
     }
@@ -305,7 +467,11 @@ const AdminSettings = () => {
                 className="modalCloseBtn"
                 onClick={() => {
                   setShowUpdateProfile(false);
-                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                  setPasswordFields({
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                  });
                 }}
               >
                 ✕
@@ -313,31 +479,44 @@ const AdminSettings = () => {
             </div>
 
             <div className="modalBody">
-              {/* Old Password */}
               <div className="inputGroup">
                 <label className="inputLabel">Old Password</label>
                 <div className="passwordInputWrapper">
-                    <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                    </svg>
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
                   <input
                     type="password"
                     className="textInput passwordInput"
                     placeholder="Enter your current password"
                     value={passwordFields.oldPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, oldPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        oldPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
               </div>
 
-              {/* New Password */}
               <div className="inputGroup">
                 <label className="inputLabel">New Password</label>
                 <div className="passwordInputWrapper">
-                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                   </svg>
                   <input
@@ -346,20 +525,25 @@ const AdminSettings = () => {
                     placeholder="Create a strong password"
                     value={passwordFields.newPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, newPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        newPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
-
-
- 
               </div>
 
-              {/* Confirm Password */}
               <div className="inputGroup">
                 <label className="inputLabel">Confirm Password</label>
                 <div className="passwordInputWrapper">
-                  <svg className="passwordIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="passwordIcon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
@@ -369,16 +553,23 @@ const AdminSettings = () => {
                     placeholder="Re-enter your new password"
                     value={passwordFields.confirmPassword}
                     onChange={(e) =>
-                      setPasswordFields((p) => ({ ...p, confirmPassword: e.target.value }))
+                      setPasswordFields((p) => ({
+                        ...p,
+                        confirmPassword: e.target.value,
+                      }))
                     }
                   />
                 </div>
                 {passwordFields.confirmPassword &&
-                  passwordFields.newPassword !== passwordFields.confirmPassword && (
-                    <span className="passwordMismatchHint">⚠ Passwords do not match</span>
+                  passwordFields.newPassword !==
+                    passwordFields.confirmPassword && (
+                    <span className="passwordMismatchHint">
+                      ⚠ Passwords do not match
+                    </span>
                   )}
                 {passwordFields.confirmPassword &&
-                  passwordFields.newPassword === passwordFields.confirmPassword && (
+                  passwordFields.newPassword ===
+                    passwordFields.confirmPassword && (
                     <span className="passwordMatchHint">✓ Passwords match</span>
                   )}
               </div>
@@ -389,7 +580,11 @@ const AdminSettings = () => {
                 className="modalCancelBtn"
                 onClick={() => {
                   setShowUpdateProfile(false);
-                  setPasswordFields({ oldPassword: "", newPassword: "", confirmPassword: "" });
+                  setPasswordFields({
+                    oldPassword: "",
+                    newPassword: "",
+                    confirmPassword: "",
+                  });
                 }}
               >
                 Cancel
@@ -469,17 +664,17 @@ const AdminSettings = () => {
                   onChange={handleAdminPhotoChange}
                 />
               </div>
-              <span className="uploadHint">PNG, JPG. Max 2MB</span>
+              <span className="uploadHint">PNG, JPG, Max 2MB</span>
             </div>
 
             <div className="formFieldsCol">
               <div className="formFieldsRow">
                 <div className="inputGroup">
-                  <label className="inputLabel">Admin First Name</label>
+                  <label className="inputLabel">First Name</label>
                   <input
                     type="text"
                     className="textInput"
-                    placeholder="Admin First Name"
+                    placeholder="First Name"
                     value={adminProfile.adminFirstName}
                     onChange={(e) =>
                       setAdminProfile((p) => ({
@@ -490,33 +685,16 @@ const AdminSettings = () => {
                   />
                 </div>
                 <div className="inputGroup">
-                  <label className="inputLabel">Admin Last Name</label>
+                  <label className="inputLabel">Last Name</label>
                   <input
                     type="text"
                     className="textInput"
-                    placeholder="Admin Last Name"
+                    placeholder="Last Name"
                     value={adminProfile.adminLastName}
                     onChange={(e) =>
                       setAdminProfile((p) => ({
                         ...p,
                         adminLastName: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-              </div>
-              <div className="formFieldsRow">
-                <div className="inputGroup">
-                  <label className="inputLabel">Phone Number</label>
-                  <input
-                    type="text"
-                    className="textInput"
-                    placeholder="Phone Number"
-                    value={adminProfile.phoneNumber}
-                    onChange={(e) =>
-                      setAdminProfile((p) => ({
-                        ...p,
-                        phoneNumber: e.target.value,
                       }))
                     }
                   />
@@ -535,15 +713,18 @@ const AdminSettings = () => {
           </div>
         </section>
 
-        {/* ─── School Profile (read-only) ───────────────────────── */}
+        {/* ─── School Profile ──────────────────────────────────── */}
         <section className="settingsCard">
           <h2 className="cardTitle">School Profile</h2>
           <div className="schoolLayout">
             <div className="logoWrapper">
-              <div className="logoBadgeContainer">
-                {schoolProfile.logoUrl ? (
+              <div
+                className="logoBadgeContainer"
+                style={{ position: "relative" }}
+              >
+                {logoPreview ? (
                   <img
-                    src={schoolProfile.logoUrl}
+                    src={logoPreview}
                     alt="School Logo"
                     className="schoolLogoImg"
                   />
@@ -560,16 +741,44 @@ const AdminSettings = () => {
                     </svg>
                   </div>
                 )}
-              </div>
-              <span className="uploadHint">PNG, JPG or SVG. Max 2MB</span>
-              <div className="logoActionButtons">
-                <button className="changeImgBtn" disabled>
-                  Change Image
+                <button
+                  className="cameraBtn"
+                  aria-label="Upload school logo"
+                  onClick={() => logoRef.current.click()}
+                  style={{
+                    position: "absolute",
+                    bottom: "0",
+                    right: "0",
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
+                  }}
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    className="cameraIcon"
+                    style={{ width: "14px", height: "14px", color: "#64748b" }}
+                  >
+                    <path d="M4 4h3l2-2h6l2 2h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm8 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z" />
+                  </svg>
                 </button>
-                <button className="removeImgBtn" disabled>
-                  Remove
-                </button>
+                <input
+                  ref={logoRef}
+                  type="file"
+                  accept="image/png, image/jpeg"
+                  style={{ display: "none" }}
+                  onChange={handleLogoChange}
+                />
               </div>
+              <span className="uploadHint">PNG, JPG, Max 2MB</span>
             </div>
 
             <div className="schoolFormGrid">
@@ -577,44 +786,89 @@ const AdminSettings = () => {
                 <label className="inputLabel">School Name</label>
                 <input
                   type="text"
+                  readOnly
                   className="textInput"
                   value={
                     schoolLoading ? "Loading..." : schoolProfile.schoolName
                   }
-                  readOnly
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      schoolName: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="inputGroup">
-                <label className="inputLabel">School Email</label>
+                <label className="inputLabel">Email</label>
                 <input
                   type="email"
+                  readOnly
                   className="textInput"
                   value={schoolLoading ? "Loading..." : schoolProfile.email}
-                  readOnly
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      email: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">Phone Number</label>
                 <input
                   type="text"
+                  readOnly
                   className="textInput"
                   value={
                     schoolLoading ? "Loading..." : schoolProfile.phoneNumber
                   }
-                  readOnly
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      phoneNumber: e.target.value,
+                    }))
+                  }
                 />
               </div>
               <div className="inputGroup">
                 <label className="inputLabel">Academic Session</label>
                 <div className="selectWrapper">
+
+<select
+  className="selectInput"
+  value={schoolProfile.academicSession}
+  onChange={(e) =>
+    setSchoolProfile((p) => ({
+      ...p,
+      academicSession: e.target.value,
+    }))
+  }
+>
+  <option value={generateAcademicSession()}>
+    {generateAcademicSession()}
+  </option>
+</select>
+
+                </div>
+              </div>
+              <div className="inputGroup">
+                <label className="inputLabel">Term</label>
+                <div className="selectWrapper">
                   <select
                     className="selectInput"
-                    value={schoolProfile.academicSession}
-                    disabled
+                    value={schoolProfile.term || ""}
+                    onChange={(e) =>
+                      setSchoolProfile((p) => ({
+                        ...p,
+                        term: e.target.value,
+                      }))
+                    }
                   >
-                    <option value={schoolProfile.academicSession}>
-                      {schoolProfile.academicSession || "—"}
-                    </option>
+                    <option value="">Select Term</option>
+                    <option value="First Term">First Term</option>
+                    <option value="Second Term">Second Term</option>
+                    <option value="Third Term">Third Term</option>
                   </select>
                 </div>
               </div>
@@ -623,11 +877,26 @@ const AdminSettings = () => {
                 <input
                   type="text"
                   className="textInput"
-                  value={schoolLoading ? "Loading..." : schoolProfile.address}
                   readOnly
+                  value={schoolLoading ? "Loading..." : schoolProfile.address}
+                  onChange={(e) =>
+                    setSchoolProfile((p) => ({
+                      ...p,
+                      address: e.target.value,
+                    }))
+                  }
                 />
               </div>
             </div>
+          </div>
+          <div className="cardActionRow">
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
           </div>
         </section>
 
@@ -667,17 +936,26 @@ const AdminSettings = () => {
                   />
                 </div>
               </div>
-              <div className="infotoastCallout">
-                <span className="infotoastIcon">ℹ️</span>
-                <p className="infotoastText">
-                  Uploaded stamp will appear on generated report cards.
-                </p>
-              </div>
             </div>
+          </div>
+          <div className="cardActionRow">
+            <button
+              className="saveChangesBtn"
+              onClick={handleSaveAll}
+              disabled={saving}
+            >
+              {saving ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+        </section>
 
-            <div className="uploadsColumn">
+        {/* ─── School Stamps ───────────────────────────────────── */}
+        <section className="settingsCard">
+          <h2 className="cardTitle">School Stamps</h2>
+          <div className="stampsLayout">
+            <div className="stampUploadGroup">
               <div className="uploadComponentBox">
-                <label className="inputLabel">School Stamp</label>
+                <label className="inputLabel">Upload</label>
                 <div
                   className="dottedDropzone"
                   onClick={() => stampRef.current.click()}
@@ -727,6 +1005,59 @@ const AdminSettings = () => {
                 </div>
               </div>
             </div>
+
+            <div className="signatureUploadGroup">
+              <div className="uploadComponentBox">
+                <label className="inputLabel">Admin Signature</label>
+                <div
+                  className="dottedDropzone"
+                  onClick={() => signatureRef.current.click()}
+                  style={{ cursor: "pointer" }}
+                >
+                  {signaturePreview ? (
+                    <img
+                      src={signaturePreview}
+                      alt="Signature preview"
+                      style={{
+                        width: 48,
+                        height: 48,
+                        objectFit: "contain",
+                        marginBottom: 8,
+                      }}
+                    />
+                  ) : (
+                    <div className="stampCircularGraphic">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1"
+                      >
+                        <path d="M3 16l5 5 13-13" />
+                        <path d="M8 21l-5-5" />
+                      </svg>
+                    </div>
+                  )}
+                  <button
+                    className="dropzoneUploadBtn"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      signatureRef.current.click();
+                    }}
+                  >
+                    Upload
+                  </button>
+                  <span className="dropzoneHint">PNG format recommended</span>
+                  <input
+                    ref={signatureRef}
+                    type="file"
+                    accept="image/png"
+                    style={{ display: "none" }}
+                    onChange={handleSignatureChange}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
           <div className="cardActionRow">
             <button
@@ -738,12 +1069,28 @@ const AdminSettings = () => {
             </button>
           </div>
         </section>
-      </div>
 
-      <div className="notificationSettingsContainer">
+        {/* ─── Attendance Notifications ────────────────────────── */}
+        <section className="settingsCard">
+          <h2 className="cardTitle">Attendance Notifications</h2>
+          <div className="notificationLayout">
+            <p className="notificationText">
+              Automatically notify parents when a student is marked absent
+            </p>
+            <div className="inputGroup notificationSelectGroup">
+              <label className="inputLabel">Message Template (WhatsApp)</label>
+              <div className="selectWrapper">
+                <select className="selectInput">
+                  <option>Choose Template</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ─── School Verification ──────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle">School Verification</h2>
+        <section className="settingsCard">
+          <h2 className="cardTitle">School Verification</h2>
           <div className="verificationUploadersRow">
             <div className="uploaderBox">
               <span className="uploaderLabel">CAC Document</span>
@@ -752,7 +1099,7 @@ const AdminSettings = () => {
                 onClick={() => cacRef.current.click()}
                 style={{ cursor: "pointer" }}
               >
-                {cacPreview && (
+                {cacPreview ? (
                   <img
                     src={cacPreview}
                     alt="CAC preview"
@@ -763,6 +1110,19 @@ const AdminSettings = () => {
                       marginBottom: 8,
                     }}
                   />
+                ) : (
+                  <div
+                    style={{
+                      height: 80,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#94a3b8",
+                      fontSize: "12px",
+                    }}
+                  >
+                    No file uploaded
+                  </div>
                 )}
                 <button
                   className="innerUploadBtn"
@@ -793,7 +1153,7 @@ const AdminSettings = () => {
                 onClick={() => nepaRef.current.click()}
                 style={{ cursor: "pointer" }}
               >
-                {nepaPreview && (
+                {nepaPreview ? (
                   <img
                     src={nepaPreview}
                     alt="NEPA Bill preview"
@@ -804,6 +1164,19 @@ const AdminSettings = () => {
                       marginBottom: 8,
                     }}
                   />
+                ) : (
+                  <div
+                    style={{
+                      height: 80,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      color: "#94a3b8",
+                      fontSize: "12px",
+                    }}
+                  >
+                    No file uploaded
+                  </div>
                 )}
                 <button
                   className="innerUploadBtn"
@@ -839,13 +1212,13 @@ const AdminSettings = () => {
         </section>
 
         {/* ─── Security ─────────────────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle">Security</h2>
+        <section className="settingsCard">
+          <h2 className="cardTitle">Security</h2>
           <div className="actionFlexRow">
             <div className="infoContextBlock">
               <h3 className="actionItemHeading">Change Password</h3>
               <p className="actionItemSubtext">
-                Update your password to keep your account secure.
+                Receive real-time notifications and team alerts.
               </p>
             </div>
             <button
@@ -858,8 +1231,8 @@ const AdminSettings = () => {
         </section>
 
         {/* ─── Danger Zone ──────────────────────────────────────── */}
-        <section className="settingsPanelCard">
-          <h2 className="panelCardTitle dangerTitleColor">Danger Zone</h2>
+        <section className="settingsCard dangerZoneCard">
+          <h2 className="cardTitle dangerTitleColor">Danger Zone</h2>
           <div className="actionFlexRow">
             <div className="infoContextBlock">
               <h3 className="actionItemHeading">Delete account</h3>

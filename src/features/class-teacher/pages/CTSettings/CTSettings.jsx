@@ -1,744 +1,757 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import { toast } from "react-toastify";
+import { LuCamera } from "react-icons/lu";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./CTSettings.css";
-import Ucheva from "../../../../assets/UchevaLogo.svg";
 import { apiClient } from "../../../../config/AxiosInstance";
 
+/* ─── Password Strength Helper ────────────────────────────────────────── */
+const getPasswordStrength = (password) => {
+  if (!password) return { label: "", color: "", width: "0%", score: 0 };
+
+  let score = 0;
+  if (password.length >= 8) score++;
+  if (/[A-Z]/.test(password)) score++;
+  if (/[a-z]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
+  if (/[@$!%*?&.#_-]/.test(password)) score++;
+
+  if (score <= 2)
+    return { label: "Weak", color: "#e53e3e", width: "33%", score };
+  if (score <= 3)
+    return { label: "Fair", color: "#f6ad55", width: "66%", score };
+  return { label: "Strong", color: "#38a169", width: "100%", score };
+};
+
+/* ─── Skeleton ─────────────────────────────────────────────────────────── */
+const Skeleton = ({
+  width = "100%",
+  height = "1rem",
+  radius = "6px",
+  style = {},
+}) => (
+  <div
+    style={{
+      width,
+      height,
+      borderRadius: radius,
+      background:
+        "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "CT-shimmer 1.4s infinite",
+      ...style,
+    }}
+  />
+);
+
+const LoadingSkeleton = () => (
+  <div className="ct-settings-container">
+    <style>{`
+      @keyframes CT-shimmer {
+        0%   { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+    `}</style>
+    <div className="ct-settings-header">
+      <Skeleton
+        width="120px"
+        height="1.8rem"
+        style={{ marginBottom: "0.5rem" }}
+      />
+      <Skeleton width="280px" height="1rem" />
+    </div>
+    <div className="ct-settings-card">
+      <Skeleton
+        width="160px"
+        height="1.2rem"
+        style={{ marginBottom: "1.5rem" }}
+      />
+      <div className="ct-profile-content">
+        <div className="ct-avatar-section">
+          <div className="ct-avatar-container">
+            <Skeleton width="140px" height="140px" radius="50%" />
+            <Skeleton
+              width="80px"
+              height="0.8rem"
+              style={{ marginTop: "0.5rem" }}
+            />
+          </div>
+        </div>
+        <div className="ct-form-section">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="ct-form-row">
+              <div className="ct-form-group">
+                <Skeleton
+                  width="80px"
+                  height="0.8rem"
+                  style={{ marginBottom: "0.4rem" }}
+                />
+                <Skeleton height="2.5rem" radius="8px" />
+              </div>
+              <div className="ct-form-group">
+                <Skeleton
+                  width="80px"
+                  height="0.8rem"
+                  style={{ marginBottom: "0.4rem" }}
+                />
+                <Skeleton height="2.5rem" radius="8px" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
+/* ─── Main Component ──────────────────────────────────────────────────── */
 const CTSettings = () => {
-  const [formData, setFormData] = useState({
+  const [profileData, setProfileData] = useState({
     firstName: "",
     lastName: "",
     address: "",
-    profilePicture: null,
   });
 
-  // ── Non-editable fields from API ─────────────────────────────────────────
-  const [userData, setUserData] = useState({
-    subjectAssigned: [], // Array(0) from API
-    staffType: "", // "class teacher"
-    phoneNumber: "", // "07085218444"
-    email: "", // "danny@mailinator.com"
-    classAssigned: [], // ['SS 3 A']
+  const [readOnlyData, setReadOnlyData] = useState({
+    otherName: "",
+    email: "",
+    phoneNumber: "",
     gender: "",
     dateOfBirth: "",
     nationality: "",
-    qualification: "",
     maritalStatus: "",
-    attendanceStatus: "",
-    signatureUrl: null,
-    staffProfileUrl: null,
+    qualification: "",
+    staffType: "",
+    classAssigned: "",
+    subjectAssigned: "",
   });
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [profilePreview, setProfilePreview] = useState(Ucheva);
-  const [signatureFile, setSignatureFile] = useState(null);
-  const [signaturePreview, setSignaturePreview] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null);
+  const [profileLoading, setProfileLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  // ── Password modal ───────────────────────────────────────────────────────
   const [showPasswordModal, setShowPasswordModal] = useState(false);
-  const [passwordStep, setPasswordStep] = useState(1); // 1 = verify old | 2 = set new
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
-  const [passwordError, setPasswordError] = useState(null);
+  const [showOldPassword, setShowOldPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordLoading, setPasswordLoading] = useState(false);
-  const [showOld, setShowOld] = useState(false);
-  const [showNew, setShowNew] = useState(false);
-  const [showConfirm, setShowConfirm] = useState(false);
-
-  const profileInputRef = useRef(null);
-  const modalRef = useRef(null);
-
-  // ── fetchUserData ────────────────────────────────────────────────────────
-  // Maps response.data.classTeacherData to state
-  const fetchUserData = async () => {
-    try {
-      setLoading(true);
-      const response = await apiClient.get("/classteacher/getprofiledetails");
-      const d = response?.data?.classTeacherData; // ← correct path from your API response
-
-      // Non-editable fields
-      setUserData({
-        subjectAssigned: d.subjectAssigned || [],
-        staffType: d.staffType || "",
-        phoneNumber: d.phoneNumber || "",
-        email: d.email || "",
-        classAssigned: d.classAssigned || [],
-        gender: d.gender || "",
-        dateOfBirth: d.dateOfBirth || "",
-        nationality: d.nationality || "",
-        qualification: d.qualification || "",
-        maritalStatus: d.maritalStatus || "",
-        attendanceStatus: d.attendanceStatus || "",
-        signatureUrl: d.signatureUrl || null,
-        staffProfileUrl: d.staffProfileUrl || null,
-      });
-
-      // Editable fields
-      setFormData((prev) => ({
-        ...prev,
-        firstName: d.firstName || "",
-        lastName: d.lastName || "",
-        address: d.address || "",
-      }));
-
-      // Profile picture — use staffProfileUrl from API if available
-      if (d.staffProfileUrl) setProfilePreview(d.staffProfileUrl);
-
-      // Signature — preload if already saved
-      if (d.signatureUrl) setSignaturePreview(d.signatureUrl);
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to fetch user data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
-  // Close modal on outside click
-  useEffect(() => {
-    const handleOutside = (e) => {
-      if (modalRef.current && !modalRef.current.contains(e.target))
-        closeModal();
-    };
-    if (showPasswordModal)
-      document.addEventListener("mousedown", handleOutside);
-    return () => document.removeEventListener("mousedown", handleOutside);
-  }, [showPasswordModal]);
-
-  // ── Helpers ──────────────────────────────────────────────────────────────
-  const closeModal = () => {
-    setShowPasswordModal(false);
-    setPasswordStep(1);
-    setPasswordData({ oldPassword: "", newPassword: "", confirmPassword: "" });
-    setPasswordError(null);
-    setShowOld(false);
-    setShowNew(false);
-    setShowConfirm(false);
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handlePasswordDataChange = (e) => {
-    const { name, value } = e.target;
-    setPasswordData((prev) => ({ ...prev, [name]: value }));
-    setPasswordError(null);
-  };
-
-  const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = (err) => reject(err);
-    });
-
-  // ── Avatar upload ────────────────────────────────────────────────────────
-  const handleProfilePictureUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      setError("File size exceeds 2MB limit");
-      return;
-    }
-    const validTypes = ["image/png", "image/jpg", "image/jpeg"];
-    if (!validTypes.includes(file.type)) {
-      setError("Please upload PNG, JPG, or JPEG format");
-      return;
-    }
-    setFormData((prev) => ({ ...prev, profilePicture: file }));
-    const reader = new FileReader();
-    reader.onloadend = () => setProfilePreview(reader.result);
-    reader.readAsDataURL(file);
-    setError(null);
-  };
-
-  // ── Signature upload ─────────────────────────────────────────────────────
-  const handleSignatureUpload = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (file.type !== "image/png") {
-      setError("Please upload PNG format for signature");
-      return;
-    }
-    setSignatureFile(file);
-    const reader = new FileReader();
-    reader.onloadend = () => setSignaturePreview(reader.result);
-    reader.readAsDataURL(file);
-    setError(null);
-  };
-
-  const handleSignatureSubmit = async () => {
-    if (!signatureFile) {
-      setError("Please select a signature file first");
-      return;
-    }
-    try {
-      setLoading(true);
-      setError(null);
-      const base64Signature = await fileToBase64(signatureFile);
-      await apiClient.put("/classteacher/uploadsignature", {
-        signature: base64Signature,
-      });
-      setSuccess("Signature uploaded successfully!");
-      setSignatureFile(null);
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to upload signature");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // ── Profile submit ───────────────────────────────────────────────────────
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true);
-      setError(null);
-      setSuccess(null);
-
-      const requestBody = {
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        address: formData.address,
-      };
-
-      if (formData.profilePicture instanceof File) {
-        requestBody.profilePicture = await fileToBase64(
-          formData.profilePicture,
-        );
-      }
-
-      await apiClient.put("/classteacher/updateprofile", requestBody);
-      setSuccess("Profile updated successfully!");
-      await fetchUserData();
-    } catch (err) {
-      setError(err.response?.data?.message || "Failed to update profile");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // ── Password modal: Step 1 — verify old password ─────────────────────────
-  const handleVerifyOldPassword = async () => {
-    if (!passwordData.oldPassword) {
-      setPasswordError("Please enter your current password");
-      return;
-    }
-    try {
-      setPasswordLoading(true);
-      setPasswordError(null);
-      await apiClient.post("/classteacher/verifypassword", {
-        oldPassword: passwordData.oldPassword,
-      });
-      setPasswordStep(2); // ✅ Only move forward if verify succeeds
-    } catch (err) {
-      setPasswordError(
-        err.response?.data?.message || "Incorrect password. Please try again.",
-      );
-    } finally {
-      setPasswordLoading(false);
-    }
-  };
-
-  // ── Password modal: Step 2 — set new password ────────────────────────────
-  const handleSetNewPassword = async () => {
-    if (!passwordData.newPassword) {
-      setPasswordError("Please enter a new password");
-      return;
-    }
-    if (passwordData.newPassword.length < 8) {
-      setPasswordError("Password must be at least 8 characters");
-      return;
-    }
-    if (passwordData.newPassword === passwordData.oldPassword) {
-      setPasswordError("New password must differ from your current password");
-      return;
-    }
-    if (passwordData.newPassword !== passwordData.confirmPassword) {
-      setPasswordError("Passwords do not match");
-      return;
-    }
-    try {
-      setPasswordLoading(true);
-      setPasswordError(null);
-      await apiClient.put("/classteacher/updateprofile", {
-        oldPassword: passwordData.oldPassword,
-        newPassword: passwordData.newPassword,
-        confirmPassword: passwordData.confirmPassword,
-      });
-      closeModal();
-      setSuccess("Password changed successfully!");
-    } catch (err) {
-      setPasswordError(
-        err.response?.data?.message || "Failed to change password",
-      );
-    } finally {
-      setPasswordLoading(false);
-    }
-  };
-
-  // ── Password strength ────────────────────────────────────────────────────
-  const getPasswordStrength = (pwd) => {
-    if (!pwd) return null;
-    if (pwd.length < 6)
-      return { label: "Too short", level: 1, color: "#ef4444" };
-    if (pwd.length < 8) return { label: "Weak", level: 2, color: "#f97316" };
-    const hasUpper = /[A-Z]/.test(pwd);
-    const hasNumber = /[0-9]/.test(pwd);
-    const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
-    const score = [hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
-    if (score === 0) return { label: "Fair", level: 2, color: "#f97316" };
-    if (score === 1) return { label: "Good", level: 3, color: "#eab308" };
-    if (score === 2) return { label: "Strong", level: 4, color: "#22c55e" };
-    return { label: "Very strong", level: 5, color: "#16a34a" };
-  };
+  const [passwordError, setPasswordError] = useState("");
 
   const strength = getPasswordStrength(passwordData.newPassword);
 
-  // ── Display helpers ──────────────────────────────────────────────────────
-  // subjectAssigned is an array — join for display
-  const subjectDisplay = Array.isArray(userData.subjectAssigned)
-    ? userData.subjectAssigned.join(", ") || "Not assigned"
-    : userData.subjectAssigned || "Not assigned";
+  /* ── GET profile ── */
+  const fetchProfile = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await apiClient.get("/subjectteacher/getprofiledetails");
+      const data = response?.data?.subjectTeacher || response?.data;
 
-  const classDisplay = Array.isArray(userData.classAssigned)
-    ? userData.classAssigned.join(", ") || "Not assigned"
-    : userData.classAssigned || "Not assigned";
+      setProfileData({
+        firstName: data?.firstName || "",
+        lastName: data?.lastName || "",
+        address: data?.address || "",
+      });
 
-  // ── Render ───────────────────────────────────────────────────────────────
+      setReadOnlyData({
+        otherName: data?.otherName || "",
+        email: data?.email || "",
+        phoneNumber: data?.phoneNumber || "",
+        gender: data?.gender || "",
+        dateOfBirth: data?.dateOfBirth || "",
+        nationality: data?.nationality || "",
+        maritalStatus: data?.maritalStatus || "",
+        qualification: data?.qualification || "",
+        staffType: data?.staffType || "",
+        classAssigned: data?.classAssigned || "No class assigned",
+        subjectAssigned: Array.isArray(data?.subjectAssigned)
+          ? data.subjectAssigned.join(", ")
+          : data?.subjectAssigned || "No subjects assigned",
+      });
+
+      setPreviewUrl(data?.staffProfileUrl || null);
+    } catch (err) {
+      console.error(err);
+      toast.error(err?.response?.data?.message || "Failed to load profile.");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  /* ── Editable field change ── */
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfileData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  /* ── Avatar change ── */
+  const handleAvatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Image must be less than 2MB.");
+      return;
+    }
+    setAvatar(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setPreviewUrl(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  /* ── Password field change ── */
+  const handlePasswordInputChange = (e) => {
+    const { name, value } = e.target;
+    setPasswordData((prev) => ({ ...prev, [name]: value }));
+    setPasswordError("");
+  };
+
+  /* ── PUT: save profile changes ── */
+  const handleSaveChanges = async () => {
+    try {
+      setProfileLoading(true);
+      const formData = new FormData();
+      formData.append("firstName", profileData.firstName);
+      formData.append("lastName", profileData.lastName);
+      formData.append("address", profileData.address);
+      if (avatar) formData.append("profilePicture", avatar);
+
+      await apiClient.put("/subjectteacher/updateprofile", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      toast.success("Profile updated successfully!");
+      await fetchProfile();
+      setAvatar(null);
+    } catch (err) {
+      console.error(err);
+      const msg =
+        err.response?.data?.message || "Failed to update profile. Try again.";
+      toast.error(msg);
+    } finally {
+      setProfileLoading(false);
+    }
+  };
+
+  /* ── PUT: change password ── */
+  const handleChangePassword = async () => {
+    const { oldPassword, newPassword, confirmPassword } = passwordData;
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      setPasswordError("Please fill in all fields.");
+      return;
+    }
+
+    if (strength.score < 3) {
+      setPasswordError(
+        "Password is too weak. Please choose a stronger password.",
+      );
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New passwords do not match.");
+      return;
+    }
+
+    if (oldPassword === newPassword) {
+      setPasswordError(
+        "New password must be different from your old password.",
+      );
+      return;
+    }
+
+    try {
+      setPasswordLoading(true);
+      const formData = new FormData();
+      formData.append("oldPassword", oldPassword);
+      formData.append("newPassword", newPassword);
+      formData.append("confirmPassword", confirmPassword);
+
+      await apiClient.put("/subjectteacher/updateprofile", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      toast.success("Password changed successfully!");
+      handleCloseModal();
+    } catch (err) {
+      console.error(err);
+      const msg =
+        err.response?.data?.message || "Failed to change password. Try again.";
+      setPasswordError(msg);
+    } finally {
+      setPasswordLoading(false);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setShowPasswordModal(false);
+    setPasswordData({ oldPassword: "", newPassword: "", confirmPassword: "" });
+    setPasswordError("");
+    setShowOldPassword(false);
+    setShowNewPassword(false);
+    setShowConfirmPassword(false);
+  };
+
+  if (loading) return <LoadingSkeleton />;
+
   return (
-    <main className="CTSettings">
-      <article className="CTSettingsWrapper">
-        {error && <div className="CTSettingsError">{error}</div>}
-        {success && <div className="CTSettingsSuccess">{success}</div>}
-        {loading && <div className="CTSettingsLoading">Processing...</div>}
+    <div className="ct-settings-container">
+      <div className="ct-settings-header">
+        <h1>Settings</h1>
+        <p>Manage your profile and account preferences.</p>
+      </div>
 
-        {/* ── Profile form ──────────────────────────────────────────────── */}
-        <form onSubmit={handleSubmit}>
-          <section className="CTSettingsProfileCard">
-            <nav className="CTSettingsCardTitle">Profile Information</nav>
-
-            <article className="CTSettingsProfileContent">
-              {/* Avatar */}
-              <div className="CTSettingsProfileImage">
-                <div
-                  className="CTSettingsAvatarHolder"
-                  onClick={() => profileInputRef.current?.click()}
-                  title="Click to change photo"
-                >
-                  <img
-                    className="CTSettingsAvatar"
-                    src={profilePreview}
-                    alt="Profile"
-                  />
-                  <div className="CTSettingsAvatarOverlay">
-                    <span>Change</span>
-                  </div>
-                </div>
-                <input
-                  ref={profileInputRef}
-                  type="file"
-                  accept=".png,.jpg,.jpeg"
-                  onChange={handleProfilePictureUpload}
-                  style={{ display: "none" }}
+      {/* ── Profile Information ── */}
+      <div className="ct-settings-card">
+        <h2 className="ct-card-title">Profile Information</h2>
+        <div className="ct-profile-content">
+          <div className="ct-avatar-section">
+            <div className="ct-avatar-container">
+              {previewUrl ? (
+                <img
+                  src={previewUrl}
+                  alt="Profile Avatar"
+                  className="ct-avatar-image"
                 />
-                <span>PNG, JPG. Max 2MB</span>
-              </div>
-
-              <div className="CTSettingsForm">
-                {/* Row 1 — editable */}
-                <div className="CTSettingsRow">
-                  <div className="CTSettingsFieldEdit">
-                    <label>First Name</label>
-                    <input
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      placeholder="Enter first name"
-                      required
-                    />
-                  </div>
-                  <div className="CTSettingsFieldEdit">
-                    <label>Last Name</label>
-                    <input
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      placeholder="Enter last name"
-                      required
-                    />
-                  </div>
+              ) : (
+                <div className="ct-avatar-placeholder">
+                  <LuCamera />
                 </div>
+              )}
+              <label htmlFor="avatar-upload" className="ct-avatar-upload-btn">
+                <LuCamera />
+              </label>
+              <input
+                id="avatar-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleAvatarChange}
+                className="ct-avatar-input"
+              />
+            </div>
+            <p className="ct-avatar-info">PNG, JPG, Max 2MB</p>
+          </div>
 
-                {/* Row 2 — read-only */}
-                <div className="CTSettingsRow">
-                  <div className="CTSettingsField">
-                    <label>Subject(s) Assigned</label>
-                    <input
-                      type="text"
-                      value={subjectDisplay}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                  <div className="CTSettingsField">
-                    <label>Role</label>
-                    <input
-                      type="text"
-                      value={userData.staffType}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                </div>
-
-                {/* Row 3 — read-only */}
-                <div className="CTSettingsRow">
-                  <div className="CTSettingsField">
-                    <label>Phone Number</label>
-                    <input
-                      type="text"
-                      value={userData.phoneNumber}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                  <div className="CTSettingsField">
-                    <label>Email Address</label>
-                    <input
-                      type="text"
-                      value={userData.email}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                </div>
-
-                {/* Row 4 — read-only */}
-                <div className="CTSettingsRow">
-                  <div className="CTSettingsField">
-                    <label>Class Assigned</label>
-                    <input
-                      type="text"
-                      value={classDisplay}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                  <div className="CTSettingsField">
-                    <label>Qualification</label>
-                    <input
-                      type="text"
-                      value={userData.qualification}
-                      disabled
-                      className="CTSettingsDisabled"
-                    />
-                  </div>
-                </div>
-
-                {/* Address — editable */}
-                <div className="CTSettingsAddress">
-                  <label>Address</label>
-                  <input
-                    type="text"
-                    name="address"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    placeholder="Enter your address"
-                    required
-                  />
-                </div>
-
-                <div className="CTSettingsSaveBtnHolder">
-                  <button
-                    type="submit"
-                    className="CTSettingsSaveBtn"
-                    disabled={loading}
-                  >
-                    {loading ? "Saving..." : "Save Changes"}
-                  </button>
-                </div>
-              </div>
-            </article>
-          </section>
-        </form>
-
-        {/* ── Signature ─────────────────────────────────────────────────── */}
-        <section className="CTSettingsSignatureCard">
-          <nav className="CTSettingsCardTitle2">Upload Signature</nav>
-          <article className="CTSignatureTextBox">
-            <span>Class Teacher's Signature</span>
-            <div className="CTSettingsSignatureBox">
-              <div className="CTSig">
-                {signaturePreview ? (
-                  <img src={signaturePreview} alt="Signature" />
-                ) : (
-                  <span className="CTSigPlaceholder">No signature</span>
-                )}
-              </div>
-              <div className="CTsigUploadHolder">
+          <div className="ct-form-section">
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="firstName">First Name</label>
                 <input
-                  type="file"
-                  accept=".png"
-                  onChange={handleSignatureUpload}
-                  style={{ display: "none" }}
-                  id="signatureUpload"
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  value={profileData.firstName}
+                  onChange={handleInputChange}
+                  placeholder="First Name"
                 />
-                <label htmlFor="signatureUpload" className="CTsigUploadBtn">
-                  Upload
-                </label>
-                <span>PNG format recommended</span>
-                {signatureFile && (
-                  <button
-                    onClick={handleSignatureSubmit}
-                    className="CTsigSubmitBtn"
-                    disabled={loading}
-                  >
-                    Submit Signature
-                  </button>
-                )}
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="lastName">Last Name</label>
+                <input
+                  id="lastName"
+                  type="text"
+                  name="lastName"
+                  value={profileData.lastName}
+                  onChange={handleInputChange}
+                  placeholder="Last Name"
+                />
               </div>
             </div>
-          </article>
-        </section>
 
-        {/* ── Security card ─────────────────────────────────────────────── */}
-        <section className="CTSettingsSecurityCard">
-          <div className="CTSettingsSecurityText">
-            <nav>Security</nav>
-            <div className="CTChangePassInfo">
-              <p className="CTChangePassTitle">Change Password</p>
-              <p className="CTChangePassSub">
-                Update your password to keep your account secure
-              </p>
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="otherName">Other Name</label>
+                <input
+                  id="otherName"
+                  type="text"
+                  name="otherName"
+                  value={readOnlyData.otherName}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Other Name"
+                />
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  value={readOnlyData.email}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Email Address"
+                />
+              </div>
+            </div>
+
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="phoneNumber">Phone Number</label>
+                <input
+                  id="phoneNumber"
+                  type="tel"
+                  name="phoneNumber"
+                  value={readOnlyData.phoneNumber}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Phone Number"
+                />
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="gender">Gender</label>
+                <input
+                  id="gender"
+                  type="text"
+                  name="gender"
+                  value={readOnlyData.gender}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Gender"
+                />
+              </div>
+            </div>
+
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="dateOfBirth">Date of Birth</label>
+                <input
+                  id="dateOfBirth"
+                  type="text"
+                  name="dateOfBirth"
+                  value={readOnlyData.dateOfBirth}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Date of Birth"
+                />
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="nationality">Nationality</label>
+                <input
+                  id="nationality"
+                  type="text"
+                  name="nationality"
+                  value={readOnlyData.nationality}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Nationality"
+                />
+              </div>
+            </div>
+
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="maritalStatus">Marital Status</label>
+                <input
+                  id="maritalStatus"
+                  type="text"
+                  name="maritalStatus"
+                  value={readOnlyData.maritalStatus}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Marital Status"
+                />
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="qualification">Qualification</label>
+                <input
+                  id="qualification"
+                  type="text"
+                  name="qualification"
+                  value={readOnlyData.qualification}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Qualification"
+                />
+              </div>
+            </div>
+
+            <div className="ct-form-row">
+              <div className="ct-form-group">
+                <label htmlFor="staffType">Staff Type</label>
+                <input
+                  id="staffType"
+                  type="text"
+                  name="staffType"
+                  value={readOnlyData.staffType}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Staff Type"
+                />
+              </div>
+              <div className="ct-form-group">
+                <label htmlFor="classAssigned">Class Assigned</label>
+                <input
+                  id="classAssigned"
+                  type="text"
+                  name="classAssigned"
+                  value={readOnlyData.classAssigned}
+                  readOnly
+                  disabled
+                  className="ct-readonly-field"
+                  placeholder="Class Assigned"
+                />
+              </div>
+            </div>
+
+            <div className="ct-form-group full-width">
+              <label htmlFor="subjectAssigned">Subject Assigned</label>
+              <input
+                id="subjectAssigned"
+                type="text"
+                name="subjectAssigned"
+                value={readOnlyData.subjectAssigned}
+                readOnly
+                disabled
+                className="ct-readonly-field"
+                placeholder="Subject Assigned"
+              />
+            </div>
+
+            <div className="ct-form-group full-width">
+              <label htmlFor="address">Address</label>
+              <input
+                id="address"
+                type="text"
+                name="address"
+                value={profileData.address}
+                onChange={handleInputChange}
+                placeholder="Address"
+              />
+            </div>
+
+            <div className="ct-button-wrapper">
+              <button
+                className="ct-save-btn"
+                onClick={handleSaveChanges}
+                disabled={profileLoading}
+              >
+                {profileLoading ? "Saving..." : "Save Changes"}
+              </button>
             </div>
           </div>
-          <button
-            className="CTSettingsPasswordBtn"
-            onClick={() => setShowPasswordModal(true)}
-            type="button"
-          >
-            Change Password
-          </button>
-        </section>
-      </article>
+        </div>
+      </div>
 
-      {/* ── Password Modal ─────────────────────────────────────────────────── */}
+      {/* ── Security ── */}
+      <div className="ct-settings-card">
+        <h2 className="ct-card-title">Security</h2>
+        <div className="ct-security-content">
+          <div className="ct-security-item">
+            <div className="ct-security-text">
+              <h3>Change Password</h3>
+              <p>Update your password to keep your account secure.</p>
+            </div>
+            <button
+              className="ct-change-password-btn"
+              onClick={() => setShowPasswordModal(true)}
+            >
+              Change Password
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Password Modal ── */}
       {showPasswordModal && (
-        <div className="CTModalBackdrop">
-          <div className="CTModalCard" ref={modalRef}>
-            {/* Header */}
-            <div className="CTModalHeader">
-              <div className="CTModalHeaderText">
-                <h2>
-                  {passwordStep === 1
-                    ? "Verify Identity"
-                    : "Create New Password"}
-                </h2>
-                <p>
-                  {passwordStep === 1
-                    ? "Enter your current password to continue"
-                    : "Choose a strong password you haven't used before"}
-                </p>
-              </div>
-              <button
-                className="CTModalClose"
-                onClick={closeModal}
-                type="button"
-              >
-                ✕
+        <div className="ct-modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="ct-modal-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="ct-modal-header">
+              <h2>Change Password</h2>
+              <button className="ct-modal-close-btn" onClick={handleCloseModal}>
+                &times;
               </button>
             </div>
 
-            {/* Step pills */}
-            <div className="CTModalSteps">
-              <div
-                className={`CTModalStep ${passwordStep >= 1 ? "CTModalStepActive" : ""}`}
-              >
-                <span>1</span> Verify
+            <div className="ct-modal-body">
+              {passwordError && (
+                <p className="ct-modal-error">{passwordError}</p>
+              )}
+
+              <div className="ct-modal-form-group">
+                <label>Current Password</label>
+                <div className="ct-modal-password-wrapper">
+                  <input
+                    type={showOldPassword ? "text" : "password"}
+                    name="oldPassword"
+                    value={passwordData.oldPassword}
+                    onChange={handlePasswordInputChange}
+                    placeholder="Enter current password"
+                    disabled={passwordLoading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowOldPassword(!showOldPassword)}
+                    className="ct-modal-eye-btn"
+                  >
+                    {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
               </div>
-              <div className="CTModalStepLine" />
-              <div
-                className={`CTModalStep ${passwordStep >= 2 ? "CTModalStepActive" : ""}`}
-              >
-                <span>2</span> New Password
+
+              <div className="ct-modal-form-group">
+                <label>New Password</label>
+                <div className="ct-modal-password-wrapper">
+                  <input
+                    type={showNewPassword ? "text" : "password"}
+                    name="newPassword"
+                    value={passwordData.newPassword}
+                    onChange={handlePasswordInputChange}
+                    placeholder="Enter new password"
+                    disabled={passwordLoading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    className="ct-modal-eye-btn"
+                  >
+                    {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+
+                {passwordData.newPassword && (
+                  <div className="ct-password-strength-wrapper">
+                    <div className="ct-password-strength-bar-track">
+                      <div
+                        className="ct-password-strength-bar-fill"
+                        style={{
+                          width: strength.width,
+                          backgroundColor: strength.color,
+                        }}
+                      />
+                    </div>
+                    <span
+                      className="ct-password-strength-label"
+                      style={{ color: strength.color }}
+                    >
+                      {strength.label}
+                    </span>
+                  </div>
+                )}
+
+                {passwordData.newPassword && (
+                  <ul className="ct-password-requirements">
+                    <li
+                      className={
+                        passwordData.newPassword.length >= 8 ? "ct-met" : ""
+                      }
+                    >
+                      At least 8 characters
+                    </li>
+                    <li
+                      className={
+                        /[A-Z]/.test(passwordData.newPassword) ? "ct-met" : ""
+                      }
+                    >
+                      One uppercase letter
+                    </li>
+                    <li
+                      className={
+                        /[a-z]/.test(passwordData.newPassword) ? "ct-met" : ""
+                      }
+                    >
+                      One lowercase letter
+                    </li>
+                    <li
+                      className={
+                        /\d/.test(passwordData.newPassword) ? "ct-met" : ""
+                      }
+                    >
+                      One number
+                    </li>
+                    <li
+                      className={
+                        /[@$!%*?&.#_-]/.test(passwordData.newPassword)
+                          ? "ct-met"
+                          : ""
+                      }
+                    >
+                      One special character (@$!%*?&.#_-)
+                    </li>
+                  </ul>
+                )}
+              </div>
+
+              <div className="ct-modal-form-group">
+                <label>Confirm New Password</label>
+                <div className="ct-modal-password-wrapper">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={passwordData.confirmPassword}
+                    onChange={handlePasswordInputChange}
+                    placeholder="Confirm new password"
+                    disabled={passwordLoading}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="ct-modal-eye-btn"
+                  >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </button>
+                </div>
+
+                {passwordData.confirmPassword && (
+                  <p
+                    className="ct-password-match-indicator"
+                    style={{
+                      color:
+                        passwordData.newPassword ===
+                        passwordData.confirmPassword
+                          ? "#38a169"
+                          : "#e53e3e",
+                    }}
+                  >
+                    {passwordData.newPassword === passwordData.confirmPassword
+                      ? "✓ Passwords match"
+                      : "✗ Passwords do not match"}
+                  </p>
+                )}
               </div>
             </div>
 
-            {/* Inline error */}
-            {passwordError && (
-              <div className="CTModalError">{passwordError}</div>
-            )}
-
-            {/* ── Step 1 ── */}
-            {passwordStep === 1 && (
-              <div className="CTModalBody">
-                <div className="CTModalField">
-                  <label>Current Password</label>
-                  <div className="CTModalInputWrap">
-                    <input
-                      type={showOld ? "text" : "password"}
-                      name="oldPassword"
-                      value={passwordData.oldPassword}
-                      onChange={handlePasswordDataChange}
-                      placeholder="Enter your current password"
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && handleVerifyOldPassword()
-                      }
-                      autoFocus
-                    />
-                    <button
-                      type="button"
-                      className="CTModalEye"
-                      onClick={() => setShowOld((v) => !v)}
-                    >
-                      {showOld ? "🙈" : "👁️"}
-                    </button>
-                  </div>
-                </div>
-                <div className="CTModalActions">
-                  <button
-                    className="CTModalBtnSecondary"
-                    onClick={closeModal}
-                    type="button"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    className="CTModalBtnPrimary"
-                    onClick={handleVerifyOldPassword}
-                    disabled={passwordLoading}
-                    type="button"
-                  >
-                    {passwordLoading ? "Verifying..." : "Continue →"}
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* ── Step 2 ── */}
-            {passwordStep === 2 && (
-              <div className="CTModalBody">
-                <div className="CTModalField">
-                  <label>New Password</label>
-                  <div className="CTModalInputWrap">
-                    <input
-                      type={showNew ? "text" : "password"}
-                      name="newPassword"
-                      value={passwordData.newPassword}
-                      onChange={handlePasswordDataChange}
-                      placeholder="Min 8 characters"
-                      autoFocus
-                    />
-                    <button
-                      type="button"
-                      className="CTModalEye"
-                      onClick={() => setShowNew((v) => !v)}
-                    >
-                      {showNew ? "🙈" : "👁️"}
-                    </button>
-                  </div>
-                  {/* Strength bar */}
-                  {strength && (
-                    <div className="CTPasswordStrength">
-                      <div className="CTStrengthBars">
-                        {[1, 2, 3, 4, 5].map((n) => (
-                          <div
-                            key={n}
-                            className="CTStrengthBar"
-                            style={{
-                              background:
-                                n <= strength.level
-                                  ? strength.color
-                                  : "#e5e7eb",
-                            }}
-                          />
-                        ))}
-                      </div>
-                      <span style={{ color: strength.color }}>
-                        {strength.label}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                <div className="CTModalField">
-                  <label>Confirm New Password</label>
-                  <div className="CTModalInputWrap">
-                    <input
-                      type={showConfirm ? "text" : "password"}
-                      name="confirmPassword"
-                      value={passwordData.confirmPassword}
-                      onChange={handlePasswordDataChange}
-                      placeholder="Re-enter new password"
-                      onKeyDown={(e) =>
-                        e.key === "Enter" && handleSetNewPassword()
-                      }
-                    />
-                    <button
-                      type="button"
-                      className="CTModalEye"
-                      onClick={() => setShowConfirm((v) => !v)}
-                    >
-                      {showConfirm ? "🙈" : "👁️"}
-                    </button>
-                  </div>
-                  {passwordData.confirmPassword && (
-                    <p
-                      className="CTMatchHint"
-                      style={{
-                        color:
-                          passwordData.newPassword ===
-                          passwordData.confirmPassword
-                            ? "#16a34a"
-                            : "#ef4444",
-                      }}
-                    >
-                      {passwordData.newPassword === passwordData.confirmPassword
-                        ? "✓ Passwords match"
-                        : "✗ Passwords do not match"}
-                    </p>
-                  )}
-                </div>
-
-                <div className="CTModalActions">
-                  <button
-                    className="CTModalBtnSecondary"
-                    onClick={() => {
-                      setPasswordStep(1);
-                      setPasswordError(null);
-                    }}
-                    type="button"
-                  >
-                    ← Back
-                  </button>
-                  <button
-                    className="CTModalBtnPrimary"
-                    onClick={handleSetNewPassword}
-                    disabled={passwordLoading}
-                    type="button"
-                  >
-                    {passwordLoading ? "Saving..." : "Save Password"}
-                  </button>
-                </div>
-              </div>
-            )}
+            <div className="ct-modal-footer">
+              <button
+                className="ct-modal-cancel-btn"
+                onClick={handleCloseModal}
+                disabled={passwordLoading}
+              >
+                Cancel
+              </button>
+              <button
+                className="ct-modal-submit-btn"
+                onClick={handleChangePassword}
+                disabled={passwordLoading}
+              >
+                {passwordLoading ? "Updating..." : "Update Password"}
+              </button>
+            </div>
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 };
 

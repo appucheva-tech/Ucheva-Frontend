@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./CTreport.css";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { apiClient } from "../../../../config/AxiosInstance";
+
+
 
 const CTreport = () => {
+const [studentReport, getStudentReport] = useState([])
+
+useEffect(()=>{
+  const fetchStudentReport = async () =>{
+    try {
+      const res = await apiClient.get ("/")
+      
+    } catch (error) {
+      console.log("error:", error.data.message)
+    }
+  }
+},[])
+
   return (
     <main className="CTreportContainer">
       <article className="CTreportWrapper">
@@ -72,7 +88,7 @@ const CTreport = () => {
             <nav className="CTTableValueName2">Adeaze Clinton</nav>
             <nav className="CTTableValueName2">UCH/2026/001</nav>
             <nav className="CTTableValueName2">Ready for review</nav>
-            <Link className="LinkToST" to="/CTdashboard/STreport">
+            <Link className="LinkToST" to="/CTdashboard/studentreport">
               <nav className="CTTableValueAction">:</nav>
             </Link>
           </ul>

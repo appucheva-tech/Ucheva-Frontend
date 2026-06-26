@@ -1,20 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherScores.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { toast } from "react-toastify";
 
 const SubjectTeacherScores = () => {
   const [subjects, setSubjects] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState([] || null);
-
+const [selectedSubject, setSelectedSubject] = useState(null);
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState({});
 
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [seeScores, setSeeScores] = useState([])
 
   const [currentPage, setCurrentPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+   useEffect(()=>{
+      const seeTheScore = async () => {
+        try {
+           const scoreRes = await apiClient.get(
+      `/subjectteacher/getscores/`
+    );
+    setSeeScores(scoreRes.data.scores)
+console.log("seeScores:", scoreRes)
+        } 
+   
+catch (error) {
+          console.log(error.dada.message)
+        }
+//     const existingScores = scoreRes.data.data || [];
+// console.log("shibobo: ",existingScores)
+//     // 3. Convert scores to map
+//     const scoreMap = {};
+
+//     existingScores.forEach((s) => {
+//       scoreMap[s.studentId] = {
+//         ca: s.continuousAssessment,
+//         exam: s.exam,
+//       };
+//     });
+}
+seeTheScore()
+},[])
 
   useEffect(() => {
     getSubjects();
@@ -25,13 +53,11 @@ const SubjectTeacherScores = () => {
       setLoading(true);
       const res = await apiClient.get("/subjectteacher/get-all-subjects");
 
-      const data = res.data.subjects
+      const data = res.data.subjects;
       setSubjects(data);
 
-   
-
       if (data.length > 0) {
-  fetchSubject(data[0].classId);
+        fetchSubject(data[0]);
 }
     } catch (err) {
       console.log(err);
@@ -44,41 +70,44 @@ const SubjectTeacherScores = () => {
   // FETCH SINGLE SUBJECT
   // =========================
 const fetchSubject = async (subject) => {
-
   try {
     setLoading(true);
 
+    // 1. Get students
     const res = await apiClient.get(
       `/subjectteacher/get-students/${subject.classId}`
     );
+// console.log("ebooo:  ",res.data.getStudents)
+const list = res.data.getStudents || [];
+// console.log("listssss:  ",list)
 
-    const data = res.data.getStudents;
-console.log("subject: ",data)
 
-    setSelectedSubject(subject); // ✅ store subject correctly
+    // 2. Get existing scores
+ 
+    // 4. Build final score state (merge)
+    const finalMap = {};
 
-    const list = data.students || [];
-    setStudents(data);
+    list.forEach((student) => {
+      const id = student.studentId || student.id || student._id;
 
-    const map = {};
-    list.forEach((s) => {
-      const id = s.studentId || s.id || s._id;
-
-      map[id] = {
-        ca: s.continuousAssessment ?? "",
-        exam: s.exam ?? "",
+      finalMap[id] = {
+        ca: scoreMap[id]?.ca ?? "",
+        exam: scoreMap[id]?.exam ?? "",
       };
     });
 
-    setScores(map);
+    // 5. Set states
+    setSelectedSubject(subject);
+    setStudents(list);
+    setScores(finalMap);
     setCurrentPage(1);
+
   } catch (err) {
     console.log(err);
   } finally {
     setLoading(false);
   }
 };
-
   // =========================
   // SCORE CHANGE
   // =========================
@@ -98,27 +127,25 @@ console.log("subject: ",data)
   const handleSaveScores = async () => {
     try {
       setSaving(true);
-console.log("api1: ",selectedSubject )
-console.log("api2: ",subjects )
 
-   const payload = {
-  subject: selectedSubject?.subjectName,
-  score: Object.keys(scores).map((id) => ({
-    studentId: id,
-    continuousAssessment: Number(scores[id]?.ca || 0),
-    exam: Number(scores[id]?.exam || 0),
-  })),
-};
+      const payload = {
+        subject: selectedSubject?.subjectName,
+        score: Object.keys(scores).map((id) => ({
+          studentId: id,
+          continuousAssessment: Number(scores[id]?.ca || 0),
+          exam: Number(scores[id]?.exam || 0),
+        })),
+      };
 
 await apiClient.post(
   `/classteacher/mark-score/${selectedSubject.id}`,
   payload
 );
 console.log("res  :  ",res)
-      alert("Scores saved successfully");
+      toast("Scores saved successfully");
     } catch (err) {
       console.log(err);
-      alert("Failed to save scores");
+      toast("Failed to save scores");
     } finally {
       setSaving(false);
     }
@@ -132,12 +159,11 @@ console.log("res  :  ",res)
 
   const displayedStudents = students.slice(
     startIndex,
-    startIndex + rowsPerPage
+    startIndex + rowsPerPage,
   );
 
   return (
     <div className="scores-container">
-
       {/* HEADER */}
       <div className="header-section">
         <h1 className="main-title">Scores</h1>
@@ -154,9 +180,8 @@ console.log("res  :  ",res)
                 ? "active"
                 : ""
             }`}
-
-
-onClick={() => fetchSubject(subject)}          >
+            onClick={() => fetchSubject(subject)}
+          >
             <div className="subject-name">
               {subject.subjectName || subject.name}
             </div>
@@ -169,7 +194,7 @@ onClick={() => fetchSubject(subject)}          >
       {/* SUBJECT HEADER */}
 
       <div className="selected-subject-header">
-   {/* <h2 className="selected-subject-title">
+        {/* <h2 className="selected-subject-title">
 
 
 
@@ -207,8 +232,7 @@ onClick={() => fetchSubject(subject)}          >
           </thead>
 
           <tbody>
-
-            {console.log("diddds:  ",displayedStudents)}
+            {console.log("diddds:  ", displayedStudents)}
             {loading ? (
               <tr>
                 <td colSpan={4}>Loading...</td>
@@ -216,28 +240,27 @@ onClick={() => fetchSubject(subject)}          >
             ) : (
         
 
-           displayedStudents.map((student) => {
+           seeScores.map((student) => {
 
 
-                const id =  student.id 
+                        
+                const id = student.studentId || student.id || student._id;
 
                 return (
-
-
                   <tr key={id}>
                     <td className="student-name">
-                      {`${student.firstName}`}
+                      {student?.studentName || "--"}
                     </td>
 
                     <td className="admission-number">
-                      {student.admissionNumber}
+                      {student?.studentName || "--"}
                     </td>
 
                     <td>
                       <input
                         type="number"
                         className="score-input"
-                        value={scores[id]?.ca || ""}
+                        value={student.continuousAssessment || "--"}
                         onChange={(e) =>
                           handleScoreChange(id, "ca", e.target.value)
                         }
@@ -248,7 +271,7 @@ onClick={() => fetchSubject(subject)}          >
                       <input
                         type="number"
                         className="score-input"
-                        value={scores[id]?.exam || ""}
+                        value={student?.exam || "--"}
                         onChange={(e) =>
                           handleScoreChange(id, "exam", e.target.value)
                         }
@@ -271,9 +294,7 @@ onClick={() => fetchSubject(subject)}          >
         <div className="pagination-controls">
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) => Math.max(p - 1, 1))
-            }
+            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
           >
             ‹
           </button>
@@ -292,11 +313,7 @@ onClick={() => fetchSubject(subject)}          >
 
           <button
             className="pagination-nav"
-            onClick={() =>
-              setCurrentPage((p) =>
-                Math.min(p + 1, totalPages)
-              )
-            }
+            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
           >
             ›
           </button>
@@ -329,4 +346,4 @@ onClick={() => fetchSubject(subject)}          >
   );
 };
 
-export default SubjectTeacherScores
+export default SubjectTeacherScores;
