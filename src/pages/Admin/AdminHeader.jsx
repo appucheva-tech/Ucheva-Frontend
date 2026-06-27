@@ -16,7 +16,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const user = useSelector((state) => state.user.user);
   const nav = useNavigate();
   const dispatch = useDispatch();
-
   const fullName =
     user?.adminFirstName && user?.adminLastName
       ? `${user.adminFirstName} ${user.adminLastName}`
@@ -198,7 +197,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
               </button>
             </div>
           </div>
-          {/* Modal content omitted for brevity, keep your original block here */}
         </div>
       )}
     </>
