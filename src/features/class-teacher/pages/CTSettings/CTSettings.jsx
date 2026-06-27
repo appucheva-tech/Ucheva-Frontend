@@ -128,6 +128,8 @@ const CTSettings = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [signature, setSignature] = useState(null);
+  const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
