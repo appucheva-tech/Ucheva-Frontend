@@ -1,14 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
+import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
-import {
-  FaTimes,
-  FaEdit,
-  FaTrash,
-  FaExclamationTriangle,
-} from "react-icons/fa";
+import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -38,15 +34,6 @@ const AdminAnnouncement = () => {
     limit: 10,
     total: 0,
   });
-
-  // Delete confirmation modal state
-  const [deleteModal, setDeleteModal] = useState({
-    isOpen: false,
-    announcementId: null,
-    announcementTitle: "",
-    isDeleting: false,
-  });
-
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -257,63 +244,34 @@ const AdminAnnouncement = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-  // Open delete confirmation modal
-  const openDeleteModal = (id, title) => {
-    setDeleteModal({
-      isOpen: true,
-      announcementId: id,
-      announcementTitle: title,
-      isDeleting: false,
-    });
-  };
+  const handlePageChange = (newPage) =>
+    setPagination((prev) => ({ ...prev, page: newPage }));
 
-  // Close delete confirmation modal
-  const closeDeleteModal = () => {
-    setDeleteModal({
-      isOpen: false,
-      announcementId: null,
-      announcementTitle: "",
-      isDeleting: false,
-    });
-  };
-
-  // Handle delete with confirmation
-  const confirmDelete = async () => {
-    const { announcementId } = deleteModal;
-    if (!announcementId) return;
-
-    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
-
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this announcement?")) return;
     try {
-      await apiClient.delete(`/announcement/${announcementId}`);
+      await apiClient.delete(`/announcement/${id}`);
       await fetchAnnouncements();
-      toast.success("Announcement deleted successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-      closeDeleteModal();
     } catch (err) {
       console.error("Error deleting announcement:", err);
-      toast.error(
-        err.response?.data?.message || "Failed to delete announcement.",
-        {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        },
-      );
-      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
+      alert("Failed to delete announcement. Please try again.");
     }
   };
 
   const totalPages = Math.ceil(pagination.total / pagination.limit);
+
+  // ── Empty state message varies by tab and search ──────────────────────────
+  const emptyTitle = searchTerm
+    ? "No Results Found"
+    : activeTab === "all"
+    ? "No Announcements Yet"
+    : `No ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Announcements`;
+
+  const emptyMessage = searchTerm
+    ? `No announcements match "${searchTerm}". Try a different search term.`
+    : activeTab === "all"
+    ? "You haven't created any announcements yet. Use the button above to get started."
+    : `You have no ${activeTab} announcements. Create one to see it here.`;
 
   return (
     <>
@@ -425,18 +383,15 @@ const AdminAnnouncement = () => {
           </div>
         </div>
 
-        {loading ? (
-          <div className="loadingState">
-            <div className="spinner"></div>
-            <p>Loading announcements...</p>
-          </div>
-        ) : error ? (
-          <div className="errorState">
-            <p>{error}</p>
-            <button className="retryBtn" onClick={fetchAnnouncements}>
-              Retry
-            </button>
-          </div>
+        {/* ── States ── */}
+        {isLoading ? (
+          <LoadingScreen />
+        ) : hasError ? (
+          <ErrorScreen
+            title="Announcements Unavailable"
+            message="We couldn't load your announcements. Check your connection and try again."
+            onRetry={fetchAnnouncements}
+          />
         ) : announcements.length === 0 ? (
           <EmptyState
             title={emptyTitle}
@@ -464,11 +419,7 @@ const AdminAnnouncement = () => {
                       <button className="editButton" onClick={() => openEditPanel(item)} aria-label="Edit">
                         <FaEdit />
                       </button>
-                      <button
-                        className="deleteButton"
-                        onClick={() => openDeleteModal(item.id, item.title)}
-                        aria-label="Delete"
-                      >
+                      <button className="deleteButton" onClick={() => handleDelete(item.id)} aria-label="Delete">
                         <FaTrash />
                       </button>
                     </div>
@@ -532,7 +483,10 @@ const AdminAnnouncement = () => {
 
         <footer className="footerView">
           <span className="copyright">
+           
+
             © {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
+
           </span>
           <span className="support">
             Need help?{" "}
