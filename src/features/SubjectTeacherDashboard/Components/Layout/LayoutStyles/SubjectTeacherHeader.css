@@ -202,7 +202,6 @@
     display: none; /* Shows profile avatar icon cleanly on phones */
   }
 }
-<<<<<<< HEAD
 
 /* ========== PROFILE DROPDOWN ========== */
 .SubjectTeacherHeader-profile-combined {
@@ -382,5 +381,3 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
-=======
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85

@@ -1,58 +1,18 @@
-<<<<<<< HEAD
-import React from "react";
-import "./AdminAnnouncement.css";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
-=======
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
-<<<<<<< HEAD
-import { FaArrowTrendUp } from "react-icons/fa6";
-
-const AdminAnnouncement = () => {
-  const categories = ["All", "Drafts", "Scheduled", "Template", "Sent"];
-
-  const announcementsData = [
-    {
-      title: "Staff Meeting Reminder",
-      content:
-        "All staff members are required to attend the meeting scheduled for Monday, 19th May 2026 by 2:00 PM in the school hall. Thank you.",
-      date: "May 18, 2026",
-      time: "8:30 AM",
-      type: "draft",
-    },
-    {
-      title: "Resumption of Normal Activities",
-      content:
-        "This is to inform all staff that the school will resume normal activities on Monday, 19th May 2026. Please be punctual.",
-      date: "May 15, 2026",
-      time: "4:45 PM",
-      type: "scheduled",
-    },
-    {
-      title: "Environmental Sanitation Exercise",
-      content:
-        "Weekly environmental sanitation exercise will hold on Saturday, 24th May 2026. All staff are expected to participate.",
-      date: "May 13, 2026",
-      time: "9:00 AM",
-      type: "template",
-    },
-    {
-      title: "Emergency Closure Update",
-      content:
-        "Due to the forecasted heavy rainfall, the school will be closed on Tuesday, 20th May 2026 for safety purposes.",
-      date: "May 12, 2026",
-      time: "6:20 PM",
-      type: "sent",
-    },
-  ];
-=======
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import {
+  FaTimes,
+  FaEdit,
+  FaTrash,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AdminAnnouncement = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -73,6 +33,14 @@ const AdminAnnouncement = () => {
     page: 1,
     limit: 10,
     total: 0,
+  });
+
+  // Delete confirmation modal state
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    announcementId: null,
+    announcementTitle: "",
+    isDeleting: false,
   });
 
   const [formData, setFormData] = useState({
@@ -255,14 +223,41 @@ const AdminAnnouncement = () => {
 
       if (editingAnnouncement) {
         await apiClient.put(`/announcement/${editingAnnouncement.id}`, payload);
+        toast.success("Announcement updated successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       } else {
         await apiClient.post("/announcement", payload);
+        toast.success("Announcement created successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
 
       await fetchAnnouncements();
       closePanel();
     } catch (err) {
       console.error("Error saving announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to save announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
       setFormErrors({
         submit:
           err.response?.data?.message ||
@@ -325,34 +320,73 @@ const AdminAnnouncement = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this announcement?")) {
-      try {
-        await apiClient.delete(`/announcement/${id}`);
-        await fetchAnnouncements();
-      } catch (err) {
-        console.error("Error deleting announcement:", err);
-        alert("Failed to delete announcement. Please try again.");
-      }
+  // Open delete confirmation modal
+  const openDeleteModal = (id, title) => {
+    setDeleteModal({
+      isOpen: true,
+      announcementId: id,
+      announcementTitle: title,
+      isDeleting: false,
+    });
+  };
+
+  // Close delete confirmation modal
+  const closeDeleteModal = () => {
+    setDeleteModal({
+      isOpen: false,
+      announcementId: null,
+      announcementTitle: "",
+      isDeleting: false,
+    });
+  };
+
+  // Handle delete with confirmation
+  const confirmDelete = async () => {
+    const { announcementId } = deleteModal;
+    if (!announcementId) return;
+
+    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
+
+    try {
+      await apiClient.delete(`/announcement/${announcementId}`);
+      await fetchAnnouncements();
+      toast.success("Announcement deleted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      closeDeleteModal();
+    } catch (err) {
+      console.error("Error deleting announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to delete announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
+      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
     }
   };
 
   const totalPages = Math.ceil(pagination.total / pagination.limit);
 
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   return (
     <>
       <div className="dashboard-container">
         <header className="dashboard-header">
           <div className="welcome-text">
             <h1 className="Announce">Announcements</h1>
-<<<<<<< HEAD
-            <button className="AnnouncementsBtn">+ Create Announcement</button>
-=======
             <button className="AnnouncementsBtn" onClick={openPanel}>
               + Create Announcement
             </button>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
           </div>
           <p className="subtitle-text">
             Create and manage messages for staff and parents.
@@ -360,66 +394,6 @@ const AdminAnnouncement = () => {
         </header>
 
         <div className="metrics-grid">
-<<<<<<< HEAD
-          <div className="metric-card card-students">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Drafts</span>
-                <span className="card-value">3</span>
-              </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
-              </div>
-            </div>
-            <div className="card-footer trend-up">
-              Not yet sent
-            </div>
-          </div>
-
-          <div className="metric-card card-staff">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Scheduled</span>
-                <span className="card-value">6</span>
-              </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
-              </div>
-            </div>
-            <div className="card-footer trend-up">
-              Upcoming Messages
-            </div>
-          </div>
-
-          <div className="metric-card card-attendance">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Templates</span>
-                <span className="card-value">2</span>
-              </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
-              </div>
-            </div>
-            <div className="card-footer trend-up">
-              Reuseable Messages
-            </div>
-          </div>
-
-          <div className="metric-card card-fees">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Sent</span>
-                <span className="card-value">19</span>
-              </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
-              </div>
-            </div>
-            <div className="card-footer trend-pct">
-              Sent Successfully
-            </div>
-=======
           <div className="metric-card card-drafts">
             <div className="card-content">
               <div className="text-section">
@@ -470,7 +444,6 @@ const AdminAnnouncement = () => {
               </div>
             </div>
             <div className="card-footer">Sent Successfully</div>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
           </div>
         </div>
       </div>
@@ -478,14 +451,6 @@ const AdminAnnouncement = () => {
       <div className="announcementsContainer">
         <div className="topNavbar">
           <div className="tabGroup">
-<<<<<<< HEAD
-            {categories.map((category, index) => (
-              <button
-                key={category}
-                className={`tabButton ${index === 0 ? "activeTab" : ""}`}
-              >
-                {category}
-=======
             {categories.map((category) => (
               <button
                 key={category}
@@ -506,7 +471,6 @@ const AdminAnnouncement = () => {
                             : 0}
                   </span>
                 )}
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
               </button>
             ))}
           </div>
@@ -515,11 +479,8 @@ const AdminAnnouncement = () => {
               type="text"
               placeholder="Search announcements..."
               className="searchInput"
-<<<<<<< HEAD
-=======
               value={searchTerm}
               onChange={handleSearch}
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             />
             <svg
               className="searchIcon"
@@ -534,62 +495,6 @@ const AdminAnnouncement = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
-        <div className="cardsList">
-          {announcementsData.map((item, index) => (
-            <div key={index} className={`announcementCard border-${item.type}`}>
-              <div className="cardHeader">
-                <h3 className="cardTitle">{item.title}</h3>
-                <button className="menuButton">
-                  <svg viewBox="0 0 24 24" fill="currentColor">
-                    <circle cx="12" cy="5" r="2" />
-                    <circle cx="12" cy="12" r="2" />
-                    <circle cx="12" cy="19" r="2" />
-                  </svg>
-                </button>
-              </div>
-              <p className="cardContent">{item.content}</p>
-              <div className="cardFooter">
-                <span className="metaItem">
-                  <svg
-                    className="metaIcon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <rect
-                      x="3"
-                      y="4"
-                      width="18"
-                      height="18"
-                      rx="2"
-                      ry="2"
-                    ></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  {item.date}
-                </span>
-                <span className="metaItem">
-                  <svg
-                    className="metaIcon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                  {item.time}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-=======
         {loading ? (
           <div className="loadingState">
             <div className="spinner"></div>
@@ -640,7 +545,7 @@ const AdminAnnouncement = () => {
                       </button>
                       <button
                         className="deleteButton"
-                        onClick={() => handleDelete(item.id)}
+                        onClick={() => openDeleteModal(item.id, item.title)}
                         aria-label="Delete"
                       >
                         <FaTrash />
@@ -719,7 +624,6 @@ const AdminAnnouncement = () => {
             )}
           </>
         )}
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 
         <div className="legendBox">
           <div className="legendItem">
@@ -742,11 +646,7 @@ const AdminAnnouncement = () => {
 
         <footer className="footerView">
           <span className="copyright">
-<<<<<<< HEAD
-            © 2026 Ucheva school operating management system . All right
-=======
             © 2026 Ucheva school operating management system. All right
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             reserved.
           </span>
           <span className="support">
@@ -757,8 +657,6 @@ const AdminAnnouncement = () => {
           </span>
         </footer>
       </div>
-<<<<<<< HEAD
-=======
 
       {/* Slide Panel */}
       <div
@@ -949,7 +847,45 @@ const AdminAnnouncement = () => {
           </form>
         </div>
       </div>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
+
+      {/* Delete Confirmation Modal */}
+      <div
+        className={`delete-modal-overlay ${deleteModal.isOpen ? "active" : ""}`}
+        onClick={() => !deleteModal.isDeleting && closeDeleteModal()}
+      >
+        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="delete-modal-icon">
+            <FaExclamationTriangle />
+          </div>
+          <h2 className="delete-modal-title">Delete Announcement</h2>
+          <p className="delete-modal-message">
+            Are you sure you want to delete "{deleteModal.announcementTitle}"?
+            This action cannot be undone.
+          </p>
+          <div className="delete-modal-actions">
+            <button
+              className="delete-modal-cancel"
+              onClick={closeDeleteModal}
+              disabled={deleteModal.isDeleting}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-modal-confirm"
+              onClick={confirmDelete}
+              disabled={deleteModal.isDeleting}
+            >
+              {deleteModal.isDeleting ? (
+                <>
+                  <span className="delete-spinner"></span> Deleting...
+                </>
+              ) : (
+                "Yes, Delete"
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

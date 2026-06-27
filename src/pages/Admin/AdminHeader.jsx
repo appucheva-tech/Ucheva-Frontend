@@ -28,14 +28,14 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const currentSession = user?.academicSession || "No Session";
   const currentTerm = user?.term || "No Term";
 
-  // Dynamic values from your Redux state
-  const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
-  const role = user?.role || "Admin";
-  const profileInitial = adminName.charAt(0).toUpperCase();
+  // // Dynamic values from your Redux state
+  // const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
+  // const role = user?.role || "Admin";
+  // const profileInitial = adminName.charAt(0).toUpperCase();
 
-  // Assuming these are fetched from your settings or global state
-  const currentSession = "2025/2026 Session";
-  const currentTerm = "Third Term";
+  // // Assuming these are fetched from your settings or global state
+  // const currentSession = "2025/2026 Session";
+  // const currentTerm = "Third Term";
 
   useEffect(() => {
     const handleClickOutside = (event) => {

@@ -91,7 +91,6 @@
 }
 
 .AdminHdr-avatar {
-<<<<<<< HEAD
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -100,7 +99,6 @@
   align-items: center;
   justify-content: center;
   color: white;
-=======
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -108,7 +106,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 }
 
 /* Dropdown */
@@ -219,13 +216,10 @@
 }
 
 @keyframes AdminHdr-spin {
-<<<<<<< HEAD
   to {
     transform: rotate(360deg);
   }
-=======
   to { transform: rotate(360deg); }
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 }
 
 /* Hamburger */
@@ -271,8 +265,4 @@
   .AdminHdr-user-info {
     display: none;
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85

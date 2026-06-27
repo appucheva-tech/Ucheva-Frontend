@@ -24,7 +24,9 @@ const Header = ({ setSidebarOpen }) => {
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const user = useSelector((state) => state.user.user);
+
   console.log("User from Redux:", user);
 
   const formatDate = () => {
@@ -97,7 +99,10 @@ const Header = ({ setSidebarOpen }) => {
             {isSessionDropdownOpen && (
               <div className="ct-dropdown-menu">
                 {sessions.map((session, index) => (
-                  <p key={index} onClick={() => setIsSessionDropdownOpen(false)}>
+                  <p
+                    key={index}
+                    onClick={() => setIsSessionDropdownOpen(false)}
+                  >
                     {session}
                   </p>
                 ))}
@@ -161,18 +166,18 @@ const Header = ({ setSidebarOpen }) => {
               </div>
             </div>
             {isProfileDropdownOpen && (
-                <div className="ct-profile-dropdown-menu">
-                  <p onClick={() => setIsProfileDropdownOpen(false)}>Settings</p>
-                  <p
-                    className="ct-logout-item"
-                    onClick={() => {
-                      setIsProfileDropdownOpen(false);
-                      setShowLogoutModal(true);
-                    }}
-                  >
-                    Logout
-                  </p>
-                </div>
+              <div className="ct-profile-dropdown-menu">
+                <p onClick={() => setIsProfileDropdownOpen(false)}>Settings</p>
+                <p
+                  className="ct-logout-item"
+                  onClick={() => {
+                    setIsProfileDropdownOpen(false);
+                    setShowLogoutModal(true);
+                  }}
+                >
+                  Logout
+                </p>
+              </div>
             )}
           </div>
         </div>
@@ -180,17 +185,31 @@ const Header = ({ setSidebarOpen }) => {
 
       {/* Logout Confirmation Modal */}
       {showLogoutModal && (
-        <div className="logout-modal-overlay" onClick={() => !isLoggingOut && setShowLogoutModal(false)}>
+        <div
+          className="logout-modal-overlay"
+          onClick={() => !isLoggingOut && setShowLogoutModal(false)}
+        >
           <div className="logout-modal" onClick={(e) => e.stopPropagation()}>
             <div className="logout-modal-icon">
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#2563eb"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 <polyline points="16 17 21 12 16 7" />
                 <line x1="21" y1="12" x2="9" y2="12" />
               </svg>
             </div>
             <h2 className="logout-modal-title">Logout</h2>
-            <p className="logout-modal-message">Are you sure you want to logout?</p>
+            <p className="logout-modal-message">
+              Are you sure you want to logout?
+            </p>
             <div className="logout-modal-actions">
               <button
                 className="logout-modal-cancel"
@@ -218,7 +237,7 @@ const Header = ({ setSidebarOpen }) => {
         </div>
       )}
     </div>
-  )
+  );
   return (
     <header className="ct-header">
       {/* LEFT CONTENT BLOCK: Clean Menu Toggle & Date */}
