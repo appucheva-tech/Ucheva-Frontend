@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
-<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../../../../global/userSlice";
@@ -9,25 +8,23 @@ import { persistor } from "../../../../global/store";
 import { apiClient } from "../../../../config/AxiosInstance";
 import "./Header.css";
 
+// const Header = ({ setSidebarOpen }) => {
+//   const nav = useNavigate();
+//   const dispatch = useDispatch();
+//   const user = useSelector((state) => state.user.user);
+//   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
+//   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
+//   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+//   const [showLogoutModal, setShowLogoutModal] = useState(false);
+//   const [isLoggingOut, setIsLoggingOut] = useState(false);
+// import { useSelector } from "react-redux";
+// import "./Header.css";
+// }
 const Header = ({ setSidebarOpen }) => {
-  const nav = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
-=======
-import { useSelector } from "react-redux";
-import "./Header.css";
-
-const Header = ({ setSidebarOpen }) => {
-  const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
-  const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const user = useSelector((state) => state.user.user);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   console.log("User from Redux:", user);
 
   const formatDate = () => {
@@ -48,7 +45,6 @@ const Header = ({ setSidebarOpen }) => {
   ];
   const terms = ["First Term", "Second Term", "Third Term"];
 
-<<<<<<< HEAD
   const handleLogoutConfirm = async () => {
     setIsLoggingOut(true);
     try {
@@ -63,7 +59,7 @@ const Header = ({ setSidebarOpen }) => {
   };
 
   return (
-    <>
+    <div>
       <header className="ct-header">
         {/* LEFT CONTENT BLOCK: Clean Menu Toggle & Date */}
         <div className="ct-header-left">
@@ -221,8 +217,8 @@ const Header = ({ setSidebarOpen }) => {
           </div>
         </div>
       )}
-    </>
-=======
+    </div>
+  )
   return (
     <header className="ct-header">
       {/* LEFT CONTENT BLOCK: Clean Menu Toggle & Date */}
@@ -338,7 +334,6 @@ const Header = ({ setSidebarOpen }) => {
         </div>
       </div>
     </header>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   );
 };
 

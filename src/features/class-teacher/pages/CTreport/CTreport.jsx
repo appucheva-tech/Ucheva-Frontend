@@ -4,23 +4,6 @@ import { FaArrowsRotate } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { apiClient } from "../../../../config/AxiosInstance";
 
-<<<<<<< HEAD
-
-
-const CTreport = () => {
-const [studentReport, getStudentReport] = useState([])
-
-useEffect(()=>{
-  const fetchStudentReport = async () =>{
-    try {
-      const res = await apiClient.get ("/")
-      
-    } catch (error) {
-      console.log("error:", error.data.message)
-    }
-  }
-},[])
-=======
 const CTreport = () => {
   const [studentReport, getStudentReport] = useState([]);
 
@@ -34,7 +17,6 @@ const CTreport = () => {
       }
     };
   }, []);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 
   return (
     <main className="CTreportContainer">
