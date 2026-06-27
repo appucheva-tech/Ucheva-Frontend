@@ -29,15 +29,6 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </div>
         </div>
 
-        {/* Floating Contextual Close Button Trigger (Mobile Only Viewport) */}
-        {/* <button
-          className="ct-sidebar-close-btn"
-          onClick={() => setSidebarOpen(false)}
-          aria-label="Close Sidebar Navigation Menu"
-        >
-          ✕
-        </button> */}
-
         {/* Navigation Routed Links Segment Anchor Hub */}
         <nav className="ct-sidebar-nav">
           <NavLink
@@ -46,6 +37,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
               `ct-nav-link ${isActive ? "active" : ""}`
             }
             onClick={() => setSidebarOpen(false)}
+            end
           >
             <span className="ct-nav-icon">
               <PiSquaresFourBold />
@@ -54,7 +46,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="myclass"
+            to="/CTdashboard/myclass"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -67,7 +59,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="CTscore"
+            to="/CTdashboard/CTscore"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -80,7 +72,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="CTreportcard"
+            to="/CTdashboard/CTreportcard"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -93,7 +85,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="CTAnnouncement"
+            to="/CTdashboard/CTAnnouncement"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -106,7 +98,7 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
           </NavLink>
 
           <NavLink
-            to="CTsettings"
+            to="/CTdashboard/CTsettings"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
@@ -117,8 +109,9 @@ const SideBar = ({ sidebarOpen, setSidebarOpen }) => {
             </span>
             <span className="ct-nav-text">Settings</span>
           </NavLink>
+
           <NavLink
-            to="attendance"
+            to="/CTdashboard/attendance"
             className={({ isActive }) =>
               `ct-nav-link ${isActive ? "active" : ""}`
             }
