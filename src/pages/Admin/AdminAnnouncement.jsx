@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
-import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
 import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
