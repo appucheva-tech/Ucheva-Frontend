@@ -1,0 +1,452 @@
+/* ══════════════════════════════════════════════════
+   PAGE SHELL
+══════════════════════════════════════════════════ */
+.STReportContainer {
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f7fb;
+  display: flex;
+  justify-content: center;
+  font-family: "Nunito", sans-serif;
+}
+
+.STReportWrapper {
+  width: 100%;
+  max-width: 900px;
+  padding: 24px 20px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Page Header ── */
+.STSReportHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.STSReportHeadTitle {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.STSReportHeadRight {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.STR {
+  color: #64748b;
+}
+.STA {
+  color: #64748b;
+  font-size: 16px;
+}
+.STP {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* ── Action Bar ── */
+.STActionBar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 14px 20px;
+}
+
+.STAdd {
+  height: 40px;
+  padding: 0 20px;
+  background: #0062f6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: Nunito;
+  transition: background 0.2s;
+}
+.STAdd:hover {
+  background: #0051cc;
+}
+
+.STSubmit {
+  height: 40px;
+  padding: 0 20px;
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1.5px solid #86efac;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: Nunito;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s;
+}
+.STSubmit:hover {
+  background: #bbf7d0;
+}
+.STSubmitIcon {
+  font-size: 15px;
+}
+
+/* ── State messages ── */
+.STStateMsg {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  font-size: 15px;
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+}
+.STError {
+  color: #dc2626;
+  background: #fee2e2;
+  border-color: #fecaca;
+}
+
+/* ══════════════════════════════════════════════════
+   REPORT CARD PAPER
+══════════════════════════════════════════════════ */
+.STReportCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── School Header ── */
+.STSchoolHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+}
+
+.STSchoolLogo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.STSchoolInfo {
+  flex: 1;
+  text-align: center;
+}
+
+.STSchoolName {
+  font-size: 26px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.STSchoolInfo p {
+  margin: 2px 0;
+  font-size: 13px;
+  color: #374151;
+}
+
+.STDivider {
+  border: none;
+  border-top: 2px solid #0f172a;
+  margin: 0;
+}
+
+/* ── Report Title ── */
+.STReportTitle {
+  text-align: center;
+  padding: 20px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.STReportTitle h2 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.STSession {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.STTermBadge {
+  background: #0f172a;
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 24px;
+  border-radius: 6px;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+}
+
+/* ── Student Info Grid ── */
+.STStudentInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+
+.STInfoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.STInfoRow {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.STInfoLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.STInfoValue {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* ── Subjects Table ── */
+.STSubjectsTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 0;
+}
+
+.STSubjectsTable thead tr {
+  background: #0f172a;
+  color: white;
+}
+
+.STSubjectsTable thead th {
+  padding: 12px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.3px;
+  border: 1px solid #1e293b;
+}
+
+.STThSubject {
+  text-align: left !important;
+  padding-left: 16px !important;
+}
+
+.STThSub {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.STSubjectsTable tbody tr {
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.STRowEven {
+  background: white;
+}
+.STRowOdd {
+  background: #f8fafc;
+}
+
+.STSubjectsTable tbody td,
+.STSubjectsTable tfoot td {
+  padding: 11px 10px;
+  font-size: 13px;
+  color: #1e293b;
+  border: 1px solid #e5e7eb;
+}
+
+.STTdSubject {
+  padding-left: 16px !important;
+  font-weight: 500;
+}
+.STTdCenter {
+  text-align: center;
+}
+
+/* Summary rows */
+.STSummaryRow td {
+  background: #f8fafc;
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-top: 1px solid #d1d5db !important;
+}
+
+.STTdLabel {
+  padding-left: 16px !important;
+  font-weight: 700 !important;
+  color: #374151 !important;
+}
+
+/* ── Bottom Section ── */
+.STBottomSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid #d1d5db;
+  border-top: none;
+  margin-top: 0;
+}
+
+.STGradeKeyBox {
+  border-right: 1px solid #d1d5db;
+  padding: 16px;
+}
+
+.STTeacherRemarkBox {
+  padding: 16px;
+}
+
+.STBoxTitle {
+  font-size: 12px;
+  font-weight: 700;
+  color: #0f172a;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Grade key table */
+.STGradeTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.STGradeTable th,
+.STGradeTable td {
+  padding: 7px 10px;
+  font-size: 12px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+.STGradeTable th {
+  font-weight: 700;
+  color: #374151;
+  background: #f8fafc;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.STGradeTable td {
+  color: #1e293b;
+}
+
+/* Remark content */
+.STRemarkContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: calc(100% - 36px);
+  min-height: 100px;
+}
+
+.STRemarkText {
+  font-size: 13px;
+  color: #374151;
+  line-height: 1.6;
+  margin: 0 0 12px;
+}
+
+.STSignatureLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.STSigBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.STSigLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.STSigImg {
+  height: 36px;
+  max-width: 100px;
+  object-fit: contain;
+}
+
+.STSigEmpty {
+  display: inline-block;
+  width: 80px;
+  height: 1px;
+  background: #9ca3af;
+}
+
+.STSigValue {
+  font-size: 12px;
+  color: #374151;
+}
+
+/* ── Principal Remark ── */
+.STPrincipalRemarkBox {
+  border: 1px solid #d1d5db;
+  border-top: none;
+  padding: 16px;
+}
+
+.STPrincipalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 80px;
+}
