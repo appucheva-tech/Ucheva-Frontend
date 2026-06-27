@@ -77,15 +77,7 @@ const PaymentPage = () => {
   if (error)
     return <div className="payment-page flex-center-view">{error}</div>;
   if (!selectedStudent)
-<<<<<<< HEAD
     return <div className="payment-page flex-center-view">No student selected. Please select a student to continue.</div>;
-=======
-    return (
-      <div className="payment-page flex-center-view">
-        No student selected. Please select a student to continue.
-      </div>
-    );
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
 
   const total = paymentData.totalFee;
   const amountNow =
