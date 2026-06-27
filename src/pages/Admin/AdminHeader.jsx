@@ -16,7 +16,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const user = useSelector((state) => state.user.user);
   const nav = useNavigate();
   const dispatch = useDispatch();
-
   const fullName =
     user?.adminFirstName && user?.adminLastName
       ? `${user.adminFirstName} ${user.adminLastName}`
@@ -27,15 +26,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
 
   const currentSession = user?.academicSession || "No Session";
   const currentTerm = user?.term || "No Term";
-
-  // Dynamic values from your Redux state
-  const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
-  const role = user?.role || "Admin";
-  const profileInitial = adminName.charAt(0).toUpperCase();
-
-  // Assuming these are fetched from your settings or global state
-  const currentSession = "2025/2026 Session";
-  const currentTerm = "Third Term";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -198,7 +188,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
               </button>
             </div>
           </div>
-          {/* Modal content omitted for brevity, keep your original block here */}
         </div>
       )}
     </>

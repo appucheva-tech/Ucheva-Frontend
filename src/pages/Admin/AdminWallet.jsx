@@ -6,29 +6,33 @@ import { FaSackDollar, FaRegCreditCard } from "react-icons/fa6";
 import { MdOutlineHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { walletService } from "./Services/walletService";
-import LoadingScreen from "../../components/Loading-Screen";
+
+// ── Your three state components ───────────────────────────────────────────────
+import LoadingScreen from "../../components/Loading-Screen";     // adjust path
+import ErrorScreen from "../../components/Error-Screen";         // adjust path
+import EmptyState from "../../components/EmptyState";           // adjust path
 
 const NIGERIAN_BANKS = [
-  { name: "Access Bank", code: "033" },
-  { name: "Fidelity Bank", code: "033" },
-  { name: "First Bank", code: "033" },
-  { name: "GTBank", code: "033" },
-  { name: "Zenith Bank", code: "033" },
+  { name: "Access Bank",          code: "044" },
+  { name: "Fidelity Bank",        code: "070" },
+  { name: "First Bank",           code: "011" },
+  { name: "GTBank",               code: "058" },
+  { name: "Zenith Bank",          code: "057" },
   { name: "United Bank for Africa", code: "033" },
-  { name: "Stanbic IBTC", code: "033" },
-  { name: "FCMB", code: "033" },
-  { name: "Sterling Bank", code: "033" },
-  { name: "Union Bank", code: "033" },
+  { name: "Stanbic IBTC",         code: "221" },
+  { name: "FCMB",                 code: "214" },
+  { name: "Sterling Bank",        code: "232" },
+  { name: "Union Bank",           code: "032" },
 ];
 
 const AdminWallet = () => {
   const [wallet, setWallet] = useState(null);
   const [payments, setPayments] = useState([]);
   const [withdrawals, setWithdrawals] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
-  // Initialized to match your requested req.body
   const [withdrawData, setWithdrawData] = useState({
     amount: "",
     accountNumber: "",
@@ -39,37 +43,21 @@ const AdminWallet = () => {
     narration: "School wallet withdrawal",
   });
 
-  const EmptyState = ({ icon: Icon, title, message, actionText, onAction }) => (
-    <div className="empty-state">
-      <div className="empty-state-icon">
-        <Icon />
-      </div>
-      <h3 className="empty-state-title">{title}</h3>
-      <p className="empty-state-message">{message}</p>
-      {actionText && (
-        <button className="empty-state-action" onClick={onAction}>
-          {actionText}
-        </button>
-      )}
-    </div>
-  );
-
   const formatCurrency = (amt) =>
     new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
       minimumFractionDigits: 0,
     }).format(amt);
+
   const getStatusLabel = (s) =>
     ({ completed: "Successful", pending: "Pending", failed: "Failed" })[s] || s;
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
+  // ── Fetch ─────────────────────────────────────────────────────────────────
   const fetchData = async () => {
+    setIsLoading(true);
+    setHasError(false);
     try {
-      setLoading(true);
       const [wRes, pRes] = await Promise.all([
         walletService.getWallet(),
         walletService.getPaymentHistory(),
@@ -79,15 +67,19 @@ const AdminWallet = () => {
       setWithdrawals(pRes.data.withdrawals || []);
     } catch (err) {
       console.error(err);
+      setHasError(true);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleWithdrawSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Ensure amount is a number
       const payload = { ...withdrawData, amount: Number(withdrawData.amount) };
       await walletService.withdraw(payload);
       setShowModal(false);
@@ -98,10 +90,23 @@ const AdminWallet = () => {
     }
   };
 
-  if (loading) return <LoadingScreen />;
+  // ── Loading state ─────────────────────────────────────────────────────────
+  if (isLoading) return <LoadingScreen />;
+
+  // ── Error state ───────────────────────────────────────────────────────────
+  if (hasError) {
+    return (
+      <ErrorScreen
+        title="Wallet Unavailable"
+        message="We couldn't load your wallet data. Check your connection and try again."
+        onRetry={fetchData}
+      />
+    );
+  }
 
   return (
     <div className="dashboard-container">
+      {/* ── Header ── */}
       <header className="dashboard-header">
         <h1 className="welcome-text">
           Wallet
@@ -112,26 +117,26 @@ const AdminWallet = () => {
         </button>
       </header>
 
-      {/* Metrics Grid */}
+      {/* ── Metrics ── */}
       <div className="metrics-grid">
         <div className="metric-card card-students">
           <span>Received</span>
           <span className="card-value">
-            {wallet ? formatCurrency(wallet.balance * 0.3) : "N0"}
+            {wallet ? formatCurrency(wallet.balance * 0.3) : "₦0"}
           </span>
           <PiStudentFill />
         </div>
         <div className="metric-card card-staff">
           <span>Withdrawal</span>
           <span className="card-value">
-            {wallet ? formatCurrency(wallet.balance * 0.2) : "N0"}
+            {wallet ? formatCurrency(wallet.balance * 0.2) : "₦0"}
           </span>
           <HiMiniUserGroup />
         </div>
         <div className="metric-card card-attendance">
           <span>Balance</span>
           <span className="card-value">
-            {wallet ? formatCurrency(wallet.balance) : "N0"}
+            {wallet ? formatCurrency(wallet.balance) : "₦0"}
           </span>
           <PiCalendarBlankFill />
         </div>
@@ -142,10 +147,15 @@ const AdminWallet = () => {
         </div>
       </div>
 
-      {/* History Cards */}
+      {/* ── Payment history ── */}
       <div className="history-card">
         <h2 className="card-title">Payment History</h2>
-        {payments.length > 0 ? (
+        {payments.length === 0 ? (
+          <EmptyState
+            title="No Payments Yet"
+            message="No payments have been processed yet. They will appear here once parents make payments."
+          />
+        ) : (
           <table className="data-table">
             <thead>
               <tr>
@@ -164,18 +174,20 @@ const AdminWallet = () => {
               ))}
             </tbody>
           </table>
-        ) : (
-          <EmptyState
-            icon={FaRegCreditCard}
-            title="No Payments"
-            message="No payments processed yet."
-          />
         )}
       </div>
 
+      {/* ── Withdrawal history ── */}
       <div className="history-card">
         <h2 className="card-title">Withdrawal History</h2>
-        {withdrawals.length > 0 ? (
+        {withdrawals.length === 0 ? (
+          <EmptyState
+            title="No Withdrawals Yet"
+            message="You haven't made any withdrawals yet."
+            actionText="Withdraw Funds"
+            onAction={() => setShowModal(true)}
+          />
+        ) : (
           <table className="data-table">
             <thead>
               <tr>
@@ -192,18 +204,10 @@ const AdminWallet = () => {
               ))}
             </tbody>
           </table>
-        ) : (
-          <EmptyState
-            icon={MdOutlineHistory}
-            title="No Withdrawals"
-            message="Start by withdrawing funds."
-            actionText="Withdraw"
-            onAction={() => setShowModal(true)}
-          />
         )}
       </div>
 
-      {/* Modal */}
+      {/* ── Withdraw modal ── */}
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -225,9 +229,7 @@ const AdminWallet = () => {
 
               <select
                 onChange={(e) => {
-                  const b = NIGERIAN_BANKS.find(
-                    (x) => x.name === e.target.value,
-                  );
+                  const b = NIGERIAN_BANKS.find((x) => x.name === e.target.value);
                   setWithdrawData({
                     ...withdrawData,
                     bankName: e.target.value,
@@ -248,10 +250,7 @@ const AdminWallet = () => {
                 type="text"
                 placeholder="Account Name"
                 onChange={(e) =>
-                  setWithdrawData({
-                    ...withdrawData,
-                    accountName: e.target.value,
-                  })
+                  setWithdrawData({ ...withdrawData, accountName: e.target.value })
                 }
                 required
               />
@@ -259,10 +258,7 @@ const AdminWallet = () => {
                 type="text"
                 placeholder="Account Number"
                 onChange={(e) =>
-                  setWithdrawData({
-                    ...withdrawData,
-                    accountNumber: e.target.value,
-                  })
+                  setWithdrawData({ ...withdrawData, accountNumber: e.target.value })
                 }
                 required
               />
