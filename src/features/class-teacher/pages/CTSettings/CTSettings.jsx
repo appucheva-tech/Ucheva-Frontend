@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
-import { LuCamera } from "react-icons/lu";
-=======
 import { LuCamera, LuUpload } from "react-icons/lu";
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./CTSettings.css";
 import { apiClient } from "../../../../config/AxiosInstance";
@@ -132,11 +128,8 @@ const CTSettings = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-<<<<<<< HEAD
-=======
   const [signature, setSignature] = useState(null);
   const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -158,13 +151,8 @@ const CTSettings = () => {
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
-<<<<<<< HEAD
-      const response = await apiClient.get("/subjectteacher/getprofiledetails");
-      const data = response?.data?.subjectTeacher || response?.data;
-=======
       const response = await apiClient.get("/classteacher/getprofiledetails");
       const data = response?.data?.classTeacherData || response?.data;
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 
       setProfileData({
         firstName: data?.firstName || "",
@@ -182,23 +170,16 @@ const CTSettings = () => {
         maritalStatus: data?.maritalStatus || "",
         qualification: data?.qualification || "",
         staffType: data?.staffType || "",
-<<<<<<< HEAD
-        classAssigned: data?.classAssigned || "No class assigned",
-=======
         classAssigned: Array.isArray(data?.classAssigned)
           ? data.classAssigned.join(", ")
           : data?.classAssigned || "No class assigned",
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         subjectAssigned: Array.isArray(data?.subjectAssigned)
           ? data.subjectAssigned.join(", ")
           : data?.subjectAssigned || "No subjects assigned",
       });
 
       setPreviewUrl(data?.staffProfileUrl || null);
-<<<<<<< HEAD
-=======
       setSignaturePreviewUrl(data?.signatureUrl || null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
     } catch (err) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Failed to load profile.");
@@ -231,8 +212,6 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
-<<<<<<< HEAD
-=======
   /* ── Signature change ── */
   const handleSignatureChange = (e) => {
     const file = e.target.files[0];
@@ -247,7 +226,6 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   /* ── Password field change ── */
   const handlePasswordInputChange = (e) => {
     const { name, value } = e.target;
@@ -263,27 +241,18 @@ const CTSettings = () => {
       formData.append("firstName", profileData.firstName);
       formData.append("lastName", profileData.lastName);
       formData.append("address", profileData.address);
-<<<<<<< HEAD
-      if (avatar) formData.append("profilePicture", avatar);
-
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
-=======
 
       if (avatar) formData.append("profilePicture", avatar);
       if (signature) formData.append("signature", signature);
 
       await apiClient.put("/classteacher/updateprofile", formData, {
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       toast.success("Profile updated successfully!");
       await fetchProfile();
       setAvatar(null);
-<<<<<<< HEAD
-=======
       setSignature(null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
     } catch (err) {
       console.error(err);
       const msg =
@@ -329,11 +298,7 @@ const CTSettings = () => {
       formData.append("newPassword", newPassword);
       formData.append("confirmPassword", confirmPassword);
 
-<<<<<<< HEAD
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
-=======
       await apiClient.put("/classteacher/updateprofile", formData, {
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -426,31 +391,6 @@ const CTSettings = () => {
 
             <div className="ct-form-row">
               <div className="ct-form-group">
-<<<<<<< HEAD
-                <label htmlFor="otherName">Other Name</label>
-                <input
-                  id="otherName"
-                  type="text"
-                  name="otherName"
-                  value={readOnlyData.otherName}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Other Name"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="email">Email Address</label>
-                <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={readOnlyData.email}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Email Address"
-=======
                 <label htmlFor="subjectAssigned">Subject Taught</label>
                 <input
                   id="subjectAssigned"
@@ -474,7 +414,6 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Role"
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
                 />
               </div>
             </div>
@@ -494,18 +433,6 @@ const CTSettings = () => {
                 />
               </div>
               <div className="ct-form-group">
-<<<<<<< HEAD
-                <label htmlFor="gender">Gender</label>
-                <input
-                  id="gender"
-                  type="text"
-                  name="gender"
-                  value={readOnlyData.gender}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Gender"
-=======
                 <label htmlFor="email">Email Address</label>
                 <input
                   id="email"
@@ -516,115 +443,10 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Email Address"
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
                 />
               </div>
             </div>
 
-<<<<<<< HEAD
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="dateOfBirth">Date of Birth</label>
-                <input
-                  id="dateOfBirth"
-                  type="text"
-                  name="dateOfBirth"
-                  value={readOnlyData.dateOfBirth}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Date of Birth"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="nationality">Nationality</label>
-                <input
-                  id="nationality"
-                  type="text"
-                  name="nationality"
-                  value={readOnlyData.nationality}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Nationality"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="maritalStatus">Marital Status</label>
-                <input
-                  id="maritalStatus"
-                  type="text"
-                  name="maritalStatus"
-                  value={readOnlyData.maritalStatus}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Marital Status"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="qualification">Qualification</label>
-                <input
-                  id="qualification"
-                  type="text"
-                  name="qualification"
-                  value={readOnlyData.qualification}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Qualification"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="staffType">Staff Type</label>
-                <input
-                  id="staffType"
-                  type="text"
-                  name="staffType"
-                  value={readOnlyData.staffType}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Staff Type"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="classAssigned">Class Assigned</label>
-                <input
-                  id="classAssigned"
-                  type="text"
-                  name="classAssigned"
-                  value={readOnlyData.classAssigned}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Class Assigned"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-group full-width">
-              <label htmlFor="subjectAssigned">Subject Assigned</label>
-              <input
-                id="subjectAssigned"
-                type="text"
-                name="subjectAssigned"
-                value={readOnlyData.subjectAssigned}
-                readOnly
-                disabled
-                className="ct-readonly-field"
-                placeholder="Subject Assigned"
-              />
-            </div>
-
-=======
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             <div className="ct-form-group full-width">
               <label htmlFor="address">Address</label>
               <input
@@ -650,8 +472,6 @@ const CTSettings = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
       {/* ── Upload Signature ── */}
       <div className="ct-settings-card">
         <h2 className="ct-card-title">Upload Signature</h2>
@@ -703,7 +523,6 @@ const CTSettings = () => {
         </div>
       </div>
 
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
       {/* ── Security ── */}
       <div className="ct-settings-card">
         <h2 className="ct-card-title">Security</h2>
@@ -711,11 +530,7 @@ const CTSettings = () => {
           <div className="ct-security-item">
             <div className="ct-security-text">
               <h3>Change Password</h3>
-<<<<<<< HEAD
-              <p>Update your password to keep your account secure.</p>
-=======
               <p>Receive real-time notifications and team alerts.</p>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             </div>
             <button
               className="ct-change-password-btn"
