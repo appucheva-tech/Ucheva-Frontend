@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Overview.css";
 import PH from "../../../../assets/ph.svg";
 import UIM from "../../../../assets/uim.svg";
@@ -7,9 +7,11 @@ import Material from "../../../../assets/material.svg";
 import { apiClient } from "../../../../config/AxiosInstance";
 import LoadingScreen from "../../../../components/Loading-Screen";
 import ErrorScreen from "../../../../components/Error-Screen";
-import QRScannerComponent from "../../../Components/QRScannerComponent";
+import { Html5QrcodeScanner } from "html5-qrcode";
+import { toast } from "react-toastify";
 
 const Overview = () => {
+  const scannerRef = useRef(null);
   const [serverData, setServerData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -52,18 +54,40 @@ const Overview = () => {
     fetchDashboardData();
   }, []);
 
+  // Start scanner
+  const startScanner = () => {
+    setShowScanner(true);
+  };
+
+  // Stop scanner
+  const stopScanner = () => {
+    if (scannerRef.current) {
+      scannerRef.current.clear().catch(() => {});
+      scannerRef.current = null;
+    }
+    setShowScanner(false);
+  };
+
   // Handle QR scan success
   const handleScanSuccess = async (decodedText) => {
     console.log("Attendance QR scanned:", decodedText);
 
     try {
-      // Send attendance confirmation to server
-      // const response = await apiClient.post("/attendance/check-in", {
-      //   qrCode: decodedText,
-      //   timestamp: new Date().toISOString()
-      // });
+      // Parse the QR code data
+      let scanData;
+      try {
+        scanData = JSON.parse(decodedText);
+      } catch {
+        scanData = { token: decodedText };
+      }
 
-      // For demo, we'll simulate a successful check-in
+      // Call the actual attendance API
+      const response = await apiClient.post("/staffattendance/check-in", {
+        token: scanData.token || scanData,
+        timestamp: new Date().toISOString(),
+      });
+
+      // Update attendance status
       const now = new Date();
       const timeString = now.toLocaleTimeString();
 
@@ -73,22 +97,56 @@ const Overview = () => {
         message: `✅ Checked in successfully at ${timeString}`,
       });
 
-      // Show success notification
-      alert(`✅ Checked in successfully at ${timeString}`);
+      toast.success("✅ Attendance recorded successfully!");
 
       // Refresh dashboard data
       await fetchDashboardData();
+
+      // Stop scanner after successful check-in
+      stopScanner();
     } catch (error) {
       console.error("Check-in failed:", error);
-      alert("❌ Check-in failed. Please try again.");
+      toast.error(error.response?.data?.message || "❌ Check-in failed. Please try again.");
     }
   };
 
   // Handle scan error
   const handleScanError = (error) => {
-    console.error("Scan error:", error);
-    // You could show a toast notification here
+    // Silent logging - don't show errors to user
+    console.log("Scan error:", error);
   };
+
+  // Initialize scanner when showScanner is true
+  useEffect(() => {
+    if (!showScanner) return;
+
+    // Clean up any existing scanner
+    if (scannerRef.current) {
+      scannerRef.current.clear().catch(() => {});
+      scannerRef.current = null;
+    }
+
+    const scanner = new Html5QrcodeScanner(
+      "reader",
+      { 
+        fps: 10, 
+        qrbox: 250,
+        aspectRatio: 1.0,
+      },
+      false
+    );
+
+    scanner.render(handleScanSuccess, handleScanError);
+    scannerRef.current = scanner;
+
+    // Cleanup on unmount or when scanner closes
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch(() => {});
+        scannerRef.current = null;
+      }
+    };
+  }, [showScanner]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -192,29 +250,23 @@ const Overview = () => {
               </span>
             </ul>
 
-            {/* QR Scanner Component - Replace the dummy button */}
+            {/* QR Scanner - Direct implementation */}
             <div className="qr-scanner-wrapper">
               {!attendanceStatus.isCheckedIn ? (
                 <>
-                  <button
-                    className="qr-scan-button"
-                    onClick={() => setShowScanner(true)}
-                    disabled={showScanner}
-                  >
-                    {showScanner ? "Scanning..." : "📷 Scan QR to Check In"}
-                  </button>
-
-                  {showScanner && (
+                  {!showScanner ? (
+                    <button
+                      className="qr-scan-button"
+                      onClick={startScanner}
+                    >
+                      📷 Scan QR to Check In
+                    </button>
+                  ) : (
                     <div className="scanner-container">
-                      <QRScannerComponent
-                        onScanSuccess={handleScanSuccess}
-                        onScanError={handleScanError}
-                        isCheckedIn={attendanceStatus.isCheckedIn}
-                        buttonText="Scan QR to Check In"
-                      />
+                      <div id="reader" style={{ width: "100%", maxWidth: "400px" }} />
                       <button
                         className="qr-scan-close"
-                        onClick={() => setShowScanner(false)}
+                        onClick={stopScanner}
                       >
                         ✕ Close Scanner
                       </button>

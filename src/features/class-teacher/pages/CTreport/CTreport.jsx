@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./CTreport.css";
 import { FaArrowsRotate } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { apiClient } from "../../../../config/AxiosInstance";
 
 const CTreport = () => {
+  const nav = useNavigate();
   const [studentReport, setStudentReport] = useState([]);
-
   useEffect(() => {
     const fetchStudentReport = async () => {
       try {
-        const res = await apiClient.get("/student/getAllStudents");
+        const res = await apiClient.get("/classteacher/all-students");
         console.log(res);
-        setStudentReport(res.data?.studentsData);
+        setStudentReport(res.data?.studentData);
       } catch (error) {
         console.log("error:", error.data.message);
       }
@@ -82,17 +82,28 @@ const CTreport = () => {
             <nav className="CTTableContentValue2">Status</nav>
             <nav className="CTTableContentValue2">Actions</nav>
           </div>
-
-          <ul className="CTActualTableInfo2">
-            <input className="CTTableValueName2" type="checkbox" />
-            <nav className="CTTableValueName2">{studentReport.fullName}</nav>
-            <nav className="CTTableValueName2">{studentReport.classes}</nav>
-            <nav className="CTTableValueName2">Ready for review</nav>
-            <Link className="LinkToST" to="/CTdashboard/studentreport">
-              <nav className="CTTableValueAction">:</nav>
-            </Link>
-          </ul>
-
+          {studentReport.map((report) => (
+            <ul
+              className="CTActualTableInfo2"
+              key={report.id}
+              onClick={
+                () =>
+                  nav(
+                    `/CTdashboard/CTreportcard/studentreport/${report.admissionNumber}`,
+                  )
+                //                                      ^ use the same case as route
+              }
+              style={{ cursor: "pointer" }}
+            >
+              <input className="CTTableValueName2" type="checkbox" />
+              <nav className="CTTableValueName2">{report.fullName}</nav>
+              <nav className="CTTableValueName2">{report.admissionNumber}</nav>
+              <nav className="CTTableValueName2">Ready for review</nav>
+              <Link className="LinkToST" to="/CTdashboard/studentreport">
+                <nav className="CTTableValueAction">:</nav>
+              </Link>
+            </ul>
+          ))}
           <div className="pagination">
             <span>Showing pages 1 of 7</span>
 

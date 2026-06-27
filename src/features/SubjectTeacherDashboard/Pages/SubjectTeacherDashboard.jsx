@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherDashboard.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { toast } from "react-toastify";
-import QRScannerComponent from "../../Components/QRScannerComponent";
+import { Html5QrcodeScanner } from "html5-qrcode";
 
 /* ─── Skeleton helpers ─────────────────────────────────────────────────── */
 const Skeleton = ({
@@ -172,6 +172,7 @@ const LoadingSkeleton = () => (
 /* ──────────────────────────────────────────────────────────────────────── */
 
 const SubjectTeacherDashboard = () => {
+  const scannerRef = useRef(null);
   const [dashboardData, setDashboardData] = useState(null);
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -215,14 +216,38 @@ const SubjectTeacherDashboard = () => {
     fetchDashboardData();
   }, []);
 
+  // Start scanner
+  const startScanner = () => {
+    setShowScanner(true);
+  };
+
+  // Stop scanner
+  const stopScanner = () => {
+    if (scannerRef.current) {
+      scannerRef.current.clear().catch(() => {});
+      scannerRef.current = null;
+    }
+    setShowScanner(false);
+  };
+
   // Handle QR scan success
   const handleScanSuccess = async (decodedText) => {
     console.log("Attendance QR scanned:", decodedText);
+
     try {
-      // await apiClient.post("/attendance/check-in", {
-      //   qrCode: decodedText,
-      //   timestamp: new Date().toISOString(),
-      // });
+      // Parse the QR code data
+      let scanData;
+      try {
+        scanData = JSON.parse(decodedText);
+      } catch {
+        scanData = { token: decodedText };
+      }
+
+      // Call the actual attendance API
+      const response = await apiClient.post("/staffattendance/check-in", {
+        token: scanData.token || scanData,
+        timestamp: new Date().toISOString(),
+      });
 
       const now = new Date();
       const timeString = now.toLocaleTimeString();
@@ -230,21 +255,61 @@ const SubjectTeacherDashboard = () => {
       setAttendanceStatus({
         isCheckedIn: true,
         checkInTime: timeString,
-        message: `Checked in successfully at ${timeString}`,
+        message: `✅ Checked in successfully at ${timeString}`,
       });
 
-      setShowScanner(false);
-      toast.success(`Checked in successfully at ${timeString}`);
+      toast.success(`✅ Checked in successfully at ${timeString}`);
+
+      // Stop scanner after successful check-in
+      stopScanner();
+
+      // Refresh dashboard data
       await fetchDashboardData();
     } catch (error) {
       console.error("Check-in failed:", error);
-      toast.error("Check-in failed. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "❌ Check-in failed. Please try again.",
+      );
     }
   };
 
   const handleScanError = (error) => {
-    console.error("Scan error:", error);
+    // Silent logging - don't show errors to user
+    console.log("Scan error:", error);
   };
+
+  // Initialize scanner when showScanner is true
+  useEffect(() => {
+    if (!showScanner) return;
+
+    // Clean up any existing scanner
+    if (scannerRef.current) {
+      scannerRef.current.clear().catch(() => {});
+      scannerRef.current = null;
+    }
+
+    const scanner = new Html5QrcodeScanner(
+      "subject-teacher-reader",
+      {
+        fps: 10,
+        qrbox: 250,
+        aspectRatio: 1.0,
+      },
+      false,
+    );
+
+    scanner.render(handleScanSuccess, handleScanError);
+    scannerRef.current = scanner;
+
+    // Cleanup on unmount or when scanner closes
+    return () => {
+      if (scannerRef.current) {
+        scannerRef.current.clear().catch(() => {});
+        scannerRef.current = null;
+      }
+    };
+  }, [showScanner]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -396,7 +461,7 @@ const SubjectTeacherDashboard = () => {
 
           <h2>
             {attendanceStatus.isCheckedIn
-              ? "Checked In Successful"
+              ? "✅ Checked In Successfully"
               : "Not Checked In"}
           </h2>
 
@@ -410,30 +475,24 @@ const SubjectTeacherDashboard = () => {
               : "Please scan the QR code to mark your attendance"}
           </p>
 
-          {/* QR Scanner — mirrors Overview.jsx logic exactly */}
+          {/* QR Scanner - Direct implementation */}
           <div className="qr-scanner-wrapper">
             {!attendanceStatus.isCheckedIn ? (
               <>
-                <button
-                  className="SubjectTeacherDashboard-check-out-btn"
-                  onClick={() => setShowScanner(true)}
-                  disabled={showScanner}
-                >
-                  {showScanner ? "Scanning..." : "📷 Scan QR to Check In"}
-                </button>
-
-                {showScanner && (
+                {!showScanner ? (
+                  <button
+                    className="SubjectTeacherDashboard-check-out-btn"
+                    onClick={startScanner}
+                  >
+                    📷 Scan QR to Check In
+                  </button>
+                ) : (
                   <div className="scanner-container">
-                    <QRScannerComponent
-                      onScanSuccess={handleScanSuccess}
-                      onScanError={handleScanError}
-                      isCheckedIn={attendanceStatus.isCheckedIn}
-                      buttonText="Scan QR to Check In"
+                    <div
+                      id="subject-teacher-reader"
+                      style={{ width: "100%", maxWidth: "400px" }}
                     />
-                    <button
-                      className="qr-scan-close"
-                      onClick={() => setShowScanner(false)}
-                    >
+                    <button className="qr-scan-close" onClick={stopScanner}>
                       ✕ Close Scanner
                     </button>
                   </div>
