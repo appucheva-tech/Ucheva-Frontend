@@ -788,3 +788,120 @@
     justify-content: center;
   }
 }
+<<<<<<< HEAD
+=======
+
+/* Signature Section */
+.ct-signature-content {
+  padding: 1rem 0;
+}
+
+.ct-signature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ct-signature-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.ct-signature-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2d3748;
+  margin-bottom: 0.25rem;
+}
+
+.ct-signature-placeholder {
+  width: 100%;
+  height: 120px;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #f7fafc;
+  color: #a0aec0;
+  transition: all 0.2s;
+}
+
+.ct-signature-placeholder:hover {
+  border-color: #4299e1;
+  background: #ebf8ff;
+}
+
+.ct-signature-upload-icon {
+  font-size: 2rem;
+}
+
+.ct-signature-preview {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f7fafc;
+}
+
+.ct-signature-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 0.5rem;
+}
+
+.ct-signature-remove-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: #fc8181;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.ct-signature-remove-btn:hover {
+  background: #e53e3e;
+}
+
+.ct-signature-upload-btn {
+  display: inline-block;
+  background: #4299e1;
+  color: white;
+  padding: 0.5rem 2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background 0.2s;
+  border: none;
+}
+
+.ct-signature-upload-btn:hover {
+  background: #3182ce;
+}
+
+.ct-signature-input {
+  display: none;
+}
+
+.ct-signature-info {
+  font-size: 0.8rem;
+  color: #a0aec0;
+  margin-top: 0.25rem;
+}
+>>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85

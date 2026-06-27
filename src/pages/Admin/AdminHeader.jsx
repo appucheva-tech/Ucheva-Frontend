@@ -16,6 +16,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const user = useSelector((state) => state.user.user);
   const nav = useNavigate();
   const dispatch = useDispatch();
+<<<<<<< HEAD
   const fullName =
     user?.adminFirstName && user?.adminLastName
       ? `${user.adminFirstName} ${user.adminLastName}`
@@ -26,6 +27,17 @@ const AdminHeader = ({ setSidebarOpen }) => {
 
   const currentSession = user?.academicSession || "No Session";
   const currentTerm = user?.term || "No Term";
+=======
+
+  // Dynamic values from your Redux state
+  const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
+  const role = user?.role || "Admin";
+  const profileInitial = adminName.charAt(0).toUpperCase();
+
+  // Assuming these are fetched from your settings or global state
+  const currentSession = "2025/2026 Session";
+  const currentTerm = "Third Term";
+>>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -140,6 +152,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
               <div className="AdminHdr-dropdown-menu">
                 <button
                   className="AdminHdr-dropdown-item"
+<<<<<<< HEAD
                   onClick={() => {
                     setIsProfileDropdownOpen(false);
                     nav("/admin/settings");
@@ -149,6 +162,8 @@ const AdminHeader = ({ setSidebarOpen }) => {
                 </button>
                 <button
                   className="AdminHdr-dropdown-item"
+=======
+>>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
                   onClick={() => setShowLogoutModal(true)}
                 >
                   Logout
@@ -165,6 +180,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
           className="AdminHdr-modal-overlay"
           onClick={() => !isLoggingOut && setShowLogoutModal(false)}
         >
+<<<<<<< HEAD
           <div className="AdminHdr-modal" onClick={(e) => e.stopPropagation()}>
             <div className="AdminHdr-modal-icon">⚠️</div>
             <div className="AdminHdr-modal-title">Confirm Logout</div>
@@ -188,6 +204,9 @@ const AdminHeader = ({ setSidebarOpen }) => {
               </button>
             </div>
           </div>
+=======
+          {/* Modal content omitted for brevity, keep your original block here */}
+>>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         </div>
       )}
     </>

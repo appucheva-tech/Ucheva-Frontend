@@ -35,7 +35,11 @@ const AdminWallet = () => {
     accountName: "",
     bankName: "",
     bankCode: "",
+<<<<<<< HEAD
     currency: "NG",
+=======
+    currency: "NGN",
+>>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
     narration: "School wallet withdrawal",
   });
 

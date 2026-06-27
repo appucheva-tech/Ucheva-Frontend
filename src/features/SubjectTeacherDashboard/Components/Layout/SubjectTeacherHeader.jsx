@@ -13,6 +13,12 @@ const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+import React from "react";
+import { useSelector } from "react-redux";
+import "./LayoutStyles/SubjectTeacherHeader.css";
+
+const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
+  const staff = useSelector((state) => state.user?.user);
 
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
