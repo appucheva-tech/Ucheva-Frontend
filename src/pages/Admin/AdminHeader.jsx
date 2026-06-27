@@ -27,8 +27,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const currentSession = user?.academicSession || "No Session";
   const currentTerm = user?.term || "No Term";
 
-<<<<<<< HEAD
-=======
+
   // // Dynamic values from your Redux state
   // const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
   // const role = user?.role || "Admin";
@@ -38,7 +37,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
   // const currentSession = "2025/2026 Session";
   // const currentTerm = "Third Term";
 
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

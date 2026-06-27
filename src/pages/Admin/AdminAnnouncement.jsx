@@ -1,22 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
-<<<<<<< HEAD
-import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
-=======
-import { PiStudentFill } from "react-icons/pi";
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
 import { HiMiniUserGroup } from "react-icons/hi2";
+import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { FaSackDollar } from "react-icons/fa6";
-<<<<<<< HEAD
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
-=======
 import {
   FaTimes,
   FaEdit,
   FaTrash,
   FaExclamationTriangle,
 } from "react-icons/fa";
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
+
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -46,8 +40,7 @@ const AdminAnnouncement = () => {
     limit: 10,
     total: 0,
   });
-<<<<<<< HEAD
-=======
+
 
   // Delete confirmation modal state
   const [deleteModal, setDeleteModal] = useState({
@@ -57,7 +50,7 @@ const AdminAnnouncement = () => {
     isDeleting: false,
   });
 
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -268,19 +261,21 @@ const AdminAnnouncement = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
-<<<<<<< HEAD
   const handlePageChange = (newPage) =>
     setPagination((prev) => ({ ...prev, page: newPage }));
 
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this announcement?")) return;
-    try {
-      await apiClient.delete(`/announcement/${id}`);
-      await fetchAnnouncements();
-    } catch (err) {
-      console.error("Error deleting announcement:", err);
-      alert("Failed to delete announcement. Please try again.");
-=======
+const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this announcement?")) return;
+
+  try {
+    await apiClient.delete(`/announcement/${id}`);
+    await fetchAnnouncements();
+  } catch (err) {
+    console.error("Error deleting announcement:", err);
+    alert("Failed to delete announcement. Please try again.");
+  }
+};
+
   // Open delete confirmation modal
   const openDeleteModal = (id, title) => {
     setDeleteModal({
@@ -334,13 +329,12 @@ const AdminAnnouncement = () => {
         },
       );
       setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
     }
   };
 
   const totalPages = Math.ceil(pagination.total / pagination.limit);
 
-<<<<<<< HEAD
   // ── Empty state message varies by tab and search ──────────────────────────
   const emptyTitle = searchTerm
     ? "No Results Found"
@@ -354,8 +348,7 @@ const AdminAnnouncement = () => {
     ? "You haven't created any announcements yet. Use the button above to get started."
     : `You have no ${activeTab} announcements. Create one to see it here.`;
 
-=======
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
   return (
     <>
       {/* ── Header + metrics ── */}
@@ -466,7 +459,6 @@ const AdminAnnouncement = () => {
           </div>
         </div>
 
-<<<<<<< HEAD
         {/* ── States ── */}
         {isLoading ? (
           <LoadingScreen />
@@ -476,12 +468,12 @@ const AdminAnnouncement = () => {
             message="We couldn't load your announcements. Check your connection and try again."
             onRetry={fetchAnnouncements}
           />
-=======
-        {loading ? (
-          <div className="loadingState">
-            <div className="spinner"></div>
-            <p>Loading announcements...</p>
-          </div>
+
+        // {loading ? (
+        //   <div className="loadingState">
+        //     <div className="spinner"></div>
+        //     <p>Loading announcements...</p>
+        //   </div>
         ) : error ? (
           <div className="errorState">
             <p>{error}</p>
@@ -489,7 +481,6 @@ const AdminAnnouncement = () => {
               Retry
             </button>
           </div>
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
         ) : announcements.length === 0 ? (
           <EmptyState
             title={emptyTitle}
@@ -517,15 +508,12 @@ const AdminAnnouncement = () => {
                       <button className="editButton" onClick={() => openEditPanel(item)} aria-label="Edit">
                         <FaEdit />
                       </button>
-<<<<<<< HEAD
-                      <button className="deleteButton" onClick={() => handleDelete(item.id)} aria-label="Delete">
-=======
                       <button
                         className="deleteButton"
                         onClick={() => openDeleteModal(item.id, item.title)}
                         aria-label="Delete"
                       >
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
                         <FaTrash />
                       </button>
                     </div>
@@ -589,12 +577,7 @@ const AdminAnnouncement = () => {
 
         <footer className="footerView">
           <span className="copyright">
-<<<<<<< HEAD
-            © {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
-=======
-            © 2026 Ucheva school operating management system. All right
-            reserved.
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+            ©️ {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
           </span>
           <span className="support">
             Need help?{" "}
@@ -742,8 +725,7 @@ const AdminAnnouncement = () => {
           </form>
         </div>
       </div>
-<<<<<<< HEAD
-=======
+
 
       {/* Delete Confirmation Modal */}
       <div
@@ -783,9 +765,9 @@ const AdminAnnouncement = () => {
           </div>
         </div>
       </div>
->>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
+
     </>
   );
 };
-
+  
 export default AdminAnnouncement;
