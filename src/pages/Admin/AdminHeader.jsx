@@ -17,6 +17,17 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
+  const fullName =
+    user?.adminFirstName && user?.adminLastName
+      ? `${user.adminFirstName} ${user.adminLastName}`
+      : "Admin";
+  const adminName = fullName;
+  const role = user?.role || "Admin";
+  const profileInitial = fullName.charAt(0).toUpperCase();
+
+  const currentSession = user?.academicSession || "No Session";
+  const currentTerm = user?.term || "No Term";
+
   // Dynamic values from your Redux state
   const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
   const role = user?.role || "Admin";
@@ -139,6 +150,15 @@ const AdminHeader = ({ setSidebarOpen }) => {
               <div className="AdminHdr-dropdown-menu">
                 <button
                   className="AdminHdr-dropdown-item"
+                  onClick={() => {
+                    setIsProfileDropdownOpen(false);
+                    nav("/admin/settings");
+                  }}
+                >
+                  Settings
+                </button>
+                <button
+                  className="AdminHdr-dropdown-item"
                   onClick={() => setShowLogoutModal(true)}
                 >
                   Logout
@@ -155,6 +175,29 @@ const AdminHeader = ({ setSidebarOpen }) => {
           className="AdminHdr-modal-overlay"
           onClick={() => !isLoggingOut && setShowLogoutModal(false)}
         >
+          <div className="AdminHdr-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="AdminHdr-modal-icon">⚠️</div>
+            <div className="AdminHdr-modal-title">Confirm Logout</div>
+            <div className="AdminHdr-modal-message">
+              Are you sure you want to log out of your admin account?
+            </div>
+            <div className="AdminHdr-modal-actions">
+              <button
+                className="AdminHdr-modal-cancel"
+                onClick={() => setShowLogoutModal(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="AdminHdr-modal-confirm"
+                onClick={handleLogoutConfirm}
+                disabled={isLoggingOut}
+              >
+                {isLoggingOut && <span className="AdminHdr-spinner"></span>}
+                {isLoggingOut ? "Logging out..." : "Yes, Logout"}
+              </button>
+            </div>
+          </div>
           {/* Modal content omitted for brevity, keep your original block here */}
         </div>
       )}
