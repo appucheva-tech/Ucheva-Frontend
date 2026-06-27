@@ -91,6 +91,17 @@
 }
 
 .AdminHdr-avatar {
+<<<<<<< HEAD
+=======
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -208,6 +219,12 @@
 }
 
 @keyframes AdminHdr-spin {
+<<<<<<< HEAD
+=======
+  to {
+    transform: rotate(360deg);
+  }
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
   to { transform: rotate(360deg); }
 }
 

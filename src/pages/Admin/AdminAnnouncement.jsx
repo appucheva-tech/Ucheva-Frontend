@@ -1,10 +1,25 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
+<<<<<<< HEAD
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
+=======
+import { PiStudentFill } from "react-icons/pi";
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
+<<<<<<< HEAD
 import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+=======
+import {
+  FaTimes,
+  FaEdit,
+  FaTrash,
+  FaExclamationTriangle,
+} from "react-icons/fa";
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
 import { apiClient } from "../../config/AxiosInstance";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // ── Your three state components ───────────────────────────────────────────────
 import LoadingScreen from "../../components/Loading-Screen";     // adjust path
@@ -31,6 +46,18 @@ const AdminAnnouncement = () => {
     limit: 10,
     total: 0,
   });
+<<<<<<< HEAD
+=======
+
+  // Delete confirmation modal state
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    announcementId: null,
+    announcementTitle: "",
+    isDeleting: false,
+  });
+
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -156,13 +183,40 @@ const AdminAnnouncement = () => {
 
       if (editingAnnouncement) {
         await apiClient.put(`/announcement/${editingAnnouncement.id}`, payload);
+        toast.success("Announcement updated successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       } else {
         await apiClient.post("/announcement", payload);
+        toast.success("Announcement created successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
       await fetchAnnouncements();
       closePanel();
     } catch (err) {
       console.error("Error saving announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to save announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
       setFormErrors({
         submit: err.response?.data?.message || "Failed to save announcement. Please try again.",
       });
@@ -214,6 +268,7 @@ const AdminAnnouncement = () => {
     setPagination((prev) => ({ ...prev, page: 1 }));
   };
 
+<<<<<<< HEAD
   const handlePageChange = (newPage) =>
     setPagination((prev) => ({ ...prev, page: newPage }));
 
@@ -225,11 +280,67 @@ const AdminAnnouncement = () => {
     } catch (err) {
       console.error("Error deleting announcement:", err);
       alert("Failed to delete announcement. Please try again.");
+=======
+  // Open delete confirmation modal
+  const openDeleteModal = (id, title) => {
+    setDeleteModal({
+      isOpen: true,
+      announcementId: id,
+      announcementTitle: title,
+      isDeleting: false,
+    });
+  };
+
+  // Close delete confirmation modal
+  const closeDeleteModal = () => {
+    setDeleteModal({
+      isOpen: false,
+      announcementId: null,
+      announcementTitle: "",
+      isDeleting: false,
+    });
+  };
+
+  // Handle delete with confirmation
+  const confirmDelete = async () => {
+    const { announcementId } = deleteModal;
+    if (!announcementId) return;
+
+    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
+
+    try {
+      await apiClient.delete(`/announcement/${announcementId}`);
+      await fetchAnnouncements();
+      toast.success("Announcement deleted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      closeDeleteModal();
+    } catch (err) {
+      console.error("Error deleting announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to delete announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
+      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
     }
   };
 
   const totalPages = Math.ceil(pagination.total / pagination.limit);
 
+<<<<<<< HEAD
   // ── Empty state message varies by tab and search ──────────────────────────
   const emptyTitle = searchTerm
     ? "No Results Found"
@@ -243,6 +354,8 @@ const AdminAnnouncement = () => {
     ? "You haven't created any announcements yet. Use the button above to get started."
     : `You have no ${activeTab} announcements. Create one to see it here.`;
 
+=======
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
   return (
     <>
       {/* ── Header + metrics ── */}
@@ -353,6 +466,7 @@ const AdminAnnouncement = () => {
           </div>
         </div>
 
+<<<<<<< HEAD
         {/* ── States ── */}
         {isLoading ? (
           <LoadingScreen />
@@ -362,6 +476,20 @@ const AdminAnnouncement = () => {
             message="We couldn't load your announcements. Check your connection and try again."
             onRetry={fetchAnnouncements}
           />
+=======
+        {loading ? (
+          <div className="loadingState">
+            <div className="spinner"></div>
+            <p>Loading announcements...</p>
+          </div>
+        ) : error ? (
+          <div className="errorState">
+            <p>{error}</p>
+            <button className="retryBtn" onClick={fetchAnnouncements}>
+              Retry
+            </button>
+          </div>
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
         ) : announcements.length === 0 ? (
           <EmptyState
             title={emptyTitle}
@@ -389,7 +517,15 @@ const AdminAnnouncement = () => {
                       <button className="editButton" onClick={() => openEditPanel(item)} aria-label="Edit">
                         <FaEdit />
                       </button>
+<<<<<<< HEAD
                       <button className="deleteButton" onClick={() => handleDelete(item.id)} aria-label="Delete">
+=======
+                      <button
+                        className="deleteButton"
+                        onClick={() => openDeleteModal(item.id, item.title)}
+                        aria-label="Delete"
+                      >
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
                         <FaTrash />
                       </button>
                     </div>
@@ -453,7 +589,12 @@ const AdminAnnouncement = () => {
 
         <footer className="footerView">
           <span className="copyright">
+<<<<<<< HEAD
             © {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
+=======
+            © 2026 Ucheva school operating management system. All right
+            reserved.
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
           </span>
           <span className="support">
             Need help?{" "}
@@ -601,6 +742,48 @@ const AdminAnnouncement = () => {
           </form>
         </div>
       </div>
+<<<<<<< HEAD
+=======
+
+      {/* Delete Confirmation Modal */}
+      <div
+        className={`delete-modal-overlay ${deleteModal.isOpen ? "active" : ""}`}
+        onClick={() => !deleteModal.isDeleting && closeDeleteModal()}
+      >
+        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="delete-modal-icon">
+            <FaExclamationTriangle />
+          </div>
+          <h2 className="delete-modal-title">Delete Announcement</h2>
+          <p className="delete-modal-message">
+            Are you sure you want to delete "{deleteModal.announcementTitle}"?
+            This action cannot be undone.
+          </p>
+          <div className="delete-modal-actions">
+            <button
+              className="delete-modal-cancel"
+              onClick={closeDeleteModal}
+              disabled={deleteModal.isDeleting}
+            >
+              Cancel
+            </button>
+            <button
+              className="delete-modal-confirm"
+              onClick={confirmDelete}
+              disabled={deleteModal.isDeleting}
+            >
+              {deleteModal.isDeleting ? (
+                <>
+                  <span className="delete-spinner"></span> Deleting...
+                </>
+              ) : (
+                "Yes, Delete"
+              )}
+            </button>
+          </div>
+        </div>
+      </div>
+>>>>>>> 9b88fc74a336f52646724175afd5a02fbd67b80e
     </>
   );
 };
