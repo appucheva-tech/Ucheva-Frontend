@@ -111,19 +111,17 @@ const AdminAttendance = () => {
                   attendance.map((row, index) => (
                     <tr key={row.id || row._id || index}>
                       <td className="staffNameCell">
-                        {row.staff?.fullName ||
-                          row.staffName ||
-                          row.name ||
-                          "N/A"}
+                    {row.staff?.firstName + " " +row.staff?.lastName }
+
                       </td>
 
                       <td className="roleCell">
-                        {row.staff?.role || row.staffRole || row.role || "N/A"}
+                        {row.staff?.staffType }
                       </td>
 
                       <td className="timeCell">
-                        {row.checkInTime
-                          ? new Date(row.checkInTime).toLocaleTimeString([], {
+                        {row.timeCheckedIn
+                          ? new Date(row.timeCheckedIn).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
                             })
@@ -131,8 +129,8 @@ const AdminAttendance = () => {
                       </td>
 
                       <td className="timeCell">
-                        {row.checkOutTime
-                          ? new Date(row.checkOutTime).toLocaleTimeString([], {
+                        {row.timeCheckedOut
+                          ? new Date(row.timeCheckedOut).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
                             })
@@ -140,8 +138,8 @@ const AdminAttendance = () => {
                       </td>
 
                       <td className="dateCell">
-                        {row.createdAt
-                          ? new Date(row.createdAt).toLocaleDateString()
+                        {row.date
+                          ? new Date(row.date).toLocaleDateString()
                           : "--"}
                       </td>
                     </tr>

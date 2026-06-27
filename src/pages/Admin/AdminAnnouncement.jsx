@@ -3,7 +3,7 @@ import "./AdminAnnouncement.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import { FaTimes, FaEdit, FaTrash,FaExclamationTriangle } from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +22,12 @@ const AdminAnnouncement = () => {
   const [isCreatePanelOpen, setIsCreatePanelOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingAnnouncement, setEditingAnnouncement] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    announcementId: null,
+    announcementTitle: "",
+    isDeleting: false,
+  });
   const [stats, setStats] = useState({
     drafts: 0,
     scheduled: 0,
@@ -220,7 +226,14 @@ const AdminAnnouncement = () => {
     setIsCreatePanelOpen(true);
     document.body.style.overflow = "hidden";
   };
-
+  const closeDeleteModal = () => {
+    setDeleteModal({
+      isOpen: false,
+      announcementId: null,
+      announcementTitle: "",
+      isDeleting: false,
+    });
+  };
   const closePanel = () => {
     setIsCreatePanelOpen(false);
     document.body.style.overflow = "auto";
@@ -241,6 +254,40 @@ const AdminAnnouncement = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     setPagination((prev) => ({ ...prev, page: 1 }));
+  };
+  const confirmDelete = async () => {
+    const { announcementId } = deleteModal;
+    if (!announcementId) return;
+
+    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
+
+    try {
+      await apiClient.delete(`/announcement/${announcementId}`);
+      await fetchAnnouncements();
+      toast.success("Announcement deleted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      closeDeleteModal();
+    } catch (err) {
+      console.error("Error deleting announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to delete announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
+      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
+    }
   };
 
   const handlePageChange = (newPage) =>
