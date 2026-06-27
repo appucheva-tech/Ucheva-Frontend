@@ -177,7 +177,6 @@
   color: #dc2626;
 }
 
-<<<<<<< HEAD
 /* ========== LOGOUT CONFIRMATION MODAL ========== */
 .logout-modal-overlay {
   position: fixed;
@@ -312,8 +311,6 @@
   to { transform: rotate(360deg); }
 }
 
-=======
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 /* ========== NOTIFICATION HUB SECTION ========== */
 .ct-notification-section {
   display: flex;

@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
-<<<<<<< HEAD
 import { LuCamera } from "react-icons/lu";
-=======
-import { LuCamera, LuUpload } from "react-icons/lu";
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./CTSettings.css";
 import { apiClient } from "../../../../config/AxiosInstance";
@@ -132,11 +128,6 @@ const CTSettings = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
-<<<<<<< HEAD
-=======
-  const [signature, setSignature] = useState(null);
-  const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -158,13 +149,8 @@ const CTSettings = () => {
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
-<<<<<<< HEAD
       const response = await apiClient.get("/subjectteacher/getprofiledetails");
       const data = response?.data?.subjectTeacher || response?.data;
-=======
-      const response = await apiClient.get("/classteacher/getprofiledetails");
-      const data = response?.data?.classTeacherData || response?.data;
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
 
       setProfileData({
         firstName: data?.firstName || "",
@@ -182,23 +168,13 @@ const CTSettings = () => {
         maritalStatus: data?.maritalStatus || "",
         qualification: data?.qualification || "",
         staffType: data?.staffType || "",
-<<<<<<< HEAD
         classAssigned: data?.classAssigned || "No class assigned",
-=======
-        classAssigned: Array.isArray(data?.classAssigned)
-          ? data.classAssigned.join(", ")
-          : data?.classAssigned || "No class assigned",
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         subjectAssigned: Array.isArray(data?.subjectAssigned)
           ? data.subjectAssigned.join(", ")
           : data?.subjectAssigned || "No subjects assigned",
       });
 
       setPreviewUrl(data?.staffProfileUrl || null);
-<<<<<<< HEAD
-=======
-      setSignaturePreviewUrl(data?.signatureUrl || null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
     } catch (err) {
       console.error(err);
       toast.error(err?.response?.data?.message || "Failed to load profile.");
@@ -231,23 +207,6 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
-<<<<<<< HEAD
-=======
-  /* ── Signature change ── */
-  const handleSignatureChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      toast.error("Signature must be less than 2MB.");
-      return;
-    }
-    setSignature(file);
-    const reader = new FileReader();
-    reader.onloadend = () => setSignaturePreviewUrl(reader.result);
-    reader.readAsDataURL(file);
-  };
-
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
   /* ── Password field change ── */
   const handlePasswordInputChange = (e) => {
     const { name, value } = e.target;
@@ -263,27 +222,15 @@ const CTSettings = () => {
       formData.append("firstName", profileData.firstName);
       formData.append("lastName", profileData.lastName);
       formData.append("address", profileData.address);
-<<<<<<< HEAD
       if (avatar) formData.append("profilePicture", avatar);
 
       await apiClient.put("/subjectteacher/updateprofile", formData, {
-=======
-
-      if (avatar) formData.append("profilePicture", avatar);
-      if (signature) formData.append("signature", signature);
-
-      await apiClient.put("/classteacher/updateprofile", formData, {
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       toast.success("Profile updated successfully!");
       await fetchProfile();
       setAvatar(null);
-<<<<<<< HEAD
-=======
-      setSignature(null);
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
     } catch (err) {
       console.error(err);
       const msg =
@@ -329,11 +276,7 @@ const CTSettings = () => {
       formData.append("newPassword", newPassword);
       formData.append("confirmPassword", confirmPassword);
 
-<<<<<<< HEAD
       await apiClient.put("/subjectteacher/updateprofile", formData, {
-=======
-      await apiClient.put("/classteacher/updateprofile", formData, {
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
         headers: { "Content-Type": "multipart/form-data" },
       });
 
@@ -426,7 +369,6 @@ const CTSettings = () => {
 
             <div className="ct-form-row">
               <div className="ct-form-group">
-<<<<<<< HEAD
                 <label htmlFor="otherName">Other Name</label>
                 <input
                   id="otherName"
@@ -450,7 +392,7 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Email Address"
-=======
+                  />
                 <label htmlFor="subjectAssigned">Subject Taught</label>
                 <input
                   id="subjectAssigned"
@@ -474,7 +416,6 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Role"
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
                 />
               </div>
             </div>
@@ -494,7 +435,6 @@ const CTSettings = () => {
                 />
               </div>
               <div className="ct-form-group">
-<<<<<<< HEAD
                 <label htmlFor="gender">Gender</label>
                 <input
                   id="gender"
@@ -505,7 +445,7 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Gender"
-=======
+                  />
                 <label htmlFor="email">Email Address</label>
                 <input
                   id="email"
@@ -516,12 +456,10 @@ const CTSettings = () => {
                   disabled
                   className="ct-readonly-field"
                   placeholder="Email Address"
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
                 />
               </div>
             </div>
 
-<<<<<<< HEAD
             <div className="ct-form-row">
               <div className="ct-form-group">
                 <label htmlFor="dateOfBirth">Date of Birth</label>
@@ -623,8 +561,6 @@ const CTSettings = () => {
               />
             </div>
 
-=======
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             <div className="ct-form-group full-width">
               <label htmlFor="address">Address</label>
               <input
@@ -650,60 +586,6 @@ const CTSettings = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-=======
-      {/* ── Upload Signature ── */}
-      <div className="ct-settings-card">
-        <h2 className="ct-card-title">Upload Signature</h2>
-        <div className="ct-signature-content">
-          <div className="ct-signature-section">
-            <div className="ct-signature-container">
-              <div className="ct-signature-label">
-                Class Teacher's Signature
-              </div>
-              {signaturePreviewUrl ? (
-                <div className="ct-signature-preview">
-                  <img
-                    src={signaturePreviewUrl}
-                    alt="Signature"
-                    className="ct-signature-image"
-                  />
-                  <button
-                    className="ct-signature-remove-btn"
-                    onClick={() => {
-                      setSignature(null);
-                      setSignaturePreviewUrl(null);
-                    }}
-                  >
-                    Remove
-                  </button>
-                </div>
-              ) : (
-                <div className="ct-signature-placeholder">
-                  <LuUpload className="ct-signature-upload-icon" />
-                  <span>Upload Signature</span>
-                </div>
-              )}
-              <label
-                htmlFor="signature-upload"
-                className="ct-signature-upload-btn"
-              >
-                {signaturePreviewUrl ? "Change Signature" : "Upload"}
-              </label>
-              <input
-                id="signature-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleSignatureChange}
-                className="ct-signature-input"
-              />
-              <p className="ct-signature-info">PNG format recommended</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
       {/* ── Security ── */}
       <div className="ct-settings-card">
         <h2 className="ct-card-title">Security</h2>
@@ -711,11 +593,7 @@ const CTSettings = () => {
           <div className="ct-security-item">
             <div className="ct-security-text">
               <h3>Change Password</h3>
-<<<<<<< HEAD
               <p>Update your password to keep your account secure.</p>
-=======
-              <p>Receive real-time notifications and team alerts.</p>
->>>>>>> 8b47e7baa1bf319a2a4dab9f1cb9fc2363a6bf85
             </div>
             <button
               className="ct-change-password-btn"
