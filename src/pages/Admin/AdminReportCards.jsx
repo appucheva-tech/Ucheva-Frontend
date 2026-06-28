@@ -73,12 +73,10 @@ const fetchReportCards = async () => {
   const getStatusClass = (status) => {
     switch (status?.toLowerCase()) {
       case "sent to parent":
-      case "sent":
         return "statusSent";
       case "pending":
         return "statusPending";
-      case "ready to send":
-      case "ready":
+   
       case "ready for review":
         return "statusReady";
       case "awaiting score":
