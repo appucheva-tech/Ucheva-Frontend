@@ -216,25 +216,20 @@ const AdminDashboard = () => {
                   {attendance.map((staff) => (
                     <tr key={staff.id}>
                       <td className="font-medium text-slate">
-                        {staff.staff?.firstName + " " + staff.staff?.lastName}
+                        {staff.staff?.firstName + " " +staff.staff?.lastName }
                       </td>
                       <td>{staff.staff?.staffType || "N/A"}</td>
                       <td>
                         {staff.checkInTime
-                          ? new Date(staff.timeCheckedIn).toLocaleTimeString(
-                              [],
-                              {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              },
-                            )
-                          : new Date(staff.timeCheckedOut).toLocaleTimeString(
-                              [],
-                              {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              },
-                            )}
+                          ? new Date(staff.timeCheckedIn).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                          : new Date(staff.timeCheckedOut).toLocaleTimeString([], {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            })
+                        }
                       </td>
                       <td>
                         <span className="status-badge badge-checked-in">
@@ -309,9 +304,9 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div
-              className="action-button-card action-reports"
-              onClick={() => nav("/admin/AdminReportCards")}
+            <div className="action-button-card action-reports"
+                          onClick={() => nav("/admin/AdminReportCards")}
+
             >
               <div className="action-main-content">
                 <div className="action-icon-box">

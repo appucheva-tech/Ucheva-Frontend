@@ -128,6 +128,8 @@ const CTSettings = () => {
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
+  const [signature, setSignature] = useState(null);
+  const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -206,6 +208,22 @@ const CTSettings = () => {
     reader.onloadend = () => setPreviewUrl(reader.result);
     reader.readAsDataURL(file);
   };
+
+
+  /* ── Signature change ── */
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Signature must be less than 2MB.");
+      return;
+    }
+    setSignature(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setSignaturePreviewUrl(reader.result);
+    reader.readAsDataURL(file);
+  };
+
 
   /* ── Password field change ── */
   const handlePasswordInputChange = (e) => {
@@ -581,6 +599,58 @@ const CTSettings = () => {
               >
                 {profileLoading ? "Saving..." : "Save Changes"}
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      {/* ── Upload Signature ── */}
+      <div className="ct-settings-card">
+        <h2 className="ct-card-title">Upload Signature</h2>
+        <div className="ct-signature-content">
+          <div className="ct-signature-section">
+            <div className="ct-signature-container">
+              <div className="ct-signature-label">
+                Class Teacher's Signature
+              </div>
+              {signaturePreviewUrl ? (
+                <div className="ct-signature-preview">
+                  <img
+                    src={signaturePreviewUrl}
+                    alt="Signature"
+                    className="ct-signature-image"
+                  />
+                  <button
+                    className="ct-signature-remove-btn"
+                    onClick={() => {
+                      setSignature(null);
+                      setSignaturePreviewUrl(null);
+                    }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <div className="ct-signature-placeholder">
+                  <LuUpload className="ct-signature-upload-icon" />
+                  <span>Upload Signature</span>
+                </div>
+              )}
+              <label
+                htmlFor="signature-upload"
+                className="ct-signature-upload-btn"
+              >
+                {signaturePreviewUrl ? "Change Signature" : "Upload"}
+              </label>
+              <input
+                id="signature-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleSignatureChange}
+                className="ct-signature-input"
+              />
+              <p className="ct-signature-info">PNG format recommended</p>
             </div>
           </div>
         </div>

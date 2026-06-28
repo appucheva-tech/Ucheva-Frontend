@@ -1,10 +1,11 @@
+
 import React, { useEffect, useState } from "react";
 import "./AdminReportCards.css";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
-
+import ErrorScreen from "../../components/Error-Screen";
 const AdminReportCards = () => {
   const nav = useNavigate();
   const [reportData, setReportData] = useState([]);
@@ -17,27 +18,34 @@ const AdminReportCards = () => {
   });
 
   // Fetch real data from API - matching CTreport pattern
-  const fetchReportCards = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+const fetchReportCards = async () => {
+  try {
+    setLoading(true);
+    setError(null);
 
-      // Using the same endpoint pattern as CTreport
-      const response = await apiClient.get("/classteacher/all-studentshju");
-      console.log(response);
+    const response = await apiClient.get("/student/getallstudents");
 
-      // Map the response to match the expected structure
-      const data = response?.data?.data || response?.data?.reportCards || [];
-      setReportData(data);
-    } catch (err) {
-      console.error("Error fetching report cards:", err);
-      setError(err.response?.data?.message || "Failed to load report cards");
-      toast.error("Failed to load report cards");
-    } finally {
-      setLoading(false);
-    }
-  };
+    const students = response?.data?.studentsData || [];
 
+    // Map students → report format (without touching your UI class names)
+    const mappedData = students.map((student) => ({
+      id: student.id,
+      fullName: student.fullName,
+      admissionNumber: student.admissionNumber,
+      className: student.classes,
+      classTeacher: student.classTeacher, 
+      status: "awaiting score", 
+    }));
+
+    setReportData(mappedData);
+  } catch (err) {
+    console.error("Error fetching report cards:", err);
+    setError(err.response?.data?.message || "Failed to load report cards");
+    toast.error("Failed to load report cards");
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     fetchReportCards();
   }, []);
@@ -86,7 +94,7 @@ const AdminReportCards = () => {
 
   // Handle navigation to student report
   const handleStudentClick = (admissionNumber) => {
-    nav(`/admin/reportcards/studentreport/${admissionNumber}`);
+    nav(`/admin/AdminReportCards/${admissionNumber}`);
   };
 
   // Loading skeleton for table rows
@@ -121,15 +129,12 @@ const AdminReportCards = () => {
   );
 
   if (error) {
-    return (
-      <div className="dashboard-container">
-        <div className="error-container">
-          <p className="error-message">{error}</p>
-          <button className="retry-btn" onClick={fetchReportCards}>
-            Retry
-          </button>
-        </div>
-      </div>
+   return (
+      <ErrorScreen
+        title="Report Cards Unavailable"
+        message="We couldn't load report card records. Check your connection and try again."
+        onRetry={fetchReportCards}
+      />
     );
   }
 
@@ -288,9 +293,10 @@ const AdminReportCards = () => {
                     {report.status || "N/A"}
                   </span>
                 </nav>
+
                 <Link
                   className="LinkToST"
-                  to={`/admin/reportcards/studentreport/${report.admissionNumber || report.admissionNo}`}
+                  to={`/admin/AdminReportCards/${report.admissionNumber}`}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <nav className="CTTableValueAction">:</nav>
