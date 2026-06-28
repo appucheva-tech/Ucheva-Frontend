@@ -18,7 +18,12 @@ import "./LayoutStyles/SubjectTeacherHeader.css";
 // import "./LayoutStyles/SubjectTeacherHeader.css";
 // }
 const SubjectTeacherHeader = ({ toggleSidebar, isSidebarOpen }) => {
+ const nav = useNavigate();
+  const dispatch = useDispatch();
   const staff = useSelector((state) => state.user?.user);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const today = new Date();
   const dayName = today.toLocaleDateString("en-US", { weekday: "long" });
