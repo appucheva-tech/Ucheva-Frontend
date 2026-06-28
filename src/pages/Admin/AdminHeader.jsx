@@ -8,6 +8,7 @@ import { apiClient } from "../../config/AxiosInstance";
 import "./AdminHeader.css";
 
 const AdminHeader = ({ setSidebarOpen }) => {
+  const [adminProfile, setAdminProfile] = useState(null);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -16,26 +17,30 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const user = useSelector((state) => state.user.user);
   const nav = useNavigate();
   const dispatch = useDispatch();
+
+  // Map from API response
   const fullName =
-    user?.adminFirstName && user?.adminLastName
-      ? `${user.adminFirstName} ${user.adminLastName}`
-      : "Admin";
+    adminProfile?.adminFirstName && adminProfile?.adminLastName
+      ? `${adminProfile.adminFirstName} ${adminProfile.adminLastName}`
+      : user?.adminFirstName && user?.adminLastName
+        ? `${user.adminFirstName} ${user.adminLastName}`
+        : "Admin";
+
   const adminName = fullName;
   const role = user?.role || "Admin";
   const profileInitial = fullName.charAt(0).toUpperCase();
 
-  const currentSession = user?.academicSession || "No Session";
-  const currentTerm = user?.term || "No Term";
+  // Map session and term from API
+  const currentSession =
+    adminProfile?.academicSession ||
+    user?.academicSession ||
+    new Date().getFullYear() ||
+    "No Session";
+  const currentTerm = adminProfile?.term || user?.term || "No Term";
 
-
-  // // Dynamic values from your Redux state
-  // const adminName = user?.schoolName || "Admin"; // Using schoolName as the display name
-  // const role = user?.role || "Admin";
-  // const profileInitial = adminName.charAt(0).toUpperCase();
-
-  // // Assuming these are fetched from your settings or global state
-  // const currentSession = "2025/2026 Session";
-  // const currentTerm = "Third Term";
+  // Get profile image from API if available
+  const profileImage =
+    adminProfile?.adminUrl || adminProfile?.schoolLogoUrl || null;
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -60,9 +65,26 @@ const AdminHeader = ({ setSidebarOpen }) => {
     }
   };
 
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const res = await apiClient("/admin/profile");
+        console.log("API Response:", res.data);
+        setAdminProfile(res.data?.adminProfile);
+      } catch (error) {
+        console.error(
+          "Error fetching admin profile:",
+          error?.response?.data?.message || error.message,
+        );
+      }
+    };
+    fetchAdminProfile();
+  }, []);
+
   return (
     <>
       <header className="AdminHdr-header">
+        {/* Hamburger button */}
         <button
           className="AdminHdr-hamburger"
           onClick={() => setSidebarOpen((prev) => !prev)}
@@ -81,6 +103,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
           </svg>
         </button>
 
+        {/* Search */}
         <div className="AdminHdr-search-container">
           <input
             type="text"
@@ -102,6 +125,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
           </button>
         </div>
 
+        {/* Right Group */}
         <div className="AdminHdr-right-group">
           <div className="AdminHdr-meta-container">
             <div className="AdminHdr-meta-item">
@@ -131,6 +155,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
             <div className="AdminHdr-meta-item">{currentTerm} ▾</div>
           </div>
 
+          {/* Profile */}
           <div
             className="AdminHdr-profile-wrapper"
             ref={dropdownRef}
@@ -142,8 +167,15 @@ const AdminHeader = ({ setSidebarOpen }) => {
             </div>
 
             <div className="AdminHdr-avatar">
-              {/* Avatar logic: Use HiOutlineBuildingOffice2 if no profile image */}
-              <div className="AdminHdr-avatar-inner">{profileInitial}</div>
+              {profileImage ? (
+                <img
+                  src={profileImage}
+                  alt={adminName}
+                  className="AdminHdr-avatar-image"
+                />
+              ) : (
+                <div className="AdminHdr-avatar-inner">{profileInitial}</div>
+              )}
             </div>
 
             {isProfileDropdownOpen && (
@@ -152,7 +184,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
                   className="AdminHdr-dropdown-item"
                   onClick={() => {
                     setIsProfileDropdownOpen(false);
-                    nav("/admin/settings");
+                    nav("/admin/AdminSettings");
                   }}
                 >
                   Settings
@@ -169,7 +201,7 @@ const AdminHeader = ({ setSidebarOpen }) => {
         </div>
       </header>
 
-      {/* Logout Modal remains as you had it */}
+      {/* Logout Modal */}
       {showLogoutModal && (
         <div
           className="AdminHdr-modal-overlay"

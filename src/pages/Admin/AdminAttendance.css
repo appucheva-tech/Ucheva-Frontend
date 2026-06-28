@@ -11,13 +11,13 @@
     .headerTitle {
       font-size: 24px;
       font-weight: 700;
-      color: #03173C;
+      color: #03173c;
       margin: 0;
     }
 
     .headerSubtitle {
       font-size: 14px;
-      color: #03173C;
+      color: #03173c;
       margin: 0;
     }
   }
@@ -175,7 +175,9 @@
           vertical-align: middle;
         }
 
-        .staffNameCell {
+        /* Enforces uniform blue highlight for both Staff and Student Names */
+        .staffNameCell,
+        .studentNameCell {
           color: #0d6efd;
           font-weight: 500;
         }
@@ -184,6 +186,28 @@
         .timeCell,
         .dateCell {
           color: #475569;
+        }
+
+        /* Loading and Empty States unified */
+        .loadingCell,
+        .emptyCell {
+          text-align: center;
+          padding: 40px 20px;
+          color: #64748b;
+        }
+
+        .loadingText,
+        .emptyText {
+          font-size: 14px;
+          font-weight: 400;
+        }
+
+        .loadingText {
+          color: #475569;
+        }
+
+        .emptyText {
+          color: #94a3b8;
         }
       }
     }
@@ -296,6 +320,288 @@
         color: #0d6efd;
         text-decoration: none;
         font-weight: 500;
+      }
+    }
+  }
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+  .attendanceContainer {
+    gap: 20px;
+
+    .pageHeader {
+      .headerTitle {
+        font-size: 20px;
+      }
+      .headerSubtitle {
+        font-size: 13px;
+      }
+    }
+
+    .attendanceContentCard {
+      .tabsGroup {
+        gap: 20px;
+        padding: 0 20px;
+
+        .tabItem {
+          font-size: 13px;
+          padding: 16px 0;
+        }
+      }
+
+      .toolbarRow {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 20px;
+
+        .toolbarControls {
+          width: 100%;
+          flex-wrap: wrap;
+          gap: 12px;
+
+          .filterBox {
+            flex: 1;
+            min-width: 200px;
+
+            .datePickerMock {
+              width: 100%;
+            }
+          }
+
+          .resetButton {
+            flex: 0 0 auto;
+          }
+        }
+      }
+
+      .tableResponsiveWrapper {
+        padding: 0 20px;
+
+        .attendanceTable {
+          th,
+          td {
+            padding: 12px 16px;
+            font-size: 13px;
+          }
+        }
+      }
+
+      .paginationContainer {
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+
+        .paginationControlsGroup {
+          order: 2;
+        }
+
+        .pageSizeSelector {
+          order: 3;
+        }
+
+        .recordsCountInfo {
+          order: 1;
+        }
+      }
+    }
+
+    .systemFooter {
+      flex-direction: column;
+      gap: 8px;
+      text-align: center;
+      font-size: 12px;
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .attendanceContainer {
+    gap: 16px;
+
+    .pageHeader {
+      .headerTitle {
+        font-size: 18px;
+      }
+      .headerSubtitle {
+        font-size: 12px;
+      }
+    }
+
+    .attendanceContentCard {
+      .tabsGroup {
+        gap: 16px;
+        padding: 0 16px;
+
+        .tabItem {
+          font-size: 12px;
+          padding: 14px 0;
+        }
+      }
+
+      .toolbarRow {
+        padding: 16px;
+
+        .sectionHeading {
+          font-size: 15px;
+        }
+
+        .toolbarControls {
+          gap: 10px;
+
+          .filterBox {
+            .datePickerMock {
+              padding: 6px 12px;
+              height: 34px;
+
+              .dateText {
+                font-size: 11px;
+              }
+            }
+          }
+
+          .resetButton {
+            height: 34px;
+            font-size: 12px;
+            padding: 0 14px;
+          }
+        }
+      }
+
+      .tableResponsiveWrapper {
+        padding: 0 16px;
+
+        .attendanceTable {
+          th,
+          td {
+            padding: 10px 12px;
+            font-size: 12px;
+          }
+
+          .loadingCell,
+          .emptyCell {
+            padding: 30px 16px;
+          }
+
+          .loadingText,
+          .emptyText {
+            font-size: 13px;
+          }
+        }
+      }
+
+      .paginationContainer {
+        padding: 16px;
+
+        .paginationControlsGroup {
+          .pageNumber,
+          .navArrow {
+            min-width: 24px;
+            height: 24px;
+            font-size: 12px;
+          }
+        }
+
+        .pageSizeSelector {
+          .pageSizeLabel {
+            font-size: 12px;
+          }
+
+          .customSelectWrapper {
+            .nativeSelect {
+              padding: 4px 24px 4px 8px;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    .systemFooter {
+      font-size: 11px;
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .attendanceContainer {
+    .pageHeader {
+      .headerTitle {
+        font-size: 16px;
+      }
+    }
+
+    .attendanceContentCard {
+      .tabsGroup {
+        gap: 12px;
+        padding: 0 12px;
+
+        .tabItem {
+          font-size: 11px;
+          padding: 12px 0;
+        }
+      }
+
+      .toolbarRow {
+        padding: 12px;
+
+        .toolbarControls {
+          flex-direction: column;
+          align-items: stretch;
+
+          .filterBox {
+            min-width: unset;
+          }
+
+          .resetButton {
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      }
+
+      .tableResponsiveWrapper {
+        padding: 0 12px;
+
+        .attendanceTable {
+          th,
+          td {
+            padding: 8px 10px;
+            font-size: 11px;
+          }
+
+          .loadingCell,
+          .emptyCell {
+            padding: 20px 12px;
+          }
+
+          .loadingText,
+          .emptyText {
+            font-size: 12px;
+          }
+        }
+      }
+
+      .paginationContainer {
+        padding: 12px;
+
+        .paginationControlsGroup {
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 4px;
+
+          .pageNumber,
+          .navArrow {
+            min-width: 22px;
+            height: 22px;
+            font-size: 11px;
+          }
+
+          .paginationEllipsis {
+            font-size: 11px;
+          }
+        }
       }
     }
   }

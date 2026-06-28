@@ -38,6 +38,7 @@ const AdminSubjects = () => {
     subjectName: "",
     sections: [],
     department: "",
+    teacherID: "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -46,28 +47,22 @@ const AdminSubjects = () => {
   const dropdownRef = useRef(null);
   const editDropdownRef = useRef(null);
 
-  // Validation: Only alphabets, spaces, hyphens, and apostrophes (NO NUMBERS)
   const validateTextOnly = (value) => {
-    // Only allows letters (A-Z, a-z), spaces, hyphens, and apostrophes
     const textOnlyRegex = /^[A-Za-z\s\-']+$/;
     return textOnlyRegex.test(value);
   };
 
-  // Validation: Alphanumeric (allows letters AND numbers)
   const validateAlphanumeric = (value) => {
-    // Allows letters, numbers, spaces, hyphens, and apostrophes
     const alphanumericRegex = /^[A-Za-z0-9\s\-']+$/;
     return alphanumericRegex.test(value);
   };
 
-  // Get validation error message based on field type
   const getValidationErrorMessage = (field, value) => {
     if (!value || value.trim() === "") {
       return `${field} is required`;
     }
 
     if (field === "Subject Name") {
-      // Subject name can have numbers (e.g., "Mathematics 101")
       if (!validateAlphanumeric(value)) {
         return "Subject name can only contain letters, numbers, spaces, and hyphens";
       }
@@ -80,7 +75,6 @@ const AdminSubjects = () => {
     }
 
     if (field === "Department") {
-      // Department should ONLY have letters (no numbers)
       if (!validateTextOnly(value)) {
         return "Department can only contain letters, spaces, and hyphens (no numbers)";
       }
@@ -92,12 +86,10 @@ const AdminSubjects = () => {
     return null;
   };
 
-  // Validate form data
   const validateForm = (data, isEdit = false) => {
     const errors = {};
     const setErrors = isEdit ? setEditValidationErrors : setValidationErrors;
 
-    // Validate subject name (allows numbers)
     const nameError = getValidationErrorMessage(
       "Subject Name",
       data.subjectName,
@@ -106,7 +98,6 @@ const AdminSubjects = () => {
       errors.subjectName = nameError;
     }
 
-    // Validate department (TEXT ONLY - no numbers)
     if (data.department && data.department !== "") {
       const deptError = getValidationErrorMessage(
         "Department",
@@ -117,21 +108,19 @@ const AdminSubjects = () => {
       }
     }
 
-    // Validate sections (at least one selected for create, optional for edit)
-    if (!isEdit && data.sections.length === 0) {
-      errors.sections = "Please select at least one class";
-    }
-
-    // Validate teacher selection (for create modal)
-    if (!isEdit && !data.teacherID) {
-      errors.teacherID = "Please select a teacher";
+    if (!isEdit) {
+      if (data.sections.length === 0) {
+        errors.sections = "Please select at least one class";
+      }
+      if (!data.teacherID) {
+        errors.teacherID = "Please select a teacher";
+      }
     }
 
     setErrors(errors);
     return Object.keys(errors).length === 0;
   };
 
-  // Clear validation errors when form changes
   const clearValidationError = (field, isEdit = false) => {
     const setErrors = isEdit ? setEditValidationErrors : setValidationErrors;
     setErrors((prev) => {
@@ -141,20 +130,16 @@ const AdminSubjects = () => {
     });
   };
 
-  // Handle input change with real-time validation
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // For department field - prevent numbers from being typed
     if (name === "department") {
-      // Only allow letters, spaces, and hyphens
       const filteredValue = value.replace(/[^A-Za-z\s\-]/g, "");
       setFormData({ ...formData, [name]: filteredValue });
       clearValidationError(name, false);
       return;
     }
 
-    // For subject name - allow alphanumeric
     if (name === "subjectName") {
       setFormData({ ...formData, [name]: value });
       clearValidationError(name, false);
@@ -195,16 +180,13 @@ const AdminSubjects = () => {
   const handleEditChange = (e) => {
     const { name, value } = e.target;
 
-    // For department field - prevent numbers from being typed
     if (name === "department") {
-      // Only allow letters, spaces, and hyphens
       const filteredValue = value.replace(/[^A-Za-z\s\-]/g, "");
       setEditFormData({ ...editFormData, [name]: filteredValue });
       clearValidationError(name, true);
       return;
     }
 
-    // For subject name - allow alphanumeric
     if (name === "subjectName") {
       setEditFormData({ ...editFormData, [name]: value });
       clearValidationError(name, true);
@@ -353,6 +335,7 @@ const AdminSubjects = () => {
         subjectName: editFormData.subjectName.trim(),
         applicableClasses: editFormData.sections,
         applicableDepartment: editFormData.department,
+        teacherId: editFormData.teacherID || null,
       };
       await apiClient.put(
         `/subject/updatesubject/${selectedSubjectId}`,
@@ -398,6 +381,7 @@ const AdminSubjects = () => {
           ? subject.applicableClasses.split(",")
           : [],
       department: subject.applicableDepartment || "",
+      teacherID: subject.teacherId || subject.subjectTeacherId || "",
     });
     setEditValidationErrors({});
     setShowEditModal(true);
@@ -746,86 +730,89 @@ const AdminSubjects = () => {
                 ×
               </button>
             </div>
-            <div className="formGroup">
-              <label>Subject Name</label>
-              <input
-                type="text"
-                name="subjectName"
-                placeholder="e.g. Mathematics 101"
-                value={formData.subjectName}
-                onChange={handleChange}
-                className={validationErrors.subjectName ? "error" : ""}
-              />
-              {validationErrors.subjectName && (
-                <span className="error-message">
-                  {validationErrors.subjectName}
-                </span>
-              )}
-              <small>
-                Subject name can include letters and numbers (e.g., Mathematics
-                101)
-              </small>
-            </div>
-            <div className="formGroup">
-              <label>Applicable Classes</label>
-              <DropdownCheckbox
-                isOpen={isDropdownOpen}
-                setIsOpen={setIsDropdownOpen}
-                selectedSections={formData.sections}
-                onSectionChange={handleSectionChange}
-                dropdownRef={dropdownRef}
-                classes={classes}
-                error={validationErrors.sections}
-              />
-              <small>
-                Select the class level(s) this subject is applicable to.
-              </small>
-            </div>
-            <div className="formGroup">
-              <label>Applicable Department</label>
-              <select
-                name="department"
-                value={formData.department}
-                onChange={handleChange}
-                className={validationErrors.department ? "error" : ""}
-              >
-                <option value="">Select Department</option>
-                <option value="General">General</option>
-                <option value="Science">Science</option>
-                <option value="Art">Art</option>
-                <option value="Commercial">Commercial</option>
-              </select>
-              {validationErrors.department && (
-                <span className="error-message">
-                  {validationErrors.department}
-                </span>
-              )}
-              <small>
-                ⚠️ Department name can only contain letters (no numbers allowed)
-              </small>
-            </div>
-            <div className="formGroup">
-              <label>Subject Teacher</label>
-              <select
-                name="teacherID"
-                value={formData.teacherID}
-                onChange={handleChange}
-                className={validationErrors.teacherID ? "error" : ""}
-              >
-                <option value="">Select Teacher</option>
-                {Array.isArray(teachers) &&
-                  teachers.map((teacher) => (
-                    <option key={teacher.id} value={teacher.id}>
-                      {teacher.fullName}
-                    </option>
-                  ))}
-              </select>
-              {validationErrors.teacherID && (
-                <span className="error-message">
-                  {validationErrors.teacherID}
-                </span>
-              )}
-              <small>Select the teacher assigned to this subject.</small>
+            <div className="modalBody">
+              <div className="formGroup">
+                <label>Subject Name</label>
+                <input
+                  type="text"
+                  name="subjectName"
+                  placeholder="e.g. Mathematics 101"
+                  value={formData.subjectName}
+                  onChange={handleChange}
+                  className={validationErrors.subjectName ? "error" : ""}
+                />
+                {validationErrors.subjectName && (
+                  <span className="error-message">
+                    {validationErrors.subjectName}
+                  </span>
+                )}
+                <small>
+                  Subject name can include letters and numbers (e.g.,
+                  Mathematics 101)
+                </small>
+              </div>
+              <div className="formGroup">
+                <label>Applicable Classes</label>
+                <DropdownCheckbox
+                  isOpen={isDropdownOpen}
+                  setIsOpen={setIsDropdownOpen}
+                  selectedSections={formData.sections}
+                  onSectionChange={handleSectionChange}
+                  dropdownRef={dropdownRef}
+                  classes={classes}
+                  error={validationErrors.sections}
+                />
+                <small>
+                  Select the class level(s) this subject is applicable to.
+                </small>
+              </div>
+              <div className="formGroup">
+                <label>Applicable Department</label>
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  className={validationErrors.department ? "error" : ""}
+                >
+                  <option value="">Select Department</option>
+                  <option value="General">General</option>
+                  <option value="Science">Science</option>
+                  <option value="Art">Art</option>
+                  <option value="Commercial">Commercial</option>
+                </select>
+                {validationErrors.department && (
+                  <span className="error-message">
+                    {validationErrors.department}
+                  </span>
+                )}
+                <small>
+                  ⚠️ Department name can only contain letters (no numbers
+                  allowed)
+                </small>
+              </div>
+              <div className="formGroup">
+                <label>Subject Teacher</label>
+                <select
+                  name="teacherID"
+                  value={formData.teacherID}
+                  onChange={handleChange}
+                  className={validationErrors.teacherID ? "error" : ""}
+                >
+                  <option value="">Select Teacher</option>
+                  {Array.isArray(teachers) &&
+                    teachers.map((teacher) => (
+                      <option key={teacher.id} value={teacher.id}>
+                        {teacher.fullName}
+                      </option>
+                    ))}
+                </select>
+                {validationErrors.teacherID && (
+                  <span className="error-message">
+                    {validationErrors.teacherID}
+                  </span>
+                )}
+                <small>Select the teacher assigned to this subject.</small>
+              </div>
             </div>
             <div className="modalActions">
               <button className="cancelBtn" onClick={() => setShowModal(false)}>
@@ -864,64 +851,92 @@ const AdminSubjects = () => {
                 </svg>
               </button>
             </div>
-            <div className="editFormGroup">
-              <label>Subject Name</label>
-              <input
-                type="text"
-                name="subjectName"
-                value={editFormData.subjectName}
-                onChange={handleEditChange}
-                className={editValidationErrors.subjectName ? "error" : ""}
-              />
-              {editValidationErrors.subjectName && (
-                <span className="error-message">
-                  {editValidationErrors.subjectName}
-                </span>
-              )}
-              <small>
-                Subject name can include letters and numbers (e.g., Mathematics
-                101)
-              </small>
-            </div>
-            <div className="editFormGroup">
-              <label>Applicable Classes</label>
-              <DropdownCheckbox
-                isOpen={isEditDropdownOpen}
-                setIsOpen={setIsEditDropdownOpen}
-                selectedSections={editFormData.sections}
-                onSectionChange={handleEditSectionChange}
-                dropdownRef={editDropdownRef}
-                classes={classes}
-                error={editValidationErrors.sections}
-              />
-              <small>
-                Select the class level(s) this subject is applicable to.
-              </small>
-            </div>
-            <div className="editFormGroup">
-              <label>Applicable Department</label>
-              <div className="editSelectWrapper">
-                <select
-                  name="department"
-                  value={editFormData.department}
+            <div className="editModalBody">
+              <div className="editFormGroup">
+                <label>Subject Name</label>
+                <input
+                  type="text"
+                  name="subjectName"
+                  value={editFormData.subjectName}
                   onChange={handleEditChange}
-                  className={editValidationErrors.department ? "error" : ""}
-                >
-                  <option value="">Select Department</option>
-                  <option value="General">General</option>
-                  <option value="Science">Science</option>
-                  <option value="Art">Art</option>
-                  <option value="Commercial">Commercial</option>
-                </select>
+                  className={editValidationErrors.subjectName ? "error" : ""}
+                />
+                {editValidationErrors.subjectName && (
+                  <span className="error-message">
+                    {editValidationErrors.subjectName}
+                  </span>
+                )}
+                <small>
+                  Subject name can include letters and numbers (e.g.,
+                  Mathematics 101)
+                </small>
               </div>
-              {editValidationErrors.department && (
-                <span className="error-message">
-                  {editValidationErrors.department}
-                </span>
-              )}
-              <small>
-                ⚠️ Department name can only contain letters (no numbers allowed)
-              </small>
+              <div className="editFormGroup">
+                <label>Applicable Classes</label>
+                <DropdownCheckbox
+                  isOpen={isEditDropdownOpen}
+                  setIsOpen={setIsEditDropdownOpen}
+                  selectedSections={editFormData.sections}
+                  onSectionChange={handleEditSectionChange}
+                  dropdownRef={editDropdownRef}
+                  classes={classes}
+                  error={editValidationErrors.sections}
+                />
+                <small>
+                  Select the class level(s) this subject is applicable to.
+                </small>
+              </div>
+              <div className="editFormGroup">
+                <label>Applicable Department</label>
+                <div className="editSelectWrapper">
+                  <select
+                    name="department"
+                    value={editFormData.department}
+                    onChange={handleEditChange}
+                    className={editValidationErrors.department ? "error" : ""}
+                  >
+                    <option value="">Select Department</option>
+                    <option value="General">General</option>
+                    <option value="Science">Science</option>
+                    <option value="Art">Art</option>
+                    <option value="Commercial">Commercial</option>
+                  </select>
+                </div>
+                {editValidationErrors.department && (
+                  <span className="error-message">
+                    {editValidationErrors.department}
+                  </span>
+                )}
+                <small>
+                  ⚠️ Department name can only contain letters (no numbers
+                  allowed)
+                </small>
+              </div>
+              <div className="editFormGroup">
+                <label>Subject Teacher</label>
+                <div className="editSelectWrapper">
+                  <select
+                    name="teacherID"
+                    value={editFormData.teacherID}
+                    onChange={handleEditChange}
+                    className={editValidationErrors.teacherID ? "error" : ""}
+                  >
+                    <option value="">Select Teacher</option>
+                    {Array.isArray(teachers) &&
+                      teachers.map((teacher) => (
+                        <option key={teacher.id} value={teacher.id}>
+                          {teacher.fullName}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+                {editValidationErrors.teacherID && (
+                  <span className="error-message">
+                    {editValidationErrors.teacherID}
+                  </span>
+                )}
+                <small>Update the teacher assigned to this subject.</small>
+              </div>
             </div>
             <div className="editModalActions">
               <button

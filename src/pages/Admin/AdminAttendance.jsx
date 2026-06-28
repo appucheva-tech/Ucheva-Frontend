@@ -11,9 +11,11 @@ const AdminAttendance = () => {
   const activeTab = pathname.includes("AdminStudentAttendance") ? 1 : 0;
 
   const [staff, setStaffs] = useState([]);
-
   const [attendance, setAttendance] = useState([]);
+  const [studentAttendance, setStudentAttendance] = useState([]);
   const [loadingAttendance, setLoadingAttendance] = useState(true);
+  const [loadingStudentAttendance, setLoadingStudentAttendance] =
+    useState(true);
   const subdomain = window.location.hostname.split(".")[0];
 
   useEffect(() => {
@@ -32,8 +34,44 @@ const AdminAttendance = () => {
       }
     };
 
+    const getTodayStudentAttendance = async () => {
+      try {
+        const res = await apiClient.get("/studentattendance/today", {
+          headers: {
+            "x-tenant": subdomain,
+          },
+        });
+        setStudentAttendance(res?.data?.Attendance || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoadingStudentAttendance(false);
+      }
+    };
+
     getTodayAttendance();
+    getTodayStudentAttendance();
   }, []);
+
+  // Get current attendance data based on active tab
+  const getCurrentAttendance = () => {
+    if (activeTab === 0) {
+      return attendance;
+    } else {
+      return studentAttendance;
+    }
+  };
+
+  const getCurrentLoading = () => {
+    if (activeTab === 0) {
+      return loadingAttendance;
+    } else {
+      return loadingStudentAttendance;
+    }
+  };
+
+  const currentAttendance = getCurrentAttendance();
+  const currentLoading = getCurrentLoading();
 
   return (
     <>
@@ -65,7 +103,9 @@ const AdminAttendance = () => {
           </div>
 
           <div className="toolbarRow">
-            <h2 className="sectionHeading">Staff Attendance</h2>
+            <h2 className="sectionHeading">
+              {activeTab === 0 ? "Staff Attendance" : "Student Attendance"}
+            </h2>
             <div className="toolbarControls">
               <div className="filterBox">
                 <span className="filterLabel">Date Filter</span>
@@ -93,32 +133,35 @@ const AdminAttendance = () => {
             <table className="attendanceTable">
               <thead>
                 <tr>
-                  <th>Staff Name</th>
-                  <th>Role</th>
+                  <th>{activeTab === 0 ? "Staff Name" : "Student Name"}</th>
+                  <th>{activeTab === 0 ? "Role" : "Class"}</th>
                   <th>Time Checked In</th>
                   <th>Time Checked Out</th>
                   <th>Date</th>
                 </tr>
               </thead>
               <tbody>
-                {loadingAttendance ? (
+                {currentLoading ? (
                   <tr>
-                    <td colSpan="5" className="dateCell">
-                      Loading attendance...
+                    <td colSpan="5" className="loadingCell">
+                      <span className="loadingText">Loading attendance...</span>
                     </td>
                   </tr>
-                ) : attendance.length > 0 ? (
-                  attendance.map((row, index) => (
+                ) : currentAttendance.length > 0 ? (
+                  currentAttendance.map((row, index) => (
                     <tr key={row.id || row._id || index}>
                       <td className="staffNameCell">
-                    {row.staff?.firstName + " " +row.staff?.lastName }
-
+                        {activeTab === 0
+                          ? row.staff?.firstName + " " + row.staff?.lastName
+                          : row.student?.firstName +
+                            " " +
+                            row.student?.lastName}
                       </td>
-
                       <td className="roleCell">
-                        {row.staff?.staffType }
+                        {activeTab === 0
+                          ? row.staff?.staffType
+                          : row.student?.class}
                       </td>
-
                       <td className="timeCell">
                         {row.timeCheckedIn
                           ? new Date(row.timeCheckedIn).toLocaleTimeString([], {
@@ -127,16 +170,17 @@ const AdminAttendance = () => {
                             })
                           : "--"}
                       </td>
-
                       <td className="timeCell">
                         {row.timeCheckedOut
-                          ? new Date(row.timeCheckedOut).toLocaleTimeString([], {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            })
+                          ? new Date(row.timeCheckedOut).toLocaleTimeString(
+                              [],
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )
                           : "--"}
                       </td>
-
                       <td className="dateCell">
                         {row.date
                           ? new Date(row.date).toLocaleDateString()
@@ -146,8 +190,10 @@ const AdminAttendance = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="dateCell">
-                      No attendance records found.
+                    <td colSpan="5" className="emptyCell">
+                      <span className="emptyText">
+                        No attendance records found.
+                      </span>
                     </td>
                   </tr>
                 )}
@@ -179,19 +225,6 @@ const AdminAttendance = () => {
             </div>
           </div>
         </div>
-
-        <footer className="systemFooter">
-          <span className="copyrightNote">
-            © 2026 Ucheva school operating management system . All right
-            reserved.
-          </span>
-          <span className="supportNote">
-            Need help?{" "}
-            <a href="#support" className="supportAnchor">
-              Contact support
-            </a>
-          </span>
-        </footer>
       </div>
     </>
   );
