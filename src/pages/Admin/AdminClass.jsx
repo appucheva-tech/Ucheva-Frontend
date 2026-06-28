@@ -692,6 +692,7 @@ const AdminClass = () => {
                   placeholder="e.g SS 1A"
                   value={formData.className}
                   onChange={handleChange}
+                  readOnly
                 />
               </div>
 
