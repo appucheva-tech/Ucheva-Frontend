@@ -3,15 +3,20 @@ import "./AdminAnnouncement.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
-import { FaTimes, FaEdit, FaTrash,FaExclamationTriangle } from "react-icons/fa";
+import {
+  FaTimes,
+  FaEdit,
+  FaTrash,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ── Your three state components ───────────────────────────────────────────────
-import LoadingScreen from "../../components/Loading-Screen";     // adjust path
-import ErrorScreen from "../../components/Error-Screen";         // adjust path
-import EmptyState from "../../components/EmptyState";           // adjust path
+import LoadingScreen from "../../components/Loading-Screen"; // adjust path
+import ErrorScreen from "../../components/Error-Screen"; // adjust path
+import EmptyState from "../../components/EmptyState"; // adjust path
 
 const AdminAnnouncement = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -59,7 +64,7 @@ const AdminAnnouncement = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (panelRef.current && !panelRef.current.contains(event.target)) {
-        if (event.target.closest(".slide-panel-overlay")) closePanel();
+        if (event.target.closest(".Let-slide-panel-overlay")) closePanel();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -78,7 +83,9 @@ const AdminAnnouncement = () => {
       };
       if (searchTerm.trim()) params.search = searchTerm.trim();
 
-      const response = await apiClient.get("/announcement/dashboard", { params });
+      const response = await apiClient.get("/announcement/dashboard", {
+        params,
+      });
 
       if (response.data?.announcementDashboard) {
         const dashboard = response.data.announcementDashboard;
@@ -86,10 +93,10 @@ const AdminAnnouncement = () => {
 
         if (dashboard.cards) {
           setStats({
-            drafts:    dashboard.cards.draft?.value     || 0,
+            drafts: dashboard.cards.draft?.value || 0,
             scheduled: dashboard.cards.scheduled?.value || 0,
             templates: dashboard.cards.templates?.value || 0,
-            sent:      dashboard.cards.sent?.value      || 0,
+            sent: dashboard.cards.sent?.value || 0,
           });
         }
 
@@ -97,7 +104,7 @@ const AdminAnnouncement = () => {
           setPagination((prev) => ({
             ...prev,
             total: dashboard.pagination.total || 0,
-            page:  dashboard.pagination.page  || 1,
+            page: dashboard.pagination.page || 1,
             limit: dashboard.pagination.limit || 10,
           }));
         }
@@ -114,34 +121,51 @@ const AdminAnnouncement = () => {
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short", day: "numeric", year: "numeric",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
   const formatTime = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleTimeString("en-US", {
-      hour: "numeric", minute: "2-digit", hour12: true,
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
   };
 
-  const getStatusType  = (s) => ["draft","scheduled","template","sent"].includes(s) ? s : "draft";
-  const getStatusLabel = (s) => ({ draft: "Draft", scheduled: "Scheduled", template: "Template", sent: "Sent" }[s] || s);
+  const getStatusType = (s) =>
+    ["draft", "scheduled", "template", "sent"].includes(s) ? s : "draft";
+  const getStatusLabel = (s) =>
+    ({
+      draft: "Draft",
+      scheduled: "Scheduled",
+      template: "Template",
+      sent: "Sent",
+    })[s] || s;
 
   // ── Form handlers ─────────────────────────────────────────────────────────
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
     if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleAudienceChange = (audience) => setFormData((prev) => ({ ...prev, audience }));
-  const handleStatusChange   = (status)   => setFormData((prev) => ({ ...prev, status }));
+  const handleAudienceChange = (audience) =>
+    setFormData((prev) => ({ ...prev, audience }));
+  const handleStatusChange = (status) =>
+    setFormData((prev) => ({ ...prev, status }));
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.title.trim())   errors.title   = "Title is required";
-    if (!formData.content.trim()) errors.content = "Message content is required";
+    if (!formData.title.trim()) errors.title = "Title is required";
+    if (!formData.content.trim())
+      errors.content = "Message content is required";
     if (formData.status === "scheduled" && !formData.scheduledAt)
       errors.scheduledAt = "Scheduled date and time is required";
     setFormErrors(errors);
@@ -154,10 +178,10 @@ const AdminAnnouncement = () => {
     setIsSubmitting(true);
     try {
       const payload = {
-        title:    formData.title.trim(),
-        content:  formData.content.trim(),
+        title: formData.title.trim(),
+        content: formData.content.trim(),
         audience: formData.audience,
-        status:   formData.status,
+        status: formData.status,
       };
       if (formData.status === "scheduled" && formData.scheduledAt)
         payload.scheduledAt = new Date(formData.scheduledAt).toISOString();
@@ -199,7 +223,9 @@ const AdminAnnouncement = () => {
         },
       );
       setFormErrors({
-        submit: err.response?.data?.message || "Failed to save announcement. Please try again.",
+        submit:
+          err.response?.data?.message ||
+          "Failed to save announcement. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -216,11 +242,13 @@ const AdminAnnouncement = () => {
   const openEditPanel = (announcement) => {
     setEditingAnnouncement(announcement);
     setFormData({
-      title:          announcement.title      || "",
-      content:        announcement.content    || "",
-      audience:       announcement.audience   || "all",
-      status:         announcement.status     || "draft",
-      scheduledAt:    announcement.scheduledAt ? announcement.scheduledAt.slice(0, 16) : "",
+      title: announcement.title || "",
+      content: announcement.content || "",
+      audience: announcement.audience || "all",
+      status: announcement.status || "draft",
+      scheduledAt: announcement.scheduledAt
+        ? announcement.scheduledAt.slice(0, 16)
+        : "",
       saveAsTemplate: announcement.status === "template",
     });
     setIsCreatePanelOpen(true);
@@ -242,7 +270,14 @@ const AdminAnnouncement = () => {
   };
 
   const resetForm = () => {
-    setFormData({ title: "", content: "", audience: "all", status: "draft", scheduledAt: "", saveAsTemplate: false });
+    setFormData({
+      title: "",
+      content: "",
+      audience: "all",
+      status: "draft",
+      scheduledAt: "",
+      saveAsTemplate: false,
+    });
     setFormErrors({});
   };
 
@@ -294,7 +329,8 @@ const AdminAnnouncement = () => {
     setPagination((prev) => ({ ...prev, page: newPage }));
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this announcement?")) return;
+    if (!window.confirm("Are you sure you want to delete this announcement?"))
+      return;
     try {
       await apiClient.delete(`/announcement/${id}`);
       await fetchAnnouncements();
@@ -310,119 +346,129 @@ const AdminAnnouncement = () => {
   const emptyTitle = searchTerm
     ? "No Results Found"
     : activeTab === "all"
-    ? "No Announcements Yet"
-    : `No ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Announcements`;
+      ? "No Announcements Yet"
+      : `No ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Announcements`;
 
   const emptyMessage = searchTerm
     ? `No announcements match "${searchTerm}". Try a different search term.`
     : activeTab === "all"
-    ? "You haven't created any announcements yet. Use the button above to get started."
-    : `You have no ${activeTab} announcements. Create one to see it here.`;
+      ? "You haven't created any announcements yet. Use the button above to get started."
+      : `You have no ${activeTab} announcements. Create one to see it here.`;
 
   return (
     <>
       {/* ── Header + metrics ── */}
-      <div className="dashboard-container">
-        <header className="dashboard-header">
-          <div className="welcome-text">
-            <h1 className="Announce">Announcements</h1>
-            <button className="AnnouncementsBtn" onClick={openPanel}>
+      <div className="Let-dashboard-container">
+        <header className="Let-dashboard-header">
+          <div className="Let-welcome-text">
+            <h1 className="Let-Announce">Announcements</h1>
+            <button className="Let-AnnouncementsBtn" onClick={openPanel}>
               + Create Announcement
             </button>
           </div>
-          <p className="subtitle-text">
+          <p className="Let-subtitle-text">
             Create and manage messages for staff and parents.
           </p>
         </header>
 
-        <div className="metrics-grid">
-          <div className="metric-card card-drafts">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Drafts</span>
-                <span className="card-value">{stats.drafts}</span>
+        <div className="Let-metrics-grid">
+          <div className="Let-metric-card Let-card-drafts">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Drafts</span>
+                <span className="Let-card-value">{stats.drafts}</span>
               </div>
-              <div className="icon-wrapper icon-drafts">
-                <PiStudentFill className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-drafts">
+                <PiStudentFill className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Not yet sent</div>
+            <div className="Let-card-footer">Not yet sent</div>
           </div>
 
-          <div className="metric-card card-scheduled">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Scheduled</span>
-                <span className="card-value">{stats.scheduled}</span>
+          <div className="Let-metric-card Let-card-scheduled">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Scheduled</span>
+                <span className="Let-card-value">{stats.scheduled}</span>
               </div>
-              <div className="icon-wrapper icon-scheduled">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-scheduled">
+                <HiMiniUserGroup className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Upcoming Messages</div>
+            <div className="Let-card-footer">Upcoming Messages</div>
           </div>
 
-          <div className="metric-card card-templates">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Templates</span>
-                <span className="card-value">{stats.templates}</span>
+          <div className="Let-metric-card Let-card-templates">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Templates</span>
+                <span className="Let-card-value">{stats.templates}</span>
               </div>
-              <div className="icon-wrapper icon-templates">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-templates">
+                <PiCalendarBlankFill className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Reusable Messages</div>
+            <div className="Let-card-footer">Reusable Messages</div>
           </div>
 
-          <div className="metric-card card-sent">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Sent</span>
-                <span className="card-value">{stats.sent}</span>
+          <div className="Let-metric-card Let-card-sent">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Sent</span>
+                <span className="Let-card-value">{stats.sent}</span>
               </div>
-              <div className="icon-wrapper icon-sent">
-                <FaSackDollar className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-sent">
+                <FaSackDollar className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Sent Successfully</div>
+            <div className="Let-card-footer">Sent Successfully</div>
           </div>
         </div>
       </div>
 
       {/* ── Announcements list ── */}
-      <div className="announcementsContainer">
+      <div className="Let-announcementsContainer">
         {/* Tabs + search always visible so user can switch tabs or clear search */}
-        <div className="topNavbar">
-          <div className="tabGroup">
+        <div className="Let-topNavbar">
+          <div className="Let-tabGroup">
             {categories.map((category) => (
               <button
                 key={category}
-                className={`tabButton ${activeTab === category ? "activeTab" : ""}`}
+                className={`Let-tabButton ${activeTab === category ? "Let-activeTab" : ""}`}
                 onClick={() => handleTabChange(category)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
                 {category !== "all" && (
-                  <span className="tabCount">
-                    {category === "drafts"    ? stats.drafts
-                    : category === "scheduled" ? stats.scheduled
-                    : category === "template"  ? stats.templates
-                    : category === "sent"      ? stats.sent
-                    : 0}
+                  <span className="Let-tabCount">
+                    {category === "drafts"
+                      ? stats.drafts
+                      : category === "scheduled"
+                        ? stats.scheduled
+                        : category === "template"
+                          ? stats.templates
+                          : category === "sent"
+                            ? stats.sent
+                            : 0}
                   </span>
                 )}
               </button>
             ))}
           </div>
-          <div className="searchBoxWrapper">
+          <div className="Let-searchBoxWrapper">
             <input
               type="text"
               placeholder="Search announcements..."
-              className="searchInput"
+              className="Let-searchInput"
               value={searchTerm}
               onChange={handleSearch}
             />
-            <svg className="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="Let-searchIcon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -447,48 +493,79 @@ const AdminAnnouncement = () => {
           />
         ) : (
           <>
-            <div className="resultCount">
+            <div className="Let-resultCount">
               Showing {announcements.length} announcement
               {announcements.length !== 1 ? "s" : ""}
               {pagination.total > 0 && ` of ${pagination.total}`}
             </div>
 
-            <div className="cardsList">
+            <div className="Let-cardsList">
               {announcements.map((item) => (
                 <div
                   key={item.id}
-                  className={`announcementCard border-${getStatusType(item.status)}`}
+                  className={`Let-announcementCard Let-border-${getStatusType(item.status)}`}
                 >
-                  <div className="cardHeader">
-                    <h3 className="cardTitle">{item.title}</h3>
-                    <div className="cardActions">
-                      <button className="editButton" onClick={() => openEditPanel(item)} aria-label="Edit">
+                  <div className="Let-cardHeader">
+                    <h3 className="Let-cardTitle">{item.title}</h3>
+                    <div className="Let-cardActions">
+                      <button
+                        className="Let-editButton"
+                        onClick={() => openEditPanel(item)}
+                        aria-label="Edit"
+                      >
                         <FaEdit />
                       </button>
-                      <button className="deleteButton" onClick={() => handleDelete(item.id)} aria-label="Delete">
+                      <button
+                        className="Let-deleteButton"
+                        onClick={() => handleDelete(item.id)}
+                        aria-label="Delete"
+                      >
                         <FaTrash />
                       </button>
                     </div>
                   </div>
-                  <p className="cardContent">{item.content}</p>
-                  <div className="cardFooter">
-                    <span className="metaItem">
-                      <svg className="metaIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                  <p className="Let-cardContent">{item.content}</p>
+                  <div className="Let-cardFooter">
+                    <span className="Let-metaItem">
+                      <svg
+                        className="Let-metaIcon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
                         <line x1="16" y1="2" x2="16" y2="6" />
-                        <line x1="8"  y1="2" x2="8"  y2="6" />
-                        <line x1="3"  y1="10" x2="21" y2="10" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
                       </svg>
-                      {item.displayDate ? formatDate(item.displayDate) : formatDate(item.createdAt)}
+                      {item.displayDate
+                        ? formatDate(item.displayDate)
+                        : formatDate(item.createdAt)}
                     </span>
-                    <span className="metaItem">
-                      <svg className="metaIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <span className="Let-metaItem">
+                      <svg
+                        className="Let-metaIcon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
                       {item.displayTime || formatTime(item.createdAt)}
                     </span>
-                    <span className={`statusBadge ${getStatusType(item.status)}`}>
+                    <span
+                      className={`Let-statusBadge ${getStatusType(item.status)}`}
+                    >
                       {getStatusLabel(item.status)}
                     </span>
                   </div>
@@ -497,19 +574,19 @@ const AdminAnnouncement = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="pagination">
+              <div className="Let-pagination">
                 <button
-                  className="paginationBtn"
+                  className="Let-paginationBtn"
                   onClick={() => handlePageChange(pagination.page - 1)}
                   disabled={pagination.page <= 1}
                 >
                   Previous
                 </button>
-                <span className="paginationInfo">
+                <span className="Let-paginationInfo">
                   Page {pagination.page} of {totalPages}
                 </span>
                 <button
-                  className="paginationBtn"
+                  className="Let-paginationBtn"
                   onClick={() => handlePageChange(pagination.page + 1)}
                   disabled={pagination.page >= totalPages}
                 >
@@ -520,84 +597,106 @@ const AdminAnnouncement = () => {
           </>
         )}
 
-        <div className="legendBox">
-          <div className="legendItem"><span className="indicatorDot dot-draft"></span><span className="legendLabel">Draft</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-scheduled"></span><span className="legendLabel">Scheduled</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-template"></span><span className="legendLabel">Template</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-sent"></span><span className="legendLabel">Sent</span></div>
+        <div className="Let-legendBox">
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-draft"></span>
+            <span className="Let-legendLabel">Draft</span>
+          </div>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-scheduled"></span>
+            <span className="Let-legendLabel">Scheduled</span>
+          </div>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-template"></span>
+            <span className="Let-legendLabel">Template</span>
+          </div>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-sent"></span>
+            <span className="Let-legendLabel">Sent</span>
+          </div>
         </div>
 
-        <footer className="footerView">
-          <span className="copyright">
-           
-
-            © {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
-
+        <footer className="Let-footerView">
+          <span className="Let-copyright">
+            © {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
-          <span className="support">
+          <span className="Let-support">
             Need help?{" "}
-            <a href="#support" className="supportLink">Contact support</a>
+            <a href="#support" className="Let-supportLink">
+              Contact support
+            </a>
           </span>
         </footer>
       </div>
 
       {/* ── Slide panel ── */}
       <div
-        className={`slide-panel-overlay ${isCreatePanelOpen ? "active" : ""}`}
+        className={`Let-slide-panel-overlay ${isCreatePanelOpen ? "Let-active" : ""}`}
         onClick={closePanel}
       >
         <div
-          className={`slide-panel ${isCreatePanelOpen ? "active" : ""}`}
+          className={`Let-slide-panel ${isCreatePanelOpen ? "Let-active" : ""}`}
           ref={panelRef}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="panel-header">
-            <div className="panel-title-section">
-              <h2>{editingAnnouncement ? "Edit Announcement" : "Create Announcement"}</h2>
-              <p className="panel-subtitle">
+          <div className="Let-panel-header">
+            <div className="Let-panel-title-section">
+              <h2>
+                {editingAnnouncement
+                  ? "Edit Announcement"
+                  : "Create Announcement"}
+              </h2>
+              <p className="Let-panel-subtitle">
                 {editingAnnouncement
                   ? "Update your announcement details below."
                   : "Send updates and notices to parents, staff, or students."}
               </p>
             </div>
-            <button className="panel-close-btn" onClick={closePanel}>
+            <button className="Let-panel-close-btn" onClick={closePanel}>
               <FaTimes />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="panel-form">
-            <div className="form-group">
-              <label className="form-label">Announcement Title</label>
+          <form onSubmit={handleSubmit} className="Let-panel-form">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Announcement Title</label>
               <input
                 type="text"
                 name="title"
-                className={`form-input ${formErrors.title ? "error" : ""}`}
+                className={`Let-form-input ${formErrors.title ? "Let-error" : ""}`}
                 placeholder="Enter announcement title"
                 value={formData.title}
                 onChange={handleFormChange}
               />
-              {formErrors.title && <span className="form-error">{formErrors.title}</span>}
+              {formErrors.title && (
+                <span className="Let-form-error">{formErrors.title}</span>
+              )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Message</label>
+            <div className="Let-form-group">
+              <label className="Let-form-label">Message</label>
               <textarea
                 name="content"
-                className={`form-textarea ${formErrors.content ? "error" : ""}`}
+                className={`Let-form-textarea ${formErrors.content ? "Let-error" : ""}`}
                 placeholder="Type your message here..."
                 value={formData.content}
                 onChange={handleFormChange}
                 rows="4"
               />
-              {formErrors.content && <span className="form-error">{formErrors.content}</span>}
+              {formErrors.content && (
+                <span className="Let-form-error">{formErrors.content}</span>
+              )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Audience Selection</label>
-              <p className="form-hint">Choose who will receive this announcement.</p>
-              <div className="audience-options">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Audience Selection</label>
+              <p className="Let-form-hint">
+                Choose who will receive this announcement.
+              </p>
+              <div className="Let-audience-options">
                 {["parents", "staff", "students", "all"].map((audience) => (
-                  <label key={audience} className="audience-option">
+                  <label key={audience} className="Let-audience-option">
                     <input
                       type="radio"
                       name="audience"
@@ -605,22 +704,38 @@ const AdminAnnouncement = () => {
                       checked={formData.audience === audience}
                       onChange={() => handleAudienceChange(audience)}
                     />
-                    <span>{audience.charAt(0).toUpperCase() + audience.slice(1)}</span>
+                    <span>
+                      {audience.charAt(0).toUpperCase() + audience.slice(1)}
+                    </span>
                   </label>
                 ))}
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Send Options</label>
-              <p className="form-hint">Choose when to send this announcement.</p>
-              <div className="send-options">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Send Options</label>
+              <p className="Let-form-hint">
+                Choose when to send this announcement.
+              </p>
+              <div className="Let-send-options">
                 {[
-                  { value: "draft",     title: "Save as Draft",      desc: "Save this announcement as a draft." },
-                  { value: "sent",      title: "Send Immediately",   desc: "Send this announcement right away." },
-                  { value: "scheduled", title: "Schedule for Later", desc: "Choose a date and time to send." },
+                  {
+                    value: "draft",
+                    title: "Save as Draft",
+                    desc: "Save this announcement as a draft.",
+                  },
+                  {
+                    value: "sent",
+                    title: "Send Immediately",
+                    desc: "Send this announcement right away.",
+                  },
+                  {
+                    value: "scheduled",
+                    title: "Schedule for Later",
+                    desc: "Choose a date and time to send.",
+                  },
                 ].map(({ value, title, desc }) => (
-                  <label key={value} className="send-option">
+                  <label key={value} className="Let-send-option">
                     <input
                       type="radio"
                       name="status"
@@ -628,31 +743,35 @@ const AdminAnnouncement = () => {
                       checked={formData.status === value}
                       onChange={() => handleStatusChange(value)}
                     />
-                    <div className="send-option-content">
-                      <span className="send-option-title">{title}</span>
-                      <span className="send-option-desc">{desc}</span>
+                    <div className="Let-send-option-content">
+                      <span className="Let-send-option-title">{title}</span>
+                      <span className="Let-send-option-desc">{desc}</span>
                     </div>
                   </label>
                 ))}
               </div>
 
               {formData.status === "scheduled" && (
-                <div className="schedule-picker">
+                <div className="Let-schedule-picker">
                   <input
                     type="datetime-local"
                     name="scheduledAt"
-                    className={`form-input ${formErrors.scheduledAt ? "error" : ""}`}
+                    className={`Let-form-input ${formErrors.scheduledAt ? "Let-error" : ""}`}
                     value={formData.scheduledAt}
                     onChange={handleFormChange}
                   />
-                  {formErrors.scheduledAt && <span className="form-error">{formErrors.scheduledAt}</span>}
+                  {formErrors.scheduledAt && (
+                    <span className="Let-form-error">
+                      {formErrors.scheduledAt}
+                    </span>
+                  )}
                 </div>
               )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Template Options</label>
-              <label className="template-option">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Template Options</label>
+              <label className="Let-template-option">
                 <input
                   type="checkbox"
                   name="saveAsTemplate"
@@ -664,17 +783,27 @@ const AdminAnnouncement = () => {
             </div>
 
             {formErrors.submit && (
-              <div className="form-error-submit">{formErrors.submit}</div>
+              <div className="Let-form-error-submit">{formErrors.submit}</div>
             )}
 
-            <div className="form-actions">
-              <button type="button" className="btn-cancel" onClick={closePanel}>Cancel</button>
-              <button type="submit" className="btn-submit" disabled={isSubmitting}>
+            <div className="Let-form-actions">
+              <button
+                type="button"
+                className="Let-btn-cancel"
+                onClick={closePanel}
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="Let-btn-submit"
+                disabled={isSubmitting}
+              >
                 {isSubmitting
                   ? "Saving..."
                   : editingAnnouncement
-                  ? "Update Announcement"
-                  : "Create Announcement"}
+                    ? "Update Announcement"
+                    : "Create Announcement"}
               </button>
             </div>
           </form>
@@ -683,34 +812,34 @@ const AdminAnnouncement = () => {
 
       {/* Delete Confirmation Modal */}
       <div
-        className={`delete-modal-overlay ${deleteModal.isOpen ? "active" : ""}`}
+        className={`Let-delete-modal-overlay ${deleteModal.isOpen ? "Let-active" : ""}`}
         onClick={() => !deleteModal.isDeleting && closeDeleteModal()}
       >
-        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="delete-modal-icon">
+        <div className="Let-delete-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="Let-delete-modal-icon">
             <FaExclamationTriangle />
           </div>
-          <h2 className="delete-modal-title">Delete Announcement</h2>
-          <p className="delete-modal-message">
+          <h2 className="Let-delete-modal-title">Delete Announcement</h2>
+          <p className="Let-delete-modal-message">
             Are you sure you want to delete "{deleteModal.announcementTitle}"?
             This action cannot be undone.
           </p>
-          <div className="delete-modal-actions">
+          <div className="Let-delete-modal-actions">
             <button
-              className="delete-modal-cancel"
+              className="Let-delete-modal-cancel"
               onClick={closeDeleteModal}
               disabled={deleteModal.isDeleting}
             >
               Cancel
             </button>
             <button
-              className="delete-modal-confirm"
+              className="Let-delete-modal-confirm"
               onClick={confirmDelete}
               disabled={deleteModal.isDeleting}
             >
               {deleteModal.isDeleting ? (
                 <>
-                  <span className="delete-spinner"></span> Deleting...
+                  <span className="Let-delete-spinner"></span> Deleting...
                 </>
               ) : (
                 "Yes, Delete"
