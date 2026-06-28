@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "./Score.css";
 import { apiClient } from "../../../../config/AxiosInstance";
-
+import { toast } from "react-toastify";
 const Score = () => {
   const [subjects, setSubjects] = useState([]);
-  const [groupedSubjects, setGroupedSubjects] = useState([]);
+  const [groupedSubject, setGroupedSubjects] = useState([]);
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedClasses, setSelectedClasses] = useState([]);
   
   const [students, setStudents] = useState([]);
   const [scores, setScores] = useState({});
+    const [seeScores, setSeeScores] = useState([])
   
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -21,30 +22,62 @@ const Score = () => {
   const [expandedSubjects, setExpandedSubjects] = useState({});
   const [selectedSubjectEntries, setSelectedSubjectEntries] = useState([]);
 
-  useEffect(() => {
-    getSubjects();
-  }, []);
+useEffect(() => {
+  getSubjects();
+  getScores(); // ✅ VERY IMPORTANT
+}, []);
 
+useEffect(() => {
+  if (!students.length || !seeScores.length || !selectedSubject) return;
+
+  console.log("🔥 Running prefill");
+
+  const scoreMap = {};
+
+  seeScores.forEach((s) => {
+    if (s.subject === selectedSubject.subjectName) {
+      scoreMap[s.studentId] = {
+        ca: s.continuousAssessment,
+        exam: s.exam,
+      };
+    }
+  });
+
+  const newScores = {};
+
+  students.forEach((student) => {
+    const id = student.studentId || student.id || student._id;
+
+    newScores[id] = {
+      ca: scoreMap[id]?.ca ?? "",
+      exam: scoreMap[id]?.exam ?? "",
+    };
+  });
+
+  console.log("✅ Prefilled scores:", newScores);
+
+  setScores(newScores);
+
+}, [students, seeScores, selectedSubject]); // ✅ CRITICAL
   // =========================
   // FETCH SUBJECTS
   // =========================
-  const getSubjects = async () => {
+   const getSubjects = async () => {
     try {
       setLoading(true);
       const res = await apiClient.get("/subjectteacher/get-all-subjects");
+
       const data = res.data.subjects;
-      setSubjects(data);
-      
-      // Group subjects by name
+
+
       const grouped = groupSubjectsByName(data);
-      setGroupedSubjects(grouped);
-      
-      // Auto-expand first subject
-      if (grouped.length > 0) {
-        setExpandedSubjects({ [grouped[0].subjectName]: true });
-        // Auto-select first subject's classes
-        handleSubjectSelect(grouped[0]);
-      }
+setGroupedSubjects(grouped);
+
+
+      if (data.length > 0) {
+        fetchSubject(data[0]);
+}
+
     } catch (err) {
       console.log(err);
     } finally {
@@ -52,6 +85,65 @@ const Score = () => {
     }
   };
 
+  const fetchSubject = async (subject) => {
+    try {
+      setLoading(true);
+  
+      const res = await apiClient.get(
+        `/subjectteacher/get-students/${subject.classId}`
+      );
+  
+      const list = res.data.getStudents || [];
+  
+      // 2. FILTER scores for this subject
+  
+    
+  // const scoreMap = {};
+  
+  // seeScores.forEach((s) => {
+  //   if (s.subject === subject.subjectName) {
+  //     scoreMap[s.studentId] = {
+  //       ca: s.continuousAssessment,
+  //       exam: s.exam,
+  //     };
+  //   }
+  // });
+  //     // 4. Merge with students (PREFILL)
+  //     const finalMap = {};
+  //     list.forEach((student) => {
+  //       const id = student.id;
+  
+  //       finalMap[id] = {
+  //         ca: scoreMap[id]?.ca ?? "",
+  //         exam: scoreMap[id]?.exam ?? "",
+  //       };
+  //     });
+  
+  //     // 5. Set state
+      setSelectedSubject(subject);
+      setStudents(list);
+      // setScores(finalMap);
+      setCurrentPage(1);
+  
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+const getScores = async () => {
+  try {
+    const res = await apiClient.get(
+              `/classteacher/getscores/`
+
+    );
+
+    setSeeScores(res.data.scores || []);
+  } catch (err) {
+    console.log(err);
+  }
+};
+  
   // =========================
   // GROUP SUBJECTS BY NAME
   // =========================
@@ -84,7 +176,7 @@ const Score = () => {
     
     // Get all unique classes from all entries of this subject
     const allClasses = [];
-    groupedSubject.entries.forEach(entry => {
+groupedSubject.entries.forEach(entry => {
       if (entry.applicableClasses && Array.isArray(entry.applicableClasses)) {
         entry.applicableClasses.forEach(cls => {
           if (!allClasses.includes(cls)) {
@@ -93,7 +185,7 @@ const Score = () => {
         });
       }
     });
-    
+
     // Auto-select all classes
     setSelectedClasses(allClasses);
     setSelectedSubjectEntries(groupedSubject.entries);
@@ -108,37 +200,45 @@ const Score = () => {
   // =========================
   // TOGGLE CLASS SELECTION
   // =========================
-  const toggleClassSelection = (subjectName, className) => {
-    setSelectedClasses(prev => {
-      let newSelected;
-      if (prev.includes(className)) {
-        newSelected = prev.filter(c => c !== className);
-      } else {
-        newSelected = [...prev, className];
-      }
-      
-      // Update selected entries based on selected classes
-      const subjectGroup = groupedSubjects.find(g => g.subjectName === subjectName);
-      if (subjectGroup) {
-        const relevantEntries = subjectGroup.entries.filter(entry => 
-          entry.applicableClasses && 
-          entry.applicableClasses.some(cls => newSelected.includes(cls))
-        );
-        setSelectedSubjectEntries(relevantEntries);
-        
-        // Fetch students for the newly selected classes
-        if (relevantEntries.length > 0) {
-          fetchStudentsForClasses(relevantEntries);
-        } else {
-          setStudents([]);
-          setScores({});
-        }
-      }
-      
-      return newSelected;
-    });
-  };
+const toggleClassSelection = (subjectName, className) => {
+  setSelectedClasses(prev => {
+    let newSelected;
 
+    if (prev.includes(className)) {
+      newSelected = prev.filter(c => c !== className);
+    } else {
+      newSelected = [...prev, className];
+    }
+
+    // ⚠️ DO NOT trigger side effects here
+    handleClassSelectionChange(subjectName, newSelected);
+
+    return newSelected;
+  });
+};
+const handleClassSelectionChange = (subjectName, selectedClassesList) => {
+  const subjectGroup = groupedSubject.find(
+    g => g.subjectName === subjectName
+  );
+
+  if (!subjectGroup) return;
+
+  const relevantEntries = subjectGroup.entries.filter(entry =>
+    entry.applicableClasses &&
+    entry.applicableClasses.some(cls =>
+      selectedClassesList.includes(cls)
+    )
+  );
+
+  setSelectedSubjectEntries(relevantEntries);
+
+  if (relevantEntries.length > 0) {
+    fetchStudentsForClasses(relevantEntries);
+  } else {
+    setStudents([]);
+    setScores({});
+  }
+};
   // =========================
   // TOGGLE SUBJECT EXPANSION
   // =========================
@@ -164,9 +264,10 @@ const Score = () => {
         );
         const data = res.data.getStudents;
         
-        if (data && data.students) {
-          // Add class info to each student
-          const studentsWithClass = data.students.map(student => ({
+
+if (Array.isArray(data)) {
+  const studentsWithClass = data.map(student => ({
+    
             ...student,
             className: entry.applicableClasses && entry.applicableClasses.length > 0 
               ? entry.applicableClasses[0] 
@@ -189,16 +290,40 @@ const Score = () => {
       
       setStudents(uniqueStudents);
       
-      // Initialize scores for students
-      const map = {};
-      uniqueStudents.forEach(s => {
-        const id = s.studentId || s.id || s._id;
-        map[id] = {
-          ca: s.continuousAssessment ?? "",
-          exam: s.exam ?? "",
-        };
-      });
-      setScores(map);
+
+      
+
+      // =========================
+// PREFILL SCORES FROM API
+// =========================
+
+// Build score map from your scores API
+const scoreMap = {};
+
+(seeScores || []).forEach((s) => {
+  if (s.subject === selectedSubject?.subjectName) {
+    scoreMap[s.studentId] = {
+      ca: s.continuousAssessment,
+      exam: s.exam,
+    };
+  }
+});
+
+// Initialize scores for students (merge API + empty)
+const map = {};
+uniqueStudents.forEach((s) => {
+  const id = s.studentId || s.id || s._id;
+
+  map[id] = {
+    ca: scoreMap[id]?.ca ?? "",
+    exam: scoreMap[id]?.exam ?? "",
+  };
+});
+
+setScores(map);
+
+
+
       setCurrentPage(1);
       
     } catch (err) {
@@ -211,48 +336,85 @@ const Score = () => {
   // =========================
   // SCORE CHANGE
   // =========================
-  const handleScoreChange = (studentId, field, value) => {
-    setScores((prev) => ({
-      ...prev,
-      [studentId]: {
-        ...prev[studentId],
-        [field]: value,
-      },
-    }));
-  };
+const handleScoreChange = (studentId, field, value) => {
+  const val = Number(value);
 
+  if (field === "continuousAssessment" && val > 40) return;
+  if (field === "exam" && val > 60) return;
+
+  setScores(prev => ({
+    ...prev,
+    [studentId]: {
+      ...prev[studentId],
+      [field]: val
+    }
+  }));
+};
   // =========================
   // SAVE SCORES
   // =========================
-  const handleSaveScores = async () => {
-    try {
-      setSaving(true);
-      
-      // Save scores for each selected class entry
-      for (const entry of selectedSubjectEntries) {
-        const payload = {
-          subject: selectedSubject?.subjectName,
-          score: Object.keys(scores).map((id) => ({
-            studentId: id,
-            continuousAssessment: Number(scores[id]?.ca || 0),
-            exam: Number(scores[id]?.exam || 0),
-          })),
-        };
-        
-        await apiClient.post(
-          `/classteacher/mark-score/${entry.id}`,
-          payload
-        );
-      }
-      
-      alert("Scores saved successfully for all selected classes");
-    } catch (err) {
-      console.log(err);
-      alert("Failed to save scores");
-    } finally {
-      setSaving(false);
+
+
+
+const handleSaveScores = async () => {
+  try {
+    setSaving(true);
+
+    // ✅ Validate scores first
+    const isInvalid = Object.values(scores).some(
+      (s) => Number(s.ca) > 40 || Number(s.exam) > 60
+    );
+
+    if (isInvalid) {
+      toast.error("Fix invalid scores before saving");
+      setSaving(false); // ✅ FIX
+      return;
     }
-  };
+
+    // ✅ Ensure subject entry exists
+const subjectId =
+  selectedSubject?.entries?.find(e => e.id)?.id;
+    if (!subjectId) {
+      toast.error("No subject selected");
+      setSaving(false);
+      return;
+    }
+
+    // ✅ Build payload
+    const payload = {
+      subject: selectedSubject?.subjectName,
+      score: Object.keys(scores).map((id) => ({
+        studentId: id,
+        continuousAssessment: Number(scores[id]?.ca || 0),
+        exam: Number(scores[id]?.exam || 0),
+      })),
+    };
+
+    // ✅ API call
+    const res = await apiClient.post(
+      `/subjectteacher/mark-score/${subjectId}`,
+      payload
+    );
+
+    console.log("Saved:", res.data.message); // ✅ FIXED
+    toast.success(res.data.message);
+
+  } catch (err) {
+    console.log(err);
+
+    // ✅ SAFE error handling
+    toast.error(
+      err?.response?.data?.message || "Failed to save scores"
+    );
+
+  } finally {
+    setSaving(false);
+  }
+};
+
+
+
+
 
   // =========================
   // PAGINATION
@@ -281,8 +443,8 @@ const Score = () => {
       setSelectedClasses(allClasses);
       
       // Update entries and fetch students
-      setSelectedSubjectEntries(subjectGroup.entries);
-      fetchStudentsForClasses(subjectGroup.entries);
+      setSelectedSubjectEntries(subjectGroup);
+      fetchStudentsForClasses(subjectGroup);
     }
   };
 
@@ -306,81 +468,91 @@ const Score = () => {
       
       {/* SUBJECT CARDS */}
       <div className="subject-cards-container">
-        {groupedSubjects.map((groupedSubject) => (
-          <div 
-            key={groupedSubject.subjectName}
-            className={`subject-card-wrapper ${
-              selectedSubject?.subjectName === groupedSubject.subjectName ? "active" : ""
-            }`}
+{
+  
+groupedSubject.map((group) => (
+  <div 
+    key={group.subjectName}
+    className={`subject-card-wrapper ${
+      selectedSubject?.subjectName === group.subjectName ? "active" : ""
+    }`}
+  >
+    <div 
+      className="subject-card-header"
+      onClick={() => {
+        if (selectedSubject?.subjectName !== group.subjectName) {
+          handleSubjectSelect(group); // ✅ FIXED
+        }
+      }}
+    >
+      <div className="subject-info">
+        <div className="subject-name-main">
+          {group.subjectName}
+        </div>
+        <div className="subject-classes-count">
+          {group.entries.length} class{group.entries.length > 1 ? 'es' : ''} {/* ✅ FIXED */}
+        </div>
+      </div>
+
+      <div className="subject-actions">
+        <span className="expand-icon">
+          {expandedSubjects[group.subjectName] ? '▼' : '▶'}
+        </span>
+      </div>
+    </div>
+    
+    {expandedSubjects[group.subjectName] && (
+      <div className="subject-card-body">
+        <div className="classes-list">
+          {group.entries.map((entry) => (
+            entry.applicableClasses &&
+            entry.applicableClasses.map((className, clsIndex) => {
+              const uniqueKey = `${entry.id}-${clsIndex}`;
+              const isChecked = selectedClasses.includes(className);
+
+              return (
+                <div key={uniqueKey} className="class-item">
+                  <input
+                    type="checkbox"
+                    id={uniqueKey}
+                    checked={isChecked}
+                    onChange={() => 
+                      toggleClassSelection(group.subjectName, className) // ✅ FIXED
+                    }
+                  />
+                  <label htmlFor={uniqueKey}>
+                    <span className="class-name">{className}</span>
+                    <span className="class-id-badge">
+                      ID: {entry.id.substring(0, 8)}
+                    </span>
+                  </label>
+                </div>
+              );
+            })
+          ))}
+        </div>
+        
+        <div className="class-actions">
+          <button 
+            className="select-all-classes-btn"
+            onClick={() => selectAllClasses(group.subjectName)} // ✅ FIXED
           >
-            <div 
-              className="subject-card-header"
-              onClick={() => {
-                if (selectedSubject?.subjectName !== groupedSubject.subjectName) {
-                  handleSubjectSelect(groupedSubject);
-                }
-                toggleSubjectExpansion(groupedSubject.subjectName);
-              }}
-            >
-              <div className="subject-info">
-                <div className="subject-name-main">
-                  {groupedSubject.subjectName}
-                </div>
-                <div className="subject-classes-count">
-                  {groupedSubject.entries.length} class{groupedSubject.entries.length > 1 ? 'es' : ''}
-                </div>
-              </div>
-              <div className="subject-actions">
-                <span className="expand-icon">
-                  {expandedSubjects[groupedSubject.subjectName] ? '▼' : '▶'}
-                </span>
-              </div>
-            </div>
-            
-            {expandedSubjects[groupedSubject.subjectName] && (
-              <div className="subject-card-body">
-                <div className="classes-list">
-                  {groupedSubject.entries.map((entry, index) => (
-                    entry.applicableClasses && entry.applicableClasses.map((className, clsIndex) => {
-                      const uniqueKey = `${entry.id}-${clsIndex}`;
-                      const isChecked = selectedClasses.includes(className);
-                      
-                      return (
-                        <div key={uniqueKey} className="class-item">
-                          <input
-                            type="checkbox"
-                            id={uniqueKey}
-                            checked={isChecked}
-                            onChange={() => toggleClassSelection(groupedSubject.subjectName, className)}
-                          />
-                          <label htmlFor={uniqueKey}>
-                            <span className="class-name">{className}</span>
-                            <span className="class-id-badge">ID: {entry.id.substring(0, 8)}</span>
-                          </label>
-                        </div>
-                      );
-                    })
-                  ))}
-                </div>
-                
-                <div className="class-actions">
-                  <button 
-                    className="select-all-classes-btn"
-                    onClick={() => selectAllClasses(groupedSubject.subjectName)}
-                  >
-                    Select All
-                  </button>
-                  <button 
-                    className="deselect-all-classes-btn"
-                    onClick={() => deselectAllClasses(groupedSubject.subjectName)}
-                  >
-                    Deselect All
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
+            Select All
+          </button>
+
+          <button 
+            className="deselect-all-classes-btn"
+            onClick={() => deselectAllClasses(group.subjectName)} // ✅ FIXED
+          >
+            Deselect All
+          </button>
+        </div>
+      </div>
+    )}
+  </div>
+))
+        
+        }
       </div>
       
       {/* SELECTED SUBJECT HEADER */}
@@ -403,7 +575,7 @@ const Score = () => {
         <button 
           className="save-button" 
           onClick={handleSaveScores}
-          disabled={saving || selectedClasses.length === 0 || students.length === 0}
+          // disabled={saving || selectedClasses.length === 0 || students.length === 0}
         >
           {saving ? "Saving..." : "Save Scores"}
         </button>
@@ -454,7 +626,7 @@ const Score = () => {
                     <td className="admission-number">
                       {student.admissionNumber || 'N/A'}
                     </td>
-                    <td>{student.className || 'N/A'}</td>
+                    <td>{student.studentClass || 'N/A'}</td>
                     <td>
                       <input
                         type="number"
@@ -553,3 +725,5 @@ const Score = () => {
 };
 
 export default Score;
+
+
