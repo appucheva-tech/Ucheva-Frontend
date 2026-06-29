@@ -14,7 +14,7 @@ const AdminSettings = () => {
     schoolType: [],
   });
   const [adminPhoto, setAdminPhoto] = useState(null);
-  const [adminPhotoPreview, setAdminPhotoPreview] = useState(null);
+  const [adminPhotoPreview, setAdminPhotoPreview] = useState(null); // ← adminUrl stored here
   const adminPhotoRef = useRef();
 
   // ─── Password Fields ──────────────────────────────────────────
@@ -151,6 +151,12 @@ const AdminSettings = () => {
         // Map NEPA Bill from profileData
         if (profileData?.nepaUrl) {
           setNepaPreview(profileData.nepaUrl);
+        }
+
+        // ⭐ THIS IS WHERE adminUrl IS USED ⭐
+        // Map Admin Photo from profileData
+        if (profileData?.adminUrl) {
+          setAdminPhotoPreview(profileData.adminUrl);
         }
 
         setSchoolLoading(false);
@@ -401,6 +407,7 @@ const AdminSettings = () => {
       if (profileData?.nepaUrl) {
         setNepaPreview(profileData.nepaUrl);
       }
+      // ⭐ THIS IS WHERE adminUrl IS UPDATED AFTER SAVE ⭐
       if (profileData?.adminUrl) {
         setAdminPhotoPreview(profileData.adminUrl);
       }
@@ -627,6 +634,7 @@ const AdminSettings = () => {
           <div className="profileLayout">
             <div className="avatarWrapper">
               <div className="imageContainer">
+                {/* ⭐ adminUrl IS DISPLAYED HERE ⭐ */}
                 {adminPhotoPreview ? (
                   <img
                     src={adminPhotoPreview}
