@@ -159,6 +159,18 @@ const AdminSettings = () => {
           setAdminPhotoPreview(profileData.adminUrl);
         }
 
+        // Update Redux with profile data so header can display it
+        if (adminData && profileData) {
+          const userForHeader = {
+            ...adminData,
+            firstName: profileData.adminFirstName,
+            lastName: profileData.adminLastName,
+            profilePicture: profileData.adminUrl
+          };
+          dispatch(setUser(userForHeader));
+          console.log("Synced profile to Redux on load:", userForHeader);
+        }
+
         setSchoolLoading(false);
       } catch (error) {
         console.error("Error fetching settings:", error);
@@ -376,7 +388,14 @@ const AdminSettings = () => {
       // Update the user in Redux if needed
       const updatedUser = res.data?.admin || res.data?.user || null;
       if (updatedUser) {
-        dispatch(setUser(updatedUser));
+        // Include profile data from settings in the user object for header
+        const userWithProfileData = {
+          ...updatedUser,
+          firstName: adminProfile.adminFirstName || updatedUser.firstName,
+          lastName: adminProfile.adminLastName || updatedUser.lastName,
+          profilePicture: profileData?.adminUrl || updatedUser.profilePicture,
+        };
+        dispatch(setUser(userWithProfileData));
       }
 
       showToast(res.data.message);
@@ -390,6 +409,19 @@ const AdminSettings = () => {
       // Refresh the data to show updated URLs
       const refreshResponse = await apiClient.get("/admin/profile");
       const profileData = refreshResponse.data.adminProfile;
+      const adminData = refreshResponse.data.admin;
+
+      // Update Redux with the latest profile data
+      if (adminData && profileData) {
+        const updatedUser = {
+          ...adminData,
+          firstName: profileData.adminFirstName,
+          lastName: profileData.adminLastName,
+          profilePicture: profileData.adminUrl
+        };
+        dispatch(setUser(updatedUser));
+        console.log("Updated Redux with:", updatedUser);
+      }
 
       // Update previews with new URLs
       if (profileData?.schoolLogoUrl) {

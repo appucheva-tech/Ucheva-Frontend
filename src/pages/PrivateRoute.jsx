@@ -6,6 +6,22 @@ import axios from "axios";
 import NotFound from "./notFound";
 import { domainClient } from "../config/domain";
 
+const getDashboardByRole = (user) => {
+  if (!user) return "/login";
+  if (user.role === "admin") return "/admin/dashboard";
+  if (user.role === "parent") return "/parentdashboard";
+  if (user.role === "staff") {
+    switch (user.staffType?.trim().toLowerCase()) {
+      case "class teacher": return "/CTdashboard";
+      case "subject teacher": return "/subjectteacherdashboard";
+      case "non-teaching staff": return "/bursary";
+      case "security": return "/securitydashboard";
+      default: return "/";
+    }
+  }
+  return "/";
+};
+
 const PrivateRoute = ({ allowedRoles, allowedStaffTypes }) => {
   const user = useSelector((state) => state.user.user);
   const token = useSelector(
@@ -65,7 +81,7 @@ if (host.includes("nip.io")) {
 
   if (!token) {
     dispatch(clearUser());
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes(user?.role)) {

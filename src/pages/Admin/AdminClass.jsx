@@ -34,13 +34,18 @@ const AdminClass = () => {
     teacherId: "",
     numberOfInstallments: "",
     id: "",
+    section: "",
   });
 
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   useEffect(() => {
-    setFormData((prev) => ({ ...prev, className: `${level} ${arm}`.trim() }));
+    setFormData((prev) => ({ 
+      ...prev, 
+      className: `${level} ${arm}`.trim(),
+      section: level.startsWith("JSS") ? "junior secondary" : level.startsWith("SS") ? "senior secondary" : ""
+    }));
   }, [level, arm]);
 
   // ── Fetch classes ─────────────────────────────────────────────────────────
@@ -95,6 +100,7 @@ const AdminClass = () => {
           formData.paymentOption === "installment"
             ? Number(formData.numberOfInstallments)
             : 4,
+        section: formData.section,
       };
       if (formData.teacherId) payload.teacherId = formData.teacherId;
 
@@ -520,43 +526,62 @@ const AdminClass = () => {
               </button>
             </div>
             <div className="modalBody">
-              <div className="inputGroup">
-                <label>Class Name</label>
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <select
-                    className="modalSelectWrapper"
-                    style={{ flex: 2, padding: "8px" }}
-                    value={level}
-                    onChange={(e) => setLevel(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Select Level
-                    </option>
-                    <option value="JSS 1">JSS 1</option>
-                    <option value="JSS 2">JSS 2</option>
-                    <option value="JSS 3">JSS 3</option>
-                    <option value="SS 1">SS 1</option>
-                    <option value="SS 2">SS 2</option>
-                    <option value="SS 3">SS 3</option>
-                  </select>
-                  <select
-                    className="modalSelectWrapper"
-                    style={{ flex: 1, padding: "8px" }}
-                    value={arm}
-                    onChange={(e) => setArm(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Arm
-                    </option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                    <option value="E">E</option>
-                    <option value="F">F</option>
-                  </select>
-                </div>
-              </div>
+               <div className="inputGroup">
+                 <label>Class Name</label>
+                 <div style={{ display: "flex", gap: "10px" }}>
+                   <select
+                     className="modalSelectWrapper"
+                     style={{ flex: 2, padding: "8px" }}
+                     value={level}
+                     onChange={(e) => setLevel(e.target.value)}
+                   >
+                     <option value="" disabled>
+                       Select Level
+                     </option>
+                     <option value="JSS 1">JSS 1</option>
+                     <option value="JSS 2">JSS 2</option>
+                     <option value="JSS 3">JSS 3</option>
+                     <option value="SS 1">SS 1</option>
+                     <option value="SS 2">SS 2</option>
+                     <option value="SS 3">SS 3</option>
+                   </select>
+                   <select
+                     className="modalSelectWrapper"
+                     style={{ flex: 1, padding: "8px" }}
+                     value={arm}
+                     onChange={(e) => setArm(e.target.value)}
+                   >
+                     <option value="" disabled>
+                       Arm
+                     </option>
+                     <option value="A">A</option>
+                     <option value="B">B</option>
+                     <option value="C">C</option>
+                     <option value="D">D</option>
+                     <option value="E">E</option>
+                     <option value="F">F</option>
+                   </select>
+                 </div>
+               </div>
+
+               {formData.section && (
+                 <div className="inputGroup">
+                   <label>Section</label>
+                   <input
+                     type="text"
+                     value={formData.section}
+                     readOnly
+                     style={{
+                       padding: "8px",
+                       border: "1px solid #d1d5db",
+                       borderRadius: "6px",
+                       backgroundColor: "#f9fafb",
+                       color: "#6b7280",
+                       fontSize: "14px",
+                     }}
+                   />
+                 </div>
+               )}
 
               <div className="inputGroup">
                 <label>Amount</label>

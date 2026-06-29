@@ -32,7 +32,7 @@ const Pricing = () => {
             </div>
             <button
               className="LLbtn LLbtn-secondary"
-              onClick={() => nav("./signup")}
+              onClick={() => nav("/signup")}
             >
               Get Started
             </button>
@@ -64,9 +64,9 @@ const Pricing = () => {
             </div>
             <button
               className="LLbtn LLbtn-primary"
-              onClick={() => nav("./signup")}
+              onClick={() => nav("/signup")}
             >
-              Choose Standard
+              Get Started
             </button>
             <div className="LLfeatures-container">
               <p className="LLfeatures-title">Features</p>
@@ -97,7 +97,7 @@ const Pricing = () => {
             </div>
             <button
               className="LLbtn LLbtn-secondary"
-              onClick={() => nav("./signup")}
+              onClick={() => nav("/signup")}
             >
               Get Started
             </button>

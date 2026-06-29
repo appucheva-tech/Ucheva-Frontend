@@ -98,10 +98,21 @@
       height: 45px;
       border: none;
       font-size: 15px;
+      font-weight: 600;
       border-radius: 8px;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(29, 78, 216, 0.4);
-      transition: transform 0.2s, background-color 0.2s;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: #1e40af;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(29, 78, 216, 0.5);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
 
       @media (max-width: 450px) {
         width: 37%;   
