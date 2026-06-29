@@ -3,7 +3,12 @@ import "./AdminAnnouncement.css";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
-import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
+import {
+  FaTimes,
+  FaEdit,
+  FaTrash,
+  FaExclamationTriangle,
+} from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -22,6 +27,12 @@ const AdminAnnouncement = () => {
   const [isCreatePanelOpen, setIsCreatePanelOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingAnnouncement, setEditingAnnouncement] = useState(null);
+  const [deleteModal, setDeleteModal] = useState({
+    isOpen: false,
+    announcementId: null,
+    announcementTitle: "",
+    isDeleting: false,
+  });
   const [stats, setStats] = useState({
     drafts: 0,
     scheduled: 0,
@@ -53,7 +64,7 @@ const AdminAnnouncement = () => {
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (panelRef.current && !panelRef.current.contains(event.target)) {
-        if (event.target.closest(".slide-panel-overlay")) closePanel();
+        if (event.target.closest(".Let-slide-panel-overlay")) closePanel();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -243,7 +254,14 @@ const AdminAnnouncement = () => {
     setIsCreatePanelOpen(true);
     document.body.style.overflow = "hidden";
   };
-
+  const closeDeleteModal = () => {
+    setDeleteModal({
+      isOpen: false,
+      announcementId: null,
+      announcementTitle: "",
+      isDeleting: false,
+    });
+  };
   const closePanel = () => {
     setIsCreatePanelOpen(false);
     document.body.style.overflow = "auto";
@@ -271,6 +289,40 @@ const AdminAnnouncement = () => {
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
     setPagination((prev) => ({ ...prev, page: 1 }));
+  };
+  const confirmDelete = async () => {
+    const { announcementId } = deleteModal;
+    if (!announcementId) return;
+
+    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
+
+    try {
+      await apiClient.delete(`/announcement/${announcementId}`);
+      await fetchAnnouncements();
+      toast.success("Announcement deleted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      closeDeleteModal();
+    } catch (err) {
+      console.error("Error deleting announcement:", err);
+      toast.error(
+        err.response?.data?.message || "Failed to delete announcement.",
+        {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        },
+      );
+      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
+    }
   };
 
   const handlePageChange = (newPage) =>
@@ -306,88 +358,88 @@ const AdminAnnouncement = () => {
   return (
     <>
       {/* ── Header + metrics ── */}
-      <div className="dashboard-container">
-        <header className="dashboard-header">
-          <div className="welcome-text">
-            <h1 className="Announce">Announcements</h1>
-            <button className="AnnouncementsBtn" onClick={openPanel}>
+      <div className="Let-dashboard-container">
+        <header className="Let-dashboard-header">
+          <div className="Let-welcome-text">
+            <h1 className="Let-Announce">Announcements</h1>
+            <button className="Let-AnnouncementsBtn" onClick={openPanel}>
               + Create Announcement
             </button>
           </div>
-          <p className="subtitle-text">
+          <p className="Let-subtitle-text">
             Create and manage messages for staff and parents.
           </p>
         </header>
 
-        <div className="metrics-grid">
-          <div className="metric-card card-drafts">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Drafts</span>
-                <span className="card-value">{stats.drafts}</span>
+        <div className="Let-metrics-grid">
+          <div className="Let-metric-card Let-card-drafts">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Drafts</span>
+                <span className="Let-card-value">{stats.drafts}</span>
               </div>
-              <div className="icon-wrapper icon-drafts">
-                <PiStudentFill className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-drafts">
+                <PiStudentFill className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Not yet sent</div>
+            <div className="Let-card-footer">Not yet sent</div>
           </div>
 
-          <div className="metric-card card-scheduled">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Scheduled</span>
-                <span className="card-value">{stats.scheduled}</span>
+          <div className="Let-metric-card Let-card-scheduled">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Scheduled</span>
+                <span className="Let-card-value">{stats.scheduled}</span>
               </div>
-              <div className="icon-wrapper icon-scheduled">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-scheduled">
+                <HiMiniUserGroup className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Upcoming Messages</div>
+            <div className="Let-card-footer">Upcoming Messages</div>
           </div>
 
-          <div className="metric-card card-templates">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Templates</span>
-                <span className="card-value">{stats.templates}</span>
+          <div className="Let-metric-card Let-card-templates">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Templates</span>
+                <span className="Let-card-value">{stats.templates}</span>
               </div>
-              <div className="icon-wrapper icon-templates">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-templates">
+                <PiCalendarBlankFill className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Reusable Messages</div>
+            <div className="Let-card-footer">Reusable Messages</div>
           </div>
 
-          <div className="metric-card card-sent">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Sent</span>
-                <span className="card-value">{stats.sent}</span>
+          <div className="Let-metric-card Let-card-sent">
+            <div className="Let-card-content">
+              <div className="Let-text-section">
+                <span className="Let-card-label">Sent</span>
+                <span className="Let-card-value">{stats.sent}</span>
               </div>
-              <div className="icon-wrapper icon-sent">
-                <FaSackDollar className="DashIcon" />
+              <div className="Let-icon-wrapper Let-icon-sent">
+                <FaSackDollar className="Let-DashIcon" />
               </div>
             </div>
-            <div className="card-footer">Sent Successfully</div>
+            <div className="Let-card-footer">Sent Successfully</div>
           </div>
         </div>
       </div>
 
       {/* ── Announcements list ── */}
-      <div className="announcementsContainer">
+      <div className="Let-announcementsContainer">
         {/* Tabs + search always visible so user can switch tabs or clear search */}
-        <div className="topNavbar">
-          <div className="tabGroup">
+        <div className="Let-topNavbar">
+          <div className="Let-tabGroup">
             {categories.map((category) => (
               <button
                 key={category}
-                className={`tabButton ${activeTab === category ? "activeTab" : ""}`}
+                className={`Let-tabButton ${activeTab === category ? "Let-activeTab" : ""}`}
                 onClick={() => handleTabChange(category)}
               >
                 {category.charAt(0).toUpperCase() + category.slice(1)}
                 {category !== "all" && (
-                  <span className="tabCount">
+                  <span className="Let-tabCount">
                     {category === "drafts"
                       ? stats.drafts
                       : category === "scheduled"
@@ -402,16 +454,16 @@ const AdminAnnouncement = () => {
               </button>
             ))}
           </div>
-          <div className="searchBoxWrapper">
+          <div className="Let-searchBoxWrapper">
             <input
               type="text"
               placeholder="Search announcements..."
-              className="searchInput"
+              className="Let-searchInput"
               value={searchTerm}
               onChange={handleSearch}
             />
             <svg
-              className="searchIcon"
+              className="Let-searchIcon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -441,30 +493,30 @@ const AdminAnnouncement = () => {
           />
         ) : (
           <>
-            <div className="resultCount">
+            <div className="Let-resultCount">
               Showing {announcements.length} announcement
               {announcements.length !== 1 ? "s" : ""}
               {pagination.total > 0 && ` of ${pagination.total}`}
             </div>
 
-            <div className="cardsList">
+            <div className="Let-cardsList">
               {announcements.map((item) => (
                 <div
                   key={item.id}
-                  className={`announcementCard border-${getStatusType(item.status)}`}
+                  className={`Let-announcementCard Let-border-${getStatusType(item.status)}`}
                 >
-                  <div className="cardHeader">
-                    <h3 className="cardTitle">{item.title}</h3>
-                    <div className="cardActions">
+                  <div className="Let-cardHeader">
+                    <h3 className="Let-cardTitle">{item.title}</h3>
+                    <div className="Let-cardActions">
                       <button
-                        className="editButton"
+                        className="Let-editButton"
                         onClick={() => openEditPanel(item)}
                         aria-label="Edit"
                       >
                         <FaEdit />
                       </button>
                       <button
-                        className="deleteButton"
+                        className="Let-deleteButton"
                         onClick={() => handleDelete(item.id)}
                         aria-label="Delete"
                       >
@@ -472,11 +524,11 @@ const AdminAnnouncement = () => {
                       </button>
                     </div>
                   </div>
-                  <p className="cardContent">{item.content}</p>
-                  <div className="cardFooter">
-                    <span className="metaItem">
+                  <p className="Let-cardContent">{item.content}</p>
+                  <div className="Let-cardFooter">
+                    <span className="Let-metaItem">
                       <svg
-                        className="metaIcon"
+                        className="Let-metaIcon"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -498,9 +550,9 @@ const AdminAnnouncement = () => {
                         ? formatDate(item.displayDate)
                         : formatDate(item.createdAt)}
                     </span>
-                    <span className="metaItem">
+                    <span className="Let-metaItem">
                       <svg
-                        className="metaIcon"
+                        className="Let-metaIcon"
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
@@ -512,7 +564,7 @@ const AdminAnnouncement = () => {
                       {item.displayTime || formatTime(item.createdAt)}
                     </span>
                     <span
-                      className={`statusBadge ${getStatusType(item.status)}`}
+                      className={`Let-statusBadge ${getStatusType(item.status)}`}
                     >
                       {getStatusLabel(item.status)}
                     </span>
@@ -522,19 +574,19 @@ const AdminAnnouncement = () => {
             </div>
 
             {totalPages > 1 && (
-              <div className="pagination">
+              <div className="Let-pagination">
                 <button
-                  className="paginationBtn"
+                  className="Let-paginationBtn"
                   onClick={() => handlePageChange(pagination.page - 1)}
                   disabled={pagination.page <= 1}
                 >
                   Previous
                 </button>
-                <span className="paginationInfo">
+                <span className="Let-paginationInfo">
                   Page {pagination.page} of {totalPages}
                 </span>
                 <button
-                  className="paginationBtn"
+                  className="Let-paginationBtn"
                   onClick={() => handlePageChange(pagination.page + 1)}
                   disabled={pagination.page >= totalPages}
                 >
@@ -545,106 +597,93 @@ const AdminAnnouncement = () => {
           </>
         )}
 
-        <div className="legendBox">
-          <div className="legendItem">
-            <span className="indicatorDot dot-draft"></span>
-            <span className="legendLabel">Draft</span>
+        <div className="Let-legendBox">
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-draft"></span>
+            <span className="Let-legendLabel">Draft</span>
           </div>
-          <div className="legendItem">
-            <span className="indicatorDot dot-scheduled"></span>
-            <span className="legendLabel">Scheduled</span>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-scheduled"></span>
+            <span className="Let-legendLabel">Scheduled</span>
           </div>
-          <div className="legendItem">
-            <span className="indicatorDot dot-template"></span>
-            <span className="legendLabel">Template</span>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-template"></span>
+            <span className="Let-legendLabel">Template</span>
           </div>
-          <div className="legendItem">
-            <span className="indicatorDot dot-sent"></span>
-            <span className="legendLabel">Sent</span>
+          <div className="Let-legendItem">
+            <span className="Let-indicatorDot Let-dot-sent"></span>
+            <span className="Let-legendLabel">Sent</span>
           </div>
         </div>
-
-        <footer className="footerView">
-          <span className="copyright">
-            © {new Date().getFullYear()} Ucheva school operating management
-            system. All rights reserved.
-          </span>
-          <span className="support">
-            Need help?{" "}
-            <a href="#support" className="supportLink">
-              Contact support
-            </a>
-          </span>
-        </footer>
       </div>
 
       {/* ── Slide panel ── */}
       <div
-        className={`slide-panel-overlay ${isCreatePanelOpen ? "active" : ""}`}
+        className={`Let-slide-panel-overlay ${isCreatePanelOpen ? "Let-active" : ""}`}
         onClick={closePanel}
       >
         <div
-          className={`slide-panel ${isCreatePanelOpen ? "active" : ""}`}
+          className={`Let-slide-panel ${isCreatePanelOpen ? "Let-active" : ""}`}
           ref={panelRef}
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="panel-header">
-            <div className="panel-title-section">
+          <div className="Let-panel-header">
+            <div className="Let-panel-title-section">
               <h2>
                 {editingAnnouncement
                   ? "Edit Announcement"
                   : "Create Announcement"}
               </h2>
-              <p className="panel-subtitle">
+              <p className="Let-panel-subtitle">
                 {editingAnnouncement
                   ? "Update your announcement details below."
                   : "Send updates and notices to parents, staff, or students."}
               </p>
             </div>
-            <button className="panel-close-btn" onClick={closePanel}>
+            <button className="Let-panel-close-btn" onClick={closePanel}>
               <FaTimes />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="panel-form">
-            <div className="form-group">
-              <label className="form-label">Announcement Title</label>
+          <form onSubmit={handleSubmit} className="Let-panel-form">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Announcement Title</label>
               <input
                 type="text"
                 name="title"
-                className={`form-input ${formErrors.title ? "error" : ""}`}
+                className={`Let-form-input ${formErrors.title ? "Let-error" : ""}`}
                 placeholder="Enter announcement title"
                 value={formData.title}
                 onChange={handleFormChange}
               />
               {formErrors.title && (
-                <span className="form-error">{formErrors.title}</span>
+                <span className="Let-form-error">{formErrors.title}</span>
               )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Message</label>
+            <div className="Let-form-group">
+              <label className="Let-form-label">Message</label>
               <textarea
                 name="content"
-                className={`form-textarea ${formErrors.content ? "error" : ""}`}
+                className={`Let-form-textarea ${formErrors.content ? "Let-error" : ""}`}
                 placeholder="Type your message here..."
                 value={formData.content}
                 onChange={handleFormChange}
                 rows="4"
               />
               {formErrors.content && (
-                <span className="form-error">{formErrors.content}</span>
+                <span className="Let-form-error">{formErrors.content}</span>
               )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Audience Selection</label>
-              <p className="form-hint">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Audience Selection</label>
+              <p className="Let-form-hint">
                 Choose who will receive this announcement.
               </p>
-              <div className="audience-options">
+              <div className="Let-audience-options">
                 {["parents", "staff", "students", "all"].map((audience) => (
-                  <label key={audience} className="audience-option">
+                  <label key={audience} className="Let-audience-option">
                     <input
                       type="radio"
                       name="audience"
@@ -660,12 +699,12 @@ const AdminAnnouncement = () => {
               </div>
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Send Options</label>
-              <p className="form-hint">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Send Options</label>
+              <p className="Let-form-hint">
                 Choose when to send this announcement.
               </p>
-              <div className="send-options">
+              <div className="Let-send-options">
                 {[
                   {
                     value: "draft",
@@ -683,7 +722,7 @@ const AdminAnnouncement = () => {
                     desc: "Choose a date and time to send.",
                   },
                 ].map(({ value, title, desc }) => (
-                  <label key={value} className="send-option">
+                  <label key={value} className="Let-send-option">
                     <input
                       type="radio"
                       name="status"
@@ -691,33 +730,35 @@ const AdminAnnouncement = () => {
                       checked={formData.status === value}
                       onChange={() => handleStatusChange(value)}
                     />
-                    <div className="send-option-content">
-                      <span className="send-option-title">{title}</span>
-                      <span className="send-option-desc">{desc}</span>
+                    <div className="Let-send-option-content">
+                      <span className="Let-send-option-title">{title}</span>
+                      <span className="Let-send-option-desc">{desc}</span>
                     </div>
                   </label>
                 ))}
               </div>
 
               {formData.status === "scheduled" && (
-                <div className="schedule-picker">
+                <div className="Let-schedule-picker">
                   <input
                     type="datetime-local"
                     name="scheduledAt"
-                    className={`form-input ${formErrors.scheduledAt ? "error" : ""}`}
+                    className={`Let-form-input ${formErrors.scheduledAt ? "Let-error" : ""}`}
                     value={formData.scheduledAt}
                     onChange={handleFormChange}
                   />
                   {formErrors.scheduledAt && (
-                    <span className="form-error">{formErrors.scheduledAt}</span>
+                    <span className="Let-form-error">
+                      {formErrors.scheduledAt}
+                    </span>
                   )}
                 </div>
               )}
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Template Options</label>
-              <label className="template-option">
+            <div className="Let-form-group">
+              <label className="Let-form-label">Template Options</label>
+              <label className="Let-template-option">
                 <input
                   type="checkbox"
                   name="saveAsTemplate"
@@ -729,16 +770,20 @@ const AdminAnnouncement = () => {
             </div>
 
             {formErrors.submit && (
-              <div className="form-error-submit">{formErrors.submit}</div>
+              <div className="Let-form-error-submit">{formErrors.submit}</div>
             )}
 
-            <div className="form-actions">
-              <button type="button" className="btn-cancel" onClick={closePanel}>
+            <div className="Let-form-actions">
+              <button
+                type="button"
+                className="Let-btn-cancel"
+                onClick={closePanel}
+              >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="btn-submit"
+                className="Let-btn-submit"
                 disabled={isSubmitting}
               >
                 {isSubmitting
@@ -754,34 +799,34 @@ const AdminAnnouncement = () => {
 
       {/* Delete Confirmation Modal */}
       <div
-        className={`delete-modal-overlay ${deleteModal.isOpen ? "active" : ""}`}
+        className={`Let-delete-modal-overlay ${deleteModal.isOpen ? "Let-active" : ""}`}
         onClick={() => !deleteModal.isDeleting && closeDeleteModal()}
       >
-        <div className="delete-modal" onClick={(e) => e.stopPropagation()}>
-          <div className="delete-modal-icon">
+        <div className="Let-delete-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="Let-delete-modal-icon">
             <FaExclamationTriangle />
           </div>
-          <h2 className="delete-modal-title">Delete Announcement</h2>
-          <p className="delete-modal-message">
+          <h2 className="Let-delete-modal-title">Delete Announcement</h2>
+          <p className="Let-delete-modal-message">
             Are you sure you want to delete "{deleteModal.announcementTitle}"?
             This action cannot be undone.
           </p>
-          <div className="delete-modal-actions">
+          <div className="Let-delete-modal-actions">
             <button
-              className="delete-modal-cancel"
+              className="Let-delete-modal-cancel"
               onClick={closeDeleteModal}
               disabled={deleteModal.isDeleting}
             >
               Cancel
             </button>
             <button
-              className="delete-modal-confirm"
+              className="Let-delete-modal-confirm"
               onClick={confirmDelete}
               disabled={deleteModal.isDeleting}
             >
               {deleteModal.isDeleting ? (
                 <>
-                  <span className="delete-spinner"></span> Deleting...
+                  <span className="Let-delete-spinner"></span> Deleting...
                 </>
               ) : (
                 "Yes, Delete"

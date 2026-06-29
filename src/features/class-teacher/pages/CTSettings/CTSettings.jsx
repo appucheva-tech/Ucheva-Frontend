@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "react-toastify";
-import { LuCamera } from "react-icons/lu";
+import { LuCamera, LuUpload } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./CTSettings.css";
 import { apiClient } from "../../../../config/AxiosInstance";
 
-/* ─── Password Strength Helper ────────────────────────────────────────── */
+/* ─── Password Strength Helper ─────────────────────────────── */
 const getPasswordStrength = (password) => {
   if (!password) return { label: "", color: "", width: "0%", score: 0 };
-
   let score = 0;
   if (password.length >= 8) score++;
   if (/[A-Z]/.test(password)) score++;
   if (/[a-z]/.test(password)) score++;
   if (/\d/.test(password)) score++;
   if (/[@$!%*?&.#_-]/.test(password)) score++;
-
   if (score <= 2)
     return { label: "Weak", color: "#e53e3e", width: "33%", score };
   if (score <= 3)
@@ -23,7 +21,7 @@ const getPasswordStrength = (password) => {
   return { label: "Strong", color: "#38a169", width: "100%", score };
 };
 
-/* ─── Skeleton ─────────────────────────────────────────────────────────── */
+/* ─── Skeleton ──────────────────────────────────────────────── */
 const Skeleton = ({
   width = "100%",
   height = "1rem",
@@ -35,8 +33,7 @@ const Skeleton = ({
       width,
       height,
       borderRadius: radius,
-      background:
-        "linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%)",
+      background: "linear-gradient(90deg,#e2e8f0 25%,#f1f5f9 50%,#e2e8f0 75%)",
       backgroundSize: "200% 100%",
       animation: "CT-shimmer 1.4s infinite",
       ...style,
@@ -45,57 +42,31 @@ const Skeleton = ({
 );
 
 const LoadingSkeleton = () => (
-  <div className="ct-settings-container">
-    <style>{`
-      @keyframes CT-shimmer {
-        0%   { background-position: 200% 0; }
-        100% { background-position: -200% 0; }
-      }
-    `}</style>
-    <div className="ct-settings-header">
+  <div className="ct-container">
+    <style>{`@keyframes CT-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}`}</style>
+    <div className="ct-page-header">
       <Skeleton
         width="120px"
-        height="1.8rem"
+        height="2rem"
         style={{ marginBottom: "0.5rem" }}
       />
-      <Skeleton width="280px" height="1rem" />
+      <Skeleton width="260px" height="1rem" />
     </div>
-    <div className="ct-settings-card">
+    <div className="ct-card">
       <Skeleton
-        width="160px"
+        width="180px"
         height="1.2rem"
         style={{ marginBottom: "1.5rem" }}
       />
-      <div className="ct-profile-content">
-        <div className="ct-avatar-section">
-          <div className="ct-avatar-container">
-            <Skeleton width="140px" height="140px" radius="50%" />
-            <Skeleton
-              width="80px"
-              height="0.8rem"
-              style={{ marginTop: "0.5rem" }}
-            />
-          </div>
-        </div>
-        <div className="ct-form-section">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="ct-form-row">
-              <div className="ct-form-group">
-                <Skeleton
-                  width="80px"
-                  height="0.8rem"
-                  style={{ marginBottom: "0.4rem" }}
-                />
-                <Skeleton height="2.5rem" radius="8px" />
-              </div>
-              <div className="ct-form-group">
-                <Skeleton
-                  width="80px"
-                  height="0.8rem"
-                  style={{ marginBottom: "0.4rem" }}
-                />
-                <Skeleton height="2.5rem" radius="8px" />
-              </div>
+      <div className="ct-profile-layout">
+        <Skeleton width="140px" height="140px" radius="50%" />
+        <div
+          style={{ flex: 1, display: "flex", flexDirection: "column", gap: 16 }}
+        >
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="ct-grid-2">
+              <Skeleton height="2.8rem" radius="8px" />
+              <Skeleton height="2.8rem" radius="8px" />
             </div>
           ))}
         </div>
@@ -104,32 +75,25 @@ const LoadingSkeleton = () => (
   </div>
 );
 
-/* ─── Main Component ──────────────────────────────────────────────────── */
+/* ─── Main Component ────────────────────────────────────────── */
 const CTSettings = () => {
   const [profileData, setProfileData] = useState({
     firstName: "",
     lastName: "",
     address: "",
   });
-
-  const [readOnlyData, setReadOnlyData] = useState({
-    otherName: "",
+  const [readOnly, setReadOnly] = useState({
     email: "",
     phoneNumber: "",
-    gender: "",
-    dateOfBirth: "",
-    nationality: "",
-    maritalStatus: "",
-    qualification: "",
     staffType: "",
-    classAssigned: "",
     subjectAssigned: "",
+    classAssigned: "",
   });
 
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [signature, setSignature] = useState(null);
-  const [signaturePreviewUrl, setSignaturePreviewUrl] = useState(null);
+  const [signaturePreview, setSignaturePreview] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -139,9 +103,9 @@ const CTSettings = () => {
     newPassword: "",
     confirmPassword: "",
   });
-  const [showOldPassword, setShowOldPassword] = useState(false);
-  const [showNewPassword, setShowNewPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showOld, setShowOld] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [passwordLoading, setPasswordLoading] = useState(false);
   const [passwordError, setPasswordError] = useState("");
 
@@ -151,8 +115,8 @@ const CTSettings = () => {
   const fetchProfile = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await apiClient.get("/subjectteacher/getprofiledetails");
-      const data = response?.data?.subjectTeacher || response?.data;
+      const res = await apiClient.get("/classteacher/getprofiledetails");
+      const data = res?.data?.classTeacherData || res?.data;
 
       setProfileData({
         firstName: data?.firstName || "",
@@ -160,25 +124,21 @@ const CTSettings = () => {
         address: data?.address || "",
       });
 
-      setReadOnlyData({
-        otherName: data?.otherName || "",
+      setReadOnly({
         email: data?.email || "",
         phoneNumber: data?.phoneNumber || "",
-        gender: data?.gender || "",
-        dateOfBirth: data?.dateOfBirth || "",
-        nationality: data?.nationality || "",
-        maritalStatus: data?.maritalStatus || "",
-        qualification: data?.qualification || "",
         staffType: data?.staffType || "",
-        classAssigned: data?.classAssigned || "No class assigned",
         subjectAssigned: Array.isArray(data?.subjectAssigned)
           ? data.subjectAssigned.join(", ")
-          : data?.subjectAssigned || "No subjects assigned",
+          : data?.subjectAssigned || "",
+        classAssigned: Array.isArray(data?.classAssigned)
+          ? data.classAssigned.join(", ")
+          : data?.classAssigned || "",
       });
 
-      setPreviewUrl(data?.staffProfileUrl || null);
+      if (data?.staffProfileUrl) setPreviewUrl(data.staffProfileUrl);
+      if (data?.signatureUrl) setSignaturePreview(data.signatureUrl);
     } catch (err) {
-      console.error(err);
       toast.error(err?.response?.data?.message || "Failed to load profile.");
     } finally {
       setLoading(false);
@@ -189,13 +149,11 @@ const CTSettings = () => {
     fetchProfile();
   }, [fetchProfile]);
 
-  /* ── Editable field change ── */
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfileData((prev) => ({ ...prev, [name]: value }));
+    setProfileData((p) => ({ ...p, [name]: value }));
   };
 
-  /* ── Avatar change ── */
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -209,35 +167,48 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
+<<<<<<< HEAD
   /* ── Password field change ── */
   const handlePasswordInputChange = (e) => {
+=======
+  const handleSignatureChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 2 * 1024 * 1024) {
+      toast.error("Signature must be less than 2MB.");
+      return;
+    }
+    setSignature(file);
+    const reader = new FileReader();
+    reader.onloadend = () => setSignaturePreview(reader.result);
+    reader.readAsDataURL(file);
+  };
+
+  const handlePasswordChange = (e) => {
+>>>>>>> 28d1d2ea5503715693ab641a1f390bf271fd7dbb
     const { name, value } = e.target;
-    setPasswordData((prev) => ({ ...prev, [name]: value }));
+    setPasswordData((p) => ({ ...p, [name]: value }));
     setPasswordError("");
   };
 
-  /* ── PUT: save profile changes ── */
+  /* ── PUT: save profile ── */
   const handleSaveChanges = async () => {
     try {
       setProfileLoading(true);
-      const formData = new FormData();
-      formData.append("firstName", profileData.firstName);
-      formData.append("lastName", profileData.lastName);
-      formData.append("address", profileData.address);
-      if (avatar) formData.append("profilePicture", avatar);
+      const fd = new FormData();
+      fd.append("firstName", profileData.firstName);
+      fd.append("lastName", profileData.lastName);
+      fd.append("address", profileData.address);
+      if (avatar) fd.append("profilePicture", avatar);
+      if (signature) fd.append("schoolSignature", signature);
 
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+      await apiClient.put("/classteacher/updateprofile", fd);
       toast.success("Profile updated successfully!");
       await fetchProfile();
       setAvatar(null);
+      setSignature(null);
     } catch (err) {
-      console.error(err);
-      const msg =
-        err.response?.data?.message || "Failed to update profile. Try again.";
-      toast.error(msg);
+      toast.error(err?.response?.data?.message || "Failed to update profile.");
     } finally {
       setProfileLoading(false);
     }
@@ -246,109 +217,101 @@ const CTSettings = () => {
   /* ── PUT: change password ── */
   const handleChangePassword = async () => {
     const { oldPassword, newPassword, confirmPassword } = passwordData;
-
     if (!oldPassword || !newPassword || !confirmPassword) {
       setPasswordError("Please fill in all fields.");
       return;
     }
-
     if (strength.score < 3) {
-      setPasswordError(
-        "Password is too weak. Please choose a stronger password.",
-      );
+      setPasswordError("Password is too weak.");
       return;
     }
-
     if (newPassword !== confirmPassword) {
       setPasswordError("New passwords do not match.");
       return;
     }
-
     if (oldPassword === newPassword) {
-      setPasswordError(
-        "New password must be different from your old password.",
-      );
+      setPasswordError("New password must differ from old password.");
       return;
     }
-
     try {
       setPasswordLoading(true);
-      const formData = new FormData();
-      formData.append("oldPassword", oldPassword);
-      formData.append("newPassword", newPassword);
-      formData.append("confirmPassword", confirmPassword);
-
-      await apiClient.put("/subjectteacher/updateprofile", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
+      const fd = new FormData();
+      fd.append("oldPassword", oldPassword);
+      fd.append("newPassword", newPassword);
+      fd.append("confirmPassword", confirmPassword);
+      await apiClient.put("/classteacher/updateprofile", fd);
       toast.success("Password changed successfully!");
-      handleCloseModal();
+      closeModal();
     } catch (err) {
-      console.error(err);
-      const msg =
-        err.response?.data?.message || "Failed to change password. Try again.";
-      setPasswordError(msg);
+      setPasswordError(
+        err?.response?.data?.message || "Failed to change password.",
+      );
     } finally {
       setPasswordLoading(false);
     }
   };
 
-  const handleCloseModal = () => {
+  const closeModal = () => {
     setShowPasswordModal(false);
     setPasswordData({ oldPassword: "", newPassword: "", confirmPassword: "" });
     setPasswordError("");
-    setShowOldPassword(false);
-    setShowNewPassword(false);
-    setShowConfirmPassword(false);
+    setShowOld(false);
+    setShowNew(false);
+    setShowConfirm(false);
   };
 
   if (loading) return <LoadingSkeleton />;
 
   return (
-    <div className="ct-settings-container">
-      <div className="ct-settings-header">
+    <div className="ct-container">
+      {/* ── Page Header ──────────────────────────────────────── */}
+      <div className="ct-page-header">
         <h1>Settings</h1>
         <p>Manage your profile and account preferences.</p>
       </div>
 
-      {/* ── Profile Information ── */}
-      <div className="ct-settings-card">
+      {/* ══════════════════════════════════════════════════════
+          PROFILE INFORMATION CARD
+      ══════════════════════════════════════════════════════ */}
+      <div className="ct-card">
         <h2 className="ct-card-title">Profile Information</h2>
-        <div className="ct-profile-content">
-          <div className="ct-avatar-section">
-            <div className="ct-avatar-container">
+
+        <div className="ct-profile-layout">
+          {/* Avatar */}
+          <div className="ct-avatar-col">
+            <div className="ct-avatar-wrap">
               {previewUrl ? (
-                <img
-                  src={previewUrl}
-                  alt="Profile Avatar"
-                  className="ct-avatar-image"
-                />
+                <img src={previewUrl} alt="Avatar" className="ct-avatar-img" />
               ) : (
                 <div className="ct-avatar-placeholder">
-                  <LuCamera />
+                  <LuCamera size={48} />
                 </div>
               )}
-              <label htmlFor="avatar-upload" className="ct-avatar-upload-btn">
-                <LuCamera />
+              <label
+                htmlFor="avatar-upload"
+                className="ct-avatar-btn"
+                title="Change photo"
+              >
+                <LuCamera size={16} />
               </label>
               <input
                 id="avatar-upload"
                 type="file"
                 accept="image/*"
                 onChange={handleAvatarChange}
-                className="ct-avatar-input"
+                className="ct-file-hidden"
               />
             </div>
-            <p className="ct-avatar-info">PNG, JPG, Max 2MB</p>
+            <p className="ct-avatar-hint">PNG, JPG. Max 2MB</p>
           </div>
 
-          <div className="ct-form-section">
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="firstName">First Name</label>
+          {/* Form fields */}
+          <div className="ct-form-col">
+            {/* Row 1: First Name | Last Name */}
+            <div className="ct-grid-2">
+              <div className="ct-field">
+                <label>First Name</label>
                 <input
-                  id="firstName"
                   type="text"
                   name="firstName"
                   value={profileData.firstName}
@@ -356,10 +319,9 @@ const CTSettings = () => {
                   placeholder="First Name"
                 />
               </div>
-              <div className="ct-form-group">
-                <label htmlFor="lastName">Last Name</label>
+              <div className="ct-field">
+                <label>Last Name</label>
                 <input
-                  id="lastName"
                   type="text"
                   name="lastName"
                   value={profileData.lastName}
@@ -369,213 +331,72 @@ const CTSettings = () => {
               </div>
             </div>
 
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="otherName">Other Name</label>
+            {/* Row 2: Subject Taught | Role */}
+            <div className="ct-grid-2">
+              <div className="ct-field">
+                <label>Subject Taught</label>
                 <input
-                  id="otherName"
                   type="text"
-                  name="otherName"
-                  value={readOnlyData.otherName}
+                  value={readOnly.subjectAssigned}
                   readOnly
                   disabled
-                  className="ct-readonly-field"
-                  placeholder="Other Name"
+                  className="ct-readonly"
+                  placeholder="—"
                 />
               </div>
-              <div className="ct-form-group">
-                <label htmlFor="email">Email Address</label>
+              <div className="ct-field">
+                <label>Role</label>
                 <input
-                  id="email"
-                  type="email"
-                  name="email"
-                  value={readOnlyData.email}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Email Address"
-                  />
-                <label htmlFor="subjectAssigned">Subject Taught</label>
-                <input
-                  id="subjectAssigned"
                   type="text"
-                  name="subjectAssigned"
-                  value={readOnlyData.subjectAssigned}
+                  value={readOnly.staffType}
                   readOnly
                   disabled
-                  className="ct-readonly-field"
-                  placeholder="Subject Taught"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="staffType">Role</label>
-                <input
-                  id="staffType"
-                  type="text"
-                  name="staffType"
-                  value={readOnlyData.staffType}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Role"
+                  className="ct-readonly"
+                  placeholder="—"
                 />
               </div>
             </div>
 
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="phoneNumber">Phone Number</label>
+            {/* Row 3: Phone | Email */}
+            <div className="ct-grid-2">
+              <div className="ct-field">
+                <label>Phone Number</label>
                 <input
-                  id="phoneNumber"
                   type="tel"
-                  name="phoneNumber"
-                  value={readOnlyData.phoneNumber}
+                  value={readOnly.phoneNumber}
                   readOnly
                   disabled
-                  className="ct-readonly-field"
-                  placeholder="Phone Number"
+                  className="ct-readonly"
+                  placeholder="—"
                 />
               </div>
-              <div className="ct-form-group">
-                <label htmlFor="gender">Gender</label>
+              <div className="ct-field">
+                <label>Email Address</label>
                 <input
-                  id="gender"
-                  type="text"
-                  name="gender"
-                  value={readOnlyData.gender}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Gender"
-                  />
-                <label htmlFor="email">Email Address</label>
-                <input
-                  id="email"
                   type="email"
-                  name="email"
-                  value={readOnlyData.email}
+                  value={readOnly.email}
                   readOnly
                   disabled
-                  className="ct-readonly-field"
-                  placeholder="Email Address"
+                  className="ct-readonly"
+                  placeholder="—"
                 />
               </div>
             </div>
 
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="dateOfBirth">Date of Birth</label>
-                <input
-                  id="dateOfBirth"
-                  type="text"
-                  name="dateOfBirth"
-                  value={readOnlyData.dateOfBirth}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Date of Birth"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="nationality">Nationality</label>
-                <input
-                  id="nationality"
-                  type="text"
-                  name="nationality"
-                  value={readOnlyData.nationality}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Nationality"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="maritalStatus">Marital Status</label>
-                <input
-                  id="maritalStatus"
-                  type="text"
-                  name="maritalStatus"
-                  value={readOnlyData.maritalStatus}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Marital Status"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="qualification">Qualification</label>
-                <input
-                  id="qualification"
-                  type="text"
-                  name="qualification"
-                  value={readOnlyData.qualification}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Qualification"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-row">
-              <div className="ct-form-group">
-                <label htmlFor="staffType">Staff Type</label>
-                <input
-                  id="staffType"
-                  type="text"
-                  name="staffType"
-                  value={readOnlyData.staffType}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Staff Type"
-                />
-              </div>
-              <div className="ct-form-group">
-                <label htmlFor="classAssigned">Class Assigned</label>
-                <input
-                  id="classAssigned"
-                  type="text"
-                  name="classAssigned"
-                  value={readOnlyData.classAssigned}
-                  readOnly
-                  disabled
-                  className="ct-readonly-field"
-                  placeholder="Class Assigned"
-                />
-              </div>
-            </div>
-
-            <div className="ct-form-group full-width">
-              <label htmlFor="subjectAssigned">Subject Assigned</label>
+            {/* Row 4: Address — full width */}
+            <div className="ct-field">
+              <label>Address</label>
               <input
-                id="subjectAssigned"
-                type="text"
-                name="subjectAssigned"
-                value={readOnlyData.subjectAssigned}
-                readOnly
-                disabled
-                className="ct-readonly-field"
-                placeholder="Subject Assigned"
-              />
-            </div>
-
-            <div className="ct-form-group full-width">
-              <label htmlFor="address">Address</label>
-              <input
-                id="address"
                 type="text"
                 name="address"
                 value={profileData.address}
                 onChange={handleInputChange}
-                placeholder="Address"
+                placeholder="Enter your address"
               />
             </div>
 
-            <div className="ct-button-wrapper">
+            {/* Save button */}
+            <div className="ct-btn-row">
               <button
                 className="ct-save-btn"
                 onClick={handleSaveChanges}
@@ -588,171 +409,201 @@ const CTSettings = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
       {/* ── Security ── */}
       <div className="ct-settings-card">
-        <h2 className="ct-card-title">Security</h2>
-        <div className="ct-security-content">
-          <div className="ct-security-item">
-            <div className="ct-security-text">
-              <h3>Change Password</h3>
-              <p>Update your password to keep your account secure.</p>
-            </div>
-            <button
-              className="ct-change-password-btn"
-              onClick={() => setShowPasswordModal(true)}
-            >
-              Change Password
-            </button>
+=======
+      {/* ══════════════════════════════════════════════════════
+          UPLOAD SIGNATURE CARD
+      ══════════════════════════════════════════════════════ */}
+      <div className="ct-card">
+        <h2 className="ct-card-title">Upload Signature</h2>
+
+        <p className="ct-sig-heading">Class Teacher's Signature</p>
+
+        <div className="ct-sig-box">
+          {/* Preview area */}
+          <div className="ct-sig-preview">
+            {signaturePreview ? (
+              <img
+                src={signaturePreview}
+                alt="Signature"
+                className="ct-sig-img"
+              />
+            ) : (
+              <div className="ct-sig-empty">
+                <LuUpload size={28} />
+              </div>
+            )}
           </div>
+
+          {/* Upload button + hint below the box */}
+          <label htmlFor="sig-upload" className="ct-sig-upload-btn">
+            Upload
+          </label>
+          <input
+            id="sig-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleSignatureChange}
+            className="ct-file-hidden"
+          />
+          <p className="ct-sig-hint">PNG format recommended</p>
         </div>
       </div>
 
-      {/* ── Password Modal ── */}
-      {showPasswordModal && (
-        <div className="ct-modal-overlay" onClick={handleCloseModal}>
-          <div
-            className="ct-modal-container"
-            onClick={(e) => e.stopPropagation()}
+      {/* ══════════════════════════════════════════════════════
+          SECURITY CARD
+      ══════════════════════════════════════════════════════ */}
+      <div className="ct-card">
+>>>>>>> 28d1d2ea5503715693ab641a1f390bf271fd7dbb
+        <h2 className="ct-card-title">Security</h2>
+        <div className="ct-security-row">
+          <div>
+            <h3 className="ct-security-title">Change Password</h3>
+            <p className="ct-security-sub">
+              Receive real-time notifications and team alerts.
+            </p>
+          </div>
+          <button
+            className="ct-change-pwd-btn"
+            onClick={() => setShowPasswordModal(true)}
           >
-            <div className="ct-modal-header">
+            Change Password
+          </button>
+        </div>
+      </div>
+
+      {/* ══════════════════════════════════════════════════════
+          PASSWORD MODAL
+      ══════════════════════════════════════════════════════ */}
+      {showPasswordModal && (
+        <div className="ct-overlay" onClick={closeModal}>
+          <div className="ct-modal" onClick={(e) => e.stopPropagation()}>
+            <div className="ct-modal-head">
               <h2>Change Password</h2>
-              <button className="ct-modal-close-btn" onClick={handleCloseModal}>
-                &times;
+              <button className="ct-modal-x" onClick={closeModal}>
+                ×
               </button>
             </div>
 
             <div className="ct-modal-body">
-              {passwordError && (
-                <p className="ct-modal-error">{passwordError}</p>
-              )}
+              {passwordError && <p className="ct-modal-err">{passwordError}</p>}
 
-              <div className="ct-modal-form-group">
+              {/* Current password */}
+              <div className="ct-modal-field">
                 <label>Current Password</label>
-                <div className="ct-modal-password-wrapper">
+                <div className="ct-pwd-wrap">
                   <input
-                    type={showOldPassword ? "text" : "password"}
+                    type={showOld ? "text" : "password"}
                     name="oldPassword"
                     value={passwordData.oldPassword}
-                    onChange={handlePasswordInputChange}
+                    onChange={handlePasswordChange}
                     placeholder="Enter current password"
                     disabled={passwordLoading}
                   />
                   <button
                     type="button"
-                    onClick={() => setShowOldPassword(!showOldPassword)}
-                    className="ct-modal-eye-btn"
+                    className="ct-eye"
+                    onClick={() => setShowOld((v) => !v)}
                   >
-                    {showOldPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showOld ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
               </div>
 
-              <div className="ct-modal-form-group">
+              {/* New password */}
+              <div className="ct-modal-field">
                 <label>New Password</label>
-                <div className="ct-modal-password-wrapper">
+                <div className="ct-pwd-wrap">
                   <input
-                    type={showNewPassword ? "text" : "password"}
+                    type={showNew ? "text" : "password"}
                     name="newPassword"
                     value={passwordData.newPassword}
-                    onChange={handlePasswordInputChange}
+                    onChange={handlePasswordChange}
                     placeholder="Enter new password"
                     disabled={passwordLoading}
                   />
                   <button
                     type="button"
-                    onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="ct-modal-eye-btn"
+                    className="ct-eye"
+                    onClick={() => setShowNew((v) => !v)}
                   >
-                    {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showNew ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
                 {passwordData.newPassword && (
-                  <div className="ct-password-strength-wrapper">
-                    <div className="ct-password-strength-bar-track">
-                      <div
-                        className="ct-password-strength-bar-fill"
-                        style={{
-                          width: strength.width,
-                          backgroundColor: strength.color,
-                        }}
-                      />
+                  <>
+                    <div className="ct-strength-row">
+                      <div className="ct-strength-track">
+                        <div
+                          className="ct-strength-fill"
+                          style={{
+                            width: strength.width,
+                            background: strength.color,
+                          }}
+                        />
+                      </div>
+                      <span
+                        className="ct-strength-label"
+                        style={{ color: strength.color }}
+                      >
+                        {strength.label}
+                      </span>
                     </div>
-                    <span
-                      className="ct-password-strength-label"
-                      style={{ color: strength.color }}
-                    >
-                      {strength.label}
-                    </span>
-                  </div>
-                )}
-
-                {passwordData.newPassword && (
-                  <ul className="ct-password-requirements">
-                    <li
-                      className={
-                        passwordData.newPassword.length >= 8 ? "ct-met" : ""
-                      }
-                    >
-                      At least 8 characters
-                    </li>
-                    <li
-                      className={
-                        /[A-Z]/.test(passwordData.newPassword) ? "ct-met" : ""
-                      }
-                    >
-                      One uppercase letter
-                    </li>
-                    <li
-                      className={
-                        /[a-z]/.test(passwordData.newPassword) ? "ct-met" : ""
-                      }
-                    >
-                      One lowercase letter
-                    </li>
-                    <li
-                      className={
-                        /\d/.test(passwordData.newPassword) ? "ct-met" : ""
-                      }
-                    >
-                      One number
-                    </li>
-                    <li
-                      className={
-                        /[@$!%*?&.#_-]/.test(passwordData.newPassword)
-                          ? "ct-met"
-                          : ""
-                      }
-                    >
-                      One special character (@$!%*?&.#_-)
-                    </li>
-                  </ul>
+                    <ul className="ct-req-list">
+                      {[
+                        [
+                          passwordData.newPassword.length >= 8,
+                          "At least 8 characters",
+                        ],
+                        [
+                          /[A-Z]/.test(passwordData.newPassword),
+                          "One uppercase letter",
+                        ],
+                        [
+                          /[a-z]/.test(passwordData.newPassword),
+                          "One lowercase letter",
+                        ],
+                        [/\d/.test(passwordData.newPassword), "One number"],
+                        [
+                          /[@$!%*?&.#_-]/.test(passwordData.newPassword),
+                          "One special character",
+                        ],
+                      ].map(([met, label]) => (
+                        <li key={label} className={met ? "ct-met" : ""}>
+                          {met ? "✓" : "✗"} {label}
+                        </li>
+                      ))}
+                    </ul>
+                  </>
                 )}
               </div>
 
-              <div className="ct-modal-form-group">
+              {/* Confirm password */}
+              <div className="ct-modal-field">
                 <label>Confirm New Password</label>
-                <div className="ct-modal-password-wrapper">
+                <div className="ct-pwd-wrap">
                   <input
-                    type={showConfirmPassword ? "text" : "password"}
+                    type={showConfirm ? "text" : "password"}
                     name="confirmPassword"
                     value={passwordData.confirmPassword}
-                    onChange={handlePasswordInputChange}
+                    onChange={handlePasswordChange}
                     placeholder="Confirm new password"
                     disabled={passwordLoading}
                   />
                   <button
                     type="button"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="ct-modal-eye-btn"
+                    className="ct-eye"
+                    onClick={() => setShowConfirm((v) => !v)}
                   >
-                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                    {showConfirm ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
-
                 {passwordData.confirmPassword && (
                   <p
-                    className="ct-password-match-indicator"
+                    className="ct-match"
                     style={{
                       color:
                         passwordData.newPassword ===
@@ -769,16 +620,16 @@ const CTSettings = () => {
               </div>
             </div>
 
-            <div className="ct-modal-footer">
+            <div className="ct-modal-foot">
               <button
-                className="ct-modal-cancel-btn"
-                onClick={handleCloseModal}
+                className="ct-modal-cancel"
+                onClick={closeModal}
                 disabled={passwordLoading}
               >
                 Cancel
               </button>
               <button
-                className="ct-modal-submit-btn"
+                className="ct-modal-submit"
                 onClick={handleChangePassword}
                 disabled={passwordLoading}
               >

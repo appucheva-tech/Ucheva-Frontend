@@ -6,7 +6,7 @@
    DASHBOARD CONTAINER
    ========================================================================== */
 
-.dashboard-container {
+.Let-dashboard-container {
   width: 100%;
   min-height: 40vh;
   padding: 20px 24px;
@@ -17,11 +17,11 @@
    DASHBOARD HEADER
    ========================================================================== */
 
-.dashboard-header {
+.Let-dashboard-header {
   margin-bottom: 28px;
 }
 
-.dashboard-header .welcome-text {
+.Let-dashboard-header .Let-welcome-text {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,14 +30,14 @@
   width: 100%;
 }
 
-.dashboard-header .welcome-text .Announce {
+.Let-dashboard-header .Let-welcome-text .Let-Announce {
   font-size: 28px;
   font-weight: 700;
   color: #03173c;
   margin: 0;
 }
 
-.dashboard-header .welcome-text .AnnouncementsBtn {
+.Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
   padding: 12px 28px;
   height: 48px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
@@ -52,12 +52,12 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.dashboard-header .welcome-text .AnnouncementsBtn:hover {
+.Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-.dashboard-header .subtitle-text {
+.Let-dashboard-header .Let-subtitle-text {
   font-size: 15px;
   color: #64748b;
   margin: 6px 0 0 0;
@@ -68,24 +68,24 @@
    ========================================================================== */
 
 @media screen and (min-width: 769px) {
-  .dashboard-header .welcome-text {
+  .Let-dashboard-header .Let-welcome-text {
     flex-direction: row;
     justify-content: space-between;
   }
-  .dashboard-header .welcome-text .Announce {
+  .Let-dashboard-header .Let-welcome-text .Let-Announce {
     flex: 0 0 auto;
   }
-  .dashboard-header .welcome-text .AnnouncementsBtn {
+  .Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
     flex: 0 0 auto;
     margin-left: auto;
   }
 }
 
 @media screen and (max-width: 1024px) and (min-width: 769px) {
-  .dashboard-header .welcome-text .Announce {
+  .Let-dashboard-header .Let-welcome-text .Let-Announce {
     font-size: 24px;
   }
-  .dashboard-header .welcome-text .AnnouncementsBtn {
+  .Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
     padding: 10px 24px;
     height: 44px;
     font-size: 13px;
@@ -93,18 +93,18 @@
 }
 
 @media screen and (max-width: 768px) {
-  .dashboard-header .welcome-text {
+  .Let-dashboard-header .Let-welcome-text {
     flex-direction: column;
     align-items: center;
     gap: 12px;
     width: 100%;
   }
-  .dashboard-header .welcome-text .Announce {
+  .Let-dashboard-header .Let-welcome-text .Let-Announce {
     font-size: 24px;
     text-align: center;
     width: 100%;
   }
-  .dashboard-header .welcome-text .AnnouncementsBtn {
+  .Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
     width: 100%;
     max-width: 320px;
     justify-content: center;
@@ -115,7 +115,7 @@
     align-items: center;
     margin: 0 auto;
   }
-  .dashboard-header .subtitle-text {
+  .Let-dashboard-header .Let-subtitle-text {
     font-size: 14px;
     text-align: center;
     width: 100%;
@@ -123,34 +123,34 @@
 }
 
 @media screen and (max-width: 480px) {
-  .dashboard-container {
+  .Let-dashboard-container {
     padding: 12px 12px;
   }
-  .dashboard-header .welcome-text .Announce {
+  .Let-dashboard-header .Let-welcome-text .Let-Announce {
     font-size: 20px;
   }
-  .dashboard-header .welcome-text .AnnouncementsBtn {
+  .Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
     height: 40px;
     font-size: 13px;
     padding: 10px 16px;
     max-width: 280px;
   }
-  .dashboard-header .subtitle-text {
+  .Let-dashboard-header .Let-subtitle-text {
     font-size: 13px;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .dashboard-header .welcome-text .Announce {
+  .Let-dashboard-header .Let-welcome-text .Let-Announce {
     font-size: 18px;
   }
-  .dashboard-header .welcome-text .AnnouncementsBtn {
+  .Let-dashboard-header .Let-welcome-text .Let-AnnouncementsBtn {
     height: 36px;
     font-size: 12px;
     padding: 8px 14px;
     max-width: 100%;
   }
-  .dashboard-header .subtitle-text {
+  .Let-dashboard-header .Let-subtitle-text {
     font-size: 12px;
   }
 }
@@ -159,7 +159,7 @@
    METRICS GRID - 2 COLUMNS ON MOBILE
    ========================================================================== */
 
-.dashboard-container .metrics-grid {
+.Let-dashboard-container .Let-metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 18px;
@@ -167,59 +167,64 @@
   margin-top: 20px;
 }
 
-.dashboard-container .metrics-grid .metric-card {
-  background: #ffffff;
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card {
+  background: white;
   border-radius: 14px;
   padding: 20px 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   border-left: 4px solid transparent;
   min-height: 110px;
   box-sizing: border-box;
   transition: all 0.3s ease;
   width: 100%;
+  height: 17vh;
 }
 
-.dashboard-container .metrics-grid .metric-card:hover {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
-.dashboard-container .metrics-grid .metric-card.card-drafts {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card.Let-card-drafts {
   border-left-color: #3b82f6;
 }
-.dashboard-container .metrics-grid .metric-card.card-scheduled {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card.Let-card-scheduled {
   border-left-color: #8b5cf6;
 }
-.dashboard-container .metrics-grid .metric-card.card-templates {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card.Let-card-templates {
   border-left-color: #f59e0b;
 }
-.dashboard-container .metrics-grid .metric-card.card-sent {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card.Let-card-sent {
   border-left-color: #10b981;
 }
 
-.dashboard-container .metrics-grid .metric-card .card-content {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card .Let-card-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.dashboard-container .metrics-grid .metric-card .card-content .text-section {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-text-section {
   display: flex;
   flex-direction: column;
   gap: 4px;
   flex: 1;
 }
 
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .text-section
-  .card-label {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-text-section
+  .Let-card-label {
   font-size: 14px;
   color: #64748b;
   font-weight: 600;
@@ -227,19 +232,23 @@
   letter-spacing: 0.5px;
 }
 
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .text-section
-  .card-value {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-text-section
+  .Let-card-value {
   font-size: 32px;
   font-weight: 700;
   color: #03173c;
   line-height: 1.2;
 }
 
-.dashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper {
   width: 56px;
   height: 56px;
   border-radius: 14px;
@@ -249,50 +258,50 @@
   flex-shrink: 0;
 }
 
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .icon-wrapper
-  .DashIcon {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper
+  .Let-DashIcon {
   width: 60%;
   height: 60%;
 }
 
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .icon-wrapper.icon-drafts {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper.Let-icon-drafts {
   background-color: #eff6ff;
   color: #2563eb;
 }
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .icon-wrapper.icon-scheduled {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper.Let-icon-scheduled {
   background-color: #f3e8ff;
   color: #7c3aed;
 }
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .icon-wrapper.icon-templates {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper.Let-icon-templates {
   background-color: #fef3c7;
   color: #d97706;
 }
-.dashboard-container
-  .metrics-grid
-  .metric-card
-  .card-content
-  .icon-wrapper.icon-sent {
+.Let-dashboard-container
+  .Let-metrics-grid
+  .Let-metric-card
+  .Let-card-content
+  .Let-icon-wrapper.Let-icon-sent {
   background-color: #ecfdf5;
   color: #059669;
 }
 
-.dashboard-container .metrics-grid .metric-card .card-footer {
+.Let-dashboard-container .Let-metrics-grid .Let-metric-card .Let-card-footer {
   font-size: 13px;
   font-weight: 500;
   color: #94a3b8;
@@ -307,7 +316,7 @@
 
 /* Desktop - 4 columns */
 @media screen and (min-width: 1025px) {
-  .dashboard-container .metrics-grid {
+  .Let-dashboard-container .Let-metrics-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 18px;
   }
@@ -315,45 +324,49 @@
 
 /* Tablet - 2 columns */
 @media screen and (max-width: 1024px) and (min-width: 481px) {
-  .dashboard-container .metrics-grid {
+  .Let-dashboard-container .Let-metrics-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 14px;
   }
-  .dashboard-container .metrics-grid .metric-card {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card {
     min-height: 100px;
     padding: 18px 20px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-label {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-label {
     font-size: 13px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-value {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-value {
     font-size: 28px;
   }
-  .dashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper {
     width: 48px;
     height: 48px;
     border-radius: 12px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .icon-wrapper
-    .DashIcon {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper
+    .Let-DashIcon {
     width: 55%;
     height: 55%;
   }
-  .dashboard-container .metrics-grid .metric-card .card-footer {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card .Let-card-footer {
     font-size: 12px;
     margin-top: 6px;
     padding-top: 6px;
@@ -362,49 +375,53 @@
 
 /* Mobile - 2 columns */
 @media screen and (max-width: 480px) {
-  .dashboard-container .metrics-grid {
+  .Let-dashboard-container .Let-metrics-grid {
     grid-template-columns: 1fr 1fr;
     gap: 12px;
     padding: 0;
     margin-top: 14px;
   }
-  .dashboard-container .metrics-grid .metric-card {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card {
     min-height: 90px;
     padding: 16px 18px;
     border-left-width: 3px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-label {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-label {
     font-size: 11px;
     letter-spacing: 0.3px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-value {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-value {
     font-size: 24px;
   }
-  .dashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper {
     width: 40px;
     height: 40px;
     border-radius: 10px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .icon-wrapper
-    .DashIcon {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper
+    .Let-DashIcon {
     width: 50%;
     height: 50%;
   }
-  .dashboard-container .metrics-grid .metric-card .card-footer {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card .Let-card-footer {
     font-size: 11px;
     margin-top: 6px;
     padding-top: 6px;
@@ -413,44 +430,48 @@
 
 /* Very small mobile */
 @media screen and (max-width: 360px) {
-  .dashboard-container .metrics-grid {
+  .Let-dashboard-container .Let-metrics-grid {
     gap: 10px;
   }
-  .dashboard-container .metrics-grid .metric-card {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card {
     min-height: 80px;
     padding: 14px 14px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-label {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-label {
     font-size: 10px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-value {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-text-section
+    .Let-card-value {
     font-size: 20px;
   }
-  .dashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper {
     width: 34px;
     height: 34px;
     border-radius: 8px;
   }
-  .dashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .icon-wrapper
-    .DashIcon {
+  .Let-dashboard-container
+    .Let-metrics-grid
+    .Let-metric-card
+    .Let-card-content
+    .Let-icon-wrapper
+    .Let-DashIcon {
     width: 45%;
     height: 45%;
   }
-  .dashboard-container .metrics-grid .metric-card .card-footer {
+  .Let-dashboard-container .Let-metrics-grid .Let-metric-card .Let-card-footer {
     font-size: 10px;
   }
 }
@@ -459,7 +480,7 @@
    ANNOUNCEMENTS CONTAINER
    ========================================================================== */
 
-.announcementsContainer {
+.Let-announcementsContainer {
   background-color: #f8fafc;
   padding: 24px;
   display: flex;
@@ -475,7 +496,7 @@
    TOP NAVBAR
    ========================================================================== */
 
-.announcementsContainer .topNavbar {
+.Let-announcementsContainer .Let-topNavbar {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 16px 24px;
@@ -489,7 +510,7 @@
   box-sizing: border-box;
 }
 
-.announcementsContainer .topNavbar .tabGroup {
+.Let-announcementsContainer .Let-topNavbar .Let-tabGroup {
   display: flex;
   gap: 24px;
   flex-wrap: nowrap;
@@ -500,11 +521,11 @@
   padding: 4px 0;
 }
 
-.announcementsContainer .topNavbar .tabGroup::-webkit-scrollbar {
+.Let-announcementsContainer .Let-topNavbar .Let-tabGroup::-webkit-scrollbar {
   display: none;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton {
+.Let-announcementsContainer .Let-topNavbar .Let-tabGroup .Let-tabButton {
   background: none;
   border: none;
   font-size: 14px;
@@ -517,16 +538,22 @@
   transition: color 0.2s ease;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton:hover {
+.Let-announcementsContainer .Let-topNavbar .Let-tabGroup .Let-tabButton:hover {
   color: #3b82f6;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton.activeTab {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-tabGroup
+  .Let-tabButton.Let-activeTab {
   color: #3b82f6;
   font-weight: 600;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton.activeTab::after {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-tabGroup
+  .Let-tabButton.Let-activeTab::after {
   content: "";
   position: absolute;
   bottom: -4px;
@@ -537,7 +564,11 @@
   border-radius: 2px;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton .tabCount {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-tabGroup
+  .Let-tabButton
+  .Let-tabCount {
   display: inline-block;
   background-color: #eff6ff;
   color: #2563eb;
@@ -548,18 +579,25 @@
   margin-left: 6px;
 }
 
-.announcementsContainer .topNavbar .tabGroup .tabButton.activeTab .tabCount {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-tabGroup
+  .Let-tabButton.Let-activeTab
+  .Let-tabCount {
   background-color: #3b82f6;
   color: #ffffff;
 }
 
-.announcementsContainer .topNavbar .searchBoxWrapper {
+.Let-announcementsContainer .Let-topNavbar .Let-searchBoxWrapper {
   position: relative;
   width: 260px;
   flex-shrink: 0;
 }
 
-.announcementsContainer .topNavbar .searchBoxWrapper .searchInput {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-searchBoxWrapper
+  .Let-searchInput {
   width: 100%;
   padding: 10px 40px 10px 16px;
   font-size: 13px;
@@ -572,17 +610,26 @@
   box-sizing: border-box;
 }
 
-.announcementsContainer .topNavbar .searchBoxWrapper .searchInput:focus {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-searchBoxWrapper
+  .Let-searchInput:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   background-color: #ffffff;
 }
 
-.announcementsContainer .topNavbar .searchBoxWrapper .searchInput::placeholder {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-searchBoxWrapper
+  .Let-searchInput::placeholder {
   color: #94a3b8;
 }
 
-.announcementsContainer .topNavbar .searchBoxWrapper .searchIcon {
+.Let-announcementsContainer
+  .Let-topNavbar
+  .Let-searchBoxWrapper
+  .Let-searchIcon {
   position: absolute;
   right: 14px;
   top: 50%;
@@ -598,52 +645,65 @@
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  .announcementsContainer .topNavbar {
+  .Let-announcementsContainer .Let-topNavbar {
     flex-direction: column;
     align-items: stretch;
     padding: 12px 16px;
     gap: 12px;
   }
-  .announcementsContainer .topNavbar .tabGroup {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup {
     gap: 16px;
     padding: 2px 0 6px 0;
   }
-  .announcementsContainer .topNavbar .tabGroup .tabButton {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup .Let-tabButton {
     font-size: 13px;
     padding: 6px 2px;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper {
+  .Let-announcementsContainer .Let-topNavbar .Let-searchBoxWrapper {
     width: 100%;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper .searchInput {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-searchBoxWrapper
+    .Let-searchInput {
     padding: 8px 36px 8px 14px;
     font-size: 13px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .announcementsContainer .topNavbar {
+  .Let-announcementsContainer .Let-topNavbar {
     padding: 10px 12px;
     gap: 10px;
     border-radius: 10px;
   }
-  .announcementsContainer .topNavbar .tabGroup {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup {
     gap: 10px;
   }
-  .announcementsContainer .topNavbar .tabGroup .tabButton {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup .Let-tabButton {
     font-size: 12px;
     padding: 4px 2px;
   }
-  .announcementsContainer .topNavbar .tabGroup .tabButton .tabCount {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-tabGroup
+    .Let-tabButton
+    .Let-tabCount {
     font-size: 9px;
     padding: 1px 6px;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper .searchInput {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-searchBoxWrapper
+    .Let-searchInput {
     padding: 6px 32px 6px 12px;
     font-size: 12px;
     border-radius: 8px;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper .searchIcon {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-searchBoxWrapper
+    .Let-searchIcon {
     width: 16px;
     height: 16px;
     right: 12px;
@@ -651,18 +711,24 @@
 }
 
 @media screen and (max-width: 360px) {
-  .announcementsContainer .topNavbar .tabGroup {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup {
     gap: 8px;
   }
-  .announcementsContainer .topNavbar .tabGroup .tabButton {
+  .Let-announcementsContainer .Let-topNavbar .Let-tabGroup .Let-tabButton {
     font-size: 11px;
     padding: 3px 2px;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper .searchInput {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-searchBoxWrapper
+    .Let-searchInput {
     font-size: 11px;
     padding: 4px 26px 4px 10px;
   }
-  .announcementsContainer .topNavbar .searchBoxWrapper .searchIcon {
+  .Let-announcementsContainer
+    .Let-topNavbar
+    .Let-searchBoxWrapper
+    .Let-searchIcon {
     width: 14px;
     height: 14px;
     right: 10px;
@@ -673,7 +739,7 @@
    LOADING, ERROR, EMPTY STATES
    ========================================================================== */
 
-.announcementsContainer .loadingState {
+.Let-announcementsContainer .Let-loadingState {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -682,7 +748,7 @@
   gap: 16px;
 }
 
-.announcementsContainer .loadingState .spinner {
+.Let-announcementsContainer .Let-loadingState .Let-spinner {
   width: 40px;
   height: 40px;
   border: 4px solid #e2e8f0;
@@ -697,13 +763,13 @@
   }
 }
 
-.announcementsContainer .loadingState p {
+.Let-announcementsContainer .Let-loadingState p {
   color: #64748b;
   font-size: 14px;
   margin: 0;
 }
 
-.announcementsContainer .errorState {
+.Let-announcementsContainer .Let-errorState {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -712,13 +778,13 @@
   gap: 16px;
 }
 
-.announcementsContainer .errorState p {
+.Let-announcementsContainer .Let-errorState p {
   color: #ef4444;
   font-size: 14px;
   margin: 0;
 }
 
-.announcementsContainer .errorState .retryBtn {
+.Let-announcementsContainer .Let-errorState .Let-retryBtn {
   padding: 8px 24px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: #ffffff;
@@ -730,11 +796,11 @@
   transition: background-color 0.2s;
 }
 
-.announcementsContainer .errorState .retryBtn:hover {
+.Let-announcementsContainer .Let-errorState .Let-retryBtn:hover {
   opacity: 0.9;
 }
 
-.announcementsContainer .emptyState {
+.Let-announcementsContainer .Let-emptyState {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -745,13 +811,13 @@
   border-radius: 12px;
 }
 
-.announcementsContainer .emptyState p {
+.Let-announcementsContainer .Let-emptyState p {
   color: #64748b;
   font-size: 15px;
   margin: 0;
 }
 
-.announcementsContainer .emptyState .createBtn {
+.Let-announcementsContainer .Let-emptyState .Let-createBtn {
   padding: 10px 28px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: #ffffff;
@@ -764,7 +830,7 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.announcementsContainer .emptyState .createBtn:hover {
+.Let-announcementsContainer .Let-emptyState .Let-createBtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
@@ -773,7 +839,7 @@
    RESULT COUNT
    ========================================================================== */
 
-.announcementsContainer .resultCount {
+.Let-announcementsContainer .Let-resultCount {
   font-size: 13px;
   color: #64748b;
   padding: 0 4px 4px 4px;
@@ -783,7 +849,7 @@
    CARDS LIST
    ========================================================================== */
 
-.announcementsContainer .cardsList {
+.Let-announcementsContainer .Let-cardsList {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -792,7 +858,7 @@
   padding: 0;
 }
 
-.announcementsContainer .cardsList .announcementCard {
+.Let-announcementsContainer .Let-cardsList .Let-announcementCard {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 20px 24px;
@@ -807,25 +873,36 @@
   margin: 0;
 }
 
-.announcementsContainer .cardsList .announcementCard:hover {
+.Let-announcementsContainer .Let-cardsList .Let-announcementCard:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
   transform: translateX(4px);
 }
 
-.announcementsContainer .cardsList .announcementCard.border-draft {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard.Let-border-draft {
   border-left-color: #3b82f6;
 }
-.announcementsContainer .cardsList .announcementCard.border-scheduled {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard.Let-border-scheduled {
   border-left-color: #8b5cf6;
 }
-.announcementsContainer .cardsList .announcementCard.border-template {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard.Let-border-template {
   border-left-color: #f59e0b;
 }
-.announcementsContainer .cardsList .announcementCard.border-sent {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard.Let-border-sent {
   border-left-color: #10b981;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardHeader {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -833,7 +910,11 @@
   width: 100%;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardHeader .cardTitle {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-cardTitle {
   font-size: 17px;
   font-weight: 600;
   color: #0f172a;
@@ -842,14 +923,26 @@
   word-wrap: break-word;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardHeader .cardActions {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-cardActions {
   display: flex;
   gap: 6px;
   flex-shrink: 0;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardHeader .editButton,
-.announcementsContainer .cardsList .announcementCard .cardHeader .deleteButton {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-editButton,
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-deleteButton {
   background: none;
   border: none;
   cursor: pointer;
@@ -862,41 +955,44 @@
   color: #94a3b8;
 }
 
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardHeader
-  .editButton:hover {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-editButton:hover {
   background-color: #eff6ff;
   color: #3b82f6;
 }
 
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardHeader
-  .deleteButton:hover {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-deleteButton:hover {
   background-color: #fef2f2;
   color: #ef4444;
 }
 
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardHeader
-  .editButton
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-editButton
   svg,
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardHeader
-  .deleteButton
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardHeader
+  .Let-deleteButton
   svg {
   width: 16px;
   height: 16px;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardContent {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardContent {
   font-size: 14px;
   color: #475569;
   line-height: 1.6;
@@ -904,7 +1000,10 @@
   word-wrap: break-word;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardFooter {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter {
   display: flex;
   gap: 20px;
   margin-top: 4px;
@@ -912,7 +1011,11 @@
   width: 100%;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardFooter .metaItem {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-metaItem {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -920,18 +1023,22 @@
   color: #94a3b8;
 }
 
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardFooter
-  .metaItem
-  .metaIcon {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-metaItem
+  .Let-metaIcon {
   width: 15px;
   height: 15px;
   stroke: #94a3b8;
 }
 
-.announcementsContainer .cardsList .announcementCard .cardFooter .statusBadge {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-statusBadge {
   display: inline-flex;
   align-items: center;
   padding: 2px 12px;
@@ -941,35 +1048,35 @@
   margin-left: auto;
 }
 
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardFooter
-  .statusBadge.draft {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-statusBadge.Let-draft {
   background-color: #eff6ff;
   color: #2563eb;
 }
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardFooter
-  .statusBadge.scheduled {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-statusBadge.Let-scheduled {
   background-color: #f3e8ff;
   color: #7c3aed;
 }
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardFooter
-  .statusBadge.template {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-statusBadge.Let-template {
   background-color: #fef3c7;
   color: #d97706;
 }
-.announcementsContainer
-  .cardsList
-  .announcementCard
-  .cardFooter
-  .statusBadge.sent {
+.Let-announcementsContainer
+  .Let-cardsList
+  .Let-announcementCard
+  .Let-cardFooter
+  .Let-statusBadge.Let-sent {
   background-color: #ecfdf5;
   color: #059669;
 }
@@ -979,92 +1086,127 @@
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  .announcementsContainer .cardsList .announcementCard {
+  .Let-announcementsContainer .Let-cardsList .Let-announcementCard {
     padding: 16px 18px;
     gap: 10px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardHeader .cardTitle {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-cardTitle {
     font-size: 15px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardContent {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardContent {
     font-size: 13px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter {
     gap: 14px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter .metaItem {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter
+    .Let-metaItem {
     font-size: 12px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .announcementsContainer .cardsList .announcementCard {
+  .Let-announcementsContainer .Let-cardsList .Let-announcementCard {
     padding: 14px 14px;
     gap: 8px;
     border-left-width: 3px;
     border-radius: 10px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardHeader .cardTitle {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-cardTitle {
     font-size: 14px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardContent {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardContent {
     font-size: 12px;
     line-height: 1.5;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter {
     gap: 10px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter .metaItem {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter
+    .Let-metaItem {
     font-size: 11px;
   }
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardFooter
-    .metaItem
-    .metaIcon {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter
+    .Let-metaItem
+    .Let-metaIcon {
     width: 13px;
     height: 13px;
   }
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardFooter
-    .statusBadge {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter
+    .Let-statusBadge {
     font-size: 10px;
     padding: 2px 10px;
     margin-left: 0;
     margin-top: 4px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter {
     flex-wrap: wrap;
   }
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardHeader
-    .cardActions {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-cardActions {
     gap: 4px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardHeader .editButton,
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardHeader
-    .deleteButton {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-editButton,
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-deleteButton {
     padding: 4px;
   }
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardHeader
-    .editButton
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-editButton
     svg,
-  .announcementsContainer
-    .cardsList
-    .announcementCard
-    .cardHeader
-    .deleteButton
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-deleteButton
     svg {
     width: 14px;
     height: 14px;
@@ -1072,16 +1214,27 @@
 }
 
 @media screen and (max-width: 360px) {
-  .announcementsContainer .cardsList .announcementCard {
+  .Let-announcementsContainer .Let-cardsList .Let-announcementCard {
     padding: 12px 12px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardHeader .cardTitle {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardHeader
+    .Let-cardTitle {
     font-size: 13px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardContent {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardContent {
     font-size: 11px;
   }
-  .announcementsContainer .cardsList .announcementCard .cardFooter .metaItem {
+  .Let-announcementsContainer
+    .Let-cardsList
+    .Let-announcementCard
+    .Let-cardFooter
+    .Let-metaItem {
     font-size: 10px;
   }
 }
@@ -1090,7 +1243,7 @@
    PAGINATION
    ========================================================================== */
 
-.announcementsContainer .pagination {
+.Let-announcementsContainer .Let-pagination {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1098,7 +1251,7 @@
   padding: 16px 0 4px 0;
 }
 
-.announcementsContainer .pagination .paginationBtn {
+.Let-announcementsContainer .Let-pagination .Let-paginationBtn {
   padding: 8px 20px;
   background-color: #ffffff;
   color: #475569;
@@ -1110,32 +1263,34 @@
   transition: all 0.2s ease;
 }
 
-.announcementsContainer .pagination .paginationBtn:hover:not(:disabled) {
+.Let-announcementsContainer
+  .Let-pagination
+  .Let-paginationBtn:hover:not(:disabled) {
   background-color: #f8fafc;
   border-color: #3b82f6;
   color: #3b82f6;
 }
 
-.announcementsContainer .pagination .paginationBtn:disabled {
+.Let-announcementsContainer .Let-pagination .Let-paginationBtn:disabled {
   opacity: 0.4;
   cursor: not-allowed;
 }
 
-.announcementsContainer .pagination .paginationInfo {
+.Let-announcementsContainer .Let-pagination .Let-paginationInfo {
   font-size: 13px;
   color: #64748b;
 }
 
 @media screen and (max-width: 480px) {
-  .announcementsContainer .pagination {
+  .Let-announcementsContainer .Let-pagination {
     gap: 10px;
     flex-wrap: wrap;
   }
-  .announcementsContainer .pagination .paginationBtn {
+  .Let-announcementsContainer .Let-pagination .Let-paginationBtn {
     padding: 6px 14px;
     font-size: 12px;
   }
-  .announcementsContainer .pagination .paginationInfo {
+  .Let-announcementsContainer .Let-pagination .Let-paginationInfo {
     font-size: 12px;
   }
 }
@@ -1144,7 +1299,7 @@
    LEGEND BOX
    ========================================================================== */
 
-.announcementsContainer .legendBox {
+.Let-announcementsContainer .Let-legendBox {
   background-color: #ffffff;
   border-radius: 12px;
   padding: 14px 20px;
@@ -1157,75 +1312,87 @@
   box-sizing: border-box;
 }
 
-.announcementsContainer .legendBox .legendItem {
+.Let-announcementsContainer .Let-legendBox .Let-legendItem {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.announcementsContainer .legendBox .legendItem .indicatorDot {
+.Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-indicatorDot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.announcementsContainer .legendBox .legendItem .indicatorDot.dot-draft {
+.Let-announcementsContainer
+  .Let-legendBox
+  .Let-legendItem
+  .Let-indicatorDot.Let-dot-draft {
   background-color: #3b82f6;
 }
-.announcementsContainer .legendBox .legendItem .indicatorDot.dot-scheduled {
+.Let-announcementsContainer
+  .Let-legendBox
+  .Let-legendItem
+  .Let-indicatorDot.Let-dot-scheduled {
   background-color: #8b5cf6;
 }
-.announcementsContainer .legendBox .legendItem .indicatorDot.dot-template {
+.Let-announcementsContainer
+  .Let-legendBox
+  .Let-legendItem
+  .Let-indicatorDot.Let-dot-template {
   background-color: #f59e0b;
 }
-.announcementsContainer .legendBox .legendItem .indicatorDot.dot-sent {
+.Let-announcementsContainer
+  .Let-legendBox
+  .Let-legendItem
+  .Let-indicatorDot.Let-dot-sent {
   background-color: #10b981;
 }
 
-.announcementsContainer .legendBox .legendItem .legendLabel {
+.Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-legendLabel {
   font-size: 13px;
   font-weight: 500;
   color: #475569;
 }
 
 @media screen and (max-width: 768px) {
-  .announcementsContainer .legendBox {
+  .Let-announcementsContainer .Let-legendBox {
     gap: 20px;
     padding: 12px 16px;
   }
-  .announcementsContainer .legendBox .legendItem .legendLabel {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-legendLabel {
     font-size: 12px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .announcementsContainer .legendBox {
+  .Let-announcementsContainer .Let-legendBox {
     gap: 14px;
     padding: 10px 12px;
     border-radius: 10px;
   }
-  .announcementsContainer .legendBox .legendItem {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem {
     gap: 6px;
   }
-  .announcementsContainer .legendBox .legendItem .legendLabel {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-legendLabel {
     font-size: 11px;
   }
-  .announcementsContainer .legendBox .legendItem .indicatorDot {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-indicatorDot {
     width: 8px;
     height: 8px;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .announcementsContainer .legendBox {
+  .Let-announcementsContainer .Let-legendBox {
     gap: 10px;
     padding: 8px 10px;
   }
-  .announcementsContainer .legendBox .legendItem .legendLabel {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-legendLabel {
     font-size: 10px;
   }
-  .announcementsContainer .legendBox .legendItem .indicatorDot {
+  .Let-announcementsContainer .Let-legendBox .Let-legendItem .Let-indicatorDot {
     width: 6px;
     height: 6px;
   }
@@ -1235,7 +1402,7 @@
    FOOTER
    ========================================================================== */
 
-.announcementsContainer .footerView {
+.Let-announcementsContainer .Let-footerView {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1248,28 +1415,31 @@
   box-sizing: border-box;
 }
 
-.announcementsContainer .footerView .copyright {
+.Let-announcementsContainer .Let-footerView .Let-copyright {
   color: #94a3b8;
 }
 
-.announcementsContainer .footerView .support {
+.Let-announcementsContainer .Let-footerView .Let-support {
   color: #64748b;
 }
 
-.announcementsContainer .footerView .support .supportLink {
+.Let-announcementsContainer .Let-footerView .Let-support .Let-supportLink {
   color: #3b82f6;
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s;
 }
 
-.announcementsContainer .footerView .support .supportLink:hover {
+.Let-announcementsContainer
+  .Let-footerView
+  .Let-support
+  .Let-supportLink:hover {
   color: #1d4ed8;
   text-decoration: underline;
 }
 
 @media screen and (max-width: 768px) {
-  .announcementsContainer .footerView {
+  .Let-announcementsContainer .Let-footerView {
     flex-direction: column;
     text-align: center;
     gap: 4px;
@@ -1278,13 +1448,13 @@
 }
 
 @media screen and (max-width: 480px) {
-  .announcementsContainer .footerView {
+  .Let-announcementsContainer .Let-footerView {
     font-size: 11px;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .announcementsContainer .footerView {
+  .Let-announcementsContainer .Let-footerView {
     font-size: 10px;
   }
 }
@@ -1293,7 +1463,7 @@
    SLIDE PANEL - CREATE/EDIT ANNOUNCEMENT
    ========================================================================== */
 
-.slide-panel-overlay {
+.Let-slide-panel-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -1307,12 +1477,12 @@
   transition: all 0.3s ease;
 }
 
-.slide-panel-overlay.active {
+.Let-slide-panel-overlay.Let-active {
   opacity: 1;
   visibility: visible;
 }
 
-.slide-panel {
+.Let-slide-panel {
   position: fixed;
   top: 0;
   right: -100%;
@@ -1328,11 +1498,11 @@
   overflow: hidden;
 }
 
-.slide-panel.active {
+.Let-slide-panel.Let-active {
   right: 0;
 }
 
-.slide-panel .panel-header {
+.Let-slide-panel .Let-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -1341,24 +1511,24 @@
   flex-shrink: 0;
 }
 
-.slide-panel .panel-title-section {
+.Let-slide-panel .Let-panel-title-section {
   flex: 1;
 }
 
-.slide-panel .panel-title-section h2 {
+.Let-slide-panel .Let-panel-title-section h2 {
   font-size: 22px;
   font-weight: 700;
   color: #0f172a;
   margin: 0 0 4px 0;
 }
 
-.slide-panel .panel-title-section .panel-subtitle {
+.Let-slide-panel .Let-panel-title-section .Let-panel-subtitle {
   font-size: 14px;
   color: #64748b;
   margin: 0;
 }
 
-.slide-panel .panel-close-btn {
+.Let-slide-panel .Let-panel-close-btn {
   background: none;
   border: none;
   cursor: pointer;
@@ -1371,22 +1541,22 @@
   margin-top: 4px;
 }
 
-.slide-panel .panel-close-btn:hover {
+.Let-slide-panel .Let-panel-close-btn:hover {
   background-color: #f1f5f9;
   color: #1e293b;
 }
 
-.slide-panel .panel-form {
+.Let-slide-panel .Let-panel-form {
   padding: 24px 28px;
   overflow-y: auto;
   flex: 1;
 }
 
-.slide-panel .form-group {
+.Let-slide-panel .Let-form-group {
   margin-bottom: 24px;
 }
 
-.slide-panel .form-label {
+.Let-slide-panel .Let-form-label {
   display: block;
   font-size: 14px;
   font-weight: 600;
@@ -1394,13 +1564,13 @@
   margin-bottom: 6px;
 }
 
-.slide-panel .form-hint {
+.Let-slide-panel .Let-form-hint {
   font-size: 13px;
   color: #94a3b8;
   margin: 0 0 12px 0;
 }
 
-.slide-panel .form-input {
+.Let-slide-panel .Let-form-input {
   width: 100%;
   padding: 10px 14px;
   font-size: 14px;
@@ -1413,17 +1583,17 @@
   box-sizing: border-box;
 }
 
-.slide-panel .form-input:focus {
+.Let-slide-panel .Let-form-input:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   background-color: #ffffff;
 }
 
-.slide-panel .form-input.error {
+.Let-slide-panel .Let-form-input.Let-error {
   border-color: #ef4444;
 }
 
-.slide-panel .form-textarea {
+.Let-slide-panel .Let-form-textarea {
   width: 100%;
   padding: 10px 14px;
   font-size: 14px;
@@ -1439,24 +1609,24 @@
   box-sizing: border-box;
 }
 
-.slide-panel .form-textarea:focus {
+.Let-slide-panel .Let-form-textarea:focus {
   border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
   background-color: #ffffff;
 }
 
-.slide-panel .form-textarea.error {
+.Let-slide-panel .Let-form-textarea.Let-error {
   border-color: #ef4444;
 }
 
-.slide-panel .form-error {
+.Let-slide-panel .Let-form-error {
   display: block;
   font-size: 12px;
   color: #ef4444;
   margin-top: 4px;
 }
 
-.slide-panel .form-error-submit {
+.Let-slide-panel .Let-form-error-submit {
   padding: 12px 16px;
   background-color: #fef2f2;
   color: #ef4444;
@@ -1465,13 +1635,13 @@
   margin-bottom: 16px;
 }
 
-.slide-panel .audience-options {
+.Let-slide-panel .Let-audience-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
-.slide-panel .audience-option {
+.Let-slide-panel .Let-audience-option {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1483,11 +1653,11 @@
   transition: all 0.2s;
 }
 
-.slide-panel .audience-option:hover {
+.Let-slide-panel .Let-audience-option:hover {
   background-color: #f1f5f9;
 }
 
-.slide-panel .audience-option input[type="radio"] {
+.Let-slide-panel .Let-audience-option input[type="radio"] {
   accent-color: #3b82f6;
   width: 16px;
   height: 16px;
@@ -1495,19 +1665,19 @@
   flex-shrink: 0;
 }
 
-.slide-panel .audience-option span {
+.Let-slide-panel .Let-audience-option span {
   font-size: 14px;
   font-weight: 500;
   color: #1e293b;
 }
 
-.slide-panel .send-options {
+.Let-slide-panel .Let-send-options {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.slide-panel .send-option {
+.Let-slide-panel .Let-send-option {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -1519,11 +1689,11 @@
   transition: all 0.2s;
 }
 
-.slide-panel .send-option:hover {
+.Let-slide-panel .Let-send-option:hover {
   background-color: #f1f5f9;
 }
 
-.slide-panel .send-option input[type="radio"] {
+.Let-slide-panel .Let-send-option input[type="radio"] {
   accent-color: #3b82f6;
   width: 16px;
   height: 16px;
@@ -1532,33 +1702,33 @@
   margin-top: 2px;
 }
 
-.slide-panel .send-option-content {
+.Let-slide-panel .Let-send-option-content {
   flex: 1;
 }
 
-.slide-panel .send-option-title {
+.Let-slide-panel .Let-send-option-title {
   display: block;
   font-size: 14px;
   font-weight: 600;
   color: #0f172a;
 }
 
-.slide-panel .send-option-desc {
+.Let-slide-panel .Let-send-option-desc {
   display: block;
   font-size: 12px;
   color: #94a3b8;
   margin-top: 2px;
 }
 
-.slide-panel .schedule-picker {
+.Let-slide-panel .Let-schedule-picker {
   margin-top: 12px;
 }
 
-.slide-panel .schedule-picker .form-input {
+.Let-slide-panel .Let-schedule-picker .Let-form-input {
   max-width: 280px;
 }
 
-.slide-panel .template-option {
+.Let-slide-panel .Let-template-option {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -1570,11 +1740,11 @@
   transition: all 0.2s;
 }
 
-.slide-panel .template-option:hover {
+.Let-slide-panel .Let-template-option:hover {
   background-color: #f1f5f9;
 }
 
-.slide-panel .template-option input[type="checkbox"] {
+.Let-slide-panel .Let-template-option input[type="checkbox"] {
   accent-color: #3b82f6;
   width: 16px;
   height: 16px;
@@ -1582,13 +1752,13 @@
   flex-shrink: 0;
 }
 
-.slide-panel .template-option span {
+.Let-slide-panel .Let-template-option span {
   font-size: 14px;
   font-weight: 500;
   color: #1e293b;
 }
 
-.slide-panel .form-actions {
+.Let-slide-panel .Let-form-actions {
   display: flex;
   gap: 12px;
   margin-top: 8px;
@@ -1596,7 +1766,7 @@
   border-top: 1px solid #f1f5f9;
 }
 
-.slide-panel .btn-cancel {
+.Let-slide-panel .Let-btn-cancel {
   padding: 10px 24px;
   background-color: #f1f5f9;
   color: #475569;
@@ -1609,11 +1779,11 @@
   flex: 1;
 }
 
-.slide-panel .btn-cancel:hover {
+.Let-slide-panel .Let-btn-cancel:hover {
   background-color: #e2e8f0;
 }
 
-.slide-panel .btn-submit {
+.Let-slide-panel .Let-btn-submit {
   padding: 10px 24px;
   background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
   color: #ffffff;
@@ -1627,12 +1797,12 @@
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
-.slide-panel .btn-submit:hover:not(:disabled) {
+.Let-slide-panel .Let-btn-submit:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-.slide-panel .btn-submit:disabled {
+.Let-slide-panel .Let-btn-submit:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
@@ -1643,101 +1813,101 @@
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  .slide-panel {
+  .Let-slide-panel {
     max-width: 100%;
   }
-  .slide-panel .panel-header {
+  .Let-slide-panel .Let-panel-header {
     padding: 20px 20px;
   }
-  .slide-panel .panel-title-section h2 {
+  .Let-slide-panel .Let-panel-title-section h2 {
     font-size: 20px;
   }
-  .slide-panel .panel-form {
+  .Let-slide-panel .Let-panel-form {
     padding: 20px;
   }
-  .slide-panel .audience-options {
+  .Let-slide-panel .Let-audience-options {
     grid-template-columns: 1fr 1fr;
   }
-  .slide-panel .form-actions {
+  .Let-slide-panel .Let-form-actions {
     flex-direction: column;
   }
-  .slide-panel .btn-cancel,
-  .slide-panel .btn-submit {
+  .Let-slide-panel .Let-btn-cancel,
+  .Let-slide-panel .Let-btn-submit {
     width: 100%;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .slide-panel .panel-header {
+  .Let-slide-panel .Let-panel-header {
     padding: 16px 16px;
   }
-  .slide-panel .panel-title-section h2 {
+  .Let-slide-panel .Let-panel-title-section h2 {
     font-size: 18px;
   }
-  .slide-panel .panel-title-section .panel-subtitle {
+  .Let-slide-panel .Let-panel-title-section .Let-panel-subtitle {
     font-size: 13px;
   }
-  .slide-panel .panel-form {
+  .Let-slide-panel .Let-panel-form {
     padding: 16px;
   }
-  .slide-panel .audience-options {
+  .Let-slide-panel .Let-audience-options {
     grid-template-columns: 1fr 1fr;
     gap: 6px;
   }
-  .slide-panel .audience-option {
+  .Let-slide-panel .Let-audience-option {
     padding: 8px 12px;
   }
-  .slide-panel .send-option {
+  .Let-slide-panel .Let-send-option {
     padding: 10px 14px;
   }
-  .slide-panel .form-group {
+  .Let-slide-panel .Let-form-group {
     margin-bottom: 18px;
   }
-  .slide-panel .schedule-picker .form-input {
+  .Let-slide-panel .Let-schedule-picker .Let-form-input {
     max-width: 100%;
   }
-  .slide-panel .form-actions {
+  .Let-slide-panel .Let-form-actions {
     gap: 8px;
   }
-  .slide-panel .btn-cancel,
-  .slide-panel .btn-submit {
+  .Let-slide-panel .Let-btn-cancel,
+  .Let-slide-panel .Let-btn-submit {
     padding: 10px 20px;
     font-size: 13px;
   }
 }
 
 @media screen and (max-width: 360px) {
-  .slide-panel .panel-header {
+  .Let-slide-panel .Let-panel-header {
     padding: 14px 14px;
   }
-  .slide-panel .panel-title-section h2 {
+  .Let-slide-panel .Let-panel-title-section h2 {
     font-size: 16px;
   }
-  .slide-panel .panel-title-section .panel-subtitle {
+  .Let-slide-panel .Let-panel-title-section .Let-panel-subtitle {
     font-size: 12px;
   }
-  .slide-panel .panel-form {
+  .Let-slide-panel .Let-panel-form {
     padding: 14px;
   }
-  .slide-panel .audience-options {
+  .Let-slide-panel .Let-audience-options {
     grid-template-columns: 1fr 1fr;
     gap: 4px;
   }
-  .slide-panel .audience-option {
+  .Let-slide-panel .Let-audience-option {
     padding: 6px 10px;
     font-size: 13px;
   }
-  .slide-panel .send-option {
+  .Let-slide-panel .Let-send-option {
     padding: 8px 12px;
   }
-  .slide-panel .send-option-title {
+  .Let-slide-panel .Let-send-option-title {
     font-size: 13px;
   }
-  .slide-panel .send-option-desc {
+  .Let-slide-panel .Let-send-option-desc {
     font-size: 11px;
   }
-  .slide-panel .btn-cancel,
-  .slide-panel .btn-submit {
+  .Let-slide-panel .Let-btn-cancel,
+  .Let-slide-panel .Let-btn-submit {
     padding: 8px 16px;
     font-size: 12px;
   }
@@ -1747,7 +1917,7 @@
    DELETE CONFIRMATION MODAL
    ========================================================================== */
 
-.delete-modal-overlay {
+.Let-delete-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -1764,12 +1934,12 @@
   justify-content: center;
 }
 
-.delete-modal-overlay.active {
+.Let-delete-modal-overlay.Let-active {
   opacity: 1;
   visibility: visible;
 }
 
-.delete-modal {
+.Let-delete-modal {
   background-color: #ffffff;
   border-radius: 16px;
   padding: 32px 40px 28px;
@@ -1782,7 +1952,7 @@
   transition: transform 0.3s ease;
 }
 
-.delete-modal-overlay.active .delete-modal {
+.Let-delete-modal-overlay.Let-active .Let-delete-modal {
   transform: scale(1);
 }
 
@@ -1797,7 +1967,7 @@
   }
 }
 
-.delete-modal-icon {
+.Let-delete-modal-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1809,33 +1979,33 @@
   color: #ef4444;
 }
 
-.delete-modal-icon svg {
+.Let-delete-modal-icon svg {
   width: 32px;
   height: 32px;
 }
 
-.delete-modal-title {
+.Let-delete-modal-title {
   font-size: 20px;
   font-weight: 700;
   color: #0f172a;
   margin: 0 0 8px;
 }
 
-.delete-modal-message {
+.Let-delete-modal-message {
   font-size: 14px;
   color: #64748b;
   margin: 0 0 24px;
   line-height: 1.6;
 }
 
-.delete-modal-actions {
+.Let-delete-modal-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
 }
 
-.delete-modal-cancel,
-.delete-modal-confirm {
+.Let-delete-modal-cancel,
+.Let-delete-modal-confirm {
   padding: 10px 28px;
   border: none;
   border-radius: 10px;
@@ -1847,38 +2017,38 @@
   flex: 1;
 }
 
-.delete-modal-cancel {
+.Let-delete-modal-cancel {
   background-color: #f1f5f9;
   color: #475569;
 }
 
-.delete-modal-cancel:hover:not(:disabled) {
+.Let-delete-modal-cancel:hover:not(:disabled) {
   background-color: #e2e8f0;
 }
 
-.delete-modal-cancel:disabled {
+.Let-delete-modal-cancel:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.delete-modal-confirm {
+.Let-delete-modal-confirm {
   background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
 }
 
-.delete-modal-confirm:hover:not(:disabled) {
+.Let-delete-modal-confirm:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
 }
 
-.delete-modal-confirm:disabled {
+.Let-delete-modal-confirm:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.delete-spinner {
+.Let-delete-spinner {
   display: inline-block;
   width: 14px;
   height: 14px;
@@ -1895,63 +2065,63 @@
    ========================================================================== */
 
 @media screen and (max-width: 768px) {
-  .delete-modal {
+  .Let-delete-modal {
     padding: 28px 24px;
     max-width: 380px;
   }
 
-  .delete-modal-icon {
+  .Let-delete-modal-icon {
     width: 56px;
     height: 56px;
   }
 
-  .delete-modal-icon svg {
+  .Let-delete-modal-icon svg {
     width: 28px;
     height: 28px;
   }
 
-  .delete-modal-title {
+  .Let-delete-modal-title {
     font-size: 18px;
   }
 
-  .delete-modal-message {
+  .Let-delete-modal-message {
     font-size: 13px;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .delete-modal {
+  .Let-delete-modal {
     padding: 24px 20px;
     max-width: 340px;
     border-radius: 14px;
   }
 
-  .delete-modal-icon {
+  .Let-delete-modal-icon {
     width: 48px;
     height: 48px;
   }
 
-  .delete-modal-icon svg {
+  .Let-delete-modal-icon svg {
     width: 24px;
     height: 24px;
   }
 
-  .delete-modal-title {
+  .Let-delete-modal-title {
     font-size: 17px;
   }
 
-  .delete-modal-message {
+  .Let-delete-modal-message {
     font-size: 13px;
     margin-bottom: 20px;
   }
 
-  .delete-modal-actions {
+  .Let-delete-modal-actions {
     flex-direction: column;
     gap: 8px;
   }
 
-  .delete-modal-cancel,
-  .delete-modal-confirm {
+  .Let-delete-modal-cancel,
+  .Let-delete-modal-confirm {
     padding: 10px 20px;
     font-size: 13px;
     min-width: unset;
@@ -1960,31 +2130,31 @@
 }
 
 @media screen and (max-width: 360px) {
-  .delete-modal {
+  .Let-delete-modal {
     padding: 20px 16px;
     max-width: 300px;
   }
 
-  .delete-modal-icon {
+  .Let-delete-modal-icon {
     width: 40px;
     height: 40px;
   }
 
-  .delete-modal-icon svg {
+  .Let-delete-modal-icon svg {
     width: 20px;
     height: 20px;
   }
 
-  .delete-modal-title {
+  .Let-delete-modal-title {
     font-size: 16px;
   }
 
-  .delete-modal-message {
+  .Let-delete-modal-message {
     font-size: 12px;
   }
 
-  .delete-modal-cancel,
-  .delete-modal-confirm {
+  .Let-delete-modal-cancel,
+  .Let-delete-modal-confirm {
     padding: 8px 16px;
     font-size: 12px;
   }

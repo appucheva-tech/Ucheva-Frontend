@@ -1,845 +1,608 @@
-.Napp-container {
-  font-family: Arial, sans-serif;
-  color: #333;
-  margin: 0;
-  padding: 16px;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
+/* ══════════════════════════════════════════════════════════════
+   AdminStudentAttendance.css
+   Fresh design — consistent with AdminAttendance visual language
+══════════════════════════════════════════════════════════════ */
 
-.Napp-container .Napp-h1 {
-  font-size: 24px;
-  color: #03173c;
-  margin: 0 0 4px 0;
-}
-
-.Napp-container .Napp-p {
-  font-size: 14px;
-  color: #03173c;
-  margin: 0 0 16px 0;
-}
-
-.Napp-container .NContainer {
-  width: 100%;
-  margin: 0;
-  border-radius: 10px;
-  background-color: white;
-  overflow: hidden;
-  box-sizing: border-box;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.Nheader {
-  border-bottom: 1px solid #f3f4f6;
-  margin-bottom: 16px;
-  padding: 8px 16px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-.Nheader .Nnavigation {
+/* ── Page shell ─────────────────────────────────────────────── */
+.SAContainer {
   display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Nunito", sans-serif;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.SAHeader {
+  display: flex;
+  flex-direction: column;
   gap: 4px;
-  flex-wrap: nowrap;
-  min-width: max-content;
 }
 
-.Nheader .Nnavigation .Nnav-item {
-  padding: 8px 14px;
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 600;
-  color: #666;
-  white-space: nowrap;
-  transition: color 0.2s ease;
-  border-bottom: 2px solid transparent;
-}
-
-.Nheader .Nnavigation .Nnav-item:hover {
-  color: #007bff;
-}
-
-.Nheader .Nnavigation .Nnav-item.Nactive {
-  border-bottom-color: #007bff;
-  color: #007bff;
-}
-
-.Nmain-content {
-  padding: 0 16px 16px 16px;
-  box-sizing: border-box;
-  width: 100%;
-}
-
-/* ==========================================================================
-   TITLE ROW - Responsive
-   ========================================================================== */
-.Nmain-content .Ntitle-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 12px;
-  width: 100%;
-}
-
-.Nmain-content .Ntitle-row .Ntitle {
-  font-size: 20px;
-  font-weight: bold;
+.SAHeaderTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
   margin: 0;
 }
 
-.Nmain-content .Ntitle-row .Nfilters {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: flex-end;
+.SAHeaderSubtitle {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
 }
 
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
+/* ── Main card ──────────────────────────────────────────────── */
+.SACard {
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group label {
-  font-size: 12px;
-  color: #888;
-  margin-bottom: 4px;
-  font-weight: 500;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
-  border: 1px solid #ddd;
-  border-radius: 4px;
+/* ── Tabs ───────────────────────────────────────────────────── */
+.SATabs {
   display: flex;
-  align-items: center;
-  padding: 6px 10px;
-  background-color: #ffffff;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 120px;
-  transition: border-color 0.2s ease;
+  gap: 0;
+  padding: 0 32px;
+  border-bottom: 1px solid #f1f5f9;
+  background: #ffffff;
 }
 
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper:focus-within,
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper:focus-within {
-  border-color: #007bff;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
+.SATab {
+  background: none;
   border: none;
-  padding: 0;
-  cursor: pointer;
-  background: transparent;
-  width: 100%;
-  outline: none;
-  font-size: 13px;
-  color: #333;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
-  margin-left: 4px;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nreset-button {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border: 1px solid #007bff;
-  border-radius: 4px;
-  background-color: transparent;
-  color: #007bff;
-  cursor: pointer;
-  font-size: 13px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
-  height: 36px;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nreset-button:hover {
-  background-color: #f0f7ff;
-}
-
-.Nmain-content .Ntitle-row .Nfilters .Nreset-button:active {
-  transform: scale(0.97);
-}
-
-/* ==========================================================================
-   TABLE - Responsive
-   ========================================================================== */
-.Nmain-content .Ntable-container {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  margin-bottom: 16px;
-  width: 100%;
-  border-radius: 4px;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 4px;
-  min-width: 650px;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table thead {
-  background-color: #f5f5f5;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table thead tr th {
-  text-align: left;
-  padding: 12px 14px;
-  border-bottom: 1px solid #ddd;
+  font-size: 14px;
   font-weight: 600;
-  color: #555;
-  white-space: nowrap;
-  font-size: 13px;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table tbody tr {
-  transition: background-color 0.15s ease;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table tbody tr:hover {
-  background-color: #fafafa;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #ddd;
-  vertical-align: middle;
-  font-size: 13px;
-}
-
-.Nmain-content .Ntable-container .Nattendance-table tbody tr td .Nstatus-badge {
-  padding: 3px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-  display: inline-block;
-  white-space: nowrap;
-}
-
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nstatus-badge.Npresent {
-  background-color: #e0f2f1;
-  color: #2e7d32;
-}
-
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nstatus-badge.Nabsent {
-  background-color: #ffebee;
-  color: #c62828;
-}
-
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nnotify-button {
-  padding: 4px 10px;
-  border-radius: 4px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
+  color: #64748b;
+  padding: 18px 20px;
   cursor: pointer;
-  font-size: 12px;
-  transition: all 0.2s ease;
+  position: relative;
+  transition: color 0.15s;
   white-space: nowrap;
 }
 
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nnotify-button[disabled] {
-  border: 1px solid #eee;
-  background-color: transparent;
-  color: #aaa;
-  cursor: not-allowed;
+.SATab:hover {
+  color: #0d6efd;
 }
 
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nnotify-button:not([disabled]) {
-  border: 1px solid #2e7d32;
-  background-color: transparent;
-  color: #2e7d32;
+.SATabActive {
+  color: #0d6efd;
 }
 
-.Nmain-content
-  .Ntable-container
-  .Nattendance-table
-  tbody
-  tr
-  td
-  .Nnotify-button:not([disabled]):hover {
-  background-color: #e0f2f1;
+.SATabActive::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: #0d6efd;
+  border-radius: 2px 2px 0 0;
 }
 
-/* ==========================================================================
-   PAGINATION - Responsive
-   ========================================================================== */
-.Nmain-content .Npagination-container {
+/* ── Toolbar ────────────────────────────────────────────────── */
+.SAToolbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  background-color: #fff;
+  align-items: flex-end;
+  padding: 20px 32px;
+  gap: 16px;
   flex-wrap: wrap;
+  border-bottom: 1px solid #f8fafc;
+}
+
+.SAToolbarTitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.SAFilters {
+  display: flex;
+  align-items: flex-end;
   gap: 12px;
-  border-top: 1px solid #f0f0f0;
-}
-
-.Nmain-content .Npagination-container .Npagination-info {
-  color: #888;
-  font-size: 13px;
-}
-
-.Nmain-content .Npagination-container .Npagination-controls {
-  display: flex;
-  gap: 4px;
-  align-items: center;
   flex-wrap: wrap;
 }
 
-.Nmain-content .Npagination-container .Npagination-controls .Npage-number {
-  width: 30px;
-  height: 30px;
-  border: none;
-  background-color: transparent;
-  color: #007bff;
-  cursor: pointer;
-  border-radius: 4px;
-  font-size: 13px;
+/* ── Filter group ───────────────────────────────────────────── */
+.SAFilterGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.SAFilterLabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* ── Select ─────────────────────────────────────────────────── */
+.SASelectWrap {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
 }
 
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Npage-number.Nactive {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Npage-number:hover:not(.Nactive) {
-  background-color: #f0f7ff;
-}
-
-.Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
-.Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-  color: #007bff;
-  padding: 4px 8px;
+.SASelect {
+  height: 38px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
   font-size: 13px;
-  transition: color 0.2s ease;
+  font-family: "Nunito", sans-serif;
+  color: #334155;
+  font-weight: 500;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+  min-width: 130px;
 }
 
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Nprev-page[disabled],
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Nnext-page[disabled] {
-  color: #aaa;
+.SASelect:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.SASelect:disabled {
+  background: #f8fafc;
+  color: #94a3b8;
   cursor: not-allowed;
 }
 
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Nprev-page:hover:not([disabled]),
-.Nmain-content
-  .Npagination-container
-  .Npagination-controls
-  .Nnext-page:hover:not([disabled]) {
-  color: #0056b3;
+.SASelectArrow {
+  position: absolute;
+  right: 10px;
+  font-size: 11px;
+  color: #64748b;
+  pointer-events: none;
 }
 
-.Nmain-content .Npagination-container .Nrows-per-page {
+.SASelectSm {
+  min-width: 70px;
+}
+
+/* ── Date box ───────────────────────────────────────────────── */
+.SADateBox {
+  height: 38px;
+  padding: 0 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  background: #f8fafc;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.Nmain-content .Npagination-container .Nrows-per-page label {
-  color: #888;
   font-size: 13px;
+  font-weight: 500;
+  color: #475569;
+  white-space: nowrap;
 }
 
-.Nmain-content .Npagination-container .Nrows-per-page select {
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 4px 8px;
+/* ── Reset button ───────────────────────────────────────────── */
+.SAResetBtn {
+  height: 38px;
+  padding: 0 16px;
+  border: 1.5px solid #0d6efd;
+  border-radius: 8px;
+  background: transparent;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  white-space: nowrap;
+}
+
+.SAResetBtn:hover {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+/* ── Result count + filter tags ─────────────────────────────── */
+.SAResultCount {
+  padding: 10px 32px;
   font-size: 13px;
-  background-color: #ffffff;
-  outline: none;
-  transition: border-color 0.2s ease;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: #fafbfc;
+  border-bottom: 1px solid #f1f5f9;
 }
 
-.Nmain-content .Npagination-container .Nrows-per-page select:focus {
-  border-color: #007bff;
+.SAResultCount strong {
+  color: #0f172a;
 }
 
-/* ==========================================================================
-   RESPONSIVE BREAKPOINTS
-   ========================================================================== */
+.SAFilterTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #e0eaff;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
-/* Large tablets (1024px and below) */
-@media (max-width: 1024px) {
-  .Napp-container {
-    padding: 12px;
-  }
+/* ── Table wrapper ──────────────────────────────────────────── */
+.SATableWrap {
+  overflow-x: auto;
+  padding: 0 32px;
+}
 
-  .Napp-container .Napp-h1 {
-    font-size: 22px;
-  }
+/* ── Table ──────────────────────────────────────────────────── */
+.SATable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 680px;
+}
 
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 20px;
-  }
+.SATable thead tr {
+  background: #f1f5f9;
+}
 
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
-    min-width: 100px;
+.SATable th {
+  padding: 13px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+  border: none;
+}
+
+.SATable th:first-child {
+  border-radius: 8px 0 0 8px;
+}
+.SATable th:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+.SARow {
+  transition: background 0.12s;
+}
+
+.SARow:hover {
+  background: #f8fafc;
+}
+
+.SATable td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13.5px;
+  vertical-align: middle;
+  color: #475569;
+}
+
+.SATable tr:last-child td {
+  border-bottom: none;
+}
+
+/* Name cell with avatar */
+.SANameCell {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  color: #0d6efd !important;
+  font-weight: 600 !important;
+}
+
+.SAAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  color: #1d4ed8;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.SACell {
+  color: #475569;
+}
+
+/* ── Status badges ──────────────────────────────────────────── */
+.SABadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.SABadge--present {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.SABadge--absent {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.SABadge--late {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* ── Notify button ──────────────────────────────────────────── */
+.SANotifyBtn {
+  height: 32px;
+  padding: 0 14px;
+  border-radius: 7px;
+  border: 1.5px solid #0d6efd;
+  background: transparent;
+  color: #0d6efd;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+}
+
+.SANotifyBtn:hover:not(.SANotifyBtn--disabled) {
+  background: #0d6efd;
+  color: #ffffff;
+}
+
+.SANotifyBtn--disabled {
+  border-color: #e2e8f0;
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* ── State cell (loading / empty / error) ───────────────────── */
+.SAStateCell {
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+}
+
+.SAStateCell .SASpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #0d6efd;
+  border-radius: 50%;
+  animation: SASpin 0.7s linear infinite;
+  margin: 0 auto 12px;
+}
+
+@keyframes SASpin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
-/* Tablets (768px and below) */
+.SAStateError {
+  color: #b91c1c;
+}
+
+.SAEmptyIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.SAEmptyTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #334155;
+  margin: 0 0 4px;
+}
+
+.SAEmptyText {
+  font-size: 13px;
+  color: #94a3b8;
+  margin: 0 0 14px;
+}
+
+.SAResetLink {
+  background: none;
+  border: none;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ── Pagination ─────────────────────────────────────────────── */
+.SAPagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 32px 28px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.SAPaginationInfo {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.SAPaginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.SAPaginationBtn {
+  min-width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: 1.5px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.SAPaginationBtn:hover:not(:disabled):not(.SAPaginationBtn--active) {
+  border-color: #0d6efd;
+  color: #0d6efd;
+}
+
+.SAPaginationBtn--active {
+  background: #0d6efd;
+  border-color: #0d6efd;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.SAPaginationBtn:disabled {
+  color: #cbd5e1;
+  border-color: #f1f5f9;
+  cursor: not-allowed;
+}
+
+.SAPaginationEllipsis {
+  color: #94a3b8;
+  font-size: 14px;
+  padding: 0 4px;
+}
+
+.SARowsPerPage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.SAFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #94a3b8;
+  padding: 4px 0;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.SAFooterLink {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.SAFooterLink:hover {
+  text-decoration: underline;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
-  .Napp-container {
-    padding: 10px;
+  .SATabs {
+    padding: 0 20px;
+    gap: 0;
+  }
+  .SATab {
+    padding: 16px 14px;
+    font-size: 13px;
   }
 
-  .Napp-container .Napp-h1 {
+  .SAToolbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px 20px;
+  }
+
+  .SAFilters {
+    width: 100%;
+  }
+
+  .SASelect {
+    min-width: 110px;
+  }
+
+  .SAResultCount {
+    padding: 10px 20px;
+  }
+  .SATableWrap {
+    padding: 0 20px;
+  }
+  .SAPagination {
+    padding: 16px 20px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .SAFooter {
+    flex-direction: column;
+    text-align: center;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .SAHeaderTitle {
     font-size: 20px;
   }
-
-  .Napp-container .Napp-p {
-    font-size: 13px;
-  }
-
-  .Nheader {
-    padding: 6px 12px;
-  }
-
-  .Nheader .Nnavigation .Nnav-item {
-    font-size: 13px;
-    padding: 6px 10px;
-  }
-
-  .Nmain-content {
-    padding: 0 12px 12px 12px;
-  }
-
-  .Nmain-content .Ntitle-row {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 18px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters {
-    flex-wrap: wrap;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
-    flex: 1 1 140px;
-    min-width: 120px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper,
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper {
-    min-width: auto;
-    padding: 5px 8px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nreset-button {
-    height: 34px;
-    padding: 5px 12px;
-    font-size: 13px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table {
-    min-width: 550px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
-  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-    padding: 10px 12px;
-    font-size: 12px;
-  }
-
-  .Nmain-content .Npagination-container {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 10px;
-    padding: 10px 14px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-info {
-    text-align: center;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-controls {
-    justify-content: center;
-  }
-
-  .Nmain-content .Npagination-container .Nrows-per-page {
-    justify-content: center;
-  }
-}
-
-/* Small mobile devices (640px and below) */
-@media (max-width: 640px) {
-  .Napp-container {
-    padding: 8px;
-  }
-
-  .Napp-container .Napp-h1 {
-    font-size: 18px;
-  }
-
-  .Napp-container .Napp-p {
-    font-size: 12px;
-  }
-
-  .Nheader {
-    padding: 4px 10px;
-  }
-
-  .Nheader .Nnavigation .Nnav-item {
-    font-size: 12px;
-    padding: 5px 8px;
-  }
-
-  .Nmain-content {
-    padding: 0 8px 8px 8px;
-  }
-
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 17px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters {
-    flex-direction: column;
-    gap: 8px;
-    width: 100%;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
-    flex: none;
-    width: 100%;
-    min-width: auto;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
-    font-size: 13px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nreset-button {
-    width: 100%;
-    justify-content: center;
-    height: 36px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table {
-    min-width: 450px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
-  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-    padding: 8px 10px;
-    font-size: 12px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nstatus-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nnotify-button {
-    font-size: 11px;
-    padding: 3px 8px;
-  }
-
-  .Nmain-content .Npagination-container {
-    padding: 8px 10px;
+  .SAFilters {
     gap: 8px;
   }
-
-  .Nmain-content .Npagination-container .Npagination-info {
+  .SASelect {
+    min-width: 100px;
     font-size: 12px;
   }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
-    width: 26px;
-    height: 26px;
+  .SAResetBtn {
+    font-size: 12px;
+    padding: 0 12px;
+  }
+  .SATable th,
+  .SATable td {
+    padding: 11px 12px;
     font-size: 12px;
   }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
-  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
+  .SANameCell .SAAvatar {
+    width: 28px;
+    height: 28px;
+    font-size: 11px;
+  }
+  .SAPaginationBtn {
+    min-width: 28px;
+    height: 28px;
     font-size: 12px;
-    padding: 2px 6px;
-  }
-
-  .Nmain-content .Npagination-container .Nrows-per-page label {
-    font-size: 12px;
-  }
-
-  .Nmain-content .Npagination-container .Nrows-per-page select {
-    font-size: 12px;
-    padding: 3px 6px;
-  }
-}
-
-/* Extra small mobile devices (480px and below) */
-@media (max-width: 480px) {
-  .Napp-container {
-    padding: 6px;
-  }
-
-  .Napp-container .Napp-h1 {
-    font-size: 16px;
-  }
-
-  .Napp-container .Napp-p {
-    font-size: 11px;
-  }
-
-  .Nheader {
-    padding: 4px 8px;
-  }
-
-  .Nheader .Nnavigation .Nnav-item {
-    font-size: 11px;
-    padding: 4px 6px;
-  }
-
-  .Nmain-content {
-    padding: 0 6px 6px 6px;
-  }
-
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 16px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group label {
-    font-size: 11px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Nselect-wrapper select,
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group .Ndate-wrapper input {
-    font-size: 12px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table {
-    min-width: 380px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
-  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-    padding: 6px 8px;
-    font-size: 11px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nstatus-badge {
-    font-size: 10px;
-    padding: 2px 6px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nnotify-button {
-    font-size: 10px;
-    padding: 2px 6px;
-    gap: 4px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
-    width: 24px;
-    height: 24px;
-    font-size: 11px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
-  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
-    font-size: 11px;
-    padding: 2px 4px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-info {
-    font-size: 11px;
-  }
-
-  .Nmain-content .Npagination-container .Nrows-per-page label {
-    font-size: 11px;
-  }
-
-  .Nmain-content .Npagination-container .Nrows-per-page select {
-    font-size: 11px;
-    padding: 2px 6px;
-  }
-}
-
-/* Very small mobile devices (375px and below) */
-@media (max-width: 375px) {
-  .Napp-container {
-    padding: 4px;
-  }
-
-  .Napp-container .Napp-h1 {
-    font-size: 15px;
-  }
-
-  .Nheader .Nnavigation .Nnav-item {
-    font-size: 10px;
-    padding: 4px 5px;
-  }
-
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 15px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table {
-    min-width: 320px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
-  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-    padding: 5px 6px;
-    font-size: 10px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nstatus-badge {
-    font-size: 9px;
-    padding: 2px 5px;
-  }
-
-  .Nmain-content
-    .Ntable-container
-    .Nattendance-table
-    tbody
-    tr
-    td
-    .Nnotify-button {
-    font-size: 9px;
-    padding: 2px 5px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Npage-number {
-    width: 22px;
-    height: 22px;
-    font-size: 10px;
-  }
-
-  .Nmain-content .Npagination-container .Npagination-controls .Nprev-page,
-  .Nmain-content .Npagination-container .Npagination-controls .Nnext-page {
-    font-size: 10px;
-    padding: 2px 3px;
-  }
-}
-
-/* Landscape phone support */
-@media (max-height: 500px) and (orientation: landscape) {
-  .Napp-container {
-    padding: 8px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table {
-    min-width: 500px;
-  }
-
-  .Nmain-content .Ntable-container .Nattendance-table thead tr th,
-  .Nmain-content .Ntable-container .Nattendance-table tbody tr td {
-    padding: 6px 10px;
-    font-size: 11px;
-  }
-
-  .Nmain-content .Ntitle-row .Ntitle {
-    font-size: 16px;
-  }
-
-  .Nmain-content .Ntitle-row .Nfilters .Nfilter-group {
-    flex: 1 1 80px;
-    min-width: 60px;
-  }
-
-  .Nheader .Nnavigation .Nnav-item {
-    font-size: 11px;
-    padding: 4px 8px;
   }
 }

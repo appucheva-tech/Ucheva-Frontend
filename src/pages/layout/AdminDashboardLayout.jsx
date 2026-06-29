@@ -4,26 +4,25 @@ import AdminSidebar from "../Admin/AdminSidebar";
 import { Outlet } from "react-router-dom";
 import AdminHeader from "../Admin/AdminHeader";
 import { useState } from "react";
+import AdminFooter from "../Admin/AdminFooter";
 
 const AdminDashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="Zmain_body">
-      <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen}/>
+      <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-        {sidebarOpen && (
-        <div
-          className="mobile-overlay"
-          onClick={() => setSidebarOpen(false)}
-        />
-        )}
+      {sidebarOpen && (
+        <div className="mobile-overlay" onClick={() => setSidebarOpen(false)} />
+      )}
 
       <div className="Zcontent-wrapper">
-        <AdminHeader setSidebarOpen={setSidebarOpen}/>
+        <AdminHeader setSidebarOpen={setSidebarOpen} />
 
         <main className="Zmain-content">
           <Outlet />
+          <AdminFooter />
         </main>
       </div>
     </div>

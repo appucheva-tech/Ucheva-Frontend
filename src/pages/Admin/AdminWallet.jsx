@@ -1,28 +1,34 @@
 import React, { useState, useEffect } from "react";
 import "./AdminWallet.css";
-import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
+import {
+  PiStudentFill,
+  PiCalendarBlankFill,
+  PiPlusLight,
+  PiPlus,
+} from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar, FaRegCreditCard } from "react-icons/fa6";
 import { MdOutlineHistory } from "react-icons/md";
 import { IoClose } from "react-icons/io5";
 import { walletService } from "./Services/walletService";
+import { GoPlus } from "react-icons/go";
 
 // ── Your three state components ───────────────────────────────────────────────
-import LoadingScreen from "../../components/Loading-Screen";     // adjust path
-import ErrorScreen from "../../components/Error-Screen";         // adjust path
-import EmptyState from "../../components/EmptyState";           // adjust path
+import LoadingScreen from "../../components/Loading-Screen"; // adjust path
+import ErrorScreen from "../../components/Error-Screen"; // adjust path
+import EmptyState from "../../components/EmptyState"; // adjust path
 
 const NIGERIAN_BANKS = [
-  { name: "Access Bank",          code: "044" },
-  { name: "Fidelity Bank",        code: "070" },
-  { name: "First Bank",           code: "011" },
-  { name: "GTBank",               code: "058" },
-  { name: "Zenith Bank",          code: "057" },
+  { name: "Access Bank", code: "044" },
+  { name: "Fidelity Bank", code: "070" },
+  { name: "First Bank", code: "011" },
+  { name: "GTBank", code: "058" },
+  { name: "Zenith Bank", code: "057" },
   { name: "United Bank for Africa", code: "033" },
-  { name: "Stanbic IBTC",         code: "221" },
-  { name: "FCMB",                 code: "214" },
-  { name: "Sterling Bank",        code: "232" },
-  { name: "Union Bank",           code: "032" },
+  { name: "Stanbic IBTC", code: "221" },
+  { name: "FCMB", code: "214" },
+  { name: "Sterling Bank", code: "232" },
+  { name: "Union Bank", code: "032" },
 ];
 
 const AdminWallet = () => {
@@ -107,12 +113,15 @@ const AdminWallet = () => {
   return (
     <div className="dashboard-container">
       {/* ── Header ── */}
-      <header className="dashboard-header">
-        <h1 className="welcome-text">
+      <header className="dashboard-headerWallet">
+        <h1 className="welcome-textWallet">
           Wallet
-          <p className="subtitle-text">Manage your revenue and withdrawals.</p>
+          <span className="subtitle-textWallet">
+            Manage your revenue and withdrawals.
+          </span>
         </h1>
         <button className="WithdrawFunds" onClick={() => setShowModal(true)}>
+          <GoPlus />
           Withdraw Funds
         </button>
       </header>
@@ -229,7 +238,9 @@ const AdminWallet = () => {
 
               <select
                 onChange={(e) => {
-                  const b = NIGERIAN_BANKS.find((x) => x.name === e.target.value);
+                  const b = NIGERIAN_BANKS.find(
+                    (x) => x.name === e.target.value,
+                  );
                   setWithdrawData({
                     ...withdrawData,
                     bankName: e.target.value,
@@ -250,7 +261,10 @@ const AdminWallet = () => {
                 type="text"
                 placeholder="Account Name"
                 onChange={(e) =>
-                  setWithdrawData({ ...withdrawData, accountName: e.target.value })
+                  setWithdrawData({
+                    ...withdrawData,
+                    accountName: e.target.value,
+                  })
                 }
                 required
               />
@@ -258,7 +272,10 @@ const AdminWallet = () => {
                 type="text"
                 placeholder="Account Number"
                 onChange={(e) =>
-                  setWithdrawData({ ...withdrawData, accountNumber: e.target.value })
+                  setWithdrawData({
+                    ...withdrawData,
+                    accountNumber: e.target.value,
+                  })
                 }
                 required
               />

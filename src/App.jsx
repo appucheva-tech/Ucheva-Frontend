@@ -70,6 +70,7 @@ import PrivateRoute from "./pages/PrivateRoute";
 import NotFound from "./pages/notFound";
 import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
 import RequireSubdomain from "./pages/requireSubdomain";
+import AdminREportDetailPage from "./pages/Admin/AdminReportDetalpage";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -141,8 +142,15 @@ const App = () => {
             <Route path="AdminClass" element={<AdminClass />} />
             <Route path="AdminFees" element={<AdminFees />} />
             <Route path="AdminReportCards" element={<AdminReportCards />} />
+
+            <Route
+              path="AdminReportCards/:admissionnumber"
+              element={<AdminREportDetailPage />}
+            />
+
             <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
             <Route path="AdminWallet" element={<AdminWallet />} />
+
             <Route path="AdminSettings" element={<AdminSettings />} />
           </Route>
 
@@ -206,7 +214,7 @@ const App = () => {
               element={<SubjectTeacherAnnouncement />}
             />
             <Route path="settings" element={<SubjectTeacherSettings />} />
-            <Route path="attendance/:token" element={<AttendancePage />} />
+            <Route path="attendance" element={<AttendancePage />} />
           </Route>
         </Route>
       </Routes>
@@ -217,4 +225,3 @@ const App = () => {
 };
 
 export default App;
-

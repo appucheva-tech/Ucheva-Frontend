@@ -1,18 +1,22 @@
-import React from 'react'
-import './AdminFooter.css'
+import React from "react";
+import "./AdminFooter.css";
 import { FaRegCopyright } from "react-icons/fa";
 
 const AdminFooter = () => {
   return (
-    <div className='BMain'>
-      <h1 className='BMainLeft'> <FaRegCopyright className='BMainLeftIcon'/>
-        2026 Ucheva school operating management system. All right reserved.
-      </h1>
-      <h2 className='BMainRight'>Need help? 
-        <span className='BMainRightSpan'> Contact support</span>
-      </h2>
-    </div>
-  )
-}
+    <footer className="footerRow">
+      <span className="copyrightText">
+        ©️ {new Date().getFullYear()} Ucheva school operating management system.
+        All rights reserved.
+      </span>
+      <span className="supportText">
+        Need help?{" "}
+        <a href="#support" className="supportLink">
+          Contact support
+        </a>
+      </span>
+    </footer>
+  );
+};
 
-export default AdminFooter
+export default AdminFooter;

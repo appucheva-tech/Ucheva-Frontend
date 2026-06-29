@@ -1,15 +1,358 @@
-.ct-settings-container {
+/* ══════════════════════════════════════════════════════════════
+   CTSettings.css — matches the UI screenshot exactly
+══════════════════════════════════════════════════════════════ */
+
+/* ── Page shell ─────────────────────────────────────────────── */
+.ct-container {
   padding: 40px;
-  background-color: #f5f7fb;
+  background: #f5f7fb;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: "Nunito", sans-serif;
 }
 
-.ct-settings-header {
-  margin-bottom: 40px;
+/* ── Page header ────────────────────────────────────────────── */
+.ct-page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 6px;
 }
 
-/* Modal */
-.ct-modal-overlay {
+.ct-page-header p {
+  font-size: 16px;
+  color: #042869;
+  margin: 0;
+}
+
+/* ── Card ───────────────────────────────────────────────────── */
+.ct-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 32px 40px;
+}
+
+.ct-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #03173c;
+  margin: 0 0 28px;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PROFILE LAYOUT
+══════════════════════════════════════════════════════════════ */
+.ct-profile-layout {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+
+/* ── Avatar column ──────────────────────────────────────────── */
+.ct-avatar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 10px;
+}
+
+.ct-avatar-wrap {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+.ct-avatar-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+}
+
+.ct-avatar-placeholder {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9da4ae;
+}
+
+.ct-avatar-btn {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+}
+
+.ct-avatar-btn:hover {
+  background: #f1f5f9;
+  border-color: #0062f6;
+  color: #0062f6;
+}
+
+.ct-avatar-hint {
+  font-size: 13px;
+  color: #9da4ae;
+  margin: 0;
+  text-align: center;
+}
+
+.ct-file-hidden {
+  display: none;
+}
+
+/* ── Form column ────────────────────────────────────────────── */
+.ct-form-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+/* 2-column grid */
+.ct-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* Individual field */
+.ct-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.ct-field label {
+  font-size: 15px;
+  font-weight: 500;
+  color: #03173c;
+}
+
+.ct-field input {
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid #d2d6db;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family: "Nunito", sans-serif;
+  color: #03173c;
+  background: #ffffff;
+  outline: none;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
+}
+
+.ct-field input:focus {
+  border-color: #0062f6;
+  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
+}
+
+.ct-field input::placeholder {
+  color: #b0b7c3;
+}
+
+/* Read-only */
+.ct-readonly {
+  background: #f9fafb !important;
+  color: #6b7280 !important;
+  cursor: not-allowed !important;
+  border-color: #e5e7eb !important;
+}
+
+.ct-readonly:focus {
+  border-color: #e5e7eb !important;
+  box-shadow: none !important;
+}
+
+/* Save button row */
+.ct-btn-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.ct-save-btn {
+  height: 50px;
+  padding: 0 32px;
+  background: #0062f6;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    transform 0.1s;
+}
+
+.ct-save-btn:hover {
+  background: #0051cc;
+}
+.ct-save-btn:active {
+  transform: translateY(1px);
+}
+.ct-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   UPLOAD SIGNATURE CARD
+══════════════════════════════════════════════════════════════ */
+.ct-sig-heading {
+  font-size: 15px;
+  font-weight: 500;
+  color: #03173c;
+  margin: 0 0 12px;
+}
+
+/* The box — matches screenshot: portrait box with upload btn below */
+.ct-sig-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  width: 200px;
+}
+
+.ct-sig-preview {
+  width: 200px;
+  height: 140px;
+  border: 1.5px solid #d2d6db;
+  border-radius: 10px;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ct-sig-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.ct-sig-empty {
+  color: #c0c7d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Upload button below the box — outlined blue */
+.ct-sig-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 36px;
+  border: 1.5px solid #d2d6db;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #0062f6;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+.ct-sig-upload-btn:hover {
+  background: #f0f4ff;
+  border-color: #0062f6;
+}
+
+.ct-sig-hint {
+  font-size: 12px;
+  color: #9da4ae;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   SECURITY CARD
+══════════════════════════════════════════════════════════════ */
+.ct-security-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.ct-security-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #03173c;
+  margin: 0 0 4px;
+}
+
+.ct-security-sub {
+  font-size: 14px;
+  color: #9da4ae;
+  margin: 0;
+}
+
+.ct-change-pwd-btn {
+  height: 46px;
+  padding: 0 20px;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #03173c;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color 0.15s,
+    background 0.15s,
+    color 0.15s;
+  flex-shrink: 0;
+}
+
+.ct-change-pwd-btn:hover {
+  border-color: #0062f6;
+  color: #0062f6;
+  background: #f0f4ff;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   PASSWORD MODAL
+══════════════════════════════════════════════════════════════ */
+.ct-overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
@@ -17,93 +360,128 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(2px);
+  animation: ct-fade-in 0.15s ease;
 }
 
-.ct-modal-container {
-  background: #fff;
-  border-radius: 12px;
+@keyframes ct-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ct-modal {
+  background: #ffffff;
+  border-radius: 14px;
   width: 100%;
-  max-width: 450px;
-  padding: 24px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  max-width: 460px;
+  padding: 28px 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  animation: ct-slide-up 0.2s ease;
   margin: 16px;
 }
 
-.ct-modal-header {
+@keyframes ct-slide-up {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ct-modal-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
-.ct-modal-header h2 {
+.ct-modal-head h2 {
   font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
 }
 
-.ct-modal-close-btn {
+.ct-modal-x {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 22px;
+  color: #64748b;
   cursor: pointer;
-  color: #666;
   line-height: 1;
   padding: 0 4px;
+  transition: color 0.15s;
+}
+
+.ct-modal-x:hover {
+  color: #0f172a;
 }
 
 .ct-modal-body {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
-.ct-modal-error {
+.ct-modal-err {
   color: #e53e3e;
   font-size: 13px;
   background: #fff5f5;
   border: 1px solid #fed7d7;
-  padding: 10px 12px;
-  border-radius: 6px;
+  padding: 10px 14px;
+  border-radius: 8px;
   margin: 0;
 }
 
-.ct-modal-form-group {
+.ct-modal-field {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.ct-modal-form-group label {
+.ct-modal-field label {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   color: #374151;
 }
 
-.ct-modal-password-wrapper {
+.ct-pwd-wrap {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-.ct-modal-password-wrapper input {
+.ct-pwd-wrap input {
   width: 100%;
-  padding: 10px 40px 10px 14px;
-  border: 1px solid #d1d5db;
+  height: 46px;
+  padding: 0 44px 0 14px;
+  border: 1.5px solid #d1d5db;
   border-radius: 8px;
   font-size: 14px;
+  font-family: "Nunito", sans-serif;
+  color: #0f172a;
   outline: none;
-  transition: border-color 0.2s;
   box-sizing: border-box;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
-.ct-modal-password-wrapper input:focus {
-  border-color: #3b82f6;
+.ct-pwd-wrap input:focus {
+  border-color: #0062f6;
+  box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
-.ct-modal-eye-btn {
+.ct-eye {
   position: absolute;
-  right: 12px;
+  right: 13px;
   background: none;
   border: none;
   cursor: pointer;
@@ -111,794 +489,194 @@
   font-size: 16px;
   display: flex;
   align-items: center;
+  transition: color 0.15s;
 }
 
-/* Strength Bar */
-.ct-password-strength-wrapper {
+.ct-eye:hover {
+  color: #0062f6;
+}
+
+/* Strength bar */
+.ct-strength-row {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
-.ct-password-strength-bar-track {
+.ct-strength-track {
   flex: 1;
-  height: 6px;
+  height: 5px;
   background: #e5e7eb;
-  border-radius: 999px;
+  border-radius: 99px;
   overflow: hidden;
 }
 
-.ct-password-strength-bar-fill {
+.ct-strength-fill {
   height: 100%;
-  border-radius: 999px;
+  border-radius: 99px;
   transition:
     width 0.3s ease,
-    background-color 0.3s ease;
+    background 0.3s ease;
 }
 
-.ct-password-strength-label {
+.ct-strength-label {
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 700;
   min-width: 40px;
 }
 
-/* Requirements checklist */
-.ct-password-requirements {
+/* Requirements */
+.ct-req-list {
   list-style: none;
   padding: 0;
   margin: 4px 0 0;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 3px;
 }
 
-.ct-password-requirements li {
+.ct-req-list li {
   font-size: 12px;
-  color: #9ca3af;
-  padding-left: 18px;
-  position: relative;
-}
-
-.ct-password-requirements li::before {
-  content: "✗";
-  position: absolute;
-  left: 0;
   color: #e53e3e;
 }
 
-.ct-password-requirements li.ct-met {
-  color: #374151;
-}
-
-.ct-password-requirements li.ct-met::before {
-  content: "✓";
+.ct-req-list li.ct-met {
   color: #38a169;
 }
 
-/* Match indicator */
-.ct-password-match-indicator {
+/* Match hint */
+.ct-match {
   font-size: 12px;
-  font-weight: 500;
-  margin: 2px 0 0;
+  font-weight: 600;
+  margin: 4px 0 0;
 }
 
-/* Footer */
-.ct-modal-footer {
+/* Modal footer */
+.ct-modal-foot {
   display: flex;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 28px;
 }
 
-.ct-modal-cancel-btn {
-  padding: 10px 20px;
-  border: 1px solid #d1d5db;
+.ct-modal-cancel {
+  height: 44px;
+  padding: 0 20px;
+  border: 1.5px solid #d1d5db;
   border-radius: 8px;
-  background: #fff;
+  background: #ffffff;
   color: #374151;
   font-size: 14px;
+  font-weight: 600;
+  font-family: "Nunito", sans-serif;
   cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
-.ct-modal-submit-btn {
-  padding: 10px 20px;
+.ct-modal-cancel:hover {
+  background: #f9fafb;
+}
+
+.ct-modal-submit {
+  height: 44px;
+  padding: 0 24px;
   border: none;
   border-radius: 8px;
-  background: #2563eb;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.ct-modal-submit-btn:disabled,
-.ct-modal-cancel-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.ct-settings-header h1 {
-  margin: 0 0 12px 0;
-  color: #0f172a;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 32px;
-  line-height: 100%;
-  letter-spacing: 0%;
-}
-
-.ct-settings-header p {
-  margin: 0;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #042869;
-}
-
-.ct-settings-card {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 40px;
-  margin-bottom: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.ct-card-title {
-  margin: 0 0 32px 0;
-  padding-bottom: 0;
-  color: var(--Primary-Color-900, #03173c);
-  font-family: Nunito;
-  font-size: 22px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.ct-profile-content {
-  display: flex;
-  gap: 60px;
-}
-
-.ct-avatar-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.ct-avatar-container {
-  position: relative;
-  width: 140px;
-  height: 140px;
-  margin-bottom: 16px;
-}
-
-.ct-avatar-image,
-.ct-avatar-placeholder {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: #e5e7eb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #9da4ae;
-}
-
-.ct-avatar-placeholder svg {
-  width: 60px;
-  height: 60px;
-}
-
-.ct-avatar-upload-btn {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 2px solid #ddd;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-}
-
-.ct-avatar-upload-btn:hover {
-  background-color: #f5f5f5;
-  border-color: #0033cc;
-}
-
-.ct-avatar-upload-btn svg {
-  width: 20px;
-  height: 20px;
-  color: #666;
-}
-
-.ct-avatar-input {
-  display: none;
-}
-
-.ct-avatar-info {
-  font-size: 13px;
-  color: #999;
-  margin: 0;
-  text-align: center;
-}
-
-.ct-form-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.ct-form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.ct-form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.ct-form-group.full-width {
-  grid-column: 1 / -1;
-}
-
-.ct-form-group label {
-  margin-bottom: 8px;
-  display: block;
-  color: var(--Primary-Color-900, #03173c);
-  font-family: Nunito;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
-}
-
-.ct-form-group input {
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  color: var(--Primary-Color-900, #03173c);
-  font-family: Geist;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 84;
-  line-height: normal;
-  transition: border-color 0.3s ease;
-  border-radius: 8px;
-  border: 1px solid var(--Neutral-Color-400, #d2d6db);
-  background-color: #ffffff;
-}
-
-.ct-form-group input:focus {
-  outline: none;
-  border-color: #0033cc;
-  box-shadow: 0 0 0 3px rgba(0, 51, 204, 0.1);
-}
-
-.ct-form-group input::placeholder {
-  color: #999;
-}
-
-.ct-form-group input.ct-readonly-field {
-  background-color: #f9fafb;
-  color: #666;
-  cursor: not-allowed;
-  border: 1px solid #d2d6db;
-}
-
-.ct-form-group input.ct-readonly-field:focus {
-  outline: none;
-  border-color: #e0e0e0;
-  box-shadow: none;
-}
-
-.ct-form-group input.ct-readonly-field:hover {
-  border-color: #e0e0e0;
-}
-
-.ct-form-group input:disabled {
-  background-color: #f5f5f5;
-  color: #666;
-  cursor: not-allowed;
-}
-
-.ct-button-wrapper {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 16px;
-}
-
-.ct-save-btn {
-  background-color: #0062f6;
-  width: 127px;
-  height: 54px;
-  gap: 8px;
-  border-radius: 8px;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0%;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  background: #0062f6;
   color: #ffffff;
-  border: none;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: "Nunito", sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
-.ct-save-btn:hover {
-  background-color: #0041cc;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 51, 204, 0.2);
+.ct-modal-submit:hover {
+  background: #0051cc;
 }
-
-.ct-save-btn:active {
-  transform: translateY(0);
-}
-
-.ct-save-btn:disabled {
+.ct-modal-submit:disabled,
+.ct-modal-cancel:disabled {
   opacity: 0.6;
   cursor: not-allowed;
-  transform: none;
 }
 
-.ct-security-content {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.ct-security-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: none;
-}
-
-.ct-security-text h3 {
-  margin: 0 0 8px 0;
-  color: var(--Primary-Color-900, #03173c);
-  font-family: Nunito;
-  font-size: 18px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.ct-security-text p {
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
-  color: #9da4ae;
-  margin: 0;
-}
-
-.ct-change-password-btn {
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  flex-shrink: 0;
-  display: flex;
-  padding: 15px 12px;
-  align-items: center;
-  gap: 8px;
-  color: var(--Primary-Color-900, #03173c);
-  text-align: center;
-  font-family: Nunito;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-}
-
-.ct-change-password-btn:hover {
-  background-color: #f5f5f5;
-  border-color: #999;
-}
-
-.ct-change-password-btn:active {
-  background-color: #eee;
-}
-
-@media (max-width: 1023px) {
-  .ct-settings-container {
-    padding: 30px;
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .ct-container {
+    padding: 28px;
   }
-
-  .ct-settings-header h1 {
-    font-size: 28px;
+  .ct-card {
+    padding: 24px 28px;
   }
-
-  .ct-settings-header p {
-    font-size: 16px;
+  .ct-profile-layout {
+    gap: 32px;
   }
+}
 
-  .ct-settings-card {
-    padding: 30px;
-  }
-
-  .ct-card-title {
-    font-size: 20px;
-    margin-bottom: 24px;
-  }
-
-  .ct-profile-content {
-    gap: 40px;
-  }
-
-  .ct-form-row {
+@media (max-width: 768px) {
+  .ct-container {
+    padding: 20px;
     gap: 20px;
   }
-
-  .ct-form-group label {
-    font-size: 16px;
+  .ct-card {
+    padding: 20px 24px;
   }
-
-  .ct-security-item {
-    padding: 20px;
-  }
-
-  .ct-security-text h3 {
-    font-size: 16px;
-  }
-
-  .ct-security-text p {
-    font-size: 14px;
-  }
-
-  .ct-change-password-btn {
-    padding: 12px 10px;
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 767px) {
-  .ct-settings-container {
-    padding: 20px;
-  }
-
-  .ct-settings-header {
-    margin-bottom: 24px;
-  }
-
-  .ct-settings-header h1 {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-
-  .ct-settings-header p {
-    font-size: 14px;
-  }
-
-  .ct-settings-card {
-    padding: 20px;
-    margin-bottom: 20px;
-  }
-
-  .ct-card-title {
-    font-size: 18px;
-    margin-bottom: 20px;
-  }
-
-  .ct-profile-content {
+  .ct-profile-layout {
     flex-direction: column;
     gap: 24px;
   }
-
-  .ct-avatar-section {
+  .ct-avatar-col {
     align-items: center;
   }
-
-  .ct-avatar-container {
+  .ct-avatar-wrap,
+  .ct-avatar-img,
+  .ct-avatar-placeholder {
     width: 120px;
     height: 120px;
   }
-
-  .ct-avatar-placeholder svg {
-    width: 50px;
-    height: 50px;
-  }
-
-  .ct-avatar-upload-btn {
-    width: 36px;
-    height: 36px;
-  }
-
-  .ct-avatar-upload-btn svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .ct-form-row {
+  .ct-grid-2 {
     grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
   }
-
-  .ct-form-group label {
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
-
-  .ct-form-group input {
-    padding: 10px 14px;
-    font-size: 14px;
-  }
-
-  .ct-button-wrapper {
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .ct-save-btn {
-    width: 100%;
-    max-width: 200px;
-    height: 48px;
-    font-size: 14px;
-  }
-
-  .ct-security-content {
-    gap: 16px;
-  }
-
-  .ct-security-item {
+  .ct-security-row {
     flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-    text-align: center;
+    align-items: flex-start;
+    gap: 14px;
   }
-
-  .ct-security-text h3 {
-    font-size: 16px;
-    margin-bottom: 6px;
-  }
-
-  .ct-security-text p {
-    font-size: 13px;
-  }
-
-  .ct-change-password-btn {
+  .ct-change-pwd-btn {
     width: 100%;
     justify-content: center;
-    padding: 12px;
-    font-size: 14px;
   }
+}
 
-  .ct-modal-container {
-    max-width: 95%;
+@media (max-width: 480px) {
+  .ct-container {
+    padding: 16px;
+  }
+  .ct-page-header h1 {
+    font-size: 24px;
+  }
+  .ct-card {
+    padding: 16px 18px;
+  }
+  .ct-modal {
     padding: 20px;
-    margin: 10px;
   }
-}
-
-@media (max-width: 479px) {
-  .ct-settings-container {
-    padding: 16px;
-  }
-
-  .ct-settings-header h1 {
-    font-size: 22px;
-  }
-
-  .ct-settings-header p {
-    font-size: 13px;
-  }
-
-  .ct-settings-card {
-    padding: 16px;
-  }
-
-  .ct-card-title {
-    font-size: 16px;
-    margin-bottom: 16px;
-  }
-
-  .ct-profile-content {
-    gap: 20px;
-  }
-
-  .ct-avatar-container {
-    width: 100px;
-    height: 100px;
-  }
-
-  .ct-avatar-placeholder svg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .ct-avatar-upload-btn {
-    width: 32px;
-    height: 32px;
-  }
-
-  .ct-avatar-upload-btn svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .ct-avatar-info {
-    font-size: 11px;
-  }
-
-  .ct-form-group label {
-    font-size: 13px;
-  }
-
-  .ct-form-group input {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-
-  .ct-save-btn {
-    height: 44px;
-    max-width: 180px;
-    font-size: 13px;
-  }
-
-  .ct-security-item {
-    padding: 14px;
-  }
-
-  .ct-security-text h3 {
-    font-size: 15px;
-  }
-
-  .ct-security-text p {
-    font-size: 12px;
-  }
-
-  .ct-change-password-btn {
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  .ct-modal-container {
-    padding: 16px;
-    max-width: 98%;
-  }
-
-  .ct-modal-header h2 {
-    font-size: 16px;
-  }
-
-  .ct-modal-footer {
+  .ct-modal-foot {
     flex-direction: column;
   }
-
-  .ct-modal-cancel-btn,
-  .ct-modal-submit-btn {
+  .ct-modal-cancel,
+  .ct-modal-submit {
     width: 100%;
     justify-content: center;
   }
-}
-
-/* Signature Section */
-.ct-signature-content {
-  padding: 1rem 0;
-}
-
-.ct-signature-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.ct-signature-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-  width: 100%;
-  max-width: 400px;
-}
-
-.ct-signature-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #2d3748;
-  margin-bottom: 0.25rem;
-}
-
-.ct-signature-placeholder {
-  width: 100%;
-  height: 120px;
-  border: 2px dashed #cbd5e0;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  background: #f7fafc;
-  color: #a0aec0;
-  transition: all 0.2s;
-}
-
-.ct-signature-placeholder:hover {
-  border-color: #4299e1;
-  background: #ebf8ff;
-}
-
-.ct-signature-upload-icon {
-  font-size: 2rem;
-}
-
-.ct-signature-preview {
-  position: relative;
-  width: 100%;
-  height: 120px;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  overflow: hidden;
-  background: #f7fafc;
-}
-
-.ct-signature-image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 0.5rem;
-}
-
-.ct-signature-remove-btn {
-  position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  background: #fc8181;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem 0.75rem;
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.ct-signature-remove-btn:hover {
-  background: #e53e3e;
-}
-
-.ct-signature-upload-btn {
-  display: inline-block;
-  background: #4299e1;
-  color: white;
-  padding: 0.5rem 2rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background 0.2s;
-  border: none;
-}
-
-.ct-signature-upload-btn:hover {
-  background: #3182ce;
-}
-
-.ct-signature-input {
-  display: none;
-}
-
-.ct-signature-info {
-  font-size: 0.8rem;
-  color: #a0aec0;
-  margin-top: 0.25rem;
+  .ct-sig-box,
+  .ct-sig-preview,
+  .ct-sig-upload-btn {
+    width: 100%;
+  }
 }
