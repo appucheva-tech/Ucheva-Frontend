@@ -248,16 +248,28 @@ const AdminSubjects = () => {
     fetchClasses();
   }, [subdomain]);
 
+  // ── Fetch Subjects ──────────────────────────────────────────────
   const fetchSubjects = async () => {
     try {
       setIsLoading(true);
       const response = await apiClient.get("/subject/allsubjects", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      const data =
-        response.data.subjects || response.data.data || response.data;
-      setSubjects(data);
-      setFilteredSubjects(data);
+
+      // Handle the response structure properly
+      let subjectData = [];
+      if (response.data.subjects) {
+        subjectData = response.data.subjects;
+      } else if (response.data.data) {
+        subjectData = response.data.data;
+      } else if (Array.isArray(response.data)) {
+        subjectData = response.data;
+      } else {
+        subjectData = [];
+      }
+
+      setSubjects(subjectData);
+      setFilteredSubjects(subjectData);
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch subjects");
@@ -266,6 +278,7 @@ const AdminSubjects = () => {
     }
   };
 
+  // ── Fetch Teachers ──────────────────────────────────────────────
   const fetchTeachers = async () => {
     try {
       const response = await apiClient.get("/staff/all-staffs", {
@@ -277,6 +290,7 @@ const AdminSubjects = () => {
     }
   };
 
+  // ── Create Subject ──────────────────────────────────────────────
   const handleSubmit = async () => {
     if (!validateForm(formData, false)) {
       toast.error("Please fix the validation errors before submitting");
@@ -288,7 +302,7 @@ const AdminSubjects = () => {
       const payload = {
         subjectName: formData.subjectName.trim(),
         applicableClasses: formData.sections,
-        applicableDepartment: formData.department,
+        applicableDepartment: formData.department || "General",
         teacherId: formData.teacherID,
       };
       await apiClient.post("/subject/subject", payload, {
@@ -323,6 +337,7 @@ const AdminSubjects = () => {
     }
   }, [token]);
 
+  // ── Update Subject ──────────────────────────────────────────────
   const handleUpdate = async () => {
     if (!validateForm(editFormData, true)) {
       toast.error("Please fix the validation errors before submitting");
@@ -334,7 +349,7 @@ const AdminSubjects = () => {
       const payload = {
         subjectName: editFormData.subjectName.trim(),
         applicableClasses: editFormData.sections,
-        applicableDepartment: editFormData.department,
+        applicableDepartment: editFormData.department || "General",
         teacherId: editFormData.teacherID || null,
       };
       await apiClient.put(
@@ -355,6 +370,7 @@ const AdminSubjects = () => {
     }
   };
 
+  // ── Delete Subject ──────────────────────────────────────────────
   const handleDelete = async () => {
     try {
       setLoading(true);
@@ -371,18 +387,24 @@ const AdminSubjects = () => {
     }
   };
 
+  // ── Handle Edit Click ───────────────────────────────────────────
   const handleEditClick = (subject) => {
     setSelectedSubjectId(subject.id);
+
+    // Map all subject data to form fields
+    const applicableClasses = Array.isArray(subject.applicableClasses)
+      ? subject.applicableClasses
+      : subject.applicableClasses
+        ? subject.applicableClasses.split(",").map((c) => c.trim())
+        : [];
+
     setEditFormData({
       subjectName: subject.subjectName || "",
-      sections: Array.isArray(subject.applicableClasses)
-        ? subject.applicableClasses
-        : subject.applicableClasses
-          ? subject.applicableClasses.split(",")
-          : [],
+      sections: applicableClasses,
       department: subject.applicableDepartment || "",
       teacherID: subject.teacherId || subject.subjectTeacherId || "",
     });
+
     setEditValidationErrors({});
     setShowEditModal(true);
   };
@@ -625,29 +647,37 @@ const AdminSubjects = () => {
               <table className="subjectTable">
                 <thead>
                   <tr>
+                    <th>#</th>
                     <th>Subject Name</th>
-                    <th>Applicable Departments</th>
+                    <th>Applicable Department</th>
                     <th>Applicable Classes</th>
-                    <th>Assigned Teachers</th>
+                    <th>Assigned Teacher</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredSubjects.map((subject, index) => (
-                    <tr key={index}>
-                      <td>{subject.subjectName}</td>
-                      <td>{subject.applicableDepartment || "N/A"}</td>
+                    <tr key={subject.id || index}>
+                      <td>{index + 1}</td>
+                      <td>{subject.subjectName || "N/A"}</td>
+                      <td>{subject.applicableDepartment || "General"}</td>
                       <td>
-                        {Array.isArray(subject.applicableClasses)
+                        {Array.isArray(subject.applicableClasses) &&
+                        subject.applicableClasses.length > 0
                           ? subject.applicableClasses.join(", ")
-                          : subject.applicableClasses || "N/A"}
+                          : "No classes assigned"}
                       </td>
-                      <td>{subject.subjectTeacher || 0}</td>
+                      <td>
+                        {subject.subjectTeacher ||
+                          subject.teacherName ||
+                          "Not Assigned"}
+                      </td>
                       <td>
                         <div className="actionButtons">
                           <button
                             className="editBtn"
                             onClick={() => handleEditClick(subject)}
+                            title="Edit Subject"
                           >
                             <svg
                               viewBox="0 0 24 24"
@@ -661,6 +691,7 @@ const AdminSubjects = () => {
                           <button
                             className="deleteBtn"
                             onClick={() => handleDeleteClick(subject)}
+                            title="Delete Subject"
                           >
                             <svg
                               viewBox="0 0 24 24"
@@ -680,7 +711,9 @@ const AdminSubjects = () => {
               </table>
 
               <div className="paginationRow">
-                <div className="paginationInfo">Showing pages of 1 to 7</div>
+                <div className="paginationInfo">
+                  Showing {filteredSubjects.length} subjects
+                </div>
                 <div className="paginationControls">
                   <button className="arrowBtn" disabled>
                     &lt;
@@ -698,6 +731,9 @@ const AdminSubjects = () => {
                   <div className="rowsSelectWrapper">
                     <select className="rowsSelect" defaultValue="10">
                       <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
                     </select>
                   </div>
                 </div>
@@ -802,7 +838,9 @@ const AdminSubjects = () => {
                   {Array.isArray(teachers) &&
                     teachers.map((teacher) => (
                       <option key={teacher.id} value={teacher.id}>
-                        {teacher.fullName}
+                        {teacher.fullName ||
+                          teacher.name ||
+                          teacher.firstName + " " + teacher.lastName}
                       </option>
                     ))}
                 </select>
@@ -925,7 +963,9 @@ const AdminSubjects = () => {
                     {Array.isArray(teachers) &&
                       teachers.map((teacher) => (
                         <option key={teacher.id} value={teacher.id}>
-                          {teacher.fullName}
+                          {teacher.fullName ||
+                            teacher.name ||
+                            teacher.firstName + " " + teacher.lastName}
                         </option>
                       ))}
                   </select>

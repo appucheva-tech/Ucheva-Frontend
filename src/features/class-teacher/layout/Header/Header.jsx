@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -8,36 +8,120 @@ import { persistor } from "../../../../global/store";
 import { apiClient } from "../../../../config/AxiosInstance";
 import "./Header.css";
 
-// const Header = ({ setSidebarOpen }) => {
-//   const nav = useNavigate();
-//   const dispatch = useDispatch();
-//   const user = useSelector((state) => state.user.user);
-//   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
-//   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
-//   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-//   const [showLogoutModal, setShowLogoutModal] = useState(false);
-//   const [isLoggingOut, setIsLoggingOut] = useState(false);
-// import { useSelector } from "react-redux";
-// import "./Header.css";
-// }
 const Header = ({ setSidebarOpen }) => {
+  const nav = useNavigate();
+  const dispatch = useDispatch();
+
+  // ── Redux user (fallback source) ──────────────────────────────
+  const reduxUser = useSelector((state) => state.user.user);
+
+  // ── Dropdown states ───────────────────────────────────────────
   const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
   const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const user = useSelector((state) => state.user.user);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  console.log("User from Redux:", user);
+  // ── Refs for click outside ─────────────────────────────────────
+  const sessionDropdownRef = useRef(null);
+  const termDropdownRef = useRef(null);
+  const profileDropdownRef = useRef(null);
 
+  // ── Profile data from API ─────────────────────────────────────
+  const [profilePic, setProfilePic] = useState(null);
+  const [displayName, setDisplayName] = useState("");
+  const [role, setRole] = useState("");
+  const [term, setTerm] = useState("Third Term");
+  const [session, setSession] = useState("2026/2027 Session");
+
+  // ── Fetch same endpoint as CTSettings ─────────────────────────
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await apiClient.get("/classteacher/getprofiledetails");
+        const data = res?.data?.classTeacherData || res?.data;
+
+        const firstName = data?.firstName || reduxUser?.firstName || "";
+        const lastName = data?.lastName || reduxUser?.lastName || "";
+        setDisplayName(
+          `${firstName} ${lastName}`.trim() || reduxUser?.schoolName || "User",
+        );
+
+        setRole(data?.staffType || reduxUser?.role || "Class Teacher");
+        setProfilePic(
+          data?.staffProfileUrl ||
+            data?.adminUrl ||
+            reduxUser?.profilePic ||
+            null,
+        );
+        setTerm(reduxUser?.term || data?.currentTerm || "Third Term");
+
+        const year = new Date().getFullYear();
+        setSession(
+          reduxUser?.academicSession ||
+            data?.academicSession ||
+            `${year}/${year + 1} Session`,
+        );
+      } catch (err) {
+        console.error("Header profile fetch failed:", err);
+        const firstName = reduxUser?.firstName || "";
+        const lastName = reduxUser?.lastName || "";
+        setDisplayName(
+          `${firstName} ${lastName}`.trim() || reduxUser?.schoolName || "User",
+        );
+        setRole(reduxUser?.role || "Class Teacher");
+        setProfilePic(reduxUser?.profilePic || null);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
+  // ── Click outside handler ──────────────────────────────────────
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Close session dropdown if clicked outside
+      if (
+        sessionDropdownRef.current &&
+        !sessionDropdownRef.current.contains(event.target)
+      ) {
+        setIsSessionDropdownOpen(false);
+      }
+
+      // Close term dropdown if clicked outside
+      if (
+        termDropdownRef.current &&
+        !termDropdownRef.current.contains(event.target)
+      ) {
+        setIsTermDropdownOpen(false);
+      }
+
+      // Close profile dropdown if clicked outside
+      if (
+        profileDropdownRef.current &&
+        !profileDropdownRef.current.contains(event.target)
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+
+    // Add event listener
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Cleanup
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // ── Date formatter ────────────────────────────────────────────
   const formatDate = () => {
-    const today = new Date();
-    const options = {
+    return new Date().toLocaleDateString("en-US", {
       weekday: "short",
       year: "numeric",
       month: "short",
       day: "numeric",
-    };
-    return today.toLocaleDateString("en-US", options);
+    });
   };
 
   const sessions = [
@@ -47,6 +131,7 @@ const Header = ({ setSidebarOpen }) => {
   ];
   const terms = ["First Term", "Second Term", "Third Term"];
 
+  // ── Logout ────────────────────────────────────────────────────
   const handleLogoutConfirm = async () => {
     setIsLoggingOut(true);
     try {
@@ -60,15 +145,22 @@ const Header = ({ setSidebarOpen }) => {
     }
   };
 
+  // ── Close all dropdowns ───────────────────────────────────────
+  const closeAll = () => {
+    setIsSessionDropdownOpen(false);
+    setIsTermDropdownOpen(false);
+    setIsProfileDropdownOpen(false);
+  };
+
   return (
     <div>
       <header className="ct-header">
-        {/* LEFT CONTENT BLOCK: Clean Menu Toggle & Date */}
+        {/* ── LEFT: Menu toggle + Date ── */}
         <div className="ct-header-left">
           <button
             className="ct-header-mobile-menu-btn"
             onClick={() => setSidebarOpen(true)}
-            aria-label="Open Sidebar Navigation"
+            aria-label="Open Sidebar"
           >
             <FiMenu />
           </button>
@@ -79,31 +171,34 @@ const Header = ({ setSidebarOpen }) => {
           </div>
         </div>
 
-        {/* RIGHT CONTENT BLOCK: Dropdowns, Notifications & Profile Card */}
+        {/* ── RIGHT: Session, Term, Notifications, Profile ── */}
         <div className="ct-header-right">
           {/* Session Dropdown */}
-          <div className="ct-dropdown-section">
+          <div className="ct-dropdown-section" ref={sessionDropdownRef}>
             <button
               className="ct-dropdown-button"
               onClick={() => {
-                setIsSessionDropdownOpen(!isSessionDropdownOpen);
+                setIsSessionDropdownOpen((v) => !v);
                 setIsTermDropdownOpen(false);
                 setIsProfileDropdownOpen(false);
               }}
             >
-              2026/2027 Session
+              {session}
               <FiChevronDown
                 className={isSessionDropdownOpen ? "rotate-icon" : ""}
               />
             </button>
             {isSessionDropdownOpen && (
               <div className="ct-dropdown-menu">
-                {sessions.map((session, index) => (
+                {sessions.map((s, i) => (
                   <p
-                    key={index}
-                    onClick={() => setIsSessionDropdownOpen(false)}
+                    key={i}
+                    onClick={() => {
+                      setSession(s);
+                      setIsSessionDropdownOpen(false);
+                    }}
                   >
-                    {session}
+                    {s}
                   </p>
                 ))}
               </div>
@@ -111,63 +206,81 @@ const Header = ({ setSidebarOpen }) => {
           </div>
 
           {/* Term Dropdown */}
-          <div className="ct-dropdown-section">
+          <div className="ct-dropdown-section" ref={termDropdownRef}>
             <button
               className="ct-dropdown-button"
               onClick={() => {
-                setIsTermDropdownOpen(!isTermDropdownOpen);
+                setIsTermDropdownOpen((v) => !v);
                 setIsSessionDropdownOpen(false);
                 setIsProfileDropdownOpen(false);
               }}
             >
-              Third Term
+              {term}
               <FiChevronDown
                 className={isTermDropdownOpen ? "rotate-icon" : ""}
               />
             </button>
             {isTermDropdownOpen && (
               <div className="ct-dropdown-menu">
-                {terms.map((term, index) => (
-                  <p key={index} onClick={() => setIsTermDropdownOpen(false)}>
-                    {term}
+                {terms.map((t, i) => (
+                  <p
+                    key={i}
+                    onClick={() => {
+                      setTerm(t);
+                      setIsTermDropdownOpen(false);
+                    }}
+                  >
+                    {t}
                   </p>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Notifications Icon Button */}
-          <div
-            className="ct-notification-section"
-            aria-label="Notifications Picker"
-          >
+          {/* Notifications */}
+          <div className="ct-notification-section" aria-label="Notifications">
             <IoNotifications />
             <span className="ct-notification-badge" />
           </div>
 
-          {/* User Account Profile Node */}
-          <div className="ct-profile-section-wrapper">
+          {/* Profile */}
+          <div className="ct-profile-section-wrapper" ref={profileDropdownRef}>
             <div
               className="ct-profile-section"
               onClick={() => {
-                setIsProfileDropdownOpen(!isProfileDropdownOpen);
+                setIsProfileDropdownOpen((v) => !v);
                 setIsSessionDropdownOpen(false);
                 setIsTermDropdownOpen(false);
               }}
             >
-              <img
-                src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
-                alt="Profile avatar"
-                className="ct-user-profile"
-              />
+              {profilePic ? (
+                <img
+                  src={profilePic}
+                  alt="Profile avatar"
+                  className="ct-user-profile"
+                />
+              ) : (
+                <div className="ct-user-avatar-fallback">
+                  {displayName.charAt(0).toUpperCase() || "U"}
+                </div>
+              )}
+
               <div className="ct-user-info">
-                <span className="ct-user-name">Kareem Habeeb</span>
-                <span className="ct-user-role">Class Teacher</span>
+                <span className="ct-user-name">{displayName}</span>
+                <span className="ct-user-role">{role}</span>
               </div>
             </div>
+
             {isProfileDropdownOpen && (
               <div className="ct-profile-dropdown-menu">
-                <p onClick={() => setIsProfileDropdownOpen(false)}>Settings</p>
+                <p
+                  onClick={() => {
+                    setIsProfileDropdownOpen(false);
+                    nav("/classteacher/settings");
+                  }}
+                >
+                  Settings
+                </p>
                 <p
                   className="ct-logout-item"
                   onClick={() => {
@@ -183,7 +296,7 @@ const Header = ({ setSidebarOpen }) => {
         </div>
       </header>
 
-      {/* Logout Confirmation Modal */}
+      {/* ── Logout Modal ──────────────────────────────────────── */}
       {showLogoutModal && (
         <div
           className="logout-modal-overlay"
@@ -237,122 +350,6 @@ const Header = ({ setSidebarOpen }) => {
         </div>
       )}
     </div>
-  );
-  return (
-    <header className="ct-header">
-      {/* LEFT CONTENT BLOCK: Clean Menu Toggle & Date */}
-      <div className="ct-header-left">
-        <button
-          className="ct-header-mobile-menu-btn"
-          onClick={() => setSidebarOpen(true)}
-          aria-label="Open Sidebar Navigation"
-        >
-          <FiMenu />
-        </button>
-
-        <div className="ct-date-section">
-          <FiCalendar />
-          <span>{formatDate()}</span>
-        </div>
-      </div>
-
-      {/* RIGHT CONTENT BLOCK: Dropdowns, Notifications & Profile Card */}
-      <div className="ct-header-right">
-        {/* Session Dropdown */}
-        <div className="ct-dropdown-section">
-          <button
-            className="ct-dropdown-button"
-            onClick={() => {
-              setIsSessionDropdownOpen(!isSessionDropdownOpen);
-              setIsTermDropdownOpen(false);
-              setIsProfileDropdownOpen(false);
-            }}
-          >
-            2026/2027 Session
-            <FiChevronDown
-              className={isSessionDropdownOpen ? "rotate-icon" : ""}
-            />
-          </button>
-          {isSessionDropdownOpen && (
-            <div className="ct-dropdown-menu">
-              {sessions.map((session, index) => (
-                <p key={index} onClick={() => setIsSessionDropdownOpen(false)}>
-                  {session}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Term Dropdown */}
-        <div className="ct-dropdown-section">
-          <button
-            className="ct-dropdown-button"
-            onClick={() => {
-              setIsTermDropdownOpen(!isTermDropdownOpen);
-              setIsSessionDropdownOpen(false);
-              setIsProfileDropdownOpen(false);
-            }}
-          >
-            Third Term
-            <FiChevronDown
-              className={isTermDropdownOpen ? "rotate-icon" : ""}
-            />
-          </button>
-          {isTermDropdownOpen && (
-            <div className="ct-dropdown-menu">
-              {terms.map((term, index) => (
-                <p key={index} onClick={() => setIsTermDropdownOpen(false)}>
-                  {term}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Notifications Icon Button */}
-        <div
-          className="ct-notification-section"
-          aria-label="Notifications Picker"
-        >
-          <IoNotifications />
-          <span className="ct-notification-badge" />
-        </div>
-
-        {/* User Account Profile Node */}
-        <div className="ct-profile-section-wrapper">
-          <div
-            className="ct-profile-section"
-            onClick={() => {
-              setIsProfileDropdownOpen(!isProfileDropdownOpen);
-              setIsSessionDropdownOpen(false);
-              setIsTermDropdownOpen(false);
-            }}
-          >
-            <img
-              src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
-              alt="Profile avatar"
-              className="ct-user-profile"
-            />
-            <div className="ct-user-info">
-              <span className="ct-user-name">Kareem Habeeb</span>
-              <span className="ct-user-role">Class Teacher</span>
-            </div>
-          </div>
-          {isProfileDropdownOpen && (
-            <div className="ct-profile-dropdown-menu">
-              <p onClick={() => setIsProfileDropdownOpen(false)}>Settings</p>
-              <p
-                className="ct-logout-item"
-                onClick={() => setIsProfileDropdownOpen(false)}
-              >
-                Logout
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-    </header>
   );
 };
 

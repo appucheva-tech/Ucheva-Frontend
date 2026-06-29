@@ -150,7 +150,7 @@ const SubjectTeacherSettings = () => {
     try {
       setLoading(true);
       const response = await apiClient.get("/subjectteacher/getprofiledetails");
-      const data = response?.data?.subjectTeacherData || response?.data;
+      const data = response?.data?.teacher || response?.data;
 
       setProfileData({
         firstName: data?.firstName || "",
