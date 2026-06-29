@@ -1,447 +1,373 @@
-.dashboard-container {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+/* ══════════════════════════════════════════════════════════════
+   AdminFees.css — all classnames prefixed with fee-
+══════════════════════════════════════════════════════════════ */
+
+/* ── Dashboard header + metrics ─────────────────────────────── */
+.fee-dashboard {
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   width: 100%;
   min-height: 40vh;
-  padding-left: 35px;
-  padding-right: 35px;
-  padding-top: 20px;
+  padding: 20px 35px 0;
+}
 
-  .dashboard-header {
-    margin-bottom: 32px;
+.fee-dashboard-header {
+  margin-bottom: 32px;
+}
 
-    .welcome-text {
-      font-size: 32px;
-      font-weight: 700;
-      color: #03173C;
-      margin: 0 0 8px 0;
-      display: flex;
-      align-items: center;
-      gap: 10px;
+.fee-dashboard-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #03173c;
+  margin: 0 0 8px;
+}
 
-      .wave-emoji {
-        display: inline-block;
-      }
-    }
+.fee-dashboard-subtitle {
+  font-size: 16px;
+  color: #03173c;
+  margin: 0;
+}
 
-    .subtitle-text {
-      font-size: 16px;
-      color: #03173C;
-      margin: 0;
-    }
-  }
+/* ── Metrics grid ───────────────────────────────────────────── */
+.fee-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  width: 100%;
+}
 
-  .metrics-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    height: 110px;
-    width: 100%;
+.fee-metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 110px;
+  border-left: 5px solid transparent;
+}
 
-    @media (max-width: 450px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
+.fee-metric-students {
+  border-left-color: #3b82f6;
+}
+.fee-metric-staff {
+  border-left-color: #a855f7;
+}
+.fee-metric-attendance {
+  border-left-color: #f59e0b;
+}
+.fee-metric-collected {
+  border-left-color: #10b981;
+}
 
-    @media (max-width: 450px) {
-      grid-template-columns: 1fr;
-    }
+.fee-metric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+}
 
-    .metric-card {
-      background: #ffffff;
-      border-radius: 12px;
-      padding: 15px;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-      border-left: 2px solid transparent;
-      display: flex;
-      width: 100%;
-      height: 110px;
-      flex-direction: column;
-      justify-content: space-between;
-      border-left: 5px solid transparent;
+.fee-metric-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
-      &.card-students { border-left-color: #3b82f6; }
-      &.card-staff { border-left-color: #a855f7; }
-      &.card-attendance { border-left-color: #f59e0b; }
-      &.card-fees { border-left-color: #10b981; }
+.fee-metric-label {
+  font-size: 15px;
+  color: #03173c;
+  font-weight: 500;
+}
 
-      .card-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 100%;
+.fee-metric-value {
+  font-size: 25px;
+  font-weight: 700;
+  color: #03173c;
+}
 
-        .text-section {
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
+.fee-metric-icon {
+  width: 65px;
+  height: 65px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
-          .card-label {
-            font-size: 15px;
-            color: #03173C;
-            font-weight: 500;
-          }
+.fee-dash-icon {
+  width: 70%;
+  height: 70%;
+}
 
-          .card-value {
-            font-size: 25px;
-            font-weight: 700;
-            color: #03173C;
-          }
-        }
+.fee-icon-students {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+.fee-icon-staff {
+  background-color: #f3e8ff;
+  color: #9333ea;
+}
+.fee-icon-attendance {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+.fee-icon-collected {
+  background-color: #ecfdf5;
+  color: #059669;
+}
 
-        .icon-wrapper {
-          width: 65px;
-          height: 65px;
-          border-radius: 16px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
+.fee-metric-footer {
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
 
-          .DashIcon{
-            width: 70%;
-            height: 70%;
-          }
+.fee-trend-up {
+  color: #10b981;
+}
+.fee-trend-pct {
+  color: #10b981;
+}
 
-          &.icon-students {
-            background-color: #eff6ff;
-            color: #2563eb;
-          }
-          &.icon-staff {
-            background-color: #f3e8ff;
-            color: #9333ea;
-          }
-          &.icon-attendance {
-            background-color: #fef3c7;
-            color: #d97706;
-          }
-          &.icon-fees {
-            background-color: #ecfdf5;
-            color: #059669;
-          }
-        }
-      }
+.fee-trend-arrow {
+  font-weight: bold;
+  flex-shrink: 0;
+}
 
-      .card-footer {
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        color: #10b981; 
+/* ── Table section ──────────────────────────────────────────── */
+.fee-table-section {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #f4f7fc;
+  padding: 20px;
+}
 
-        .arrow {
-          width: 7%;
-          font-weight: bold;
-        }
-      }
-    }
+/* ── Filter bar ─────────────────────────────────────────────── */
+.fee-filter-bar {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 16px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.fee-filter-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.fee-filter-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fee-filter-label {
+  font-size: 13px;
+  color: #4a5568;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.fee-select {
+  padding: 10px 36px 10px 16px;
+  font-size: 13px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #1a202c;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+  min-width: 140px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%234a5568'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+.fee-select:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+/* ── Action buttons ─────────────────────────────────────────── */
+.fee-action-btns {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.fee-export-btn {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.fee-export-btn:hover {
+  background-color: #0b5ed7;
+}
+
+.fee-reset-btn {
+  background-color: #ffffff;
+  border: 1px solid #1070e0;
+  color: #1070e0;
+  border-radius: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.fee-reset-btn:hover {
+  background-color: #f0f6ff;
+}
+
+/* ── Table wrapper ──────────────────────────────────────────── */
+.fee-table-wrap {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  margin-bottom: 40px;
+  overflow-x: auto;
+}
+
+/* ── Table ──────────────────────────────────────────────────── */
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 680px;
+}
+
+.fee-table th {
+  background-color: #f1f5f9;
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 16px 20px;
+  white-space: nowrap;
+}
+
+.fee-table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  vertical-align: middle;
+  color: #475569;
+}
+
+.fee-table tr:last-child td {
+  border-bottom: none;
+}
+
+.fee-table tr:hover td {
+  background-color: #f8fafc;
+}
+
+.fee-student-name {
+  color: #1070e0 !important;
+  font-weight: 500;
+}
+
+/* ── Status badges ──────────────────────────────────────────── */
+.fee-status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.fee-status-full {
+  background-color: #e6f7ed;
+  color: #198754;
+}
+.fee-status-part {
+  background-color: #fff3e6;
+  color: #fd7e14;
+}
+.fee-status-unpaid {
+  background-color: #ffebee;
+  color: #dc3545;
+}
+
+/* ── Footer ─────────────────────────────────────────────────── */
+.fee-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px 20px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .fee-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-.tableContainer {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #f4f7fc;
-  padding: 20px;
-
-  .filterSection {
-    background-color: #ffffff;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    padding: 16px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 24px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-
-    .filtersGroup {
-      display: flex;
-      gap: 16px;
-
-      .filterItem {
-        display: flex;
-        flex-direction: column;
-
-        .filterLabel {
-          font-size: 13px;
-          color: #4a5568;
-          margin-bottom: 8px;
-          font-weight: 500;
-          white-space: nowrap;
-        }
-
-        .selectWrapper {
-          position: relative;
-          width: 150px;
-
-          .selectInput {
-            width: 100%;
-            padding: 10px 36px 10px 16px;
-            font-size: 13px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            background-color: #ffffff;
-            color: #1a202c;
-            appearance: none;
-            cursor: pointer;
-          }
-
-          &::after {
-            content: "";
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 6px;
-            background-color: #4a5568;
-            clip-path: polygon(100% 0, 0 0, 50% 100%);
-            pointer-events: none;
-          }
-        }
-      }
-    }
-
-    .actionRowButtons {
-      display: flex;
-      gap: 12px;
-
-      .exportBtn {
-        background-color: #0d6efd;
-        color: #ffffff;
-        border: none;
-        border-radius: 6px;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        .exportIcon {
-          width: 16px;
-          height: 16px;
-          margin-right: 8px;
-        }
-      }
-
-      .resetBtn {
-        background-color: #ffffff;
-        border: 1px solid #1070e0;
-        color: #1070e0;
-        border-radius: 6px;
-        padding: 10px 20px;
-        font-size: 14px;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-
-        .resetIcon {
-          width: 16px;
-          height: 16px;
-          margin-right: 8px;
-        }
-      }
-    }
+@media (max-width: 768px) {
+  .fee-dashboard {
+    padding: 16px 20px 0;
+  }
+  .fee-dashboard-title {
+    font-size: 24px;
   }
 
-  .tableWrapper {
-    background-color: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-    margin-bottom: 40px;
-
-    .feesTable {
-      width: 100%;
-      border-collapse: collapse;
-      text-align: left;
-
-      th {
-        background-color: #f1f5f9;
-        color: #4a5568;
-        font-size: 14px;
-        font-weight: 500;
-        padding: 16px 20px;
-      }
-
-      td {
-        padding: 16px 20px;
-        border-bottom: 1px solid #f1f5f9;
-        font-size: 14px;
-        vertical-align: middle;
-      }
-
-      .checkboxCol {
-        width: 40px;
-        padding-right: 0;
-        text-align: center;
-
-        .customCheckbox {
-          width: 16px;
-          height: 16px;
-          border: 1px solid #cbd5e1;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-      }
-
-      .studentName {
-        color: #1070e0;
-      }
-
-      .textValue {
-        color: #4a5568;
-      }
-
-      .statusBadge {
-        display: inline-block;
-        padding: 4px 12px;
-        border-radius: 12px;
-        font-size: 12px;
-        font-weight: 500;
-        text-align: center;
-
-        &.statusFull {
-          background-color: #e6f7ed;
-          color: #198754;
-        }
-
-        &.statusPart {
-          background-color: #fff3e6;
-          color: #fd7e14;
-        }
-
-        &.statusUnpaid {
-          background-color: #ffebee;
-          color: #dc3545;
-        }
-      }
-
-      .moreActionsBtn {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 4px;
-        color: #94a3b8;
-        display: flex;
-        align-items: center;
-
-        svg {
-          width: 18px;
-          height: 18px;
-        }
-      }
-    }
-
-    .paginationRow {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      background-color: #ffffff;
-
-      .paginationInfo {
-        font-size: 14px;
-        color: #64748b;
-      }
-
-      .paginationControls {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        .pageBtn, .arrowBtn {
-          background: none;
-          border: none;
-          min-width: 32px;
-          height: 32px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border-radius: 6px;
-          font-size: 14px;
-          color: #64748b;
-          cursor: pointer;
-        }
-
-        .activePage {
-          background-color: #1070e0;
-          color: #ffffff;
-          font-weight: 500;
-        }
-
-        .arrowBtn:disabled {
-          color: #cbd5e1;
-          cursor: not-allowed;
-        }
-
-        .ellipsis {
-          color: #64748b;
-          font-size: 14px;
-          padding: 0 4px;
-        }
-      }
-
-      .rowsPerPageGroup {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-
-        .rowsLabel {
-          font-size: 14px;
-          color: #64748b;
-        }
-
-        .rowsSelectWrapper {
-          position: relative;
-
-          .rowsSelect {
-            padding: 6px 32px 6px 12px;
-            font-size: 14px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            background-color: #ffffff;
-            color: #1a202c;
-            appearance: none;
-            cursor: pointer;
-          }
-
-          &::after {
-            content: "";
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 8px;
-            height: 5px;
-            background-color: #4a5568;
-            clip-path: polygon(100% 0, 0 0, 50% 100%);
-            pointer-events: none;
-          }
-        }
-      }
-    }
+  .fee-filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  .footerRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 4px;
-    font-size: 14px;
+  .fee-action-btns {
+    width: 100%;
+  }
+  .fee-export-btn,
+  .fee-reset-btn {
+    flex: 1;
+    justify-content: center;
+  }
+}
 
-    .copyrightText {
-      color: #94a3b8;
-    }
-
-    .supportText {
-      color: #64748b;
-
-      .supportLink {
-        color: #1070e0;
-        text-decoration: none;
-      }
-    }
+@media (max-width: 480px) {
+  .fee-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .fee-dashboard {
+    padding: 12px 16px 0;
+  }
+  .fee-table-section {
+    padding: 12px;
   }
 }
