@@ -26,7 +26,7 @@ const StudentAttendance = () => {
       setLoading(true);
       setError("");
       try {
-        const res = await apiClient.get("/studentattendance/today", {
+        const res = await apiClient.get("/classteacher/attendance/today", {
           headers: { "x-tenant": subdomain },
         });
         setAllStudents(res?.data?.Attendance || []);

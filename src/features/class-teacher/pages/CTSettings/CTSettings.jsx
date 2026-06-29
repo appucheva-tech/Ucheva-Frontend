@@ -167,10 +167,6 @@ const CTSettings = () => {
     reader.readAsDataURL(file);
   };
 
-<<<<<<< HEAD
-  /* ── Password field change ── */
-  const handlePasswordInputChange = (e) => {
-=======
   const handleSignatureChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -185,7 +181,6 @@ const CTSettings = () => {
   };
 
   const handlePasswordChange = (e) => {
->>>>>>> 28d1d2ea5503715693ab641a1f390bf271fd7dbb
     const { name, value } = e.target;
     setPasswordData((p) => ({ ...p, [name]: value }));
     setPasswordError("");
@@ -409,10 +404,6 @@ const CTSettings = () => {
         </div>
       </div>
 
-<<<<<<< HEAD
-      {/* ── Security ── */}
-      <div className="ct-settings-card">
-=======
       {/* ══════════════════════════════════════════════════════
           UPLOAD SIGNATURE CARD
       ══════════════════════════════════════════════════════ */}
@@ -456,7 +447,6 @@ const CTSettings = () => {
           SECURITY CARD
       ══════════════════════════════════════════════════════ */}
       <div className="ct-card">
->>>>>>> 28d1d2ea5503715693ab641a1f390bf271fd7dbb
         <h2 className="ct-card-title">Security</h2>
         <div className="ct-security-row">
           <div>
