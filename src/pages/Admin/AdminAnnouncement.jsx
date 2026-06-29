@@ -615,19 +615,6 @@ const AdminAnnouncement = () => {
             <span className="Let-legendLabel">Sent</span>
           </div>
         </div>
-
-        <footer className="Let-footerView">
-          <span className="Let-copyright">
-            © {new Date().getFullYear()} Ucheva school operating management
-            system. All rights reserved.
-          </span>
-          <span className="Let-support">
-            Need help?{" "}
-            <a href="#support" className="Let-supportLink">
-              Contact support
-            </a>
-          </span>
-        </footer>
       </div>
 
       {/* ── Slide panel ── */}
