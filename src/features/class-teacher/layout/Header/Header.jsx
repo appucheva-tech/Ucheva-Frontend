@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { FiCalendar, FiChevronDown, FiMenu } from "react-icons/fi";
+import { FiCalendar, FiMenu } from "react-icons/fi";
 import { IoNotifications } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,54 +16,55 @@ const Header = ({ setSidebarOpen }) => {
   const reduxUser = useSelector((state) => state.user.user);
 
   // ── Dropdown states ───────────────────────────────────────────
-  const [isSessionDropdownOpen, setIsSessionDropdownOpen] = useState(false);
-  const [isTermDropdownOpen, setIsTermDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // ── Refs for click outside ─────────────────────────────────────
-  const sessionDropdownRef = useRef(null);
-  const termDropdownRef = useRef(null);
   const profileDropdownRef = useRef(null);
 
   // ── Profile data from API ─────────────────────────────────────
   const [profilePic, setProfilePic] = useState(null);
   const [displayName, setDisplayName] = useState("");
   const [role, setRole] = useState("");
-  const [term, setTerm] = useState("Third Term");
-  const [session, setSession] = useState("2026/2027 Session");
+  const [term, setTerm] = useState("");
+  const [session, setSession] = useState("");
 
-  // ── Fetch same endpoint as CTSettings ─────────────────────────
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await apiClient.get("/classteacher/getprofiledetails");
-        const data = res?.data?.classTeacherData || res?.data;
+  // ── Fetch admin profile (same endpoint as AdminHeader) ────────
+  const fetchAdminProfile = async () => {
+    try {
+      const res = await apiClient.get("/admin/profile");
+      console.log("Admin Profile Response:", res.data);
 
-        const firstName = data?.firstName || reduxUser?.firstName || "";
-        const lastName = data?.lastName || reduxUser?.lastName || "";
+      const adminProfile = res.data?.adminProfile;
+
+      if (adminProfile) {
+        // Map admin profile data
+        const firstName = adminProfile.adminFirstName || "";
+        const lastName = adminProfile.adminLastName || "";
         setDisplayName(
-          `${firstName} ${lastName}`.trim() || reduxUser?.schoolName || "User",
+          `${firstName} ${lastName}`.trim() || reduxUser?.schoolName || "Admin",
         );
 
-        setRole(data?.staffType || reduxUser?.role || "Class Teacher");
+        setRole(adminProfile.role || "Class Teacher");
         setProfilePic(
-          data?.staffProfileUrl ||
-            data?.adminUrl ||
+          adminProfile.adminUrl ||
+            adminProfile.schoolLogoUrl ||
             reduxUser?.profilePic ||
             null,
         );
-        setTerm(reduxUser?.term || data?.currentTerm || "Third Term");
 
+        // ── Map session and term from admin profile ──
+        // This will automatically update when admin changes it
         const year = new Date().getFullYear();
-        setSession(
-          reduxUser?.academicSession ||
-            data?.academicSession ||
-            `${year}/${year + 1} Session`,
-        );
-      } catch (err) {
-        console.error("Header profile fetch failed:", err);
+        const academicSession =
+          adminProfile.academicSession || `${year}/${year + 1} Session`;
+        setSession(academicSession);
+
+        const currentTerm = adminProfile.term || "First Term";
+        setTerm(currentTerm);
+      } else {
+        // Fallback to Redux data if adminProfile is not available
         const firstName = reduxUser?.firstName || "";
         const lastName = reduxUser?.lastName || "";
         setDisplayName(
@@ -71,31 +72,37 @@ const Header = ({ setSidebarOpen }) => {
         );
         setRole(reduxUser?.role || "Class Teacher");
         setProfilePic(reduxUser?.profilePic || null);
-      }
-    };
 
-    fetchProfile();
+        const year = new Date().getFullYear();
+        setSession(reduxUser?.academicSession || `${year}/${year + 1} Session`);
+        setTerm(reduxUser?.term || "First Term");
+      }
+    } catch (err) {
+      console.error("Header profile fetch failed:", err);
+
+      // Fallback to Redux data on error
+      const firstName = reduxUser?.firstName || "";
+      const lastName = reduxUser?.lastName || "";
+      setDisplayName(
+        `${firstName} ${lastName}`.trim() || reduxUser?.schoolName || "User",
+      );
+      setRole(reduxUser?.role || "Class Teacher");
+      setProfilePic(reduxUser?.profilePic || null);
+
+      const year = new Date().getFullYear();
+      setSession(reduxUser?.academicSession || `${year}/${year + 1} Session`);
+      setTerm(reduxUser?.term || "First Term");
+    }
+  };
+
+  // ── Fetch profile on mount ────────────────────────────────────
+  useEffect(() => {
+    fetchAdminProfile();
   }, []);
 
   // ── Click outside handler ──────────────────────────────────────
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close session dropdown if clicked outside
-      if (
-        sessionDropdownRef.current &&
-        !sessionDropdownRef.current.contains(event.target)
-      ) {
-        setIsSessionDropdownOpen(false);
-      }
-
-      // Close term dropdown if clicked outside
-      if (
-        termDropdownRef.current &&
-        !termDropdownRef.current.contains(event.target)
-      ) {
-        setIsTermDropdownOpen(false);
-      }
-
       // Close profile dropdown if clicked outside
       if (
         profileDropdownRef.current &&
@@ -105,10 +112,7 @@ const Header = ({ setSidebarOpen }) => {
       }
     };
 
-    // Add event listener
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Cleanup
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -123,13 +127,6 @@ const Header = ({ setSidebarOpen }) => {
       day: "numeric",
     });
   };
-
-  const sessions = [
-    "2024/2025 Session",
-    "2025/2026 Session",
-    "2026/2027 Session",
-  ];
-  const terms = ["First Term", "Second Term", "Third Term"];
 
   // ── Logout ────────────────────────────────────────────────────
   const handleLogoutConfirm = async () => {
@@ -147,8 +144,6 @@ const Header = ({ setSidebarOpen }) => {
 
   // ── Close all dropdowns ───────────────────────────────────────
   const closeAll = () => {
-    setIsSessionDropdownOpen(false);
-    setIsTermDropdownOpen(false);
     setIsProfileDropdownOpen(false);
   };
 
@@ -173,68 +168,14 @@ const Header = ({ setSidebarOpen }) => {
 
         {/* ── RIGHT: Session, Term, Notifications, Profile ── */}
         <div className="ct-header-right">
-          {/* Session Dropdown */}
-          <div className="ct-dropdown-section" ref={sessionDropdownRef}>
-            <button
-              className="ct-dropdown-button"
-              onClick={() => {
-                setIsSessionDropdownOpen((v) => !v);
-                setIsTermDropdownOpen(false);
-                setIsProfileDropdownOpen(false);
-              }}
-            >
-              {session}
-              <FiChevronDown
-                className={isSessionDropdownOpen ? "rotate-icon" : ""}
-              />
-            </button>
-            {isSessionDropdownOpen && (
-              <div className="ct-dropdown-menu">
-                {sessions.map((s, i) => (
-                  <p
-                    key={i}
-                    onClick={() => {
-                      setSession(s);
-                      setIsSessionDropdownOpen(false);
-                    }}
-                  >
-                    {s}
-                  </p>
-                ))}
-              </div>
-            )}
+          {/* Session Display (Read-only, from admin profile) */}
+          <div className="ct-session-display">
+            <span className="ct-session-label">{session}</span>
           </div>
 
-          {/* Term Dropdown */}
-          <div className="ct-dropdown-section" ref={termDropdownRef}>
-            <button
-              className="ct-dropdown-button"
-              onClick={() => {
-                setIsTermDropdownOpen((v) => !v);
-                setIsSessionDropdownOpen(false);
-                setIsProfileDropdownOpen(false);
-              }}
-            >
-              {term}
-              <FiChevronDown
-                className={isTermDropdownOpen ? "rotate-icon" : ""}
-              />
-            </button>
-            {isTermDropdownOpen && (
-              <div className="ct-dropdown-menu">
-                {terms.map((t, i) => (
-                  <p
-                    key={i}
-                    onClick={() => {
-                      setTerm(t);
-                      setIsTermDropdownOpen(false);
-                    }}
-                  >
-                    {t}
-                  </p>
-                ))}
-              </div>
-            )}
+          {/* Term Display (Read-only, from admin profile) */}
+          <div className="ct-term-display">
+            <span className="ct-term-label">{term}</span>
           </div>
 
           {/* Notifications */}
@@ -249,8 +190,7 @@ const Header = ({ setSidebarOpen }) => {
               className="ct-profile-section"
               onClick={() => {
                 setIsProfileDropdownOpen((v) => !v);
-                setIsSessionDropdownOpen(false);
-                setIsTermDropdownOpen(false);
+                closeAll();
               }}
             >
               {profilePic ? (
@@ -271,16 +211,9 @@ const Header = ({ setSidebarOpen }) => {
               </div>
             </div>
 
+            {/* Profile Dropdown (Only Logout option) */}
             {isProfileDropdownOpen && (
               <div className="ct-profile-dropdown-menu">
-                <p
-                  onClick={() => {
-                    setIsProfileDropdownOpen(false);
-                    nav("/classteacher/settings");
-                  }}
-                >
-                  Settings
-                </p>
                 <p
                   className="ct-logout-item"
                   onClick={() => {
