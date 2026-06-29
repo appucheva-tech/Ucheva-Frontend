@@ -21,12 +21,39 @@ const AdminStudents = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
 
+  // ── New Intake State ─────────────────────────────────────
+  const [newIntake, setNewIntake] = useState({
+    totalStudentsLast30Days: 0,
+    loading: true,
+    error: false,
+  });
+
   // Filter states
   const [filters, setFilters] = useState({
     class: "all",
     gender: "all",
     department: "all",
   });
+
+  // ── Fetch new intake data ──────────────────────────────────────────
+  const fetchNewIntake = async () => {
+    setNewIntake((prev) => ({ ...prev, loading: true, error: false }));
+    try {
+      const res = await apiClient.get("/admin/newIntake");
+      console.log("New intake response:", res);
+
+      const totalStudents = res?.data?.totalStudentsLast30Days || 0;
+      setNewIntake({
+        totalStudentsLast30Days: totalStudents,
+        loading: false,
+        error: false,
+      });
+    } catch (error) {
+      console.error("Error fetching new intake:", error);
+      setNewIntake((prev) => ({ ...prev, loading: false, error: true }));
+      toast.error("Failed to fetch new intake data");
+    }
+  };
 
   const fetchAllStudents = async () => {
     try {
@@ -88,6 +115,7 @@ const AdminStudents = () => {
   useEffect(() => {
     fetchAllStudents();
     fetchClasses();
+    fetchNewIntake(); // Fetch new intake data
   }, []);
 
   useEffect(() => {
@@ -209,18 +237,75 @@ const AdminStudents = () => {
             </div>
           </div>
 
+          {/* ── New Intake Card ── */}
           <div className="AdministrationStudent-metric-card AdministrationStudent-card-fees">
             <div className="AdministrationStudent-card-content">
               <div className="AdministrationStudent-text-section">
                 <span className="AdministrationStudent-card-label">
                   New Intake
                 </span>
-                <span className="AdministrationStudent-card-value">{0}</span>
+                <span className="AdministrationStudent-card-value">
+                  {newIntake.loading ? (
+                    "..."
+                  ) : newIntake.error ? (
+                    <span style={{ fontSize: "0.8rem", color: "#ef4444" }}>
+                      Error
+                    </span>
+                  ) : (
+                    newIntake.totalStudentsLast30Days
+                  )}
+                </span>
               </div>
               <div className="AdministrationStudent-icon-wrapper AdministrationStudent-icon-fees">
                 <FaSackDollar className="AdministrationStudent-DashIcon" />
               </div>
             </div>
+            {newIntake.error && (
+              <div
+                className="AdministrationStudent-card-footer"
+                style={{
+                  padding: "0.5rem 1.25rem",
+                  borderTop: "1px solid #f1f5f9",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <button
+                  onClick={fetchNewIntake}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    color: "#ef4444",
+                    fontSize: "0.7rem",
+                    cursor: "pointer",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Retry
+                </button>
+              </div>
+            )}
+            {!newIntake.loading &&
+              !newIntake.error &&
+              newIntake.totalStudentsLast30Days > 0 && (
+                <div
+                  className="AdministrationStudent-card-footer"
+                  style={{
+                    padding: "0.5rem 1.25rem",
+                    borderTop: "1px solid #f1f5f9",
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    color: "#10b981",
+                  }}
+                >
+                  <FaArrowTrendUp style={{ fontSize: "0.875rem" }} />
+                  <span style={{ fontSize: "0.75rem", fontWeight: "500" }}>
+                    +{newIntake.totalStudentsLast30Days} this month
+                  </span>
+                </div>
+              )}
           </div>
         </div>
       </div>

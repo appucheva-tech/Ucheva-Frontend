@@ -5,17 +5,15 @@ import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar, FaArrowTrendUp } from "react-icons/fa6";
 import { apiClient } from "../../config/AxiosInstance";
 
-// ── Your three state components ───────────────────────────────────────────────
-import LoadingScreen from "../../components/Loading-Screen";     // adjust path
-import ErrorScreen from "../../components/Error-Screen";         // adjust path
-import EmptyState from "../../components/EmptyState";           // adjust path
+import LoadingScreen from "../../components/Loading-Screen";
+import ErrorScreen from "../../components/Error-Screen";
+import EmptyState from "../../components/EmptyState";
 
 const AdminFees = () => {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  // ── Fetch ─────────────────────────────────────────────────────────────────
   const fetchFeesDashboard = async () => {
     setIsLoading(true);
     setHasError(false);
@@ -40,17 +38,19 @@ const AdminFees = () => {
   const getStatusClass = (status) => {
     switch (status) {
       case "full payment":
-      case "fully paid":  return "statusFull";
-      case "part payment": return "statusPart";
-      case "unpaid":       return "statusUnpaid";
-      default:             return "";
+      case "fully paid":
+        return "fee-status-full";
+      case "part payment":
+        return "fee-status-part";
+      case "unpaid":
+        return "fee-status-unpaid";
+      default:
+        return "";
     }
   };
 
-  // ── Loading state ─────────────────────────────────────────────────────────
   if (isLoading) return <LoadingScreen />;
 
-  // ── Error state ───────────────────────────────────────────────────────────
   if (hasError) {
     return (
       <ErrorScreen
@@ -61,7 +61,6 @@ const AdminFees = () => {
     );
   }
 
-  // ── No data returned (API succeeded but empty) ────────────────────────────
   if (!data) {
     return (
       <EmptyState
@@ -73,121 +72,131 @@ const AdminFees = () => {
 
   return (
     <>
-      {/* ── Header + metrics ── */}
-      <div className="dashboard-container">
-        <header className="dashboard-header">
-          <h1 className="welcome-text">Fee Management</h1>
-          <p className="subtitle-text">
-            {data?.overviewText || "Set up fee structures and monitor student fee payments."}
+      {/* ── Header + Metric Cards ── */}
+      <div className="fee-dashboard">
+        <header className="fee-dashboard-header">
+          <h1 className="fee-dashboard-title">Fee Management</h1>
+          <p className="fee-dashboard-subtitle">
+            {data?.overviewText ||
+              "Set up fee structures and monitor student fee payments."}
           </p>
         </header>
 
-        <div className="metrics-grid">
-          <div className="metric-card card-students">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Students</span>
-                <span className="card-value">{cards?.totalStudents?.value || 0}</span>
+        <div className="fee-metrics-grid">
+          <div className="fee-metric-card fee-metric-students">
+            <div className="fee-metric-content">
+              <div className="fee-metric-text">
+                <span className="fee-metric-label">Total Students</span>
+                <span className="fee-metric-value">
+                  {cards?.totalStudents?.value || 0}
+                </span>
               </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
+              <div className="fee-metric-icon fee-icon-students">
+                <PiStudentFill className="fee-dash-icon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" />{" "}
+            <div className="fee-metric-footer fee-trend-up">
+              <FaArrowTrendUp className="fee-trend-arrow" />
               {cards?.totalStudents?.fromLastWeek || 0} from last week
             </div>
           </div>
 
-          <div className="metric-card card-staff">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Staff</span>
-                <span className="card-value">{cards?.totalStaff?.value || 0}</span>
+          <div className="fee-metric-card fee-metric-staff">
+            <div className="fee-metric-content">
+              <div className="fee-metric-text">
+                <span className="fee-metric-label">Total Staff</span>
+                <span className="fee-metric-value">
+                  {cards?.totalStaff?.value || 0}
+                </span>
               </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="fee-metric-icon fee-icon-staff">
+                <HiMiniUserGroup className="fee-dash-icon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" />{" "}
+            <div className="fee-metric-footer fee-trend-up">
+              <FaArrowTrendUp className="fee-trend-arrow" />
               {cards?.totalStaff?.fromLastWeek || 0} from last week
             </div>
           </div>
 
-          <div className="metric-card card-attendance">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Attendance Rate</span>
-                <span className="card-value">{cards?.attendanceRate?.value || 0}%</span>
+          <div className="fee-metric-card fee-metric-attendance">
+            <div className="fee-metric-content">
+              <div className="fee-metric-text">
+                <span className="fee-metric-label">Attendance Rate</span>
+                <span className="fee-metric-value">
+                  {cards?.attendanceRate?.value || 0}%
+                </span>
               </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="fee-metric-icon fee-icon-attendance">
+                <PiCalendarBlankFill className="fee-dash-icon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FaArrowTrendUp className="arrow" />{" "}
+            <div className="fee-metric-footer fee-trend-up">
+              <FaArrowTrendUp className="fee-trend-arrow" />
               {cards?.attendanceRate?.fromLastWeek || 0} from last week
             </div>
           </div>
 
-          <div className="metric-card card-fees">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Fees Collected</span>
-                <span className="card-value">₦{cards?.feesCollected?.value || 0}</span>
+          <div className="fee-metric-card fee-metric-collected">
+            <div className="fee-metric-content">
+              <div className="fee-metric-text">
+                <span className="fee-metric-label">Fees Collected</span>
+                <span className="fee-metric-value">
+                  ₦{cards?.feesCollected?.value || 0}
+                </span>
               </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
+              <div className="fee-metric-icon fee-icon-collected">
+                <FaSackDollar className="fee-dash-icon" />
               </div>
             </div>
-            <div className="card-footer trend-pct">
-              <FaArrowTrendUp className="arrow" />{" "}
+            <div className="fee-metric-footer fee-trend-pct">
+              <FaArrowTrendUp className="fee-trend-arrow" />
               {cards?.feesCollected?.percentCollected || 0}% fee collected
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Table section ── */}
-      <div className="tableContainer">
-        <div className="filterSection">
-          <div className="filtersGroup">
-            <div className="filterItem">
-              <label className="filterLabel">Class Section</label>
-              <select className="selectInput">
+      {/* ── Table Section ── */}
+      <div className="fee-table-section">
+        {/* Filters */}
+        <div className="fee-filter-bar">
+          <div className="fee-filter-group">
+            <div className="fee-filter-item">
+              <label className="fee-filter-label">Class Section</label>
+              <select className="fee-select">
                 <option>{data?.filters?.classSection || "All Classes"}</option>
               </select>
             </div>
-            <div className="filterItem">
-              <label className="filterLabel">Payment Status</label>
-              <select className="selectInput">
+            <div className="fee-filter-item">
+              <label className="fee-filter-label">Payment Status</label>
+              <select className="fee-select">
                 <option>{data?.filters?.paymentStatus || "All Status"}</option>
               </select>
             </div>
-            <div className="filterItem">
-              <label className="filterLabel">Term</label>
-              <select className="selectInput">
+            <div className="fee-filter-item">
+              <label className="fee-filter-label">Term</label>
+              <select className="fee-select">
                 <option>{data?.filters?.term || "Third Term"}</option>
               </select>
             </div>
           </div>
 
-          <div className="actionRowButtons">
-            <button className="exportBtn">Export</button>
-            <button className="resetBtn">Reset</button>
+          <div className="fee-action-btns">
+            <button className="fee-export-btn">Export</button>
+            <button className="fee-reset-btn">Reset</button>
           </div>
         </div>
 
-        {/* ── Fee records: empty or table ── */}
+        {/* Records */}
         {feeRecords.length === 0 ? (
           <EmptyState
             title="No Fee Records Found"
             message="No payment records match the current filters. Try adjusting your selection or check back later."
           />
         ) : (
-          <div className="tableWrapper">
-            <table className="feesTable">
+          <div className="fee-table-wrap">
+            <table className="fee-table">
               <thead>
                 <tr>
                   <th>Student Name</th>
@@ -202,18 +211,22 @@ const AdminFees = () => {
               <tbody>
                 {feeRecords.map((row, index) => (
                   <tr key={row.studentId || index}>
-                    <td>{row.studentName}</td>
+                    <td className="fee-student-name">{row.studentName}</td>
                     <td>{row.class}</td>
                     <td>₦{row.totalAmount}</td>
                     <td>₦{row.amountPaid}</td>
                     <td>{row.paymentType}</td>
                     <td>
-                      <span className={`statusBadge ${getStatusClass(row.status)}`}>
+                      <span
+                        className={`fee-status-badge ${getStatusClass(row.status)}`}
+                      >
                         {row.status}
                       </span>
                     </td>
                     <td>
-                      {row.date ? new Date(row.date).toLocaleDateString() : "--"}
+                      {row.date
+                        ? new Date(row.date).toLocaleDateString()
+                        : "--"}
                     </td>
                   </tr>
                 ))}
@@ -223,8 +236,10 @@ const AdminFees = () => {
         )}
       </div>
 
-      <footer className="footerRow">
-        <span>© {new Date().getFullYear()} Ucheva school operating management system</span>
+      <footer className="fee-footer">
+        <span>
+          © {new Date().getFullYear()} Ucheva school operating management system
+        </span>
       </footer>
     </>
   );
