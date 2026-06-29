@@ -1,24 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./AdminAnnouncement.css";
-import { HiMiniUserGroup } from "react-icons/hi2";
 import { PiStudentFill, PiCalendarBlankFill } from "react-icons/pi";
+import { HiMiniUserGroup } from "react-icons/hi2";
 import { FaSackDollar } from "react-icons/fa6";
-import {
-  FaTimes,
-  FaEdit,
-  FaTrash,
-  FaExclamationTriangle,
-} from "react-icons/fa";
-
-
+import { FaTimes, FaEdit, FaTrash } from "react-icons/fa";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // ── Your three state components ───────────────────────────────────────────────
-import LoadingScreen from "../../components/Loading-Screen";     // adjust path
-import ErrorScreen from "../../components/Error-Screen";         // adjust path
-import EmptyState from "../../components/EmptyState";           // adjust path
+import LoadingScreen from "../../components/Loading-Screen"; // adjust path
+import ErrorScreen from "../../components/Error-Screen"; // adjust path
+import EmptyState from "../../components/EmptyState"; // adjust path
 
 const AdminAnnouncement = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -40,17 +33,6 @@ const AdminAnnouncement = () => {
     limit: 10,
     total: 0,
   });
-
-
-  // Delete confirmation modal state
-  const [deleteModal, setDeleteModal] = useState({
-    isOpen: false,
-    announcementId: null,
-    announcementTitle: "",
-    isDeleting: false,
-  });
-
-
   const [formData, setFormData] = useState({
     title: "",
     content: "",
@@ -90,7 +72,9 @@ const AdminAnnouncement = () => {
       };
       if (searchTerm.trim()) params.search = searchTerm.trim();
 
-      const response = await apiClient.get("/announcement/dashboard", { params });
+      const response = await apiClient.get("/announcement/dashboard", {
+        params,
+      });
 
       if (response.data?.announcementDashboard) {
         const dashboard = response.data.announcementDashboard;
@@ -98,10 +82,10 @@ const AdminAnnouncement = () => {
 
         if (dashboard.cards) {
           setStats({
-            drafts:    dashboard.cards.draft?.value     || 0,
+            drafts: dashboard.cards.draft?.value || 0,
             scheduled: dashboard.cards.scheduled?.value || 0,
             templates: dashboard.cards.templates?.value || 0,
-            sent:      dashboard.cards.sent?.value      || 0,
+            sent: dashboard.cards.sent?.value || 0,
           });
         }
 
@@ -109,7 +93,7 @@ const AdminAnnouncement = () => {
           setPagination((prev) => ({
             ...prev,
             total: dashboard.pagination.total || 0,
-            page:  dashboard.pagination.page  || 1,
+            page: dashboard.pagination.page || 1,
             limit: dashboard.pagination.limit || 10,
           }));
         }
@@ -126,34 +110,51 @@ const AdminAnnouncement = () => {
   const formatDate = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short", day: "numeric", year: "numeric",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
   const formatTime = (dateString) => {
     if (!dateString) return "N/A";
     return new Date(dateString).toLocaleTimeString("en-US", {
-      hour: "numeric", minute: "2-digit", hour12: true,
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
     });
   };
 
-  const getStatusType  = (s) => ["draft","scheduled","template","sent"].includes(s) ? s : "draft";
-  const getStatusLabel = (s) => ({ draft: "Draft", scheduled: "Scheduled", template: "Template", sent: "Sent" }[s] || s);
+  const getStatusType = (s) =>
+    ["draft", "scheduled", "template", "sent"].includes(s) ? s : "draft";
+  const getStatusLabel = (s) =>
+    ({
+      draft: "Draft",
+      scheduled: "Scheduled",
+      template: "Template",
+      sent: "Sent",
+    })[s] || s;
 
   // ── Form handlers ─────────────────────────────────────────────────────────
   const handleFormChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
     if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  const handleAudienceChange = (audience) => setFormData((prev) => ({ ...prev, audience }));
-  const handleStatusChange   = (status)   => setFormData((prev) => ({ ...prev, status }));
+  const handleAudienceChange = (audience) =>
+    setFormData((prev) => ({ ...prev, audience }));
+  const handleStatusChange = (status) =>
+    setFormData((prev) => ({ ...prev, status }));
 
   const validateForm = () => {
     const errors = {};
-    if (!formData.title.trim())   errors.title   = "Title is required";
-    if (!formData.content.trim()) errors.content = "Message content is required";
+    if (!formData.title.trim()) errors.title = "Title is required";
+    if (!formData.content.trim())
+      errors.content = "Message content is required";
     if (formData.status === "scheduled" && !formData.scheduledAt)
       errors.scheduledAt = "Scheduled date and time is required";
     setFormErrors(errors);
@@ -166,10 +167,10 @@ const AdminAnnouncement = () => {
     setIsSubmitting(true);
     try {
       const payload = {
-        title:    formData.title.trim(),
-        content:  formData.content.trim(),
+        title: formData.title.trim(),
+        content: formData.content.trim(),
         audience: formData.audience,
-        status:   formData.status,
+        status: formData.status,
       };
       if (formData.status === "scheduled" && formData.scheduledAt)
         payload.scheduledAt = new Date(formData.scheduledAt).toISOString();
@@ -211,7 +212,9 @@ const AdminAnnouncement = () => {
         },
       );
       setFormErrors({
-        submit: err.response?.data?.message || "Failed to save announcement. Please try again.",
+        submit:
+          err.response?.data?.message ||
+          "Failed to save announcement. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -228,11 +231,13 @@ const AdminAnnouncement = () => {
   const openEditPanel = (announcement) => {
     setEditingAnnouncement(announcement);
     setFormData({
-      title:          announcement.title      || "",
-      content:        announcement.content    || "",
-      audience:       announcement.audience   || "all",
-      status:         announcement.status     || "draft",
-      scheduledAt:    announcement.scheduledAt ? announcement.scheduledAt.slice(0, 16) : "",
+      title: announcement.title || "",
+      content: announcement.content || "",
+      audience: announcement.audience || "all",
+      status: announcement.status || "draft",
+      scheduledAt: announcement.scheduledAt
+        ? announcement.scheduledAt.slice(0, 16)
+        : "",
       saveAsTemplate: announcement.status === "template",
     });
     setIsCreatePanelOpen(true);
@@ -247,7 +252,14 @@ const AdminAnnouncement = () => {
   };
 
   const resetForm = () => {
-    setFormData({ title: "", content: "", audience: "all", status: "draft", scheduledAt: "", saveAsTemplate: false });
+    setFormData({
+      title: "",
+      content: "",
+      audience: "all",
+      status: "draft",
+      scheduledAt: "",
+      saveAsTemplate: false,
+    });
     setFormErrors({});
   };
 
@@ -264,72 +276,15 @@ const AdminAnnouncement = () => {
   const handlePageChange = (newPage) =>
     setPagination((prev) => ({ ...prev, page: newPage }));
 
-const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure you want to delete this announcement?")) return;
-
-  try {
-    await apiClient.delete(`/announcement/${id}`);
-    await fetchAnnouncements();
-  } catch (err) {
-    console.error("Error deleting announcement:", err);
-    alert("Failed to delete announcement. Please try again.");
-  }
-};
-
-  // Open delete confirmation modal
-  const openDeleteModal = (id, title) => {
-    setDeleteModal({
-      isOpen: true,
-      announcementId: id,
-      announcementTitle: title,
-      isDeleting: false,
-    });
-  };
-
-  // Close delete confirmation modal
-  const closeDeleteModal = () => {
-    setDeleteModal({
-      isOpen: false,
-      announcementId: null,
-      announcementTitle: "",
-      isDeleting: false,
-    });
-  };
-
-  // Handle delete with confirmation
-  const confirmDelete = async () => {
-    const { announcementId } = deleteModal;
-    if (!announcementId) return;
-
-    setDeleteModal((prev) => ({ ...prev, isDeleting: true }));
-
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this announcement?"))
+      return;
     try {
-      await apiClient.delete(`/announcement/${announcementId}`);
+      await apiClient.delete(`/announcement/${id}`);
       await fetchAnnouncements();
-      toast.success("Announcement deleted successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-      });
-      closeDeleteModal();
     } catch (err) {
       console.error("Error deleting announcement:", err);
-      toast.error(
-        err.response?.data?.message || "Failed to delete announcement.",
-        {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        },
-      );
-      setDeleteModal((prev) => ({ ...prev, isDeleting: false }));
-
+      alert("Failed to delete announcement. Please try again.");
     }
   };
 
@@ -339,15 +294,14 @@ const handleDelete = async (id) => {
   const emptyTitle = searchTerm
     ? "No Results Found"
     : activeTab === "all"
-    ? "No Announcements Yet"
-    : `No ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Announcements`;
+      ? "No Announcements Yet"
+      : `No ${activeTab.charAt(0).toUpperCase() + activeTab.slice(1)} Announcements`;
 
   const emptyMessage = searchTerm
     ? `No announcements match "${searchTerm}". Try a different search term.`
     : activeTab === "all"
-    ? "You haven't created any announcements yet. Use the button above to get started."
-    : `You have no ${activeTab} announcements. Create one to see it here.`;
-
+      ? "You haven't created any announcements yet. Use the button above to get started."
+      : `You have no ${activeTab} announcements. Create one to see it here.`;
 
   return (
     <>
@@ -434,11 +388,15 @@ const handleDelete = async (id) => {
                 {category.charAt(0).toUpperCase() + category.slice(1)}
                 {category !== "all" && (
                   <span className="tabCount">
-                    {category === "drafts"    ? stats.drafts
-                    : category === "scheduled" ? stats.scheduled
-                    : category === "template"  ? stats.templates
-                    : category === "sent"      ? stats.sent
-                    : 0}
+                    {category === "drafts"
+                      ? stats.drafts
+                      : category === "scheduled"
+                        ? stats.scheduled
+                        : category === "template"
+                          ? stats.templates
+                          : category === "sent"
+                            ? stats.sent
+                            : 0}
                   </span>
                 )}
               </button>
@@ -452,7 +410,13 @@ const handleDelete = async (id) => {
               value={searchTerm}
               onChange={handleSearch}
             />
-            <svg className="searchIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              className="searchIcon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -468,19 +432,6 @@ const handleDelete = async (id) => {
             message="We couldn't load your announcements. Check your connection and try again."
             onRetry={fetchAnnouncements}
           />
-
-        // {loading ? (
-        //   <div className="loadingState">
-        //     <div className="spinner"></div>
-        //     <p>Loading announcements...</p>
-        //   </div>
-        ) : error ? (
-          <div className="errorState">
-            <p>{error}</p>
-            <button className="retryBtn" onClick={fetchAnnouncements}>
-              Retry
-            </button>
-          </div>
         ) : announcements.length === 0 ? (
           <EmptyState
             title={emptyTitle}
@@ -505,15 +456,18 @@ const handleDelete = async (id) => {
                   <div className="cardHeader">
                     <h3 className="cardTitle">{item.title}</h3>
                     <div className="cardActions">
-                      <button className="editButton" onClick={() => openEditPanel(item)} aria-label="Edit">
+                      <button
+                        className="editButton"
+                        onClick={() => openEditPanel(item)}
+                        aria-label="Edit"
+                      >
                         <FaEdit />
                       </button>
                       <button
                         className="deleteButton"
-                        onClick={() => openDeleteModal(item.id, item.title)}
+                        onClick={() => handleDelete(item.id)}
                         aria-label="Delete"
                       >
-
                         <FaTrash />
                       </button>
                     </div>
@@ -521,22 +475,45 @@ const handleDelete = async (id) => {
                   <p className="cardContent">{item.content}</p>
                   <div className="cardFooter">
                     <span className="metaItem">
-                      <svg className="metaIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                      <svg
+                        className="metaIcon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <rect
+                          x="3"
+                          y="4"
+                          width="18"
+                          height="18"
+                          rx="2"
+                          ry="2"
+                        />
                         <line x1="16" y1="2" x2="16" y2="6" />
-                        <line x1="8"  y1="2" x2="8"  y2="6" />
-                        <line x1="3"  y1="10" x2="21" y2="10" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
                       </svg>
-                      {item.displayDate ? formatDate(item.displayDate) : formatDate(item.createdAt)}
+                      {item.displayDate
+                        ? formatDate(item.displayDate)
+                        : formatDate(item.createdAt)}
                     </span>
                     <span className="metaItem">
-                      <svg className="metaIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg
+                        className="metaIcon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
                         <circle cx="12" cy="12" r="10" />
                         <polyline points="12 6 12 12 16 14" />
                       </svg>
                       {item.displayTime || formatTime(item.createdAt)}
                     </span>
-                    <span className={`statusBadge ${getStatusType(item.status)}`}>
+                    <span
+                      className={`statusBadge ${getStatusType(item.status)}`}
+                    >
                       {getStatusLabel(item.status)}
                     </span>
                   </div>
@@ -569,19 +546,34 @@ const handleDelete = async (id) => {
         )}
 
         <div className="legendBox">
-          <div className="legendItem"><span className="indicatorDot dot-draft"></span><span className="legendLabel">Draft</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-scheduled"></span><span className="legendLabel">Scheduled</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-template"></span><span className="legendLabel">Template</span></div>
-          <div className="legendItem"><span className="indicatorDot dot-sent"></span><span className="legendLabel">Sent</span></div>
+          <div className="legendItem">
+            <span className="indicatorDot dot-draft"></span>
+            <span className="legendLabel">Draft</span>
+          </div>
+          <div className="legendItem">
+            <span className="indicatorDot dot-scheduled"></span>
+            <span className="legendLabel">Scheduled</span>
+          </div>
+          <div className="legendItem">
+            <span className="indicatorDot dot-template"></span>
+            <span className="legendLabel">Template</span>
+          </div>
+          <div className="legendItem">
+            <span className="indicatorDot dot-sent"></span>
+            <span className="legendLabel">Sent</span>
+          </div>
         </div>
 
         <footer className="footerView">
           <span className="copyright">
-            ©️ {new Date().getFullYear()} Ucheva school operating management system. All rights reserved.
+            © {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
           <span className="support">
             Need help?{" "}
-            <a href="#support" className="supportLink">Contact support</a>
+            <a href="#support" className="supportLink">
+              Contact support
+            </a>
           </span>
         </footer>
       </div>
@@ -598,7 +590,11 @@ const handleDelete = async (id) => {
         >
           <div className="panel-header">
             <div className="panel-title-section">
-              <h2>{editingAnnouncement ? "Edit Announcement" : "Create Announcement"}</h2>
+              <h2>
+                {editingAnnouncement
+                  ? "Edit Announcement"
+                  : "Create Announcement"}
+              </h2>
               <p className="panel-subtitle">
                 {editingAnnouncement
                   ? "Update your announcement details below."
@@ -621,7 +617,9 @@ const handleDelete = async (id) => {
                 value={formData.title}
                 onChange={handleFormChange}
               />
-              {formErrors.title && <span className="form-error">{formErrors.title}</span>}
+              {formErrors.title && (
+                <span className="form-error">{formErrors.title}</span>
+              )}
             </div>
 
             <div className="form-group">
@@ -634,12 +632,16 @@ const handleDelete = async (id) => {
                 onChange={handleFormChange}
                 rows="4"
               />
-              {formErrors.content && <span className="form-error">{formErrors.content}</span>}
+              {formErrors.content && (
+                <span className="form-error">{formErrors.content}</span>
+              )}
             </div>
 
             <div className="form-group">
               <label className="form-label">Audience Selection</label>
-              <p className="form-hint">Choose who will receive this announcement.</p>
+              <p className="form-hint">
+                Choose who will receive this announcement.
+              </p>
               <div className="audience-options">
                 {["parents", "staff", "students", "all"].map((audience) => (
                   <label key={audience} className="audience-option">
@@ -650,7 +652,9 @@ const handleDelete = async (id) => {
                       checked={formData.audience === audience}
                       onChange={() => handleAudienceChange(audience)}
                     />
-                    <span>{audience.charAt(0).toUpperCase() + audience.slice(1)}</span>
+                    <span>
+                      {audience.charAt(0).toUpperCase() + audience.slice(1)}
+                    </span>
                   </label>
                 ))}
               </div>
@@ -658,12 +662,26 @@ const handleDelete = async (id) => {
 
             <div className="form-group">
               <label className="form-label">Send Options</label>
-              <p className="form-hint">Choose when to send this announcement.</p>
+              <p className="form-hint">
+                Choose when to send this announcement.
+              </p>
               <div className="send-options">
                 {[
-                  { value: "draft",     title: "Save as Draft",      desc: "Save this announcement as a draft." },
-                  { value: "sent",      title: "Send Immediately",   desc: "Send this announcement right away." },
-                  { value: "scheduled", title: "Schedule for Later", desc: "Choose a date and time to send." },
+                  {
+                    value: "draft",
+                    title: "Save as Draft",
+                    desc: "Save this announcement as a draft.",
+                  },
+                  {
+                    value: "sent",
+                    title: "Send Immediately",
+                    desc: "Send this announcement right away.",
+                  },
+                  {
+                    value: "scheduled",
+                    title: "Schedule for Later",
+                    desc: "Choose a date and time to send.",
+                  },
                 ].map(({ value, title, desc }) => (
                   <label key={value} className="send-option">
                     <input
@@ -690,7 +708,9 @@ const handleDelete = async (id) => {
                     value={formData.scheduledAt}
                     onChange={handleFormChange}
                   />
-                  {formErrors.scheduledAt && <span className="form-error">{formErrors.scheduledAt}</span>}
+                  {formErrors.scheduledAt && (
+                    <span className="form-error">{formErrors.scheduledAt}</span>
+                  )}
                 </div>
               )}
             </div>
@@ -713,19 +733,24 @@ const handleDelete = async (id) => {
             )}
 
             <div className="form-actions">
-              <button type="button" className="btn-cancel" onClick={closePanel}>Cancel</button>
-              <button type="submit" className="btn-submit" disabled={isSubmitting}>
+              <button type="button" className="btn-cancel" onClick={closePanel}>
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="btn-submit"
+                disabled={isSubmitting}
+              >
                 {isSubmitting
                   ? "Saving..."
                   : editingAnnouncement
-                  ? "Update Announcement"
-                  : "Create Announcement"}
+                    ? "Update Announcement"
+                    : "Create Announcement"}
               </button>
             </div>
           </form>
         </div>
       </div>
-
 
       {/* Delete Confirmation Modal */}
       <div
@@ -765,9 +790,8 @@ const handleDelete = async (id) => {
           </div>
         </div>
       </div>
-
     </>
   );
 };
-  
+
 export default AdminAnnouncement;

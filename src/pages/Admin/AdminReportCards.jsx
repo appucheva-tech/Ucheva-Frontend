@@ -1,10 +1,11 @@
+
 import React, { useEffect, useState } from "react";
 import "./AdminReportCards.css";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { apiClient } from "../../config/AxiosInstance";
 import { toast } from "react-toastify";
-
+import ErrorScreen from "../../components/Error-Screen";
 const AdminReportCards = () => {
   const nav = useNavigate();
   const [reportData, setReportData] = useState([]);
@@ -121,15 +122,12 @@ const AdminReportCards = () => {
   );
 
   if (error) {
-    return (
-      <div className="dashboard-container">
-        <div className="error-container">
-          <p className="error-message">{error}</p>
-          <button className="retry-btn" onClick={fetchReportCards}>
-            Retry
-          </button>
-        </div>
-      </div>
+   return (
+      <ErrorScreen
+        title="Report Cards Unavailable"
+        message="We couldn't load report card records. Check your connection and try again."
+        onRetry={fetchReportCards}
+      />
     );
   }
 

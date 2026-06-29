@@ -91,7 +91,6 @@
 }
 
 .AdminHdr-avatar {
-
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -209,15 +208,9 @@
 }
 
 @keyframes AdminHdr-spin {
-
   to {
     transform: rotate(360deg);
   }
-
-  to {
-    transform: rotate(360deg);
-  }
-
   to { transform: rotate(360deg); }
 }
 

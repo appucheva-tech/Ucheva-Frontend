@@ -37,7 +37,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
   // const currentSession = "2025/2026 Session";
   // const currentTerm = "Third Term";
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
