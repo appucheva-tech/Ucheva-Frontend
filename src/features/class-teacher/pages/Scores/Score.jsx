@@ -32,7 +32,7 @@ useEffect(() => {
 
   console.log("🔥 Running prefill");
 
-  const getKey = (obj) => obj.admissionNumber;
+  const getKey = (obj) => obj.id;
 
   const scoreMap = {};
 
@@ -57,9 +57,10 @@ useEffect(() => {
     };
   });
 
-  console.log("✅ Prefilled scores:", newScores);
 
   setScores(newScores);
+
+  
 
 }, [students, seeScores, selectedSubject]);
   // =========================
@@ -68,7 +69,7 @@ useEffect(() => {
    const getSubjects = async () => {
     try {
       setLoading(true);
-      const res = await apiClient.get("/subjectteacher/get-all-subjects");
+      const res = await apiClient.get("/classteacher/get-all-subjects");
 
       const data = res.data.subjects;
 
@@ -92,7 +93,7 @@ setGroupedSubjects(grouped);
       setLoading(true);
   
       const res = await apiClient.get(
-        `/subjectteacher/get-students/${subject.classId}`
+        `/classteacher/get-students/${subject.classId}`
       );
   
       const list = res.data.getStudents || [];
@@ -262,7 +263,7 @@ const handleClassSelectionChange = (subjectName, selectedClassesList) => {
       // Fetch students for each class entry
       for (const entry of entries) {
         const res = await apiClient.get(
-          `/subjectteacher/get-students/${entry.classId}`
+          `/classteacher/get-students/${entry.classId}`
         );
         const data = res.data.getStudents;
         
@@ -366,10 +367,10 @@ const subjectId =
         exam: Number(scores[id]?.exam || 0),
       })),
     };
-
+console.log("mr p: ",payload)
     // ✅ API call
     const res = await apiClient.post(
-      `/subjectteacher/mark-score/${subjectId}`,
+      `/classteacher/mark-score/${subjectId}`,
       payload
     );
 
