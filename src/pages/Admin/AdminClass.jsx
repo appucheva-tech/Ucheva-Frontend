@@ -103,7 +103,7 @@ const AdminClass = () => {
         section: formData.section,
       };
       if (formData.teacherId) payload.teacherId = formData.teacherId;
-
+console.log("payload", payload)
       const response = await apiClient.post("/class/create-class", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -583,6 +583,9 @@ const AdminClass = () => {
                  </div>
                )}
 
+{console.log( 1,formData),
+console.log(2,formData.section)
+}
               <div className="inputGroup">
                 <label>Amount</label>
                 <input

@@ -106,7 +106,10 @@ const Overview = () => {
       stopScanner();
     } catch (error) {
       console.error("Check-in failed:", error);
-      toast.error(error.response?.data?.message || "❌ Check-in failed. Please try again.");
+      toast.error(
+        error.response?.data?.message ||
+          "❌ Check-in failed. Please try again.",
+      );
     }
   };
 
@@ -128,12 +131,12 @@ const Overview = () => {
 
     const scanner = new Html5QrcodeScanner(
       "reader",
-      { 
-        fps: 10, 
+      {
+        fps: 10,
         qrbox: 250,
         aspectRatio: 1.0,
       },
-      false
+      false,
     );
 
     scanner.render(handleScanSuccess, handleScanError);
@@ -255,19 +258,16 @@ const Overview = () => {
               {!attendanceStatus.isCheckedIn ? (
                 <>
                   {!showScanner ? (
-                    <button
-                      className="qr-scan-button"
-                      onClick={startScanner}
-                    >
+                    <button className="qr-scan-button" onClick={startScanner}>
                       📷 Scan QR to Check In
                     </button>
                   ) : (
                     <div className="scanner-container">
-                      <div id="reader" style={{ width: "100%", maxWidth: "400px" }} />
-                      <button
-                        className="qr-scan-close"
-                        onClick={stopScanner}
-                      >
+                      <div
+                        id="reader"
+                        style={{ width: "100%", maxWidth: "400px" }}
+                      />
+                      <button className="qr-scan-close" onClick={stopScanner}>
                         ✕ Close Scanner
                       </button>
                     </div>
