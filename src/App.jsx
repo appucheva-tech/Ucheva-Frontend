@@ -116,6 +116,7 @@ const App = () => {
               element={<CreatePassword />}
             />
           </Route>
+            <Route path="/attendance/:token" element={<AttendancePage />} />
 
           <Route path="/onboarding" element={<OnboardingStepper />} />
 
@@ -174,6 +175,8 @@ const App = () => {
             <Route path="CTsettings" element={<CTSettings />} />
             <Route path="CTAnnouncement" element={<CTAnnouncement />} />
             <Route path="attendance" element={<AttendancePage />} />
+
+
           </Route>
           </Route>
 
@@ -190,6 +193,7 @@ const App = () => {
               element={<BursaryAnnouncement />}
             />
             <Route path="attendance" element={<AttendancePage />} />
+
           </Route>
           </Route>
 
@@ -225,6 +229,7 @@ const App = () => {
               />
               <Route path="settings" element={<SubjectTeacherSettings />} />
               <Route path="attendance" element={<AttendancePage />} />
+
             </Route>
           </Route>
         </Route>
