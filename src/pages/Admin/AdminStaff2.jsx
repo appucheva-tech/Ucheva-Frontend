@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./AdminStaff2.css";
 import { apiClient } from "../../config/AxiosInstance";
@@ -31,6 +31,13 @@ const AdminStaff2 = () => {
   const [loading, setLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(isEditMode);
   const [showNoClassModal, setShowNoClassModal] = useState(false);
+
+  // ── Max date: must be at least 16 years old ───────────────────────────────
+  const getMaxDateOfBirth = (minAge) => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - minAge);
+    return date.toISOString().split("T")[0];
+  };
 
   // Prefill form in edit mode
   useEffect(() => {
@@ -111,7 +118,6 @@ const AdminStaff2 = () => {
       setLoading(true);
 
       if (isEditMode) {
-        // PUT — only send fields the API accepts
         const payload = {
           firstName: formData.firstName.trim(),
           lastName: formData.lastName.trim(),
@@ -135,7 +141,6 @@ const AdminStaff2 = () => {
           autoClose: 3000,
         });
       } else {
-        // POST — full payload
         const payload = {
           firstName: formData.firstName.trim().toLowerCase(),
           lastName: formData.lastName.trim().toLowerCase(),
@@ -291,6 +296,7 @@ const AdminStaff2 = () => {
                     onChange={handleChange}
                     required
                     disabled={isEditMode}
+                    max={getMaxDateOfBirth(16)}
                   />
                 </div>
               </div>
@@ -463,8 +469,8 @@ const AdminStaff2 = () => {
 
         <div className="form-footer">
           <span className="copyright">
-            © 2026 Ucheva school operating management system. All right
-            reserved.
+            © {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
           <span className="support">
             Need help? <a href="#">Contact support</a>

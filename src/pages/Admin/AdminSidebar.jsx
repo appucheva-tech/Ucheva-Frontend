@@ -160,7 +160,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <button
             type="button"
             className="upgrade-action-btn"
-            onClick={handleMenuClick} // ← Close on mobile
+            onClick={() => {
+              nav("/admin/suscribe");
+            }} // ← Close on mobile
           >
             Upgrade
           </button>

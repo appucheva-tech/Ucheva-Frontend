@@ -71,6 +71,7 @@ import NotFound from "./pages/notFound";
 import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
 import RequireSubdomain from "./pages/requireSubdomain";
 import AdminREportDetailPage from "./pages/Admin/AdminReportDetalpage";
+import SubscriptionBilling from "./pages/Admin/AdminSubscriptionBilling";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -89,6 +90,7 @@ const App = () => {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/notfound" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
         <Route path="/" element={<Home />} />
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -117,44 +119,48 @@ const App = () => {
 
           <Route path="/onboarding" element={<OnboardingStepper />} />
 
-          <Route path="/admin" element={<AdminDashboardLayout />}>
-            <Route path="dashboard" element={<AdminDashboard />} />
-            <Route path="AdminStaff" element={<AdminStaff />} />
-            <Route path="AdminStaff2" element={<AdminStaff2 />} />
-            <Route
-              path="/admin/edit-staff/:staffId"
-              element={<AdminStaff2 />}
-            />
-            <Route path="staff-details/:id" element={<StaffDetails />} />
-            <Route path="AdminStudents" element={<AdminStudents />} />
-            <Route path="AdminStudent2" element={<AdminStudent2 />} />
-            <Route
-              path="AdminStudentDetails/:id"
-              element={<AdminStudentDetails />}
-            />
-            <Route path="AdminEditStudent/:id" element={<AdminEditStudent />} />
-            <Route path="AdminAttendance" element={<AdminAttendance />} />
-            <Route
-              path="AdminStudentAttendance"
-              element={<AdminStudentAttendance />}
-            />
-            <Route path="AdminSubjects" element={<AdminSubjects />} />
-            <Route path="AdminClass" element={<AdminClass />} />
-            <Route path="AdminFees" element={<AdminFees />} />
-            <Route path="AdminReportCards" element={<AdminReportCards />} />
+          <Route element={<PrivateRoute allowedRoles={["admin"]} />}>
+            <Route path="/admin" element={<AdminDashboardLayout />}>
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="AdminStaff" element={<AdminStaff />} />
+              <Route path="AdminStaff2" element={<AdminStaff2 />} />
+              <Route
+                path="/admin/edit-staff/:staffId"
+                element={<AdminStaff2 />}
+              />
+              <Route path="staff-details/:id" element={<StaffDetails />} />
+              <Route path="AdminStudents" element={<AdminStudents />} />
+              <Route path="AdminStudent2" element={<AdminStudent2 />} />
+              <Route
+                path="AdminStudentDetails/:id"
+                element={<AdminStudentDetails />}
+              />
+              <Route path="AdminEditStudent/:id" element={<AdminEditStudent />} />
+              <Route path="AdminAttendance" element={<AdminAttendance />} />
+              <Route
+                path="AdminStudentAttendance"
+                element={<AdminStudentAttendance />}
+              />
+              <Route path="AdminSubjects" element={<AdminSubjects />} />
+              <Route path="AdminClass" element={<AdminClass />} />
+              <Route path="AdminFees" element={<AdminFees />} />
+              <Route path="AdminReportCards" element={<AdminReportCards />} />
 
-            <Route
-              path="AdminReportCards/:admissionnumber"
-              element={<AdminREportDetailPage />}
-            />
+              <Route
+                path="AdminReportCards/:admissionnumber"
+                element={<AdminREportDetailPage />}
+              />
 
-            <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
-            <Route path="AdminWallet" element={<AdminWallet />} />
+              <Route path="AdminAnnouncement" element={<AdminAnnouncement />} />
+              <Route path="AdminWallet" element={<AdminWallet />} />
 
-            <Route path="AdminSettings" element={<AdminSettings />} />
+              <Route path="AdminSettings" element={<AdminSettings />} />
+              <Route path="suscribe" element={<SubscriptionBilling />} />
+            </Route>
           </Route>
 
-          <Route path="/CTdashboard" element={<CTLayout />}>
+          <Route element={<PrivateRoute allowedStaffTypes={["class teacher"]} />}>
+            <Route path="/CTdashboard" element={<CTLayout />}>
             {/* CT routes */}
 
             <Route index element={<Overview />} />
@@ -169,15 +175,10 @@ const App = () => {
             <Route path="CTAnnouncement" element={<CTAnnouncement />} />
             <Route path="attendance" element={<AttendancePage />} />
           </Route>
-          <Route element={<PrivateRoute />}>
-            <Route path="/attendance/:token" element={<AttendancePage />} />
           </Route>
 
-          <Route element={<PrivateRoute />}>
-            <Route path="/attendance/:token" element={<AttendancePage />} />
-          </Route>
-
-          <Route path="/bursary" element={<BursaryLayout />}>
+          <Route element={<PrivateRoute allowedStaffTypes={["non-teaching staff"]} />}>
+            <Route path="/bursary" element={<BursaryLayout />}>
             {/* bursary routes */}
 
             <Route index element={<BusaryDashboard />} />
@@ -190,31 +191,41 @@ const App = () => {
             />
             <Route path="attendance" element={<AttendancePage />} />
           </Route>
-
-          <Route path="/parentdashboard" element={<ParentLayout />}>
-            <Route index element={<DashboardPage />} />
-            <Route path="payment" element={<PaymentPage />} />
-            <Route path="settings" element={<SettingsPage />} />
           </Route>
 
-          <Route path="/securitydashboard" element={<SecurityLayout />}>
-            <Route index element={<SecuritysDashboard />} />
-            <Route path="announcement" element={<SecurityAnnouncement />} />
-            <Route path="settings" element={<SecuritySettings />} />
+          <Route element={<PrivateRoute allowedRoles={["parent"]} />}>
+            <Route path="/parentdashboard" element={<ParentLayout />}>
+              <Route index element={<DashboardPage />} />
+              <Route path="payment" element={<PaymentPage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
           </Route>
 
-          <Route
-            path="/subjectteacherdashboard"
-            element={<SubjectTeacherLayout />}
-          >
-            <Route index element={<SubjectTeacherDashboard />} />
-            <Route path="scores" element={<SubjectTeacherScores />} />
+          <Route element={<PrivateRoute allowedStaffTypes={["security"]} />}>
             <Route
-              path="announcement"
-              element={<SubjectTeacherAnnouncement />}
-            />
-            <Route path="settings" element={<SubjectTeacherSettings />} />
-            <Route path="attendance" element={<AttendancePage />} />
+              path="/securitydashboard"
+              element={<SecurityLayout />}
+            >
+              <Route index element={<SecuritysDashboard />} />
+              <Route path="announcement" element={<SecurityAnnouncement />} />
+              <Route path="settings" element={<SecuritySettings />} />
+            </Route>
+          </Route>
+
+          <Route element={<PrivateRoute allowedStaffTypes={["subject teacher"]} />}>
+            <Route
+              path="/subjectteacherdashboard"
+              element={<SubjectTeacherLayout />}
+            >
+              <Route index element={<SubjectTeacherDashboard />} />
+              <Route path="scores" element={<SubjectTeacherScores />} />
+              <Route
+                path="announcement"
+                element={<SubjectTeacherAnnouncement />}
+              />
+              <Route path="settings" element={<SubjectTeacherSettings />} />
+              <Route path="attendance" element={<AttendancePage />} />
+            </Route>
           </Route>
         </Route>
       </Routes>

@@ -9,12 +9,18 @@ const persistConfig = {
   storage,
 };
 
+const persistConfigStaff = {
+  key: "staff",
+  storage,
+};
+
 const persistedUserReducer = persistReducer(persistConfig, userReducer);
+const persistedStaffReducer = persistReducer(persistConfigStaff, staffReducer);
 
 export const store = configureStore({
   reducer: {
     user: persistedUserReducer,
-    staff: staffReducer,
+    staff: persistedStaffReducer,
     // parent: parentReducer,
   },
   middleware: (getDefaultMiddleware) =>

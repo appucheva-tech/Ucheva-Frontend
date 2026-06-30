@@ -51,7 +51,7 @@ const QRScannerComponent = ({
         }
 
         // Auto-stop scanner after success
-        setTimeout(() => {
+        let autoStop = setTimeout(() => {
           stopScanner();
         }, 1500);
       },
@@ -72,6 +72,7 @@ const QRScannerComponent = ({
       if (scannerRef.current) {
         scannerRef.current.clear().catch(() => {});
       }
+      clearInterval(autoStop)
     };
   }, [showScanner, onScanSuccess, onScanError]);
 

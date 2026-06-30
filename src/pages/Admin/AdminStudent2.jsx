@@ -18,8 +18,8 @@ const AdminStudent2 = () => {
     classId: "",
     department: "",
     session: "",
-    parentGuardiansFirstName: "",   // ✅ FIX 3
-    parentGuardiansLastName: "",    // ✅ FIX 3
+    parentGuardiansFirstName: "",
+    parentGuardiansLastName: "",
     relationship: "",
     phoneNumber: "",
     parentGuardiansEmail: "",
@@ -27,13 +27,25 @@ const AdminStudent2 = () => {
     parentGuardiansAddress: "",
   };
 
-  const nav = useNavigate(); // ✅ FIX 4: Moved to top
-
+  const nav = useNavigate();
   const [formData, setFormData] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [classes, setClasses] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const popupRef = useRef(null);
+
+  // ── Date helpers ──────────────────────────────────────────────────────────
+  const getMaxDateOfBirth = (minAge) => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - minAge);
+    return date.toISOString().split("T")[0];
+  };
+
+  const getMinDateOfBirth = (maxAge) => {
+    const date = new Date();
+    date.setFullYear(date.getFullYear() - maxAge);
+    return date.toISOString().split("T")[0];
+  };
 
   const toggleNotifications = (e) => {
     e.stopPropagation();
@@ -48,19 +60,14 @@ const AdminStudent2 = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
     setFormData((prev) => {
       const updated = { ...prev, [name]: value };
-
       if (name === "classId") {
         const chosen = classes.find((c) => String(c.id) === String(value));
         const chosenName = chosen?.className?.toUpperCase() || "";
         const isSenior = /^SS\s*[123]/i.test(chosenName);
-        if (!isSenior) {
-          updated.department = "";
-        }
+        if (!isSenior) updated.department = "";
       }
-
       return updated;
     });
   };
@@ -68,7 +75,6 @@ const AdminStudent2 = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ FIX 5: Full validation
     if (
       !formData.firstName ||
       !formData.lastName ||
@@ -99,11 +105,13 @@ const AdminStudent2 = () => {
         address: formData.address.trim(),
         classId: formData.classId.trim(),
         session: formData.session.trim(),
-        parentGuardiansFirstName: formData.parentGuardiansFirstName.trim(), // ✅ FIX 3
-        parentGuardiansLastName: formData.parentGuardiansLastName.trim(),   // ✅ FIX 3
+        parentGuardiansFirstName: formData.parentGuardiansFirstName.trim(),
+        parentGuardiansLastName: formData.parentGuardiansLastName.trim(),
         relationship: formData.relationship.toLowerCase(),
         phoneNumber: formData.phoneNumber.trim(),
-        parentGuardiansEmail: formData.parentGuardiansEmail.trim().toLowerCase(),
+        parentGuardiansEmail: formData.parentGuardiansEmail
+          .trim()
+          .toLowerCase(),
         religion: formData.religion,
         parentGuardiansAddress: formData.parentGuardiansAddress,
         ...(isSeniorClass && formData.department
@@ -156,7 +164,7 @@ const AdminStudent2 = () => {
       <div className="form-container">
         <div className="form-header">
           <div className="header-top">
-            <h1>Add New Student</h1> {/* ✅ FIX 1: Removed nested h1 */}
+            <h1>Add New Student</h1>
             <div className="breadcrumb">
               <span className="Sactive" onClick={() => nav(-1)}>
                 Student Management
@@ -166,7 +174,8 @@ const AdminStudent2 = () => {
             </div>
           </div>
           <p className="subtitle">
-            Enter the student's information below to register them in the system.
+            Enter the student's information below to register them in the
+            system.
           </p>
         </div>
 
@@ -176,7 +185,9 @@ const AdminStudent2 = () => {
             <h2>Personal Information</h2>
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>First Name<span className="required">*</span></label>
+                <label>
+                  First Name<span className="required">*</span>
+                </label>
                 <input
                   type="text"
                   name="firstName"
@@ -187,7 +198,9 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Last Name<span className="required">*</span></label>
+                <label>
+                  Last Name<span className="required">*</span>
+                </label>
                 <input
                   type="text"
                   name="lastName"
@@ -209,8 +222,14 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Gender<span className="required">*</span></label>
-                <select name="gender" value={formData.gender} onChange={handleChange}>
+                <label>
+                  Gender<span className="required">*</span>
+                </label>
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                >
                   <option value="">Select Gender</option>
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
@@ -224,12 +243,18 @@ const AdminStudent2 = () => {
                   name="dateOfBirth"
                   value={formData.dateOfBirth}
                   onChange={handleChange}
+                  max={getMaxDateOfBirth(3)}
+                  min={getMinDateOfBirth(25)}
                 />
               </div>
 
               <div className="form-group">
                 <label>Nationality</label>
-                <select name="nationality" value={formData.nationality} onChange={handleChange}>
+                <select
+                  name="nationality"
+                  value={formData.nationality}
+                  onChange={handleChange}
+                >
                   <option value="">Select Country</option>
                   <option value="nigerian">Nigerian</option>
                   <option value="non Nigeria">Non Nigerian</option>
@@ -238,7 +263,11 @@ const AdminStudent2 = () => {
 
               <div className="form-group">
                 <label>Religion</label>
-                <select name="religion" value={formData.religion} onChange={handleChange}>
+                <select
+                  name="religion"
+                  value={formData.religion}
+                  onChange={handleChange}
+                >
                   <option value="">Select Religion</option>
                   <option value="Christianity">Christianity</option>
                   <option value="Islam">Islam</option>
@@ -247,7 +276,9 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group full-width-field">
-                <label>Address<span className="required">*</span></label>
+                <label>
+                  Address<span className="required">*</span>
+                </label>
                 <textarea
                   name="address"
                   value={formData.address}
@@ -263,8 +294,14 @@ const AdminStudent2 = () => {
             <h2>Academic Information</h2>
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>Class<span className="required">*</span></label>
-                <select name="classId" value={formData.classId} onChange={handleChange}>
+                <label>
+                  Class<span className="required">*</span>
+                </label>
+                <select
+                  name="classId"
+                  value={formData.classId}
+                  onChange={handleChange}
+                >
                   <option value="">Select Class</option>
                   {classes.map((item) => (
                     <option key={item.id} value={item.id}>
@@ -276,8 +313,14 @@ const AdminStudent2 = () => {
 
               {isSeniorClass && (
                 <div className="form-group">
-                  <label>Department<span className="required">*</span></label>
-                  <select name="department" value={formData.department} onChange={handleChange}>
+                  <label>
+                    Department<span className="required">*</span>
+                  </label>
+                  <select
+                    name="department"
+                    value={formData.department}
+                    onChange={handleChange}
+                  >
                     <option value="">Select Department</option>
                     <option value="Science">Science</option>
                     <option value="Commercial">Commercial</option>
@@ -288,9 +331,14 @@ const AdminStudent2 = () => {
               )}
 
               <div className="form-group">
-                <label>Session<span className="required">*</span></label>
-                {/* ✅ FIX 6: Corrected session values to match labels */}
-                <select name="session" value={formData.session} onChange={handleChange}>
+                <label>
+                  Session<span className="required">*</span>
+                </label>
+                <select
+                  name="session"
+                  value={formData.session}
+                  onChange={handleChange}
+                >
                   <option value="">Select Session</option>
                   <option value="2025">2025/2026</option>
                   <option value="2026">2026/2027</option>
@@ -306,8 +354,9 @@ const AdminStudent2 = () => {
             <h2>Parent/Guardian Information</h2>
             <div className="form-grid type-3-col">
               <div className="form-group">
-                <label>First Name<span className="required">*</span></label>
-                {/* ✅ FIX 2: Correct name attribute */}
+                <label>
+                  First Name<span className="required">*</span>
+                </label>
                 <input
                   type="text"
                   name="parentGuardiansFirstName"
@@ -318,8 +367,9 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Last Name<span className="required">*</span></label>
-                {/* ✅ FIX 2: Correct name attribute */}
+                <label>
+                  Last Name<span className="required">*</span>
+                </label>
                 <input
                   type="text"
                   name="parentGuardiansLastName"
@@ -330,10 +380,17 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Relationship<span className="required">*</span></label>
-                {/* ✅ FIX 7: Removed invalid `select` attribute */}
-                <select name="relationship" value={formData.relationship} onChange={handleChange}>
-                  <option value="" disabled>Select Relationship</option>
+                <label>
+                  Relationship<span className="required">*</span>
+                </label>
+                <select
+                  name="relationship"
+                  value={formData.relationship}
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Relationship
+                  </option>
                   <option value="Father">Father</option>
                   <option value="Mother">Mother</option>
                   <option value="Guardian">Guardian</option>
@@ -341,7 +398,9 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Phone Number<span className="required">*</span></label>
+                <label>
+                  Phone Number<span className="required">*</span>
+                </label>
                 <input
                   type="number"
                   name="phoneNumber"
@@ -355,7 +414,9 @@ const AdminStudent2 = () => {
               </div>
 
               <div className="form-group">
-                <label>Email Address<span className="required">*</span></label>
+                <label>
+                  Email Address<span className="required">*</span>
+                </label>
                 <input
                   type="email"
                   name="parentGuardiansEmail"
@@ -372,7 +433,7 @@ const AdminStudent2 = () => {
                   value={formData.parentGuardiansAddress}
                   onChange={handleChange}
                   placeholder="Enter Residential Address"
-                /> 
+                />
               </div>
             </div>
           </div>
@@ -384,7 +445,8 @@ const AdminStudent2 = () => {
 
         <div className="form-footer">
           <span className="copyright">
-            © 2026 Uchee school operating management system. All right reserved.
+            © {new Date().getFullYear()} Ucheva school operating management
+            system. All rights reserved.
           </span>
           <span className="support">
             Need help? <a href="#">Contact support</a>

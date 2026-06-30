@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import "./Home.css";
 import Header from "./Header";
 import Stars5 from '../assets/stars.svg'
@@ -18,8 +19,26 @@ import Testimonials from "./Testimonials";
 import PricingTable from "./PricingTable";
 import Ready from "./Ready";
 
+const getDashboardByRole = (user) => {
+  if (!user) return "/login";
+  if (user.role === "admin") return "/admin/dashboard";
+  if (user.role === "parent") return "/parentdashboard";
+  if (user.role === "staff") {
+    switch (user.staffType?.trim().toLowerCase()) {
+      case "class teacher": return "/CTdashboard";
+      case "subject teacher": return "/subjectteacherdashboard";
+      case "non-teaching staff": return "/bursary";
+      case "security": return "/securitydashboard";
+      default: return "/";
+    }
+  }
+  return "/";
+};
+
 export default function Home() {
   const nav = useNavigate();
+  const user = useSelector((state) => state.user.user || state.staff.staffUser);
+  const token = useSelector((state) => state.user.token || state.staff.staffToken);
   const stats = [
     {
       value: "5,000+",
@@ -55,7 +74,12 @@ export default function Home() {
             school activities with less stress.
           </p>
 
-          <button className="CCcta-button" onClick={() => nav ('./signup') }>Get Started</button>
+          <button 
+            className="CCcta-button" 
+            onClick={() => token && user ? nav(getDashboardByRole(user)) : nav('./signup') }
+          >
+            {token && user ? 'Back to Dashboard' : 'Get Started'}
+          </button>
 
           <div className="CCsocial-proof">
             <div className="CCclient-meta">
