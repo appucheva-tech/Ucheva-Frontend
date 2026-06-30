@@ -32,11 +32,14 @@ useEffect(() => {
 
   console.log("🔥 Running prefill");
 
+  const getKey = (obj) => obj.admissionNumber;
+
   const scoreMap = {};
 
   seeScores.forEach((s) => {
     if (s.subject === selectedSubject.subjectName) {
-      scoreMap[s.studentId] = {
+      const key = getKey(s);
+      scoreMap[key] = {
         ca: s.continuousAssessment,
         exam: s.exam,
       };
@@ -46,11 +49,11 @@ useEffect(() => {
   const newScores = {};
 
   students.forEach((student) => {
-    const id = student.studentId || student.id || student._id;
+    const key = getKey(student);
 
-    newScores[id] = {
-      ca: scoreMap[id]?.ca ?? "",
-      exam: scoreMap[id]?.exam ?? "",
+    newScores[key] = {
+      ca: scoreMap[key]?.ca ?? "",
+      exam: scoreMap[key]?.exam ?? "",
     };
   });
 
@@ -58,7 +61,7 @@ useEffect(() => {
 
   setScores(newScores);
 
-}, [students, seeScores, selectedSubject]); // ✅ CRITICAL
+}, [students, seeScores, selectedSubject]);
   // =========================
   // FETCH SUBJECTS
   // =========================
@@ -74,9 +77,8 @@ useEffect(() => {
 setGroupedSubjects(grouped);
 
 
-      if (data.length > 0) {
         fetchSubject(data[0]);
-}
+
 
     } catch (err) {
       console.log(err);
@@ -297,31 +299,6 @@ if (Array.isArray(data)) {
 // PREFILL SCORES FROM API
 // =========================
 
-// Build score map from your scores API
-const scoreMap = {};
-
-(seeScores || []).forEach((s) => {
-  if (s.subject === selectedSubject?.subjectName) {
-    scoreMap[s.studentId] = {
-      ca: s.continuousAssessment,
-      exam: s.exam,
-    };
-  }
-});
-
-// Initialize scores for students (merge API + empty)
-const map = {};
-uniqueStudents.forEach((s) => {
-  const id = s.studentId || s.id || s._id;
-
-  map[id] = {
-    ca: scoreMap[id]?.ca ?? "",
-    exam: scoreMap[id]?.exam ?? "",
-  };
-});
-
-setScores(map);
-
 
 
       setCurrentPage(1);
@@ -427,7 +404,7 @@ const subjectId =
   // SELECT ALL CLASSES
   // =========================
   const selectAllClasses = (subjectName) => {
-    const subjectGroup = groupedSubjects.find(g => g.subjectName === subjectName);
+    const subjectGroup = groupedSubject.find(g => g.subjectName === subjectName);
     if (subjectGroup) {
       const allClasses = [];
       subjectGroup.entries.forEach(entry => {
@@ -443,8 +420,9 @@ const subjectId =
       setSelectedClasses(allClasses);
       
       // Update entries and fetch students
-      setSelectedSubjectEntries(subjectGroup);
-      fetchStudentsForClasses(subjectGroup);
+    
+      setSelectedSubjectEntries(subjectGroup.entries);
+fetchStudentsForClasses(subjectGroup.entries);
     }
   };
 
@@ -479,11 +457,10 @@ groupedSubject.map((group) => (
   >
     <div 
       className="subject-card-header"
-      onClick={() => {
-        if (selectedSubject?.subjectName !== group.subjectName) {
-          handleSubjectSelect(group); // ✅ FIXED
-        }
-      }}
+ onClick={() => {
+  handleSubjectSelect(group);
+  toggleSubjectExpansion(group.subjectName);
+}}
     >
       <div className="subject-info">
         <div className="subject-name-main">
@@ -501,54 +478,31 @@ groupedSubject.map((group) => (
       </div>
     </div>
     
-    {expandedSubjects[group.subjectName] && (
-      <div className="subject-card-body">
-        <div className="classes-list">
-          {group.entries.map((entry) => (
-            entry.applicableClasses &&
-            entry.applicableClasses.map((className, clsIndex) => {
-              const uniqueKey = `${entry.id}-${clsIndex}`;
-              const isChecked = selectedClasses.includes(className);
+{expandedSubjects[group.subjectName] && (
+  <div className="subject-card-body">
+    <div className="classes-list">
+      {group.entries.map((entry) =>
+        entry.applicableClasses?.map((className, idx) => {
+          const key = `${entry.id}-${className}`;
+          const isChecked = selectedClasses.includes(className);
 
-              return (
-                <div key={uniqueKey} className="class-item">
-                  <input
-                    type="checkbox"
-                    id={uniqueKey}
-                    checked={isChecked}
-                    onChange={() => 
-                      toggleClassSelection(group.subjectName, className) // ✅ FIXED
-                    }
-                  />
-                  <label htmlFor={uniqueKey}>
-                    <span className="class-name">{className}</span>
-                    <span className="class-id-badge">
-                      ID: {entry.id.substring(0, 8)}
-                    </span>
-                  </label>
-                </div>
-              );
-            })
-          ))}
-        </div>
-        
-        <div className="class-actions">
-          <button 
-            className="select-all-classes-btn"
-            onClick={() => selectAllClasses(group.subjectName)} // ✅ FIXED
-          >
-            Select All
-          </button>
-
-          <button 
-            className="deselect-all-classes-btn"
-            onClick={() => deselectAllClasses(group.subjectName)} // ✅ FIXED
-          >
-            Deselect All
-          </button>
-        </div>
-      </div>
-    )}
+          return (
+            <div key={key}>
+              <input
+                type="checkbox"
+                checked={isChecked}
+                onChange={() =>
+                  toggleClassSelection(group.subjectName, className)
+                }
+              />
+              <label>{className}</label>
+            </div>
+          );
+        })
+      )}
+    </div>
+  </div>
+)}
   </div>
 ))
         
