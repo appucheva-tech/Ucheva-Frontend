@@ -193,7 +193,6 @@ const App = () => {
               element={<BursaryAnnouncement />}
             />
             <Route path="attendance" element={<AttendancePage />} />
-            {/* <Route path="attendance/:token" element={<AttendancePage />} /> */}
 
           </Route>
           </Route>
@@ -230,7 +229,6 @@ const App = () => {
               />
               <Route path="settings" element={<SubjectTeacherSettings />} />
               <Route path="attendance" element={<AttendancePage />} />
-                            {/* <Route path="attendance/token" element={<AttendancePage />} /> */}
 
             </Route>
           </Route>
