@@ -250,6 +250,10 @@
 }
 
 /* ── Subjects Table ── */
+.STTableContainer {
+  width: 100%;
+}
+
 .STSubjectsTable {
   width: 100%;
   border-collapse: collapse;
@@ -306,6 +310,10 @@
 }
 .STTdCenter {
   text-align: center;
+}
+
+.STTableGradeBadge {
+  font-weight: 700;
 }
 
 /* Summary rows */
@@ -397,6 +405,11 @@
   margin: 0 0 12px;
 }
 
+.STEmptyStateText {
+  color: #9ca3af;
+  font-style: italic;
+}
+
 .STSignatureLine {
   display: flex;
   align-items: center;
@@ -449,4 +462,223 @@
   flex-direction: column;
   gap: 12px;
   min-height: 80px;
+}
+
+/* ══════════════════════════════════════════════════
+   ADMIN MATCHED MOBILE ARCHITECTURE (max-width: 768px)
+══════════════════════════════════════════════════ */
+@media screen and (max-width: 768px) {
+  .STReportWrapper {
+    padding: 14px 12px 32px;
+    gap: 14px;
+  }
+
+  .STActionBar {
+    flex-direction: row;
+    padding: 12px;
+    gap: 10px;
+  }
+
+  .STAdd,
+  .STSubmit {
+    flex: 1;
+    height: 42px;
+    font-size: 13px;
+    padding: 0 10px;
+    justify-content: center;
+  }
+
+  .STReportCard {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .STSchoolHeader {
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .STSchoolLogo {
+    width: 70px;
+    height: 70px;
+  }
+
+  .STSchoolName {
+    font-size: 20px;
+  }
+
+  /* Info Layout Adjustments */
+  .STStudentInfoGrid {
+    grid-template-columns: 1fr;
+    padding: 12px;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .STInfoCol {
+    border-bottom: 1px dashed #e5e7eb;
+    padding-bottom: 10px;
+  }
+
+  .STInfoCol:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .STInfoRow {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Complete Table Card View Transition */
+  .STSubjectsTable thead {
+    display: none;
+  }
+
+  .STSubjectsTable,
+  .STSubjectsTable tbody,
+  .STSubjectsTable tfoot,
+  .STSubjectsTable tr,
+  .STSubjectsTable td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .STSubjectsTable tbody tr {
+    margin-bottom: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: white !important;
+  }
+
+  .STSubjectsTable tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border: none;
+    border-bottom: 1px dashed #f1f5f9;
+    text-align: right !important;
+  }
+
+  .STSubjectsTable tbody td:last-child {
+    border-bottom: none;
+  }
+
+  .STSubjectsTable tbody td::before {
+    content: attr(data-title);
+    font-weight: 700;
+    color: #6b7280;
+    font-size: 11px;
+    text-transform: uppercase;
+  }
+
+  /* Make subject titles pop cleanly as card headers */
+  .STSubjectsTable td.STTdSubject {
+    background: #0f172a;
+    color: white !important;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 14px !important;
+  }
+
+  .STSubjectsTable td.STTdSubject::before {
+    display: none;
+  }
+
+  .STTableGradeBadge {
+    background: #f1f5f9;
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid #e5e7eb;
+  }
+
+  /* Summary Foot Cards View Transformation */
+  .STSubjectsTable tfoot {
+    margin-top: 8px;
+    border: 1px solid #0f172a;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .STSubjectsTable tfoot tr {
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .STSubjectsTable tfoot tr:last-child {
+    border-bottom: none;
+  }
+
+  .STSubjectsTable tfoot td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border: none;
+    background: #f8fafc !important;
+    text-align: right !important;
+  }
+
+  .STSubjectsTable tfoot td::before {
+    content: attr(data-title);
+    font-weight: 700;
+    color: #374151;
+    font-size: 11px;
+  }
+
+  .STSubjectsTable tfoot td.STTdLabel {
+    display: none;
+  }
+
+  .STHideMobile {
+    display: none !important;
+  }
+
+  .STSummaryRemarkRow td.STRemarkColSpan {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left !important;
+    gap: 6px;
+    background: #fffbeb !important;
+  }
+
+  /* Bottom Container Breakouts */
+  .STBottomSection {
+    grid-template-columns: 1fr;
+    border-top: 1px solid #d1d5db;
+    margin-top: 16px;
+    border-radius: 8px;
+  }
+
+  .STGradeKeyBox {
+    border-right: none;
+    border-bottom: 1px solid #d1d5db;
+    padding: 14px;
+  }
+
+  .STTeacherRemarkBox {
+    padding: 14px;
+  }
+
+  .STSignatureLine {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .STSigBlock {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .STPrincipalRemarkBox {
+    margin-top: 16px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 14px;
+  }
 }

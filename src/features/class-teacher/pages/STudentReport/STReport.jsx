@@ -13,7 +13,6 @@ const STReport = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { admissionnumber } = useParams();
-  const subdomain = window.location.hostname.split(".")[0];
 
   const handleSaveRemark = (value) => setRemark(value);
 
@@ -131,7 +130,6 @@ const STReport = () => {
     else setError("No admission number provided");
   }, [admissionnumber]);
 
-  // Re-sync remark into reportData when remark state changes
   useEffect(() => {
     if (reportData) {
       setReportData((prev) => ({
@@ -145,7 +143,7 @@ const STReport = () => {
     <>
       <main className="STReportContainer">
         <article className="STReportWrapper">
-          {/* ── Page Header ───────────────────────────────────── */}
+          {/* ── Page Header ── */}
           <div className="STSReportHead">
             <span className="STSReportHeadTitle">Preview</span>
             <nav className="STSReportHeadRight">
@@ -155,7 +153,7 @@ const STReport = () => {
             </nav>
           </div>
 
-          {/* ── Action Bar ────────────────────────────────────── */}
+          {/* ── Action Bar ── */}
           <section className="STActionBar">
             <button className="STAdd" onClick={() => setShowRemarkModal(true)}>
               + Add Remark
@@ -165,14 +163,14 @@ const STReport = () => {
             </button>
           </section>
 
-          {/* ── States ────────────────────────────────────────── */}
+          {/* ── States ── */}
           {loading && <div className="STStateMsg">Loading report card...</div>}
           {error && <div className="STStateMsg STError">{error}</div>}
           {!loading && !error && !reportData && (
             <div className="STStateMsg">No report card found.</div>
           )}
 
-          {/* ── Report Card ───────────────────────────────────── */}
+          {/* ── Report Card (admin style, no swipe) ── */}
           {reportData && (
             <div className="STReportCard">
               {/* School Header */}
@@ -207,7 +205,7 @@ const STReport = () => {
                 </div>
               </div>
 
-              {/* Student Info Grid */}
+              {/* Student Info Grid (admin style) */}
               <div className="STStudentInfoGrid">
                 <div className="STInfoCol">
                   <div className="STInfoRow">
@@ -222,6 +220,7 @@ const STReport = () => {
                       {reportData.student.admissionNumber}
                     </span>
                   </div>
+                  <div className="STInfoColDivider" />
                   <div className="STInfoRow">
                     <span className="STInfoLabel">CLASS:</span>
                     <span className="STInfoValue">
@@ -241,6 +240,7 @@ const STReport = () => {
                     <span className="STInfoLabel">TERM:</span>
                     <span className="STInfoValue">{reportData.term}</span>
                   </div>
+                  <div className="STInfoColDivider" />
                   <div className="STInfoRow">
                     <span className="STInfoLabel">CLASS TEACHER:</span>
                     <span className="STInfoValue">
@@ -262,6 +262,7 @@ const STReport = () => {
                       {reportData.attendance.presentDays}
                     </span>
                   </div>
+                  <div className="STInfoColDivider" />
                   <div className="STInfoRow">
                     <span className="STInfoLabel">ATTENDANCE:</span>
                     <span className="STInfoValue">
@@ -271,110 +272,129 @@ const STReport = () => {
                 </div>
               </div>
 
-              {/* Subjects Table */}
-              <table className="STSubjectsTable">
-                <thead>
-                  <tr>
-                    <th className="STThSubject">SUBJECT</th>
-                    <th>
-                      CA
-                      <br />
-                      <span className="STThSub">
-                        ({reportData.summary?.totalCA || 40} Marks)
-                      </span>
-                    </th>
-                    <th>
-                      EXAM
-                      <br />
-                      <span className="STThSub">
-                        ({reportData.summary?.totalExam || 60} Marks)
-                      </span>
-                    </th>
-                    <th>
-                      TOTAL
-                      <br />
-                      <span className="STThSub">(100 Marks)</span>
-                    </th>
-                    <th>GRADE</th>
-                    <th>
-                      TEACHER
-                      <br />
-                      REMARK
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {reportData.subjects.map((subject, i) => (
-                    <tr
-                      key={i}
-                      className={i % 2 === 0 ? "STRowEven" : "STRowOdd"}
-                    >
-                      <td className="STTdSubject">{subject.name}</td>
-                      <td className="STTdCenter">{subject.ca}</td>
-                      <td className="STTdCenter">{subject.exam}</td>
-                      <td className="STTdCenter">{subject.total}</td>
-                      <td className="STTdCenter">{subject.grade}</td>
-                      <td className="STTdCenter">{subject.remark}</td>
+              {/* Subjects Table (admin style) */}
+              <div className="STTableContainer">
+                <table className="STSubjectsTable">
+                  <thead>
+                    <tr>
+                      <th className="STThSubject">SUBJECT</th>
+                      <th data-label="CA">
+                        CA
+                        <br />
+                        <span className="STThSub">
+                          ({reportData.summary?.totalCA || 40} M)
+                        </span>
+                      </th>
+                      <th data-label="EXAM">
+                        EXAM
+                        <br />
+                        <span className="STThSub">
+                          ({reportData.summary?.totalExam || 60} M)
+                        </span>
+                      </th>
+                      <th data-label="TOTAL">
+                        TOTAL
+                        <br />
+                        <span className="STThSub">(100 M)</span>
+                      </th>
+                      <th data-label="GRADE">GRADE</th>
+                      <th data-label="REMARK">REMARK</th>
                     </tr>
-                  ))}
-                </tbody>
+                  </thead>
+                  <tbody>
+                    {reportData.subjects.map((subject, i) => (
+                      <tr
+                        key={i}
+                        className={i % 2 === 0 ? "STRowEven" : "STRowOdd"}
+                      >
+                        <td className="STTdSubject">{subject.name}</td>
+                        <td className="STTdCenter" data-label="CA: ">
+                          {subject.ca}
+                        </td>
+                        <td className="STTdCenter" data-label="Exam: ">
+                          {subject.exam}
+                        </td>
+                        <td className="STTdCenter" data-label="Total: ">
+                          {subject.total}
+                        </td>
+                        <td className="STTdCenter" data-label="Grade: ">
+                          <span className="STGradeBadge">{subject.grade}</span>
+                        </td>
+                        <td className="STTdCenter" data-label="Remark: ">
+                          {subject.remark}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                  <tfoot>
+                    <tr className="STSummaryRow">
+                      <td className="STTdLabel">TOTAL SCORE</td>
+                      <td className="STTdCenter" data-label="Total CA: ">
+                        {reportData.summary.totalCA}
+                      </td>
+                      <td className="STTdCenter" data-label="Total Exam: ">
+                        {reportData.summary.totalExam}
+                      </td>
+                      <td className="STTdCenter" data-label="Grand Total: ">
+                        {reportData.summary.total}
+                      </td>
+                      <td className="STHideMobile"></td>
+                      <td className="STHideMobile"></td>
+                    </tr>
+                    <tr className="STSummaryRow">
+                      <td className="STTdLabel">AVERAGE SCORE</td>
+                      <td className="STHideMobile"></td>
+                      <td className="STHideMobile"></td>
+                      <td className="STTdCenter" data-label="Average: ">
+                        {reportData.summary.average}
+                      </td>
+                      <td className="STHideMobile"></td>
+                      <td className="STHideMobile"></td>
+                    </tr>
+                    <tr className="STSummaryRow">
+                      <td className="STTdLabel">OVERALL GRADE</td>
+                      <td className="STHideMobile"></td>
+                      <td className="STHideMobile"></td>
+                      <td className="STTdCenter" data-label="Overall Grade: ">
+                        <span className="STGradeBadge overall">
+                          {reportData.summary.grade}
+                        </span>
+                      </td>
+                      <td className="STHideMobile"></td>
+                      <td className="STHideMobile"></td>
+                    </tr>
+                    <tr className="STSummaryRow STSummaryRowRemark">
+                      <td className="STTdLabel">OVERALL REMARK</td>
+                      <td
+                        className="STTdCenter"
+                        colSpan={5}
+                        data-label="Overall Remark: "
+                      >
+                        {reportData.summary.remark}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
 
-                {/* Summary rows */}
-                <tfoot>
-                  <tr className="STSummaryRow">
-                    <td className="STTdLabel">TOTAL SCORE</td>
-                    <td className="STTdCenter">{reportData.summary.totalCA}</td>
-                    <td className="STTdCenter">
-                      {reportData.summary.totalExam}
-                    </td>
-                    <td className="STTdCenter">{reportData.summary.total}</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr className="STSummaryRow">
-                    <td className="STTdLabel">AVERAGE SCORE</td>
-                    <td></td>
-                    <td></td>
-                    <td className="STTdCenter">{reportData.summary.average}</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr className="STSummaryRow">
-                    <td className="STTdLabel">OVERALL GRADE</td>
-                    <td></td>
-                    <td></td>
-                    <td className="STTdCenter">{reportData.summary.grade}</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr className="STSummaryRow">
-                    <td className="STTdLabel">OVERALL REMARK</td>
-                    <td></td>
-                    <td></td>
-                    <td className="STTdCenter" colSpan={3}>
-                      {reportData.summary.remark}
-                    </td>
-                  </tr>
-                </tfoot>
-              </table>
-
-              {/* Bottom Section — Grade Key + Teacher Remark */}
+              {/* Bottom Section – Grade Key + Teacher Remark */}
               <div className="STBottomSection">
-                {/* Grade Key */}
                 <div className="STGradeKeyBox">
                   <h4 className="STBoxTitle">KEY TO GRADES</h4>
                   <table className="STGradeTable">
                     <thead>
                       <tr>
                         <th>GRADE</th>
-                        <th>SCORE RANGE</th>
+                        <th>RANGE</th>
                         <th>REMARK</th>
                       </tr>
                     </thead>
                     <tbody>
                       {reportData.gradeKey.map((g, i) => (
                         <tr key={i}>
-                          <td>{g.grade}</td>
+                          <td>
+                            <strong>{g.grade}</strong>
+                          </td>
                           <td>{g.range}</td>
                           <td>{g.remark}</td>
                         </tr>
@@ -383,13 +403,12 @@ const STReport = () => {
                   </table>
                 </div>
 
-                {/* Class Teacher Remark */}
                 <div className="STTeacherRemarkBox">
                   <h4 className="STBoxTitle">CLASS TEACHER'S REMARK</h4>
                   <div className="STRemarkContent">
                     {reportData.classTeacherRemark.text && (
                       <p className="STRemarkText">
-                        {reportData.classTeacherRemark.text}
+                        "{reportData.classTeacherRemark.text}"
                       </p>
                     )}
                     <div className="STSignatureLine">
@@ -423,7 +442,7 @@ const STReport = () => {
                 <h4 className="STBoxTitle">PRINCIPAL'S REMARK</h4>
                 <div className="STPrincipalContent">
                   <p className="STRemarkText">
-                    {reportData.principalRemark.text || ""}
+                    {reportData.principalRemark.text || "No remark entry yet."}
                   </p>
                   <div className="STSignatureLine">
                     <div className="STSigBlock">
