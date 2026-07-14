@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import Home from "./pages/Home";
-import Pricing from "./pages/Pricing";
-import AboutUs from "./pages/AboutUs";
-import ContactUs from "./pages/ContactUs";
+import Home from "./pages/Marketing/Home";
+import Pricing from "./pages/Marketing/Pricing";
+import AboutUs from "./pages/Marketing/AboutUs";
+import ContactUs from "./pages/Marketing/ContactUs";
+
 import MyClass from "./features/class-teacher/pages/MyClass/MyClass";
 import Score from "./features/class-teacher/pages/Scores/Score";
 import CTreport from "./features/class-teacher/pages/CTreport/CTreport";
@@ -17,39 +18,9 @@ import ParentLayout from "./features/ParentDashboard/Components/Layout/ParentLay
 import DashboardPage from "./features/ParentDashboard/Pages/DashboardPages";
 import CTLayout from "./features/class-teacher/layout/Layout";
 import STReport from "./features/class-teacher/pages/STudentReport/STReport";
-
-import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
-import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
-import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
-import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
 import CTSettings from "./features/class-teacher/pages/CTSettings/CTSettings";
-import BursaryLayout from "./features/busary/layout/BursaryLayout";
-import BusaryDashboard from "./features/busary/pages/BusaryDashboard";
-import BursaryFees from "./features/busary/pages/BursaryFee";
-import StudentFee from "./features/busary/pages/StudentFee";
-import BursarySettings from "./features/busary/pages/BursarySettings";
-
-import SubjectTeacherLayout from "./features/SubjectTeacherDashboard/Components/Layout/SubjectTeacherLayout";
-import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherDashboard";
-import SubjectTeacherScores from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherScores";
-import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherAnnouncement";
-import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
-import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
 import CTAnnouncement from "./features/class-teacher/pages/CTAnnouncement/CTAnnouncement";
-import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
-import AdminDashboard from "./pages/Admin/AdminDashboard";
-import AdminStaff from "./pages/Admin/AdminStaff";
-import AdminStudents from "./pages/Admin/AdminStudents";
-import AdminAttendance from "./pages/Admin/AdminAttendance";
-import AdminStudentAttendance from "./pages/Admin/AdminStudentAttendance";
-import AdminSubjects from "./pages/Admin/AdminSubjects";
-import AdminClass from "./pages/Admin/AdminClass";
-import AdminFees from "./pages/Admin/AdminFees";
-import AdminReportCards from "./pages/Admin/AdminReportCards";
-import AdminAnnouncement from "./pages/Admin/AdminAnnouncement";
-import AdminWallet from "./pages/Admin/AdminWallet";
-import AdminSettings from "./pages/Admin/AdminSettings";
-import Features from "./pages/Features";
+
 import Signup from "./features/auth/pages/Signup";
 import Login from "./features/auth/pages/Login";
 import VerifyEmail from "./features/auth/pages/VerifyEmail";
@@ -58,20 +29,53 @@ import VerifyForgot from "./features/auth/pages/VerifyForgot";
 import AuthLayout from "./features/auth/layout/AuthLayout";
 import OnboardingStepper from "./features/onboarding/pages/Onboarding";
 import ResetPassword from "./features/auth/pages/ResetPassword";
-import AdminStaff2 from "./pages/Admin/AdminStaff2";
 import CreatePassword from "./features/auth/pages/CreatePassword";
-import StaffDetails from "./pages/Admin/AdminStaffDetails";
-import AdminStudent2 from "./pages/Admin/AdminStudent2";
+
+import SecurityLayout from "./features/SecurityDashboard/Components/Layout/SecurityLayout";
+import SecurityAnnouncement from "./features/SecurityDashboard/Pages/SecurityAnnouncement";
+import SecuritysDashboard from "./features/SecurityDashboard/Pages/SecuritysDashboardPage";
+import SecuritySettings from "./features/SecurityDashboard/Pages/SecuritySettings";
+import BursaryLayout from "./features/busary/layout/BursaryLayout";
+import BusaryDashboard from "./features/busary/pages/BusaryDashboard";
+import BursaryFees from "./features/busary/pages/BursaryFee";
+import StudentFee from "./features/busary/pages/StudentFee";
+import BursarySettings from "./features/busary/pages/BursarySettings";
+import BursaryAnnouncement from "./features/busary/pages/BursaryAnnouncement";
+
+import SubjectTeacherLayout from "./features/SubjectTeacherDashboard/Components/Layout/SubjectTeacherLayout";
+import SubjectTeacherDashboard from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherDashboard";
+import SubjectTeacherScores from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherScores";
+import SubjectTeacherAnnouncement from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherAnnouncement";
+import SubjectTeacherSettings from "./features/SubjectTeacherDashboard/Pages/SubjectTeacherSettings";
+
+import AdminDashboardLayout from "./pages/layout/AdminDashboardLayout";
+import AdminDashboard from "./pages/Admin/Pages/AdminDashboard";
+import AdminStaff from "./pages/Admin/Pages/AdminStaff";
+import AdminStudents from "./pages/Admin/Pages/AdminStudents";
+import AdminAttendance from "./pages/Admin/Pages/AdminAttendance";
+import AdminStudentAttendance from "./pages/Admin/Pages/AdminStudentAttendance";
+import AdminSubjects from "./pages/Admin/Pages/AdminSubjects";
+import AdminClass from "./pages/Admin/Pages/AdminClass";
+import AdminFees from "./pages/Admin/Pages/AdminFees";
+import AdminReportCards from "./pages/Admin/Pages/AdminReportCards";
+import AdminAnnouncement from "./pages/Admin/Pages/AdminAnnouncement";
+import AdminWallet from "./pages/Admin/Pages/AdminWallet";
+import AdminSettings from "./pages/Admin/Pages/AdminSettings";
+import Features from "./pages/Marketing/Features";
+
+import AdminStaff2 from "./pages/Admin/Pages/AdminStaff2";
+import StaffDetails from "./pages/Admin/Pages/AdminStaffDetails";
+import AdminStudent2 from "./pages/Admin/Pages/AdminStudent2";
 import { ToastContainer } from "react-toastify";
-import AdminStudentDetails from "./pages/Admin/AdminStudentDetails";
-import AdminEditStudent from "./pages/Admin/AdminEditStudent";
+import AdminStudentDetails from "./pages/Admin/Pages/AdminStudentDetails";
+import AdminEditStudent from "./pages/Admin/Pages/AdminEditStudent";
 import AttendancePage from "./features/busary/components/AttendancePage";
-import PrivateRoute from "./pages/PrivateRoute";
-import NotFound from "./pages/notFound";
+import PrivateRoute from "./pages/Marketing/PrivateRoute";
+import NotFound from "./pages/Marketing/notFound";
 import PaymentVerification from "./features/ParentDashboard/Pages/PaymentVerification";
-import RequireSubdomain from "./pages/requireSubdomain";
-import AdminREportDetailPage from "./pages/Admin/AdminReportDetalpage";
-import SubscriptionBilling from "./pages/Admin/AdminSubscriptionBilling";
+import RequireSubdomain from "./pages/Marketing/requireSubdomain";
+import AdminREportDetailPage from "./pages/Admin/Pages/AdminReportDetalpage";
+import SubscriptionBilling from "./pages/Admin/Pages/AdminSubscriptionBilling";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -116,7 +120,7 @@ const App = () => {
               element={<CreatePassword />}
             />
           </Route>
-            <Route path="/attendance/:token" element={<AttendancePage />} />
+          <Route path="/attendance/:token" element={<AttendancePage />} />
 
           <Route path="/onboarding" element={<OnboardingStepper />} />
 
@@ -136,7 +140,10 @@ const App = () => {
                 path="AdminStudentDetails/:id"
                 element={<AdminStudentDetails />}
               />
-              <Route path="AdminEditStudent/:id" element={<AdminEditStudent />} />
+              <Route
+                path="AdminEditStudent/:id"
+                element={<AdminEditStudent />}
+              />
               <Route path="AdminAttendance" element={<AdminAttendance />} />
               <Route
                 path="AdminStudentAttendance"
@@ -160,41 +167,44 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route element={<PrivateRoute allowedStaffTypes={["class teacher"]} />}>
+          <Route
+            element={<PrivateRoute allowedStaffTypes={["class teacher"]} />}
+          >
             <Route path="/CTdashboard" element={<CTLayout />}>
-            {/* CT routes */}
+              {/* CT routes */}
 
-            <Route index element={<Overview />} />
-            <Route path="myclass" element={<MyClass />} />
-            <Route path="CTscore" element={<Score />} />
-            <Route path="CTreportcard" element={<CTreport />} />
-            <Route
-              path="CTreportcard/studentreport/:admissionnumber"
-              element={<STReport />}
-            />
-            <Route path="CTsettings" element={<CTSettings />} />
-            <Route path="CTAnnouncement" element={<CTAnnouncement />} />
-            <Route path="attendance" element={<AttendancePage />} />
-
-
-          </Route>
+              <Route index element={<Overview />} />
+              <Route path="myclass" element={<MyClass />} />
+              <Route path="CTscore" element={<Score />} />
+              <Route path="CTreportcard" element={<CTreport />} />
+              <Route
+                path="CTreportcard/studentreport/:admissionnumber"
+                element={<STReport />}
+              />
+              <Route path="CTsettings" element={<CTSettings />} />
+              <Route path="CTAnnouncement" element={<CTAnnouncement />} />
+              <Route path="attendance" element={<AttendancePage />} />
+            </Route>
           </Route>
 
-          <Route element={<PrivateRoute allowedStaffTypes={["non-teaching staff"]} />}>
+          <Route
+            element={
+              <PrivateRoute allowedStaffTypes={["non-teaching staff"]} />
+            }
+          >
             <Route path="/bursary" element={<BursaryLayout />}>
-            {/* bursary routes */}
+              {/* bursary routes */}
 
-            <Route index element={<BusaryDashboard />} />
-            <Route path="bursaryFees" element={<BursaryFees />} />
-            <Route path="studentFee" element={<StudentFee />} />
-            <Route path="bursarySettings" element={<BursarySettings />} />
-            <Route
-              path="bursaryAnnouncement"
-              element={<BursaryAnnouncement />}
-            />
-            <Route path="attendance" element={<AttendancePage />} />
-
-          </Route>
+              <Route index element={<BusaryDashboard />} />
+              <Route path="bursaryFees" element={<BursaryFees />} />
+              <Route path="studentFee" element={<StudentFee />} />
+              <Route path="bursarySettings" element={<BursarySettings />} />
+              <Route
+                path="bursaryAnnouncement"
+                element={<BursaryAnnouncement />}
+              />
+              <Route path="attendance" element={<AttendancePage />} />
+            </Route>
           </Route>
 
           <Route element={<PrivateRoute allowedRoles={["parent"]} />}>
@@ -206,17 +216,16 @@ const App = () => {
           </Route>
 
           <Route element={<PrivateRoute allowedStaffTypes={["security"]} />}>
-            <Route
-              path="/securitydashboard"
-              element={<SecurityLayout />}
-            >
+            <Route path="/securitydashboard" element={<SecurityLayout />}>
               <Route index element={<SecuritysDashboard />} />
               <Route path="announcement" element={<SecurityAnnouncement />} />
               <Route path="settings" element={<SecuritySettings />} />
             </Route>
           </Route>
 
-          <Route element={<PrivateRoute allowedStaffTypes={["subject teacher"]} />}>
+          <Route
+            element={<PrivateRoute allowedStaffTypes={["subject teacher"]} />}
+          >
             <Route
               path="/subjectteacherdashboard"
               element={<SubjectTeacherLayout />}
@@ -229,7 +238,6 @@ const App = () => {
               />
               <Route path="settings" element={<SubjectTeacherSettings />} />
               <Route path="attendance" element={<AttendancePage />} />
-
             </Route>
           </Route>
         </Route>

@@ -1,0 +1,564 @@
+/* ==========================================================================
+   ADMIN SUBSCRIPTION & BILLING - Navy- prefixed + mobile responsive
+   ========================================================================== */
+
+.Navy-container {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8fafc;
+  padding: 40px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* ----- Header ----- */
+.Navy-header {
+  margin-bottom: 32px;
+}
+
+.Navy-title {
+  font-size: 24px;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.Navy-subtitle {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}
+
+/* ----- Pricing Grid (3 columns desktop) ----- */
+.Navy-pricingGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+  align-items: start;
+}
+
+.Navy-planCard {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 32px 24px;
+  position: relative;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.Navy-planCard.Navy-recommended {
+  border: 2px solid #3b82f6;
+  padding-top: 40px;
+}
+
+.Navy-badgeRecommended {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0061ff;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 16px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.Navy-planHeader {
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.Navy-planName {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.Navy-priceRow {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.Navy-price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.Navy-period {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.Navy-activeBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f0fdf4;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+.Navy-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #16a34a;
+  border-radius: 50%;
+}
+
+.Navy-description {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 24px 0;
+  min-height: 38px;
+}
+
+.Navy-planHeader button {
+  width: 100%;
+  height: 44px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Navy-currentBtn {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #475569;
+  cursor: default;
+}
+
+.Navy-chooseBtn {
+  background-color: #0061ff;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 97, 255, 0.2);
+}
+
+.Navy-chooseBtn:hover {
+  background-color: #0052d9;
+}
+
+.Navy-getStartedBtn {
+  background-color: #e0f2fe;
+  border: none;
+  color: #0061ff;
+}
+
+.Navy-getStartedBtn:hover {
+  background-color: #bae6fd;
+}
+
+.Navy-featuresList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.Navy-featuresTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.Navy-featureItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #475569;
+}
+
+.Navy-checkIcon {
+  color: #0061ff;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* ----- Activity Section ----- */
+.Navy-activitySection {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.Navy-activityTitle {
+  font-size: 16px;
+  color: #1e3a8a;
+  padding: 20px 24px;
+  margin: 0;
+  font-weight: 600;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.Navy-tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Navy-activityTable {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px; /* ensures horizontal scroll on small screens */
+}
+
+.Navy-activityTable th,
+.Navy-activityTable td {
+  padding: 16px 24px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.Navy-activityTable th {
+  background-color: #e2e8f0;
+  color: #475569;
+  font-weight: 500;
+}
+
+.Navy-activityTable td {
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.Navy-activityTable tr:last-child td {
+  border-bottom: none;
+}
+
+.Navy-activityText {
+  color: #1e3a8a;
+  font-weight: 500;
+}
+
+/* ----- Pagination Bar ----- */
+.Navy-paginationBar {
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid #e2e8f0;
+  font-size: 13px;
+  color: #64748b;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.Navy-paginationControls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.Navy-paginationControls button {
+  height: 32px;
+  min-width: 32px;
+  padding: 0 6px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #475569;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+
+.Navy-paginationControls button:disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.Navy-activePage {
+  background-color: #0061ff !important;
+  color: #ffffff !important;
+  border-color: #0061ff !important;
+  font-weight: 500;
+}
+
+.Navy-ellipsis {
+  padding: 0 4px;
+  color: #94a3b8;
+}
+
+.Navy-rowsPerPage {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.Navy-rowSelect {
+  height: 32px;
+  padding: 0 32px 0 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #475569;
+  font-size: 13px;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 14px;
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Tablets and small laptops (≤ 1024px) */
+@media screen and (max-width: 1024px) {
+  .Navy-pricingGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .Navy-container {
+    padding: 30px 24px;
+  }
+
+  .Navy-title {
+    font-size: 22px;
+  }
+}
+
+/* Mobile devices (≤ 768px) */
+@media screen and (max-width: 768px) {
+  .Navy-container {
+    padding: 20px 16px;
+  }
+
+  .Navy-pricingGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .Navy-planCard {
+    padding: 24px 20px;
+    max-width: 100%;
+  }
+
+  .Navy-planCard.Navy-recommended {
+    padding-top: 32px;
+  }
+
+  .Navy-badgeRecommended {
+    font-size: 10px;
+    padding: 3px 12px;
+    top: -10px;
+  }
+
+  .Navy-price {
+    font-size: 28px;
+  }
+
+  .Navy-planHeader button {
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .Navy-activityTitle {
+    font-size: 15px;
+    padding: 16px 20px;
+  }
+
+  .Navy-activityTable th,
+  .Navy-activityTable td {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .Navy-activityTable {
+    min-width: 350px;
+  }
+
+  .Navy-paginationBar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding: 16px 20px;
+  }
+
+  .Navy-paginationControls {
+    justify-content: center;
+  }
+
+  .Navy-rowsPerPage {
+    justify-content: center;
+  }
+}
+
+/* Small mobile devices (≤ 480px) */
+@media screen and (max-width: 480px) {
+  .Navy-container {
+    padding: 12px 10px;
+  }
+
+  .Navy-title {
+    font-size: 20px;
+  }
+
+  .Navy-subtitle {
+    font-size: 13px;
+  }
+
+  .Navy-planCard {
+    padding: 20px 16px;
+  }
+
+  .Navy-price {
+    font-size: 24px;
+  }
+
+  .Navy-period {
+    font-size: 11px;
+  }
+
+  .Navy-activeBadge {
+    font-size: 10px;
+    padding: 3px 10px;
+    margin-left: 0;
+  }
+
+  .Navy-priceRow {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .Navy-description {
+    font-size: 12px;
+    min-height: auto;
+  }
+
+  .Navy-planHeader button {
+    height: 38px;
+    font-size: 12px;
+  }
+
+  .Navy-featuresList {
+    gap: 10px;
+  }
+
+  .Navy-featureItem {
+    font-size: 12px;
+  }
+
+  .Navy-activityTitle {
+    font-size: 14px;
+    padding: 14px 16px;
+  }
+
+  .Navy-activityTable th,
+  .Navy-activityTable td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .Navy-activityTable {
+    min-width: 300px;
+  }
+
+  .Navy-paginationBar {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+
+  .Navy-paginationControls {
+    gap: 3px;
+  }
+
+  .Navy-paginationControls button {
+    height: 28px;
+    min-width: 28px;
+    font-size: 12px;
+    padding: 0 4px;
+  }
+
+  .Navy-rowsPerPage {
+    font-size: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .Navy-rowSelect {
+    height: 28px;
+    font-size: 12px;
+    padding: 0 28px 0 8px;
+    background-size: 12px;
+  }
+
+  .Navy-ellipsis {
+    font-size: 12px;
+  }
+}
+
+/* Very small mobile (≤ 360px) */
+@media screen and (max-width: 360px) {
+  .Navy-container {
+    padding: 8px 6px;
+  }
+
+  .Navy-title {
+    font-size: 18px;
+  }
+
+  .Navy-subtitle {
+    font-size: 12px;
+  }
+
+  .Navy-planCard {
+    padding: 16px 12px;
+  }
+
+  .Navy-price {
+    font-size: 22px;
+  }
+
+  .Navy-planHeader button {
+    height: 34px;
+    font-size: 11px;
+  }
+
+  .Navy-activityTable th,
+  .Navy-activityTable td {
+    padding: 8px 8px;
+    font-size: 11px;
+  }
+
+  .Navy-activityTable {
+    min-width: 260px;
+  }
+
+  .Navy-paginationControls button {
+    height: 24px;
+    min-width: 24px;
+    font-size: 11px;
+  }
+
+  .Navy-rowSelect {
+    height: 24px;
+    font-size: 11px;
+    padding: 0 24px 0 6px;
+  }
+}
