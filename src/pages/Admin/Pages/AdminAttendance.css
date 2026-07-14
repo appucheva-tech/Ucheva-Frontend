@@ -1,0 +1,570 @@
+/* ============================================
+   Navy-Attendance Container & Layout
+   ============================================ */
+.Navy-attendanceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.Navy-pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.Navy-headerTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #03173c;
+  margin: 0;
+}
+
+.Navy-headerSubtitle {
+  font-size: 14px;
+  color: #03173c;
+  margin: 0;
+}
+
+.Navy-attendanceContentCard {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ----- Tabs ----- */
+.Navy-tabsGroup {
+  display: flex;
+  gap: 32px;
+  padding: 0 32px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.Navy-tabItem {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  padding: 20px 0;
+  cursor: pointer;
+  position: relative;
+}
+
+.Navy-tabItem.Navy-activeTabItem {
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+.Navy-tabItem.Navy-activeTabItem::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background-color: #0d6efd;
+  border-radius: 2px;
+}
+
+/* ----- Toolbar ----- */
+.Navy-toolbarRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+}
+
+.Navy-sectionHeading {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.Navy-toolbarControls {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.Navy-filterBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.Navy-filterLabel {
+  font-size: 11px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.Navy-datePickerMock {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 8px 14px;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  box-sizing: border-box;
+}
+
+.Navy-calendarIcon {
+  font-size: 13px;
+}
+
+.Navy-dateText {
+  font-size: 12px;
+  color: #334155;
+  font-weight: 500;
+}
+
+.Navy-resetButton {
+  background-color: #ffffff;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+  border-radius: 6px;
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 500;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.Navy-resetIcon {
+  width: 14px;
+  height: 14px;
+}
+
+.Navy-resetButton:hover {
+  background-color: #f0f7ff;
+}
+
+/* ----- Table ----- */
+.Navy-tableResponsiveWrapper {
+  overflow-x: auto;
+  padding: 0 32px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Navy-attendanceTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  min-width: 600px; /* forces horizontal scroll on narrow screens */
+}
+
+.Navy-attendanceTable th {
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 14px 20px;
+  border: none;
+}
+
+.Navy-attendanceTable th:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.Navy-attendanceTable th:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.Navy-attendanceTable td {
+  padding: 16px 20px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13.5px;
+  vertical-align: middle;
+}
+
+.Navy-staffNameCell,
+.Navy-studentNameCell {
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.Navy-roleCell,
+.Navy-timeCell,
+.Navy-dateCell {
+  color: #475569;
+}
+
+.Navy-loadingCell,
+.Navy-emptyCell {
+  text-align: center;
+  padding: 40px 20px;
+  color: #64748b;
+}
+
+.Navy-loadingText,
+.Navy-emptyText {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.Navy-loadingText {
+  color: #475569;
+}
+
+.Navy-emptyText {
+  color: #94a3b8;
+}
+
+/* ----- Pagination ----- */
+.Navy-paginationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px 32px 32px;
+}
+
+.Navy-recordsCountInfo {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.Navy-paginationControlsGroup {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.Navy-pageNumber,
+.Navy-navArrow {
+  background: none;
+  border: none;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.Navy-activePage {
+  background-color: #0d6efd;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.Navy-navArrow:disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+.Navy-paginationEllipsis {
+  color: #64748b;
+  font-size: 13px;
+  padding: 0 2px;
+}
+
+.Navy-pageSizeSelector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.Navy-pageSizeLabel {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.Navy-customSelectWrapper {
+  position: relative;
+}
+
+.Navy-nativeSelect {
+  padding: 6px 28px 6px 10px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #334155;
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.Navy-customSelectWrapper::after {
+  content: "▼";
+  font-size: 8px;
+  position: absolute;
+  right: 10px;
+  top: 52%;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+}
+
+/* ============================================
+   Mobile responsiveness
+   ============================================ */
+
+/* Tablets and small laptops */
+@media screen and (max-width: 768px) {
+  .Navy-attendanceContainer {
+    gap: 20px;
+  }
+
+  .Navy-headerTitle {
+    font-size: 20px;
+  }
+
+  .Navy-headerSubtitle {
+    font-size: 13px;
+  }
+
+  .Navy-tabsGroup {
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .Navy-tabItem {
+    font-size: 13px;
+    padding: 16px 0;
+  }
+
+  .Navy-toolbarRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .Navy-toolbarControls {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .Navy-filterBox {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .Navy-datePickerMock {
+    width: 100%;
+  }
+
+  .Navy-resetButton {
+    flex: 0 0 auto;
+  }
+
+  .Navy-tableResponsiveWrapper {
+    padding: 0 20px;
+  }
+
+  .Navy-attendanceTable th,
+  .Navy-attendanceTable td {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+
+  .Navy-paginationContainer {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .Navy-paginationControlsGroup {
+    order: 2;
+  }
+
+  .Navy-pageSizeSelector {
+    order: 3;
+  }
+
+  .Navy-recordsCountInfo {
+    order: 1;
+  }
+}
+
+/* Mobile phones */
+@media screen and (max-width: 480px) {
+  .Navy-attendanceContainer {
+    gap: 16px;
+  }
+
+  .Navy-headerTitle {
+    font-size: 18px;
+  }
+
+  .Navy-headerSubtitle {
+    font-size: 12px;
+  }
+
+  .Navy-tabsGroup {
+    gap: 16px;
+    padding: 0 16px;
+  }
+
+  .Navy-tabItem {
+    font-size: 12px;
+    padding: 14px 0;
+  }
+
+  .Navy-toolbarRow {
+    padding: 16px;
+  }
+
+  .Navy-sectionHeading {
+    font-size: 15px;
+  }
+
+  .Navy-toolbarControls {
+    gap: 10px;
+  }
+
+  .Navy-datePickerMock {
+    padding: 6px 12px;
+    height: 34px;
+  }
+
+  .Navy-dateText {
+    font-size: 11px;
+  }
+
+  .Navy-resetButton {
+    height: 34px;
+    font-size: 12px;
+    padding: 0 14px;
+  }
+
+  .Navy-tableResponsiveWrapper {
+    padding: 0 16px;
+  }
+
+  .Navy-attendanceTable th,
+  .Navy-attendanceTable td {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .Navy-attendanceTable {
+    min-width: 480px; /* ensures horizontal scroll on small phones */
+  }
+
+  .Navy-loadingCell,
+  .Navy-emptyCell {
+    padding: 30px 16px;
+  }
+
+  .Navy-loadingText,
+  .Navy-emptyText {
+    font-size: 13px;
+  }
+
+  .Navy-paginationContainer {
+    padding: 16px;
+  }
+
+  .Navy-pageNumber,
+  .Navy-navArrow {
+    min-width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .Navy-pageSizeLabel {
+    font-size: 12px;
+  }
+
+  .Navy-nativeSelect {
+    padding: 4px 24px 4px 8px;
+    font-size: 12px;
+  }
+}
+
+/* Very small phones */
+@media screen and (max-width: 360px) {
+  .Navy-headerTitle {
+    font-size: 16px;
+  }
+
+  .Navy-tabsGroup {
+    gap: 12px;
+    padding: 0 12px;
+  }
+
+  .Navy-tabItem {
+    font-size: 11px;
+    padding: 12px 0;
+  }
+
+  .Navy-toolbarRow {
+    padding: 12px;
+  }
+
+  .Navy-toolbarControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .Navy-filterBox {
+    min-width: unset;
+  }
+
+  .Navy-resetButton {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .Navy-tableResponsiveWrapper {
+    padding: 0 12px;
+  }
+
+  .Navy-attendanceTable th,
+  .Navy-attendanceTable td {
+    padding: 8px 10px;
+    font-size: 11px;
+  }
+
+  .Navy-attendanceTable {
+    min-width: 360px;
+  }
+
+  .Navy-loadingCell,
+  .Navy-emptyCell {
+    padding: 20px 12px;
+  }
+
+  .Navy-loadingText,
+  .Navy-emptyText {
+    font-size: 12px;
+  }
+
+  .Navy-paginationContainer {
+    padding: 12px;
+  }
+
+  .Navy-paginationControlsGroup {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .Navy-pageNumber,
+  .Navy-navArrow {
+    min-width: 22px;
+    height: 22px;
+    font-size: 11px;
+  }
+
+  .Navy-paginationEllipsis {
+    font-size: 11px;
+  }
+}

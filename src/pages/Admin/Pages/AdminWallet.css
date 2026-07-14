@@ -1,0 +1,513 @@
+/* ==========================================================================
+   ADMIN WALLET - Navy- prefixed + mobile responsive
+   ========================================================================== */
+
+/* --- Global Dashboard Layout --- */
+.Navy-dashboard-container {
+  background-color: #f6f8fa;
+  color: #333333;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1200px;
+  min-height: 100vh;
+  padding: 20px 24px;
+  box-sizing: border-box;
+}
+
+/* --- Header --- */
+.Navy-dashboard-headerWallet {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.Navy-welcome-textWallet {
+  font-size: 28px;
+  font-weight: 700;
+  color: #03173c;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.Navy-subtitle-textWallet {
+  font-size: 14px;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.Navy-WithdrawFunds {
+  padding: 12px 24px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #2563eb;
+  color: white;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.Navy-WithdrawFunds:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* --- Metrics Grid --- */
+.Navy-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.Navy-metric-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border-left: 5px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: all 0.3s ease;
+}
+
+.Navy-metric-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.Navy-card-students {
+  border-left-color: #3b82f6;
+}
+.Navy-card-staff {
+  border-left-color: #a855f7;
+}
+.Navy-card-attendance {
+  border-left-color: #f59e0b;
+}
+.Navy-card-fees {
+  border-left-color: #10b981;
+}
+
+.Navy-card-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.Navy-card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #03173c;
+}
+
+.Navy-card-icon {
+  font-size: 24px;
+  color: #94a3b8;
+  margin-top: 6px;
+  align-self: flex-end;
+}
+
+/* --- Table Styles --- */
+.Navy-history-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #eef1f5;
+  padding: 20px;
+}
+
+.Navy-card-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 0 16px 0;
+}
+
+.Navy-table-responsive-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.Navy-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 400px; /* ensures horizontal scroll on small screens */
+}
+
+.Navy-data-table th {
+  background-color: #f8fafc;
+  padding: 12px;
+  text-align: left;
+  font-size: 12px;
+  color: #64748b;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.Navy-data-table td {
+  padding: 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+  color: #1e293b;
+}
+
+.Navy-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Modal Styles --- */
+.Navy-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  padding: 20px;
+}
+
+.Navy-modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: Navy-modalSlideUp 0.25s ease-out;
+}
+
+@keyframes Navy-modalSlideUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.Navy-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.Navy-modal-header h3 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.Navy-modal-header button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 0.2s;
+}
+
+.Navy-modal-header button:hover {
+  color: #1e293b;
+}
+
+.Navy-modal-content input,
+.Navy-modal-content select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #f8fafc;
+  transition: border-color 0.2s;
+}
+
+.Navy-modal-content input:focus,
+.Navy-modal-content select:focus {
+  border-color: #2563eb;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.Navy-submit-btn {
+  width: 100%;
+  padding: 14px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.Navy-submit-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+/* ==========================================================================
+   RESPONSIVE BREAKPOINTS
+   ========================================================================== */
+
+/* Tablets and small laptops */
+@media screen and (max-width: 1024px) {
+  .Navy-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .Navy-dashboard-container {
+    padding: 16px 20px;
+  }
+
+  .Navy-welcome-textWallet {
+    font-size: 24px;
+  }
+}
+
+/* Mobile devices (≤768px) */
+@media screen and (max-width: 768px) {
+  .Navy-dashboard-headerWallet {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .Navy-welcome-textWallet {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .Navy-subtitle-textWallet {
+    font-size: 13px;
+    text-align: center;
+  }
+
+  .Navy-WithdrawFunds {
+    width: 100%;
+    height: 44px;
+    font-size: 13px;
+    justify-content: center;
+  }
+
+  .Navy-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .Navy-metric-card {
+    padding: 16px;
+  }
+
+  .Navy-card-value {
+    font-size: 20px;
+  }
+
+  .Navy-card-label {
+    font-size: 12px;
+  }
+
+  .Navy-history-card {
+    padding: 16px;
+  }
+
+  .Navy-card-title {
+    font-size: 16px;
+  }
+
+  .Navy-data-table {
+    min-width: 350px;
+  }
+
+  .Navy-data-table th,
+  .Navy-data-table td {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .Navy-modal-content {
+    max-width: 100%;
+    margin: 16px;
+    padding: 24px;
+  }
+}
+
+/* Small mobile devices (≤480px) */
+@media screen and (max-width: 480px) {
+  .Navy-dashboard-container {
+    padding: 12px 12px;
+    gap: 16px;
+  }
+
+  .Navy-welcome-textWallet {
+    font-size: 20px;
+  }
+
+  .Navy-subtitle-textWallet {
+    font-size: 12px;
+  }
+
+  .Navy-WithdrawFunds {
+    height: 40px;
+    font-size: 12px;
+    padding: 0 16px;
+  }
+
+  .Navy-metrics-grid {
+    grid-template-columns: 1fr; /* single column */
+    gap: 10px;
+  }
+
+  .Navy-metric-card {
+    padding: 14px 16px;
+    border-left-width: 4px;
+  }
+
+  .Navy-card-value {
+    font-size: 18px;
+  }
+
+  .Navy-card-label {
+    font-size: 12px;
+  }
+
+  .Navy-history-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .Navy-card-title {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  .Navy-data-table {
+    min-width: 300px;
+  }
+
+  .Navy-data-table th,
+  .Navy-data-table td {
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
+  .Navy-modal-content {
+    padding: 20px;
+  }
+
+  .Navy-modal-header h3 {
+    font-size: 18px;
+  }
+
+  .Navy-modal-content input,
+  .Navy-modal-content select {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+
+  .Navy-submit-btn {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* Very small mobile (≤360px) */
+@media screen and (max-width: 360px) {
+  .Navy-dashboard-container {
+    padding: 8px 8px;
+    gap: 12px;
+  }
+
+  .Navy-welcome-textWallet {
+    font-size: 18px;
+  }
+
+  .Navy-subtitle-textWallet {
+    font-size: 11px;
+  }
+
+  .Navy-WithdrawFunds {
+    height: 36px;
+    font-size: 11px;
+    padding: 0 12px;
+  }
+
+  .Navy-metrics-grid {
+    gap: 8px;
+  }
+
+  .Navy-metric-card {
+    padding: 12px 14px;
+    border-left-width: 3px;
+  }
+
+  .Navy-card-value {
+    font-size: 16px;
+  }
+
+  .Navy-card-label {
+    font-size: 11px;
+  }
+
+  .Navy-card-icon {
+    font-size: 20px;
+  }
+
+  .Navy-data-table {
+    min-width: 260px;
+  }
+
+  .Navy-data-table th,
+  .Navy-data-table td {
+    padding: 6px 8px;
+    font-size: 11px;
+  }
+
+  .Navy-modal-content {
+    padding: 16px;
+  }
+
+  .Navy-modal-header h3 {
+    font-size: 16px;
+  }
+
+  .Navy-modal-content input,
+  .Navy-modal-content select {
+    padding: 8px 10px;
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  .Navy-submit-btn {
+    padding: 10px;
+    font-size: 13px;
+  }
+}
