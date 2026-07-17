@@ -16,7 +16,7 @@ const ParentLayout = () => {
   const fetchStudentData = async () => {
     try {
       setLoading(true);
-      setError(null); // Clear previous errors
+      setError(null);
       const response = await apiClient.get("parent/students");
       const data = response.data.studentsData || [];
 
