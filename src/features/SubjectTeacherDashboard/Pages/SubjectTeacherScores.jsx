@@ -33,9 +33,9 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
-  if (seeScores.length > 0) {
+
     getSubjects();
-  }
+  
 }, [seeScores]);
 
 

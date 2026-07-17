@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
-import "./STReport.css";
+import "./AdminReportDetalpage.css";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
-import RemarkModal from "./RemarkModal ";
+import RemarkModal from "../../../features/class-teacher/pages/STudentReport/RemarkModal ";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
-import { apiClient } from "../../../../config/AxiosInstance";
-
-const STReport = () => {
+import { useNavigate, useParams } from "react-router-dom";
+import { apiClient } from "../../../config/AxiosInstance";
+const AdminREportDetailPage = () => {
   const [showRemarkModal, setShowRemarkModal] = useState(false);
   const [remark, setRemark] = useState("");
   const [reportData, setReportData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { admissionnumber } = useParams();
-
+  const subdomain = window.location.hostname.split(".")[0];
+  const nav = useNavigate();
   const handleSaveRemark = (value) => setRemark(value);
 
   const fetchReportCard = async () => {
@@ -25,7 +25,7 @@ const STReport = () => {
         `/staff/report-card/${admissionnumber}`,
       );
       const report = data?.reportCard;
-      if (!report) throw new Error("No report card found");
+      // if (!report) throw new Error("No report card found");
 
       setReportData({
         school: {
@@ -89,7 +89,7 @@ const STReport = () => {
       const message =
         err.response?.data?.message || "Failed to fetch report card";
       setError(message);
-      toast.error(message);
+      // toast.error(message);
     } finally {
       setLoading(false);
     }
@@ -130,6 +130,7 @@ const STReport = () => {
     else setError("No admission number provided");
   }, [admissionnumber]);
 
+  // Re-sync remark into reportData when remark state changes
   useEffect(() => {
     if (reportData) {
       setReportData((prev) => ({
@@ -143,34 +144,42 @@ const STReport = () => {
     <>
       <main className="STReportContainer">
         <article className="STReportWrapper">
-          {/* ── Page Header ── */}
+          {/* ── Page Header ───────────────────────────────────── */}
           <div className="STSReportHead">
             <span className="STSReportHeadTitle">Preview</span>
             <nav className="STSReportHeadRight">
-              <span className="STR">Report Cards</span>
+              <span
+                style={{ cursor: "pointer" }}
+                className="STR"
+                onClick={() => {
+                  nav("/admin/AdminReportCards");
+                }}
+              >
+                Report Cards
+              </span>
               <MdOutlineKeyboardArrowRight className="STA" />
               <span className="STP">Preview</span>
             </nav>
           </div>
 
-          {/* ── Action Bar ── */}
+          {/* ── Action Bar ────────────────────────────────────── */}
           <section className="STActionBar">
             <button className="STAdd" onClick={() => setShowRemarkModal(true)}>
               + Add Remark
             </button>
             <button className="STSubmit">
-              <span className="STSubmitIcon">✉</span> Submit to Admin
+              <span className="STSubmitIcon">✉</span> Send to parent
             </button>
           </section>
 
-          {/* ── States ── */}
+          {/* ── States ────────────────────────────────────────── */}
           {loading && <div className="STStateMsg">Loading report card...</div>}
           {error && <div className="STStateMsg STError">{error}</div>}
           {!loading && !error && !reportData && (
             <div className="STStateMsg">No report card found.</div>
           )}
 
-          {/* ── Report Card (admin style, no swipe) ── */}
+          {/* ── Report Card ───────────────────────────────────── */}
           {reportData && (
             <div className="STReportCard">
               {/* School Header */}
@@ -205,7 +214,7 @@ const STReport = () => {
                 </div>
               </div>
 
-              {/* Student Info Grid (admin style) */}
+              {/* Student Info Grid */}
               <div className="STStudentInfoGrid">
                 <div className="STInfoCol">
                   <div className="STInfoRow">
@@ -272,7 +281,7 @@ const STReport = () => {
                 </div>
               </div>
 
-              {/* Subjects Table (admin style) */}
+              {/* Subjects Table Container */}
               <div className="STTableContainer">
                 <table className="STSubjectsTable">
                   <thead>
@@ -377,7 +386,7 @@ const STReport = () => {
                 </table>
               </div>
 
-              {/* Bottom Section – Grade Key + Teacher Remark */}
+              {/* Bottom Section — Grade Key + Teacher Remark */}
               <div className="STBottomSection">
                 <div className="STGradeKeyBox">
                   <h4 className="STBoxTitle">KEY TO GRADES</h4>
@@ -482,4 +491,4 @@ const STReport = () => {
   );
 };
 
-export default STReport;
+export default AdminREportDetailPage;

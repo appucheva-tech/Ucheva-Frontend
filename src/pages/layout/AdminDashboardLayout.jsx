@@ -1,10 +1,10 @@
 import React from "react";
 import "./AdminDashboardLayout.css";
-import AdminSidebar from "../Admin/AdminSidebar";
+import AdminSidebar from "../Admin/Pages/AdminSidebar";
 import { Outlet } from "react-router-dom";
-import AdminHeader from "../Admin/AdminHeader";
+import AdminHeader from "../Admin/Pages/AdminHeader";
 import { useState } from "react";
-import AdminFooter from "../Admin/AdminFooter";
+import AdminFooter from "../Admin/Pages/AdminFooter";
 
 const AdminDashboardLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
