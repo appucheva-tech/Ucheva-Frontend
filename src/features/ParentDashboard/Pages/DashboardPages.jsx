@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
 import "../css/DashboardPages.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { FaUserGraduate } from "react-icons/fa6";
 
 const DashboardPage = () => {
   const { selectedStudent } = useOutletContext();
@@ -46,16 +47,33 @@ const DashboardPage = () => {
     student = {},
     paymentHistory = [],
     monthlyAttendance = {},
+    parent = {},
   } = dashboardData?.dashboard || {};
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 17) return "Good afternoon";
+    return "Good evening";
+  };
+
   return (
-    <div className="parent-dashboard-view">
+    <div className="parent-dashboard-view nunito-content">
       <div className="parent-dashboard-container">
-        {/* Banner */}
+        <div className="dashboard-header">
+          <h1 className="greeting-title">
+            {getGreeting()}, {parent.name} 👋
+          </h1>
+          <p className="greeting-subtitle">
+            Here's {student.name || "your child"}'s activity summary for today.
+          </p>
+        </div>
+
         <div className="student-summary-banner">
           <div className="student-avatar-box">
-            {/* Use your avatar icon here */}
-            <div className="student-badge-icon">🎓</div>
+            <div className="student-badge-icon">
+              <FaUserGraduate size={32} />
+            </div>
           </div>
           <div className="student-summary-info">
             <h2 className="student-profile-name">{student.name}</h2>
@@ -88,9 +106,8 @@ const DashboardPage = () => {
           </div>
         </div>
 
-        {/* Grid */}
         <div className="parent-grid-layout">
-          <div className="parent-dashboard-card main-history-card">
+          <div className="parent-dashboard-card1 main-history-card">
             <h3 className="card-section-title">Payment History</h3>
             {paymentHistory.length === 0 ? (
               <div className="empty-state-container">
@@ -113,10 +130,10 @@ const DashboardPage = () => {
                 <tbody>
                   {paymentHistory.map((item, i) => (
                     <tr key={i}>
-                      <td>{item.date}</td>
-                      <td>{item.term}</td>
-                      <td>{item.amount}</td>
-                      <td>
+                      <td data-label="Date">{item.date}</td>
+                      <td data-label="Term">{item.term}</td>
+                      <td data-label="Amount">{item.amount}</td>
+                      <td data-label="Status">
                         <span className="status-pill">{item.status}</span>
                       </td>
                     </tr>
@@ -126,7 +143,7 @@ const DashboardPage = () => {
             )}
           </div>
 
-          <div className="parent-dashboard-card side-attendance-card">
+          <div className="parent-dashboard-card2 side-attendance-card">
             <h3 className="card-section-title">Monthly Attendance</h3>
             <div className="attendance-chart-layout">
               <div className="circular-progress-wrapper">
@@ -158,4 +175,5 @@ const DashboardPage = () => {
     </div>
   );
 };
+
 export default DashboardPage;

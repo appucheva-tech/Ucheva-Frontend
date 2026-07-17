@@ -8,9 +8,6 @@ const ParentSidebar = ({ isOpen, onClose }) => {
   const nav = useNavigate();
   return (
     <>
-      {/* The mobile-open class is dynamically added here based on the layout's state.
-        The layout file handles the burger button and backdrop directly.
-      */}
       <div className={`ParentSidebar_Container ${isOpen ? "mobile-open" : ""}`}>
         <div className="sidebar-logo">
           <div className="logo-icon">
@@ -28,7 +25,7 @@ const ParentSidebar = ({ isOpen, onClose }) => {
             to="/parentdashboard"
             end
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
-            onClick={onClose} // Closes the mobile sidedrawer when a user navigates
+            onClick={onClose}
           >
             <span className="nav-icon">
               <svg

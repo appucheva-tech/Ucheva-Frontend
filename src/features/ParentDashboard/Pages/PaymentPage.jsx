@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/PaymentPage.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { useOutletContext } from "react-router-dom";
+ 
 
 const PaymentPage = () => {
   const [paymentData, setPaymentData] = useState(null);
@@ -10,8 +11,6 @@ const PaymentPage = () => {
   const [error, setError] = useState(null);
   const { selectedStudent } = useOutletContext();
   const subdomain = window.location.hostname.split(".")[0];
-  // console.log(selectedStudent?.id);
-  console.log(selectedStudent.id);
 
   useEffect(() => {
     const fetchFees = async () => {
@@ -38,8 +37,8 @@ const PaymentPage = () => {
     const payload = {
       classId: paymentData.classId,
       className: paymentData.class,
-      parentName: paymentData.studentName, // Mapping from API data
-      parentEmail: paymentData.parentEmail, // Replace with actual user email
+      parentName: paymentData.studentName,
+      parentEmail: paymentData.parentEmail,
       currency: "NGN",
       paymentType: "card",
     };
@@ -54,9 +53,7 @@ const PaymentPage = () => {
           },
         },
       );
-      // if (response.data.authorizationUrl) {
       window.location.href = response.data.checkoutUrl;
-      // }
     } catch (err) {
       alert("Payment initialization failed. Please try again.");
     }
@@ -77,7 +74,11 @@ const PaymentPage = () => {
   if (error)
     return <div className="payment-page flex-center-view">{error}</div>;
   if (!selectedStudent)
-    return <div className="payment-page flex-center-view">No student selected. Please select a student to continue.</div>;
+    return (
+      <div className="payment-page flex-center-view">
+        No student selected. Please select a student to continue.
+      </div>
+    );
 
   const total = paymentData.totalFee;
   const amountNow =
@@ -97,61 +98,82 @@ const PaymentPage = () => {
       <div className="payment-container">
         <div className="payment-left">
           <div className="payment-section">
-            <h2>School Fees</h2>
-            <div className="items-list">
-              <div className="payment-item">
-                <input type="checkbox" id="totalFee" checked={true} disabled />
-                <label htmlFor="totalFee" className="item-label">
-                  <div className="item-info">
-                    <span className="item-name">Total School Fees</span>
-                    <span className="item-term">For {paymentData.class}</span>
-                  </div>
-                  <span className="item-amount">{formatCurrency(total)}</span>
-                </label>
-              </div>
+            <div className="section-header">
+              <h2>School Fees</h2>
+              <p>Select what you want to pay for.</p>
+            </div>
+            <div className="fee-list">
+              <label className="fee-item">
+                <input
+                  type="checkbox"
+                  checked={true}
+                  disabled
+                  className="fee-checkbox"
+                />
+                <div className="fee-content">
+                  <div className="fee-name">Total School Fees</div>
+                  <div className="fee-term">For {paymentData.class}</div>
+                </div>
+                <div className="fee-amount">{formatCurrency(total)}</div>
+              </label>
             </div>
           </div>
 
           <div className="payment-section">
-            <h2>Payment Type</h2>
-            <div className="payment-type-options">
-              <div
-                className={`radio-option ${paymentType === "full" ? "active" : ""}`}
+            <div className="section-header">
+              <h2>Payment Type</h2>
+              <p>Choose how you want to pay.</p>
+            </div>
+
+            <div className="payment-type-list">
+              <label
+                className={`payment-type-option ${paymentType === "full" ? "active" : ""}`}
               >
                 <input
                   type="radio"
-                  id="full"
+                  name="payment-type"
+                  value="full"
                   checked={paymentType === "full"}
                   onChange={() => setPaymentType("full")}
+                  className="payment-radio"
                 />
-                <label htmlFor="full">
-                  Full Payment <span>Pay {formatCurrency(total)} at once.</span>
-                </label>
-              </div>
-              <div
-                className={`radio-option ${paymentType === "installment" ? "active" : ""}`}
+                <div className="payment-type-content">
+                  <div className="payment-type-label">Full Payment</div>
+                  <div className="payment-type-description">
+                    Pay {formatCurrency(total)} at once.
+                  </div>
+                </div>
+              </label>
+
+              <label
+                className={`payment-type-option ${paymentType === "installment" ? "active" : ""}`}
               >
                 <input
                   type="radio"
-                  id="installment"
+                  name="payment-type"
+                  value="installment"
                   checked={paymentType === "installment"}
                   onChange={() => setPaymentType("installment")}
+                  className="payment-radio"
                 />
-                <label htmlFor="installment">
-                  Installment{" "}
-                  <span>
+                <div className="payment-type-content">
+                  <div className="payment-type-label">Installment Payment</div>
+                  <div className="payment-type-description">
                     Pay {formatCurrency(paymentData.amountPerInstallment)} per
                     installment ({paymentData.numberOfInstallments} times).
-                  </span>
-                </label>
-              </div>
+                  </div>
+                </div>
+              </label>
             </div>
           </div>
         </div>
 
         <div className="payment-right">
           <div className="order-summary">
-            <h2>Order Summary</h2>
+            <div className="summary-header">
+              <h2>Order Summary</h2>
+              <p>Review your payment details.</p>
+            </div>
 
             <div className="payment-preview-box">
               <p className="preview-label">You are paying</p>
@@ -164,21 +186,36 @@ const PaymentPage = () => {
             </div>
 
             <div className="summary-content">
-              <div className="summary-item">
-                <span>Total Fees</span>
-                <span>{formatCurrency(total)}</span>
+              <div className="summary-items">
+                <div className="summary-item">
+                  <span>Total Fees</span>
+                  <span>{formatCurrency(total)}</span>
+                </div>
               </div>
+
               <div className="summary-divider"></div>
-              <div className="summary-details">
-                <div className="detail-row">
-                  <span>Amount Due Now</span>
-                  <span>{formatCurrency(amountNow)}</span>
-                </div>
-                <div className="detail-row">
-                  <span>Balance</span>
-                  <span>{formatCurrency(balance)}</span>
-                </div>
+
+              <div className="summary-row">
+                <span className="summary-label">Payment Type</span>
+                <span className="summary-value">
+                  {paymentType === "installment"
+                    ? "Installment"
+                    : "Full Payment"}
+                </span>
               </div>
+
+              <div className="summary-row">
+                <span className="summary-label">Amount Paying Now</span>
+                <span className="summary-value">
+                  {formatCurrency(amountNow)}
+                </span>
+              </div>
+
+              <div className="summary-row">
+                <span className="summary-label">Balance</span>
+                <span className="summary-value">{formatCurrency(balance)}</span>
+              </div>
+
               <button
                 className="proceed-button"
                 onClick={handleInitializePayment}
@@ -192,4 +229,5 @@ const PaymentPage = () => {
     </div>
   );
 };
+
 export default PaymentPage;
