@@ -78,16 +78,16 @@
 }
 
 .myClassTotalStudents {
-  border-left: 4px solid #0062f6;
+  border-left: 2px solid #0062f6;
 }
 .myClassTotalFemale {
-  border-left: 4px solid #8b5cf6;
+  border-left: 2px solid #8b5cf6;
 }
 .myClassTotalMale {
-  border-left: 4px solid #f59e0b;
+  border-left: 2px solid #f59e0b;
 }
 .myClassTotalPresent {
-  border-left: 4px solid #43b75d;
+  border-left: 2px solid #43b75d;
 }
 
 .myClassCTClasstext {
@@ -95,9 +95,9 @@
   flex-direction: column;
   gap: 8px;
   font-family: Nunito, sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  color: #6c737f;
+  font-weight: 550;
+  font-size: 15px;
+  color: #03173c;
 }
 
 .myClassCTtextnum {
@@ -227,8 +227,8 @@ td {
   border-bottom: 1px solid #f1f1f1;
 }
 
-/* Badges */
-.badge {
+/* badge1s */
+.badge1 {
   display: inline-block;
   padding: 5px 12px;
   border-radius: 20px;
@@ -237,11 +237,11 @@ td {
   font-size: 12px;
 }
 
-.badge.present {
+.badge1.present {
   background: #eafdf1;
   color: #009966;
 }
-.badge.absent {
+.badge1.absent {
   background: #fdecec;
   color: #ee443f;
 }
@@ -524,9 +524,11 @@ td {
 }
 
 /* ========== RESPONSIVE ========== */
+/* Tablet: 2x2 grid (matches the reference dashboard layout) */
 @media screen and (max-width: 1024px) {
   .myClassCTClassCards {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
 }
 
@@ -542,16 +544,34 @@ td {
     width: 100%;
     white-space: normal;
   }
+
+  /* Keep the 2x2 grid on mobile — same pattern used across the other
+     dashboard pages — instead of collapsing to a single column. */
   .myClassCTClassCards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
   .myClassTotalStudents,
   .myClassTotalFemale,
   .myClassTotalMale,
   .myClassTotalPresent {
-    padding: 16px;
+    padding: 16px 14px;
+    border-radius: 14px;
+    border-left-width: 3px;
   }
+  .myClassCTClasstext {
+    font-size: 13px;
+    gap: 4px;
+  }
+  .myClassCTtextnum {
+    font-size: 22px;
+  }
+  .myClassCTImageHolder1 {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+  }
+
   .myClassfilterBar {
     flex-direction: column;
     align-items: flex-start;
@@ -589,26 +609,39 @@ td {
   .myClasstopHeaderText span {
     font-size: 13px;
   }
+
+  /* Tighten the 2x2 grid further for small phones, still 2 columns */
+  .myClassCTClassCards {
+    gap: 10px;
+  }
+  .myClassTotalStudents,
+  .myClassTotalFemale,
+  .myClassTotalMale,
+  .myClassTotalPresent {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
   .myClassCTtextnum {
-    font-size: 24px;
+    font-size: 20px;
   }
   .myClassCTClasstext {
-    font-size: 13px;
+    font-size: 12px;
   }
   .myClassCTImageHolder1 {
-    width: 48px;
-    height: 48px;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
   }
   .myClassCTImg {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
   }
   th,
   td {
     padding: 10px 8px;
     font-size: 12px;
   }
-  .badge,
+  .badge1,
   .fee {
     padding: 4px 8px;
     font-size: 10px;

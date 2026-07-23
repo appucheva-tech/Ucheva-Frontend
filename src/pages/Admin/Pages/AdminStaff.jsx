@@ -236,7 +236,7 @@ const AdminStaff = () => {
           <EmptyState
             title="No Staff Records Found"
             message="Your personnel deployment is empty. Get started by adding profiles to your staff workspace."
-            actionText="Add Staff Member"
+            // actionText="Add Staff Member"
             onAction={handleAddStaff}
           />
         ) : (
@@ -392,19 +392,6 @@ const AdminStaff = () => {
             </div>
           </>
         )}
-
-        <footer className="footerRow">
-          <span className="copyrightText">
-            ©️ {new Date().getFullYear()} Ucheva school operating management
-            system. All rights reserved.
-          </span>
-          <span className="supportText">
-            Need help?{" "}
-            <a href="#support" className="supportLink">
-              Contact support
-            </a>
-          </span>
-        </footer>
       </div>
 
       {/* ── Delete modal ── */}

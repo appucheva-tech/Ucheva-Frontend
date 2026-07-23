@@ -140,6 +140,7 @@ const AdminStudent2 = () => {
         const response = await apiClient.get("/class/classes", {
           headers: { "x-tenant": subdomain },
         });
+        console.log(response?.data)
         setClasses(response.data.classes || []);
       } catch (error) {
         console.error("Failed to fetch classes", error.message);
@@ -304,7 +305,7 @@ const AdminStudent2 = () => {
                 >
                   <option value="">Select Class</option>
                   {classes.map((item) => (
-                    <option key={item.id} value={item.id}>
+                    <option key={item._id} value={item._id}>
                       {item.className}
                     </option>
                   ))}
