@@ -29,7 +29,7 @@
 /* Page Inner Body Wrap Canvas viewport settings */
 .ct-page-content {
   flex: 1;
-  padding: 32px;
+  padding: 17px;
   background-color: #f5f6fa;
   width: 100%;
   box-sizing: border-box;
@@ -93,7 +93,7 @@
 /* Handles Small Notebook Screen Adjustments */
 @media (max-width: 1120px) {
   .ct-page-content {
-    padding: 24px;
+    padding: 13px;
   }
 }
 
@@ -105,8 +105,8 @@
   }
 
   .ct-page-content {
-    padding: 20px;
-    margin-top: 60px; /* Provides breathing room below floating menu trigger button */
+    padding: 13px;
+    /* margin-top: 60px; */
   }
 
   .ct-mobile-menu-btn {
@@ -117,7 +117,7 @@
 /* Small Smartphone Panels */
 @media (max-width: 480px) {
   .ct-page-content {
-    padding: 16px;
+    padding: 13px;
   }
 }
 

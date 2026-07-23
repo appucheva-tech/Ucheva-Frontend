@@ -10,6 +10,111 @@ import LoadingScreen from "../../../components/Loading-Screen"; // adjust path
 import ErrorScreen from "../../../components/Error-Screen"; // adjust path
 import EmptyState from "../../../components/EmptyState"; // adjust path
 
+// ── Searchable combobox (used for Level and Teacher fields) ───────────────────
+const SearchableSelect = ({
+  options,
+  value,
+  onChange,
+  placeholder,
+  getLabel,
+  getValue,
+}) => {
+  const [query, setQuery] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const wrapperRef = React.useRef(null);
+
+  const selectedOption = options.find((opt) => getValue(opt) === value);
+  const selectedLabel = selectedOption ? getLabel(selectedOption) : "";
+
+  const filtered = options.filter((opt) =>
+    getLabel(opt).toLowerCase().includes(query.toLowerCase()),
+  );
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
+        setIsOpen(false);
+        setQuery("");
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  return (
+    <div className="modalSelectWrapper searchableSelect" ref={wrapperRef}>
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={isOpen ? query : selectedLabel}
+        onFocus={() => {
+          setIsOpen(true);
+          setQuery("");
+        }}
+        onChange={(e) => setQuery(e.target.value)}
+        autoComplete="off"
+      />
+      {isOpen && (
+        <div className="searchableDropdown">
+          {filtered.length === 0 ? (
+            <div className="searchableEmpty">No matches</div>
+          ) : (
+            filtered.map((opt) => (
+              <div
+                key={getValue(opt)}
+                className={`searchableOption ${
+                  getValue(opt) === value ? "active" : ""
+                }`}
+                onClick={() => {
+                  onChange(getValue(opt));
+                  setIsOpen(false);
+                  setQuery("");
+                }}
+              >
+                {getLabel(opt)}
+              </div>
+            ))
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ── Level options (Creche → SS3) ───────────────────────────────────────────────
+const LEVEL_OPTIONS = [
+  "Creche",
+  "Kindergarten 1",
+  "Kindergarten 2",
+  "Nursery 1",
+  "Nursery 2",
+  "Nursery 3",
+  "Primary 1",
+  "Primary 2",
+  "Primary 3",
+  "Primary 4",
+  "Primary 5",
+  "Primary 6",
+  "JSS 1",
+  "JSS 2",
+  "JSS 3",
+  "SS 1",
+  "SS 2",
+  "SS 3",
+];
+
+// ── Auto-derive section from selected level ────────────────────────────────────
+const getSectionFromLevel = (lvl) => {
+  if (!lvl) return "";
+  if (lvl === "Creche") return "creche";
+  if (lvl.startsWith("Kindergarten")) return "kindergarten";
+  if (lvl.startsWith("Nursery")) return "nursery";
+  if (lvl.startsWith("Primary")) return "primary";
+  if (lvl.startsWith("JSS")) return "junior secondary";
+  if (lvl.startsWith("SS")) return "senior secondary";
+  return "";
+};
+
 const AdminClass = () => {
   const [teachers, setTeachers] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -41,10 +146,10 @@ const AdminClass = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   useEffect(() => {
-    setFormData((prev) => ({ 
-      ...prev, 
+    setFormData((prev) => ({
+      ...prev,
       className: `${level} ${arm}`.trim(),
-      section: level.startsWith("JSS") ? "junior secondary" : level.startsWith("SS") ? "senior secondary" : ""
+      section: getSectionFromLevel(level),
     }));
   }, [level, arm]);
 
@@ -103,7 +208,7 @@ const AdminClass = () => {
         section: formData.section,
       };
       if (formData.teacherId) payload.teacherId = formData.teacherId;
-console.log("payload", payload)
+
       const response = await apiClient.post("/class/create-class", payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -116,6 +221,7 @@ console.log("payload", payload)
         teacherId: "",
         numberOfInstallments: "",
         id: "",
+        section: "",
       });
       setLevel("");
       setArm("");
@@ -308,8 +414,12 @@ console.log("payload", payload)
                 <option value="all" disabled>
                   All Sections
                 </option>
-                <option value="">Junior Secondary</option>
-                <option value="">Senior Secondary</option>
+                <option value="creche">Creche</option>
+                <option value="kindergarten">Kindergarten</option>
+                <option value="nursery">Nursery</option>
+                <option value="primary">Primary</option>
+                <option value="junior secondary">Junior Secondary</option>
+                <option value="senior secondary">Senior Secondary</option>
               </select>
             </div>
           </div>
@@ -355,7 +465,7 @@ console.log("payload", payload)
                 addClass.map((cls, index) => (
                   <tr key={index}>
                     <td className="className textLink">{cls.className}</td>
-                    <td className="sectionText">Secondary</td>
+                    <td className="sectionText">{cls.section || "--"}</td>
                     <td className="teacherText textLink">
                       {cls.teacherName || "--"}
                     </td>
@@ -376,6 +486,7 @@ console.log("payload", payload)
                               numberOfInstallments:
                                 cls.numberOfInstallments || "",
                               id: cls.classId,
+                              section: cls.section || "",
                             });
                             setIsEditOpen(true);
                           }}
@@ -435,7 +546,7 @@ console.log("payload", payload)
                     <div className="card-left">
                       <span className="class-name">{cls.className}</span>
                       <div className="class-meta">
-                        <span>Section: Senior Secondary</span>
+                        <span>Section: {cls.section || "--"}</span>
                         <span>Class Teacher: {cls.teacherName || "--"}</span>
                         <span>Total Student: {cls.totalStudents}</span>
                       </div>
@@ -452,6 +563,7 @@ console.log("payload", payload)
                             numberOfInstallments:
                               cls.numberOfInstallments || "",
                             id: cls.classId,
+                            section: cls.section || "",
                           });
                           setIsEditOpen(true);
                         }}
@@ -468,7 +580,10 @@ console.log("payload", payload)
                       <button
                         className="deleteBtn"
                         onClick={() => {
-                          setFormData((prev) => ({ ...prev, id: cls.classId }));
+                          setFormData((prev) => ({
+                            ...prev,
+                            id: cls.classId,
+                          }));
                           setIsDeleteOpen(true);
                         }}
                       >
@@ -526,66 +641,57 @@ console.log("payload", payload)
               </button>
             </div>
             <div className="modalBody">
-               <div className="inputGroup">
-                 <label>Class Name</label>
-                 <div style={{ display: "flex", gap: "10px" }}>
-                   <select
-                     className="modalSelectWrapper"
-                     style={{ flex: 2, padding: "8px" }}
-                     value={level}
-                     onChange={(e) => setLevel(e.target.value)}
-                   >
-                     <option value="" disabled>
-                       Select Level
-                     </option>
-                     <option value="JSS 1">JSS 1</option>
-                     <option value="JSS 2">JSS 2</option>
-                     <option value="JSS 3">JSS 3</option>
-                     <option value="SS 1">SS 1</option>
-                     <option value="SS 2">SS 2</option>
-                     <option value="SS 3">SS 3</option>
-                   </select>
-                   <select
-                     className="modalSelectWrapper"
-                     style={{ flex: 1, padding: "8px" }}
-                     value={arm}
-                     onChange={(e) => setArm(e.target.value)}
-                   >
-                     <option value="" disabled>
-                       Arm
-                     </option>
-                     <option value="A">A</option>
-                     <option value="B">B</option>
-                     <option value="C">C</option>
-                     <option value="D">D</option>
-                     <option value="E">E</option>
-                     <option value="F">F</option>
-                   </select>
-                 </div>
-               </div>
+              <div className="inputGroup">
+                <label>Class Name</label>
+                <div style={{ display: "flex", gap: "10px" }}>
+                  <div style={{ flex: 2 }}>
+                    <SearchableSelect
+                      options={LEVEL_OPTIONS}
+                      value={level}
+                      onChange={setLevel}
+                      placeholder="Select Level"
+                      getLabel={(lvl) => lvl}
+                      getValue={(lvl) => lvl}
+                    />
+                  </div>
+                  <select
+                    className="modalSelectWrapper"
+                    style={{ flex: 1, padding: "8px" }}
+                    value={arm}
+                    onChange={(e) => setArm(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Arm
+                    </option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                  </select>
+                </div>
+              </div>
 
-               {formData.section && (
-                 <div className="inputGroup">
-                   <label>Section</label>
-                   <input
-                     type="text"
-                     value={formData.section}
-                     readOnly
-                     style={{
-                       padding: "8px",
-                       border: "1px solid #d1d5db",
-                       borderRadius: "6px",
-                       backgroundColor: "#f9fafb",
-                       color: "#6b7280",
-                       fontSize: "14px",
-                     }}
-                   />
-                 </div>
-               )}
+              {formData.section && (
+                <div className="inputGroup">
+                  <label>Section</label>
+                  <input
+                    type="text"
+                    value={formData.section}
+                    readOnly
+                    style={{
+                      padding: "8px",
+                      border: "1px solid #d1d5db",
+                      borderRadius: "6px",
+                      backgroundColor: "#f9fafb",
+                      color: "#6b7280",
+                      fontSize: "14px",
+                    }}
+                  />
+                </div>
+              )}
 
-{console.log( 1,formData),
-console.log(2,formData.section)
-}
               <div className="inputGroup">
                 <label>Amount</label>
                 <input
@@ -643,21 +749,16 @@ console.log(2,formData.section)
 
               <div className="inputGroup">
                 <label>Assign Class Teacher (optional)</label>
-                <div className="modalSelectWrapper">
-                  <select
-                    name="teacherId"
-                    value={formData.teacherId}
-                    onChange={handleChange}
-                  >
-                    <option value="">Search and select a teacher</option>
-                    {Array.isArray(teachers) &&
-                      teachers.map((staff) => (
-                        <option key={staff.id} value={staff.id}>
-                          {staff.fullName}
-                        </option>
-                      ))}
-                  </select>
-                </div>
+                <SearchableSelect
+                  options={teachers}
+                  value={formData.teacherId}
+                  onChange={(val) =>
+                    setFormData((prev) => ({ ...prev, teacherId: val }))
+                  }
+                  placeholder="Search and select a teacher"
+                  getLabel={(staff) => staff.fullName}
+                  getValue={(staff) => staff.id}
+                />
               </div>
             </div>
             <div className="modalFooter">
@@ -768,23 +869,16 @@ console.log(2,formData.section)
 
               <div className="inputGroup">
                 <label>Assign Class Teacher (optional)</label>
-                <div className="modalSelectWrapper">
-                  <select
-                    name="teacherId"
-                    value={formData.teacherId}
-                    onChange={handleChange}
-                  >
-                    <option value="">Search and select teacher</option>
-                    {teachers.map((staff) => (
-                      <option
-                        key={staff.id || staff._id}
-                        value={staff.id || staff._id}
-                      >
-                        {staff.fullName}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                <SearchableSelect
+                  options={teachers}
+                  value={formData.teacherId}
+                  onChange={(val) =>
+                    setFormData((prev) => ({ ...prev, teacherId: val }))
+                  }
+                  placeholder="Search and select teacher"
+                  getLabel={(staff) => staff.fullName}
+                  getValue={(staff) => staff.id || staff._id}
+                />
               </div>
             </div>
             <div className="modalFooter">

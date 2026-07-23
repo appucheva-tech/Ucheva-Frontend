@@ -189,7 +189,7 @@ const MyClass = () => {
                     <td>{admission}</td>
                     <td>{gender}</td>
                     <td>
-                      <span className={`badge ${attendance.toLowerCase()}`}>
+                      <span className={`badge1 ${attendance.toLowerCase()}`}>
                         {attendance}
                       </span>
                     </td>
@@ -270,3 +270,5 @@ const MyClass = () => {
 };
 
 export default MyClass;
+
+// what is that ?
