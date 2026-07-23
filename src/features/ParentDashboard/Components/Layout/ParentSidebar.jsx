@@ -9,12 +9,12 @@ const ParentSidebar = ({ isOpen, onClose }) => {
   return (
     <>
       <div className={`ParentSidebar_Container ${isOpen ? "mobile-open" : ""}`}>
-        <div className="sidebar-logo">
-          <div className="logo-icon">
+        <div className="ParentSidebar-logo">
+          <div className="ParentLogo-icon">
             <img
               src="https://i.postimg.cc/zDtBJb6C/logo-cont.png"
               alt="Ucheva Logo"
-              className="Ucheva"
+              className="ParentUcheva"
               onClick={() => nav("/")}
             />
           </div>
@@ -27,7 +27,7 @@ const ParentSidebar = ({ isOpen, onClose }) => {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={onClose}
           >
-            <span className="nav-icon">
+            <span className="ParentNav-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="17"
@@ -41,7 +41,7 @@ const ParentSidebar = ({ isOpen, onClose }) => {
                 />
               </svg>
             </span>
-            <span className="nav-text">Dashboard</span>
+            <span className="ParentNav-text">Dashboard</span>
           </NavLink>
 
           <NavLink
@@ -49,10 +49,10 @@ const ParentSidebar = ({ isOpen, onClose }) => {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={onClose}
           >
-            <span className="nav-icon">
+            <span className="ParentNav-icon">
               <IoWalletOutline size={20} />
             </span>
-            <span className="nav-text">Payment</span>
+            <span className="ParentNav-text">Payment</span>
           </NavLink>
 
           <NavLink
@@ -60,10 +60,10 @@ const ParentSidebar = ({ isOpen, onClose }) => {
             className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
             onClick={onClose}
           >
-            <span className="nav-icon">
+            <span className="ParentNav-icon">
               <FiSettings size={20} />
             </span>
-            <span className="nav-text">Settings</span>
+            <span className="ParentNav-text">Settings</span>
           </NavLink>
         </nav>
       </div>

@@ -14,7 +14,7 @@
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
 }
 
-.sidebar-logo {
+.ParentSidebar-logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,14 +22,14 @@
   width: 100%;
 }
 
-.logo-icon {
+.ParentLogo-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
-.Ucheva {
+.ParentUcheva {
   width: 160px;
   height: auto;
   object-fit: contain;
@@ -69,7 +69,7 @@
   border-left-color: #0d62f6;
 }
 
-.nav-icon {
+.ParentNav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,7 +79,7 @@
   color: inherit;
 }
 
-.nav-text {
+.ParentNav-text {
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;
@@ -120,7 +120,7 @@
     max-width: 260px;
   }
 
-  .Ucheva {
+  .ParentUcheva {
     width: 130px;
   }
 
@@ -128,17 +128,17 @@
     padding: 12px 14px;
   }
 
-  .nav-text {
+  .ParentNav-text {
     font-size: 15px;
   }
 }
 
 @media (max-width: 380px) {
-  .Ucheva {
+  .ParentUcheva {
     width: 110px;
   }
 
-  .nav-text {
+  .ParentNav-text {
     font-size: 14px;
   }
 }
