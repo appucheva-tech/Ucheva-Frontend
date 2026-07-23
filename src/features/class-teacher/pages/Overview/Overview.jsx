@@ -166,6 +166,9 @@ const Overview = () => {
 
   const { dashboard } = serverData;
   const isCheckedIn = dashboard?.myAttendance?.toLowerCase() === "present";
+  const announcements = Array.isArray(dashboard?.announcements)
+    ? dashboard.announcements
+    : [];
 
   return (
     <main className="CTDash">
@@ -212,7 +215,7 @@ const Overview = () => {
           <div className="TotalStudents overview-shadow-card">
             <nav className="CTtext">
               Total Students
-              <div className="CTStudents">{dashboard?.totalStudents ?? 0}</div>
+              <div className="CTStudents">{dashboard?.totalStudents || 0}</div>
             </nav>
             <div className="CTImageHolder3">
               <img className="CTImg" src={PH} alt="Students Count" />
@@ -221,10 +224,10 @@ const Overview = () => {
 
           {/* Card 4: Assigned Subjects */}
           <div className="CTSubject overview-shadow-card">
-            <nav className="CTtext4">
+            <nav className="CTtext">
               Assigned Subjects
               <div className="SubjectDigit">
-                {dashboard?.assignedSubjects ?? 0}
+                {dashboard?.assignedSubjects?.[0] || 0}
               </div>
             </nav>
             <div className="CTImageHolder4">
@@ -298,10 +301,34 @@ const Overview = () => {
           {/* Announcement Block Box Wrapper */}
           <div className="CTAnnouncement overview-shadow-card">
             <nav className="CTAnnounceHead">Recent Announcements</nav>
-            <article className="CTAnnouncementView">
-              <p className="CTAnnouncement-empty-text">
-                No announcements listed for this term cycle.
-              </p>
+            <article
+              className={`CTAnnouncementView ${
+                announcements.length > 0 ? "has-items" : ""
+              }`}
+            >
+              {announcements.length > 0 ? (
+                <ul className="CTAnnouncementList">
+                  {announcements.map((item, index) => (
+                    <li className="CTAnnouncementItem" key={item.id ?? index}>
+                      <h4 className="CTAnnouncementItem-title">{item.title}</h4>
+                      <div className="CTAnnouncementItem-date">
+                        <span className="CTAnnouncementItem-dateIcon">📅</span>
+                        {item.status ? `${item.status} - ` : ""}
+                        {item.date}
+                      </div>
+                      {item.description && (
+                        <p className="CTAnnouncementItem-desc">
+                          {item.description}
+                        </p>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="CTAnnouncement-empty-text">
+                  No announcements listed for this term cycle.
+                </p>
+              )}
             </article>
           </div>
         </section>

@@ -282,7 +282,7 @@ const AdminDashboard = () => {
               <EmptyState
                 title="No attendance yet"
                 message="Staff have not checked in today. Share your QR code to get started."
-                actionText="Generate QR Code"
+                // actionText="Generate QR Code"
                 onAction={() => setShowQRModal(true)}
               />
             ) : (

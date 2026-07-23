@@ -5,15 +5,16 @@
 .CTDash {
   width: 100%;
   min-height: auto;
-  padding: 0;
-  margin: 0;
+
 }
 
 .CTDashWrapper {
   width: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 1rem;
+  /* background:#0045b3; */
 }
 
 /* ========== GREETINGS HEADLINE BLOCK ========== */
@@ -42,17 +43,15 @@
   box-shadow:
     0 4px 6px -1px rgba(0, 0, 0, 0.04),
     0 2px 4px -2px rgba(0, 0, 0, 0.04);
-  transition:
+  /* transition:
     transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
     box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-/* Subtle elevation lift on hover for interactive depth */
 .overview-shadow-card:hover {
   transform: translateY(-2px);
   box-shadow:
     0 12px 20px -8px rgba(0, 0, 0, 0.08),
-    0 4px 4px -2px rgba(0, 0, 0, 0.02);
+    0 4px 4px -2px rgba(0, 0, 0, 0.02); */
 }
 
 /* ==========================================================================
@@ -61,9 +60,13 @@
 
 .CTCards {
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  /* grid-template-columns: repeat(4, 1fr); */
   gap: 20px;
+  /* background: red; */
+
 }
 
 /* Clean, modern padding and dynamic min-height setup */
@@ -71,6 +74,7 @@
 .AssignedClass,
 .TotalStudents,
 .CTSubject {
+  width: 24%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -81,20 +85,20 @@
 
 /* Accent Indicators cleanly matched to their corresponding Icon backgrounds */
 .myAttendance {
-  border-left: 5px solid #0062f6;
+  border-left: 2px solid #0062f6;
 }
 .AssignedClass {
-  border-left: 5px solid #8b5cf6;
+  border-left: 2px solid #8b5cf6;
 }
 .TotalStudents {
-  border-left: 5px solid #f59e0b;
+  border-left: 2px solid #f59e0b;
 }
 .CTSubject {
-  border-left: 5px solid #43b75d;
+  border-left: 2px solid #43b75d;
 }
 
-.CTtext,
-.CTtext4 {
+.CTtext
+{
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -138,8 +142,8 @@
 .CTImageHolder2,
 .CTImageHolder3,
 .CTImageHolder4 {
-  width: 52px;
-  height: 52px;
+  width: 65px;
+  height: 60px;
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -161,8 +165,8 @@
 }
 
 .CTImg {
-  width: 24px;
-  height: 24px;
+  width: 80%;
+  height: 80%;
   object-fit: contain;
 }
 
@@ -268,11 +272,79 @@
   text-align: center;
 }
 
+.CTAnnouncementView.has-items {
+  align-items: stretch;
+  padding: 0;
+}
+
 .CTAnnouncement-empty-text {
   font-family: "Nunito", sans-serif;
   font-size: 14px;
   color: #94a3b8;
   margin: 0;
+}
+
+/* Announcement list items — title, date row with icon, description,
+   each with a colored left accent matching the reference layout */
+.CTAnnouncementList {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+  max-height: 320px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.CTAnnouncementList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.CTAnnouncementList::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 20px;
+}
+
+.CTAnnouncementItem {
+  border-left: 3px solid #0062f6;
+  padding-left: 14px;
+}
+
+.CTAnnouncementItem-title {
+  margin: 0 0 4px 0;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.CTAnnouncementItem-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: "Nunito", sans-serif;
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 4px;
+}
+
+.CTAnnouncementItem-dateIcon {
+  font-size: 12px;
+  line-height: 1;
+}
+
+.CTAnnouncementItem-desc {
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.4;
 }
 
 /* ==========================================================================
@@ -373,10 +445,21 @@
    ULTRA-RESPONSIVE MEDIA VIEWPORTS
    ========================================================================== */
 
+/* Tablet: switch stat cards to a true 2x2 grid (matches mobile reference) */
 @media screen and (max-width: 1120px) {
   .CTCards {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    height: auto;
     gap: 16px;
+  }
+
+  .myAttendance,
+  .AssignedClass,
+  .TotalStudents,
+  .CTSubject,
+  .skeleton-overview-card {
+    width: 100%;
   }
 }
 
@@ -394,6 +477,9 @@
   }
 
   .CTCards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;
     gap: 12px;
   }
 
@@ -402,15 +488,34 @@
   .TotalStudents,
   .CTSubject,
   .skeleton-overview-card {
-    padding: 18px 18px;
-    min-height: 105px; /* Adapts cleanly for tablet viewports */
+    width: 100%;
+    padding: 16px 14px;
+    min-height: 100px;
+    border-radius: 14px;
+    border-left-width: 3px;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .CTtext {
+    font-size: 13px;
+    gap: 4px;
   }
 
   .CTPending,
   .CTClassRoom,
   .CTStudents,
   .SubjectDigit {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .CTImageHolder1,
+  .CTImageHolder2,
+  .CTImageHolder3,
+  .CTImageHolder4 {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
   }
 
   .CTCheckIn {
@@ -424,8 +529,11 @@
 }
 
 @media screen and (max-width: 520px) {
+  /* Keep the 2x2 grid at small phone widths, just tighten spacing —
+     matches the reference layout instead of collapsing to one column */
   .CTCards {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
   .myAttendance,
@@ -433,8 +541,29 @@
   .TotalStudents,
   .CTSubject,
   .skeleton-overview-card {
-    padding: 16px;
-    min-height: 100px; /* Perfect proportional layout space on small mobile screens */
+    padding: 14px 12px;
+    min-height: 92px;
+    border-radius: 12px;
+  }
+
+  .CTtext {
+    font-size: 12px;
+  }
+
+  .CTPending,
+  .CTClassRoom,
+  .CTStudents,
+  .SubjectDigit {
+    font-size: 20px;
+  }
+
+  .CTImageHolder1,
+  .CTImageHolder2,
+  .CTImageHolder3,
+  .CTImageHolder4 {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
   }
 }
 
@@ -503,7 +632,7 @@
   color: white;
   border: none;
   padding: 14px 28px;
-  border-radius: 12px;
+  border-radius: 14px;
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;

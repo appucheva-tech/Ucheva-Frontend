@@ -332,6 +332,7 @@
 
       .sectionText {
         color: #1e293b;
+        text-transform: capitalize;
       }
 
       .actionButtons {
@@ -659,6 +660,16 @@
   pointer-events: none;
 }
 
+/* Don't show the select-arrow pseudo-element on the searchable combobox —
+   it uses a real text input, not a <select>, so the arrow doesn't apply. */
+.modalOverlay
+  .modalContent
+  .modalBody
+  .inputGroup
+  .modalSelectWrapper.searchableSelect::after {
+  content: none;
+}
+
 .modalOverlay .modalContent .modalBody .inputGroup .inputHelp {
   font-size: 12px;
   color: #a0aec0;
@@ -736,6 +747,81 @@
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* ===== SEARCHABLE COMBOBOX (Level + Teacher fields) ===== */
+.searchableSelect {
+  position: relative;
+}
+
+.searchableSelect input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #1a202c;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  cursor: text;
+}
+
+.searchableSelect input[type="text"]::placeholder {
+  color: #a0aec0;
+}
+
+.searchableSelect input[type="text"]:focus {
+  border-color: #0d6efd;
+}
+
+.searchableSelect .searchableDropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  max-height: 170px;
+  overflow-y: auto;
+  z-index: 30;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent;
+}
+
+.searchableSelect .searchableDropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.searchableSelect .searchableDropdown::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 20px;
+}
+
+.searchableSelect .searchableOption {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #1a202c;
+  cursor: pointer;
+}
+
+.searchableSelect .searchableOption:hover {
+  background-color: #f8fafc;
+}
+
+.searchableSelect .searchableOption.active {
+  background-color: #eff6ff;
+  color: #0d6efd;
+  font-weight: 500;
+}
+
+.searchableSelect .searchableEmpty {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #a0aec0;
 }
 
 /* Responsive adjustments */
@@ -1095,4 +1181,4 @@
   .tableContainer .filterSection {
     padding: 10px 12px;
   }
-} 
+}

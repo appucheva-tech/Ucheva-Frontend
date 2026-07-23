@@ -393,6 +393,8 @@ const AdminStaff2 = () => {
                   </option>
                   <option value="Class Teacher">Class Teacher</option>
                   <option value="Subject Teacher">Subject Teacher</option>
+                  <option value="Bursary">Bursary</option>
+                  <option value="Security">Security</option>
                 </select>
               </div>
 
