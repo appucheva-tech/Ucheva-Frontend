@@ -1,4 +1,4 @@
-.ParentSidebar_Container {
+.parent-sidebar-container {
   width: 280px;
   height: 100vh;
   background-color: #ffffff;
@@ -14,7 +14,7 @@
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
 }
 
-.sidebar-logo {
+.parent-sidebar-logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,20 +22,21 @@
   width: 100%;
 }
 
-.logo-icon {
+.parent-logo-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 
-.Ucheva {
+.parent-ucheva-logo {
   width: 160px;
   height: auto;
   object-fit: contain;
+  cursor: pointer;
 }
 
-.ParentSidebar-nav {
+.parent-sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -43,7 +44,7 @@
   margin-top: 20px;
 }
 
-.nav-link {
+.parent-nav-link {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -58,18 +59,18 @@
   cursor: pointer;
 }
 
-.nav-link:hover {
+.parent-nav-link:hover {
   background-color: #f1f7ff;
   color: #0d62f6;
 }
 
-.nav-link.active {
+.parent-nav-link.parent-active {
   background-color: #f1f7ff;
   color: #0d62f6;
   border-left-color: #0d62f6;
 }
 
-.nav-icon {
+.parent-nav-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,72 +80,72 @@
   color: inherit;
 }
 
-.nav-text {
+.parent-nav-text {
   font-weight: 600;
   font-size: 16px;
   line-height: 100%;
   color: inherit;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar {
+.parent-sidebar-container::-webkit-scrollbar {
   width: 6px;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar-track {
+.parent-sidebar-container::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.ParentSidebar_Container::-webkit-scrollbar-thumb {
+.parent-sidebar-container::-webkit-scrollbar-thumb {
   background: #e0e0e0;
   border-radius: 3px;
 }
 
 @media (max-width: 1024px) {
-  .ParentSidebar_Container {
+  .parent-sidebar-container {
     width: 260px;
     transform: translateX(-100%);
   }
 
-  .ParentSidebar_Container.mobile-open {
+  .parent-sidebar-container.parent-mobile-open {
     transform: translateX(0);
   }
 
-  .ParentSidebar-nav {
+  .parent-sidebar-nav {
     padding: 0 16px;
   }
 }
 
 @media (max-width: 480px) {
-  .ParentSidebar_Container {
+  .parent-sidebar-container {
     width: 80%;
     max-width: 260px;
   }
 
-  .Ucheva {
+  .parent-ucheva-logo {
     width: 130px;
   }
 
-  .nav-link {
+  .parent-nav-link {
     padding: 12px 14px;
   }
 
-  .nav-text {
+  .parent-nav-text {
     font-size: 15px;
   }
 }
 
 @media (max-width: 380px) {
-  .Ucheva {
+  .parent-ucheva-logo {
     width: 110px;
   }
 
-  .nav-text {
+  .parent-nav-text {
     font-size: 14px;
   }
 }
 
 @media (min-width: 1025px) {
-  .ParentSidebar_Container {
+  .parent-sidebar-container {
     transform: translateX(0) !important;
   }
 }
