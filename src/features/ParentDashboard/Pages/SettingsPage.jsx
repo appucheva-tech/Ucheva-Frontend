@@ -6,6 +6,7 @@ import { LuCamera } from "react-icons/lu";
 import { apiClient } from "../../../config/AxiosInstance";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { setUser } from "../../../global/userSlice";
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const getPasswordStrength = (password) => {
   if (!password) return { label: "", color: "", width: "0%", score: 0 };
@@ -39,6 +40,8 @@ const SettingsPage = () => {
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
@@ -55,34 +58,53 @@ const SettingsPage = () => {
   const strength = getPasswordStrength(passwordData.newPassword);
 
   useEffect(() => {
-    if (!user) return;
+    // Start with loading state
+    setInitialLoading(true);
 
-    // Directly use firstName and lastName from user object
-    const firstName = user.firstName || "";
-    const lastName = user.lastName || "";
-    const phone = user?.phoneNumber || user?.phone || "";
-    const email = user?.email || "";
-    const address = user?.address || "";
+    // Use setTimeout to ensure the loading state renders
+    const timer = setTimeout(() => {
+      if (!user) {
+        setInitialLoading(false);
+        return;
+      }
 
-    console.log("Extracted firstName:", firstName);
-    console.log("Extracted lastName:", lastName);
-    console.log("Extracted phone:", phone);
-    console.log("Extracted email:", email);
-    console.log("Extracted address:", address);
+      try {
+        // Directly use firstName and lastName from user object
+        const firstName = user.firstName || "";
+        const lastName = user.lastName || "";
+        const phone = user?.phoneNumber || user?.phone || "";
+        const email = user?.email || "";
+        const address = user?.address || "";
 
-    // Update profile data state
-    setProfileData({
-      firstName: firstName,
-      lastName: lastName,
-      phone: phone,
-      email: email,
-      address: address,
-    });
+        console.log("Extracted firstName:", firstName);
+        console.log("Extracted lastName:", lastName);
+        console.log("Extracted phone:", phone);
+        console.log("Extracted email:", email);
+        console.log("Extracted address:", address);
 
-    // If there's a profile picture, set it as preview
-    if (user?.profileUrl || user?.profilePicture) {
-      setPreviewUrl(user.profileUrl || user.profilePicture);
-    }
+        // Update profile data state
+        setProfileData({
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          email: email,
+          address: address,
+        });
+
+        // If there's a profile picture, set it as preview
+        if (user?.profileUrl || user?.profilePicture) {
+          setPreviewUrl(user.profileUrl || user.profilePicture);
+        }
+
+        setError(null);
+      } catch (err) {
+        setError("Failed to load profile data.");
+      } finally {
+        setInitialLoading(false);
+      }
+    }, 300); // Small delay to show the spinner
+
+    return () => clearTimeout(timer);
   }, [user]);
 
   const handleInputChange = (e) => {
@@ -118,6 +140,8 @@ const SettingsPage = () => {
   const handleSaveChanges = async () => {
     try {
       setProfileLoading(true);
+      setError(null);
+
       const formData = new FormData();
       formData.append("firstName", profileData.firstName);
       formData.append("lastName", profileData.lastName);
@@ -163,6 +187,7 @@ const SettingsPage = () => {
       console.error("Save error:", err);
       const msg =
         err.response?.data?.message || "Failed to save changes. Try again.";
+      setError(msg);
       toast.error(msg);
     } finally {
       setProfileLoading(false);
@@ -204,6 +229,8 @@ const SettingsPage = () => {
 
     try {
       setPasswordLoading(true);
+      setPasswordError("");
+
       const formData = new FormData();
       formData.append("oldPassword", oldPassword);
       formData.append("newPassword", newPassword);
@@ -229,6 +256,20 @@ const SettingsPage = () => {
     setShowNewPassword(false);
     setShowConfirmPassword(false);
   };
+
+  // Same loading state as DashboardPage
+  if (initialLoading) {
+    return <LoadingScreen />;
+  }
+
+  // Same error state as DashboardPage
+  if (error) {
+    return (
+      <div className="parent-flex-center-view">
+        <p className="parent-error-text">{error}</p>
+      </div>
+    );
+  }
 
   return (
     <div className="parent-settings-container">

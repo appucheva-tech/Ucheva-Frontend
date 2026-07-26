@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/PaymentPage.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { useOutletContext } from "react-router-dom";
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const PaymentPage = () => {
   const [paymentData, setPaymentData] = useState(null);
@@ -72,12 +73,7 @@ const PaymentPage = () => {
       .replace("₦", "N");
   };
 
-  if (loading)
-    return (
-      <div className="parent-payment-page parent-flex-center-view">
-        Loading...
-      </div>
-    );
+  if (loading) return <LoadingScreen />;
   if (error)
     return (
       <div className="parent-payment-page parent-flex-center-view">{error}</div>

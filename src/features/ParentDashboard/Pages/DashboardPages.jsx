@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import "../css/DashboardPages.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { FaUserGraduate } from "react-icons/fa6";
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const DashboardPage = () => {
   const { selectedStudent, parentName } = useOutletContext();
@@ -30,12 +31,7 @@ const DashboardPage = () => {
     fetchDashboardDetails();
   }, [selectedStudent?.id]);
 
-  if (loading)
-    return (
-      <div className="parent-flex-center-view">
-        <div className="parent-loading-spinner-ring"></div>
-      </div>
-    );
+  if (loading) return <LoadingScreen />;
   if (error)
     return (
       <div className="parent-flex-center-view">

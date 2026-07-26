@@ -1,7 +1,6 @@
 .parent-sidebar-container {
   width: 280px;
   height: 100vh;
-  background-color: #ffffff;
   border-right: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
@@ -11,6 +10,8 @@
   overflow-y: auto;
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
+  border-right: 1px solid var(--Side-bar-boarder, #e8edf5);
+  background: #fff;
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
 }
 
@@ -49,14 +50,17 @@
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  color: #666666;
   text-decoration: none;
   border-radius: 8px;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
-  font-size: 15px;
-  font-weight: 500;
   cursor: pointer;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .parent-nav-link:hover {
@@ -81,7 +85,7 @@
 }
 
 .parent-nav-text {
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   line-height: 100%;
   color: inherit;
