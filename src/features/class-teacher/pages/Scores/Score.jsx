@@ -93,7 +93,7 @@ setGroupedSubjects(grouped);
       setLoading(true);
   
       const res = await apiClient.get(
-        `/classteacher/get-students/${subject.classId}`
+        `/classteacher/all-students`
       );
   
       const list = res.data.getStudents || [];
@@ -263,7 +263,7 @@ const handleClassSelectionChange = (subjectName, selectedClassesList) => {
       // Fetch students for each class entry
       for (const entry of entries) {
         const res = await apiClient.get(
-          `/classteacher/get-students/${entry.classId}`
+          `/classteacher/all-students`
         );
         const data = res.data.getStudents;
         

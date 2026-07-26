@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react"; // added useMemo
 import "./AdminSubjects.css";
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -29,14 +29,14 @@ const AdminSubjects = () => {
 
   const [formData, setFormData] = useState({
     subjectName: "",
-    sections: [],
+    classId: [],
     department: "",
     teacherID: "",
   });
 
   const [editFormData, setEditFormData] = useState({
     subjectName: "",
-    sections: [],
+    classId: [],
     department: "",
     teacherID: "",
   });
@@ -46,6 +46,20 @@ const AdminSubjects = () => {
   const [isEditDropdownOpen, setIsEditDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const editDropdownRef = useRef(null);
+
+  // UPDATED: Create a lookup map for class IDs -> class names
+  const classMap = useMemo(() => {
+    const map = {};
+    classes.forEach((c) => {
+      map[c._id] = c.className;
+    });
+    return map;
+  }, [classes]);
+
+  // /staff/all-staffs has been observed to return staff objects keyed by
+  // either `_id` or `id` depending on the endpoint — this keeps the select
+  // working regardless of which one comes back.
+  const getTeacherId = (teacher) => teacher?._id || teacher?.id || "";
 
   const validateTextOnly = (value) => {
     const textOnlyRegex = /^[A-Za-z\s\-']+$/;
@@ -109,8 +123,8 @@ const AdminSubjects = () => {
     }
 
     if (!isEdit) {
-      if (data.sections.length === 0) {
-        errors.sections = "Please select at least one class";
+      if (data.classId.length === 0) {
+        errors.classId = "Please select at least one class";
       }
       if (!data.teacherID) {
         errors.teacherID = "Please select a teacher";
@@ -150,31 +164,32 @@ const AdminSubjects = () => {
     clearValidationError(name, false);
   };
 
-  const handleSectionChange = (className) => {
+  // ── Toggle a class _id in/out of the selected classId array ──────────────
+  const handleSectionChange = (classId) => {
     setFormData((prev) => {
-      const isSelected = prev.sections.includes(className);
-      const newSections = isSelected
-        ? prev.sections.filter((name) => name !== className)
-        : [...prev.sections, className];
+      const isSelected = prev.classId.includes(classId);
+      const newclassId = isSelected
+        ? prev.classId.filter((id) => id !== classId)
+        : [...prev.classId, classId];
       return {
         ...prev,
-        sections: newSections,
+        classId: newclassId,
       };
     });
-    clearValidationError("sections", false);
+    clearValidationError("classId", false);
   };
 
-  const handleEditSectionChange = (className) => {
+  const handleEditSectionChange = (classId) => {
     setEditFormData((prev) => {
-      const isSelected = prev.sections.includes(className);
+      const isSelected = prev.classId.includes(classId);
       return {
         ...prev,
-        sections: isSelected
-          ? prev.sections.filter((name) => name !== className)
-          : [...prev.sections, className],
+        classId: isSelected
+          ? prev.classId.filter((id) => id !== classId)
+          : [...prev.classId, classId],
       };
     });
-    clearValidationError("sections", true);
+    clearValidationError("classId", true);
   };
 
   const handleEditChange = (e) => {
@@ -213,6 +228,7 @@ const AdminSubjects = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // UPDATED: Filter by class ID (not name) to match stored IDs
   useEffect(() => {
     let filtered = subjects;
     if (filterSection !== "all") {
@@ -267,7 +283,6 @@ const AdminSubjects = () => {
       } else {
         subjectData = [];
       }
-
       setSubjects(subjectData);
       setFilteredSubjects(subjectData);
     } catch (error) {
@@ -301,7 +316,7 @@ const AdminSubjects = () => {
       setLoading(true);
       const payload = {
         subjectName: formData.subjectName.trim(),
-        applicableClasses: formData.sections,
+        applicableClasses: formData.classId,
         applicableDepartment: formData.department || "General",
         teacherId: formData.teacherID,
       };
@@ -310,7 +325,7 @@ const AdminSubjects = () => {
       });
       setFormData({
         subjectName: "",
-        sections: [],
+        classId: [],
         department: "",
         teacherID: "",
       });
@@ -348,7 +363,7 @@ const AdminSubjects = () => {
       setLoading(true);
       const payload = {
         subjectName: editFormData.subjectName.trim(),
-        applicableClasses: editFormData.sections,
+        applicableClasses: editFormData.classId,
         applicableDepartment: editFormData.department || "General",
         teacherId: editFormData.teacherID || null,
       };
@@ -388,19 +403,35 @@ const AdminSubjects = () => {
   };
 
   // ── Handle Edit Click ───────────────────────────────────────────
-  const handleEditClick = (subject) => {
-    setSelectedSubjectId(subject.id);
+  const isObjectId = (value) =>
+    typeof value === "string" && /^[a-f\d]{24}$/i.test(value);
 
-    // Map all subject data to form fields
-    const applicableClasses = Array.isArray(subject.applicableClasses)
+  const handleEditClick = (subject) => {
+    setSelectedSubjectId(subject._id);
+
+    // applicableClasses may come back from GET as raw class _ids (what we
+    // now write) or as populated className strings (for display) —
+    // handle both so editing pre-fills the checkboxes correctly either way.
+    let classId = [];
+    const rawClasses = Array.isArray(subject.applicableClasses)
       ? subject.applicableClasses
-      : subject.applicableClasses
+      : typeof subject.applicableClasses === "string"
         ? subject.applicableClasses.split(",").map((c) => c.trim())
         : [];
 
+    if (rawClasses.length > 0) {
+      if (rawClasses.every(isObjectId)) {
+        classId = rawClasses;
+      } else {
+        classId = classes
+          .filter((c) => rawClasses.includes(c.className))
+          .map((c) => c._id);
+      }
+    }
+
     setEditFormData({
       subjectName: subject.subjectName || "",
-      sections: applicableClasses,
+      classId,
       department: subject.applicableDepartment || "",
       teacherID: subject.teacherId || subject.subjectTeacherId || "",
     });
@@ -410,13 +441,18 @@ const AdminSubjects = () => {
   };
 
   const handleDeleteClick = (subject) => {
-    setSelectedSubjectId(subject.id);
+    setSelectedSubjectId(subject._id);
     setShowDeleteModal(true);
   };
 
-  const getSelectedSectionNames = (sectionNames) => {
-    if (!sectionNames || sectionNames.length === 0) return "Select Classes";
-    return sectionNames.join(", ");
+  // ── Map selected class _ids back to className labels for display ──────────
+  const getSelectedSectionNames = (selectedclassId, classesList) => {
+    if (!selectedclassId || selectedclassId.length === 0)
+      return "Select Classes";
+    const names = classesList
+      .filter((c) => selectedclassId.includes(c._id))
+      .map((c) => c.className);
+    return names.length > 0 ? names.join(", ") : "Select Classes";
   };
 
   const DropdownCheckbox = ({
@@ -434,7 +470,7 @@ const AdminSubjects = () => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <span className="selected-text">
-          {getSelectedSectionNames(selectedSections)}
+          {getSelectedSectionNames(selectedSections, classes)}
         </span>
         <FaChevronDown className={`dropdown-icon ${isOpen ? "open" : ""}`} />
       </div>
@@ -442,11 +478,11 @@ const AdminSubjects = () => {
       {isOpen && (
         <div className="dropdown-checkbox-menu">
           {classes.map((item) => (
-            <label key={item.id} className="dropdown-checkbox-item">
+            <label key={item._id} className="dropdown-checkbox-item">
               <input
                 type="checkbox"
-                checked={selectedSections.includes(item.className)}
-                onChange={() => onSectionChange(item.className)}
+                checked={selectedSections.includes(item._id)}
+                onChange={() => onSectionChange(item._id)}
               />
               <span>{item.className}</span>
             </label>
@@ -496,6 +532,7 @@ const AdminSubjects = () => {
             <div className="card-footer trend-up">All subjects</div>
           </div>
 
+          {/* UPDATED: Use classMap to check class names */}
           <div className="metric-card card-staff">
             <div className="card-content">
               <div className="text-section">
@@ -505,9 +542,10 @@ const AdminSubjects = () => {
                     subjects.filter(
                       (s) =>
                         Array.isArray(s.applicableClasses) &&
-                        s.applicableClasses.some((c) =>
-                          c.toLowerCase().includes("senior"),
-                        ),
+                        s.applicableClasses.some((id) => {
+                          const name = classMap[id] || id;
+                          return name.toLowerCase().includes("senior");
+                        }),
                     ).length
                   }
                 </span>
@@ -528,9 +566,10 @@ const AdminSubjects = () => {
                     subjects.filter(
                       (s) =>
                         Array.isArray(s.applicableClasses) &&
-                        s.applicableClasses.some((c) =>
-                          c.toLowerCase().includes("junior"),
-                        ),
+                        s.applicableClasses.some((id) => {
+                          const name = classMap[id] || id;
+                          return name.toLowerCase().includes("junior");
+                        }),
                     ).length
                   }
                 </span>
@@ -551,7 +590,7 @@ const AdminSubjects = () => {
                     new Set(
                       subjects.flatMap((s) =>
                         Array.isArray(s.applicableClasses)
-                          ? s.applicableClasses
+                          ? s.applicableClasses.map((id) => classMap[id] || id)
                           : [],
                       ),
                     ).size
@@ -572,6 +611,7 @@ const AdminSubjects = () => {
           <div className="filterGroup">
             <label className="filterLabel">Filter By Class</label>
             <div className="selectWrapper">
+              {/* UPDATED: Options now use class IDs as values */}
               <select
                 className="selectInput"
                 value={filterSection}
@@ -579,7 +619,7 @@ const AdminSubjects = () => {
               >
                 <option value="all">All Classes</option>
                 {classes.map((item) => (
-                  <option key={item.id} value={item.className}>
+                  <option key={item._id} value={item._id}>
                     {item.className}
                   </option>
                 ))}
@@ -657,14 +697,17 @@ const AdminSubjects = () => {
                 </thead>
                 <tbody>
                   {filteredSubjects.map((subject, index) => (
-                    <tr key={subject.id || index}>
+                    <tr key={subject._id || index}>
                       <td>{index + 1}</td>
                       <td>{subject.subjectName || "N/A"}</td>
                       <td>{subject.applicableDepartment || "General"}</td>
+                      {/* UPDATED: Map class IDs to names using classMap */}
                       <td>
                         {Array.isArray(subject.applicableClasses) &&
                         subject.applicableClasses.length > 0
-                          ? subject.applicableClasses.join(", ")
+                          ? subject.applicableClasses
+                              .map((id) => classMap[id] || id)
+                              .join(", ")
                           : "No classes assigned"}
                       </td>
                       <td>
@@ -792,11 +835,11 @@ const AdminSubjects = () => {
                 <DropdownCheckbox
                   isOpen={isDropdownOpen}
                   setIsOpen={setIsDropdownOpen}
-                  selectedSections={formData.sections}
+                  selectedSections={formData.classId}
                   onSectionChange={handleSectionChange}
                   dropdownRef={dropdownRef}
                   classes={classes}
-                  error={validationErrors.sections}
+                  error={validationErrors.classId}
                 />
                 <small>
                   Select the class level(s) this subject is applicable to.
@@ -837,7 +880,10 @@ const AdminSubjects = () => {
                   <option value="">Select Teacher</option>
                   {Array.isArray(teachers) &&
                     teachers.map((teacher) => (
-                      <option key={teacher.id} value={teacher.id}>
+                      <option
+                        key={getTeacherId(teacher)}
+                        value={getTeacherId(teacher)}
+                      >
                         {teacher.fullName ||
                           teacher.name ||
                           teacher.firstName + " " + teacher.lastName}
@@ -914,11 +960,11 @@ const AdminSubjects = () => {
                 <DropdownCheckbox
                   isOpen={isEditDropdownOpen}
                   setIsOpen={setIsEditDropdownOpen}
-                  selectedSections={editFormData.sections}
+                  selectedSections={editFormData.classId}
                   onSectionChange={handleEditSectionChange}
                   dropdownRef={editDropdownRef}
                   classes={classes}
-                  error={editValidationErrors.sections}
+                  error={editValidationErrors.classId}
                 />
                 <small>
                   Select the class level(s) this subject is applicable to.
@@ -962,7 +1008,10 @@ const AdminSubjects = () => {
                     <option value="">Select Teacher</option>
                     {Array.isArray(teachers) &&
                       teachers.map((teacher) => (
-                        <option key={teacher.id} value={teacher.id}>
+                        <option
+                          key={getTeacherId(teacher)}
+                          value={getTeacherId(teacher)}
+                        >
                           {teacher.fullName ||
                             teacher.name ||
                             teacher.firstName + " " + teacher.lastName}
