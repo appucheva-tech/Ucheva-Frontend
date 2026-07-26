@@ -1,7 +1,7 @@
 .SubjectTeacher-settings-container {
   padding: 40px;
-  background-color: #f5f7fb;
   min-height: 100vh;
+  background: var(--Dashboard-Bg, #f5f7fb);
 }
 
 .SubjectTeacher-settings-header {
@@ -220,22 +220,23 @@
 
 .SubjectTeacher-settings-header h1 {
   margin: 0 0 12px 0;
-  color: #0f172a;
-  font-weight: 700;
-  font-style: Bold;
-  font-size: 32px;
-  line-height: 100%;
   letter-spacing: 0%;
+  color: #0f172a;
+  font-family: Nunito;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
-
 .SubjectTeacher-settings-header p {
   margin: 0;
-  font-weight: 400;
-  font-style: Regular;
-  font-size: 18px;
-  line-height: 100%;
   letter-spacing: 0%;
-  color: #042869;
+  color: var(--Primary-Color-800, #042869);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacher-settings-card {
@@ -420,7 +421,7 @@
 }
 
 .SubjectTeacher-save-btn {
-  background-color: #0062f6;
+  background-color: var(--Primary-Color-500, #0062f6);
   width: 127px;
   height: 54px;
   gap: 8px;

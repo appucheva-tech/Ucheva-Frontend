@@ -25,15 +25,13 @@
   align-items: center;
 }
 
-/* Master container that forces everything to align neatly to the right */
 .SubjectTeacherHeader-header-right-items {
   display: flex;
   align-items: center;
   gap: 32px;
-  margin-left: auto; /* This acts as the anchor pushing items to the far right */
+  margin-left: auto;
 }
 
-/* Internal Section Arrangements */
 .SubjectTeacherHeader-date-wrapper,
 .SubjectTeacherHeader-session-wrapper,
 .SubjectTeacherHeader-profile-combined {
@@ -53,7 +51,6 @@
   gap: 20px;
 }
 
-/* Icons and Text Typography */
 .SubjectTeacherHeader-calendar-icon {
   color: #374151;
   flex-shrink: 0;
@@ -62,10 +59,12 @@
 .SubjectTeacherHeader-date-text,
 .SubjectTeacherHeader-text-session,
 .SubjectTeacherHeader-text-term {
-  font-size: 14px;
-  color: #374151;
-  font-weight: 500;
   white-space: nowrap;
+  color: var(--Primary-Color-900, #03173c);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .SubjectTeacherHeader-notification-btn {
@@ -77,6 +76,8 @@
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease;
+  width: 37px;
+  height: 35px;
 }
 
 .SubjectTeacherHeader-notification-btn:hover {
@@ -84,7 +85,7 @@
 }
 
 .SubjectTeacherHeader-bell-icon {
-  color: #1f2937;
+  color: #372b1f;
   flex-shrink: 0;
 }
 
@@ -92,6 +93,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  cursor: pointer;
 }
 
 .SubjectTeacherHeader-profile-avatar {
@@ -109,6 +111,52 @@
   object-fit: cover;
 }
 
+.SubjectTeacherHeader-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-1 {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-2 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-3 {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-4 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-5 {
+  background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-6 {
+  background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-7 {
+  background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+}
+
+.SubjectTeacherHeader-avatar-placeholder.color-8 {
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
 .SubjectTeacherHeader-profile-info {
   display: flex;
   flex-direction: column;
@@ -116,21 +164,26 @@
 }
 
 .SubjectTeacherHeader-text-profile-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: #1f2937;
   margin: 0;
   white-space: nowrap;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacherHeader-text-profile-role {
-  font-size: 12px;
-  color: #6b7280;
   margin: 0;
   white-space: nowrap;
+  color: var(--Neutral-Color-600, #6c737f);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
-/* Menu Toggle Styling rules */
 .SubjectTeacherHeader-menu-toggle {
   display: none;
   flex-direction: column;
@@ -215,7 +268,9 @@
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  box-shadow:
+    0 10px 25px -5px rgba(0, 0, 0, 0.05),
+    0 8px 10px -6px rgba(0, 0, 0, 0.05);
   min-width: 160px;
   z-index: 1000;
   overflow: hidden;
@@ -261,8 +316,12 @@
 }
 
 @keyframes fadeInOverlay {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .logout-modal {
@@ -277,8 +336,14 @@
 }
 
 @keyframes slideUpModal {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .logout-modal-icon {
@@ -323,7 +388,9 @@
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
   font-family: "Nunito", sans-serif;
 }
 
@@ -342,7 +409,9 @@
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
+  transition:
+    background 0.15s,
+    transform 0.1s;
   font-family: "Nunito", sans-serif;
 }
 
@@ -379,5 +448,7 @@
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

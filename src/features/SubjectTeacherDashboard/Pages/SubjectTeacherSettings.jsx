@@ -1,9 +1,21 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { LuCamera } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../SubjectTeacherDashboardStyles/SubjectTeacherSettings.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import { setUser } from "../../../global/userSlice";
+
+/* ─── Capitalize Helper ──────────────────────────────────────────────── */
+const capitalizeWords = (str) => {
+  if (!str) return "";
+  return str
+    .toLowerCase()
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
 
 /* ─── Password Strength Helper ────────────────────────────────────────── */
 const getPasswordStrength = (password) => {
@@ -106,6 +118,8 @@ const LoadingSkeleton = () => (
 
 /* ─── Main Component ──────────────────────────────────────────────────── */
 const SubjectTeacherSettings = () => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user?.user);
   const [profileData, setProfileData] = useState({
     firstName: "",
     lastName: "",
@@ -154,25 +168,27 @@ const SubjectTeacherSettings = () => {
 
       console.log(response);
       setProfileData({
-        firstName: data?.firstName || "",
-        lastName: data?.lastName || "",
+        firstName: capitalizeWords(data?.firstName || ""),
+        lastName: capitalizeWords(data?.lastName || ""),
         address: data?.address || "",
       });
 
       setReadOnlyData({
-        otherName: data?.otherName || "",
+        otherName: capitalizeWords(data?.otherName || ""),
         email: data?.email || "",
         phoneNumber: data?.phoneNumber || "",
-        gender: data?.gender || "",
+        gender: capitalizeWords(data?.gender || ""),
         dateOfBirth: data?.dateOfBirth || "",
-        nationality: data?.nationality || "",
-        maritalStatus: data?.maritalStatus || "",
-        qualification: data?.qualification || "",
-        staffType: data?.staffType || "",
-        classAssigned: data?.classAssigned || "No class assigned",
+        nationality: capitalizeWords(data?.nationality || ""),
+        maritalStatus: capitalizeWords(data?.maritalStatus || ""),
+        qualification: capitalizeWords(data?.qualification || ""),
+        staffType: capitalizeWords(data?.staffType || ""),
+        classAssigned: Array.isArray(data?.classAssigned)
+          ? data.classAssigned.map(capitalizeWords).join(", ")
+          : capitalizeWords(data?.classAssigned) || "No class assigned",
         subjectAssigned: Array.isArray(data?.subjectAssigned)
-          ? data.subjectAssigned.join(", ")
-          : data?.subjectAssigned || "No subjects assigned",
+          ? data.subjectAssigned.map(capitalizeWords).join(", ")
+          : capitalizeWords(data?.subjectAssigned) || "No subjects assigned",
       });
 
       setPreviewUrl(data?.staffProfileUrl || null);
@@ -231,6 +247,21 @@ const SubjectTeacherSettings = () => {
 
       toast.success("Profile updated successfully!");
       await fetchProfile();
+
+      // Update Redux store with new profile data
+      const response = await apiClient.get("/subjectteacher/getprofiledetails");
+      const updatedData = response?.data?.teacher || response?.data;
+      dispatch(
+        setUser({
+          ...currentUser,
+          firstName: updatedData?.firstName || currentUser?.firstName,
+          lastName: updatedData?.lastName || currentUser?.lastName,
+          address: updatedData?.address || currentUser?.address,
+          profileImage:
+            updatedData?.staffProfileUrl || currentUser?.profileImage,
+        }),
+      );
+
       setAvatar(null);
     } catch (err) {
       console.error(err);

@@ -12,6 +12,7 @@ const ParentLayout = () => {
   const [error, setError] = useState(null);
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
+  const [parentName, setParentName] = useState("");
 
   const fetchStudentData = async () => {
     try {
@@ -19,8 +20,10 @@ const ParentLayout = () => {
       setError(null);
       const response = await apiClient.get("parent/students");
       const data = response.data.studentsData || [];
+      const parentNameFromResponse = response.data.parentName || "";
 
       setStudents(data);
+      setParentName(parentNameFromResponse);
       if (data.length > 0) setSelectedStudent(data[0]);
     } catch (err) {
       console.error(err);
@@ -47,10 +50,18 @@ const ParentLayout = () => {
           students={students}
           selectedStudent={selectedStudent}
           setSelectedStudent={setSelectedStudent}
+          parentName={parentName}
         />
 
         <main className="parent-page-content">
-          <Outlet context={{ students, selectedStudent, setSelectedStudent }} />
+          <Outlet
+            context={{
+              students,
+              selectedStudent,
+              setSelectedStudent,
+              parentName,
+            }}
+          />
         </main>
 
         <Footer />

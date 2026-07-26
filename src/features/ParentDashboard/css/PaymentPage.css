@@ -1,14 +1,14 @@
-.payment-page {
+.parent-payment-page {
   min-height: 100vh;
   background-color: #f5f7fb;
   padding: 32px 24px;
 }
 
-.payment-header {
+.parent-payment-header {
   margin-bottom: 40px;
 }
 
-.payment-header h1 {
+.parent-payment-header h1 {
   color: #0f172a;
   margin: 0 0 8px 0;
   font-family: Nunito;
@@ -19,7 +19,7 @@
   letter-spacing: 0%;
 }
 
-.payment-header p {
+.parent-payment-header p {
   font-family: Nunito;
   font-weight: 400;
   font-style: Regular;
@@ -30,7 +30,21 @@
   margin: 0;
 }
 
-.payment-container {
+.parent-payment-status {
+  margin-top: 8px;
+}
+
+.parent-status-paid {
+  color: #009966;
+  font-weight: 600;
+}
+
+.parent-status-unpaid {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.parent-payment-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
@@ -38,20 +52,20 @@
   margin: 0 auto;
 }
 
-.payment-left {
+.parent-payment-left {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-.payment-section {
+.parent-payment-section {
   background-color: white;
   border-radius: 12px;
   padding: 28px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.section-header h2 {
+.parent-section-header h2 {
   color: #03173c;
   margin: 0 0 8px 0;
   font-family: Nunito;
@@ -62,7 +76,7 @@
   letter-spacing: 0%;
 }
 
-.section-header p {
+.parent-section-header p {
   color: #9da4ae;
   margin: 0;
   font-family: Nunito;
@@ -73,14 +87,14 @@
   letter-spacing: 0%;
 }
 
-.fee-list {
+.parent-fee-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
   margin-top: 20px;
 }
 
-.fee-item {
+.parent-fee-item {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -91,11 +105,11 @@
   transition: all 0.2s ease;
 }
 
-.fee-item:hover {
+.parent-fee-item:hover {
   background-color: #f9fafb;
 }
 
-.fee-checkbox {
+.parent-fee-checkbox {
   width: 20px;
   height: 20px;
   cursor: pointer;
@@ -103,11 +117,11 @@
   flex-shrink: 0;
 }
 
-.fee-content {
+.parent-fee-content {
   flex: 1;
 }
 
-.fee-name {
+.parent-fee-name {
   color: #03173c;
   margin-bottom: 4px;
   font-family: Nunito;
@@ -118,7 +132,7 @@
   letter-spacing: 0%;
 }
 
-.fee-term {
+.parent-fee-term {
   color: #9da4ae;
   font-family: Nunito;
   font-weight: 400;
@@ -128,7 +142,7 @@
   letter-spacing: 0%;
 }
 
-.fee-amount {
+.parent-fee-amount {
   font-family: Nunito;
   font-weight: 600;
   font-style: SemiBold;
@@ -139,14 +153,14 @@
   white-space: nowrap;
 }
 
-.payment-type-list {
+.parent-payment-type-list {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-top: 20px;
 }
 
-.payment-type-option {
+.parent-payment-type-option {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -158,16 +172,16 @@
   background-color: white;
 }
 
-.payment-type-option:hover {
+.parent-payment-type-option:hover {
   border-color: #0062f6;
 }
 
-.payment-type-option.active {
+.parent-payment-type-option.parent-active {
   border-color: #0062f6;
   background-color: #f0f4ff;
 }
 
-.payment-radio {
+.parent-payment-radio {
   width: 18px;
   height: 18px;
   cursor: pointer;
@@ -176,11 +190,11 @@
   flex-shrink: 0;
 }
 
-.payment-type-content {
+.parent-payment-type-content {
   flex: 1;
 }
 
-.payment-type-label {
+.parent-payment-type-label {
   margin-bottom: 4px;
   font-family: Nunito;
   font-weight: 600;
@@ -191,7 +205,7 @@
   color: #03173c;
 }
 
-.payment-type-description {
+.parent-payment-type-description {
   color: #9da4ae;
   font-family: Nunito;
   font-weight: 400;
@@ -201,12 +215,12 @@
   letter-spacing: 0%;
 }
 
-.payment-right {
+.parent-payment-right {
   display: flex;
   flex-direction: column;
 }
 
-.order-summary {
+.parent-order-summary {
   background-color: white;
   border-radius: 12px;
   padding: 28px;
@@ -215,7 +229,7 @@
   flex-direction: column;
 }
 
-.summary-header h2 {
+.parent-summary-header h2 {
   color: #03173c;
   margin: 0 0 8px 0;
   font-family: Nunito;
@@ -226,7 +240,7 @@
   letter-spacing: 0%;
 }
 
-.summary-header p {
+.parent-summary-header p {
   color: #9da4ae;
   margin: 0;
   font-family: Nunito;
@@ -237,39 +251,71 @@
   letter-spacing: 0%;
 }
 
-.summary-content {
+.parent-payment-preview-box {
+  background: linear-gradient(135deg, #f0f4ff 0%, #e8edf5 100%);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  margin: 16px 0;
+}
+
+.parent-preview-label {
+  color: #042869;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+}
+
+.parent-preview-amount {
+  color: #03173c;
+  font-family: Nunito;
+  font-weight: 700;
+  font-style: Bold;
+  font-size: 32px;
+  line-height: 100%;
+  letter-spacing: 0%;
+  margin: 8px 0;
+}
+
+.parent-preview-subtext {
+  color: #9da4ae;
+  font-size: 13px;
+  margin: 0;
+}
+
+.parent-summary-content {
   margin-top: 20px;
 }
 
-.summary-items {
+.parent-summary-items {
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-.summary-item {
+.parent-summary-item {
   display: flex;
   justify-content: space-between;
   font-size: 14px;
   color: #001a40;
 }
 
-.summary-item span:first-child {
+.parent-summary-item span:first-child {
   font-weight: 500;
 }
 
-.summary-item span:last-child {
+.parent-summary-item span:last-child {
   font-weight: 600;
 }
 
-.summary-divider {
+.parent-summary-divider {
   height: 1px;
   background-color: #e5e7eb;
   margin: 16px 0;
 }
 
-.summary-row {
+.parent-summary-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -277,23 +323,23 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.summary-row:last-of-type {
+.parent-summary-row:last-of-type {
   border-bottom: none;
 }
 
-.summary-label {
+.parent-summary-label {
   font-size: 14px;
   color: #666;
   font-weight: 500;
 }
 
-.summary-value {
+.parent-summary-value {
   font-size: 14px;
   color: #001a40;
   font-weight: 600;
 }
 
-.proceed-button {
+.parent-proceed-button {
   width: 100%;
   padding: 14px 24px;
   background-color: #0062f6;
@@ -307,16 +353,16 @@
   transition: all 0.2s ease;
 }
 
-.proceed-button:hover {
+.parent-proceed-button:hover {
   background-color: #0041a3;
   box-shadow: 0 4px 12px rgba(0, 82, 204, 0.2);
 }
 
-.proceed-button:active {
+.parent-proceed-button:active {
   background-color: #003d96;
 }
 
-.no-selection {
+.parent-no-selection {
   text-align: center;
   padding: 40px 24px;
   color: #999;
@@ -324,31 +370,31 @@
 }
 
 @media (max-width: 1024px) {
-  .payment-container {
+  .parent-payment-container {
     grid-template-columns: 1fr;
     gap: 24px;
   }
 }
 
 @media (max-width: 640px) {
-  .payment-page {
+  .parent-payment-page {
     padding: 24px 16px;
   }
 
-  .payment-header h1 {
+  .parent-payment-header h1 {
     font-size: 28px;
   }
 
-  .payment-section,
-  .order-summary {
+  .parent-payment-section,
+  .parent-order-summary {
     padding: 20px;
   }
 
-  .fee-item {
+  .parent-fee-item {
     flex-wrap: wrap;
   }
 
-  .fee-amount {
+  .parent-fee-amount {
     width: 100%;
     text-align: right;
     margin-top: 8px;

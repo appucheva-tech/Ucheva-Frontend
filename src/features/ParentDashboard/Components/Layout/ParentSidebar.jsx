@@ -8,26 +8,30 @@ const ParentSidebar = ({ isOpen, onClose }) => {
   const nav = useNavigate();
   return (
     <>
-      <div className={`ParentSidebar_Container ${isOpen ? "mobile-open" : ""}`}>
-        <div className="ParentSidebar-logo">
-          <div className="ParentLogo-icon">
+      <div
+        className={`parent-sidebar-container ${isOpen ? "parent-mobile-open" : ""}`}
+      >
+        <div className="parent-sidebar-logo">
+          <div className="parent-logo-icon">
             <img
               src="https://i.postimg.cc/zDtBJb6C/logo-cont.png"
               alt="Ucheva Logo"
-              className="ParentUcheva"
+              className="parent-ucheva-logo"
               onClick={() => nav("/")}
             />
           </div>
         </div>
 
-        <nav className="ParentSidebar-nav">
+        <nav className="parent-sidebar-nav">
           <NavLink
             to="/parentdashboard"
             end
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            className={({ isActive }) =>
+              `parent-nav-link ${isActive ? "parent-active" : ""}`
+            }
             onClick={onClose}
           >
-            <span className="ParentNav-icon">
+            <span className="parent-nav-icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="17"
@@ -41,29 +45,33 @@ const ParentSidebar = ({ isOpen, onClose }) => {
                 />
               </svg>
             </span>
-            <span className="ParentNav-text">Dashboard</span>
+            <span className="parent-nav-text">Dashboard</span>
           </NavLink>
 
           <NavLink
             to="/parentdashboard/payment"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            className={({ isActive }) =>
+              `parent-nav-link ${isActive ? "parent-active" : ""}`
+            }
             onClick={onClose}
           >
-            <span className="ParentNav-icon">
+            <span className="parent-nav-icon">
               <IoWalletOutline size={20} />
             </span>
-            <span className="ParentNav-text">Payment</span>
+            <span className="parent-nav-text">Payment</span>
           </NavLink>
 
           <NavLink
             to="/parentdashboard/settings"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            className={({ isActive }) =>
+              `parent-nav-link ${isActive ? "parent-active" : ""}`
+            }
             onClick={onClose}
           >
-            <span className="ParentNav-icon">
+            <span className="parent-nav-icon">
               <FiSettings size={20} />
             </span>
-            <span className="ParentNav-text">Settings</span>
+            <span className="parent-nav-text">Settings</span>
           </NavLink>
         </nav>
       </div>

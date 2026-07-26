@@ -1,8 +1,8 @@
 .SubjectTeacherDashboard-dashboard-container {
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 40px 20px;
-  background-color: #f5f5f5;
+  background: var(--Dashboard-Bg, #f5f7fb);
   min-height: 100vh;
   font-family: "Nunito", sans-serif;
 }
@@ -11,51 +11,69 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .SubjectTeacherDashboard-header-greeting h1 {
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
   font-size: 32px;
+  font-style: normal;
   font-weight: 700;
-  color: #1a1a1a;
-  margin: 0 0 8px 0;
+  line-height: normal;
+  margin: 0 0 6px 0;
 }
 
 .SubjectTeacherDashboard-header-greeting p {
-  font-size: 16px;
-  color: #2c5aa0;
+  color: var(--Primary-Color-800, #042869);
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   margin: 0;
-  font-weight: 500;
 }
 
-/* Stats Cards */
 .SubjectTeacherDashboard-stats-cards-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
-  margin-bottom: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 30px;
 }
 
 .SubjectTeacherDashboard-stat-card {
   display: flex;
   align-items: center;
-  gap: 20px;
-  padding: 24px;
+  gap: 14px;
+  padding: 18px 20px;
   background-color: white;
-  border-radius: 12px;
+  border-radius: 10px;
   border-left: 4px solid #ddd;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .SubjectTeacherDashboard-stat-card:first-child {
-  border-left-color: #0066cc;
+  border-radius: 10px;
+  border-left: 2px solid #0062f6;
+}
+.SubjectTeacherDashboard-stat-card:nth-child(2) {
+  border-radius: 10px;
+  border-left: 2px solid #8b5cf6;
+}
+.SubjectTeacherDashboard-stat-card:nth-child(3) {
+  border-radius: 10px;
+  border-left: 2px solid #f59e0b;
+}
+.SubjectTeacherDashboard-stat-card:nth-child(4) {
+  border-radius: 10px;
+  border-left: 2px solid var(--Alert-Colors-Success, #43b75d);
 }
 
 .SubjectTeacherDashboard-stat-icon {
   flex-shrink: 0;
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -63,131 +81,278 @@
 }
 
 .SubjectTeacherDashboard-stat-icon.SubjectTeacherDashboard-blue-icon {
-  background-color: #0066cc;
+  border-radius: 20px;
+  background: #eaf2ff;
 }
 
 .SubjectTeacherDashboard-stat-icon.SubjectTeacherDashboard-purple-icon {
-  background-color: #a855f7;
+  border-radius: 20px;
+  background: #f3e8ff;
 }
 
 .SubjectTeacherDashboard-stat-icon.SubjectTeacherDashboard-yellow-icon {
-  background-color: #f59e0b;
+  border-radius: 20px;
+  background: #fef3c7;
 }
 
 .SubjectTeacherDashboard-stat-icon.SubjectTeacherDashboard-green-icon {
-  background-color: #10b981;
+  border-radius: 20px;
+  background: var(--Alert-Colors-Success-light, #dcfce7);
 }
 
 .SubjectTeacherDashboard-stat-content {
   flex: 1;
+  min-width: 0;
 }
 
 .SubjectTeacherDashboard-stat-label {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 8px 0;
-  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacherDashboard-stat-value {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1a1a1a;
   margin: 0;
+  color: var(--Primary-Color-900, #03173c);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
 .SubjectTeacherDashboard-stat-value.SubjectTeacherDashboard-checked-in {
   color: #10b981;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
+}
+
+.SubjectTeacherDashboard-stat-value.SubjectTeacherDashboard-absent {
+  border-radius: 12px;
+  width: 100px;
+  padding: 3px 6px;
+  background-color: var(--Alert-Colors-Success-light, #eafdf1);
+  color: var(--Alert-Colors-Success, #096);
+  font-family: Nunito;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 /* Main Content */
 .SubjectTeacherDashboard-main-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 20px;
 }
 
 /* Checked In Card */
 .SubjectTeacherDashboard-checked-in-card {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 12px;
-  padding: 40px 24px;
+  width: 582px;
+  min-width: 0;
+  padding: 32px 20px;
   text-align: center;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .SubjectTeacherDashboard-qr-icon {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   color: #0066cc;
+  border-radius: 8px;
+  background: var(--Primary-Color-Lightest, #f1f7ff);
+  display: flex;
+  width: 80px;
+  height: 80px;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.SubjectTeacherDashboard-qr-icon svg {
+  width: 40px;
+  height: 40px;
 }
 
 .SubjectTeacherDashboard-checked-in-card h2 {
+  margin: 0 0 8px 0;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
   font-size: 24px;
+  font-style: normal;
   font-weight: 600;
-  color: #1a1a1a;
-  margin: 0 0 12px 0;
+  line-height: normal;
 }
 
 .SubjectTeacherDashboard-check-in-time {
+  margin: 0 0 12px 0;
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.SubjectTeacherDashboard-check-in-description1 {
+  color: var(--Primary-Color-800, #042869);
+  text-align: center;
+  font-family: Nunito;
   font-size: 14px;
-  color: #666;
-  margin: 0 0 16px 0;
-  font-weight: 500;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 .SubjectTeacherDashboard-check-in-description {
-  font-size: 14px;
-  color: #999;
-  margin: 0 0 28px 0;
-  line-height: 1.5;
+  color: var(--Neutral-Color-600, #6c737f);
+  text-align: center;
+  font-family: Nunito;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacherDashboard-check-out-btn {
   width: 100%;
-  padding: 14px 24px;
-  background-color: #0066cc;
+  padding: 12px 20px;
+  border-radius: 14px;
+  background: var(--Primary-Color-500, #0062f6);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 98, 246, 0.2),
+    0 4px 6px -4px rgba(0, 98, 246, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.SubjectTeacherDashboard-check-out-btn:hover {
+  background-color: var(--Primary-Color-700, #0457aa);
+}
+
+.qr-scanner-wrapper {
+  margin: 16px 0;
+}
+
+.scanner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.qr-scan-close {
+  padding: 8px 20px;
+  background-color: #ef4444;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 6px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
 
-.SubjectTeacherDashboard-check-out-btn:hover {
-  background-color: #0052a3;
+.qr-scan-close:hover {
+  background-color: #dc2626;
+}
+
+.checked-in-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  background-color: #f0fdf4;
+  border-radius: 8px;
+  color: #16a34a;
+  font-weight: 600;
+}
+
+.checkin-time-display {
+  margin-top: 12px;
+  padding: 10px;
+  background-color: #f0f9ff;
+  border-radius: 8px;
+  color: #0066cc;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Student Summary */
+.SubjectTeacherDashboard-student-summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #f0f0f0;
+}
+
+.SubjectTeacherDashboard-summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.SubjectTeacherDashboard-summary-label {
+  font-size: 12px;
+  color: #999;
+  font-weight: 500;
+}
+
+.SubjectTeacherDashboard-summary-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a1a1a;
 }
 
 /* Announcements Card */
 .SubjectTeacherDashboard-announcements-card {
   background-color: white;
+  width: 467px;
   border-radius: 12px;
-  padding: 24px;
+  padding: 24px 20px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .SubjectTeacherDashboard-announcements-card h2 {
-  font-size: 20px;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 22px;
+  font-style: normal;
   font-weight: 600;
-  color: #1a1a1a;
-  margin: 0 0 24px 0;
+  line-height: normal;
+  margin: 0 0 20px 0;
 }
 
 .SubjectTeacherDashboard-announcements-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .SubjectTeacherDashboard-announcement-item {
   display: flex;
   gap: 12px;
-  padding-bottom: 16px;
+  padding-bottom: 14px;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -198,102 +363,399 @@
 
 .SubjectTeacherDashboard-announcement-left-border {
   flex-shrink: 0;
-  width: 4px;
+  width: 3px;
   height: auto;
-  background-color: #0066cc;
-  border-radius: 2px;
-  min-height: 60px;
+  border-radius: 3px;
+  background: var(--Primary-Color-500, #0062f6);
+  min-height: 50px;
 }
 
 .SubjectTeacherDashboard-announcement-content {
   flex: 1;
+  min-width: 0;
 }
 
 .SubjectTeacherDashboard-announcement-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
+  gap: 8px;
 }
 
 .SubjectTeacherDashboard-announcement-header h3 {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a1a1a;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   margin: 0;
 }
 
 .SubjectTeacherDashboard-announcement-date {
+  color: var(--Neutral-Color-500, #9da4ae);
+  font-family: Nunito;
   font-size: 12px;
-  color: #999;
+  font-style: normal;
   font-weight: 500;
+  line-height: normal;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .SubjectTeacherDashboard-announcement-content p {
-  font-size: 13px;
-  color: #666;
+  color: var(--Primary-Color-800, #042869);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
   margin: 0;
-  line-height: 1.5;
 }
 
-/* Responsive */
+.SubjectTeacherDashboard-no-announcements {
+  text-align: center;
+  color: var(--Neutral-Color-500, #9da4ae);
+  font-size: 14px;
+  padding: 20px 0;
+}
+
+/* ============================================================ */
+/* ============== MOBILE RESPONSIVENESS ============== */
+/* ============================================================ */
+
+/* Tablets and smaller laptops */
 @media (max-width: 1024px) {
-  .SubjectTeacherDashboard-main-content {
-    grid-template-columns: 1fr;
+  .SubjectTeacherDashboard-checked-in-card {
+    width: 100%;
   }
 
-  .SubjectTeacherDashboard-stats-cards-container {
-    grid-template-columns: repeat(2, 1fr);
+  .SubjectTeacherDashboard-announcements-card {
+    width: 100%;
   }
 }
 
+/* Mobile devices */
 @media (max-width: 768px) {
   .SubjectTeacherDashboard-dashboard-container {
-    padding: 24px 16px;
+    padding: 20px 16px;
   }
 
   .SubjectTeacherDashboard-dashboard-header {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    gap: 16px;
+    margin-bottom: 20px;
   }
 
   .SubjectTeacherDashboard-header-greeting h1 {
     font-size: 24px;
   }
 
+  .SubjectTeacherDashboard-header-greeting p {
+    font-size: 15px;
+  }
+
   .SubjectTeacherDashboard-stats-cards-container {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
   }
 
   .SubjectTeacherDashboard-stat-card {
-    padding: 20px;
-    gap: 16px;
+    padding: 14px 16px;
+    gap: 10px;
   }
 
   .SubjectTeacherDashboard-stat-icon {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .SubjectTeacherDashboard-stat-label {
+    font-size: 13px;
   }
 
   .SubjectTeacherDashboard-stat-value {
     font-size: 20px;
   }
 
+  .SubjectTeacherDashboard-main-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .SubjectTeacherDashboard-checked-in-card {
-    padding: 30px 20px;
+    width: 100%;
+    padding: 24px 16px;
   }
 
   .SubjectTeacherDashboard-checked-in-card h2 {
     font-size: 20px;
   }
 
+  .SubjectTeacherDashboard-check-in-time {
+    font-size: 16px;
+  }
+
+  .SubjectTeacherDashboard-check-in-description {
+    font-size: 15px;
+  }
+
+  .SubjectTeacherDashboard-check-in-description1 {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-check-out-btn {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  .SubjectTeacherDashboard-announcements-card {
+    width: 100%;
+    padding: 20px 16px;
+  }
+
   .SubjectTeacherDashboard-announcements-card h2 {
+    font-size: 19px;
+  }
+
+  .SubjectTeacherDashboard-announcement-header h3 {
+    font-size: 14px;
+  }
+
+  .SubjectTeacherDashboard-announcement-content p {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-announcement-date {
+    font-size: 11px;
+  }
+
+  .SubjectTeacherDashboard-student-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .SubjectTeacherDashboard-summary-value {
+    font-size: 16px;
+  }
+
+  .SubjectTeacherDashboard-qr-icon {
+    width: 64px;
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .SubjectTeacherDashboard-qr-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .SubjectTeacherDashboard-dashboard-container {
+    padding: 16px 12px;
+  }
+
+  .SubjectTeacherDashboard-header-greeting h1 {
+    font-size: 20px;
+  }
+
+  .SubjectTeacherDashboard-header-greeting p {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-stats-cards-container {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .SubjectTeacherDashboard-stat-card {
+    padding: 12px 14px;
+    gap: 8px;
+  }
+
+  .SubjectTeacherDashboard-stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .SubjectTeacherDashboard-stat-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .SubjectTeacherDashboard-stat-label {
+    font-size: 12px;
+  }
+
+  .SubjectTeacherDashboard-stat-value {
     font-size: 18px;
   }
 
+  .SubjectTeacherDashboard-stat-value.SubjectTeacherDashboard-absent {
+    width: 80px;
+    font-size: 12px;
+    padding: 2px 4px;
+  }
+
+  .SubjectTeacherDashboard-checked-in-card {
+    padding: 20px 14px;
+  }
+
+  .SubjectTeacherDashboard-checked-in-card h2 {
+    font-size: 18px;
+  }
+
+  .SubjectTeacherDashboard-check-in-time {
+    font-size: 14px;
+  }
+
+  .SubjectTeacherDashboard-check-in-description {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-check-in-description1 {
+    font-size: 12px;
+  }
+
+  .SubjectTeacherDashboard-check-out-btn {
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 10px;
+  }
+
+  .SubjectTeacherDashboard-announcements-card {
+    padding: 16px 14px;
+  }
+
+  .SubjectTeacherDashboard-announcements-card h2 {
+    font-size: 17px;
+    margin-bottom: 14px;
+  }
+
+  .SubjectTeacherDashboard-announcement-item {
+    gap: 10px;
+    padding-bottom: 10px;
+  }
+
+  .SubjectTeacherDashboard-announcement-header h3 {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-announcement-content p {
+    font-size: 12px;
+  }
+
+  .SubjectTeacherDashboard-announcement-date {
+    font-size: 10px;
+  }
+
   .SubjectTeacherDashboard-announcement-left-border {
-    min-height: 50px;
+    min-height: 40px;
+  }
+
+  .SubjectTeacherDashboard-student-summary {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+  }
+
+  .SubjectTeacherDashboard-summary-label {
+    font-size: 10px;
+  }
+
+  .SubjectTeacherDashboard-summary-value {
+    font-size: 14px;
+  }
+
+  .SubjectTeacherDashboard-qr-icon {
+    width: 56px;
+    height: 56px;
+    padding: 0 12px;
+  }
+
+  .SubjectTeacherDashboard-qr-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .qr-scan-close {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .checked-in-status {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .checkin-time-display {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .SubjectTeacherDashboard-no-announcements {
+    font-size: 12px;
+    padding: 16px 0;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .SubjectTeacherDashboard-dashboard-container {
+    padding: 12px 8px;
+  }
+
+  .SubjectTeacherDashboard-stats-cards-container {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .SubjectTeacherDashboard-stat-card {
+    padding: 10px 12px;
+  }
+
+  .SubjectTeacherDashboard-header-greeting h1 {
+    font-size: 18px;
+  }
+
+  .SubjectTeacherDashboard-header-greeting p {
+    font-size: 12px;
+  }
+
+  .SubjectTeacherDashboard-checked-in-card {
+    padding: 16px 12px;
+  }
+
+  .SubjectTeacherDashboard-checked-in-card h2 {
+    font-size: 16px;
+  }
+
+  .SubjectTeacherDashboard-check-in-time {
+    font-size: 13px;
+  }
+
+  .SubjectTeacherDashboard-check-out-btn {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .SubjectTeacherDashboard-announcements-card {
+    padding: 14px 12px;
+  }
+
+  .SubjectTeacherDashboard-announcements-card h2 {
+    font-size: 15px;
+  }
+
+  .SubjectTeacherDashboard-student-summary {
+    gap: 6px;
+  }
+
+  .SubjectTeacherDashboard-summary-value {
+    font-size: 13px;
   }
 }
