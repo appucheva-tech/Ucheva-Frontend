@@ -179,23 +179,23 @@ const VerifyEmail = () => {
   };
 
   return (
-    <div className="verify-page-viewport">
+    <div className="Verify-page-viewport">
       {/* Form Content Area Container */}
-      <div className="verify-form-container">
-        <div className="verify-card-box">
-          <div className="main-app-logo">
+      <div className="Verify-form-container">
+        <div className="Verify-card-box">
+          <div className="Verify-main-app-logo">
             <img src={logo} alt="Company Logo" />
           </div>
 
-          <h1 className="verify-title">Verify Your Email</h1>
+          <h1 className="Verify-title">Verify Your Email</h1>
 
-          <p className="verify-subtext">
+          <p className="Verify-subtext">
             We've sent an OTP code to your email <br />
-            <span className="user-email-highlight">{userEmail}</span>
+            <span className="Verify-user-email-highlight">{userEmail}</span>
           </p>
 
-          <form onSubmit={handleVerifySubmit} className="verify-form-element">
-            <div className="otp-inputs-row">
+          <form onSubmit={handleVerifySubmit} className="Verify-form-element">
+            <div className="Verify-otp-inputs-row">
               {otp.map((digit, index) => (
                 <input
                   key={index}
@@ -203,7 +203,7 @@ const VerifyEmail = () => {
                   maxLength="1"
                   pattern="[0-9]*"
                   inputMode="numeric"
-                  className={`otp-digit-field ${error ? "otp-field-error" : ""}`}
+                  className={`Verify-otp-digit-field ${error ? "Verify-otp-field-error" : ""}`}
                   value={digit}
                   ref={(el) => (inputRefs.current[index] = el)}
                   onChange={(e) => handleInputChange(e.target, index)}
@@ -214,20 +214,20 @@ const VerifyEmail = () => {
               ))}
             </div>
 
-            <p className="countdown-timer-text">
+            <p className="Verify-countdown-timer-text">
               {loading ? (
-                <span className="processing-text">Processing request...</span>
+                <span className="Verify-processing-text">Processing request...</span>
               ) : timeLeft > 0 ? (
                 <>
                   Code will expire in{" "}
-                  <span className="timer-countdown">
+                  <span className="Verify-timer-countdown">
                     {Math.floor(timeLeft / 60)}:
                     {(timeLeft % 60).toString().padStart(2, "0")}s
                   </span>
                 </>
               ) : (
                 <span
-                  className="resend-action-trigger"
+                  className="Verify-resend-action-trigger"
                   onClick={handleResendCode}
                 >
                   Resend Code
@@ -237,12 +237,12 @@ const VerifyEmail = () => {
 
             {/* In-Card Dynamic Notification Banners positioned above button */}
             {error && (
-              <div className="verify-inline-banner banner-error">
-                <span className="banner-icon">⚠️</span>
-                <p className="banner-text">{error}</p>
+              <div className="Verify-inline-banner Verify-banner-error">
+                <span className="Verify-banner-icon">⚠️</span>
+                <p className="Verify-banner-text">{error}</p>
                 <button
                   type="button"
-                  className="banner-close-btn"
+                  className="Verify-banner-close-btn"
                   onClick={() => setError("")}
                 >
                   &times;
@@ -251,12 +251,12 @@ const VerifyEmail = () => {
             )}
 
             {serverSuccess && (
-              <div className="verify-inline-banner banner-success">
-                <span className="banner-icon">🎉</span>
-                <p className="banner-text">{serverSuccess}</p>
+              <div className="Verify-inline-banner Verify-banner-success">
+                <span className="Verify-banner-icon">🎉</span>
+                <p className="Verify-banner-text">{serverSuccess}</p>
                 <button
                   type="button"
-                  className="banner-close-btn"
+                  className="Verify-banner-close-btn"
                   onClick={() => setServerSuccess("")}
                 >
                   &times;
@@ -266,17 +266,17 @@ const VerifyEmail = () => {
 
             <button
               type="submit"
-              className="verify-submit-button"
+              className="Verify-submit-button"
               disabled={loading || otp.includes("")}
             >
               {loading ? "Verifying..." : "Verify"}
             </button>
           </form>
 
-          <p className="verify-footer-nav">
+          <p className="Verify-footer-nav">
             Already have an account?{" "}
             <span
-              className="login-link-span"
+              className="Verify-login-link-span"
               onClick={() => navigate("/login")}
             >
               Log in

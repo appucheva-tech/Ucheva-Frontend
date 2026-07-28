@@ -7,7 +7,7 @@ const AuthLayout = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  // Define content based on the path
+  // Define content based on the path - ONLY login and signup have content
   const getContent = () => {
     switch (pathname) {
       case "/signup":
@@ -18,22 +18,20 @@ const AuthLayout = () => {
       case "/login":
         return {
           title: "Welcome back!",
-          desc: "Log in to access your school portal and continue managing your institution.",
-        };
-      case "/forgot-password":
-        return {
-          title: "Reset your password",
-          desc: "Enter your registered email address to receive instructions on how to reset your password.",
+          desc: "Log in to access your school workspace and continue where you left off.",
         };
       default:
         return {
-          title: "Manage your school with ease",
-          desc: "Experience a seamless management system designed for modern institutions.",
+          title: "",
+          desc: "",
         };
     }
   };
 
   const content = getContent();
+
+  // Check if content should be shown (only for login and signup)
+  const showContent = pathname === "/login" || pathname === "/signup";
 
   return (
     <div className="auth-container">
@@ -44,8 +42,12 @@ const AuthLayout = () => {
           </div>
 
           <div className="sidebar-content">
-            <h1>{content.title}</h1>
-            <p>{content.desc}</p>
+            {showContent && (
+              <>
+                <h1>{content.title}</h1>
+                <p>{content.desc}</p>
+              </>
+            )}
           </div>
 
           <div className="sidebar-bg-image"></div>
@@ -55,6 +57,7 @@ const AuthLayout = () => {
       <main className="auth-content">
         <div className="form-wrapper">
           <Outlet />
+          <div className="Edu-form"></div>
         </div>
       </main>
     </div>

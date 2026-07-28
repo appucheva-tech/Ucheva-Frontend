@@ -9,7 +9,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState("");
-  const [serverSuccess, setServerSuccess] = useState(""); // New state for success message banner
+  const [serverSuccess, setServerSuccess] = useState("");
   const [values, setValues] = useState({
     schoolName: "",
     schoolUrl: "",
@@ -36,7 +36,6 @@ const Signup = () => {
       .replace(/-+/g, "-")
       .replace(/^-|-$/g, "");
 
-  // Universal input change event listener
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const fieldValue = type === "checkbox" ? checked : value;
@@ -128,7 +127,7 @@ const Signup = () => {
 
     return newErrors;
   };
-  console.log(values);
+
   const handleSubmit = async (e) => {
     localStorage.setItem("schoolUrl", values.schoolUrl);
     e.preventDefault();
@@ -155,7 +154,6 @@ const Signup = () => {
       setLoading(true);
       const response = await apiClient.post("/admin/register", payload);
       if (response.data) {
-        // Show success banner layout
         setServerSuccess(response.data.message || "Registration successful!");
 
         const { verifyRedirectUrl, verifyRedirectLocalUrl } = response?.data;
@@ -174,7 +172,6 @@ const Signup = () => {
           urlObj.searchParams.append("email", values.email);
           console.log("Redirecting to:", urlObj.toString());
 
-          // Wait 2 seconds so the user can read your beautiful success banner before navigation
           setTimeout(() => {
             window.location.href = urlObj.toString();
           }, 2000);
@@ -189,50 +186,48 @@ const Signup = () => {
     } catch (err) {
       const serverMessage =
         err.response?.data?.message || "An error occurred during registration.";
-
       setServerError(serverMessage);
     } finally {
       setLoading(false);
     }
   };
+
   return (
-    <div className="form-wrapper">
-      <form className="signup-form" onSubmit={handleSubmit} noValidate>
+    <div className="Signup-form-wrapper">
+      <form className="Signup-signup-form" onSubmit={handleSubmit} noValidate>
         {/* Logo Container */}
-        <div className="form-logo-container">
-          <img src={logo} alt="Logo" className="form-mobile-logo" />
+        <div className="Signup-form-logo-container">
+          <img src={logo} alt="Logo" className="Signup-form-mobile-logo" />
         </div>
 
-        <h2>Create An Account</h2>
-
-        {/* Dynamic Server Response Banners */}
+        <h2 className="Signup-form-title">Create An Account</h2>
 
         {/* School Name */}
-        <div className="form-group">
+        <div className="Signup-form-group">
           <label htmlFor="schoolName">School Name</label>
           <input
             type="text"
             id="schoolName"
             name="schoolName"
-            className={errors.schoolName ? "input-error" : ""}
+            className={errors.schoolName ? "Signup-input-error" : ""}
             placeholder="e.g. Preston Academy"
             value={values.schoolName}
             onChange={handleChange}
           />
           {errors.schoolName && (
-            <span className="error-text">{errors.schoolName}</span>
+            <span className="Signup-error-text">{errors.schoolName}</span>
           )}
 
           {/* Dynamic Suggestion Pills List Layout */}
           {visibleSuggestions.length > 0 && (
-            <div className="url-suggestions">
+            <div className="Signup-url-suggestions">
               <p>Select your school URL:</p>
-              <div className="suggestion-pills">
+              <div className="Signup-suggestion-pills">
                 {visibleSuggestions.map((url, index) => (
                   <button
                     key={index}
                     type="button"
-                    className={`url-box ${values.schoolUrl === url ? "active-url" : ""}`}
+                    className={`Signup-url-box ${values.schoolUrl === url ? "Signup-active-url" : ""}`}
                     onClick={() => selectUrl(url)}
                   >
                     {url}
@@ -244,13 +239,13 @@ const Signup = () => {
         </div>
 
         {/* School URL Input */}
-        <div className="form-group">
+        <div className="Signup-form-group">
           <label htmlFor="schoolUrl">School URL</label>
-          <span className="input-hint">
+          <span className="Signup-input-hint">
             ⓘ This will be the main URL to the portal.
           </span>
           <div
-            className={`url-input-wrapper ${errors.schoolUrl ? "wrapper-error" : ""} ${isAnOptionSelected ? "input-locked" : ""}`}
+            className={`Signup-url-input-wrapper ${errors.schoolUrl ? "Signup-wrapper-error" : ""} ${isAnOptionSelected ? "Signup-input-locked" : ""}`}
           >
             <input
               type="text"
@@ -265,7 +260,7 @@ const Signup = () => {
             {isAnOptionSelected && (
               <button
                 type="button"
-                className="inline-change-selection-btn"
+                className="Signup-inline-change-selection-btn"
                 onClick={() => selectUrl("")}
               >
                 Change Selection
@@ -273,60 +268,64 @@ const Signup = () => {
             )}
           </div>
           {errors.schoolUrl && (
-            <span className="error-text">{errors.schoolUrl}</span>
+            <span className="Signup-error-text">{errors.schoolUrl}</span>
           )}
         </div>
 
         {/* Email & Phone Number Row */}
-        <div className="form-row">
-          <div className="form-group">
+        <div className="Signup-form-row">
+          <div className="Signup-form-group">
             <label htmlFor="email">Email</label>
             <input
               type="email"
               id="email"
               name="email"
-              className={errors.email ? "input-error" : ""}
+              className={errors.email ? "Signup-input-error" : ""}
               placeholder="e.g. example@email.com"
               value={values.email}
               onChange={handleChange}
             />
-            {errors.email && <span className="error-text">{errors.email}</span>}
+            {errors.email && (
+              <span className="Signup-error-text">{errors.email}</span>
+            )}
           </div>
-          <div className="form-group">
+          <div className="Signup-form-group">
             <label htmlFor="phone">Phone number</label>
             <input
               type="tel"
               id="phone"
               name="phone"
-              className={errors.phone ? "input-error" : ""}
+              className={errors.phone ? "Signup-input-error" : ""}
               placeholder="e.g 08010000000"
               value={values.phone}
               onChange={handleChange}
               inputMode="numeric"
               maxLength={11}
             />
-            {errors.phone && <span className="error-text">{errors.phone}</span>}
+            {errors.phone && (
+              <span className="Signup-error-text">{errors.phone}</span>
+            )}
           </div>
         </div>
 
         {/* Password & Confirm Password Row */}
-        <div className="form-row">
-          <div className="form-group">
+        <div className="Signup-form-row">
+          <div className="Signup-form-group">
             <label htmlFor="password">Password</label>
             <div style={{ position: "relative" }}>
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
                 name="password"
-                className={errors.password ? "input-error" : ""}
+                className={errors.password ? "Signup-input-error" : ""}
                 placeholder="Create password"
                 value={values.password}
                 onChange={handleChange}
                 style={{ paddingRight: "40px" }}
               />
-
               <span
                 onClick={() => setShowPassword(!showPassword)}
+                className="Signup-password-toggle"
                 style={{
                   position: "absolute",
                   right: "10px",
@@ -340,25 +339,25 @@ const Signup = () => {
               </span>
             </div>
             {errors.password && (
-              <span className="error-text">{errors.password}</span>
+              <span className="Signup-error-text">{errors.password}</span>
             )}
           </div>
-          <div className="form-group">
+          <div className="Signup-form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <div style={{ position: "relative" }}>
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 id="confirmPassword"
                 name="confirmPassword"
-                className={errors.confirmPassword ? "input-error" : ""}
+                className={errors.confirmPassword ? "Signup-input-error" : ""}
                 placeholder="Re-enter password"
                 value={values.confirmPassword}
                 onChange={handleChange}
                 style={{ paddingRight: "40px" }}
               />
-
               <span
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                className="Signup-password-toggle"
                 style={{
                   position: "absolute",
                   right: "10px",
@@ -372,31 +371,33 @@ const Signup = () => {
               </span>
             </div>
             {errors.confirmPassword && (
-              <span className="error-text">{errors.confirmPassword}</span>
+              <span className="Signup-error-text">
+                {errors.confirmPassword}
+              </span>
             )}
           </div>
         </div>
 
         {/* Address */}
-        <div className="form-group">
+        <div className="Signup-form-group">
           <label htmlFor="address">Address</label>
           <input
             type="text"
             id="address"
             name="address"
-            className={errors.address ? "input-error" : ""}
+            className={errors.address ? "Signup-input-error" : ""}
             placeholder="Enter your address"
             value={values.address}
             onChange={handleChange}
           />
           {errors.address && (
-            <span className="error-text">{errors.address}</span>
+            <span className="Signup-error-text">{errors.address}</span>
           )}
         </div>
 
         {/* Terms and Privacy Checkbox */}
-        <div className="form-checkbox-wrapper">
-          <div className="form-checkbox">
+        <div className="Signup-form-checkbox-wrapper">
+          <div className="Signup-form-checkbox">
             <input
               type="checkbox"
               id="terms"
@@ -410,27 +411,29 @@ const Signup = () => {
             </label>
           </div>
           {errors.terms && (
-            <span className="error-text check-error">{errors.terms}</span>
+            <span className="Signup-error-text Signup-check-error">
+              {errors.terms}
+            </span>
           )}
         </div>
 
         {serverError && (
-          <div className="server-banner error-layout">
-            <span className="banner-icon">⚠️</span>
-            <div className="banner-content">{serverError}</div>
+          <div className="Signup-server-banner Signup-error-layout">
+            <span className="Signup-banner-icon">⚠️</span>
+            <div className="Signup-banner-content">{serverError}</div>
           </div>
         )}
 
         {serverSuccess && (
-          <div className="server-banner success-layout">
-            <span className="banner-icon">🎉</span>
-            <div className="banner-content">{serverSuccess}</div>
+          <div className="Signup-server-banner Signup-success-layout">
+            <span className="Signup-banner-icon">🎉</span>
+            <div className="Signup-banner-content">{serverSuccess}</div>
           </div>
         )}
 
         <button
           type="submit"
-          className="signUp-submit-btn"
+          className="Signup-submit-btn"
           disabled={
             loading ||
             !values.schoolName ||
@@ -445,7 +448,7 @@ const Signup = () => {
         >
           {loading ? "Creating Account..." : "Create Account"}
         </button>
-        <p className="form-footer">
+        <p className="Signup-form-footer">
           Already have an account? <a href="login">Log In</a>
         </p>
       </form>

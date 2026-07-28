@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import "../styles/verify-forgot.css";
 import { apiClient } from "../../../config/AxiosInstance";
+import logo from "../../../assets/Logo.svg";
 
 const VerifyForgot = () => {
   const navigate = useNavigate();
@@ -160,20 +161,25 @@ const VerifyForgot = () => {
   };
 
   return (
-    <div className="verify-page-viewport">
-      <div className="verify-card-box">
-        <h1 className="verify-title">Input Code</h1>
+    <div className="VerifyForgot-page-viewport">
+      <div className="VerifyForgot-card-box">
+        {/* Mobile Logo - Added here */}
+        <div className="VerifyForgot-mobile-logo">
+          <img src={logo} alt="Ucheva Logo" />
+        </div>
 
-        <p className="verify-subtext">
+        <h1 className="VerifyForgot-title">Input Code</h1>
+
+        <p className="VerifyForgot-subtext">
           Input the 6-digit OTP code sent to your email <br />
-          <span className="user-email-highlight">
+          <span className="VerifyForgot-user-email-highlight">
             {userEmail || "your email address"}
           </span>
         </p>
 
         <form onSubmit={handleOtpVerification}>
           {/* OTP Box Inputs Container */}
-          <div className="otp-inputs-row">
+          <div className="VerifyForgot-otp-inputs-row">
             {otp.map((digit, index) => (
               <input
                 key={index}
@@ -181,7 +187,7 @@ const VerifyForgot = () => {
                 maxLength="1"
                 pattern="[0-9]*"
                 inputMode="numeric"
-                className={`otp-digit-field ${error ? "otp-field-error" : ""}`}
+                className={`VerifyForgot-otp-digit-field ${error ? "VerifyForgot-otp-field-error" : ""}`}
                 value={digit}
                 ref={(el) => (inputRefs.current[index] = el)}
                 onChange={(e) => handleInputChange(e.target, index)}
@@ -193,24 +199,26 @@ const VerifyForgot = () => {
           </div>
 
           {successMessage && (
-            <p className="otp-success-toast">{successMessage}</p>
+            <p className="VerifyForgot-otp-success-toast">{successMessage}</p>
           )}
-          {error && <p className="otp-error-toast">{error}</p>}
+          {error && <p className="VerifyForgot-otp-error-toast">{error}</p>}
 
           {/* Countdown / Resend Indicator */}
-          <p className="countdown-timer-text">
+          <p className="VerifyForgot-countdown-timer-text">
             {loading ? (
-              <span className="processing-text">Processing request...</span>
+              <span className="VerifyForgot-processing-text">
+                Processing request...
+              </span>
             ) : timeLeft > 0 ? (
               <>
                 Code will expire in{" "}
-                <span className="timer-countdown">
+                <span className="VerifyForgot-timer-countdown">
                   0:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}s
                 </span>
               </>
             ) : (
               <span
-                className="resend-action-trigger"
+                className="VerifyForgot-resend-action-trigger"
                 onClick={handleResendCode}
               >
                 Resend Code
@@ -220,16 +228,19 @@ const VerifyForgot = () => {
 
           <button
             type="submit"
-            className="verify-submit-button"
+            className="VerifyForgot-submit-button"
             disabled={loading || otp.includes("")}
           >
             {loading ? "Verifying..." : "Verify"}
           </button>
         </form>
 
-        <p className="verify-footer-nav">
+        <p className="VerifyForgot-footer-nav">
           Already have an account?{" "}
-          <span className="login-link-span" onClick={() => navigate("/login")}>
+          <span
+            className="VerifyForgot-login-link-span"
+            onClick={() => navigate("/login")}
+          >
             Log in
           </span>
         </p>
