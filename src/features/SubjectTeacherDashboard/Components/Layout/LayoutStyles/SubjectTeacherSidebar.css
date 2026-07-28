@@ -1,8 +1,6 @@
 .SubjectTeacherSidebar_Container {
   width: 280px;
   height: 100vh;
-  background: var(--Dashboard-Bg, #f5f7fb);
-  border-right: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -12,6 +10,8 @@
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   padding: 0px 20px;
+  border-right: 1px solid var(--Side-bar-boarder, #e8edf5);
+  background: #fff;
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
 }
 
@@ -47,28 +47,35 @@
   align-items: center;
   gap: 12px;
   padding: 12px 18px;
-  color: #666666;
   text-decoration: none;
   border-radius: 8px;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
   position: relative;
-  font-size: 15px;
-  font-weight: 500;
   cursor: pointer;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacherSidebar-nav-link:hover {
   background-color: #f1f7ff;
-  color: #666666;
+  color: #0d62f6;
 }
 
 .SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-icon {
-  color: #666666;
+  color: #0d62f6;
+}
+
+.SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-icon-img {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(98%) saturate(1884%) hue-rotate(212deg) brightness(97%) contrast(101%);
 }
 
 .SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-text {
-  color: #666666;
+  color: #0d62f6;
 }
 
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active {
@@ -80,6 +87,11 @@
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
   .SubjectTeacherSidebar-nav-icon {
   color: #0d62f6;
+}
+
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-nav-icon-img {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(98%) saturate(1884%) hue-rotate(212deg) brightness(97%) contrast(101%);
 }
 
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
@@ -95,6 +107,13 @@
   height: 24px;
   flex-shrink: 0;
   color: inherit;
+}
+
+.SubjectTeacherSidebar-nav-icon-img {
+  width: 20px;
+  height: 20px;
+  transition: filter 0.2s ease;
+  display: block;
 }
 
 .SubjectTeacherSidebar-nav-text {
@@ -141,6 +160,11 @@
     width: 140px;
     height: 45px;
   }
+
+  .SubjectTeacherSidebar-nav-icon-img {
+    width: 18px;
+    height: 18px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -183,6 +207,11 @@
     height: 22px;
   }
 
+  .SubjectTeacherSidebar-nav-icon-img {
+    width: 18px;
+    height: 18px;
+  }
+
   .SubjectTeacherSidebar-nav-text {
     font-size: 15px;
   }
@@ -210,6 +239,11 @@
   .SubjectTeacherSidebar-nav-icon {
     width: 20px;
     height: 20px;
+  }
+
+  .SubjectTeacherSidebar-nav-icon-img {
+    width: 16px;
+    height: 16px;
   }
 }
 

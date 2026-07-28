@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { apiClient } from "../../../config/AxiosInstance";
-import "../styles/verify-email.css";
+import "../styles/CreatePassword.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Ucheva from "../../../assets/Logo.svg";
 
@@ -15,9 +15,9 @@ const CreatePassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const passwordRegex =
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
@@ -77,135 +77,90 @@ const CreatePassword = () => {
   };
 
   return (
-    <div className="verify-page-viewport">
-      <div className="verify-card-box">
-        <div className="login-mobile-logo">
+    <div className="CreatePassword-page-viewport">
+      <div className="CreatePassword-RightHolder">
+        <div className="CreatePassword-brand-logo">
           <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
         </div>
-        <h1 className="verify-title">Create Password</h1>
+      </div>
 
-        <form onSubmit={handleResetSubmit}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-              marginBottom: "20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
-                New Password
-              </label>
-
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter new password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (error) setError("");
-                  }}
-                  disabled={loading}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "6px",
-                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                    outline: "none",
-                    fontSize: "15px",
-                    width: "100%",
-                    paddingRight: "40px",
-                  }}
-                />
-
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#666",
-                  }}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
-                Confirm Password
-              </label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm new password"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    if (error) setError("");
-                  }}
-                  disabled={loading}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "6px",
-                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                    outline: "none",
-                    fontSize: "15px",
-                    width: "100%",
-                    paddingRight: "40px",
-                  }}
-                />
-
-                <span
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#666",
-                  }}
-                >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
+      <div className="CreatePassword-LeftHolder">
+        <div className="CreatePassword-card-box">
+          <div className="CreatePassword-mobile-logo">
+            <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
           </div>
+          <h1 className="CreatePassword-title">Create Password</h1>
 
-          {error && <p className="otp-error-toast">{error}</p>}
-          {successMessage && (
-            <p className="otp-success-toast">{successMessage}</p>
-          )}
+          <form onSubmit={handleResetSubmit} className="CreatePassword-form">
+            <div className="CreatePassword-form-fields">
+              <div className="CreatePassword-form-group">
+                <label className="CreatePassword-input-label">
+                  New Password
+                </label>
 
-          <button
-            type="submit"
-            disabled={loading || !password || !confirmPassword}
-            className="verify-submit-button"
-          >
-            {loading ? "Saving..." : "Save"}
-          </button>
-        </form>
+                <div className="CreatePassword-password-wrapper">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter new password"
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                      if (error) setError("");
+                    }}
+                    disabled={loading}
+                    className={`CreatePassword-input-field ${error ? "CreatePassword-input-error" : ""}`}
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="CreatePassword-toggle-visibility"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+              </div>
+
+              <div className="CreatePassword-form-group">
+                <label className="CreatePassword-input-label">
+                  Confirm Password
+                </label>
+                <div className="CreatePassword-password-wrapper">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirm new password"
+                    value={confirmPassword}
+                    onChange={(e) => {
+                      setConfirmPassword(e.target.value);
+                      if (error) setError("");
+                    }}
+                    disabled={loading}
+                    className={`CreatePassword-input-field ${error ? "CreatePassword-input-error" : ""}`}
+                  />
+                  <span
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="CreatePassword-toggle-visibility"
+                  >
+                    {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {error && <p className="CreatePassword-error-toast">{error}</p>}
+            {successMessage && (
+              <p className="CreatePassword-success-toast">{successMessage}</p>
+            )}
+
+            <button
+              type="submit"
+              disabled={loading || !password || !confirmPassword}
+              className="CreatePassword-submit-button"
+            >
+              {loading ? "Saving..." : "Save"}
+            </button>
+          </form>
+
+          <div className="CreatePassword-Edu-form"></div>
+        </div>
       </div>
     </div>
   );

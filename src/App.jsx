@@ -193,8 +193,6 @@ const App = () => {
             }
           >
             <Route path="/bursary" element={<BursaryLayout />}>
-              {/* bursary routes */}
-
               <Route index element={<BusaryDashboard />} />
               <Route path="bursaryFees" element={<BursaryFees />} />
               <Route path="studentFee" element={<StudentFee />} />
