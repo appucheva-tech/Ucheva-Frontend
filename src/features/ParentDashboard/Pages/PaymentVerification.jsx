@@ -74,7 +74,7 @@ const PaymentVerification = () => {
             </p>
             <button
               className="parent-btn-secondary"
-              onClick={() => navigate("/payment")}
+              onClick={() => navigate("/parentdashboard/payment")}
             >
               Return to Payment
             </button>
