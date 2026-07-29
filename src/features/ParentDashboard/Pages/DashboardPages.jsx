@@ -3,9 +3,10 @@ import { useOutletContext } from "react-router-dom";
 import "../css/DashboardPages.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { FaUserGraduate } from "react-icons/fa6";
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const DashboardPage = () => {
-  const { selectedStudent } = useOutletContext();
+  const { selectedStudent, parentName } = useOutletContext();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -30,16 +31,11 @@ const DashboardPage = () => {
     fetchDashboardDetails();
   }, [selectedStudent?.id]);
 
-  if (loading)
-    return (
-      <div className="flex-center-view">
-        <div className="loading-spinner-ring"></div>
-      </div>
-    );
+  if (loading) return <LoadingScreen />;
   if (error)
     return (
-      <div className="flex-center-view">
-        <p className="error-text">{error}</p>
+      <div className="parent-flex-center-view">
+        <p className="parent-error-text">{error}</p>
       </div>
     );
 
@@ -50,6 +46,16 @@ const DashboardPage = () => {
     parent = {},
   } = dashboardData?.dashboard || {};
 
+  const fullParentName =
+    parent?.name ||
+    dashboardData?.parentName ||
+    dashboardData?.dashboard?.parentName ||
+    parentName ||
+    "Parent";
+
+  // Extract only the first name for greeting
+  const parentDisplayName = fullParentName.split(" ")[0];
+
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour < 12) return "Good morning";
@@ -58,47 +64,49 @@ const DashboardPage = () => {
   };
 
   return (
-    <div className="parent-dashboard-view nunito-content">
+    <div className="parent-dashboard-view parent-nunito-content">
       <div className="parent-dashboard-container">
-        <div className="dashboard-header">
-          <h1 className="greeting-title">
-            {getGreeting()}, {parent.name} 👋
+        <div className="parent-dashboard-header">
+          <h1 className="parent-greeting-title">
+            {getGreeting()}, {parentDisplayName} 👋
           </h1>
-          <p className="greeting-subtitle">
+          <p className="parent-greeting-subtitle">
             Here's {student.name || "your child"}'s activity summary for today.
           </p>
         </div>
 
-        <div className="student-summary-banner">
-          <div className="student-avatar-box">
-            <div className="student-badge-icon">
+        <div className="parent-student-summary-banner">
+          <div className="parent-student-avatar-box">
+            <div className="parent-student-badge-icon">
               <FaUserGraduate size={32} />
             </div>
           </div>
-          <div className="student-summary-info">
-            <h2 className="student-profile-name">{student.name}</h2>
-            <div className="student-quick-metrics">
-              <div className="metric-column">
-                <span className="metric-label-text">Class</span>
-                <span className="metric-value-text">{student.class}</span>
+          <div className="parent-student-summary-info">
+            <h2 className="parent-student-profile-name">{student.name}</h2>
+            <div className="parent-student-quick-metrics">
+              <div className="parent-metric-column">
+                <span className="parent-metric-label-text">Class</span>
+                <span className="parent-metric-value-text">
+                  {student.class}
+                </span>
               </div>
-              <div className="metric-column">
-                <span className="metric-label-text">Fee Status</span>
+              <div className="parent-metric-column">
+                <span className="parent-metric-label-text">Fee Status</span>
                 <span
-                  className={`metric-value-text ${student.feeStatus === "unpaid" ? "fee-unpaid" : "fee-paid"}`}
+                  className={`parent-metric-value-text ${student.feeStatus === "unpaid" ? "parent-fee-unpaid" : "parent-fee-paid"}`}
                 >
                   {student.feeStatus}
                 </span>
               </div>
-              <div className="metric-column">
-                <span className="metric-label-text">Attendance</span>
-                <span className="badge-pill-present">
+              <div className="parent-metric-column">
+                <span className="parent-metric-label-text">Attendance</span>
+                <span className="parent-badge-pill-present">
                   {student.attendanceStatus || "Present"}
                 </span>
               </div>
-              <div className="metric-column">
-                <span className="metric-label-text">Current Term</span>
-                <span className="metric-value-text">
+              <div className="parent-metric-column">
+                <span className="parent-metric-label-text">Current Term</span>
+                <span className="parent-metric-value-text">
                   {student.currentTerm} . {student.session}
                 </span>
               </div>
@@ -107,18 +115,21 @@ const DashboardPage = () => {
         </div>
 
         <div className="parent-grid-layout">
-          <div className="parent-dashboard-card1 main-history-card">
-            <h3 className="card-section-title">Payment History</h3>
+          <div className="parent-dashboard-card1 parent-main-history-card">
+            <h3 className="parent-card-section-title">Payment History</h3>
             {paymentHistory.length === 0 ? (
-              <div className="empty-state-container">
-                <div className="empty-icon">📁</div>
+              <div className="parent-empty-state-container">
+                <div className="parent-empty-icon">📁</div>
                 <p>No payment records found for this period.</p>
-                <button className="refresh-btn" onClick={fetchDashboardDetails}>
+                <button
+                  className="parent-refresh-btn"
+                  onClick={fetchDashboardDetails}
+                >
                   Try Refreshing
                 </button>
               </div>
             ) : (
-              <table className="payment-records-table">
+              <table className="parent-payment-records-table">
                 <thead>
                   <tr>
                     <th>Date</th>
@@ -134,7 +145,9 @@ const DashboardPage = () => {
                       <td data-label="Term">{item.term}</td>
                       <td data-label="Amount">{item.amount}</td>
                       <td data-label="Status">
-                        <span className="status-pill">{item.status}</span>
+                        <span className="parent-status-pill">
+                          {item.status}
+                        </span>
                       </td>
                     </tr>
                   ))}
@@ -143,27 +156,35 @@ const DashboardPage = () => {
             )}
           </div>
 
-          <div className="parent-dashboard-card2 side-attendance-card">
-            <h3 className="card-section-title">Monthly Attendance</h3>
-            <div className="attendance-chart-layout">
-              <div className="circular-progress-wrapper">
-                <svg className="radial-chart-graphic" viewBox="0 0 200 200">
-                  <circle cx="100" cy="100" r="85" className="radial-track" />
+          <div className="parent-dashboard-card2 parent-side-attendance-card">
+            <h3 className="parent-card-section-title">Monthly Attendance</h3>
+            <div className="parent-attendance-chart-layout">
+              <div className="parent-circular-progress-wrapper">
+                <svg
+                  className="parent-radial-chart-graphic"
+                  viewBox="0 0 200 200"
+                >
                   <circle
                     cx="100"
                     cy="100"
                     r="85"
-                    className="radial-progress"
+                    className="parent-radial-track"
+                  />
+                  <circle
+                    cx="100"
+                    cy="100"
+                    r="85"
+                    className="parent-radial-progress"
                     style={{
                       strokeDasharray: `${((monthlyAttendance.percentage || 0) / 100) * 534} 534`,
                     }}
                   />
                 </svg>
-                <div className="radial-center-labels">
-                  <p className="radial-percentage">
+                <div className="parent-radial-center-labels">
+                  <p className="parent-radial-percentage">
                     {monthlyAttendance.percentage || 0}%
                   </p>
-                  <p className="radial-subtext">
+                  <p className="parent-radial-subtext">
                     {monthlyAttendance.presentDays || 0} Days Present
                   </p>
                 </div>

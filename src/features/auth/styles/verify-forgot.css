@@ -1,45 +1,49 @@
-.verify-page-viewport {
+.VerifyForgot-page-viewport {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 20%;
-  min-height: 60vh;
-  width: 80%;
+  min-height: 50vh;
+  width: 90%;
   background-color: #ffffff;
 }
 
-.verify-card-box {
+.VerifyForgot-card-box {
   width: 100%;
-  max-width: 440px;
+  max-width: 500px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.verify-title {
-  color: #03173C;
-  font-size: 40px;
-  font-weight: 700;
+.VerifyForgot-title {
   margin-bottom: 24px;
+  color: var(--Primary-Color-900, #03173c);
+  text-align: center;
+  font-family: Geist;
+  font-size: 38px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
 }
 
-.verify-subtext {
-  color: #03173C;
+.VerifyForgot-subtext {
+  color: #03173c;
   font-size: 0.875rem;
   line-height: 1.5;
   margin-bottom: 32px;
 }
 
-.user-email-highlight {
+.VerifyForgot-user-email-highlight {
   color: #2563eb;
   font-weight: 500;
   word-break: break-all;
 }
 
 /* OTP Boxes Layout */
-.otp-inputs-row {
+.VerifyForgot-otp-inputs-row {
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -47,7 +51,7 @@
   margin-bottom: 16px;
 }
 
-.otp-digit-field {
+.VerifyForgot-otp-digit-field {
   width: 48px;
   height: 48px;
   border: 1px solid #cbd5e1;
@@ -55,52 +59,67 @@
   text-align: center;
   font-size: 1.25rem;
   font-weight: 600;
-  color: #03173C;
+  color: #03173c;
   outline: none;
   transition: all 0.2s ease;
 }
 
-.otp-digit-field:focus {
+.VerifyForgot-otp-digit-field:focus {
   border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-.otp-field-error {
+.VerifyForgot-otp-field-error {
   border-color: #ef4444 !important;
   background-color: #fef2f2;
 }
 
-.otp-error-toast {
+.VerifyForgot-otp-error-toast {
   color: #ef4444;
   font-size: 0.8rem;
   margin-top: -4px;
   margin-bottom: 12px;
 }
 
+.VerifyForgot-otp-success-toast {
+  color: #10b981;
+  font-size: 0.8rem;
+  margin-top: -4px;
+  margin-bottom: 12px;
+}
+
 /* Countdown element options */
-.countdown-timer-text {
+.VerifyForgot-countdown-timer-text {
   color: #64748b;
   font-size: 0.75rem;
   margin-bottom: 32px;
 }
 
-.timer-countdown {
+.VerifyForgot-timer-countdown {
   color: #2563eb;
   font-weight: 500;
 }
 
-.resend-action-trigger {
+.VerifyForgot-resend-action-trigger {
   color: #2563eb;
   font-weight: 600;
   cursor: pointer;
   text-decoration: underline;
 }
 
+.VerifyForgot-resend-action-trigger:hover {
+  color: #1d4ed8;
+}
+
+.VerifyForgot-processing-text {
+  color: #2563eb;
+}
+
 /* Big Action Button Accent */
-.verify-submit-button {
+.VerifyForgot-submit-button {
   width: 100%;
   height: 50px;
-  background-color: #0062F6;
+  background-color: #0062f6;
   color: #ffffff;
   border: none;
   padding: 14px;
@@ -112,46 +131,228 @@
   margin-bottom: 16px;
 }
 
-.verify-submit-button:hover:not(:disabled) {
+.VerifyForgot-submit-button:hover:not(:disabled) {
   background-color: #0052cc;
 }
 
-.verify-submit-button:disabled {
+.VerifyForgot-submit-button:disabled {
   background-color: #94a3b8;
   cursor: not-allowed;
   opacity: 0.7;
 }
 
 /* Footer Section */
-.verify-footer-nav {
-  color: #03173C;
+.VerifyForgot-footer-nav {
+  color: #03173c;
   font-size: 0.825rem;
   margin-top: 8px;
 }
 
-.login-link-span {
-  color: #0062F6;
+.VerifyForgot-login-link-span {
+  color: #0062f6;
   cursor: pointer;
   font-weight: 500;
 }
 
-.login-link-span:hover {
+.VerifyForgot-login-link-span:hover {
   text-decoration: underline;
 }
-.mobile-logo {
+
+.VerifyForgot-mobile-logo {
   display: none;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.mobile-logo img {
+.VerifyForgot-mobile-logo img {
   width: 120px;
   height: auto;
 }
 
-/* Show only on mobile */
+/* ==========================================================================
+   Mobile Responsive Styles
+   ========================================================================== */
+
+/* Tablet and smaller screens */
+@media (max-width: 1024px) {
+  .VerifyForgot-page-viewport {
+    margin-left: 10%;
+    width: 80%;
+  }
+}
+
 @media (max-width: 768px) {
-  .mobile-logo {
+  .VerifyForgot-page-viewport {
+    margin-top: 30px;
+    margin-left: 5%;
+    width: 90%;
+    min-height: 40vh;
+  }
+
+  .VerifyForgot-mobile-logo {
     display: block;
+  }
+
+  .VerifyForgot-title {
+    font-size: 30px;
+    margin-bottom: 18px;
+  }
+
+  .VerifyForgot-subtext {
+    font-size: 0.8rem;
+    margin-bottom: 24px;
+  }
+
+  .VerifyForgot-otp-inputs-row {
+    gap: 12px;
+  }
+
+  .VerifyForgot-otp-digit-field {
+    width: 42px;
+    height: 42px;
+    font-size: 1.1rem;
+  }
+
+  .VerifyForgot-submit-button {
+    height: 44px;
+    font-size: 0.9rem;
+  }
+
+  .VerifyForgot-countdown-timer-text {
+    font-size: 0.7rem;
+    margin-bottom: 24px;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+  .VerifyForgot-page-viewport {
+    margin-top: 16px;
+    margin-left: 0;
+    width: 100%;
+    padding: 0 20px;
+    min-height: 30vh;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .VerifyForgot-card-box {
+    max-width: 100%;
+    padding: 0 4px;
+  }
+
+  .VerifyForgot-mobile-logo {
+    display: block;
+  }
+
+  .VerifyForgot-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .VerifyForgot-subtext {
+    font-size: 0.75rem;
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .VerifyForgot-otp-inputs-row {
+    gap: 8px;
+    margin-bottom: 12px;
+    flex-wrap: nowrap;
+  }
+
+  .VerifyForgot-otp-digit-field {
+    width: 38px;
+    height: 42px;
+    font-size: 1rem;
+    border-radius: 4px;
+  }
+
+  .VerifyForgot-submit-button {
+    height: 40px;
+    font-size: 0.85rem;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .VerifyForgot-countdown-timer-text {
+    font-size: 0.65rem;
+    margin-bottom: 18px;
+  }
+
+  .VerifyForgot-footer-nav {
+    font-size: 0.75rem;
+  }
+
+  .VerifyForgot-mobile-logo img {
+    width: 100px;
+  }
+
+  .VerifyForgot-otp-error-toast,
+  .VerifyForgot-otp-success-toast {
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+  }
+
+  .VerifyForgot-card-box {
+    padding-top: 10px;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 380px) {
+  .VerifyForgot-page-viewport {
+    padding: 0 12px;
+    margin-top: 12px;
+  }
+
+  .VerifyForgot-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .VerifyForgot-otp-inputs-row {
+    gap: 5px;
+  }
+
+  .VerifyForgot-otp-digit-field {
+    width: 32px;
+    height: 36px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+  }
+
+  .VerifyForgot-submit-button {
+    height: 36px;
+    font-size: 0.8rem;
+    padding: 8px;
+  }
+
+  .VerifyForgot-countdown-timer-text {
+    font-size: 0.6rem;
+    margin-bottom: 14px;
+  }
+
+  .VerifyForgot-subtext {
+    font-size: 0.7rem;
+    margin-bottom: 16px;
+  }
+
+  .VerifyForgot-footer-nav {
+    font-size: 0.7rem;
+  }
+
+  .VerifyForgot-mobile-logo img {
+    width: 80px;
+  }
+}
+
+/* Fix for very small screens showing URL in screenshot */
+@media (max-width: 360px) {
+  .VerifyForgot-user-email-highlight {
+    font-size: 0.7rem;
+    word-break: break-all;
   }
 }

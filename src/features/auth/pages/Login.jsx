@@ -69,7 +69,9 @@ const Login = () => {
       });
 
       const { user, token } = response.data;
-      console.log(response.data);
+      console.log( "res",response.data);
+
+      toast.success(response.data.message);
       // Save user and token in Redux
       dispatch(setUser(user));
       dispatch(setToken(token));

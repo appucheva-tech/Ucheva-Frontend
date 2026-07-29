@@ -173,6 +173,28 @@
   object-fit: cover;
 }
 
+/* Profile Picture Placeholder Styles */
+.user-profile-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 2px solid #e5e7eb;
+}
+
+.user-initial {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #4f46e5;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
 .user-info {
   display: flex;
   flex-direction: column;
@@ -386,6 +408,7 @@
   }
 }
 
+/* Responsive Styles */
 @media (max-width: 1024px) {
   .parentdashboard-header {
     padding: 0 24px;
@@ -411,6 +434,15 @@
 
   .header-actions-right {
     gap: 12px;
+  }
+
+  .user-profile-placeholder {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-initial {
+    font-size: 16px;
   }
 }
 
@@ -451,6 +483,15 @@
   .user-profile {
     width: 36px;
     height: 36px;
+  }
+
+  .user-profile-placeholder {
+    width: 36px;
+    height: 36px;
+  }
+
+  .user-initial {
+    font-size: 16px;
   }
 
   .user-info {
@@ -533,6 +574,15 @@
     height: 34px;
   }
 
+  .user-profile-placeholder {
+    width: 34px;
+    height: 34px;
+  }
+
+  .user-initial {
+    font-size: 14px;
+  }
+
   .user-info {
     display: none;
   }
@@ -603,6 +653,15 @@
   .user-profile {
     width: 30px;
     height: 30px;
+  }
+
+  .user-profile-placeholder {
+    width: 30px;
+    height: 30px;
+  }
+
+  .user-initial {
+    font-size: 12px;
   }
 
   .logout-modal {

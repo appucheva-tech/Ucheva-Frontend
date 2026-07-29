@@ -32,13 +32,13 @@ const PaymentVerification = () => {
 
   if (status === "verifying") {
     return (
-      <div className="payment-loading-overlay">
-        <div className="payment-spinner-wrapper">
-          <div className="spinner-track-outer"></div>
-          <div className="spinner-track-inner"></div>
+      <div className="parent-payment-loading-overlay">
+        <div className="parent-payment-spinner-wrapper">
+          <div className="parent-spinner-track-outer"></div>
+          <div className="parent-spinner-track-inner"></div>
           {/* Logo removed, loader remains sleek */}
         </div>
-        <div className="payment-loading-text">
+        <div className="parent-payment-loading-text">
           <h3>Verifying Payment</h3>
           <p>Confirming your transaction details securely.</p>
         </div>
@@ -47,34 +47,34 @@ const PaymentVerification = () => {
   }
 
   return (
-    <div className="verification-page">
-      <div className="verification-card">
+    <div className="parent-verification-page">
+      <div className="parent-verification-card">
         {status === "success" ? (
-          <div className="status-box">
-            <div className="status-icon success-glow">✓</div>
+          <div className="parent-status-box">
+            <div className="parent-status-icon parent-success-glow">✓</div>
             <h2>Transaction Verified</h2>
             <p>
               Your payment has been processed successfully and reflected on your
               account.
             </p>
             <button
-              className="btn-primary"
+              className="parent-btn-primary"
               onClick={() => navigate("/parentdashboard")}
             >
               Return to Dashboard
             </button>
           </div>
         ) : (
-          <div className="status-box">
-            <div className="status-icon failed-glow">✕</div>
+          <div className="parent-status-box">
+            <div className="parent-status-icon parent-failed-glow">✕</div>
             <h2>Verification Failed</h2>
             <p>
               We encountered an issue confirming your payment. Please contact
               support if you were debited.
             </p>
             <button
-              className="btn-secondary"
-              onClick={() => navigate("/payment")}
+              className="parent-btn-secondary"
+              onClick={() => navigate("/parentdashboard/payment")}
             >
               Return to Payment
             </button>
