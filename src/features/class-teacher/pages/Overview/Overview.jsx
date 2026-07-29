@@ -28,6 +28,7 @@ const Overview = () => {
       const response = await apiClient.get(
         "/classteacher/class-teacher-dashboard",
       );
+      console.log(response.data)
       setServerData(response.data);
 
       // Update attendance status based on server data
@@ -170,6 +171,9 @@ const Overview = () => {
     ? dashboard.announcements
     : [];
 
+    const students = serverData?.myClass?.totalStudents || 0;
+    console.log(students)
+
   return (
     <main className="CTDash">
       <article className="CTDashWrapper">
@@ -215,7 +219,9 @@ const Overview = () => {
           <div className="TotalStudents overview-shadow-card">
             <nav className="CTtext">
               Total Students
-              <div className="CTStudents">{dashboard?.totalStudents || 0}</div>
+              <div className="CTStudents">
+                {students || 0}
+              </div>
             </nav>
             <div className="CTImageHolder3">
               <img className="CTImg" src={PH} alt="Students Count" />
