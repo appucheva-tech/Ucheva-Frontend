@@ -1,18 +1,19 @@
 import React from "react";
 import "../SecurityStyles/SecuritysDashboard.css";
 
-const SecuritysDashboardPage = () => {
+export default function SecuritysDashboardPage() {
   return (
-    <div className="security-dashboard">
-      <div className="header-section">
-        <h1 className="greeting">Good morning, Mr Davis 👋</h1>
-        <p className="welcome-text">Welcome back.</p>
+    <div className="Security-dashboard-container">
+      <div className="Security-header-section">
+        <h1 className="Security-greeting-title">Good morning, Mr Davis 👋</h1>
+        <p className="Security-greeting-subtitle">Welcome back.</p>
       </div>
 
-      <div className="content-grid">
-        <div className="check-in-card">
-          <div className="qr-icon">
+      <div className="Security-content-grid">
+        <div className="Security-check-in-card">
+          <div className="Security-qr-icon-container">
             <svg
+              className="Security-qr-icon"
               xmlns="http://www.w3.org/2000/svg"
               width="50"
               height="50"
@@ -105,51 +106,59 @@ const SecuritysDashboardPage = () => {
               />
             </svg>
           </div>
-          <h2 className="check-in-title">Checked In Succesful</h2>
-          <p className="check-in-time">Check-in Time 7:42 AM</p>
-          <p className="check-in-instruction">
+
+          <h2 className="Security-check-in-title">Checked In Succesful</h2>
+          <p className="Security-check-in-time">Check-in Time 7:42 AM</p>
+          <p className="Security-check-in-description">
             Please scan the QR code to mark your attendance
           </p>
-          <button className="scan-button">Scan QR to Check Out</button>
+
+          <button className="Security-checkout-button">
+            Scan QR to Check Out
+          </button>
         </div>
 
-        <div className="announcements-card">
-          <h2 className="announcements-title">Recent Announcements</h2>
-          <div className="announcements-list">
-            <div className="announcement-item">
-              <div className="announcement-left">
-                <h3 className="announcement-name">Staff Meeting</h3>
-                <p className="announcement-description">
+        <div className="Security-announcements-card">
+          <h2 className="Security-announcements-title">Recent Announcements</h2>
+
+          <div className="Security-announcements-list">
+            <div className="Security-announcement-item">
+              <div className="Security-announcement-indicator"></div>
+              <div className="Security-announcement-content">
+                <h3 className="Security-announcement-heading">Staff Meeting</h3>
+                <p className="Security-announcement-text">
                   All staff members are required to attend the mo...
                 </p>
               </div>
-              <p className="announcement-date">May 18, 2026</p>
+              <span className="Security-announcement-date">May 18, 2026</span>
             </div>
 
-            <div className="announcement-item">
-              <div className="announcement-left">
-                <h3 className="announcement-name">Resumption</h3>
-                <p className="announcement-description">
-                  School will resume normal activities on Monday...
+            <div className="Security-announcement-item">
+              <div className="Security-announcement-indicator"></div>
+              <div className="Security-announcement-content">
+                <h3 className="Security-announcement-heading">Resumption</h3>
+                <p className="Security-announcement-text">
+                  School will resume normal activities on Monday. Please ...
                 </p>
               </div>
-              <p className="announcement-date">May 15, 2026</p>
+              <span className="Security-announcement-date">May 15, 2026</span>
             </div>
 
-            <div className="announcement-item">
-              <div className="announcement-left">
-                <h3 className="announcement-name">Environmental Notice</h3>
-                <p className="announcement-description">
+            <div className="Security-announcement-item">
+              <div className="Security-announcement-indicator"></div>
+              <div className="Security-announcement-content">
+                <h3 className="Security-announcement-heading">
+                  Environmental Notice
+                </h3>
+                <p className="Security-announcement-text">
                   Weekly environmental sanitation will be held on...
                 </p>
               </div>
-              <p className="announcement-date">May 13, 2026</p>
+              <span className="Security-announcement-date">May 13, 2026</span>
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default SecuritysDashboardPage;
+}
