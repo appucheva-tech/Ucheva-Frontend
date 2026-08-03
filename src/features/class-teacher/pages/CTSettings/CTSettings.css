@@ -11,6 +11,11 @@
   flex-direction: column;
   gap: 24px;
   font-family: "Nunito", sans-serif;
+  box-sizing: border-box;
+}
+
+.ct-container * {
+  box-sizing: border-box;
 }
 
 /* ── Page header ────────────────────────────────────────────── */
@@ -143,6 +148,7 @@
   display: flex;
   flex-direction: column;
   gap: 7px;
+  min-width: 0;
 }
 
 .ct-field label {
@@ -153,6 +159,7 @@
 
 .ct-field input {
   height: 48px;
+  width: 100%;
   padding: 0 16px;
   border: 1px solid #d2d6db;
   border-radius: 8px;
@@ -161,6 +168,7 @@
   color: #03173c;
   background: #ffffff;
   outline: none;
+  text-overflow: ellipsis;
   transition:
     border-color 0.15s,
     box-shadow 0.15s;
@@ -240,10 +248,12 @@
   align-items: flex-start;
   gap: 10px;
   width: 200px;
+  max-width: 100%;
 }
 
 .ct-sig-preview {
   width: 200px;
+  max-width: 100%;
   height: 140px;
   border: 1.5px solid #d2d6db;
   border-radius: 10px;
@@ -276,6 +286,7 @@
   align-items: center;
   justify-content: center;
   width: 200px;
+  max-width: 100%;
   height: 36px;
   border: 1.5px solid #d2d6db;
   border-radius: 7px;
@@ -362,6 +373,7 @@
   z-index: 1000;
   backdrop-filter: blur(2px);
   animation: ct-fade-in 0.15s ease;
+  padding: 16px;
 }
 
 @keyframes ct-fade-in {
@@ -378,10 +390,12 @@
   border-radius: 14px;
   width: 100%;
   max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
   padding: 28px 32px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
   animation: ct-slide-up 0.2s ease;
-  margin: 16px;
+  box-sizing: border-box;
 }
 
 @keyframes ct-slide-up {
@@ -623,8 +637,18 @@
     padding: 20px;
     gap: 20px;
   }
+  .ct-page-header h1 {
+    font-size: 26px;
+  }
+  .ct-page-header p {
+    font-size: 14px;
+  }
   .ct-card {
-    padding: 20px 24px;
+    padding: 20px;
+  }
+  .ct-card-title {
+    font-size: 18px;
+    margin-bottom: 20px;
   }
   .ct-profile-layout {
     flex-direction: column;
@@ -632,6 +656,7 @@
   }
   .ct-avatar-col {
     align-items: center;
+    width: 100%;
   }
   .ct-avatar-wrap,
   .ct-avatar-img,
@@ -639,12 +664,33 @@
     width: 120px;
     height: 120px;
   }
+  .ct-form-col {
+    width: 100%;
+  }
   .ct-grid-2 {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .ct-field input {
+    height: 46px;
+    font-size: 14px;
+  }
+  /* Full-width action buttons on mobile, consistent with the rest of the
+     dashboard's mobile patterns */
+  .ct-btn-row {
+    justify-content: stretch;
+  }
+  .ct-save-btn {
+    width: 100%;
+  }
+  .ct-sig-box,
+  .ct-sig-preview,
+  .ct-sig-upload-btn {
+    width: 100%;
   }
   .ct-security-row {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     gap: 14px;
   }
   .ct-change-pwd-btn {
@@ -656,15 +702,27 @@
 @media (max-width: 480px) {
   .ct-container {
     padding: 16px;
+    gap: 16px;
   }
   .ct-page-header h1 {
-    font-size: 24px;
+    font-size: 22px;
   }
   .ct-card {
     padding: 16px 18px;
   }
+  .ct-avatar-wrap,
+  .ct-avatar-img,
+  .ct-avatar-placeholder {
+    width: 100px;
+    height: 100px;
+  }
+  .ct-avatar-btn {
+    width: 32px;
+    height: 32px;
+  }
   .ct-modal {
     padding: 20px;
+    max-width: 100%;
   }
   .ct-modal-foot {
     flex-direction: column;
@@ -674,9 +732,7 @@
     width: 100%;
     justify-content: center;
   }
-  .ct-sig-box,
-  .ct-sig-preview,
-  .ct-sig-upload-btn {
-    width: 100%;
+  .ct-pwd-wrap input {
+    font-size: 14px;
   }
 }

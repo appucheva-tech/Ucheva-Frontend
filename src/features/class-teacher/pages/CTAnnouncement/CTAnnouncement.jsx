@@ -18,7 +18,7 @@ const SubjectTeacherAnnouncement = () => {
     setLoading(true);
 
     try {
-      const response = await apiClient.get("/announcement/getAllAnnouncements");
+      const response = await apiClient.get("/announcement/all");
       setAnnouncements(response.data?.announcements || []);
     } catch (err) {
       console.error(err);

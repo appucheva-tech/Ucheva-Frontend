@@ -136,6 +136,7 @@ const CTSettings = () => {
           : data?.classAssigned || "",
       });
 
+      // Matches the Swagger response shape: staffProfileUrl / signatureUrl
       if (data?.staffProfileUrl) setPreviewUrl(data.staffProfileUrl);
       if (data?.signatureUrl) setSignaturePreview(data.signatureUrl);
     } catch (err) {
@@ -186,7 +187,12 @@ const CTSettings = () => {
     setPasswordError("");
   };
 
-  /* ── PUT: save profile ── */
+  /* ── PUT: save profile ──
+     Field names below (staffProfile / signature) are chosen to match the
+     Swagger response naming convention: staffProfileUrl/staffProfilePublicId
+     and signatureUrl/signaturePublicId. If the backend still rejects the
+     upload, confirm the exact multipart field names with the API owner —
+     Swagger here only documents the response shape, not the request. */
   const handleSaveChanges = async () => {
     try {
       setProfileLoading(true);
@@ -194,8 +200,8 @@ const CTSettings = () => {
       fd.append("firstName", profileData.firstName);
       fd.append("lastName", profileData.lastName);
       fd.append("address", profileData.address);
-      if (avatar) fd.append("profilePicture", avatar);
-      if (signature) fd.append("schoolSignature", signature);
+      if (avatar) fd.append("staffProfile", avatar);
+      if (signature) fd.append("signature", signature);
 
       await apiClient.put("/classteacher/updateprofile", fd);
       toast.success("Profile updated successfully!");
