@@ -9,7 +9,6 @@ import { persistor } from "../../global/store";
 import LoadingScreen from "../../components/Loading-Screen";
 
 const getDashboardByRole = (user) => {
-  
   if (!user) return "/login";
   if (user.role === "admin") return "/admin/dashboard";
   if (user.role === "parent") return "/parentdashboard";
@@ -88,7 +87,7 @@ const PrivateRoute = ({ allowedRoles, allowedStaffTypes }) => {
   }, []);
   console.log(loading, rehydrated);
 
-  if (loading ) return <LoadingScreen/>;
+  if (loading) return <LoadingScreen />;
 
   if (!subdomainValid) {
     return <NotFound />;
@@ -114,3 +113,10 @@ const PrivateRoute = ({ allowedRoles, allowedStaffTypes }) => {
 };
 
 export default PrivateRoute;
+
+// if (
+//   allowedStaffTypes &&
+//   !allowedStaffTypes.includes(user?.staffType?.trim().toLowerCase())
+// ) {
+//   return <Navigate to={getDashboardByRole(user)} replace />;
+// }
