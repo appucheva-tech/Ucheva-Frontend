@@ -4,14 +4,16 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 60px 20px;
+  padding: 20px ;
   background-color: #ffffff;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin-top: -40px;
+  /* background-color: red; */
 
   @media (max-width: 450px) {
-    margin-top: -50px;
-    margin-bottom: -50px;
-  }
+  margin-top: -50px;
+  /* margin-bottom: -20px; */
+  /* transform: translateY(-0px); */
+}
 
   .FFpreview-tag {
     font-size: 15px;
@@ -53,7 +55,7 @@
   align-items: flex-start;
   width: 100%;
   height: 150vh;
-  background-color: aliceblue;
+  background-color: #fff;
 
   @media (max-width: 450px) {
     margin-bottom: -850px;
