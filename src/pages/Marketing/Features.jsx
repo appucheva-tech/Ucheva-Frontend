@@ -19,6 +19,13 @@ const Features = () => {
     },
     {
       id: 2,
+      icon: <FaRegUser className="EEFIcons" />,
+      title: "Student & Staff Records",
+      description:
+        " Organize and access student and staff information from one secure system.",
+    },
+    {
+      id: 3,
       icon: <LuCreditCard className="EEFIcons" />,
       title: "Fee Management System",
       description:
@@ -53,7 +60,7 @@ const Features = () => {
             Smart tools built to make daily school operations easier and more
             organized.
           </p>
-          <div className="EELeftDownCont">
+          {/* <div className="EELeftDownCont">
             <article className="EELeftDownContArt">
               <FaRegUser className="EEFIcons" />
             </article>
@@ -63,7 +70,7 @@ const Features = () => {
               <br />
               information from one secure system.
             </p>
-          </div>
+          </div> */}
         </div>
 
         <div className="EEfeatures-grid">
