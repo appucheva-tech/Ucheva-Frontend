@@ -4,28 +4,26 @@
 }
 
 .EEfeatures-container {
-  display: flex;
-  flex-direction: row;
-  gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
   padding: 5%;
   width: 100%;
-  height: 100vh;
+  height: auto;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
-  align-items: flex-start;
   margin-bottom: 50px;
 
   @media (max-width: 450px) {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     width: 100%;
     height: auto;
     gap: 32px;
     padding: 3rem 1.5rem;
   }
-
   .EEfeatures-header {
-    width: 41%;
-    height: 85vh;
+    width: 100%;
+    height: auto;
 
     @media (max-width: 450px) {
       width: 100%;
@@ -141,6 +139,7 @@
 
   .EEfeatures-grid {
     display: grid;
+    display: contents;
     justify-content: center;
     width: 55%;
     height: 600px;

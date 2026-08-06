@@ -193,8 +193,6 @@ const App = () => {
             }
           >
             <Route path="/bursary" element={<BursaryLayout />}>
-              {/* bursary routes */}
-
               <Route index element={<BusaryDashboard />} />
               <Route path="bursaryFees" element={<BursaryFees />} />
               <Route path="studentFee" element={<StudentFee />} />
@@ -215,13 +213,13 @@ const App = () => {
             </Route>
           </Route>
 
-          <Route element={<PrivateRoute allowedStaffTypes={["security"]} />}>
-            <Route path="/securitydashboard" element={<SecurityLayout />}>
-              <Route index element={<SecuritysDashboard />} />
-              <Route path="announcement" element={<SecurityAnnouncement />} />
-              <Route path="settings" element={<SecuritySettings />} />
-            </Route>
+          {/* <Route element={<PrivateRoute allowedStaffTypes={["security"]} />}> */}
+          <Route path="/securitydashboard" element={<SecurityLayout />}>
+            <Route index element={<SecuritysDashboard />} />
+            <Route path="announcement" element={<SecurityAnnouncement />} />
+            <Route path="settings" element={<SecuritySettings />} />
           </Route>
+          {/* </Route> */}
 
           <Route
             element={<PrivateRoute allowedStaffTypes={["subject teacher"]} />}

@@ -12,6 +12,7 @@ const Header = ({
   students,
   selectedStudent,
   setSelectedStudent,
+  parentName,
 }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
@@ -44,6 +45,38 @@ const Header = ({
       nav("/");
     }
   };
+
+  const getProfileImage = () => {
+    if (!user) return null;
+    return (
+      user?.profilePicture || user?.profileUrl || user?.profileImage || null
+    );
+  };
+
+  // Get user's display name - prioritize Redux data over props
+  const getUserDisplayName = () => {
+    // First try to get from Redux user
+    if (user?.firstName && user?.lastName) {
+      return `${user.firstName} ${user.lastName}`.trim();
+    }
+    if (user?.name) return user.name;
+    if (user?.parentName) return user.parentName;
+
+    // Fallback to prop
+    if (parentName) return parentName;
+
+    return "User";
+  };
+
+  // Get user's initial for placeholder
+  const getUserInitial = () => {
+    const displayName = getUserDisplayName();
+    return displayName.charAt(0).toUpperCase();
+  };
+
+  const profileImage = getProfileImage();
+  const displayName = getUserDisplayName();
+  const userInitial = getUserInitial();
 
   return (
     <>
@@ -98,23 +131,19 @@ const Header = ({
               className="profile-section"
               onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
             >
-              {user?.profilePicture ? (
+              {profileImage ? (
                 <img
-                  src={user.profilePicture}
+                  src={profileImage}
                   alt="Profile"
                   className="user-profile"
                 />
               ) : (
-                <img
-                  src="https://i.postimg.cc/8cXMb41Q/Ucheva-profile.jpg"
-                  alt="Profile"
-                  className="user-profile"
-                />
+                <div className="user-profile-placeholder">
+                  <span className="user-initial">{userInitial}</span>
+                </div>
               )}
               <div className="user-info">
-                <div className="user-name_s">
-                  {user?.name || selectedStudent?.fullName || "Parent"}
-                </div>
+                <div className="user-name_s">{displayName}</div>
                 <div className="user-roles">Parent</div>
               </div>
             </div>

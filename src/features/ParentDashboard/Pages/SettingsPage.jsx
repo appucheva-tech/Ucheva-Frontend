@@ -6,6 +6,7 @@ import { LuCamera } from "react-icons/lu";
 import { apiClient } from "../../../config/AxiosInstance";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { setUser } from "../../../global/userSlice";
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const getPasswordStrength = (password) => {
   if (!password) return { label: "", color: "", width: "0%", score: 0 };
@@ -17,8 +18,10 @@ const getPasswordStrength = (password) => {
   if (/\d/.test(password)) score++;
   if (/[@$!%*?&.#_-]/.test(password)) score++;
 
-  if (score <= 2) return { label: "Weak", color: "#e53e3e", width: "33%", score };
-  if (score <= 3) return { label: "Fair", color: "#f6ad55", width: "66%", score };
+  if (score <= 2)
+    return { label: "Weak", color: "#e53e3e", width: "33%", score };
+  if (score <= 3)
+    return { label: "Fair", color: "#f6ad55", width: "66%", score };
   return { label: "Strong", color: "#38a169", width: "100%", score };
 };
 
@@ -37,6 +40,8 @@ const SettingsPage = () => {
   const [avatar, setAvatar] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [passwordData, setPasswordData] = useState({
@@ -53,22 +58,53 @@ const SettingsPage = () => {
   const strength = getPasswordStrength(passwordData.newPassword);
 
   useEffect(() => {
-    if (!user) return;
+    // Start with loading state
+    setInitialLoading(true);
 
-    const cleanName = (user?.name || "")
-      .split(" ")
-      .filter((part) => part.toLowerCase() !== "null")
-      .join(" ");
+    // Use setTimeout to ensure the loading state renders
+    const timer = setTimeout(() => {
+      if (!user) {
+        setInitialLoading(false);
+        return;
+      }
 
-    const nameParts = cleanName.trim().split(" ");
+      try {
+        // Directly use firstName and lastName from user object
+        const firstName = user.firstName || "";
+        const lastName = user.lastName || "";
+        const phone = user?.phoneNumber || user?.phone || "";
+        const email = user?.email || "";
+        const address = user?.address || "";
 
-    setProfileData({
-      firstName: nameParts[0] || "",
-      lastName: nameParts.slice(1).join(" ") || "",
-      phone: user?.phoneNumber || "",
-      email: user?.email || "",
-      address: user?.address || "",
-    });
+        console.log("Extracted firstName:", firstName);
+        console.log("Extracted lastName:", lastName);
+        console.log("Extracted phone:", phone);
+        console.log("Extracted email:", email);
+        console.log("Extracted address:", address);
+
+        // Update profile data state
+        setProfileData({
+          firstName: firstName,
+          lastName: lastName,
+          phone: phone,
+          email: email,
+          address: address,
+        });
+
+        // If there's a profile picture, set it as preview
+        if (user?.profileUrl || user?.profilePicture) {
+          setPreviewUrl(user.profileUrl || user.profilePicture);
+        }
+
+        setError(null);
+      } catch (err) {
+        setError("Failed to load profile data.");
+      } finally {
+        setInitialLoading(false);
+      }
+    }, 300); // Small delay to show the spinner
+
+    return () => clearTimeout(timer);
   }, [user]);
 
   const handleInputChange = (e) => {
@@ -79,6 +115,21 @@ const SettingsPage = () => {
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // Validate file size (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        toast.error("File size must be less than 2MB");
+        e.target.value = "";
+        return;
+      }
+
+      // Validate file type
+      const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error("Only PNG, JPG, and JPEG files are allowed");
+        e.target.value = "";
+        return;
+      }
+
       setAvatar(file);
       const reader = new FileReader();
       reader.onloadend = () => setPreviewUrl(reader.result);
@@ -89,19 +140,54 @@ const SettingsPage = () => {
   const handleSaveChanges = async () => {
     try {
       setProfileLoading(true);
+      setError(null);
+
       const formData = new FormData();
       formData.append("firstName", profileData.firstName);
       formData.append("lastName", profileData.lastName);
       formData.append("address", profileData.address);
-      if (avatar) formData.append("profilePicture", avatar);
 
-      const res = await apiClient.put("/parent/settings", formData);
-      console.log("object", res)
-      const { firstName, lastName, address, parentProfileUrl } = res.data.parentData;
-      dispatch(setUser({ ...user, name: `${firstName} ${lastName}`, address, profilePicture: parentProfileUrl }));
+      // Only append if there's a new avatar
+      if (avatar) {
+        formData.append("profilePicture", avatar);
+        console.log("Uploading file:", avatar.name, avatar.size, avatar.type);
+      }
+
+      const res = await apiClient.put("/parent/settings", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      const { firstName, lastName, address, parentProfileUrl } =
+        res.data.parentData || {};
+
+      // Update Redux with the new data
+      const updatedUser = {
+        ...user,
+        firstName: firstName || profileData.firstName,
+        lastName: lastName || profileData.lastName,
+        name: `${firstName || profileData.firstName} ${lastName || profileData.lastName}`.trim(),
+        parentName:
+          `${firstName || profileData.firstName} ${lastName || profileData.lastName}`.trim(),
+        address: address || profileData.address,
+        profileUrl:
+          parentProfileUrl || user?.profileUrl || user?.profilePicture,
+        profilePicture:
+          parentProfileUrl || user?.profileUrl || user?.profilePicture,
+      };
+
+      dispatch(setUser(updatedUser));
+
+      // Clear avatar state after successful save
+      setAvatar(null);
+
       toast.success("Profile changes saved successfully!");
     } catch (err) {
-      const msg = err.response?.data?.message || "Failed to save changes. Try again.";
+      console.error("Save error:", err);
+      const msg =
+        err.response?.data?.message || "Failed to save changes. Try again.";
+      setError(msg);
       toast.error(msg);
     } finally {
       setProfileLoading(false);
@@ -123,7 +209,9 @@ const SettingsPage = () => {
     }
 
     if (strength.score < 3) {
-      setPasswordError("Password is too weak. Please choose a stronger password.");
+      setPasswordError(
+        "Password is too weak. Please choose a stronger password.",
+      );
       return;
     }
 
@@ -133,22 +221,27 @@ const SettingsPage = () => {
     }
 
     if (oldPassword === newPassword) {
-      setPasswordError("New password must be different from your old password.");
+      setPasswordError(
+        "New password must be different from your old password.",
+      );
       return;
     }
 
     try {
       setPasswordLoading(true);
+      setPasswordError("");
+
       const formData = new FormData();
       formData.append("oldPassword", oldPassword);
       formData.append("newPassword", newPassword);
       formData.append("confirmPassword", confirmPassword);
-      
+
       await apiClient.put("/parent/settings", formData);
       toast.success("Password changed successfully!");
       handleCloseModal();
     } catch (err) {
-      const msg = err.response?.data?.message || "Failed to change password. Try again.";
+      const msg =
+        err.response?.data?.message || "Failed to change password. Try again.";
       setPasswordError(msg);
     } finally {
       setPasswordLoading(false);
@@ -164,6 +257,20 @@ const SettingsPage = () => {
     setShowConfirmPassword(false);
   };
 
+  // Same loading state as DashboardPage
+  if (initialLoading) {
+    return <LoadingScreen />;
+  }
+
+  // Same error state as DashboardPage
+  if (error) {
+    return (
+      <div className="parent-flex-center-view">
+        <p className="parent-error-text">{error}</p>
+      </div>
+    );
+  }
+
   return (
     <div className="parent-settings-container">
       <div className="parent-settings-header">
@@ -177,15 +284,26 @@ const SettingsPage = () => {
           <div className="parent-avatar-section">
             <div className="parent-avatar-container">
               {previewUrl ? (
-                <img src={previewUrl} alt="Profile Avatar" className="parent-avatar-image" />
-              ) : user?.profilePicture ? (
-                <img src={user.profilePicture} alt="Profile Avatar" className="parent-avatar-image" />
+                <img
+                  src={previewUrl}
+                  alt="Profile Avatar"
+                  className="parent-avatar-image"
+                />
+              ) : user?.profileUrl || user?.profilePicture ? (
+                <img
+                  src={user.profileUrl || user.profilePicture}
+                  alt="Profile Avatar"
+                  className="parent-avatar-image"
+                />
               ) : (
                 <div className="parent-avatar-placeholder">
                   <LuCamera />
                 </div>
               )}
-              <label htmlFor="avatar-upload" className="parent-avatar-upload-btn">
+              <label
+                htmlFor="avatar-upload"
+                className="parent-avatar-upload-btn"
+              >
                 <LuCamera />
               </label>
               <input
@@ -235,7 +353,7 @@ const SettingsPage = () => {
                   value={profileData.phone}
                   readOnly
                   disabled
-                  className="readonly-field"
+                  className="parent-readonly-field"
                   placeholder="Phone Number"
                 />
               </div>
@@ -248,13 +366,13 @@ const SettingsPage = () => {
                   value={profileData.email}
                   readOnly
                   disabled
-                  className="readonly-field"
+                  className="parent-readonly-field"
                   placeholder="Email Address"
                 />
               </div>
             </div>
 
-            <div className="parent-form-group full-width">
+            <div className="parent-form-group parent-full-width">
               <label htmlFor="address">Address</label>
               <input
                 id="address"
@@ -267,7 +385,11 @@ const SettingsPage = () => {
             </div>
 
             <div className="parent-button-wrapper">
-              <button className="parent-save-btn" onClick={handleSaveChanges} disabled={profileLoading}>
+              <button
+                className="parent-save-btn"
+                onClick={handleSaveChanges}
+                disabled={profileLoading}
+              >
                 {profileLoading ? "Saving..." : "Save Changes"}
               </button>
             </div>
@@ -294,23 +416,29 @@ const SettingsPage = () => {
       </div>
 
       {showPasswordModal && (
-        <div className="modal-overlay" onClick={handleCloseModal}>
-          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header">
+        <div className="parent-modal-overlay" onClick={handleCloseModal}>
+          <div
+            className="parent-modal-container"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="parent-modal-header">
               <h2>Change Password</h2>
-              <button className="modal-close-btn" onClick={handleCloseModal}>
+              <button
+                className="parent-modal-close-btn"
+                onClick={handleCloseModal}
+              >
                 &times;
               </button>
             </div>
 
-            <div className="modal-body">
+            <div className="parent-modal-body">
               {passwordError && (
-                <p className="modal-error">{passwordError}</p>
+                <p className="parent-modal-error">{passwordError}</p>
               )}
 
-              <div className="modal-form-group">
+              <div className="parent-modal-form-group">
                 <label>Current Password</label>
-                <div className="modal-password-wrapper">
+                <div className="parent-modal-password-wrapper">
                   <input
                     type={showOldPassword ? "text" : "password"}
                     name="oldPassword"
@@ -322,16 +450,16 @@ const SettingsPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowOldPassword(!showOldPassword)}
-                    className="modal-eye-btn"
+                    className="parent-modal-eye-btn"
                   >
                     {showOldPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
               </div>
 
-              <div className="modal-form-group">
+              <div className="parent-modal-form-group">
                 <label>New Password</label>
-                <div className="modal-password-wrapper">
+                <div className="parent-modal-password-wrapper">
                   <input
                     type={showNewPassword ? "text" : "password"}
                     name="newPassword"
@@ -343,17 +471,17 @@ const SettingsPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowNewPassword(!showNewPassword)}
-                    className="modal-eye-btn"
+                    className="parent-modal-eye-btn"
                   >
                     {showNewPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
                 </div>
 
                 {passwordData.newPassword && (
-                  <div className="password-strength-wrapper">
-                    <div className="password-strength-bar-track">
+                  <div className="parent-password-strength-wrapper">
+                    <div className="parent-password-strength-bar-track">
                       <div
-                        className="password-strength-bar-fill"
+                        className="parent-password-strength-bar-fill"
                         style={{
                           width: strength.width,
                           backgroundColor: strength.color,
@@ -361,7 +489,7 @@ const SettingsPage = () => {
                       />
                     </div>
                     <span
-                      className="password-strength-label"
+                      className="parent-password-strength-label"
                       style={{ color: strength.color }}
                     >
                       {strength.label}
@@ -370,29 +498,55 @@ const SettingsPage = () => {
                 )}
 
                 {passwordData.newPassword && (
-                  <ul className="password-requirements">
-                    <li className={passwordData.newPassword.length >= 8 ? "met" : ""}>
+                  <ul className="parent-password-requirements">
+                    <li
+                      className={
+                        passwordData.newPassword.length >= 8 ? "parent-met" : ""
+                      }
+                    >
                       At least 8 characters
                     </li>
-                    <li className={/[A-Z]/.test(passwordData.newPassword) ? "met" : ""}>
+                    <li
+                      className={
+                        /[A-Z]/.test(passwordData.newPassword)
+                          ? "parent-met"
+                          : ""
+                      }
+                    >
                       One uppercase letter
                     </li>
-                    <li className={/[a-z]/.test(passwordData.newPassword) ? "met" : ""}>
+                    <li
+                      className={
+                        /[a-z]/.test(passwordData.newPassword)
+                          ? "parent-met"
+                          : ""
+                      }
+                    >
                       One lowercase letter
                     </li>
-                    <li className={/\d/.test(passwordData.newPassword) ? "met" : ""}>
+                    <li
+                      className={
+                        /\d/.test(passwordData.newPassword) ? "parent-met" : ""
+                      }
+                    >
                       One number
                     </li>
-                    <li className={/[@$!%*?&.#_-]/.test(passwordData.newPassword) ? "met" : ""}>
+                    <li
+                      className={
+                        /[@$!%*?&.#_-]/.test(passwordData.newPassword)
+                          ? "parent-met"
+                          : ""
+                      }
+                    >
                       One special character (@$!%*?&.#_-)
                     </li>
                   </ul>
                 )}
               </div>
 
-              <div className="modal-form-group">
+              <div className="parent-modal-form-group">
                 <label>Confirm New Password</label>
-                <div className="modal-password-wrapper">
+                <div className="parent-modal-password-wrapper">
                   <input
                     type={showConfirmPassword ? "text" : "password"}
                     name="confirmPassword"
@@ -404,7 +558,7 @@ const SettingsPage = () => {
                   <button
                     type="button"
                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="modal-eye-btn"
+                    className="parent-modal-eye-btn"
                   >
                     {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
                   </button>
@@ -412,10 +566,11 @@ const SettingsPage = () => {
 
                 {passwordData.confirmPassword && (
                   <p
-                    className="password-match-indicator"
+                    className="parent-password-match-indicator"
                     style={{
                       color:
-                        passwordData.newPassword === passwordData.confirmPassword
+                        passwordData.newPassword ===
+                        passwordData.confirmPassword
                           ? "#38a169"
                           : "#e53e3e",
                     }}
@@ -428,16 +583,16 @@ const SettingsPage = () => {
               </div>
             </div>
 
-            <div className="modal-footer">
+            <div className="parent-modal-footer">
               <button
-                className="modal-cancel-btn"
+                className="parent-modal-cancel-btn"
                 onClick={handleCloseModal}
                 disabled={passwordLoading}
               >
                 Cancel
               </button>
               <button
-                className="modal-submit-btn"
+                className="parent-modal-submit-btn"
                 onClick={handleChangePassword}
                 disabled={passwordLoading}
               >

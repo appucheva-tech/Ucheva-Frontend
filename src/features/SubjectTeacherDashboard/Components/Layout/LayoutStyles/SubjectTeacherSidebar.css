@@ -1,8 +1,6 @@
 .SubjectTeacherSidebar_Container {
   width: 280px;
   height: 100vh;
-  background-color: #ffffff;
-  border-right: 1px solid #e8e8e8;
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -12,6 +10,8 @@
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
   padding: 0px 20px;
+  border-right: 1px solid var(--Side-bar-boarder, #e8edf5);
+  background: #fff;
   box-shadow: 0 15px 30px 0 rgba(0, 98, 246, 0.05);
 }
 
@@ -32,7 +32,7 @@
 
 .SubjectTeacherSidebar-Ucheva {
   width: 100%;
-  height: 100%;
+  height: 80%;
 }
 
 .SubjectTeacherSidebar-nav {
@@ -47,28 +47,33 @@
   align-items: center;
   gap: 12px;
   padding: 12px 18px;
-  color: #666666;
   text-decoration: none;
   border-radius: 8px;
   border-left: 3px solid transparent;
   transition: all 0.2s ease;
   position: relative;
-  font-size: 15px;
-  font-weight: 500;
   cursor: pointer;
+  color: var(--Primary-Color-900, #03173c);
+  font-family: Nunito;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 
 .SubjectTeacherSidebar-nav-link:hover {
   background-color: #f1f7ff;
-  color: #666666;
+  color: #0d62f6;
 }
 
+/* Hover effect for icon */
 .SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-icon {
-  color: #666666;
+  color: #0d62f6;
 }
 
+/* Hover effect for text */
 .SubjectTeacherSidebar-nav-link:hover .SubjectTeacherSidebar-nav-text {
-  color: #666666;
+  color: #0d62f6;
 }
 
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active {
@@ -77,16 +82,19 @@
   border-left-color: #0d62f6;
 }
 
+/* Active state for icon */
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
   .SubjectTeacherSidebar-nav-icon {
   color: #0d62f6;
 }
 
+/* Active state for text */
 .SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
   .SubjectTeacherSidebar-nav-text {
   color: #0d62f6;
 }
 
+/* ===== ICON STYLES ===== */
 .SubjectTeacherSidebar-nav-icon {
   display: flex;
   align-items: center;
@@ -97,6 +105,14 @@
   color: inherit;
 }
 
+/* Make sure SVG inside icon takes full size */
+.SubjectTeacherSidebar-nav-icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ===== TEXT STYLES ===== */
 .SubjectTeacherSidebar-nav-text {
   flex: 1;
   font-weight: 600;
@@ -104,6 +120,21 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: inherit;
+}
+
+/* ===== ACTIVE STATE INDICATOR ===== */
+.SubjectTeacherSidebar-active-indicator {
+  display: none;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* Show indicator when the link is active */
+.SubjectTeacherSidebar-nav-link.SubjectTeacherSidebar-active
+  .SubjectTeacherSidebar-active-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .SubjectTeacherSidebar_Container::-webkit-scrollbar {
@@ -123,6 +154,9 @@
   background: #bdbdbd;
 }
 
+/* ===== RESPONSIVE STYLES ===== */
+
+/* Tablet */
 @media (max-width: 768px) {
   .SubjectTeacherSidebar_Container {
     width: 240px;
@@ -143,6 +177,7 @@
   }
 }
 
+/* Mobile */
 @media (max-width: 480px) {
   .SubjectTeacherSidebar_Container {
     width: 85%;
@@ -188,6 +223,7 @@
   }
 }
 
+/* Extra Small Mobile */
 @media (max-width: 380px) {
   .SubjectTeacherSidebar_Container {
     width: 90%;
@@ -213,6 +249,7 @@
   }
 }
 
+/* Desktop - always show sidebar */
 @media (min-width: 769px) {
   .SubjectTeacherSidebar_Container {
     transform: translateX(0) !important;

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/PaymentPage.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { useOutletContext } from "react-router-dom";
- 
+import LoadingScreen from "../../../components/Loading-Screen";
 
 const PaymentPage = () => {
   const [paymentData, setPaymentData] = useState(null);
@@ -60,6 +60,10 @@ const PaymentPage = () => {
   };
 
   const formatCurrency = (amount) => {
+    // Check if amount is a valid number
+    if (amount === undefined || amount === null || isNaN(amount)) {
+      return "N0";
+    }
     return new Intl.NumberFormat("en-NG", {
       style: "currency",
       currency: "NGN",
@@ -69,65 +73,110 @@ const PaymentPage = () => {
       .replace("₦", "N");
   };
 
-  if (loading)
-    return <div className="payment-page flex-center-view">Loading...</div>;
+  if (loading) return <LoadingScreen />;
   if (error)
-    return <div className="payment-page flex-center-view">{error}</div>;
+    return (
+      <div className="parent-payment-page parent-flex-center-view">{error}</div>
+    );
   if (!selectedStudent)
     return (
-      <div className="payment-page flex-center-view">
+      <div className="parent-payment-page parent-flex-center-view">
         No student selected. Please select a student to continue.
       </div>
     );
+  if (!paymentData) {
+    return (
+      <div className="parent-payment-page parent-flex-center-view">
+        No payment data available.
+      </div>
+    );
+  }
 
-  const total = paymentData.totalFee;
+  // Set default values to prevent NaN
+  const total = paymentData.totalFee || 0;
+
+  // For installment payment, we need to calculate based on available data
+  // Since the API returns "full payment" only, we'll create installment options
+  const hasInstallmentData =
+    paymentData.amountPerInstallment && paymentData.numberOfInstallments;
+
+  // If no installment data from API, create reasonable defaults
+  const amountPerInstallment = hasInstallmentData
+    ? paymentData.amountPerInstallment
+    : Math.ceil(total / 3); // Default to 3 installments
+
+  const numberOfInstallments = hasInstallmentData
+    ? paymentData.numberOfInstallments
+    : 3;
+
+  // Calculate amount based on payment type
   const amountNow =
-    paymentType === "installment" ? paymentData.payableAmount : total;
-  const balance = paymentType === "installment" ? paymentData.balance : 0;
+    paymentType === "installment" ? amountPerInstallment : total;
+
+  const balance =
+    paymentType === "installment" ? total - amountPerInstallment : 0;
+
+  // Check if the student has already paid partially
+  const hasPaid = paymentData.amountPaid > 0;
+  const remainingBalance = paymentData.balance || total;
 
   return (
-    <div className="payment-page">
-      <div className="payment-header">
+    <div className="parent-payment-page">
+      <div className="parent-payment-header">
         <h1>Payment</h1>
         <p>
           Paying for: <strong>{paymentData.studentName}</strong> (
           {paymentData.class})
         </p>
+        {paymentData.paymentStatus && (
+          <p className="parent-payment-status">
+            Status:{" "}
+            <span
+              className={
+                paymentData.paymentStatus === "paid"
+                  ? "parent-status-paid"
+                  : "parent-status-unpaid"
+              }
+            >
+              {paymentData.paymentStatus}
+            </span>
+          </p>
+        )}
       </div>
 
-      <div className="payment-container">
-        <div className="payment-left">
-          <div className="payment-section">
-            <div className="section-header">
+      <div className="parent-payment-container">
+        <div className="parent-payment-left">
+          <div className="parent-payment-section">
+            <div className="parent-section-header">
               <h2>School Fees</h2>
               <p>Select what you want to pay for.</p>
             </div>
-            <div className="fee-list">
-              <label className="fee-item">
+            <div className="parent-fee-list">
+              <label className="parent-fee-item">
                 <input
                   type="checkbox"
                   checked={true}
                   disabled
-                  className="fee-checkbox"
+                  className="parent-fee-checkbox"
                 />
-                <div className="fee-content">
-                  <div className="fee-name">Total School Fees</div>
-                  <div className="fee-term">For {paymentData.class}</div>
+                <div className="parent-fee-content">
+                  <div className="parent-fee-name">Total School Fees</div>
+                  <div className="parent-fee-term">For {paymentData.class}</div>
                 </div>
-                <div className="fee-amount">{formatCurrency(total)}</div>
+                <div className="parent-fee-amount">{formatCurrency(total)}</div>
               </label>
             </div>
           </div>
 
-          <div className="payment-section">
-            <div className="section-header">
+          <div className="parent-payment-section">
+            <div className="parent-section-header">
               <h2>Payment Type</h2>
               <p>Choose how you want to pay.</p>
             </div>
 
-            <div className="payment-type-list">
+            <div className="parent-payment-type-list">
               <label
-                className={`payment-type-option ${paymentType === "full" ? "active" : ""}`}
+                className={`parent-payment-type-option ${paymentType === "full" ? "parent-active" : ""}`}
               >
                 <input
                   type="radio"
@@ -135,18 +184,18 @@ const PaymentPage = () => {
                   value="full"
                   checked={paymentType === "full"}
                   onChange={() => setPaymentType("full")}
-                  className="payment-radio"
+                  className="parent-payment-radio"
                 />
-                <div className="payment-type-content">
-                  <div className="payment-type-label">Full Payment</div>
-                  <div className="payment-type-description">
+                <div className="parent-payment-type-content">
+                  <div className="parent-payment-type-label">Full Payment</div>
+                  <div className="parent-payment-type-description">
                     Pay {formatCurrency(total)} at once.
                   </div>
                 </div>
               </label>
 
               <label
-                className={`payment-type-option ${paymentType === "installment" ? "active" : ""}`}
+                className={`parent-payment-type-option ${paymentType === "installment" ? "parent-active" : ""}`}
               >
                 <input
                   type="radio"
@@ -154,13 +203,15 @@ const PaymentPage = () => {
                   value="installment"
                   checked={paymentType === "installment"}
                   onChange={() => setPaymentType("installment")}
-                  className="payment-radio"
+                  className="parent-payment-radio"
                 />
-                <div className="payment-type-content">
-                  <div className="payment-type-label">Installment Payment</div>
-                  <div className="payment-type-description">
-                    Pay {formatCurrency(paymentData.amountPerInstallment)} per
-                    installment ({paymentData.numberOfInstallments} times).
+                <div className="parent-payment-type-content">
+                  <div className="parent-payment-type-label">
+                    Installment Payment
+                  </div>
+                  <div className="parent-payment-type-description">
+                    Pay {formatCurrency(amountPerInstallment)} per installment (
+                    {numberOfInstallments} times).
                   </div>
                 </div>
               </label>
@@ -168,56 +219,66 @@ const PaymentPage = () => {
           </div>
         </div>
 
-        <div className="payment-right">
-          <div className="order-summary">
-            <div className="summary-header">
+        <div className="parent-payment-right">
+          <div className="parent-order-summary">
+            <div className="parent-summary-header">
               <h2>Order Summary</h2>
               <p>Review your payment details.</p>
             </div>
 
-            <div className="payment-preview-box">
-              <p className="preview-label">You are paying</p>
-              <h3 className="preview-amount">{formatCurrency(amountNow)}</h3>
-              <p className="preview-subtext">
+            <div className="parent-payment-preview-box">
+              <p className="parent-preview-label">You are paying</p>
+              <h3 className="parent-preview-amount">
+                {formatCurrency(amountNow)}
+              </h3>
+              <p className="parent-preview-subtext">
                 {paymentType === "full"
                   ? "Total settlement"
-                  : "First installment payment"}
+                  : `Installment 1 of ${numberOfInstallments}`}
               </p>
             </div>
 
-            <div className="summary-content">
-              <div className="summary-items">
-                <div className="summary-item">
+            <div className="parent-summary-content">
+              <div className="parent-summary-items">
+                <div className="parent-summary-item">
                   <span>Total Fees</span>
                   <span>{formatCurrency(total)}</span>
                 </div>
+                {hasPaid && (
+                  <div className="parent-summary-item">
+                    <span>Amount Paid</span>
+                    <span>{formatCurrency(paymentData.amountPaid)}</span>
+                  </div>
+                )}
               </div>
 
-              <div className="summary-divider"></div>
+              <div className="parent-summary-divider"></div>
 
-              <div className="summary-row">
-                <span className="summary-label">Payment Type</span>
-                <span className="summary-value">
+              <div className="parent-summary-row">
+                <span className="parent-summary-label">Payment Type</span>
+                <span className="parent-summary-value">
                   {paymentType === "installment"
                     ? "Installment"
                     : "Full Payment"}
                 </span>
               </div>
 
-              <div className="summary-row">
-                <span className="summary-label">Amount Paying Now</span>
-                <span className="summary-value">
+              <div className="parent-summary-row">
+                <span className="parent-summary-label">Amount Paying Now</span>
+                <span className="parent-summary-value">
                   {formatCurrency(amountNow)}
                 </span>
               </div>
 
-              <div className="summary-row">
-                <span className="summary-label">Balance</span>
-                <span className="summary-value">{formatCurrency(balance)}</span>
+              <div className="parent-summary-row">
+                <span className="parent-summary-label">Balance</span>
+                <span className="parent-summary-value">
+                  {formatCurrency(balance)}
+                </span>
               </div>
 
               <button
-                className="proceed-button"
+                className="parent-proceed-button"
                 onClick={handleInitializePayment}
               >
                 Proceed to Payment

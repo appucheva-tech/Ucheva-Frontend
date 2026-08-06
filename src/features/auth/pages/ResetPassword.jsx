@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import "../styles/verify-email.css"; // Reusing your layout styling classes
+import "../styles/reset-password.css";
 import { apiClient } from "../../../config/AxiosInstance";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Ucheva from "../../../assets/Logo.svg";
 
 const ResetPassword = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
   const subdomain = window.location.hostname.split(".")[0];
@@ -87,149 +86,92 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="verify-page-viewport">
-      <div className="verify-card-box">
-        <div className="mobile-logo">
-          <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")}/>
-        </div>
-        <h1 className="verify-title">Reset Password</h1>
-
-        <p className="verify-subtext">
-          Create a new password secure credentials for <br />
-          <span className="user-email-highlight">
-            {userEmail || "your account"}
-          </span>
-        </p>
-
-        <form onSubmit={handleResetSubmit}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "16px",
-              marginBottom: "20px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
-                New Password
-              </label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter new password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                    if (error) setError("");
-                  }}
-                  disabled={loading}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "6px",
-                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                    outline: "none",
-                    fontSize: "15px",
-                    width: "100%",
-                    paddingRight: "40px",
-                  }}
-                />
-
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#666",
-                  }}
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                textAlign: "left",
-              }}
-            >
-              <label
-                style={{ fontSize: "14px", marginBottom: "6px", color: "#666" }}
-              >
-                Confirm Password
-              </label>
-              <div style={{ position: "relative" }}>
-                <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  placeholder="Confirm new password"
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setConfirmPassword(e.target.value);
-                    if (error) setError("");
-                  }}
-                  disabled={loading}
-                  style={{
-                    padding: "12px",
-                    borderRadius: "6px",
-                    border: error ? "1px solid #ff4d4f" : "1px solid #d9d9d9",
-                    outline: "none",
-                    fontSize: "15px",
-                    width: "100%",
-                    paddingRight: "40px",
-                  }}
-                />
-
-                <span
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    cursor: "pointer",
-                    color: "#666",
-                  }}
-                >
-                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {successMessage && (
-            <p className="otp-success-toast">{successMessage}</p>
-          )}
-          {error && <p className="otp-error-toast">{error}</p>}
-
-          <button
-            type="submit"
-            className="verify-submit-button"
-            disabled={loading || !password || !confirmPassword }
-          >
-            {loading ? "Updating..." : "Update Password"}
-          </button>
-        </form>
-
-        <p className="verify-footer-nav">
-          Remember your password?{" "}
-          <span className="login-link-span" onClick={() => navigate("/login")}>
-            Log in
-          </span>
-        </p>
+    <div className="Reset-page-wrapper">
+      <div className="Reset-mobile-logo">
+        <img src={Ucheva} alt="Ucheva Logo" onClick={() => navigate("/")} />
       </div>
+
+      <h1 className="Reset-title-heading">Reset Password</h1>
+
+      {/* <p className="Reset-subtext">
+        Create a new password secure credentials for <br />
+        <span className="Reset-user-email-highlight">
+          {userEmail || "your account"}
+        </span>
+      </p> */}
+
+      <form className="Reset-form" onSubmit={handleResetSubmit}>
+        <div className="Reset-form-control-group">
+          <label className="Reset-input-field-label">New Password</label>
+          <div className="Reset-password-input-wrapper">
+            <input
+              className="Reset-input-field Reset-password-field"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter new password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (error) setError("");
+              }}
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className="Reset-password-toggle-visibility"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+        </div>
+
+        <div className="Reset-form-control-group">
+          <label className="Reset-input-field-label">Confirm Password</label>
+          <div className="Reset-password-input-wrapper">
+            <input
+              className="Reset-input-field Reset-password-field"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm new password"
+              value={confirmPassword}
+              onChange={(e) => {
+                setConfirmPassword(e.target.value);
+                if (error) setError("");
+              }}
+              disabled={loading}
+            />
+            <button
+              type="button"
+              className="Reset-password-toggle-visibility"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+            </button>
+          </div>
+        </div>
+
+        {successMessage && (
+          <p className="Reset-success-toast">{successMessage}</p>
+        )}
+        {error && <p className="Reset-error-toast">{error}</p>}
+
+        <button
+          type="submit"
+          className="Reset-submit-button"
+          disabled={loading || !password || !confirmPassword}
+        >
+          {loading ? "Updating..." : "Update Password"}
+        </button>
+      </form>
+
+      <p className="Reset-footer-nav">
+        Remember your password?{" "}
+        <span
+          className="Reset-login-link-span"
+          onClick={() => navigate("/login")}
+        >
+          Log in
+        </span>
+      </p>
     </div>
   );
 };

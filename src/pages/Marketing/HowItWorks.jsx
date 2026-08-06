@@ -1,7 +1,6 @@
 import React from "react";
 import "./HowItWorks.css";
 import { FaUser } from "react-icons/fa";
-import Ifeanacho from "../../assets/Ifeanacho.jpg";
 import { FaUserGear } from "react-icons/fa6";
 
 const HowItWorks = () => {
@@ -67,7 +66,12 @@ const HowItWorks = () => {
                     <div className="GGline GGmedium"></div>
                     <div className="GGline GGlong"></div>
                     <div className="GGavatar-line">
-                      <img src={Ifeanacho} alt="" className="GGavatar" />
+                      <img
+                        src="https://i.postimg.cc/qMVzn7DD/3085556af521454075b119b9639e5e29d2973001.jpg"
+                        alt=""
+                        className="GGavatar"
+                      />
+
                       <div className="GGline GGshort"></div>
                     </div>
                   </div>

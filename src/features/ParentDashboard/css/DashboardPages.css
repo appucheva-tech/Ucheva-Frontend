@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200..1000&display=swap");
 
-.nunito-content {
+.parent-nunito-content {
   font-family: "Nunito", sans-serif;
   font-optical-sizing: auto;
   background-color: #f5f7fb;
@@ -19,7 +19,7 @@
   padding: 0;
 }
 
-.dashboard-header {
+.parent-dashboard-header {
   margin-bottom: 32px;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
   width: 100%;
 }
 
-.greeting-title {
+.parent-greeting-title {
   margin: 0;
   text-align: left;
   width: 100%;
@@ -42,7 +42,7 @@
   color: #03173c;
 }
 
-.greeting-subtitle {
+.parent-greeting-subtitle {
   margin: 0;
   text-align: left;
   width: 100%;
@@ -55,7 +55,7 @@
   color: #042869;
 }
 
-.student-summary-banner {
+.parent-student-summary-banner {
   display: flex;
   align-items: flex-start;
   gap: 24px;
@@ -67,7 +67,7 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
-.student-avatar-box {
+.parent-student-avatar-box {
   flex-shrink: 0;
   background-color: #eaf2ff;
   display: flex;
@@ -81,16 +81,16 @@
   padding: 10px;
 }
 
-.student-badge-icon {
+.parent-student-badge-icon {
   font-size: 48px;
   line-height: 1;
 }
 
-.student-summary-info {
+.parent-student-summary-info {
   flex: 1;
 }
 
-.student-profile-name {
+.parent-student-profile-name {
   margin-bottom: 16px;
   font-family: Nunito;
   font-weight: 700;
@@ -101,19 +101,19 @@
   color: #042869;
 }
 
-.student-quick-metrics {
+.parent-student-quick-metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 32px;
 }
 
-.metric-column {
+.parent-metric-column {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.metric-label-text {
+.parent-metric-label-text {
   color: #042869;
   text-transform: capitalize;
   font-family: Nunito;
@@ -124,7 +124,7 @@
   letter-spacing: 0%;
 }
 
-.metric-value-text {
+.parent-metric-value-text {
   color: #042869;
   font-family: Nunito;
   font-weight: 700;
@@ -134,7 +134,7 @@
   letter-spacing: 0%;
 }
 
-.fee-unpaid {
+.parent-fee-unpaid {
   font-family: Nunito;
   font-weight: 700;
   font-style: Bold;
@@ -144,7 +144,7 @@
   color: #d32f2f;
 }
 
-.fee-paid {
+.parent-fee-paid {
   color: #042869;
   font-family: Nunito;
   font-weight: 700;
@@ -154,7 +154,7 @@
   letter-spacing: 0%;
 }
 
-.badge-pill-present {
+.parent-badge-pill-present {
   display: inline-block;
   padding: 4px 12px;
   border-radius: 4px;
@@ -191,7 +191,7 @@
   background-color: #ffffff;
 }
 
-.card-section-title {
+.parent-card-section-title {
   color: #03173c;
   margin-bottom: 20px;
   font-family: Nunito;
@@ -202,23 +202,23 @@
   letter-spacing: 0%;
 }
 
-.empty-state-container {
+.parent-empty-state-container {
   text-align: center;
   padding: 40px 20px;
 }
 
-.empty-icon {
+.parent-empty-icon {
   font-size: 48px;
   margin-bottom: 16px;
 }
 
-.empty-state-container p {
+.parent-empty-state-container p {
   color: #666;
   margin-bottom: 16px;
   font-size: 14px;
 }
 
-.refresh-btn {
+.parent-refresh-btn {
   padding: 8px 24px;
   background-color: #0052cc;
   color: white;
@@ -230,20 +230,20 @@
   transition: background-color 0.2s;
 }
 
-.refresh-btn:hover {
+.parent-refresh-btn:hover {
   background-color: #003d99;
 }
 
-.payment-records-table {
+.parent-payment-records-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.payment-records-table thead tr {
+.parent-payment-records-table thead tr {
   background-color: #e5e7eb;
 }
 
-.payment-records-table th {
+.parent-payment-records-table th {
   padding: 12px;
   text-align: left;
   border: 1px solid #f0f0f0;
@@ -256,7 +256,7 @@
   color: #03173c;
 }
 
-.payment-records-table td {
+.parent-payment-records-table td {
   padding: 12px;
   color: #042869;
   border: 1px solid #f0f0f0;
@@ -268,11 +268,11 @@
   letter-spacing: 0%;
 }
 
-.payment-records-table tbody tr:hover {
+.parent-payment-records-table tbody tr:hover {
   background-color: #f9f9f9;
 }
 
-.status-pill {
+.parent-status-pill {
   display: flex;
   padding: 0 12px;
   border-radius: 4px;
@@ -287,14 +287,14 @@
   border-radius: 10px;
 }
 
-.attendance-chart-layout {
+.parent-attendance-chart-layout {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px 0;
 }
 
-.circular-progress-wrapper {
+.parent-circular-progress-wrapper {
   position: relative;
   width: 200px;
   height: 200px;
@@ -303,19 +303,19 @@
   justify-content: center;
 }
 
-.radial-chart-graphic {
+.parent-radial-chart-graphic {
   width: 100%;
   height: 100%;
   transform: rotate(-90deg);
 }
 
-.radial-track {
+.parent-radial-track {
   fill: none;
   stroke: #f0f0f0;
   stroke-width: 13;
 }
 
-.radial-progress {
+.parent-radial-progress {
   fill: none;
   stroke: #faa200;
   stroke-width: 13;
@@ -323,7 +323,7 @@
   transition: stroke-dasharray 0.5s ease;
 }
 
-.radial-center-labels {
+.parent-radial-center-labels {
   position: absolute;
   /* text-align: center;   */
   justify-content: center;
@@ -332,7 +332,7 @@
   flex-direction: column;
 }
 
-.radial-percentage {
+.parent-radial-percentage {
   color: #03173c;
   font-family: Nunito;
   font-weight: 700;
@@ -343,7 +343,7 @@
   margin-top: 30px;
 }
 
-.radial-subtext {
+.parent-radial-subtext {
   color: #03173c;
   font-family: Geist;
   font-weight: 84;
@@ -353,14 +353,14 @@
   letter-spacing: 0%;
 }
 
-.flex-center-view {
+.parent-flex-center-view {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 400px;
 }
 
-.loading-spinner-ring {
+.parent-loading-spinner-ring {
   width: 40px;
   height: 40px;
   border: 4px solid #f3f3f3;
@@ -378,7 +378,7 @@
   }
 }
 
-.error-text {
+.parent-error-text {
   color: #d32f2f;
   font-size: 16px;
   text-align: center;
@@ -388,7 +388,7 @@
 /* ============== ATTENDANCE LEGEND (ADDED) ============== */
 /* ============================================================ */
 
-.attendance-legend {
+.parent-attendance-legend {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -397,7 +397,7 @@
   flex-wrap: wrap;
 }
 
-.legend-item {
+.parent-legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -410,18 +410,18 @@
   color: #042869;
 }
 
-.legend-color {
+.parent-legend-color {
   width: 16px;
   height: 16px;
   border-radius: 4px;
   flex-shrink: 0;
 }
 
-.legend-color.orange {
+.parent-legend-color.parent-orange {
   background-color: #faa200;
 }
 
-.legend-color.grey {
+.parent-legend-color.parent-grey {
   background-color: #d1d5db;
 }
 
@@ -430,7 +430,7 @@
 /* ============================================================ */
 
 @media (max-width: 1024px) {
-  .student-quick-metrics {
+  .parent-student-quick-metrics {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -440,29 +440,29 @@
     padding: 20px;
   }
 
-  .dashboard-header {
+  .parent-dashboard-header {
     margin-bottom: 24px;
     align-items: flex-start;
     text-align: left;
   }
 
-  .greeting-title {
+  .parent-greeting-title {
     font-size: 24px;
     text-align: left;
   }
 
-  .greeting-subtitle {
+  .parent-greeting-subtitle {
     font-size: 14px;
     text-align: left;
   }
 
-  .student-summary-banner {
+  .parent-student-summary-banner {
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .student-quick-metrics {
+  .parent-student-quick-metrics {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
@@ -476,23 +476,23 @@
     width: 100%;
   }
 
-  .attendance-chart-layout {
+  .parent-attendance-chart-layout {
     padding: 10px 0;
   }
 
-  .student-profile-name {
+  .parent-student-profile-name {
     font-size: 20px;
   }
 
-  .radial-percentage {
+  .parent-radial-percentage {
     font-size: 28px;
   }
 
-  .attendance-legend {
+  .parent-attendance-legend {
     gap: 18px;
   }
 
-  .legend-item {
+  .parent-legend-item {
     font-size: 13px;
   }
 }
@@ -506,20 +506,20 @@
     padding: 12px;
   }
 
-  .dashboard-header {
+  .parent-dashboard-header {
     margin-bottom: 16px;
   }
 
-  .greeting-title {
+  .parent-greeting-title {
     font-size: 20px;
   }
 
-  .greeting-subtitle {
+  .parent-greeting-subtitle {
     font-size: 13px;
   }
 
   /* ===== STUDENT SUMMARY BANNER - FIXED LAYOUT ===== */
-  .student-summary-banner {
+  .parent-student-summary-banner {
     flex-direction: row;
     align-items: flex-start;
     text-align: left;
@@ -527,7 +527,7 @@
     gap: 14px;
   }
 
-  .student-avatar-box {
+  .parent-student-avatar-box {
     width: 52px;
     height: 52px;
     border-radius: 14px;
@@ -535,71 +535,71 @@
     flex-shrink: 0;
   }
 
-  .student-badge-icon {
+  .parent-student-badge-icon {
     font-size: 26px;
   }
 
-  .student-summary-info {
+  .parent-student-summary-info {
     display: flex;
     flex-direction: column;
     flex: 1;
     min-width: 0;
   }
 
-  .student-profile-name {
+  .parent-student-profile-name {
     font-size: 18px;
     margin-bottom: 10px;
     text-align: left;
   }
 
-  .student-quick-metrics {
+  .parent-student-quick-metrics {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px 20px;
     width: 100%;
   }
 
-  .metric-column {
+  .parent-metric-column {
     text-align: left;
   }
 
-  .metric-label-text {
+  .parent-metric-label-text {
     font-size: 12px;
   }
 
-  .metric-value-text {
+  .parent-metric-value-text {
     font-size: 14px;
   }
 
-  .circular-progress-wrapper {
+  .parent-circular-progress-wrapper {
     width: 140px;
     height: 140px;
   }
 
-  .radial-percentage {
+  .parent-radial-percentage {
     font-size: 22px;
   }
 
-  .radial-subtext {
+  .parent-radial-subtext {
     font-size: 10px;
   }
 
-  .card-section-title {
+  .parent-card-section-title {
     font-size: 17px;
     margin-bottom: 14px;
   }
 
-  .attendance-legend {
+  .parent-attendance-legend {
     gap: 12px;
     margin-top: 10px;
   }
 
-  .legend-item {
+  .parent-legend-item {
     font-size: 10px;
     gap: 4px;
   }
 
-  .legend-color {
+  .parent-legend-color {
     width: 10px;
     height: 10px;
   }
@@ -607,12 +607,12 @@
   /* ===== PAYMENT HISTORY CARD LAYOUT ===== */
 
   /* Hide table header */
-  .payment-records-table thead {
+  .parent-payment-records-table thead {
     display: none;
   }
 
   /* Make each row a card */
-  .payment-records-table tbody tr {
+  .parent-payment-records-table tbody tr {
     display: block;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
@@ -622,12 +622,12 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   }
 
-  .payment-records-table tbody tr:hover {
+  .parent-payment-records-table tbody tr:hover {
     background-color: #ffffff;
   }
 
   /* Make each cell a row with label and value */
-  .payment-records-table tbody td {
+  .parent-payment-records-table tbody td {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -638,12 +638,12 @@
     color: #042869;
   }
 
-  .payment-records-table tbody td:last-child {
+  .parent-payment-records-table tbody td:last-child {
     border-bottom: none;
   }
 
   /* Add labels before each cell value */
-  .payment-records-table tbody td::before {
+  .parent-payment-records-table tbody td::before {
     content: attr(data-label);
     font-weight: 600;
     color: #6b7280;
@@ -651,7 +651,7 @@
   }
 
   /* Status pill inside card */
-  .payment-records-table tbody td .status-pill {
+  .parent-payment-records-table tbody td .parent-status-pill {
     height: 22px;
     font-size: 10px;
     padding: 0 10px;
@@ -659,7 +659,7 @@
   }
 
   /* Remove table min-width and overflow */
-  .payment-records-table {
+  .parent-payment-records-table {
     min-width: unset;
   }
 
@@ -686,36 +686,36 @@
     padding: 0 2px;
   }
 
-  .student-summary-banner {
+  .parent-student-summary-banner {
     padding: 12px 14px;
     gap: 10px;
   }
 
-  .student-avatar-box {
+  .parent-student-avatar-box {
     width: 42px;
     height: 42px;
     border-radius: 12px;
     padding: 4px;
   }
 
-  .student-badge-icon {
+  .parent-student-badge-icon {
     font-size: 20px;
   }
 
-  .student-profile-name {
+  .parent-student-profile-name {
     font-size: 15px;
     margin-bottom: 8px;
   }
 
-  .student-quick-metrics {
+  .parent-student-quick-metrics {
     gap: 6px 14px;
   }
 
-  .metric-label-text {
+  .parent-metric-label-text {
     font-size: 10px;
   }
 
-  .metric-value-text {
+  .parent-metric-value-text {
     font-size: 12px;
   }
 
@@ -724,71 +724,71 @@
     padding: 10px;
   }
 
-  .card-section-title {
+  .parent-card-section-title {
     font-size: 14px;
     margin-bottom: 10px;
   }
 
   /* Payment card smaller */
-  .payment-records-table tbody tr {
+  .parent-payment-records-table tbody tr {
     padding: 8px 10px;
     margin-bottom: 8px;
   }
 
-  .payment-records-table tbody td {
+  .parent-payment-records-table tbody td {
     font-size: 10px;
     padding: 4px 0;
   }
 
-  .payment-records-table tbody td::before {
+  .parent-payment-records-table tbody td::before {
     font-size: 9px;
   }
 
-  .payment-records-table tbody td .status-pill {
+  .parent-payment-records-table tbody td .parent-status-pill {
     height: 18px;
     font-size: 8px;
     padding: 0 6px;
   }
 
-  .circular-progress-wrapper {
+  .parent-circular-progress-wrapper {
     width: 110px;
     height: 110px;
   }
 
-  .radial-track,
-  .radial-progress {
+  .parent-radial-track,
+  .parent-radial-progress {
     stroke-width: 8;
   }
 
-  .radial-percentage {
+  .parent-radial-percentage {
     font-size: 18px;
     margin-top: 12px;
   }
 
-  .radial-subtext {
+  .parent-radial-subtext {
     font-size: 8px;
   }
 
-  .attendance-legend {
+  .parent-attendance-legend {
     gap: 8px;
     margin-top: 8px;
   }
 
-  .legend-item {
+  .parent-legend-item {
     font-size: 8px;
     gap: 3px;
   }
 
-  .legend-color {
+  .parent-legend-color {
     width: 8px;
     height: 8px;
   }
 
-  .greeting-title {
+  .parent-greeting-title {
     font-size: 17px;
   }
 
-  .greeting-subtitle {
+  .parent-greeting-subtitle {
     font-size: 10px;
   }
 }
