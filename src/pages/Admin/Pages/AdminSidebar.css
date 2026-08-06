@@ -710,3 +710,8 @@
     padding: 3px 0;
   }
 }
+/* Fill icons when active */
+.menu-item1.active .menu-icon {
+  fill: currentColor;
+  stroke: none;
+}

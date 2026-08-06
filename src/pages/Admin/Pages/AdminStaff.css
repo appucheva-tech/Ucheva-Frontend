@@ -1,9 +1,9 @@
-.Bdashboard-container {
+.ADS-Bdashboard-container {
   width: 100%;
   box-sizing: border-box;
 }
 
-.Bdashboard-container .dashboard-header {
+.ADS-Bdashboard-container .ADS-dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,20 +12,20 @@
   gap: 16px;
 }
 
-.Bdashboard-container .dashboard-header .welcome-text {
+.ADS-Bdashboard-container .ADS-dashboard-header .ADS-welcome-text {
   font-size: 30px;
   font-weight: 700;
   color: #0f172a;
   margin: 0;
 }
 
-.Bdashboard-container .dashboard-header .subtitle-text {
+.ADS-Bdashboard-container .ADS-dashboard-header .ADS-subtitle-text {
   font-size: 17px;
   color: #042869;
   margin: 0;
 }
 
-.Bdashboard-container .dashboard-header .AddStaff {
+.ADS-Bdashboard-container .ADS-dashboard-header .ADS-AddStaff {
   background-color: #2563eb;
   color: white;
   border: none;
@@ -42,14 +42,14 @@
   white-space: nowrap;
 }
 
-.Bdashboard-container .dashboard-header .AddStaff:hover {
+.ADS-Bdashboard-container .ADS-dashboard-header .ADS-AddStaff:hover {
   background-color: #1d4ed8;
 }
 
 /* ==========================================================================
    METRICS GRID - 4 columns on desktop
    ========================================================================== */
-.Bdashboard-container .metrics-grid {
+.ADS-Bdashboard-container .ADS-metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
@@ -57,7 +57,7 @@
   margin-bottom: 32px;
 }
 
-.Bdashboard-container .metrics-grid .metric-card {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 20px 30px;
@@ -71,49 +71,49 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
-.Bdashboard-container .metrics-grid .metric-card.card-total {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card.ADS-card-total {
   border-left-color: #2563eb;
 }
 
-.Bdashboard-container .metrics-grid .metric-card.card-teaching {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card.ADS-card-teaching {
   border-left-color: #a855f7;
 }
 
-.Bdashboard-container .metrics-grid .metric-card.card-non-teaching {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card.ADS-card-non-teaching {
   border-left-color: #f59e0b;
 }
 
-.Bdashboard-container .metrics-grid .metric-card.card-teachers {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card.ADS-card-active {
   border-left-color: #10b981;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .text-section {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section .ADS-card-label {
   font-size: 14px;
   color: #1e293b;
   font-weight: 500;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section .ADS-card-value {
   font-size: 28px;
   font-weight: 700;
   color: #0f172a;
   line-height: 1;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper {
   width: 64px;
   height: 64px;
   border-radius: 16px;
@@ -123,53 +123,53 @@
   flex-shrink: 0;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper .ADS-DashIcon {
   width: 30px;
   height: 30px;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-students {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper.ADS-icon-students {
   background-color: #eff6ff;
   color: #2563eb;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-staff {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper.ADS-icon-staff {
   background-color: #f3e8ff;
   color: #a855f7;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-attendance {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper.ADS-icon-attendance {
   background-color: #fef3c7;
   color: #f59e0b;
 }
 
-.Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper.icon-fees {
+.ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper.ADS-icon-fees {
   background-color: #ecfdf5;
   color: #10b981;
 }
 
-.tableContainer {
+.ADS-tableContainer {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   box-sizing: border-box;
 }
 
-.tableContainer .dashboard-loading-container {
+.ADS-tableContainer .ADS-dashboard-loading-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 400px;
 }
 
-.tableContainer .dashboard-loading-container .loading-spinner {
+.ADS-tableContainer .ADS-dashboard-loading-container .ADS-loading-spinner {
   width: 40px;
   height: 40px;
   border: 3px solid #e2e8f0;
   border-top: 3px solid #2563eb;
   border-radius: 50%;
-  animation: spin 0.8s linear infinite;
+  animation: ADS-spin 0.8s linear infinite;
 }
 
-.tableContainer .staff-empty-state-card {
+.ADS-tableContainer .ADS-staff-empty-state-card {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -182,7 +182,7 @@
   margin-bottom: 32px;
 }
 
-.tableContainer .staff-empty-state-card .empty-state-icon-bg {
+.ADS-tableContainer .ADS-staff-empty-state-card .ADS-empty-state-icon-bg {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,14 +194,14 @@
   color: #2563eb;
 }
 
-.tableContainer .staff-empty-state-card h3 {
+.ADS-tableContainer .ADS-staff-empty-state-card h3 {
   color: #0f172a;
   font-size: 18px;
   font-weight: 600;
   margin: 0 0 8px 0;
 }
 
-.tableContainer .staff-empty-state-card p {
+.ADS-tableContainer .ADS-staff-empty-state-card p {
   color: #475569;
   max-width: 400px;
   font-size: 14px;
@@ -209,7 +209,7 @@
   margin: 0 0 20px 0;
 }
 
-.tableContainer .staff-empty-state-card .empty-state-add-btn {
+.ADS-tableContainer .ADS-staff-empty-state-card .ADS-empty-state-add-btn {
   padding: 10px 24px;
   font-size: 14px;
   font-weight: 500;
@@ -221,11 +221,11 @@
   transition: background-color 0.2s ease;
 }
 
-.tableContainer .staff-empty-state-card .empty-state-add-btn:hover {
+.ADS-tableContainer .ADS-staff-empty-state-card .ADS-empty-state-add-btn:hover {
   background-color: #1d4ed8;
 }
 
-.tableContainer .filterSection {
+.ADS-tableContainer .ADS-filterSection {
   background-color: #ffffff;
   border-radius: 12px;
   border: 1px solid #e2e8f0;
@@ -238,24 +238,24 @@
   flex-wrap: wrap;
 }
 
-.tableContainer .filterSection .filterGroup {
+.ADS-tableContainer .ADS-filterSection .ADS-filterGroup {
   display: flex;
   flex-direction: column;
 }
 
-.tableContainer .filterSection .filterGroup .filterLabel {
+.ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-filterLabel {
   font-size: 13px;
   color: #475569;
   margin-bottom: 6px;
   font-weight: 500;
 }
 
-.tableContainer .filterSection .filterGroup .selectWrapper {
+.ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-selectWrapper {
   position: relative;
   width: 180px;
 }
 
-.tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput {
+.ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-selectWrapper .ADS-StaffselectInput {
   width: 100%;
   padding: 10px 36px 10px 14px;
   font-size: 14px;
@@ -268,11 +268,11 @@
   outline: none;
 }
 
-.tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput:focus {
+.ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-selectWrapper .ADS-StaffselectInput:focus {
   border-color: #2563eb;
 }
 
-.tableContainer .filterSection .resetBtn {
+.ADS-tableContainer .ADS-filterSection .ADS-resetBtn {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   color: #475569;
@@ -286,19 +286,19 @@
   transition: all 0.2s ease;
 }
 
-.tableContainer .filterSection .resetBtn:hover {
+.ADS-tableContainer .ADS-filterSection .ADS-resetBtn:hover {
   background-color: #f8fafc;
   color: #0f172a;
   border-color: #94a3b8;
 }
 
-.tableContainer .filterSection .resetBtn .resetIcon {
+.ADS-tableContainer .ADS-filterSection .ADS-resetBtn .ADS-resetIcon {
   width: 16px;
   height: 16px;
   margin-right: 8px;
 }
 
-.tableContainer .tableWrapper {
+.ADS-tableContainer .ADS-tableWrapper {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -306,13 +306,13 @@
   margin-bottom: 32px;
 }
 
-.tableContainer .tableWrapper .staffTable {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-.tableContainer .tableWrapper .staffTable th {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable th {
   background-color: #f8fafc;
   color: #475569;
   font-size: 13px;
@@ -323,29 +323,29 @@
   letter-spacing: 0.05em;
 }
 
-.tableContainer .tableWrapper .staffTable td {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable td {
   padding: 16px 20px;
   border-bottom: 1px solid #e2e8f0;
   font-size: 14px;
   color: #0f172a;
 }
 
-.tableContainer .tableWrapper .staffTable tr:last-child td {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tr:last-child td {
   border-bottom: none;
 }
 
-.tableContainer .tableWrapper .staffTable .staffName {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-staffName {
   color: #2563eb;
   font-weight: 500;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons {
   display: flex;
   gap: 12px;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .editBtn,
-.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-editBtn,
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-deleteBtn {
   background: none;
   border: none;
   cursor: pointer;
@@ -356,29 +356,29 @@
   transition: background-color 0.2s ease;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg,
-.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-editBtn svg,
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-deleteBtn svg {
   width: 16px;
   height: 16px;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .editBtn:hover {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-editBtn:hover {
   background-color: #f8fafc;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-editBtn svg {
   stroke: #475569;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn:hover {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-deleteBtn:hover {
   background-color: #fef2f2;
 }
 
-.tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
+.ADS-tableContainer .ADS-tableWrapper .ADS-staffTable .ADS-actionButtons .ADS-deleteBtn svg {
   stroke: #ef4444;
 }
 
-.tableContainer .tableWrapper .paginationRow {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -389,19 +389,19 @@
   gap: 16px;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationInfo {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationInfo {
   font-size: 14px;
   color: #475569;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
-.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-pageBtn,
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-arrowBtn {
   background: none;
   border: 1px solid transparent;
   min-width: 32px;
@@ -416,50 +416,50 @@
   transition: all 0.2s ease;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn:hover:not(:disabled),
-.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn:hover:not(:disabled) {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-pageBtn:hover:not(:disabled),
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-arrowBtn:hover:not(:disabled) {
   background-color: #f8fafc;
   color: #0f172a;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .activePage {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-activePage {
   background-color: #2563eb;
   color: white;
   font-weight: 500;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .activePage:hover {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-activePage:hover {
   background-color: #1d4ed8;
   color: white;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn:disabled {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-arrowBtn:disabled {
   color: #94a3b8;
   cursor: not-allowed;
 }
 
-.tableContainer .tableWrapper .paginationRow .paginationControls .ellipsis {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-ellipsis {
   color: #94a3b8;
   font-size: 14px;
   padding: 0 4px;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsLabel {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsLabel {
   font-size: 14px;
   color: #475569;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsSelectWrapper {
   position: relative;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsSelectWrapper .ADS-rowsSelect {
   padding: 6px 28px 6px 10px;
   font-size: 14px;
   border: 1px solid #e2e8f0;
@@ -471,11 +471,11 @@
   outline: none;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect:focus {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsSelectWrapper .ADS-rowsSelect:focus {
   border-color: #2563eb;
 }
 
-.tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper::after {
+.ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsSelectWrapper::after {
   content: "";
   position: absolute;
   right: 10px;
@@ -488,7 +488,7 @@
   pointer-events: none;
 }
 
-.tableContainer .footerRow {
+.ADS-tableContainer .ADS-footerRow {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -499,25 +499,25 @@
   border-top: 1px solid #e2e8f0;
 }
 
-.tableContainer .footerRow .copyrightText {
+.ADS-tableContainer .ADS-footerRow .ADS-copyrightText {
   color: #94a3b8;
 }
 
-.tableContainer .footerRow .supportText {
+.ADS-tableContainer .ADS-footerRow .ADS-supportText {
   color: #475569;
 }
 
-.tableContainer .footerRow .supportText .supportLink {
+.ADS-tableContainer .ADS-footerRow .ADS-supportText .ADS-supportLink {
   color: #2563eb;
   text-decoration: none;
   font-weight: 500;
 }
 
-.tableContainer .footerRow .supportText .supportLink:hover {
+.ADS-tableContainer .ADS-footerRow .ADS-supportText .ADS-supportLink:hover {
   text-decoration: underline;
 }
 
-@keyframes spin {
+@keyframes ADS-spin {
   0% {
     transform: rotate(0deg);
   }
@@ -527,386 +527,317 @@
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINTS
+   RESPONSIVE BREAKPOINT (Mobile) - MATCHES UI SCREENSHOT
    ========================================================================== */
-
-/* Large tablets and small laptops (1024px and below) - Change to 2 columns */
-@media (max-width: 1024px) {
-  .Bdashboard-container .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card {
-    padding: 16px 20px;
-    min-height: 90px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
-    font-size: 24px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
-    width: 52px;
-    height: 52px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
-    width: 24px;
-    height: 24px;
-  }
-
-  .tableContainer .filterSection .filterGroup .selectWrapper {
-    width: 150px;
-  }
-}
-
-/* Tablets (768px and below) - Keep 2 columns */
 @media (max-width: 768px) {
-  .Bdashboard-container .dashboard-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
 
-  .Bdashboard-container .dashboard-header .welcome-text {
+  /* 1. Header & Button */
+  .ADS-Bdashboard-container .ADS-dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .ADS-Bdashboard-container .ADS-dashboard-header .ADS-welcome-text {
     font-size: 24px;
+    color: #0f172a;
   }
-
-  .Bdashboard-container .dashboard-header .subtitle-text {
+  .ADS-Bdashboard-container .ADS-dashboard-header .ADS-subtitle-text {
     font-size: 15px;
+    color: #042869;
   }
-
-  .Bdashboard-container .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card {
-    padding: 14px 16px;
-    min-height: 80px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
-    font-size: 12px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
-    font-size: 20px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
-    width: 44px;
+  .ADS-Bdashboard-container .ADS-dashboard-header .ADS-AddStaff {
+    width: 100%;
+    justify-content: center;
     height: 44px;
-    border-radius: 12px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .tableContainer .filterSection {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .tableContainer .filterSection .filterGroup .selectWrapper {
-    width: 100%;
-  }
-
-  .tableContainer .filterSection .resetBtn {
-    align-self: flex-start;
-  }
-
-  .tableContainer .tableWrapper {
-    overflow-x: auto;
-  }
-
-  .tableContainer .tableWrapper .staffTable {
-    min-width: 600px;
-  }
-
-  .tableContainer .tableWrapper .staffTable th,
-  .tableContainer .tableWrapper .staffTable td {
-    padding: 12px 14px;
-    font-size: 13px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .paginationControls {
-    justify-content: center;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup {
-    justify-content: center;
-  }
-
-  .tableContainer .footerRow {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-  }
-}
-
-/* Small mobile devices (640px and below) - Keep 2 columns */
-@media (max-width: 640px) {
-  .Bdashboard-container .dashboard-header .AddStaff {
-    width: 100%;
-    justify-content: center;
-    white-space: nowrap;
-  }
-
-  .Bdashboard-container .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card {
-    padding: 12px 14px;
-    min-height: 70px;
-    border-radius: 8px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section {
-    gap: 4px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
-    font-size: 11px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
-    font-size: 18px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
-    width: 18px;
-    height: 18px;
-  }
-
-  .Bdashboard-container .dashboard-header .welcome-text {
-    font-size: 20px;
-  }
-
-  .Bdashboard-container .dashboard-header .subtitle-text {
     font-size: 14px;
-  }
-
-  .Bdashboard-container .dashboard-header .AddStaff {
-    font-size: 13px;
-    height: 38px;
-    padding: 0 16px;
-  }
-
-  .tableContainer .staff-empty-state-card {
-    padding: 40px 16px;
-  }
-
-  .tableContainer .staff-empty-state-card h3 {
-    font-size: 16px;
-  }
-
-  .tableContainer .staff-empty-state-card p {
-    font-size: 13px;
-  }
-
-  .tableContainer .filterSection {
-    padding: 16px;
-  }
-
-  .tableContainer .filterSection .filterGroup .filterLabel {
-    font-size: 12px;
-  }
-
-  .tableContainer .filterSection .filterGroup .selectWrapper .StaffselectInput {
-    font-size: 13px;
-    padding: 8px 32px 8px 12px;
-  }
-
-  .tableContainer .filterSection .resetBtn {
-    font-size: 13px;
-    padding: 8px 14px;
-  }
-
-  .tableContainer .tableWrapper .staffTable th,
-  .tableContainer .tableWrapper .staffTable td {
-    padding: 10px 12px;
-    font-size: 12px;
-  }
-
-  .tableContainer .tableWrapper .staffTable .actionButtons {
-    gap: 8px;
-  }
-
-  .tableContainer .tableWrapper .staffTable .actionButtons .editBtn svg,
-  .tableContainer .tableWrapper .staffTable .actionButtons .deleteBtn svg {
-    width: 14px;
-    height: 14px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .paginationInfo {
-    font-size: 12px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
-  .tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
-    min-width: 28px;
-    height: 28px;
-    font-size: 12px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsLabel {
-    font-size: 12px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .rowsPerPageGroup .rowsSelectWrapper .rowsSelect {
-    font-size: 12px;
-    padding: 4px 24px 4px 8px;
-  }
-
-  .tableContainer .footerRow {
-    font-size: 12px;
-  }
-}
-
-/* Extra small mobile devices (480px and below) - Keep 2 columns */
-@media (max-width: 480px) {
-  .Bdashboard-container .dashboard-header .AddStaff {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .Bdashboard-container .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card {
-    padding: 10px 12px;
-    min-height: 60px;
     border-radius: 8px;
+    padding: 0 16px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
   }
 
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
-    font-size: 10px;
+  /* 2. Metrics Grid (2x2) */
+  .ADS-Bdashboard-container .ADS-metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
   }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
-    font-size: 16px;
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card {
+    padding: 12px 16px;
+    min-height: auto;
+    border-radius: 8px;
+    border: 1px solid #f3f4f6;
+    border-left: 2px solid transparent;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: #ffffff;
   }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section .ADS-card-label {
+    font-size: 11px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-text-section .ADS-card-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.2;
+  }
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper {
     width: 32px;
     height: 32px;
     border-radius: 8px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
-    width: 16px;
-    height: 16px;
-  }
-
-  .Bdashboard-container .dashboard-header .welcome-text {
-    font-size: 18px;
-  }
-
-  .Bdashboard-container .dashboard-header .subtitle-text {
-    font-size: 13px;
-  }
-
-  .Bdashboard-container .dashboard-header .AddStaff {
-    font-size: 12px;
-    height: 34px;
-    padding: 0 14px;
-  }
-
-  .Bdashboard-container .dashboard-header .AddStaff svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  .tableContainer .tableWrapper .staffTable {
-    min-width: 500px;
-  }
-
-  .tableContainer .tableWrapper .staffTable th,
-  .tableContainer .tableWrapper .staffTable td {
-    padding: 8px 10px;
-    font-size: 11px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .paginationControls {
-    gap: 2px;
-  }
-
-  .tableContainer .tableWrapper .paginationRow .paginationControls .pageBtn,
-  .tableContainer .tableWrapper .paginationRow .paginationControls .arrowBtn {
-    min-width: 24px;
-    height: 24px;
-    font-size: 11px;
-  }
-}
-
-/* Very small mobile devices (375px and below) - Keep 2 columns */
-@media (max-width: 375px) {
-  .Bdashboard-container .dashboard-header .AddStaff {
-    width: 100%;
+    display: flex;
+    align-items: center;
     justify-content: center;
   }
-
-  .Bdashboard-container .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
+  .ADS-Bdashboard-container .ADS-metrics-grid .ADS-metric-card .ADS-card-content .ADS-icon-wrapper .ADS-DashIcon {
+    width: 16px;
+    height: 16px;
   }
 
-  .Bdashboard-container .metrics-grid .metric-card {
-    padding: 8px 10px;
-    min-height: 55px;
-  }
+  /* Colored borders for metrics */
+  .ADS-card-total { border-left-color: #2563eb; }
+  .ADS-card-teaching { border-left-color: #a855f7; }
+  .ADS-card-non-teaching { border-left-color: #f59e0b; }
+  .ADS-card-active { border-left-color: #10b981; }
+  
+  /* Icon background colors */
+  .ADS-icon-students { background-color: #eff6ff; color: #2563eb; }
+  .ADS-icon-staff { background-color: #f3e8ff; color: #a855f7; }
+  .ADS-icon-attendance { background-color: #fef3c7; color: #f59e0b; }
+  .ADS-icon-fees { background-color: #ecfdf5; color: #10b981; }
 
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-label {
-    font-size: 9px;
+  /* 3. Filters Section */
+  .ADS-tableContainer .ADS-filterSection {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    align-items: flex-end;
+    gap: 12px;
   }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .text-section .card-value {
-    font-size: 14px;
+  .ADS-tableContainer .ADS-filterSection .ADS-filterGroup {
+    flex: 1;
+    min-width: 100px;
   }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
-    width: 28px;
-    height: 28px;
-    border-radius: 6px;
-  }
-
-  .Bdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper .DashIcon {
-    width: 14px;
-    height: 14px;
-  }
-
-  .Bdashboard-container .dashboard-header .welcome-text {
-    font-size: 16px;
-  }
-
-  .Bdashboard-container .dashboard-header .subtitle-text {
+  .ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-filterLabel {
     font-size: 12px;
+    color: #374151;
+    margin-bottom: 4px;
+    font-weight: 500;
+  }
+  .ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-selectWrapper {
+    width: 100%;
+  }
+  .ADS-tableContainer .ADS-filterSection .ADS-filterGroup .ADS-selectWrapper .ADS-StaffselectInput {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #111827;
+    appearance: none;
+  }
+  .ADS-tableContainer .ADS-filterSection .ADS-resetBtn {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    border: 1px solid #3b82f6;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #3b82f6;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    align-self: center;
   }
 
-  .Bdashboard-container .dashboard-header .AddStaff {
-    font-size: 11px;
-    height: 30px;
-    padding: 0 12px;
+  /* 4. Staff List Header */
+  .ADS-staffListTitle {
+    background: #f3f4f6;
+    padding: 12px 16px;
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+    border-radius: 8px 8px 0 0;
+  }
+
+  /* 5. Convert Table Rows to Mobile Cards */
+  .ADS-tableContainer .ADS-tableWrapper {
+    overflow-x: visible; /* Kill horizontal scroll */
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable {
+    min-width: unset;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+    display: block;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable thead {
+    display: none; /* Hide table header */
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody {
+    display: block;
+    width: 100%;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    position: relative;
+    cursor: pointer;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable td {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+    font-size: 14px;
+    color: #1f2937;
+  }
+
+  /* Column 1: Name (Row 1, Left) */
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(1) {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e3a8a;
+    align-self: center;
+  }
+
+  /* Column 6: Actions (Row 1, Right) */
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) {
+    grid-column: 2;
+    grid-row: 1;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 16px;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) .ADS-actionButtons {
+    display: flex;
+    gap: 16px;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) .ADS-editBtn svg,
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) .ADS-deleteBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) .ADS-editBtn svg { stroke: #6b7280; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(6) .ADS-deleteBtn svg { stroke: #ef4444; }
+
+  /* Columns 2-5: Values with Pseudo-labels */
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(2) { grid-column: 1; grid-row: 2; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(4) { grid-column: 1; grid-row: 3; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(5) { grid-column: 2; grid-row: 3; }
+
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(2)::before { content: 'Role'; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(3)::before { content: 'Assigned Class'; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(4)::before { content: 'Subject'; }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(5)::before { content: 'Phone'; }
+
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(2)::before,
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(3)::before,
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(4)::before,
+  .ADS-tableContainer .ADS-tableWrapper .ADS-staffTable tbody td:nth-child(5)::before {
+    display: block;
+    font-size: 12px;
+    font-weight: 400;
+    color: #6b7280;
+    margin-bottom: 2px;
+  }
+
+  /* 6. Pagination alignment */
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0 0 0;
+    border-top: 1px solid #e5e7eb;
+    background: #ffffff;
+    border-radius: 0 0 8px 8px;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationInfo {
+    font-size: 12px;
+    color: #6b7280;
+    width: 100%;
+    text-align: center;
+    order: 3;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    order: 1;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-pageBtn,
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-arrowBtn {
+    min-width: 28px;
+    height: 28px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: #6b7280;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-paginationControls .ADS-activePage {
+    background: #2563eb;
+    color: #ffffff;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    order: 2;
+    font-size: 12px;
+    color: #6b7280;
+  }
+  .ADS-tableContainer .ADS-tableWrapper .ADS-paginationRow .ADS-rowsPerPageGroup .ADS-rowsSelectWrapper .ADS-rowsSelect {
+    padding: 4px 24px 4px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    background: #ffffff;
+    font-size: 12px;
+    appearance: none;
   }
 }

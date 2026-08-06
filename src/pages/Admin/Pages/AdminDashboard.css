@@ -1,11 +1,11 @@
-.Bddashboard-container {
+.Army-Bddashboard-container {
   width: 100%;
   box-sizing: border-box;
   padding: 0;
 }
 
 /* Header Text Component Alignment styling */
-.dashboard-header {
+.Army-dashboard-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -15,32 +15,32 @@
   gap: 16px;
 }
 
-.dashboard-header .header-text-group {
+.Army-dashboard-header .Army-header-text-group {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.dashboard-header .welcome-text {
+.Army-dashboard-header .Army-welcome-text {
   font-size: 28px;
   font-weight: 700;
-  color: #0f172a;
+  color: #03173c;
   margin: 0;
   line-height: 1.2;
 }
 
-.dashboard-header .wave-emoji {
+.Army-dashboard-header .Army-wave-emoji {
   display: inline-block;
 }
 
-.dashboard-header .subtitle-text {
+.Army-dashboard-header .Army-subtitle-text {
   font-size: 15px;
-  color: #475569;
+  color: #042869;
   margin: 0;
 }
 
 /* Metric Display Layouts Grid System - 4 columns on desktop */
-.metrics-grid1 {
+.Army-metrics-grid1 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -48,7 +48,7 @@
   margin-bottom: 24px;
 }
 
-.metric-card {
+.Army-metric-card {
   background: #ffffff;
   border-radius: 12px;
   padding: 16px 20px;
@@ -62,46 +62,46 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.01);
 }
 
-.metric-card.card-total {
+.Army-metric-card.Army-card-total {
   border-left-color: #2563eb;
 }
-.metric-card.card-teaching {
+.Army-metric-card.Army-card-teaching {
   border-left-color: #a855f7;
 }
-.metric-card.card-non-teaching {
+.Army-metric-card.Army-card-non-teaching {
   border-left-color: #f59e0b;
 }
-.metric-card.card-teachers {
+.Army-metric-card.Army-card-teachers {
   border-left-color: #10b981;
 }
 
-.metric-card .card-content {
+.Army-metric-card .Army-card-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.metric-card .text-section {
+.Army-metric-card .Army-text-section {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.metric-card .card-label {
+.Army-metric-card .Army-card-label {
   font-size: 14px;
-  color: #475569;
+  color: #03173c;
   font-weight: 500;
 }
 
-.metric-card .card-value {
+.Army-metric-card .Army-card-value {
   font-size: 26px;
   font-weight: 700;
-  color: #0f172a;
+  color: #03173c;
   line-height: 1;
 }
 
-.metric-card .icon-wrapper {
+.Army-metric-card .Army-icon-wrapper {
   width: 52px;
   height: 52px;
   border-radius: 14px;
@@ -111,28 +111,28 @@
   flex-shrink: 0;
 }
 
-.metric-card .icon-wrapper .DashIcon {
+.Army-metric-card .Army-icon-wrapper .Army-DashIcon {
   width: 26px;
   height: 26px;
 }
-.metric-card .icon-wrapper.icon-students {
+.Army-metric-card .Army-icon-wrapper.Army-icon-students {
   background-color: #eff6ff;
   color: #2563eb;
 }
-.metric-card .icon-wrapper.icon-staff {
+.Army-metric-card .Army-icon-wrapper.Army-icon-staff {
   background-color: #f3e8ff;
   color: #a855f7;
 }
-.metric-card .icon-wrapper.icon-attendance {
+.Army-metric-card .Army-icon-wrapper.Army-icon-attendance {
   background-color: #fef3c7;
   color: #f59e0b;
 }
-.metric-card .icon-wrapper.icon-fees {
+.Army-metric-card .Army-icon-wrapper.Army-icon-fees {
   background-color: #ecfdf5;
   color: #10b981;
 }
 
-.metric-card .card-footer {
+.Army-metric-card .Army-card-footer {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -141,19 +141,19 @@
   margin-top: 10px;
 }
 
-.metric-card .card-footer .trend-icon {
+.Army-metric-card .Army-card-footer .Army-trend-icon {
   width: 14px;
   height: 14px;
 }
-.metric-card .card-footer.trend-up {
+.Army-metric-card .Army-card-footer.Army-trend-up {
   color: #10b981;
 }
-.metric-card .card-footer.trend-fees {
+.Army-metric-card .Army-card-footer.Army-trend-fees {
   color: #16a34a;
 }
 
 /* Dashboard Split Multi-Column Grid Architecture */
-.dashboard-split-grid {
+.Army-dashboard-split-grid {
   display: flex;
   flex-direction: row;
   gap: 24px;
@@ -161,17 +161,17 @@
   margin-bottom: 24px;
 }
 
-.dashboard-split-grid > :nth-child(1) {
+.Army-dashboard-split-grid > :nth-child(1) {
   flex: 1.1;
   min-width: 0;
 }
 
-.dashboard-split-grid > :nth-child(2) {
+.Army-dashboard-split-grid > :nth-child(2) {
   flex: 0.9;
   min-width: 0;
 }
 
-.dashboard-panel {
+.Army-dashboard-panel {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -180,7 +180,7 @@
   display: flex;
   flex-direction: column;
 }
-.dashboard-panel1 {
+.Army-dashboard-panel1 {
   background-color: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -190,7 +190,7 @@
   flex-direction: column;
 }
 
-.dashboard-panel .panel-header {
+.Army-dashboard-panel .Army-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -198,7 +198,7 @@
   flex-wrap: wrap;
   gap: 12px;
 }
-.dashboard-panel1 .panel-header {
+.Army-dashboard-panel1 .Army-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -207,14 +207,14 @@
   gap: 12px;
 }
 
-.dashboard-panel .panel-title {
+.Army-dashboard-panel .Army-panel-title {
   font-size: 18px;
   font-weight: 600;
-  color: #0f172a;
+  color: #03173c;
   margin: 0;
 }
 
-.dashboard-panel .view-all-link {
+.Army-dashboard-panel .Army-view-all-link {
   background: none;
   border: none;
   color: #2563eb;
@@ -226,26 +226,26 @@
   cursor: pointer;
 }
 
-.dashboard-panel .view-all-link:hover {
+.Army-dashboard-panel .Army-view-all-link:hover {
   text-decoration: underline;
 }
 
 /* Attendance Tracking Table Layout */
-.panel-table-wrapper {
+.Army-panel-table-wrapper {
   overflow-x: auto;
   width: 100%;
   -webkit-overflow-scrolling: touch;
 }
 
-.dashboard-table {
+.Army-dashboard-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   min-width: 400px; /* ensures horizontal scroll on small screens */
 }
 
-.dashboard-table th {
-  color: #64748b;
+.Army-dashboard-table th {
+  color: #03173c;
   font-size: 13px;
   font-weight: 500;
   padding: 12px 10px;
@@ -254,25 +254,25 @@
   white-space: nowrap;
 }
 
-.dashboard-table td {
+.Army-dashboard-table td {
   padding: 16px 10px;
   font-size: 14px;
-  color: #475569;
+  color: #042869;
   border-bottom: 1px solid #f1f5f9;
 }
 
-.dashboard-table tr:last-child td {
+.Army-dashboard-table tr:last-child td {
   border-bottom: none;
 }
-.font-medium {
+.Army-font-medium {
   font-weight: 500;
 }
-.text-slate {
+.Army-text-slate {
   color: #0f172a !important;
 }
 
 /* Status Badges Styling Rules */
-.status-badge {
+.Army-status-badge {
   display: inline-flex;
   padding: 4px 10px;
   border-radius: 6px;
@@ -282,28 +282,28 @@
   white-space: nowrap;
 }
 
-.status-badge.badge-checked-in {
+.Army-status-badge.Army-badge-checked-in {
   background-color: #e6f4ea;
   color: #137333;
 }
-.status-badge.badge-absent {
+.Army-status-badge.Army-badge-absent {
   background-color: #fce8e6;
   color: #c5221f;
 }
-.status-badge.badge-checked-out {
+.Army-status-badge.Army-badge-checked-out {
   background-color: #fef3c7;
   color: #d97706;
 }
 
 /* Quick Actions Button Configurations Grid */
-.actions-grid {
+.Army-actions-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
   flex: 1;
 }
 
-.action-button-card {
+.Army-action-button-card {
   border-radius: 10px;
   padding: 16px;
   display: flex;
@@ -316,12 +316,12 @@
     box-shadow 0.15s ease;
 }
 
-.action-button-card:hover {
+.Army-action-button-card:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
-.action-main-content {
+.Army-action-main-content {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -329,7 +329,7 @@
   flex: 1;
 }
 
-.action-icon-box {
+.Army-action-icon-box {
   width: 40px;
   height: 40px;
   max-width: 40px;
@@ -342,24 +342,24 @@
   font-size: 20px;
 }
 
-.action-text {
+.Army-action-text {
   min-width: 0;
   flex: 1;
 }
 
-.action-text h3 {
+.Army-action-text h3 {
   font-size: 14px;
   font-weight: 600;
   margin: 0 0 2px 0;
 }
 
-.action-text p {
+.Army-action-text p {
   font-size: 12px;
   margin: 0;
   color: #64748b;
 }
 
-.action-qr .next_icon_holder {
+.Army-action-qr .Army-next_icon_holder {
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -368,7 +368,7 @@
   justify-content: center;
   align-items: center;
 }
-.action-students .next_icon_holder {
+.Army-action-students .Army-next_icon_holder {
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -377,7 +377,7 @@
   justify-content: center;
   align-items: center;
 }
-.action-announcements .next_icon_holder {
+.Army-action-announcements .Army-next_icon_holder {
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -386,7 +386,7 @@
   justify-content: center;
   align-items: center;
 }
-.action-reports .next_icon_holder {
+.Army-action-reports .Army-next_icon_holder {
   width: 30px;
   height: 30px;
   border-radius: 100%;
@@ -395,67 +395,67 @@
   justify-content: center;
   align-items: center;
 }
-.action-button-card .action-arrow {
+.Army-action-button-card .Army-action-arrow {
   font-size: 22px;
 }
 
 /* Color Themes Configured per Functional Actions Group */
-.action-qr {
+.Army-action-qr {
   background-color: #eff6ff;
   color: #1e40af;
 }
-.action-qr .action-icon-box {
+.Army-action-qr .Army-action-icon-box {
   background-color: #dbeafe;
   color: #2563eb;
 }
-.action-qr .action-arrow {
+.Army-action-qr .Army-action-arrow {
   color: #3b82f6;
 }
 
-.action-students {
+.Army-action-students {
   background-color: #faf5ff;
   color: #6b21a8;
 }
-.action-students .action-icon-box {
+.Army-action-students .Army-action-icon-box {
   background-color: #f3e8ff;
   color: #a855f7;
 }
-.action-students .action-arrow {
+.Army-action-students .Army-action-arrow {
   color: #c084fc;
 }
 
-.action-announcements {
+.Army-action-announcements {
   background-color: #fffbeb;
   color: #92400e;
 }
-.action-announcements .action-icon-box {
+.Army-action-announcements .Army-action-icon-box {
   background-color: #fef3c7;
   color: #d97706;
 }
-.action-announcements .action-arrow {
+.Army-action-announcements .Army-action-arrow {
   color: #fbbf24;
 }
 
-.action-reports {
+.Army-action-reports {
   background-color: #f0fdf4;
   color: #166534;
 }
-.action-reports .action-icon-box {
+.Army-action-reports .Army-action-icon-box {
   background-color: #dcfce7;
   color: #16a34a;
 }
-.action-reports .action-arrow {
+.Army-action-reports .Army-action-arrow {
   color: #4ade80;
 }
 
 /* Recent Announcements Structural Viewports */
-.announcements-list {
+.Army-announcements-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.announcement-item {
+.Army-announcement-item {
   border-left: 3px solid transparent;
   padding-left: 14px;
   display: flex;
@@ -464,32 +464,32 @@
 }
 
 /* Specific color classes as per your original design */
-.announcement-item.color-blue {
+.Army-announcement-item.Army-color-blue {
   border-left-color: #2563eb;
 }
-.announcement-item.color-sky {
+.Army-announcement-item.Army-color-sky {
   border-left-color: #38bdf8;
 }
-.announcement-item.color-navy {
+.Army-announcement-item.Army-color-navy {
   border-left-color: #1e3a8a;
 }
 
 /* Content within the item */
-.announcement-item h3 {
+.Army-announcement-item h3 {
   font-size: 15px;
   font-weight: 600;
   color: #1e293b;
   margin: 0;
 }
 
-.announcement-date {
+.Army-announcement-date {
   display: block;
   font-size: 12px;
   color: #94a3b8;
   margin: 4px 0;
 }
 
-.announcement-item p {
+.Army-announcement-item p {
   font-size: 13.5px;
   color: #475569;
   margin: 0;
@@ -502,7 +502,7 @@
 }
 
 /* Fee Collection Donut Chart System Graphic Design Styles */
-.fees-summary-container {
+.Army-fees-summary-container {
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -511,26 +511,26 @@
   flex-wrap: wrap;
 }
 
-.donut-chart-wrapper {
+.Army-donut-chart-wrapper {
   position: relative;
   width: 160px;
   height: 160px;
   flex-shrink: 0;
 }
 
-.donut-svg {
+.Army-donut-svg {
   transform: rotate(-90deg);
   width: 100%;
   height: 100%;
 }
 
-.donut-bg {
+.Army-donut-bg {
   fill: none;
   stroke: #fff7ed;
   stroke-width: 12;
 }
 
-.donut-fill {
+.Army-donut-fill {
   fill: none;
   stroke: #f59e0b;
   stroke-width: 12;
@@ -539,7 +539,7 @@
   stroke-linecap: round;
 }
 
-.donut-text {
+.Army-donut-text {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -550,21 +550,21 @@
   text-align: center;
 }
 
-.donut-text .percentage {
+.Army-donut-text .Army-percentage {
   font-size: 26px;
   font-weight: 700;
   color: #0f172a;
   line-height: 1;
 }
 
-.donut-text .label {
+.Army-donut-text .Army-label {
   font-size: 12px;
   color: #475569;
   margin-top: 2px;
 }
 
 /* Financial Information Spreadsheet Details Alignment Layout */
-.fees-ledger-pane {
+.Army-fees-ledger-pane {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -572,57 +572,57 @@
   flex: 1;
 }
 
-.ledger-item {
+.Army-ledger-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 14px;
 }
 
-.ledger-label-group {
+.Army-ledger-label-group {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.ledger-marker {
+.Army-ledger-marker {
   width: 10px;
   height: 10px;
   border-radius: 2px;
 }
 
-.ledger-marker.marker-collected {
+.Army-ledger-marker.Army-marker-collected {
   background-color: #f59e0b;
 }
-.ledger-marker.marker-outstanding {
+.Army-ledger-marker.Army-marker-outstanding {
   background-color: #fff7ed;
   border: 1px solid #fed7aa;
 }
-.ledger-name {
+.Army-ledger-name {
   color: #475569;
 }
-.ledger-value {
+.Army-ledger-value {
   color: #0f172a;
 }
-.font-semibold {
+.Army-font-semibold {
   font-weight: 600;
 }
-.font-bold {
+.Army-font-bold {
   font-weight: 700;
 }
 
-.ledger-divider {
+.Army-ledger-divider {
   border: 0;
   border-top: 1px solid #e2e8f0;
   margin: 4px 0;
 }
 
-.ledger-item.total-row {
+.Army-ledger-item.Army-total-row {
   font-size: 15px;
   margin-top: 2px;
 }
 
-.empty-state-container1 {
+.Army-empty-state-container1 {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -632,20 +632,20 @@
   color: #64748b;
 }
 
-.empty-state-icon {
+.Army-empty-state-icon {
   font-size: 48px;
   color: #cbd5e1;
   margin-bottom: 16px;
 }
 
-.empty-state-title {
+.Army-empty-state-title {
   font-size: 16px;
   font-weight: 600;
   color: #334155;
   margin-bottom: 8px;
 }
 
-.empty-state-description {
+.Army-empty-state-description {
   font-size: 14px;
   max-width: 250px;
 }
@@ -656,137 +656,137 @@
 
 /* Large tablets and small laptops (1120px and below) */
 @media (max-width: 1120px) {
-  .metrics-grid1 {
+  .Army-metrics-grid1 {
     gap: 16px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 110px;
     padding: 14px 18px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 24px;
   }
 }
 
 /* Tablets (1024px and below) - Change to 2 columns on tablet */
 @media (max-width: 1024px) {
-  .metrics-grid1 {
+  .Army-metrics-grid1 {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 
-  .dashboard-split-grid {
+  .Army-dashboard-split-grid {
     flex-direction: column;
   }
 
-  .dashboard-split-grid > :nth-child(1),
-  .dashboard-split-grid > :nth-child(2) {
+  .Army-dashboard-split-grid > :nth-child(1),
+  .Army-dashboard-split-grid > :nth-child(2) {
     flex: none;
     width: 100%;
   }
 
-  .dashboard-panel {
+  .Army-dashboard-panel {
     padding: 20px;
   }
-  .dashboard-panel1 {
+  .Army-dashboard-panel1 {
     padding: 18px;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 24px;
   }
 }
 
 /* Small tablets and large phones (820px and below) */
 @media (max-width: 820px) {
-  .metrics-grid1 {
+  .Army-metrics-grid1 {
     gap: 14px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 100px;
     padding: 12px 16px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 22px;
   }
 
-  .metric-card .icon-wrapper {
+  .Army-metric-card .Army-icon-wrapper {
     width: 44px;
     height: 44px;
   }
 
-  .metric-card .icon-wrapper .DashIcon {
+  .Army-metric-card .Army-icon-wrapper .Army-DashIcon {
     width: 22px;
     height: 22px;
   }
 
-  .fees-summary-container {
+  .Army-fees-summary-container {
     flex-direction: column;
     padding: 10px 0;
     gap: 24px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 140px;
     height: 140px;
   }
 
-  .fees-ledger-pane {
+  .Army-fees-ledger-pane {
     min-width: auto;
     width: 100%;
   }
 }
 
-/* Mobile devices (768px and below) - Keep 2 columns for larger phones/tablets */
+/* Mobile devices (768px and below) - Keep 2 columns for tablets and large phones */
 @media (max-width: 768px) {
-  .metrics-grid1 {
-    grid-template-columns: repeat(2, 1fr); /* still 2 columns */
+  .Army-metrics-grid1 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 12px;
   }
 
-  .dashboard-header {
+  .Army-dashboard-header {
     margin-bottom: 20px;
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 22px;
   }
 
-  .dashboard-header .subtitle-text {
+  .Army-dashboard-header .Army-subtitle-text {
     font-size: 14px;
   }
 
-  .dashboard-panel .panel-title {
+  .Army-dashboard-panel .Army-panel-title {
     font-size: 16px;
   }
 
-  .dashboard-panel .view-all-link {
+  .Army-dashboard-panel .Army-view-all-link {
     font-size: 13px;
   }
 
-  .actions-grid {
+  .Army-actions-grid {
     gap: 12px;
   }
 
-  .action-button-card {
+  .Army-action-button-card {
     padding: 14px;
   }
 
-  .action-text h3 {
+  .Army-action-text h3 {
     font-size: 13px;
   }
 
-  .action-text p {
+  .Army-action-text p {
     font-size: 11px;
   }
 
-  .action-icon-box {
+  .Army-action-icon-box {
     width: 36px;
     height: 36px;
     max-width: 36px;
@@ -794,117 +794,117 @@
     font-size: 18px;
   }
 
-  .action-qr .next_icon_holder,
-  .action-students .next_icon_holder,
-  .action-announcements .next_icon_holder,
-  .action-reports .next_icon_holder {
+  .Army-action-qr .Army-next_icon_holder,
+  .Army-action-students .Army-next_icon_holder,
+  .Army-action-announcements .Army-next_icon_holder,
+  .Army-action-reports .Army-next_icon_holder {
     width: 26px;
     height: 26px;
   }
 
-  .action-button-card .action-arrow {
+  .Army-action-button-card .Army-action-arrow {
     font-size: 18px;
   }
 
-  .dashboard-table {
+  .Army-dashboard-table {
     min-width: 350px;
   }
 
-  .dashboard-table th,
-  .dashboard-table td {
+  .Army-dashboard-table th,
+  .Army-dashboard-table td {
     padding: 10px 8px;
     font-size: 13px;
   }
 
-  .announcement-item h3 {
+  .Army-announcement-item h3 {
     font-size: 14px;
   }
 
-  .announcement-item p {
+  .Army-announcement-item p {
     font-size: 13px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 120px;
     height: 120px;
   }
 
-  .donut-text .percentage {
+  .Army-donut-text .Army-percentage {
     font-size: 22px;
   }
 
-  .donut-text .label {
+  .Army-donut-text .Army-label {
     font-size: 11px;
   }
 
-  .ledger-item {
+  .Army-ledger-item {
     font-size: 13px;
   }
 }
 
-/* Small mobile devices (640px and below) - SINGLE COLUMN for KPI cards */
+/* Small mobile devices (640px and below) - KEEP 2 COLUMNS for metrics */
 @media (max-width: 640px) {
-  .metrics-grid1 {
-    grid-template-columns: 1fr; /* ← single column */
+  .Army-metrics-grid1 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns – exactly as you want */
     gap: 10px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 80px;
     padding: 12px 16px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 20px;
   }
 
-  .metric-card .card-label {
+  .Army-metric-card .Army-card-label {
     font-size: 13px;
   }
 
-  .metric-card .icon-wrapper {
+  .Army-metric-card .Army-icon-wrapper {
     width: 42px;
     height: 42px;
   }
 
-  .metric-card .icon-wrapper .DashIcon {
+  .Army-metric-card .Army-icon-wrapper .Army-DashIcon {
     width: 20px;
     height: 20px;
   }
 
-  .dashboard-panel {
+  .Army-dashboard-panel {
     padding: 16px;
   }
-  .dashboard-panel1 {
+  .Army-dashboard-panel1 {
     padding: 14px;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 20px;
   }
 
-  .dashboard-header .subtitle-text {
+  .Army-dashboard-header .Army-subtitle-text {
     font-size: 13px;
   }
 
-  .actions-grid {
+  .Army-actions-grid {
     grid-template-columns: 1fr 1fr;
     gap: 10px;
   }
 
-  .action-button-card {
+  .Army-action-button-card {
     padding: 12px;
   }
 
-  .action-text h3 {
+  .Army-action-text h3 {
     font-size: 12px;
   }
 
-  .action-text p {
+  .Army-action-text p {
     font-size: 10px;
   }
 
-  .action-icon-box {
+  .Army-action-icon-box {
     width: 32px;
     height: 32px;
     max-width: 32px;
@@ -912,106 +912,106 @@
     font-size: 16px;
   }
 
-  .dashboard-table {
+  .Army-dashboard-table {
     min-width: 300px;
   }
 
-  .dashboard-table th,
-  .dashboard-table td {
+  .Army-dashboard-table th,
+  .Army-dashboard-table td {
     padding: 8px 6px;
     font-size: 12px;
   }
 
-  .status-badge {
+  .Army-status-badge {
     font-size: 10px;
     padding: 3px 8px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 100px;
     height: 100px;
   }
 
-  .donut-text .percentage {
+  .Army-donut-text .Army-percentage {
     font-size: 18px;
   }
 
-  .donut-text .label {
+  .Army-donut-text .Army-label {
     font-size: 10px;
   }
 
-  .fees-ledger-pane {
+  .Army-fees-ledger-pane {
     gap: 10px;
   }
 
-  .ledger-item {
+  .Army-ledger-item {
     font-size: 12px;
   }
 
-  .ledger-marker {
+  .Army-ledger-marker {
     width: 8px;
     height: 8px;
   }
 }
 
-/* Extra small mobile devices (520px and below) */
+/* Extra small mobile devices (520px and below) - KEEP 2 COLUMNS */
 @media (max-width: 520px) {
-  .metrics-grid1 {
-    grid-template-columns: 1fr; /* single column */
+  .Army-metrics-grid1 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 8px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 70px;
     padding: 10px 14px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 18px;
   }
 
-  .metric-card .card-label {
+  .Army-metric-card .Army-card-label {
     font-size: 12px;
   }
 
-  .metric-card .icon-wrapper {
+  .Army-metric-card .Army-icon-wrapper {
     width: 36px;
     height: 36px;
     border-radius: 10px;
   }
 
-  .metric-card .icon-wrapper .DashIcon {
+  .Army-metric-card .Army-icon-wrapper .Army-DashIcon {
     width: 18px;
     height: 18px;
   }
 
-  .metric-card .card-footer {
+  .Army-metric-card .Army-card-footer {
     font-size: 11px;
   }
 
-  .metric-card .card-footer .trend-icon {
+  .Army-metric-card .Army-card-footer .Army-trend-icon {
     width: 12px;
     height: 12px;
   }
 
-  .actions-grid {
+  .Army-actions-grid {
     grid-template-columns: 1fr 1fr;
     gap: 8px;
   }
 
-  .action-button-card {
+  .Army-action-button-card {
     padding: 10px 12px;
   }
 
-  .action-text h3 {
+  .Army-action-text h3 {
     font-size: 11px;
   }
 
-  .action-text p {
+  .Army-action-text p {
     font-size: 9px;
   }
 
-  .action-icon-box {
+  .Army-action-icon-box {
     width: 28px;
     height: 28px;
     max-width: 28px;
@@ -1019,156 +1019,156 @@
     font-size: 14px;
   }
 
-  .action-qr .next_icon_holder,
-  .action-students .next_icon_holder,
-  .action-announcements .next_icon_holder,
-  .action-reports .next_icon_holder {
+  .Army-action-qr .Army-next_icon_holder,
+  .Army-action-students .Army-next_icon_holder,
+  .Army-action-announcements .Army-next_icon_holder,
+  .Army-action-reports .Army-next_icon_holder {
     width: 22px;
     height: 22px;
   }
 
-  .action-button-card .action-arrow {
+  .Army-action-button-card .Army-action-arrow {
     font-size: 16px;
   }
 
-  .dashboard-table {
+  .Army-dashboard-table {
     min-width: 280px;
   }
 
-  .dashboard-table th,
-  .dashboard-table td {
+  .Army-dashboard-table th,
+  .Army-dashboard-table td {
     padding: 6px 4px;
     font-size: 11px;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 18px;
   }
 
-  .dashboard-header .subtitle-text {
+  .Army-dashboard-header .Army-subtitle-text {
     font-size: 12px;
   }
 
-  .dashboard-panel .panel-title {
+  .Army-dashboard-panel .Army-panel-title {
     font-size: 15px;
   }
 
-  .dashboard-panel .view-all-link {
+  .Army-dashboard-panel .Army-view-all-link {
     font-size: 12px;
   }
 
-  .fees-summary-container {
+  .Army-fees-summary-container {
     gap: 16px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 90px;
     height: 90px;
   }
 
-  .donut-text .percentage {
+  .Army-donut-text .Army-percentage {
     font-size: 16px;
   }
 
-  .donut-text .label {
+  .Army-donut-text .Army-label {
     font-size: 9px;
   }
 
-  .ledger-item {
+  .Army-ledger-item {
     font-size: 11px;
   }
 }
 
-/* Very small mobile devices (400px and below) */
+/* Very small mobile devices (400px and below) - KEEP 2 COLUMNS */
 @media (max-width: 400px) {
-  .metrics-grid1 {
-    grid-template-columns: 1fr; /* single column */
+  .Army-metrics-grid1 {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns */
     gap: 6px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 60px;
     padding: 8px 12px;
     border-radius: 8px;
   }
 
-  .metric-card .card-content {
+  .Army-metric-card .Army-card-content {
     flex-direction: row;
   }
 
-  .metric-card .text-section {
+  .Army-metric-card .Army-text-section {
     gap: 3px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 16px;
   }
 
-  .metric-card .card-label {
+  .Army-metric-card .Army-card-label {
     font-size: 11px;
   }
 
-  .metric-card .icon-wrapper {
+  .Army-metric-card .Army-icon-wrapper {
     width: 32px;
     height: 32px;
     border-radius: 8px;
   }
 
-  .metric-card .icon-wrapper .DashIcon {
+  .Army-metric-card .Army-icon-wrapper .Army-DashIcon {
     width: 16px;
     height: 16px;
   }
 
-  .metric-card .card-footer {
+  .Army-metric-card .Army-card-footer {
     font-size: 10px;
     margin-top: 6px;
   }
 
-  .metric-card .card-footer .trend-icon {
+  .Army-metric-card .Army-card-footer .Army-trend-icon {
     width: 10px;
     height: 10px;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 16px;
   }
 
-  .dashboard-header .subtitle-text {
+  .Army-dashboard-header .Army-subtitle-text {
     font-size: 11px;
   }
 
-  .dashboard-panel {
+  .Army-dashboard-panel {
     padding: 12px;
   }
-  .dashboard-panel1 {
+  .Army-dashboard-panel1 {
     padding: 10px;
   }
 
-  .dashboard-panel .panel-title {
+  .Army-dashboard-panel .Army-panel-title {
     font-size: 14px;
   }
 
-  .dashboard-panel .view-all-link {
+  .Army-dashboard-panel .Army-view-all-link {
     font-size: 11px;
   }
 
-  .actions-grid {
+  .Army-actions-grid {
     gap: 6px;
   }
 
-  .action-button-card {
+  .Army-action-button-card {
     padding: 8px 10px;
   }
 
-  .action-text h3 {
+  .Army-action-text h3 {
     font-size: 10px;
   }
 
-  .action-text p {
+  .Army-action-text p {
     font-size: 8px;
   }
 
-  .action-icon-box {
+  .Army-action-icon-box {
     width: 24px;
     height: 24px;
     max-width: 24px;
@@ -1177,161 +1177,161 @@
     border-radius: 6px;
   }
 
-  .action-qr .next_icon_holder,
-  .action-students .next_icon_holder,
-  .action-announcements .next_icon_holder,
-  .action-reports .next_icon_holder {
+  .Army-action-qr .Army-next_icon_holder,
+  .Army-action-students .Army-next_icon_holder,
+  .Army-action-announcements .Army-next_icon_holder,
+  .Army-action-reports .Army-next_icon_holder {
     width: 18px;
     height: 18px;
   }
 
-  .action-button-card .action-arrow {
+  .Army-action-button-card .Army-action-arrow {
     font-size: 14px;
   }
 
-  .dashboard-table {
+  .Army-dashboard-table {
     min-width: 250px;
   }
 
-  .dashboard-table th,
-  .dashboard-table td {
+  .Army-dashboard-table th,
+  .Army-dashboard-table td {
     padding: 4px 3px;
     font-size: 10px;
   }
 
-  .status-badge {
+  .Army-status-badge {
     font-size: 8px;
     padding: 2px 5px;
     border-radius: 4px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 80px;
     height: 80px;
   }
 
-  .donut-text .percentage {
+  .Army-donut-text .Army-percentage {
     font-size: 14px;
   }
 
-  .donut-text .label {
+  .Army-donut-text .Army-label {
     font-size: 8px;
   }
 
-  .fees-ledger-pane {
+  .Army-fees-ledger-pane {
     gap: 6px;
   }
 
-  .ledger-item {
+  .Army-ledger-item {
     font-size: 10px;
   }
 
-  .ledger-item.total-row {
+  .Army-ledger-item.Army-total-row {
     font-size: 11px;
   }
 
-  .announcement-item h3 {
+  .Army-announcement-item h3 {
     font-size: 13px;
   }
 
-  .announcement-item p {
+  .Army-announcement-item p {
     font-size: 12px;
   }
 }
 
 /* ══════════════════════════════════════════════════════════
-   320px breakpoint for tiny devices
+   320px breakpoint for tiny devices - KEEP 2 COLUMNS
    ══════════════════════════════════════════════════════════ */
 @media (max-width: 320px) {
-  .metrics-grid1 {
-    grid-template-columns: 1fr; /* single column */
+  .Army-metrics-grid1 {
+    grid-template-columns: repeat(2, 1fr); /* still 2 columns */
     gap: 4px;
   }
 
-  .metric-card {
+  .Army-metric-card {
     min-height: 50px;
     padding: 6px 10px;
     border-radius: 6px;
     border-left-width: 2px;
   }
 
-  .metric-card .card-value {
+  .Army-metric-card .Army-card-value {
     font-size: 14px;
   }
 
-  .metric-card .card-label {
+  .Army-metric-card .Army-card-label {
     font-size: 9px;
   }
 
-  .metric-card .icon-wrapper {
+  .Army-metric-card .Army-icon-wrapper {
     width: 24px;
     height: 24px;
     border-radius: 6px;
   }
 
-  .metric-card .icon-wrapper .DashIcon {
+  .Army-metric-card .Army-icon-wrapper .Army-DashIcon {
     width: 14px;
     height: 14px;
   }
 
-  .metric-card .card-footer {
+  .Army-metric-card .Army-card-footer {
     font-size: 8px;
     margin-top: 4px;
   }
 
-  .metric-card .card-footer .trend-icon {
+  .Army-metric-card .Army-card-footer .Army-trend-icon {
     width: 8px;
     height: 8px;
   }
 
-  .dashboard-header {
+  .Army-dashboard-header {
     margin-bottom: 12px;
     gap: 6px;
   }
 
-  .dashboard-header .welcome-text {
+  .Army-dashboard-header .Army-welcome-text {
     font-size: 14px;
   }
 
-  .dashboard-header .subtitle-text {
+  .Army-dashboard-header .Army-subtitle-text {
     font-size: 10px;
   }
 
-  .dashboard-panel {
+  .Army-dashboard-panel {
     padding: 8px;
   }
-  .dashboard-panel1 {
+  .Army-dashboard-panel1 {
     padding: 6px;
   }
 
-  .dashboard-panel .panel-title {
+  .Army-dashboard-panel .Army-panel-title {
     font-size: 13px;
   }
-  .dashboard-panel .view-all-link {
+  .Army-dashboard-panel .Army-view-all-link {
     font-size: 10px;
   }
 
-  .actions-grid {
+  .Army-actions-grid {
     gap: 4px;
   }
 
-  .action-button-card {
+  .Army-action-button-card {
     padding: 6px 8px;
     border-radius: 6px;
   }
 
-  .action-main-content {
+  .Army-action-main-content {
     gap: 8px;
   }
 
-  .action-text h3 {
+  .Army-action-text h3 {
     font-size: 9px;
   }
-  .action-text p {
+  .Army-action-text p {
     font-size: 7px;
   }
 
-  .action-icon-box {
+  .Army-action-icon-box {
     width: 20px;
     height: 20px;
     max-width: 20px;
@@ -1340,86 +1340,86 @@
     border-radius: 4px;
   }
 
-  .action-qr .next_icon_holder,
-  .action-students .next_icon_holder,
-  .action-announcements .next_icon_holder,
-  .action-reports .next_icon_holder {
+  .Army-action-qr .Army-next_icon_holder,
+  .Army-action-students .Army-next_icon_holder,
+  .Army-action-announcements .Army-next_icon_holder,
+  .Army-action-reports .Army-next_icon_holder {
     width: 16px;
     height: 16px;
     border-width: 1px;
   }
 
-  .action-button-card .action-arrow {
+  .Army-action-button-card .Army-action-arrow {
     font-size: 12px;
   }
 
-  .dashboard-table {
+  .Army-dashboard-table {
     min-width: 200px;
   }
 
-  .dashboard-table th,
-  .dashboard-table td {
+  .Army-dashboard-table th,
+  .Army-dashboard-table td {
     padding: 3px 2px;
     font-size: 9px;
   }
 
-  .status-badge {
+  .Army-status-badge {
     font-size: 7px;
     padding: 1px 4px;
     border-radius: 3px;
   }
 
-  .donut-chart-wrapper {
+  .Army-donut-chart-wrapper {
     width: 70px;
     height: 70px;
   }
 
-  .donut-text .percentage {
+  .Army-donut-text .Army-percentage {
     font-size: 12px;
   }
-  .donut-text .label {
+  .Army-donut-text .Army-label {
     font-size: 7px;
   }
 
-  .fees-ledger-pane {
+  .Army-fees-ledger-pane {
     gap: 4px;
   }
 
-  .ledger-item {
+  .Army-ledger-item {
     font-size: 9px;
   }
-  .ledger-item.total-row {
+  .Army-ledger-item.Army-total-row {
     font-size: 10px;
   }
 
-  .ledger-marker {
+  .Army-ledger-marker {
     width: 6px;
     height: 6px;
   }
 
-  .announcement-item {
+  .Army-announcement-item {
     padding-left: 8px;
   }
-  .announcement-item h3 {
+  .Army-announcement-item h3 {
     font-size: 12px;
   }
-  .announcement-item p {
+  .Army-announcement-item p {
     font-size: 11px;
   }
-  .announcement-date {
+  .Army-announcement-date {
     font-size: 9px;
   }
 
-  .empty-state-container1 {
+  .Army-empty-state-container1 {
     padding: 20px 10px;
   }
-  .empty-state-icon {
+  .Army-empty-state-icon {
     font-size: 32px;
   }
-  .empty-state-title {
+  .Army-empty-state-title {
     font-size: 13px;
   }
-  .empty-state-description {
+  .Army-empty-state-description {
     font-size: 11px;
     max-width: 180px;
   }
@@ -1428,7 +1428,7 @@
 /* ══════════════════════════════════════════════════════════
    DONUT SVG OVERRIDE (kept from original)
 ══════════════════════════════════════════════════════════ */
-.donut-svg {
+.Army-donut-svg {
   transform: rotate(-90deg);
   width: 100%;
   height: 100%;
@@ -1436,7 +1436,7 @@
 }
 
 /* Announcement calendar icon alignment */
-.announcement-date svg {
+.Army-announcement-date svg {
   vertical-align: middle;
   margin-right: 4px;
 }

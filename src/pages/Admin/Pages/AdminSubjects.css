@@ -1,15 +1,15 @@
-.sdashboard-container {
+.SUB-sdashboard-container {
   width: 100%;
   min-height: 40vh;
 
-  .dashboard-header {
+  .SUB-dashboard-header {
     width: 100%;
     height: 15vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .welcome-text {
+    .SUB-welcome-text {
       font-size: 32px;
       font-weight: 700;
       color: #03173c;
@@ -18,19 +18,19 @@
       align-items: center;
       gap: 10px;
 
-      .wave-emoji {
+      .SUB-wave-emoji {
         display: inline-block;
       }
     }
 
-    .subtitle-text {
+    .SUB-subtitle-text {
       font-size: 16px;
       color: #03173c;
       margin: 0;
     }
   }
 
-  .AddSubject {
+  .SUB-AddSubject {
     width: 13%;
     height: 50%;
     background: #0062f6;
@@ -46,110 +46,121 @@
     cursor: pointer;
   }
 
-  .metrics-grid {
+  .SUB-metrics-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-    height: 110px;
+    height: 15vh;
+    /* background: #000; */
     width: 100%;
+    align-items: center;
 
-    .metric-card {
-      background: #ffffff;
+    .SUB-metric-card {
+      background: white;
       border-radius: 12px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       display: flex;
       width: 100%;
-      height: 100px;
+      height: 100%;
       flex-direction: column;
-      justify-content: space-between;
+      /* justify-content: space-between; */
       border-left: 2px solid transparent;
+      justify-content: center;
+      /* gap: 12px; */
+      /* padding: 12px; */
 
-      &.card-students {
+      &.SUB-card-students {
         border-left-color: #3b82f6;
       }
-      &.card-staff {
+      &.SUB-card-staff {
         border-left-color: #a855f7;
       }
-      &.card-attendance {
+      &.SUB-card-attendance {
         border-left-color: #f59e0b;
       }
-      &.card-fees {
+      &.SUB-card-fees {
         border-left-color: #10b981;
       }
 
-      .card-content {
+      .SUB-card-content {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         width: 100%;
+        /* background: red; */
+        height: 100%;
+        padding: 12px;
 
-        .text-section {
+        .SUB-text-section {
           display: flex;
           flex-direction: column;
           gap: 8px;
 
-          .card-label {
+          .SUB-card-label {
             font-size: 15px;
             color: #03173c;
             font-weight: 500;
           }
 
-          .card-value {
+          .SUB-card-value {
             font-size: 25px;
             font-weight: 700;
             color: #03173c;
           }
         }
 
-        .icon-wrapper {
-          width: 65px;
-          height: 65px;
+        .SUB-icon-wrapper {
+          width: 60px;
+          height: 60px;
           border-radius: 16px;
           display: flex;
           align-items: center;
           justify-content: center;
+          /* background: orange; */
 
-          .DashIcon {
+          .SUB-DashIcon {
             width: 70%;
             height: 70%;
+            /* background: red; */
           }
 
-          &.icon-students {
+          &.SUB-icon-students {
             background-color: #eff6ff;
             color: #2563eb;
           }
-          &.icon-staff {
+          &.SUB-icon-staff {
             background-color: #f3e8ff;
             color: #9333ea;
           }
-          &.icon-attendance {
+          &.SUB-icon-attendance {
             background-color: #fef3c7;
             color: #d97706;
           }
-          &.icon-fees {
+          &.SUB-icon-fees {
             background-color: #ecfdf5;
             color: #059669;
           }
         }
       }
 
-      .card-footer {
+      .SUB-card-footer {
         font-size: 14px;
         font-weight: 500;
         margin-top: -20px;
         color: gray;
+        width: 100%;
+        height: auto;
+        padding-left: 12px;
       }
     }
   }
 }
 
-.tableContainer {
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.SUB-tableContainer {
   background-color: #f4f7fc;
   padding: 20px;
 
-  .filterSection {
+  .SUB-filterSection {
     background-color: #ffffff;
     border-radius: 8px;
     border: 1px solid #e2e8f0;
@@ -160,22 +171,22 @@
     margin-bottom: 24px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 
-    .filterGroup {
+    .SUB-filterGroup {
       display: flex;
       flex-direction: column;
 
-      .filterLabel {
+      .SUB-filterLabel {
         font-size: 13px;
         color: #4a5568;
         margin-bottom: 8px;
         font-weight: 500;
       }
 
-      .selectWrapper {
+      .SUB-selectWrapper {
         position: relative;
         width: 160px;
 
-        .selectInput {
+        .SUB-selectInput {
           width: 100%;
           padding: 10px 36px 10px 32px;
           font-size: 13px;
@@ -222,7 +233,7 @@
       }
     }
 
-    .resetBtn {
+    .SUB-resetBtn {
       background-color: #ffffff;
       border: 1px solid #1070e0;
       color: #1070e0;
@@ -234,7 +245,7 @@
       align-items: center;
       cursor: pointer;
 
-      .resetIcon {
+      .SUB-resetIcon {
         width: 16px;
         height: 16px;
         margin-right: 8px;
@@ -242,7 +253,7 @@
     }
   }
 
-  .tableWrapper {
+  .SUB-tableWrapper {
     background-color: #ffffff;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
@@ -250,7 +261,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
     margin-bottom: 40px;
 
-    .subjectTable {
+    .SUB-subjectTable {
       width: 100%;
       border-collapse: collapse;
       text-align: left;
@@ -269,12 +280,12 @@
         font-size: 14px;
       }
 
-      .actionButtons {
+      .SUB-actionButtons {
         display: flex;
         gap: 16px;
 
-        .editBtn,
-        .deleteBtn {
+        .SUB-editBtn,
+        .SUB-deleteBtn {
           background: none;
           border: none;
           cursor: pointer;
@@ -286,34 +297,34 @@
           }
         }
 
-        .editBtn svg {
+        .SUB-editBtn svg {
           stroke: #94a3b8;
         }
-        .deleteBtn svg {
+        .SUB-deleteBtn svg {
           stroke: #f87171;
         }
       }
     }
 
-    .paginationRow {
+    .SUB-paginationRow {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px 24px;
       background-color: #ffffff;
 
-      .paginationInfo {
+      .SUB-paginationInfo {
         font-size: 14px;
         color: #64748b;
       }
 
-      .paginationControls {
+      .SUB-paginationControls {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .pageBtn,
-        .arrowBtn {
+        .SUB-pageBtn,
+        .SUB-arrowBtn {
           background: none;
           border: none;
           min-width: 32px;
@@ -327,36 +338,36 @@
           cursor: pointer;
         }
 
-        .activePage {
+        .SUB-activePage {
           background-color: #1070e0;
           color: #ffffff;
           font-weight: 500;
         }
-        .arrowBtn:disabled {
+        .SUB-arrowBtn:disabled {
           color: #cbd5e1;
           cursor: not-allowed;
         }
-        .ellipsis {
+        .SUB-ellipsis {
           color: #64748b;
           font-size: 14px;
           padding: 0 4px;
         }
       }
 
-      .rowsPerPageGroup {
+      .SUB-rowsPerPageGroup {
         display: flex;
         align-items: center;
         gap: 8px;
 
-        .rowsLabel {
+        .SUB-rowsLabel {
           font-size: 14px;
           color: #64748b;
         }
 
-        .rowsSelectWrapper {
+        .SUB-rowsSelectWrapper {
           position: relative;
 
-          .rowsSelect {
+          .SUB-rowsSelect {
             padding: 6px 32px 6px 12px;
             font-size: 14px;
             border: 1px solid #e2e8f0;
@@ -384,20 +395,20 @@
     }
   }
 
-  .footerRow {
+  .SUB-footerRow {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 4px;
     font-size: 14px;
 
-    .copyrightText {
+    .SUB-copyrightText {
       color: #94a3b8;
     }
 
-    .supportText {
+    .SUB-supportText {
       color: #64748b;
-      .supportLink {
+      .SUB-supportLink {
         color: #1070e0;
         text-decoration: none;
       }
@@ -410,7 +421,7 @@
    ============================================ */
 
 /* Modal Overlay */
-.modalOverlay {
+.SUB-modalOverlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
@@ -422,7 +433,7 @@
 }
 
 /* Add Subject Modal */
-.subjectModal {
+.SUB-subjectModal {
   width: 550px;
   max-width: 95%;
   max-height: 85vh;
@@ -435,7 +446,7 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.subjectModal .modalHeader {
+.SUB-subjectModal .SUB-modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -444,20 +455,20 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.subjectModal .modalHeader h2 {
+.SUB-subjectModal .SUB-modalHeader h2 {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
   color: #03173c;
 }
 
-.subjectModal .modalBody {
+.SUB-subjectModal .SUB-modalBody {
   padding: 16px 32px 24px 32px;
   overflow-y: auto;
   flex: 1;
 }
 
-.subjectModal .modalActions {
+.SUB-subjectModal .SUB-modalActions {
   display: flex;
   gap: 20px;
   padding: 16px 32px 24px 32px;
@@ -467,7 +478,7 @@
 }
 
 /* Edit Subject Modal */
-.editSubjectModal {
+.SUB-editSubjectModal {
   width: 440px;
   max-width: 95%;
   max-height: 85vh;
@@ -484,7 +495,7 @@
   flex-direction: column;
 }
 
-.editSubjectModal .editModalHeader {
+.SUB-editSubjectModal .SUB-editModalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -493,14 +504,14 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.editSubjectModal .editModalHeader h2 {
+.SUB-editSubjectModal .SUB-editModalHeader h2 {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
   color: #041434;
 }
 
-.editSubjectModal .editModalHeader .editCloseBtn {
+.SUB-editSubjectModal .SUB-editModalHeader .SUB-editCloseBtn {
   border: none;
   background: none;
   cursor: pointer;
@@ -511,18 +522,18 @@
   color: #041434;
 }
 
-.editSubjectModal .editModalHeader .editCloseBtn svg {
+.SUB-editSubjectModal .SUB-editModalHeader .SUB-editCloseBtn svg {
   width: 18px;
   height: 18px;
 }
 
-.editSubjectModal .editModalBody {
+.SUB-editSubjectModal .SUB-editModalBody {
   padding: 16px 32px 24px 32px;
   overflow-y: auto;
   flex: 1;
 }
 
-.editSubjectModal .editModalActions {
+.SUB-editSubjectModal .SUB-editModalActions {
   display: flex;
   gap: 16px;
   padding: 16px 32px 24px 32px;
@@ -532,7 +543,7 @@
 }
 
 /* Delete Modal */
-.modalContent.deleteModal {
+.SUB-modalContent.SUB-deleteModal {
   width: 440px;
   max-width: 95%;
   max-height: 85vh;
@@ -545,7 +556,7 @@
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
-.modalContent.deleteModal .modalHeader {
+.SUB-modalContent.SUB-deleteModal .SUB-modalHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -554,20 +565,20 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.modalContent.deleteModal .modalHeader h2 {
+.SUB-modalContent.SUB-deleteModal .SUB-modalHeader h2 {
   margin: 0;
   font-size: 28px;
   font-weight: 700;
   color: #03173c;
 }
 
-.modalContent.deleteModal .modalBody {
+.SUB-modalContent.SUB-deleteModal .SUB-modalBody {
   padding: 24px 32px;
   flex: 1;
   overflow-y: auto;
 }
 
-.modalContent.deleteModal .modalFooter {
+.SUB-modalContent.SUB-deleteModal .SUB-modalFooter {
   display: flex;
   gap: 16px;
   padding: 16px 32px 24px 32px;
@@ -577,7 +588,7 @@
 }
 
 /* Close Button */
-.closeBtn {
+.SUB-closeBtn {
   border: none;
   background: none;
   font-size: 32px;
@@ -587,16 +598,16 @@
   line-height: 1;
 }
 
-.closeBtn:hover {
+.SUB-closeBtn:hover {
   color: #000;
 }
 
 /* Form Groups */
-.formGroup {
+.SUB-formGroup {
   margin-bottom: 20px;
 }
 
-.formGroup label {
+.SUB-formGroup label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
@@ -604,8 +615,8 @@
   font-size: 14px;
 }
 
-.formGroup input,
-.formGroup select {
+.SUB-formGroup input,
+.SUB-formGroup select {
   width: 100%;
   height: 48px;
   border: 1px solid #d9d9d9;
@@ -615,14 +626,14 @@
   box-sizing: border-box;
 }
 
-.formGroup input:focus,
-.formGroup select:focus {
+.SUB-formGroup input:focus,
+.SUB-formGroup select:focus {
   outline: none;
   border-color: #0062f6;
   box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
-.formGroup small {
+.SUB-formGroup small {
   display: block;
   margin-top: 6px;
   color: #8a8a8a;
@@ -630,11 +641,11 @@
 }
 
 /* Edit Form Groups */
-.editFormGroup {
+.SUB-editFormGroup {
   margin-bottom: 20px;
 }
 
-.editFormGroup label {
+.SUB-editFormGroup label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
@@ -642,7 +653,7 @@
   color: #041434;
 }
 
-.editFormGroup input {
+.SUB-editFormGroup input {
   width: 100%;
   height: 48px;
   border: 1px solid #e2e8f0;
@@ -654,17 +665,17 @@
   box-sizing: border-box;
 }
 
-.editFormGroup input:focus {
+.SUB-editFormGroup input:focus {
   border-color: #0062f6;
   box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
-.editFormGroup .editSelectWrapper {
+.SUB-editFormGroup .SUB-editSelectWrapper {
   position: relative;
   width: 100%;
 }
 
-.editFormGroup .editSelectWrapper select {
+.SUB-editFormGroup .SUB-editSelectWrapper select {
   width: 100%;
   height: 48px;
   border: 1px solid #e2e8f0;
@@ -679,12 +690,12 @@
   cursor: pointer;
 }
 
-.editFormGroup .editSelectWrapper select:focus {
+.SUB-editFormGroup .SUB-editSelectWrapper select:focus {
   border-color: #0062f6;
   box-shadow: 0 0 0 3px rgba(0, 98, 246, 0.1);
 }
 
-.editFormGroup .editSelectWrapper::after {
+.SUB-editFormGroup .SUB-editSelectWrapper::after {
   content: "";
   position: absolute;
   right: 18px;
@@ -697,7 +708,7 @@
   pointer-events: none;
 }
 
-.editFormGroup small {
+.SUB-editFormGroup small {
   display: block;
   margin-top: 6px;
   font-size: 12px;
@@ -705,7 +716,7 @@
 }
 
 /* Buttons */
-.cancelBtn {
+.SUB-cancelBtn {
   width: 120px;
   height: 48px;
   border: 1px solid #1663f7;
@@ -718,11 +729,11 @@
   transition: all 0.2s;
 }
 
-.cancelBtn:hover {
+.SUB-cancelBtn:hover {
   background: #f0f7ff;
 }
 
-.createBtn {
+.SUB-createBtn {
   width: 160px;
   height: 48px;
   border: none;
@@ -735,16 +746,16 @@
   transition: all 0.2s;
 }
 
-.createBtn:hover:not(:disabled) {
+.SUB-createBtn:hover:not(:disabled) {
   background: #0052cc;
 }
 
-.createBtn:disabled {
+.SUB-createBtn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
 }
 
-.editCancelBtn {
+.SUB-editCancelBtn {
   width: 120px;
   height: 48px;
   border: 1px solid #0062f6;
@@ -757,11 +768,11 @@
   transition: all 0.2s;
 }
 
-.editCancelBtn:hover {
+.SUB-editCancelBtn:hover {
   background: #f0f7ff;
 }
 
-.editSaveBtn {
+.SUB-editSaveBtn {
   flex: 1;
   height: 48px;
   border: none;
@@ -774,16 +785,16 @@
   transition: all 0.2s;
 }
 
-.editSaveBtn:hover:not(:disabled) {
+.SUB-editSaveBtn:hover:not(:disabled) {
   background: #0052cc;
 }
 
-.editSaveBtn:disabled {
+.SUB-editSaveBtn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
 }
 
-.confirmDeleteBtn {
+.SUB-confirmDeleteBtn {
   flex: 1;
   height: 48px;
   border: none;
@@ -796,17 +807,17 @@
   transition: all 0.2s;
 }
 
-.confirmDeleteBtn:hover:not(:disabled) {
+.SUB-confirmDeleteBtn:hover:not(:disabled) {
   background: #b91c1c;
 }
 
-.confirmDeleteBtn:disabled {
+.SUB-confirmDeleteBtn:disabled {
   background: #94a3b8;
   cursor: not-allowed;
 }
 
 /* Error states */
-.error-message {
+.SUB-error-message {
   color: #dc3545;
   font-size: 12px;
   margin-top: 4px;
@@ -814,35 +825,35 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-.formGroup input.error,
-.formGroup select.error,
-.editFormGroup input.error,
-.editFormGroup select.error,
-.dropdown-checkbox-input.error {
+.SUB-formGroup input.SUB-error,
+.SUB-formGroup select.SUB-error,
+.SUB-editFormGroup input.SUB-error,
+.SUB-editFormGroup select.SUB-error,
+.SUB-dropdown-checkbox-input.SUB-error {
   border-color: #dc3545;
   background-color: #fff8f8;
 }
 
-.formGroup input.error:focus,
-.formGroup select.error:focus,
-.editFormGroup input.error:focus,
-.editFormGroup select.error:focus,
-.dropdown-checkbox-input.error:focus {
+.SUB-formGroup input.SUB-error:focus,
+.SUB-formGroup select.SUB-error:focus,
+.SUB-editFormGroup input.SUB-error:focus,
+.SUB-editFormGroup select.SUB-error:focus,
+.SUB-dropdown-checkbox-input.SUB-error:focus {
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
-.dropdown-checkbox-input.error {
+.SUB-dropdown-checkbox-input.SUB-error {
   border-color: #dc3545 !important;
 }
 
 /* Dropdown Checkbox */
-.dropdown-checkbox-container {
+.SUB-dropdown-checkbox-container {
   position: relative;
   width: 100%;
 }
 
-.dropdown-checkbox-input {
+.SUB-dropdown-checkbox-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -856,11 +867,11 @@
   font-size: 14px;
 }
 
-.dropdown-checkbox-input:hover {
+.SUB-dropdown-checkbox-input:hover {
   border-color: #9ca3af;
 }
 
-.dropdown-checkbox-input .selected-text {
+.SUB-dropdown-checkbox-input .SUB-selected-text {
   color: #1f2937;
   flex: 1;
   overflow: hidden;
@@ -868,18 +879,18 @@
   white-space: nowrap;
 }
 
-.dropdown-checkbox-input .dropdown-icon {
+.SUB-dropdown-checkbox-input .SUB-dropdown-icon {
   color: #6b7280;
   transition: transform 0.2s ease;
   margin-left: 8px;
   font-size: 14px;
 }
 
-.dropdown-checkbox-input .dropdown-icon.open {
+.SUB-dropdown-checkbox-input .SUB-dropdown-icon.SUB-open {
   transform: rotate(180deg);
 }
 
-.dropdown-checkbox-menu {
+.SUB-dropdown-checkbox-menu {
   position: absolute;
   top: calc(100% + 4px);
   left: 0;
@@ -896,7 +907,7 @@
   padding: 6px 0;
 }
 
-.dropdown-checkbox-item {
+.SUB-dropdown-checkbox-item {
   display: flex;
   align-items: center;
   padding: 8px 14px;
@@ -905,11 +916,11 @@
   gap: 10px;
 }
 
-.dropdown-checkbox-item:hover {
+.SUB-dropdown-checkbox-item:hover {
   background: #f3f4f6;
 }
 
-.dropdown-checkbox-item input[type="checkbox"] {
+.SUB-dropdown-checkbox-item input[type="checkbox"] {
   width: 16px;
   height: 16px;
   cursor: pointer;
@@ -917,12 +928,12 @@
   flex-shrink: 0;
 }
 
-.dropdown-checkbox-item span {
+.SUB-dropdown-checkbox-item span {
   font-size: 14px;
   color: #1f2937;
 }
 
-.dropdown-empty {
+.SUB-dropdown-empty {
   padding: 12px 14px;
   color: #9ca3af;
   font-size: 14px;
@@ -930,53 +941,54 @@
 }
 
 /* Scrollbar Styling for Modal Bodies */
-.subjectModal .modalBody::-webkit-scrollbar,
-.editSubjectModal .editModalBody::-webkit-scrollbar,
-.modalContent.deleteModal .modalBody::-webkit-scrollbar {
+.SUB-subjectModal .SUB-modalBody::-webkit-scrollbar,
+.SUB-editSubjectModal .SUB-editModalBody::-webkit-scrollbar,
+.SUB-modalContent.SUB-deleteModal .SUB-modalBody::-webkit-scrollbar {
   width: 6px;
 }
 
-.subjectModal .modalBody::-webkit-scrollbar-track,
-.editSubjectModal .editModalBody::-webkit-scrollbar-track,
-.modalContent.deleteModal .modalBody::-webkit-scrollbar-track {
+.SUB-subjectModal .SUB-modalBody::-webkit-scrollbar-track,
+.SUB-editSubjectModal .SUB-editModalBody::-webkit-scrollbar-track,
+.SUB-modalContent.SUB-deleteModal .SUB-modalBody::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 10px;
 }
 
-.subjectModal .modalBody::-webkit-scrollbar-thumb,
-.editSubjectModal .editModalBody::-webkit-scrollbar-thumb,
-.modalContent.deleteModal .modalBody::-webkit-scrollbar-thumb {
+.SUB-subjectModal .SUB-modalBody::-webkit-scrollbar-thumb,
+.SUB-editSubjectModal .SUB-editModalBody::-webkit-scrollbar-thumb,
+.SUB-modalContent.SUB-deleteModal .SUB-modalBody::-webkit-scrollbar-thumb {
   background: #c1c7cd;
   border-radius: 10px;
 }
 
-.subjectModal .modalBody::-webkit-scrollbar-thumb:hover,
-.editSubjectModal .editModalBody::-webkit-scrollbar-thumb:hover,
-.modalContent.deleteModal .modalBody::-webkit-scrollbar-thumb:hover {
+.SUB-subjectModal .SUB-modalBody::-webkit-scrollbar-thumb:hover,
+.SUB-editSubjectModal .SUB-editModalBody::-webkit-scrollbar-thumb:hover,
+.SUB-modalContent.SUB-deleteModal
+  .SUB-modalBody::-webkit-scrollbar-thumb:hover {
   background: #a0a7ae;
 }
 
 /* Dropdown scrollbar */
-.dropdown-checkbox-menu::-webkit-scrollbar {
+.SUB-dropdown-checkbox-menu::-webkit-scrollbar {
   width: 6px;
 }
 
-.dropdown-checkbox-menu::-webkit-scrollbar-track {
+.SUB-dropdown-checkbox-menu::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.dropdown-checkbox-menu::-webkit-scrollbar-thumb {
+.SUB-dropdown-checkbox-menu::-webkit-scrollbar-thumb {
   background: #d1d5db;
   border-radius: 4px;
 }
 
-.dropdown-checkbox-menu::-webkit-scrollbar-thumb:hover {
+.SUB-dropdown-checkbox-menu::-webkit-scrollbar-thumb:hover {
   background: #9ca3af;
 }
 
 /* Empty State */
-.emptyStateContainer {
+.SUB-emptyStateContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -987,26 +999,26 @@
   box-sizing: border-box;
 }
 
-.emptyStateIcon {
+.SUB-emptyStateIcon {
   font-size: 64px;
   margin-bottom: 16px;
   opacity: 0.7;
 }
 
-.emptyStateMessage {
+.SUB-emptyStateMessage {
   font-size: 18px;
   font-weight: 600;
   color: #1f2937;
   margin-bottom: 8px;
 }
 
-.emptyStateSubMessage {
+.SUB-emptyStateSubMessage {
   font-size: 14px;
   color: #6b7280;
 }
 
 /* Loading State */
-.loadingStateContainer {
+.SUB-loadingStateContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1014,7 +1026,7 @@
   padding: 48px 20px;
 }
 
-.loadingSpinner {
+.SUB-loadingSpinner {
   width: 40px;
   height: 40px;
   border: 3px solid #f3f3f3;
@@ -1044,17 +1056,24 @@
   }
 }
 
-.loadingMessage {
+.SUB-loadingMessage {
   font-size: 14px;
   color: #6b7280;
 }
 
 /* Fix for filter section */
-.tableContainer .filterSection .filterGroup .selectWrapper::before {
+.SUB-tableContainer
+  .SUB-filterSection
+  .SUB-filterGroup
+  .SUB-selectWrapper::before {
   display: none;
 }
 
-.tableContainer .filterSection .filterGroup .selectWrapper .selectInput {
+.SUB-tableContainer
+  .SUB-filterSection
+  .SUB-filterGroup
+  .SUB-selectWrapper
+  .SUB-selectInput {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -1067,11 +1086,12 @@
 
 @media (max-width: 768px) {
   /* Header */
-  .sdashboard-container {
-    padding: 0 16px;
+  .SUB-sdashboard-container {
+    width: 100% !important;
+    /* padding: 0 16px; */
   }
 
-  .sdashboard-container .dashboard-header {
+  .SUB-sdashboard-container .SUB-dashboard-header {
     flex-direction: column;
     align-items: flex-start;
     height: auto;
@@ -1079,82 +1099,99 @@
     padding: 16px 0;
   }
 
-  .sdashboard-container .dashboard-header .welcome-text {
+  .SUB-sdashboard-container .SUB-dashboard-header .SUB-welcome-text {
     font-size: 22px;
   }
 
-  .sdashboard-container .dashboard-header .subtitle-text {
+  .SUB-sdashboard-container .SUB-dashboard-header .SUB-subtitle-text {
     font-size: 13px;
   }
 
-  .sdashboard-container .AddSubject {
+  .SUB-sdashboard-container .SUB-AddSubject {
     width: 100% !important;
     height: 44px !important;
     font-size: 15px;
   }
 
   /* Metrics Grid */
-  .sdashboard-container .metrics-grid {
+  .SUB-sdashboard-container .SUB-metrics-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     height: auto !important;
     gap: 12px;
     margin-bottom: 16px;
+    /* background: orange; */
+    width: 100%;
   }
 
-  .sdashboard-container .metrics-grid .metric-card {
+  .SUB-sdashboard-container .SUB-metrics-grid .SUB-metric-card {
     height: auto !important;
-    min-height: 90px;
-    padding: 12px 14px;
+    /* padding: 12px 14px; */
     box-sizing: border-box;
+    display: flex;
+    gap: 12px;
+    /* background: #000; */
   }
 
-  .sdashboard-container .metrics-grid .metric-card .card-content {
+  .SUB-sdashboard-container
+    .SUB-metrics-grid
+    .SUB-metric-card
+    .SUB-card-content {
     align-items: center;
   }
 
-  .sdashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-label {
+  .SUB-sdashboard-container
+    .SUB-metrics-grid
+    .SUB-metric-card
+    .SUB-card-content
+    .SUB-text-section
+    .SUB-card-label {
     font-size: 12px;
   }
 
-  .sdashboard-container
-    .metrics-grid
-    .metric-card
-    .card-content
-    .text-section
-    .card-value {
+  .SUB-sdashboard-container
+    .SUB-metrics-grid
+    .SUB-metric-card
+    .SUB-card-content
+    .SUB-text-section
+    .SUB-card-value {
     font-size: 22px;
   }
 
-  .sdashboard-container .metrics-grid .metric-card .card-content .icon-wrapper {
+  .SUB-sdashboard-container
+    .SUB-metrics-grid
+    .SUB-metric-card
+    .SUB-card-content
+    .SUB-icon-wrapper {
     width: 44px !important;
     height: 44px !important;
     border-radius: 10px;
   }
 
-  .sdashboard-container .metrics-grid .metric-card .card-footer {
-    margin-top: 6px !important;
+  .SUB-sdashboard-container
+    .SUB-metrics-grid
+    .SUB-metric-card
+    .SUB-card-footer {
+    /* margin-top: 6px !important; */
     font-size: 11px;
   }
 
   /* Table Container */
-  .tableContainer {
-    padding: 12px 16px;
+  .SUB-tableContainer {
+    width: 100% !important;
+    padding: 12px 1px;
+    /* background: red; */
   }
 
   /* Filter Section */
-  .tableContainer .filterSection {
+  .SUB-tableContainer .SUB-filterSection {
     flex-direction: column !important;
     align-items: stretch !important;
     gap: 12px;
-    padding: 14px 16px;
+    
+    /* padding: 14px 16px; */
   }
 
-  .tableContainer .filterSection .filterGroup {
+  .SUB-tableContainer .SUB-filterSection .SUB-filterGroup {
     flex-direction: column !important;
     align-items: flex-start !important;
     width: 100% !important;
@@ -1163,24 +1200,28 @@
     box-sizing: border-box;
   }
 
-  .tableContainer .filterSection .filterGroup .filterLabel {
+  .SUB-tableContainer .SUB-filterSection .SUB-filterGroup .SUB-filterLabel {
     font-size: 13px;
   }
 
-  .tableContainer .filterSection .filterGroup .selectWrapper {
+  .SUB-tableContainer .SUB-filterSection .SUB-filterGroup .SUB-selectWrapper {
     width: 100% !important;
     min-width: 0 !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  .tableContainer .filterSection .filterGroup .selectWrapper .selectInput {
+  .SUB-tableContainer
+    .SUB-filterSection
+    .SUB-filterGroup
+    .SUB-selectWrapper
+    .SUB-selectInput {
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
   }
 
-  .tableContainer .filterSection .resetBtn {
+  .SUB-tableContainer .SUB-filterSection .SUB-resetBtn {
     width: 100% !important;
     justify-content: center;
     padding: 10px 16px;
@@ -1188,55 +1229,55 @@
   }
 
   /* Table Wrapper */
-  .tableContainer .tableWrapper {
+  .SUB-tableContainer .SUB-tableWrapper {
     overflow: hidden;
   }
 
   /* Empty & Loading State */
-  .emptyStateContainer {
+  .SUB-emptyStateContainer {
     padding: 40px 24px;
     width: 100%;
     box-sizing: border-box;
   }
 
-  .emptyStateIcon {
+  .SUB-emptyStateIcon {
     font-size: 48px;
     margin-bottom: 12px;
   }
 
-  .emptyStateMessage {
+  .SUB-emptyStateMessage {
     font-size: 15px;
     font-weight: 600;
     color: #1f2937;
     margin-bottom: 6px;
   }
 
-  .emptyStateSubMessage {
+  .SUB-emptyStateSubMessage {
     font-size: 12px;
     color: #6b7280;
     max-width: 200px;
     margin: 0 auto;
   }
 
-  .loadingStateContainer {
+  .SUB-loadingStateContainer {
     padding: 40px 24px;
     width: 100%;
     box-sizing: border-box;
   }
 
   /* Table → Card List */
-  .tableContainer .tableWrapper .subjectTable thead {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable thead {
     display: none;
   }
 
-  .tableContainer .tableWrapper .subjectTable,
-  .tableContainer .tableWrapper .subjectTable tbody {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable,
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable tbody {
     display: block;
     width: 100%;
     box-sizing: border-box;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody tr {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable tbody tr {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -1245,11 +1286,11 @@
     position: relative;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody tr:last-child {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable tbody tr:last-child {
     border-bottom: none;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-subjectTable tbody td {
     display: block;
     width: 100%;
     box-sizing: border-box;
@@ -1259,7 +1300,11 @@
     color: #64748b;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(1) {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(1) {
     font-size: 15px;
     font-weight: 600;
     color: #1070e0;
@@ -1267,37 +1312,65 @@
     padding-right: 72px;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(2) {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(2) {
     margin-bottom: 3px;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(2)::before {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(2)::before {
     content: "Dept: ";
     font-weight: 600;
     color: #4a5568;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(3) {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(3) {
     margin-bottom: 3px;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(3)::before {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(3)::before {
     content: "Classes: ";
     font-weight: 600;
     color: #4a5568;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(4) {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(4) {
     margin-bottom: 3px;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(4)::before {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(4)::before {
     content: "Teacher: ";
     font-weight: 600;
     color: #4a5568;
   }
 
-  .tableContainer .tableWrapper .subjectTable tbody td:nth-child(5) {
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
+    tbody
+    td:nth-child(5) {
     position: absolute;
     top: 14px;
     right: 16px;
@@ -1305,17 +1378,17 @@
     display: block;
   }
 
-  .tableContainer
-    .tableWrapper
-    .subjectTable
+  .SUB-tableContainer
+    .SUB-tableWrapper
+    .SUB-subjectTable
     tbody
     td:nth-child(5)
-    .actionButtons {
+    .SUB-actionButtons {
     gap: 12px;
   }
 
   /* Pagination */
-  .tableContainer .tableWrapper .paginationRow {
+  .SUB-tableContainer .SUB-tableWrapper .SUB-paginationRow {
     flex-direction: column;
     gap: 10px;
     align-items: flex-start;
@@ -1323,7 +1396,7 @@
   }
 
   /* Footer */
-  .tableContainer .footerRow {
+  .SUB-tableContainer .SUB-footerRow {
     flex-direction: column;
     gap: 6px;
     text-align: center;
@@ -1331,57 +1404,57 @@
   }
 
   /* Modals - Responsive */
-  .subjectModal,
-  .editSubjectModal,
-  .modalContent.deleteModal {
+  .SUB-subjectModal,
+  .SUB-editSubjectModal,
+  .SUB-modalContent.SUB-deleteModal {
     max-height: 90vh;
     max-width: 98%;
     border-radius: 16px;
   }
 
-  .subjectModal .modalHeader,
-  .editSubjectModal .editModalHeader,
-  .modalContent.deleteModal .modalHeader {
+  .SUB-subjectModal .SUB-modalHeader,
+  .SUB-editSubjectModal .SUB-editModalHeader,
+  .SUB-modalContent.SUB-deleteModal .SUB-modalHeader {
     padding: 16px 20px 12px 20px;
   }
 
-  .subjectModal .modalHeader h2,
-  .editSubjectModal .editModalHeader h2,
-  .modalContent.deleteModal .modalHeader h2 {
+  .SUB-subjectModal .SUB-modalHeader h2,
+  .SUB-editSubjectModal .SUB-editModalHeader h2,
+  .SUB-modalContent.SUB-deleteModal .SUB-modalHeader h2 {
     font-size: 20px;
   }
 
-  .subjectModal .modalBody,
-  .editSubjectModal .editModalBody,
-  .modalContent.deleteModal .modalBody {
+  .SUB-subjectModal .SUB-modalBody,
+  .SUB-editSubjectModal .SUB-editModalBody,
+  .SUB-modalContent.SUB-deleteModal .SUB-modalBody {
     padding: 12px 20px 16px 20px;
   }
 
-  .subjectModal .modalActions,
-  .editSubjectModal .editModalActions,
-  .modalContent.deleteModal .modalFooter {
+  .SUB-subjectModal .SUB-modalActions,
+  .SUB-editSubjectModal .SUB-editModalActions,
+  .SUB-modalContent.SUB-deleteModal .SUB-modalFooter {
     padding: 12px 20px 16px 20px;
     flex-direction: column;
     gap: 10px;
   }
 
-  .cancelBtn,
-  .createBtn,
-  .editCancelBtn,
-  .editSaveBtn,
-  .confirmDeleteBtn {
+  .SUB-cancelBtn,
+  .SUB-createBtn,
+  .SUB-editCancelBtn,
+  .SUB-editSaveBtn,
+  .SUB-confirmDeleteBtn {
     width: 100% !important;
   }
 
-  .closeBtn {
+  .SUB-closeBtn {
     font-size: 28px;
   }
 
-  .dropdown-checkbox-menu {
+  .SUB-dropdown-checkbox-menu {
     max-height: 150px;
   }
 
-  .editFormGroup .editSelectWrapper::after {
+  .SUB-editFormGroup .SUB-editSelectWrapper::after {
     right: 14px;
   }
 }

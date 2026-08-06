@@ -203,7 +203,7 @@ const Overview = () => {
             <nav className="CTtext">
               Assigned Class
               <div className="CTClassRoom">
-                {dashboard?.assignedClass || "No Class Assigned"}
+                {"??" || dashboard?.assignedClass || "No Class Assigned"}
               </div>
             </nav>
             <div className="CTImageHolder2">

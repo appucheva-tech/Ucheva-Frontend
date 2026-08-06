@@ -16,7 +16,7 @@ const Header = ({ setSidebarOpen }) => {
   const reduxUser = useSelector((state) => state.user.user);
 
   // ── Dropdown states ───────────────────────────────────────────
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(true);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -190,7 +190,7 @@ const Header = ({ setSidebarOpen }) => {
               className="ct-profile-section"
               onClick={() => {
                 setIsProfileDropdownOpen((v) => !v);
-                closeAll();
+                // closeAll();
               }}
             >
               {profilePic ? (

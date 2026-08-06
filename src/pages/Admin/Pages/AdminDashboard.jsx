@@ -138,10 +138,10 @@ const AdminDashboard = () => {
   const gapArc = CIRCUMFERENCE - filledArc;
 
   // ── Format currency ───────────────────────────────────────────
-  const formatNaira = (val) => `₦${Number(val || 0).toLocaleString("en-NG")}`;
+  const formatNaira = (val) => `N${Number(val || 0).toLocaleString("en-NG")}`;
 
   // ── Announcement border colours (cycle through 3) ─────────────
-  const borderColors = ["color-blue", "color-sky", "color-navy"];
+  const borderColors = ["Army-color-blue", "Army-color-sky", "Army-color-navy"];
 
   // ── Format announcement date ──────────────────────────────────
   const formatAnnouncementDate = (dateStr) => {
@@ -169,14 +169,14 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div className="Bddashboard-container">
-      <div className="dashboard-header">
-        <div className="header-text-group">
-          <h1 className="welcome-text">
+    <div className="Army-Bddashboard-container">
+      <div className="Army-dashboard-header">
+        <div className="Army-header-text-group">
+          <h1 className="Army-welcome-text">
             {getGreeting(user)}
-            <span className="wave-emoji">👋</span>
+            <span className="Army-wave-emoji">👋</span>
           </h1>
-          <p className="subtitle-text">
+          <p className="Army-subtitle-text">
             Here's an overview of {user} activities today.
           </p>
         </div>
@@ -192,84 +192,84 @@ const AdminDashboard = () => {
       ) : summaryLoading ? (
         <LoadingScreen />
       ) : (
-        <div className="metrics-grid1">
-          <div className="metric-card card-total">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Students</span>
-                <span className="card-value">{summary.totalStudents}</span>
+        <div className="Army-metrics-grid1">
+          <div className="Army-metric-card Army-card-total">
+            <div className="Army-card-content">
+              <div className="Army-text-section">
+                <span className="Army-card-label">Total Students</span>
+                <span className="Army-card-value">{summary.totalStudents}</span>
               </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
-              </div>
-            </div>
-            <div className="card-footer trend-up">
-              <FiTrendingUp className="trend-icon" />
-            </div>
-          </div>
-
-          <div className="metric-card card-teaching">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Staff</span>
-                <span className="card-value">{summary.totalStaff}</span>
-              </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="Army-icon-wrapper Army-icon-students">
+                <PiStudentFill className="Army-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FiTrendingUp className="trend-icon" />
+            <div className="Army-card-footer Army-trend-up">
+              <FiTrendingUp className="Army-trend-icon" />
             </div>
           </div>
 
-          <div className="metric-card card-non-teaching">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Attendance Rate</span>
-                <span className="card-value">
+          <div className="Army-metric-card Army-card-teaching">
+            <div className="Army-card-content">
+              <div className="Army-text-section">
+                <span className="Army-card-label">Total Staff</span>
+                <span className="Army-card-value">{summary.totalStaff}</span>
+              </div>
+              <div className="Army-icon-wrapper Army-icon-staff">
+                <HiMiniUserGroup className="Army-DashIcon" />
+              </div>
+            </div>
+            <div className="Army-card-footer Army-trend-up">
+              <FiTrendingUp className="Army-trend-icon" />
+            </div>
+          </div>
+
+          <div className="Army-metric-card Army-card-non-teaching">
+            <div className="Army-card-content">
+              <div className="Army-text-section">
+                <span className="Army-card-label">Attendance Rate</span>
+                <span className="Army-card-value">
                   {summary.totalStaffAttendancePercent}%
                 </span>
               </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="Army-icon-wrapper Army-icon-attendance">
+                <PiCalendarBlankFill className="Army-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">
-              <FiTrendingUp className="trend-icon" />
+            <div className="Army-card-footer Army-trend-up">
+              <FiTrendingUp className="Army-trend-icon" />
             </div>
           </div>
 
-          <div className="metric-card card-teachers">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Fees Collected</span>
-                <span className="card-value">
+          <div className="Army-metric-card Army-card-teachers">
+            <div className="Army-card-content">
+              <div className="Army-text-section">
+                <span className="Army-card-label">Fees Collected</span>
+                <span className="Army-card-value">
                   {formatNaira(summary.totalFeesCollected || 0)}
                 </span>
               </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
+              <div className="Army-icon-wrapper Army-icon-fees">
+                <FaSackDollar className="Army-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-fees">
-              <FiTrendingUp className="trend-icon" />
+            <div className="Army-card-footer Army-trend-fees">
+              <FiTrendingUp className="Army-trend-icon" />
             </div>
           </div>
         </div>
       )}
 
       {/* ── Attendance + Quick Actions ── */}
-      <div className="dashboard-split-grid">
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Today's Staff Attendance</h2>
-            <button className="view-all-link">
+      <div className="Army-dashboard-split-grid">
+        <div className="Army-dashboard-panel">
+          <div className="Army-panel-header">
+            <h2 className="Army-panel-title">Today's Staff Attendance</h2>
+            <button className="Army-view-all-link">
               View All <FiExternalLink />
             </button>
           </div>
 
-          <div className="panel-table-wrapper">
+          <div className="Army-panel-table-wrapper">
             {attendanceError ? (
               <ErrorScreen
                 title="Attendance Unavailable"
@@ -286,7 +286,7 @@ const AdminDashboard = () => {
                 onAction={() => setShowQRModal(true)}
               />
             ) : (
-              <table className="dashboard-table">
+              <table className="Army-dashboard-table">
                 <thead>
                   <tr>
                     <th>Name</th>
@@ -298,7 +298,7 @@ const AdminDashboard = () => {
                 <tbody>
                   {attendance.map((staff) => (
                     <tr key={staff.id}>
-                      <td className="font-medium text-slate">
+                      <td className="Army-font-medium Army-text-slate">
                         {staff.staff?.firstName + " " + staff.staff?.lastName}
                       </td>
                       <td>{staff.staff?.staffType || "N/A"}</td>
@@ -314,7 +314,7 @@ const AdminDashboard = () => {
                             )}
                       </td>
                       <td>
-                        <span className="status-badge badge-checked-in">
+                        <span className="Army-status-badge Army-badge-checked-in">
                           Checked In
                         </span>
                       </td>
@@ -326,80 +326,80 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Quick Actions</h2>
+        <div className="Army-dashboard-panel">
+          <div className="Army-panel-header">
+            <h2 className="Army-panel-title">Quick Actions</h2>
           </div>
-          <div className="actions-grid">
+          <div className="Army-actions-grid">
             <div
               onClick={() => setShowQRModal(true)}
-              className="action-button-card action-qr"
+              className="Army-action-button-card Army-action-qr"
             >
-              <div className="action-main-content">
-                <div className="action-icon-box">
+              <div className="Army-action-main-content">
+                <div className="Army-action-icon-box">
                   <IoQrCodeOutline />
                 </div>
-                <div className="action-text">
+                <div className="Army-action-text">
                   <h3>Generate QR Code</h3>
                   <p>For staff to mark attendance</p>
                 </div>
               </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
+              <div className="Army-next_icon_holder">
+                <HiChevronRight className="Army-action-arrow" />
               </div>
             </div>
 
             <div
-              className="action-button-card action-students"
+              className="Army-action-button-card Army-action-students"
               onClick={() => nav("/admin/AdminStudent2")}
             >
-              <div className="action-main-content">
-                <div className="action-icon-box">
+              <div className="Army-action-main-content">
+                <div className="Army-action-icon-box">
                   <LuUserPlus />
                 </div>
-                <div className="action-text">
+                <div className="Army-action-text">
                   <h3>Add Students</h3>
                   <p>Register a student</p>
                 </div>
               </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
+              <div className="Army-next_icon_holder">
+                <HiChevronRight className="Army-action-arrow" />
               </div>
             </div>
 
             <div
-              className="action-button-card action-announcements"
+              className="Army-action-button-card Army-action-announcements"
               onClick={() => nav("/admin/AdminClass")}
             >
-              <div className="action-main-content">
-                <div className="action-icon-box">
+              <div className="Army-action-main-content">
+                <div className="Army-action-icon-box">
                   <IoMegaphoneOutline />
                 </div>
-                <div className="action-text">
+                <div className="Army-action-text">
                   <h3>Send Announcement</h3>
                   <p>Notify staff or parents</p>
                 </div>
               </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
+              <div className="Army-next_icon_holder">
+                <HiChevronRight className="Army-action-arrow" />
               </div>
             </div>
 
             <div
-              className="action-button-card action-reports"
+              className="Army-action-button-card Army-action-reports"
               onClick={() => nav("/admin/AdminReportCards")}
             >
-              <div className="action-main-content">
-                <div className="action-icon-box">
+              <div className="Army-action-main-content">
+                <div className="Army-action-icon-box">
                   <LuFileSpreadsheet />
                 </div>
-                <div className="action-text">
+                <div className="Army-action-text">
                   <h3>View Report Cards</h3>
                   <p>View student results</p>
                 </div>
               </div>
-              <div className="next_icon_holder">
-                <HiChevronRight className="action-arrow" />
+              <div className="Army-next_icon_holder">
+                <HiChevronRight className="Army-action-arrow" />
               </div>
             </div>
           </div>
@@ -409,14 +409,14 @@ const AdminDashboard = () => {
       {/* ══════════════════════════════════════════════════════════
           Announcements + Fee Collection Summary Section
       ══════════════════════════════════════════════════════════ */}
-      <div className="dashboard-split-grid">
+      <div className="Army-dashboard-split-grid">
         {/* ── Recent Announcements ── */}
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Recent Announcements</h2>
+        <div className="Army-dashboard-panel">
+          <div className="Army-panel-header">
+            <h2 className="Army-panel-title">Recent Announcements</h2>
           </div>
 
-          <div className="announcements-list">
+          <div className="Army-announcements-list">
             {announcementsLoading ? (
               <LoadingScreen />
             ) : announcementsError ? (
@@ -426,10 +426,10 @@ const AdminDashboard = () => {
                 onRetry={fetchAnnouncements}
               />
             ) : announcements.length === 0 ? (
-              <div className="empty-state-container1">
-                <div className="empty-state-icon">📢</div>
-                <p className="empty-state-title">No announcements yet</p>
-                <p className="empty-state-description">
+              <div className="Army-empty-state-container1">
+                <div className="Army-empty-state-icon">📢</div>
+                <p className="Army-empty-state-title">No announcements yet</p>
+                <p className="Army-empty-state-description">
                   Announcements posted this term will appear here.
                 </p>
               </div>
@@ -437,11 +437,11 @@ const AdminDashboard = () => {
               announcements.slice(0, 3).map((item, i) => (
                 <div
                   key={item.id || i}
-                  className={`announcement-item ${borderColors[i % borderColors.length]}`}
+                  className={`Army-announcement-item ${borderColors[i % borderColors.length]}`}
                 >
                   <h3>{item.title}</h3>
 
-                  <span className="announcement-date">
+                  <span className="Army-announcement-date">
                     <PiCalendarBlank
                       style={{
                         display: "inline",
@@ -463,9 +463,9 @@ const AdminDashboard = () => {
         </div>
 
         {/* ── Fee Collection Summary ── */}
-        <div className="dashboard-panel">
-          <div className="panel-header">
-            <h2 className="panel-title">Fee Collection Summary</h2>
+        <div className="Army-dashboard-panel">
+          <div className="Army-panel-header">
+            <h2 className="Army-panel-title">Fee Collection Summary</h2>
           </div>
 
           {summaryLoading ? (
@@ -477,10 +477,10 @@ const AdminDashboard = () => {
               onRetry={fetchDashboard}
             />
           ) : (
-            <div className="fees-summary-container">
+            <div className="Army-fees-summary-container">
               {/* Donut chart */}
-              <div className="donut-chart-wrapper">
-                <svg className="donut-svg" viewBox="0 0 120 120">
+              <div className="Army-donut-chart-wrapper">
+                <svg className="Army-donut-svg" viewBox="0 0 120 120">
                   {/* Background track */}
                   <circle
                     cx="60"
@@ -504,39 +504,41 @@ const AdminDashboard = () => {
                     style={{ transition: "stroke-dasharray 0.6s ease" }}
                   />
                 </svg>
-                <div className="donut-text">
-                  <span className="percentage">{feeSummary.percent}%</span>
-                  <span className="label">collected</span>
+                <div className="Army-donut-text">
+                  <span className="Army-percentage">{feeSummary.percent}%</span>
+                  <span className="Army-label">collected</span>
                 </div>
               </div>
 
               {/* Ledger */}
-              <div className="fees-ledger-pane">
-                <div className="ledger-item">
-                  <div className="ledger-label-group">
-                    <span className="ledger-marker marker-collected" />
-                    <span className="ledger-name">Collected</span>
+              <div className="Army-fees-ledger-pane">
+                <div className="Army-ledger-item">
+                  <div className="Army-ledger-label-group">
+                    <span className="Army-ledger-marker Army-marker-collected" />
+                    <span className="Army-ledger-name">Collected</span>
                   </div>
-                  <span className="ledger-value font-semibold">
+                  <span className="Army-ledger-value Army-font-semibold">
                     {formatNaira(feeSummary.collected)}
                   </span>
                 </div>
 
-                <div className="ledger-item">
-                  <div className="ledger-label-group">
-                    <span className="ledger-marker marker-outstanding" />
-                    <span className="ledger-name">Outstanding</span>
+                <div className="Army-ledger-item">
+                  <div className="Army-ledger-label-group">
+                    <span className="Army-ledger-marker Army-marker-outstanding" />
+                    <span className="Army-ledger-name">Outstanding</span>
                   </div>
-                  <span className="ledger-value font-semibold">
+                  <span className="Army-ledger-value Army-font-semibold">
                     {formatNaira(feeSummary.outstanding)}
                   </span>
                 </div>
 
-                <hr className="ledger-divider" />
+                <hr className="Army-ledger-divider" />
 
-                <div className="ledger-item total-row">
-                  <span className="ledger-name font-bold">Total fee</span>
-                  <span className="ledger-value font-bold">
+                <div className="Army-ledger-item Army-total-row">
+                  <span className="Army-ledger-name Army-font-bold">
+                    Total fee
+                  </span>
+                  <span className="Army-ledger-value Army-font-bold">
                     {formatNaira(feeSummary.total)}
                   </span>
                 </div>

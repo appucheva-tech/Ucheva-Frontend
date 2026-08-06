@@ -24,6 +24,8 @@ const MyClass = () => {
     getAllStudents: [],
   });
 
+   const [getClass, setGetClass] = useState({});
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [open, setOpen] = useState(false);
@@ -54,8 +56,19 @@ const MyClass = () => {
     }
   };
 
+     const assignedClasses = async() =>{
+try {
+    const res = await apiClient.get("/classteacher/assignedclasses");
+  console.log(res.data.getAssignedClasses)
+  setGetClass(res.data.getAssignedClasses)
+} catch (error) {
+  console.log(error.data.message || "There is error in line 91")
+}
+    }
+
   useEffect(() => {
     fetchDashboardData();
+    assignedClasses()
   }, []);
 
   // Filter students sourced from the response payload array
@@ -82,6 +95,12 @@ const MyClass = () => {
     presentStudent,
   } = classData.myClass;
 
+ 
+
+ 
+    
+
+
   return (
     <div className="myClassPage">
       <div className="myClasstopHeader">
@@ -91,6 +110,14 @@ const MyClass = () => {
         >
           My Class — {assignedClass || "N/A"}
           <span>{totalStudents ?? 0} students assigned to your class</span>
+         
+         <select  name="" className="CTclassDrop">
+            <option disabled selected>Select a class</option>
+             {getClass.map((item) => (
+            <option value={item._id} key={item._id}>{item.className}</option>
+               ))}
+          </select>
+       
         </nav>
         <button className="myClassmarkBtn" onClick={() => setOpen(true)}>
           Mark Attendance

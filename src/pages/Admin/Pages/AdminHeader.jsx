@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { clearUser } from "../../../global/userSlice";
 import { persistor } from "../../../global/store";
 import { apiClient } from "../../../config/AxiosInstance";
@@ -18,7 +17,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const nav = useNavigate();
   const dispatch = useDispatch();
 
-  // Map from API response
   const fullName =
     adminProfile?.adminFirstName && adminProfile?.adminLastName
       ? `${adminProfile.adminFirstName} ${adminProfile.adminLastName}`
@@ -30,7 +28,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
   const role = user?.role || "Admin";
   const profileInitial = fullName.charAt(0).toUpperCase();
 
-  // Map session and term from API
   const currentSession =
     adminProfile?.academicSession ||
     user?.academicSession ||
@@ -38,7 +35,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
     "No Session";
   const currentTerm = adminProfile?.term || user?.term || "No Term";
 
-  // Get profile image from API if available
   const profileImage =
     adminProfile?.adminUrl || adminProfile?.schoolLogoUrl || null;
 
@@ -69,7 +65,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
     const fetchAdminProfile = async () => {
       try {
         const res = await apiClient("/admin/profile");
-        console.log("API Response:", res.data);
         setAdminProfile(res.data?.adminProfile);
       } catch (error) {
         console.error(
@@ -81,81 +76,43 @@ const AdminHeader = ({ setSidebarOpen }) => {
     fetchAdminProfile();
   }, []);
 
+  const today = new Date().toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+
   return (
     <>
       <header className="AdminHdr-header">
-        {/* Hamburger button */}
-        <button
-          className="AdminHdr-hamburger"
-          onClick={() => setSidebarOpen((prev) => !prev)}
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+        {/* Top row: Hamburger | Meta (date, session, term) | Profile */}
+        <div className="AdminHdr-top-row">
+          <button
+            className="AdminHdr-hamburger"
+            onClick={() => setSidebarOpen((prev) => !prev)}
+            aria-label="Toggle sidebar"
           >
-            <line x1="3" y1="6" x2="21" y2="6" />
-            <line x1="3" y1="12" x2="21" y2="12" />
-            <line x1="3" y1="18" x2="21" y2="18" />
-          </svg>
-        </button>
-
-        {/* Search */}
-        <div className="AdminHdr-search-container">
-          <input
-            type="text"
-            placeholder="Search staff by name, role..."
-            className="AdminHdr-search-input"
-          />
-          <button className="AdminHdr-search-button">
             <svg
-              width="20"
-              height="20"
+              width="22"
+              height="22"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
             >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </button>
-        </div>
 
-        {/* Right Group */}
-        <div className="AdminHdr-right-group">
           <div className="AdminHdr-meta-container">
-            <div className="AdminHdr-meta-item">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <line x1="16" y1="2" x2="16" y2="6" />
-                <line x1="8" y1="2" x2="8" y2="6" />
-                <line x1="3" y1="10" x2="21" y2="10" />
-              </svg>
-              {new Date().toLocaleDateString("en-GB", {
-                weekday: "long",
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-            </div>
-            <span>|</span>
-            <div className="AdminHdr-meta-item">{currentSession} ▾</div>
-            <span>|</span>
-            <div className="AdminHdr-meta-item">{currentTerm} ▾</div>
+            <span className="AdminHdr-meta-item AdminHdr-date">{today}</span>
+            <span className="AdminHdr-meta-item AdminHdr-session">{currentSession}</span>
+            <span className="AdminHdr-meta-item AdminHdr-term">{currentTerm}</span>
           </div>
 
-          {/* Profile */}
           <div
             className="AdminHdr-profile-wrapper"
             ref={dropdownRef}
@@ -165,7 +122,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
               <span className="AdminHdr-user-name">{adminName}</span>
               <span className="AdminHdr-user-role">{role}</span>
             </div>
-
             <div className="AdminHdr-avatar">
               {profileImage ? (
                 <img
@@ -177,7 +133,6 @@ const AdminHeader = ({ setSidebarOpen }) => {
                 <div className="AdminHdr-avatar-inner">{profileInitial}</div>
               )}
             </div>
-
             {isProfileDropdownOpen && (
               <div className="AdminHdr-dropdown-menu">
                 <button
@@ -199,9 +154,31 @@ const AdminHeader = ({ setSidebarOpen }) => {
             )}
           </div>
         </div>
+
+        {/* Row 2: Search bar (full width) */}
+        <div className="AdminHdr-search-container">
+          <input
+            type="text"
+            placeholder="Search students, staff, classes, etc..."
+            className="AdminHdr-search-input"
+          />
+          <button className="AdminHdr-search-button" aria-label="Search">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </div>
       </header>
 
-      {/* Logout Modal */}
+      {/* Logout Modal – unchanged */}
       {showLogoutModal && (
         <div
           className="AdminHdr-modal-overlay"

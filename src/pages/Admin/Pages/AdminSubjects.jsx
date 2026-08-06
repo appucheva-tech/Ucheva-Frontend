@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from "react"; // added useMemo
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import "./AdminSubjects.css";
 import { PiStudentFill } from "react-icons/pi";
 import { HiMiniUserGroup } from "react-icons/hi2";
@@ -47,7 +47,6 @@ const AdminSubjects = () => {
   const dropdownRef = useRef(null);
   const editDropdownRef = useRef(null);
 
-  // UPDATED: Create a lookup map for class IDs -> class names
   const classMap = useMemo(() => {
     const map = {};
     classes.forEach((c) => {
@@ -56,9 +55,6 @@ const AdminSubjects = () => {
     return map;
   }, [classes]);
 
-  // /staff/all-staffs has been observed to return staff objects keyed by
-  // either `_id` or `id` depending on the endpoint — this keeps the select
-  // working regardless of which one comes back.
   const getTeacherId = (teacher) => teacher?._id || teacher?.id || "";
 
   const validateTextOnly = (value) => {
@@ -164,7 +160,6 @@ const AdminSubjects = () => {
     clearValidationError(name, false);
   };
 
-  // ── Toggle a class _id in/out of the selected classId array ──────────────
   const handleSectionChange = (classId) => {
     setFormData((prev) => {
       const isSelected = prev.classId.includes(classId);
@@ -228,7 +223,6 @@ const AdminSubjects = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // UPDATED: Filter by class ID (not name) to match stored IDs
   useEffect(() => {
     let filtered = subjects;
     if (filterSection !== "all") {
@@ -264,7 +258,6 @@ const AdminSubjects = () => {
     fetchClasses();
   }, [subdomain]);
 
-  // ── Fetch Subjects ──────────────────────────────────────────────
   const fetchSubjects = async () => {
     try {
       setIsLoading(true);
@@ -272,7 +265,6 @@ const AdminSubjects = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
 
-      // Handle the response structure properly
       let subjectData = [];
       if (response.data.subjects) {
         subjectData = response.data.subjects;
@@ -293,7 +285,6 @@ const AdminSubjects = () => {
     }
   };
 
-  // ── Fetch Teachers ──────────────────────────────────────────────
   const fetchTeachers = async () => {
     try {
       const response = await apiClient.get("/staff/all-staffs", {
@@ -305,7 +296,6 @@ const AdminSubjects = () => {
     }
   };
 
-  // ── Create Subject ──────────────────────────────────────────────
   const handleSubmit = async () => {
     if (!validateForm(formData, false)) {
       toast.error("Please fix the validation errors before submitting");
@@ -352,7 +342,6 @@ const AdminSubjects = () => {
     }
   }, [token]);
 
-  // ── Update Subject ──────────────────────────────────────────────
   const handleUpdate = async () => {
     if (!validateForm(editFormData, true)) {
       toast.error("Please fix the validation errors before submitting");
@@ -385,7 +374,6 @@ const AdminSubjects = () => {
     }
   };
 
-  // ── Delete Subject ──────────────────────────────────────────────
   const handleDelete = async () => {
     try {
       setLoading(true);
@@ -402,16 +390,12 @@ const AdminSubjects = () => {
     }
   };
 
-  // ── Handle Edit Click ───────────────────────────────────────────
   const isObjectId = (value) =>
     typeof value === "string" && /^[a-f\d]{24}$/i.test(value);
 
   const handleEditClick = (subject) => {
     setSelectedSubjectId(subject._id);
 
-    // applicableClasses may come back from GET as raw class _ids (what we
-    // now write) or as populated className strings (for display) —
-    // handle both so editing pre-fills the checkboxes correctly either way.
     let classId = [];
     const rawClasses = Array.isArray(subject.applicableClasses)
       ? subject.applicableClasses
@@ -445,7 +429,6 @@ const AdminSubjects = () => {
     setShowDeleteModal(true);
   };
 
-  // ── Map selected class _ids back to className labels for display ──────────
   const getSelectedSectionNames = (selectedclassId, classesList) => {
     if (!selectedclassId || selectedclassId.length === 0)
       return "Select Classes";
@@ -464,21 +447,23 @@ const AdminSubjects = () => {
     classes,
     error,
   }) => (
-    <div className="dropdown-checkbox-container" ref={dropdownRef}>
+    <div className="SUB-dropdown-checkbox-container" ref={dropdownRef}>
       <div
-        className={`dropdown-checkbox-input ${error ? "error" : ""}`}
+        className={`SUB-dropdown-checkbox-input ${error ? "SUB-error" : ""}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <span className="selected-text">
+        <span className="SUB-selected-text">
           {getSelectedSectionNames(selectedSections, classes)}
         </span>
-        <FaChevronDown className={`dropdown-icon ${isOpen ? "open" : ""}`} />
+        <FaChevronDown
+          className={`SUB-dropdown-icon ${isOpen ? "SUB-open" : ""}`}
+        />
       </div>
-      {error && <span className="error-message">{error}</span>}
+      {error && <span className="SUB-error-message">{error}</span>}
       {isOpen && (
-        <div className="dropdown-checkbox-menu">
+        <div className="SUB-dropdown-checkbox-menu">
           {classes.map((item) => (
-            <label key={item._id} className="dropdown-checkbox-item">
+            <label key={item._id} className="SUB-dropdown-checkbox-item">
               <input
                 type="checkbox"
                 checked={selectedSections.includes(item._id)}
@@ -488,7 +473,7 @@ const AdminSubjects = () => {
             </label>
           ))}
           {classes.length === 0 && (
-            <div className="dropdown-empty">No classes available</div>
+            <div className="SUB-dropdown-empty">No classes available</div>
           )}
         </div>
       )}
@@ -505,39 +490,38 @@ const AdminSubjects = () => {
 
   return (
     <>
-      <div className="sdashboard-container">
-        <header className="dashboard-header">
+      <div className="SUB-sdashboard-container">
+        <header className="SUB-dashboard-header">
           <div>
-            <h1 className="welcome-text">Subject Management</h1>
-            <p className="subtitle-text">
+            <h1 className="SUB-welcome-text">Subject Management</h1>
+            <p className="SUB-subtitle-text">
               Create and manage subjects offered in your school.
             </p>
           </div>
-          <button className="AddSubject" onClick={() => setShowModal(true)}>
+          <button className="SUB-AddSubject" onClick={() => setShowModal(true)}>
             + Add Subject
           </button>
         </header>
 
-        <div className="metrics-grid">
-          <div className="metric-card card-students">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Subjects</span>
-                <span className="card-value">{subjects.length}</span>
+        <div className="SUB-metrics-grid">
+          <div className="SUB-metric-card SUB-card-students">
+            <div className="SUB-card-content">
+              <div className="SUB-text-section">
+                <span className="SUB-card-label">Total Subjects</span>
+                <span className="SUB-card-value">{subjects.length}</span>
               </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
+              <div className="SUB-icon-wrapper SUB-icon-students">
+                <PiStudentFill className="SUB-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">All subjects</div>
+            <div className="SUB-card-footer SUB-trend-up">All subjects</div>
           </div>
 
-          {/* UPDATED: Use classMap to check class names */}
-          <div className="metric-card card-staff">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Snr</span>
-                <span className="card-value">
+          <div className="SUB-metric-card SUB-card-staff">
+            <div className="SUB-card-content">
+              <div className="SUB-text-section">
+                <span className="SUB-card-label">Snr</span>
+                <span className="SUB-card-value">
                   {
                     subjects.filter(
                       (s) =>
@@ -550,18 +534,18 @@ const AdminSubjects = () => {
                   }
                 </span>
               </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="SUB-icon-wrapper SUB-icon-staff">
+                <HiMiniUserGroup className="SUB-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">Senior Class</div>
+            <div className="SUB-card-footer SUB-trend-up">Senior Class</div>
           </div>
 
-          <div className="metric-card card-attendance">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Jnr</span>
-                <span className="card-value">
+          <div className="SUB-metric-card SUB-card-attendance">
+            <div className="SUB-card-content">
+              <div className="SUB-text-section">
+                <span className="SUB-card-label">Jnr</span>
+                <span className="SUB-card-value">
                   {
                     subjects.filter(
                       (s) =>
@@ -574,18 +558,18 @@ const AdminSubjects = () => {
                   }
                 </span>
               </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="SUB-icon-wrapper SUB-icon-attendance">
+                <PiCalendarBlankFill className="SUB-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-up">Junior Class</div>
+            <div className="SUB-card-footer SUB-trend-up">Junior Class</div>
           </div>
 
-          <div className="metric-card card-fees">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Levels Covered</span>
-                <span className="card-value">
+          <div className="SUB-metric-card SUB-card-fees">
+            <div className="SUB-card-content">
+              <div className="SUB-text-section">
+                <span className="SUB-card-label">Levels Covered</span>
+                <span className="SUB-card-value">
                   {
                     new Set(
                       subjects.flatMap((s) =>
@@ -597,23 +581,22 @@ const AdminSubjects = () => {
                   }
                 </span>
               </div>
-              <div className="icon-wrapper icon-fees">
-                <FaSackDollar className="DashIcon" />
+              <div className="SUB-icon-wrapper SUB-icon-fees">
+                <FaSackDollar className="SUB-DashIcon" />
               </div>
             </div>
-            <div className="card-footer trend-pct">Nur, Pry, Sec.</div>
+            <div className="SUB-card-footer SUB-trend-pct">Nur, Pry, Sec.</div>
           </div>
         </div>
       </div>
 
-      <div className="tableContainer">
-        <div className="filterSection">
-          <div className="filterGroup">
-            <label className="filterLabel">Filter By Class</label>
-            <div className="selectWrapper">
-              {/* UPDATED: Options now use class IDs as values */}
+      <div className="SUB-tableContainer">
+        <div className="SUB-filterSection">
+          <div className="SUB-filterGroup">
+            <label className="SUB-filterLabel">Filter By Class</label>
+            <div className="SUB-selectWrapper">
               <select
-                className="selectInput"
+                className="SUB-selectInput"
                 value={filterSection}
                 onChange={(e) => setFilterSection(e.target.value)}
               >
@@ -627,11 +610,11 @@ const AdminSubjects = () => {
             </div>
           </div>
 
-          <div className="filterGroup">
-            <label className="filterLabel">Filter By Department</label>
-            <div className="selectWrapper">
+          <div className="SUB-filterGroup">
+            <label className="SUB-filterLabel">Filter By Department</label>
+            <div className="SUB-selectWrapper">
               <select
-                className="selectInput"
+                className="SUB-selectInput"
                 value={filterDepartment}
                 onChange={(e) => setFilterDepartment(e.target.value)}
               >
@@ -645,14 +628,14 @@ const AdminSubjects = () => {
           </div>
 
           <button
-            className="resetBtn"
+            className="SUB-resetBtn"
             onClick={() => {
               setFilterSection("all");
               setFilterDepartment("all");
             }}
           >
             <svg
-              className="resetIcon"
+              className="SUB-resetIcon"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -664,19 +647,19 @@ const AdminSubjects = () => {
           </button>
         </div>
 
-        <div className="tableWrapper">
+        <div className="SUB-tableWrapper">
           {isLoading && (
-            <div className="loadingStateContainer">
-              <div className="loadingSpinner"></div>
-              <div className="loadingMessage">Loading subjects...</div>
+            <div className="SUB-loadingStateContainer">
+              <div className="SUB-loadingSpinner"></div>
+              <div className="SUB-loadingMessage">Loading subjects...</div>
             </div>
           )}
 
           {isNoData && (
-            <div className="emptyStateContainer">
-              <div className="emptyStateIcon">{emptyIcon}</div>
-              <div className="emptyStateMessage">{emptyMessage}</div>
-              <div className="emptyStateSubMessage">
+            <div className="SUB-emptyStateContainer">
+              <div className="SUB-emptyStateIcon">{emptyIcon}</div>
+              <div className="SUB-emptyStateMessage">{emptyMessage}</div>
+              <div className="SUB-emptyStateSubMessage">
                 Click "Add Subject" to get started.
               </div>
             </div>
@@ -684,7 +667,7 @@ const AdminSubjects = () => {
 
           {!isLoading && filteredSubjects.length > 0 && (
             <>
-              <table className="subjectTable">
+              <table className="SUB-subjectTable">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -701,7 +684,6 @@ const AdminSubjects = () => {
                       <td>{index + 1}</td>
                       <td>{subject.subjectName || "N/A"}</td>
                       <td>{subject.applicableDepartment || "General"}</td>
-                      {/* UPDATED: Map class IDs to names using classMap */}
                       <td>
                         {Array.isArray(subject.applicableClasses) &&
                         subject.applicableClasses.length > 0
@@ -716,9 +698,9 @@ const AdminSubjects = () => {
                           "Not Assigned"}
                       </td>
                       <td>
-                        <div className="actionButtons">
+                        <div className="SUB-actionButtons">
                           <button
-                            className="editBtn"
+                            className="SUB-editBtn"
                             onClick={() => handleEditClick(subject)}
                             title="Edit Subject"
                           >
@@ -732,7 +714,7 @@ const AdminSubjects = () => {
                             </svg>
                           </button>
                           <button
-                            className="deleteBtn"
+                            className="SUB-deleteBtn"
                             onClick={() => handleDeleteClick(subject)}
                             title="Delete Subject"
                           >
@@ -753,26 +735,26 @@ const AdminSubjects = () => {
                 </tbody>
               </table>
 
-              <div className="paginationRow">
-                <div className="paginationInfo">
+              <div className="SUB-paginationRow">
+                <div className="SUB-paginationInfo">
                   Showing {filteredSubjects.length} subjects
                 </div>
-                <div className="paginationControls">
-                  <button className="arrowBtn" disabled>
+                <div className="SUB-paginationControls">
+                  <button className="SUB-arrowBtn" disabled>
                     &lt;
                   </button>
-                  <button className="pageBtn activePage">1</button>
-                  <button className="pageBtn">2</button>
-                  <button className="pageBtn">3</button>
-                  <span className="ellipsis">...</span>
-                  <button className="pageBtn">6</button>
-                  <button className="pageBtn">7</button>
-                  <button className="arrowBtn">&gt;</button>
+                  <button className="SUB-pageBtn SUB-activePage">1</button>
+                  <button className="SUB-pageBtn">2</button>
+                  <button className="SUB-pageBtn">3</button>
+                  <span className="SUB-ellipsis">...</span>
+                  <button className="SUB-pageBtn">6</button>
+                  <button className="SUB-pageBtn">7</button>
+                  <button className="SUB-arrowBtn">&gt;</button>
                 </div>
-                <div className="rowsPerPageGroup">
-                  <span className="rowsLabel">Rows per page</span>
-                  <div className="rowsSelectWrapper">
-                    <select className="rowsSelect" defaultValue="10">
+                <div className="SUB-rowsPerPageGroup">
+                  <span className="SUB-rowsLabel">Rows per page</span>
+                  <div className="SUB-rowsSelectWrapper">
+                    <select className="SUB-rowsSelect" defaultValue="10">
                       <option value="10">10</option>
                       <option value="25">25</option>
                       <option value="50">50</option>
@@ -784,33 +766,23 @@ const AdminSubjects = () => {
             </>
           )}
         </div>
-
-        <footer className="footerRow">
-          <span className="copyrightText">
-            © {new Date().getFullYear()} Ucheva school operating management
-            system. All right reserved.
-          </span>
-          <span className="supportText">
-            Need help?{" "}
-            <a href="#support" className="supportLink">
-              Contact support
-            </a>
-          </span>
-        </footer>
       </div>
 
       {/* Add Subject Modal */}
       {showModal && (
-        <div className="modalOverlay">
-          <div className="subjectModal">
-            <div className="modalHeader">
+        <div className="SUB-modalOverlay">
+          <div className="SUB-subjectModal">
+            <div className="SUB-modalHeader">
               <h2>Add New Subject</h2>
-              <button className="closeBtn" onClick={() => setShowModal(false)}>
+              <button
+                className="SUB-closeBtn"
+                onClick={() => setShowModal(false)}
+              >
                 ×
               </button>
             </div>
-            <div className="modalBody">
-              <div className="formGroup">
+            <div className="SUB-modalBody">
+              <div className="SUB-formGroup">
                 <label>Subject Name</label>
                 <input
                   type="text"
@@ -818,10 +790,10 @@ const AdminSubjects = () => {
                   placeholder="e.g. Mathematics 101"
                   value={formData.subjectName}
                   onChange={handleChange}
-                  className={validationErrors.subjectName ? "error" : ""}
+                  className={validationErrors.subjectName ? "SUB-error" : ""}
                 />
                 {validationErrors.subjectName && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {validationErrors.subjectName}
                   </span>
                 )}
@@ -830,7 +802,7 @@ const AdminSubjects = () => {
                   Mathematics 101)
                 </small>
               </div>
-              <div className="formGroup">
+              <div className="SUB-formGroup">
                 <label>Applicable Classes</label>
                 <DropdownCheckbox
                   isOpen={isDropdownOpen}
@@ -845,13 +817,13 @@ const AdminSubjects = () => {
                   Select the class level(s) this subject is applicable to.
                 </small>
               </div>
-              <div className="formGroup">
+              <div className="SUB-formGroup">
                 <label>Applicable Department</label>
                 <select
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
-                  className={validationErrors.department ? "error" : ""}
+                  className={validationErrors.department ? "SUB-error" : ""}
                 >
                   <option value="">Select Department</option>
                   <option value="General">General</option>
@@ -860,7 +832,7 @@ const AdminSubjects = () => {
                   <option value="Commercial">Commercial</option>
                 </select>
                 {validationErrors.department && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {validationErrors.department}
                   </span>
                 )}
@@ -869,13 +841,13 @@ const AdminSubjects = () => {
                   allowed)
                 </small>
               </div>
-              <div className="formGroup">
+              <div className="SUB-formGroup">
                 <label>Subject Teacher</label>
                 <select
                   name="teacherID"
                   value={formData.teacherID}
                   onChange={handleChange}
-                  className={validationErrors.teacherID ? "error" : ""}
+                  className={validationErrors.teacherID ? "SUB-error" : ""}
                 >
                   <option value="">Select Teacher</option>
                   {Array.isArray(teachers) &&
@@ -891,19 +863,22 @@ const AdminSubjects = () => {
                     ))}
                 </select>
                 {validationErrors.teacherID && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {validationErrors.teacherID}
                   </span>
                 )}
                 <small>Select the teacher assigned to this subject.</small>
               </div>
             </div>
-            <div className="modalActions">
-              <button className="cancelBtn" onClick={() => setShowModal(false)}>
+            <div className="SUB-modalActions">
+              <button
+                className="SUB-cancelBtn"
+                onClick={() => setShowModal(false)}
+              >
                 Cancel
               </button>
               <button
-                className="createBtn"
+                className="SUB-createBtn"
                 onClick={handleSubmit}
                 disabled={loading}
               >
@@ -916,12 +891,12 @@ const AdminSubjects = () => {
 
       {/* Edit Subject Modal */}
       {showEditModal && (
-        <div className="modalOverlay">
-          <div className="editSubjectModal">
-            <div className="editModalHeader">
+        <div className="SUB-modalOverlay">
+          <div className="SUB-editSubjectModal">
+            <div className="SUB-editModalHeader">
               <h2>Edit Subject</h2>
               <button
-                className="editCloseBtn"
+                className="SUB-editCloseBtn"
                 onClick={() => setShowEditModal(false)}
               >
                 <svg
@@ -935,18 +910,20 @@ const AdminSubjects = () => {
                 </svg>
               </button>
             </div>
-            <div className="editModalBody">
-              <div className="editFormGroup">
+            <div className="SUB-editModalBody">
+              <div className="SUB-editFormGroup">
                 <label>Subject Name</label>
                 <input
                   type="text"
                   name="subjectName"
                   value={editFormData.subjectName}
                   onChange={handleEditChange}
-                  className={editValidationErrors.subjectName ? "error" : ""}
+                  className={
+                    editValidationErrors.subjectName ? "SUB-error" : ""
+                  }
                 />
                 {editValidationErrors.subjectName && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {editValidationErrors.subjectName}
                   </span>
                 )}
@@ -955,7 +932,7 @@ const AdminSubjects = () => {
                   Mathematics 101)
                 </small>
               </div>
-              <div className="editFormGroup">
+              <div className="SUB-editFormGroup">
                 <label>Applicable Classes</label>
                 <DropdownCheckbox
                   isOpen={isEditDropdownOpen}
@@ -970,14 +947,16 @@ const AdminSubjects = () => {
                   Select the class level(s) this subject is applicable to.
                 </small>
               </div>
-              <div className="editFormGroup">
+              <div className="SUB-editFormGroup">
                 <label>Applicable Department</label>
-                <div className="editSelectWrapper">
+                <div className="SUB-editSelectWrapper">
                   <select
                     name="department"
                     value={editFormData.department}
                     onChange={handleEditChange}
-                    className={editValidationErrors.department ? "error" : ""}
+                    className={
+                      editValidationErrors.department ? "SUB-error" : ""
+                    }
                   >
                     <option value="">Select Department</option>
                     <option value="General">General</option>
@@ -987,7 +966,7 @@ const AdminSubjects = () => {
                   </select>
                 </div>
                 {editValidationErrors.department && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {editValidationErrors.department}
                   </span>
                 )}
@@ -996,14 +975,16 @@ const AdminSubjects = () => {
                   allowed)
                 </small>
               </div>
-              <div className="editFormGroup">
+              <div className="SUB-editFormGroup">
                 <label>Subject Teacher</label>
-                <div className="editSelectWrapper">
+                <div className="SUB-editSelectWrapper">
                   <select
                     name="teacherID"
                     value={editFormData.teacherID}
                     onChange={handleEditChange}
-                    className={editValidationErrors.teacherID ? "error" : ""}
+                    className={
+                      editValidationErrors.teacherID ? "SUB-error" : ""
+                    }
                   >
                     <option value="">Select Teacher</option>
                     {Array.isArray(teachers) &&
@@ -1020,22 +1001,22 @@ const AdminSubjects = () => {
                   </select>
                 </div>
                 {editValidationErrors.teacherID && (
-                  <span className="error-message">
+                  <span className="SUB-error-message">
                     {editValidationErrors.teacherID}
                   </span>
                 )}
                 <small>Update the teacher assigned to this subject.</small>
               </div>
             </div>
-            <div className="editModalActions">
+            <div className="SUB-editModalActions">
               <button
-                className="editCancelBtn"
+                className="SUB-editCancelBtn"
                 onClick={() => setShowEditModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="editSaveBtn"
+                className="SUB-editSaveBtn"
                 onClick={handleUpdate}
                 disabled={loading}
               >
@@ -1048,15 +1029,18 @@ const AdminSubjects = () => {
 
       {/* Delete Subject Modal */}
       {showDeleteModal && (
-        <div className="modalOverlay" onClick={() => setShowDeleteModal(false)}>
+        <div
+          className="SUB-modalOverlay"
+          onClick={() => setShowDeleteModal(false)}
+        >
           <div
-            className="modalContent deleteModal"
+            className="SUB-modalContent SUB-deleteModal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="modalHeader">
+            <div className="SUB-modalHeader">
               <h2>Delete Subject</h2>
               <button
-                className="closeBtn"
+                className="SUB-closeBtn"
                 onClick={() => setShowDeleteModal(false)}
               >
                 <svg
@@ -1074,21 +1058,21 @@ const AdminSubjects = () => {
                 </svg>
               </button>
             </div>
-            <div className="modalBody">
-              <p className="deleteWarningText">
+            <div className="SUB-modalBody">
+              <p className="SUB-deleteWarningText">
                 Are you sure you want to delete this subject? This action cannot
                 be undone.
               </p>
             </div>
-            <div className="modalFooter">
+            <div className="SUB-modalFooter">
               <button
-                className="cancelBtn"
+                className="SUB-cancelBtn"
                 onClick={() => setShowDeleteModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="confirmDeleteBtn"
+                className="SUB-confirmDeleteBtn"
                 onClick={handleDelete}
                 disabled={loading}
               >

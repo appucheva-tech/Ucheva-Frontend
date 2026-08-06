@@ -28,7 +28,7 @@ const AdminStaff = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleteStaffId, setDeleteStaffId] = useState(null);
 
-  const [filters, setFilters] = useState({ staffType: "all" });
+  const [filters, setFilters] = useState({ staffType: "all", role: "all" });
 
   const [metrics, setMetrics] = useState({
     total: 0,
@@ -45,6 +45,7 @@ const AdminStaff = () => {
       const response = await apiClient.get("/staff/all-staffs", {
         headers: { "x-tenant": subdomain },
       });
+      
 
       const records = Array.isArray(response.data)
         ? response.data
@@ -102,13 +103,20 @@ const AdminStaff = () => {
           filters.staffType.toLowerCase(),
       );
     }
+    if (filters.role !== "all") {
+      filtered = filtered.filter(
+        (s) =>
+          (s.staffType || s.role || "").toLowerCase() ===
+          filters.role.toLowerCase(),
+      );
+    }
     setFilteredStaff(filtered);
   }, [filters, staffList]);
 
   const handleFilterChange = (filterType, value) =>
     setFilters((prev) => ({ ...prev, [filterType]: value }));
 
-  const resetFilters = () => setFilters({ staffType: "all" });
+  const resetFilters = () => setFilters({ staffType: "all", role: "all" });
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -163,74 +171,74 @@ const AdminStaff = () => {
 
   return (
     <>
-      <div className="Bdashboard-container">
+      <div className="ADS-Bdashboard-container">
         {/* ── Header ── */}
-        <div className="dashboard-header">
-          <div className="header-text-group">
-            <h1 className="welcome-text">Staff Management</h1>
-            <p className="subtitle-text">
+        <div className="ADS-dashboard-header">
+          <div className="ADS-header-text-group">
+            <h1 className="ADS-welcome-text">Staff Management</h1>
+            <p className="ADS-subtitle-text">
               Manage Teaching and non-teaching staff records. Add, edit and
               assign staff to classes or subjects.
             </p>
           </div>
-          <button className="AddStaff" onClick={handleAddStaff}>
+          <button className="ADS-AddStaff" onClick={handleAddStaff}>
             <FaPlus /> Add Staff
           </button>
         </div>
 
         {/* ── Metrics ── */}
-        <div className="metrics-grid">
-          <div className="metric-card card-total">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Total Staff</span>
-                <span className="card-value">{metrics.total}</span>
+        <div className="ADS-metrics-grid">
+          <div className="ADS-metric-card ADS-card-total">
+            <div className="ADS-card-content">
+              <div className="ADS-text-section">
+                <span className="ADS-card-label">Total Staff</span>
+                <span className="ADS-card-value">{metrics.total}</span>
               </div>
-              <div className="icon-wrapper icon-students">
-                <PiStudentFill className="DashIcon" />
-              </div>
-            </div>
-          </div>
-
-          <div className="metric-card card-teaching">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Class Teachers</span>
-                <span className="card-value">{metrics.classTeachers}</span>
-              </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="ADS-icon-wrapper ADS-icon-students">
+                <PiStudentFill className="ADS-DashIcon" />
               </div>
             </div>
           </div>
 
-          <div className="metric-card card-non-teaching">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Subject Teachers</span>
-                <span className="card-value">{metrics.subjectTeachers}</span>
+          <div className="ADS-metric-card ADS-card-teaching">
+            <div className="ADS-card-content">
+              <div className="ADS-text-section">
+                <span className="ADS-card-label">Teaching Staff</span>
+                <span className="ADS-card-value">{metrics.classTeachers}</span>
               </div>
-              <div className="icon-wrapper icon-attendance">
-                <PiCalendarBlankFill className="DashIcon" />
+              <div className="ADS-icon-wrapper ADS-icon-staff">
+                <HiMiniUserGroup className="ADS-DashIcon" />
               </div>
             </div>
           </div>
 
-          <div className="metric-card card-active">
-            <div className="card-content">
-              <div className="text-section">
-                <span className="card-label">Active Staff</span>
-                <span className="card-value">{metrics.activeStaff}</span>
+          <div className="ADS-metric-card ADS-card-non-teaching">
+            <div className="ADS-card-content">
+              <div className="ADS-text-section">
+                <span className="ADS-card-label">Non-Teaching Staff</span>
+                <span className="ADS-card-value">{metrics.subjectTeachers}</span>
               </div>
-              <div className="icon-wrapper icon-staff">
-                <HiMiniUserGroup className="DashIcon" />
+              <div className="ADS-icon-wrapper ADS-icon-attendance">
+                <PiCalendarBlankFill className="ADS-DashIcon" />
+              </div>
+            </div>
+          </div>
+
+          <div className="ADS-metric-card ADS-card-active">
+            <div className="ADS-card-content">
+              <div className="ADS-text-section">
+                <span className="ADS-card-label">Class Teachers</span>
+                <span className="ADS-card-value">{metrics.activeStaff}</span>
+              </div>
+              <div className="ADS-icon-wrapper ADS-icon-fees">
+                <FaSackDollar className="ADS-DashIcon" />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="tableContainer">
+      <div className="ADS-tableContainer">
         {/* ── Empty state ── */}
         {staffList.length === 0 ? (
           <EmptyState
@@ -241,13 +249,16 @@ const AdminStaff = () => {
           />
         ) : (
           <>
+            {/* ── Staff List Title ── */}
+            <h2 className="ADS-staffListTitle">Staff List</h2>
+
             {/* ── Filters ── */}
-            <div className="filterSection">
-              <div className="filterGroup">
-                <label className="filterLabel">Staff Type</label>
-                <div className="selectWrapper">
+            <div className="ADS-filterSection">
+              <div className="ADS-filterGroup">
+                <label className="ADS-filterLabel">Staff Type</label>
+                <div className="ADS-selectWrapper">
                   <select
-                    className="StaffselectInput"
+                    className="ADS-StaffselectInput"
                     value={filters.staffType}
                     onChange={(e) =>
                       handleFilterChange("staffType", e.target.value)
@@ -260,9 +271,27 @@ const AdminStaff = () => {
                 </div>
               </div>
 
-              <button className="resetBtn" onClick={resetFilters}>
+              {/* ── Role Filter ── */}
+              <div className="ADS-filterGroup">
+                <label className="ADS-filterLabel">Role</label>
+                <div className="ADS-selectWrapper">
+                  <select
+                    className="ADS-StaffselectInput"
+                    value={filters.role}
+                    onChange={(e) =>
+                      handleFilterChange("role", e.target.value)
+                    }
+                  >
+                    <option value="all">All Roles</option>
+                    <option value="class teacher">Class Teacher</option>
+                    <option value="subject teacher">Subject Teacher</option>
+                  </select>
+                </div>
+              </div>
+
+              <button className="ADS-resetBtn" onClick={resetFilters}>
                 <svg
-                  className="resetIcon"
+                  className="ADS-resetIcon"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -275,8 +304,8 @@ const AdminStaff = () => {
             </div>
 
             {/* ── Table ── */}
-            <div className="tableWrapper">
-              <table className="staffTable">
+            <div className="ADS-tableWrapper">
+              <table className="ADS-staffTable">
                 <thead>
                   <tr>
                     <th>Staff Name</th>
@@ -306,25 +335,25 @@ const AdminStaff = () => {
                         style={{ cursor: "pointer" }}
                         onClick={() => nav(`/admin/staff-details/${staff.id}`)}
                       >
-                        <td className="staffName card-content-populated">
+                        <td className="ADS-staffName ADS-card-content-populated">
                           {staff.fullName ||
                             `${staff.firstName || ""} ${staff.lastName || ""}`.trim() ||
                             "Unnamed Staff"}
                         </td>
-                        <td className="roleText card-content-populated">
+                        <td className="ADS-roleText ADS-card-content-populated">
                           {staff.staffType || staff.role || "--"}
                         </td>
-                        <td className="classText">
+                        <td className="ADS-classText">
                           {staff.assignedClass || "--"}
                         </td>
-                        <td className="subjectText card-content-populated">
+                        <td className="ADS-subjectText ADS-card-content-populated">
                           {staff.assignedSubject || staff.subject || "--"}
                         </td>
                         <td>{staff.phoneNumber || staff.phone || "--"}</td>
                         <td>
-                          <div className="actionButtons">
+                          <div className="ADS-actionButtons">
                             <button
-                              className="editBtn"
+                              className="ADS-editBtn"
                               aria-label="Edit staff"
                               onClick={(e) => handleEditStaff(e, staff.id)}
                             >
@@ -338,7 +367,7 @@ const AdminStaff = () => {
                               </svg>
                             </button>
                             <button
-                              className="deleteBtn"
+                              className="ADS-deleteBtn"
                               aria-label="Delete staff"
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -365,24 +394,24 @@ const AdminStaff = () => {
               </table>
 
               {filteredStaff.length > 0 && (
-                <div className="paginationRow">
-                  <div className="paginationInfo">
+                <div className="ADS-paginationRow">
+                  <div className="ADS-paginationInfo">
                     Showing 1 to {filteredStaff.length} of{" "}
                     {filteredStaff.length} records
                   </div>
-                  <div className="paginationControls">
-                    <button className="arrowBtn" disabled>
+                  <div className="ADS-paginationControls">
+                    <button className="ADS-arrowBtn" disabled>
                       &lt;
                     </button>
-                    <button className="pageBtn activePage">1</button>
-                    <button className="arrowBtn" disabled>
+                    <button className="ADS-pageBtn ADS-activePage">1</button>
+                    <button className="ADS-arrowBtn" disabled>
                       &gt;
                     </button>
                   </div>
-                  <div className="rowsPerPageGroup">
-                    <span className="rowsLabel">Rows per page</span>
-                    <div className="rowsSelectWrapper">
-                      <select className="rowsSelect" defaultValue="10">
+                  <div className="ADS-rowsPerPageGroup">
+                    <span className="ADS-rowsLabel">Rows per page</span>
+                    <div className="ADS-rowsSelectWrapper">
+                      <select className="ADS-rowsSelect" defaultValue="10">
                         <option value="10">10</option>
                       </select>
                     </div>
@@ -396,15 +425,15 @@ const AdminStaff = () => {
 
       {/* ── Delete modal ── */}
       {isDeleteOpen && (
-        <div className="modalOverlay" onClick={() => setIsDeleteOpen(false)}>
+        <div className="ADS-modalOverlay" onClick={() => setIsDeleteOpen(false)}>
           <div
-            className="modalContent deleteModal"
+            className="ADS-modalContent ADS-deleteModal"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="modalHeader">
+            <div className="ADS-modalHeader">
               <h2>Delete Staff</h2>
               <button
-                className="closeBtn"
+                className="ADS-closeBtn"
                 onClick={() => setIsDeleteOpen(false)}
               >
                 <svg
@@ -422,21 +451,21 @@ const AdminStaff = () => {
                 </svg>
               </button>
             </div>
-            <div className="modalBody">
-              <p className="deleteWarningText">
+            <div className="ADS-modalBody">
+              <p className="ADS-deleteWarningText">
                 Are you sure you want to delete this staff member? This action
                 cannot be undone.
               </p>
             </div>
-            <div className="modalFooter">
+            <div className="ADS-modalFooter">
               <button
-                className="cancelBtn"
+                className="ADS-cancelBtn"
                 onClick={() => setIsDeleteOpen(false)}
               >
                 Cancel
               </button>
               <button
-                className="confirmDeleteBtn"
+                className="ADS-confirmDeleteBtn"
                 onClick={handleDeleteStaff}
                 disabled={loading}
               >

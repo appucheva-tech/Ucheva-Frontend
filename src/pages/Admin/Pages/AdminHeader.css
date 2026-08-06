@@ -1,74 +1,61 @@
-/* Container & Layout */
+/* =============================================
+   AdminHeader – Mobile-first responsive
+   ============================================= */
+
 .AdminHdr-header {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 10px 16px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  gap: 8px;
+}
+
+/* Top row: hamburger | meta | profile */
+.AdminHdr-top-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 85px;
-  background-color: white;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 20px 28px;
-  position: sticky;
-  top: 0;
-  z-index: 50;
 }
 
-/* Search Bar */
-.AdminHdr-search-container {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  max-width: 380px;
-  position: relative;
-}
-
-.AdminHdr-search-input {
-  width: 100%;
-  padding: 10px 40px 10px 16px;
-  font-size: 14px;
-  background-color: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  outline: none;
-}
-
-.AdminHdr-search-button {
-  position: absolute;
-  right: 12px;
+.AdminHdr-hamburger {
   background: none;
   border: none;
-  color: #64748b;
+  padding: 4px;
+  flex-shrink: 0;
   cursor: pointer;
+  color: #0f172a;
 }
-
-/* Right Group: Metadata & Profile */
-.AdminHdr-right-group {
-  display: flex;
-  align-items: center;
-  gap: 24px;
+.AdminHdr-hamburger:hover {
+  background: #f1f5f9;
+  border-radius: 6px;
 }
 
 .AdminHdr-meta-container {
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #475569;
+  justify-content: center;
+  gap: 12px;
+  flex: 1;
   font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  white-space: nowrap;
 }
 
 .AdminHdr-meta-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  font-weight: 500;
+  /* individual styling if needed */
 }
 
-/* Profile Section */
 .AdminHdr-profile-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  flex-shrink: 0;
   cursor: pointer;
   position: relative;
 }
@@ -78,48 +65,78 @@
   flex-direction: column;
   text-align: right;
 }
-
 .AdminHdr-user-name {
   font-weight: 600;
   font-size: 14px;
   color: #0f172a;
 }
-
 .AdminHdr-user-role {
   font-size: 12px;
   color: #64748b;
 }
 
 .AdminHdr-avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background: #e2e8f0;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+  overflow: hidden;
+}
+.AdminHdr-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.AdminHdr-avatar-inner {
+  font-weight: 600;
+  color: #0f172a;
 }
 
-/* Dropdown */
+/* Search bar – full width on mobile */
+.AdminHdr-search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.AdminHdr-search-input {
+  width: 100%;
+  padding: 10px 40px 10px 16px;
+  font-size: 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  outline: none;
+}
+.AdminHdr-search-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+.AdminHdr-search-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+}
+
+/* Dropdown menu */
 .AdminHdr-dropdown-menu {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 8px);
   right: 0;
   width: 200px;
-  background: white;
+  background: #fff;
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid #e2e8f0;
   padding: 8px;
   z-index: 100;
 }
-
 .AdminHdr-dropdown-item {
   width: 100%;
   padding: 10px;
@@ -128,13 +145,13 @@
   text-align: left;
   cursor: pointer;
   border-radius: 6px;
+  font-size: 14px;
 }
-
 .AdminHdr-dropdown-item:hover {
   background: #f1f5f9;
 }
 
-/* Modal */
+/* Modal overlay */
 .AdminHdr-modal-overlay {
   position: fixed;
   inset: 0;
@@ -144,7 +161,6 @@
   justify-content: center;
   z-index: 1000;
 }
-
 .AdminHdr-modal {
   background: white;
   padding: 24px;
@@ -152,30 +168,26 @@
   width: 350px;
   text-align: center;
 }
-
 .AdminHdr-modal-icon {
+  font-size: 32px;
   margin-bottom: 16px;
 }
-
 .AdminHdr-modal-title {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 8px;
   color: #0f172a;
 }
-
 .AdminHdr-modal-message {
   font-size: 14px;
   color: #64748b;
   margin-bottom: 24px;
 }
-
 .AdminHdr-modal-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
 }
-
 .AdminHdr-modal-cancel {
   padding: 10px 20px;
   border: 1px solid #e2e8f0;
@@ -184,7 +196,6 @@
   cursor: pointer;
   font-size: 14px;
 }
-
 .AdminHdr-modal-confirm {
   padding: 10px 20px;
   border: none;
@@ -197,12 +208,10 @@
   align-items: center;
   gap: 8px;
 }
-
 .AdminHdr-modal-confirm:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
-
 .AdminHdr-spinner {
   width: 14px;
   height: 14px;
@@ -212,57 +221,60 @@
   animation: AdminHdr-spin 0.6s linear infinite;
   display: inline-block;
 }
-
 @keyframes AdminHdr-spin {
   to {
     transform: rotate(360deg);
   }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
-/* Hamburger */
-.AdminHdr-hamburger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #0f172a;
-  padding: 6px;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.AdminHdr-hamburger:hover {
-  background-color: #f1f5f9;
-}
-
-@media (max-width: 1024px) {
-  .AdminHdr-hamburger {
-    display: flex;
+/* =============================================
+   Desktop (≥ 769px) – revert to single row
+   ============================================= */
+@media (min-width: 769px) {
+  .AdminHdr-header {
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    height: 85px;
+    padding: 20px 28px;
+    gap: 0;
   }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .AdminHdr-meta-container {
+  .AdminHdr-hamburger {
     display: none;
   }
-
-  .AdminHdr-search-container {
-    max-width: 150px;
+  .AdminHdr-top-row {
+    width: auto;
+    flex: 1;
+    justify-content: flex-end;
+    gap: 24px;
+    order: 2;
   }
-
-  .AdminHdr-right-group {
-    gap: 12px;
+  .AdminHdr-meta-container {
+    flex: 0 1 auto;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+  .AdminHdr-search-container {
+    max-width: 380px;
+    margin-right: 24px;
+    flex: 0 1 auto;
+    order: 1;
   }
 }
 
+/* Very small phones – hide user info, shrink meta */
 @media (max-width: 480px) {
   .AdminHdr-user-info {
     display: none;
+  }
+  .AdminHdr-meta-container {
+    font-size: 12px;
+    gap: 6px;
+  }
+  .AdminHdr-header {
+    padding: 6px 12px 10px;
+  }
+  .AdminHdr-avatar {
+    width: 32px;
+    height: 32px;
   }
 }

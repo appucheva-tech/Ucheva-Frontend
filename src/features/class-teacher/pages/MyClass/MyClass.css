@@ -33,6 +33,14 @@
   color: #042869;
 }
 
+.CTclassDrop{
+  width: 120px;
+  height: 30px;
+  border: none;
+  outline: none;
+  border-radius: 3px;
+}
+
 .myClassmarkBtn {
   background: #0062f6;
   color: white;
